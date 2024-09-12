@@ -1,0 +1,194 @@
+﻿using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Globalization;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+using PV.Clases.Anticipo;
+
+namespace PV
+{
+    public partial class AplicarAnticipoProveedorSaldo : Form
+    {
+        DBAnticipo c = new DBAnticipo();
+        string Anticipo = string.Empty;
+
+        public AplicarAnticipoProveedorSaldo(string importe, string Matricula, string Alumno, string anticipo)
+        {
+            InitializeComponent();
+            txtMatricula.Text = Matricula;
+            txtAlumno.Text = Alumno;
+            txtImporteTotal.Text = importe;
+            Anticipo = anticipo;
+        }
+
+        private void AplicarAnticipoProveedorSaldo_Load(object sender, EventArgs e)
+        {
+            c.CargarEgreso2(dgvPagosPendientes, txtMatricula.Text);
+        }
+
+        private void dgvPagosPendientes_CellEndEdit(object sender, DataGridViewCellEventArgs e)
+        {
+            NumberFormatInfo formato = new CultureInfo("US-AR").NumberFormat;
+
+            formato.CurrencyGroupSeparator = ",";
+            formato.NumberDecimalSeparator = ".";
+
+            dgvPagosPendientes.Rows[e.RowIndex].Cells[6].ReadOnly = true;
+
+            decimal Importe = 0.00M;
+            decimal Abono = 0.00M;
+            decimal Saldo = 0.00M;
+
+            if (dgvPagosPendientes.Rows[e.RowIndex].Cells[4].Value != null)
+            {
+                Importe = Convert.ToDecimal(dgvPagosPendientes.Rows[e.RowIndex].Cells[4].Value.ToString());
+            }
+            if (dgvPagosPendientes.Rows[e.RowIndex].Cells[6].Value != null)
+            {
+                Abono = Convert.ToDecimal(dgvPagosPendientes.Rows[e.RowIndex].Cells[6].Value.ToString());
+
+            }
+            else
+            {
+                dgvPagosPendientes.Rows[e.RowIndex].Cells[6].Value = 0;
+            }
+
+            if (Abono > 0)
+            {
+                Saldo = Importe - Abono;
+            }
+
+            string saldo = Saldo.ToString("N", formato);
+            dgvPagosPendientes.Rows[e.RowIndex].Cells[7].Value = saldo.ToString();
+
+            decimal TotalImporte = 0.00M;
+            decimal TotalAbono = 0.00M;
+
+
+            foreach (DataGridViewRow row in dgvPagosPendientes.Rows)
+            {
+                //TotalImporte = TotalImporte + Convert.ToDecimal(row.Cells["Importe"].Value.ToString());
+                //txtImporteTotal.Text = TotalImporte.ToString("N", formato);
+
+                TotalAbono = TotalAbono + Convert.ToDecimal(row.Cells["Abono"].Value.ToString());
+                txtTotalPagado.Text = TotalAbono.ToString("N", formato);
+
+            }
+
+            decimal abono = Convert.ToDecimal(dgvPagosPendientes.Rows[e.RowIndex].Cells[6].Value);
+            dgvPagosPendientes.Rows[e.RowIndex].Cells[6].Value = abono.ToString("N", formato);
+        }
+
+        private void dgvPagosPendientes_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (this.dgvPagosPendientes.Columns[e.ColumnIndex].Name == "MasAbono")
+            {
+
+                dgvPagosPendientes.Rows[e.RowIndex].Cells[6].ReadOnly = false;
+                dgvPagosPendientes.Rows[e.RowIndex].Cells[6].Selected = true;
+                dgvPagosPendientes.BeginEdit(true);
+            }
+            else
+            {
+                dgvPagosPendientes.Rows[e.RowIndex].Cells[6].ReadOnly = true;
+                dgvPagosPendientes.Rows[e.RowIndex].Cells[6].Selected = false;
+                dgvPagosPendientes.BeginEdit(false);
+            }
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            if (Convert.ToDecimal(txtImporteTotal.Text) < Convert.ToDecimal(txtTotalPagado.Text))
+            {
+                MessageBox.Show("No es posible aplicar un importe mayor al del anticipo");
+            }
+            else
+            {
+                if (MessageBox.Show("¿Finalizar aplicacion de Anticipo?", "Aplicar Anticipo", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                {
+                    foreach (DataGridViewRow row in dgvPagosPendientes.Rows)
+                    {
+                        if (Convert.ToDecimal(row.Cells["Abono"].Value.ToString()) < 0)
+                        {
+                            MessageBox.Show("No es posible realizar un abono menor a 0");
+                            return;
+                        }
+                        else if (Convert.ToDecimal(row.Cells["Saldo"].Value.ToString()) < 0)
+                        {
+                            MessageBox.Show("El Abono no puede ser mayor al Importe");
+                            return;
+                        }
+                    }
+
+                    c.InsertarCobroGeneralProveedor(Convert.ToDecimal(txtTotalPagado.Text), txtFolioGeneral);
+
+                    foreach (DataGridViewRow row in dgvPagosPendientes.Rows)
+                    {
+                        if (Convert.ToDecimal(row.Cells["Abono"].Value.ToString()) > 0)
+                        {
+                            c.ActualizarEgreso2(row.Cells["Tipo"].Value.ToString(), row.Cells["FolioDocumento"].Value.ToString(), Convert.ToDecimal(row.Cells["Saldo"].Value.ToString()));
+                            c.InsertarEgreso(row.Cells["Tipo"].Value.ToString(), row.Cells["FolioDocumento"].Value.ToString(), txtMatricula.Text, dtpFecha.Text, Convert.ToDecimal(row.Cells["Abono"].Value.ToString()), txtFolioGeneral.Text);
+                            //c.ActualizarSaldoProveedor(txtMatricula.Text, Convert.ToDecimal(row.Cells["Abono"].Value.ToString()));
+                        }
+                    }
+                    decimal SaldoAnticipo = Convert.ToDecimal(txtImporteTotal.Text) - Convert.ToDecimal(txtTotalPagado.Text);
+                    c.ActualizarAnticipoProveedor(Anticipo, SaldoAnticipo);
+                    AplicarAnticipo.nombre = string.Empty;
+                    AplicarAnticipo.matricula = string.Empty;
+                    button5.Enabled = false;
+                    MessageBox.Show("Anticipo Aplicado");
+                    this.Close();
+                }
+            }
+        }
+
+        private void txtNuevoSaldo_TextChanged(object sender, EventArgs e)
+        {
+            decimal NuevoSaldo = Convert.ToDecimal(txtImporteTotal.Text) - Convert.ToDecimal(txtTotalPagado.Text);
+            txtNuevoSaldo.Text = NuevoSaldo.ToString();
+        }
+
+        private void Moneda(ref TextBox txt)
+        {
+            string n = string.Empty;
+            double v = 0;
+            try
+            {
+                n = txt.Text.Replace(",", "").Replace(".", "");
+                if (n.Equals(""))
+                {
+                    n = "";
+                }
+                n = n.PadLeft(3, '0');
+                if (n.Length > 3 && n.Substring(0, 1) == "0")
+                {
+                    n.Substring(1, n.Length - 1);
+                }
+                v = Convert.ToDouble(n) / 100;
+                txt.Text = string.Format("{0:N}", v);
+                txt.SelectionStart = txt.Text.Length;
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
+        private void txtTotalPagado_TextChanged(object sender, EventArgs e)
+        {
+            Moneda(ref txtNuevoSaldo);
+        }
+    }
+}

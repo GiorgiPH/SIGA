@@ -1,0 +1,243 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="ControlCondominiosDataSet17" targetNamespace="http://tempuri.org/ControlCondominiosDataSet17.xsd" xmlns:mstns="http://tempuri.org/ControlCondominiosDataSet17.xsd" xmlns="http://tempuri.org/ControlCondominiosDataSet17.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections>
+          <Connection AppSettingsObjectName="Settings" AppSettingsPropertyName="ControlCondominiosConnectionString" ConnectionStringObject="" IsAppSettingsProperty="true" Modifier="Assembly" Name="ControlCondominiosConnectionString (Settings)" ParameterPrefix="@" PropertyReference="ApplicationSettings.PV.Properties.Settings.GlobalReference.Default.ControlCondominiosConnectionString" Provider="System.Data.SqlClient" />
+        </Connections>
+        <Tables>
+          <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="ReciboTableAdapter" GeneratorDataComponentClassName="ReciboTableAdapter" Name="Recibo" UserDataComponentName="ReciboTableAdapter">
+            <MainSource>
+              <DbSource ConnectionRef="ControlCondominiosConnectionString (Settings)" DbObjectType="Unknown" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="false" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="false" UserGetMethodName="GetData" UserSourceName="Fill">
+                <SelectCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="true">
+                    <CommandText> Select  R.Folio,R.Propiedad, CS.Descripcion, R.ClaveDocumento, D.Nombre, R.Fecha, R.FechaVence, R.ClavePropietario, PR.RazonSocial, R.Divisa, R.TipoCambio, R.Total, R.Saldo, R.Notas,
+ (case when CI.DiarioMensual='Mensual' then ( case when CI.ImportePorcentaje='Importe' then (case when  DATEDIFF (month, R.FechaVence,Convert (date, sysdatetime())) &gt; 0 then CI.Importe *  DATEDIFF (month, R.FechaVence,Convert (date, sysdatetime())) end) Else (CI.Porcentaje / 100) * CI.ImporteConcepto end) else (case when CI.ImportePorcentaje='Importe' then (case when  DATEDIFF (day, R.FechaVence,Convert (date, sysdatetime())) &gt; 0 then CI.Importe *  DATEDIFF (day, R.FechaVence,Convert (date, sysdatetime())) Else (CI.Porcentaje / 100) * CI.ImporteConcepto end) end)  end) as SaldoVencido,
+ (R.Saldo) + sum(case when CI.DiarioMensual='Mensual' then ( case when CI.ImportePorcentaje='Importe' then (case when  DATEDIFF (month, R.FechaVence,Convert (date, sysdatetime())) &gt; 0 then CI.Importe *  DATEDIFF (month, R.FechaVence,Convert (date, sysdatetime())) end) Else (CI.Porcentaje / 100) * CI.ImporteConcepto end) else (case when CI.ImportePorcentaje='Importe' then (case when  DATEDIFF (day, R.FechaVence,Convert (date, sysdatetime())) &gt; 0 then CI.Importe *  DATEDIFF (day, R.FechaVence,Convert (date, sysdatetime())) Else (CI.Porcentaje / 100) * CI.ImporteConcepto end) end)  end) as Total
+ from Recibo as R, Documento as D, Propietarios as PR, Condominios_SubCondominios as CS, ConceptosIngreso as CI, Partida as P
+ where  R.ClaveDocumento=D.Clave and R.ClavePropietario=PR.IdPropietario and R.Propiedad=CS.Clave and P.ClaveRecibo=CI.Clave and R.Folio=P.FolioRecibo
+ Group By R.Folio, R.ClaveDocumento, D.Nombre, R.Fecha, R.FechaVence, R.ClavePropietario, R.Propiedad, CS.Descripcion, PR.RazonSocial, R.Divisa, R.Total, R.Saldo, CI.DiarioMensual, CI.ImportePorcentaje, CI.Importe, CI.Porcentaje, CI.ImporteConcepto, R.Notas, R.TipoCambio
+</CommandText>
+                    <Parameters />
+                  </DbCommand>
+                </SelectCommand>
+              </DbSource>
+            </MainSource>
+            <Mappings>
+              <Mapping SourceColumn="Folio" DataSetColumn="Folio" />
+              <Mapping SourceColumn="ClaveDocumento" DataSetColumn="ClaveDocumento" />
+              <Mapping SourceColumn="Fecha" DataSetColumn="Fecha" />
+              <Mapping SourceColumn="FechaVence" DataSetColumn="FechaVence" />
+              <Mapping SourceColumn="ClavePropietario" DataSetColumn="ClavePropietario" />
+              <Mapping SourceColumn="Divisa" DataSetColumn="Divisa" />
+              <Mapping SourceColumn="Total" DataSetColumn="Total" />
+              <Mapping SourceColumn="Saldo" DataSetColumn="Saldo" />
+              <Mapping SourceColumn="Propiedad" DataSetColumn="Propiedad" />
+              <Mapping SourceColumn="Descripcion" DataSetColumn="Descripcion" />
+              <Mapping SourceColumn="Nombre" DataSetColumn="Nombre" />
+              <Mapping SourceColumn="RazonSocial" DataSetColumn="RazonSocial" />
+              <Mapping SourceColumn="SaldoVencido" DataSetColumn="SaldoVencido" />
+              <Mapping SourceColumn="Total1" DataSetColumn="Total1" />
+              <Mapping SourceColumn="Notas" DataSetColumn="Notas" />
+              <Mapping SourceColumn="TipoCambio" DataSetColumn="TipoCambio" />
+            </Mappings>
+            <Sources>
+              <DbSource ConnectionRef="ControlCondominiosConnectionString (Settings)" DbObjectType="Unknown" FillMethodModifier="Public" FillMethodName="FillBy" GenerateMethods="Both" GenerateShortCommands="true" GeneratorGetMethodName="GetDataBy" GeneratorSourceName="FillBy" GetMethodModifier="Public" GetMethodName="GetDataBy" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetDataBy" UserSourceName="FillBy">
+                <SelectCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="true">
+                    <CommandText> Select  R.Folio,R.Propiedad, CS.Descripcion, R.ClaveDocumento, D.Nombre, R.Fecha, R.FechaVence, R.ClavePropietario, PR.RazonSocial, R.Divisa, R.TipoCambio, R.Total, R.Saldo, R.Notas,
+ (case when CI.DiarioMensual='Mensual' then ( case when CI.ImportePorcentaje='Importe' then (case when  DATEDIFF (month, R.FechaVence,Convert (date, sysdatetime())) &gt; 0 then CI.Importe *  DATEDIFF (month, R.FechaVence,Convert (date, sysdatetime())) end) Else (CI.Porcentaje / 100) * CI.ImporteConcepto end) else (case when CI.ImportePorcentaje='Importe' then (case when  DATEDIFF (day, R.FechaVence,Convert (date, sysdatetime())) &gt; 0 then CI.Importe *  DATEDIFF (day, R.FechaVence,Convert (date, sysdatetime())) Else (CI.Porcentaje / 100) * CI.ImporteConcepto end) end)  end) as SaldoVencido,
+ (R.Saldo) + sum(case when CI.DiarioMensual='Mensual' then ( case when CI.ImportePorcentaje='Importe' then (case when  DATEDIFF (month, R.FechaVence,Convert (date, sysdatetime())) &gt; 0 then CI.Importe *  DATEDIFF (month, R.FechaVence,Convert (date, sysdatetime())) end) Else (CI.Porcentaje / 100) * CI.ImporteConcepto end) else (case when CI.ImportePorcentaje='Importe' then (case when  DATEDIFF (day, R.FechaVence,Convert (date, sysdatetime())) &gt; 0 then CI.Importe *  DATEDIFF (day, R.FechaVence,Convert (date, sysdatetime())) Else (CI.Porcentaje / 100) * CI.ImporteConcepto end) end)  end) as Total
+ from Recibo as R, Documento as D, Propietarios as PR, Condominios_SubCondominios as CS, ConceptosIngreso as CI, Partida as P
+ where  R.ClaveDocumento=D.Clave and R.ClavePropietario=PR.IdPropietario and R.Propiedad=CS.Clave and P.ClaveRecibo=CI.Clave and R.Folio=P.FolioRecibo and  (R.ClavePropietario between @Propietario1 and @Propietario2)
+ Group By R.Folio, R.ClaveDocumento, D.Nombre, R.Fecha, R.FechaVence, R.ClavePropietario, R.Propiedad, CS.Descripcion, PR.RazonSocial, R.Divisa, R.Total, R.Saldo, CI.DiarioMensual, CI.ImportePorcentaje, CI.Importe, CI.Porcentaje, CI.ImporteConcepto, R.Notas, R.TipoCambio
+</CommandText>
+                    <Parameters>
+                      <Parameter AllowDbNull="true" AutogeneratedName="Propietario1" ColumnName="ClavePropietario" DataSourceName="ControlCondominios.dbo.Recibo" DataTypeServer="int" DbType="Int32" Direction="Input" ParameterName="@Propietario1" Precision="0" ProviderType="Int" Scale="0" Size="4" SourceColumn="ClavePropietario" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="Propietario2" ColumnName="ClavePropietario" DataSourceName="ControlCondominios.dbo.Recibo" DataTypeServer="int" DbType="Int32" Direction="Input" ParameterName="@Propietario2" Precision="0" ProviderType="Int" Scale="0" Size="4" SourceColumn="ClavePropietario" SourceColumnNullMapping="false" SourceVersion="Current" />
+                    </Parameters>
+                  </DbCommand>
+                </SelectCommand>
+              </DbSource>
+              <DbSource ConnectionRef="ControlCondominiosConnectionString (Settings)" DbObjectType="Unknown" FillMethodModifier="Public" FillMethodName="FillBy1" GenerateMethods="Both" GenerateShortCommands="true" GeneratorGetMethodName="GetDataBy1" GeneratorSourceName="FillBy1" GetMethodModifier="Public" GetMethodName="GetDataBy1" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetDataBy1" UserSourceName="FillBy1">
+                <SelectCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="true">
+                    <CommandText> Select  R.Folio,R.Propiedad, CS.Descripcion, R.ClaveDocumento, D.Nombre, R.Fecha, R.FechaVence, R.ClavePropietario, PR.RazonSocial, R.Divisa, R.TipoCambio, R.Total, R.Saldo, R.Notas,
+ (case when CI.DiarioMensual='Mensual' then ( case when CI.ImportePorcentaje='Importe' then (case when  DATEDIFF (month, R.FechaVence,Convert (date, sysdatetime())) &gt; 0 then CI.Importe *  DATEDIFF (month, R.FechaVence,Convert (date, sysdatetime())) end) Else (CI.Porcentaje / 100) * CI.ImporteConcepto end) else (case when CI.ImportePorcentaje='Importe' then (case when  DATEDIFF (day, R.FechaVence,Convert (date, sysdatetime())) &gt; 0 then CI.Importe *  DATEDIFF (day, R.FechaVence,Convert (date, sysdatetime())) Else (CI.Porcentaje / 100) * CI.ImporteConcepto end) end)  end) as SaldoVencido,
+ (R.Saldo) + sum(case when CI.DiarioMensual='Mensual' then ( case when CI.ImportePorcentaje='Importe' then (case when  DATEDIFF (month, R.FechaVence,Convert (date, sysdatetime())) &gt; 0 then CI.Importe *  DATEDIFF (month, R.FechaVence,Convert (date, sysdatetime())) end) Else (CI.Porcentaje / 100) * CI.ImporteConcepto end) else (case when CI.ImportePorcentaje='Importe' then (case when  DATEDIFF (day, R.FechaVence,Convert (date, sysdatetime())) &gt; 0 then CI.Importe *  DATEDIFF (day, R.FechaVence,Convert (date, sysdatetime())) Else (CI.Porcentaje / 100) * CI.ImporteConcepto end) end)  end) as Total
+ from Recibo as R, Documento as D, Propietarios as PR, Condominios_SubCondominios as CS, ConceptosIngreso as CI, Partida as P
+ where  R.ClaveDocumento=D.Clave and R.ClavePropietario=PR.IdPropietario and R.Propiedad=CS.Clave and P.ClaveRecibo=CI.Clave and R.Folio=P.FolioRecibo and  (R.ClavePropietario between @Propietario1 and @Propietario2) and (R.Fecha between @Fecha1 and @Fecha2)
+ Group By R.Folio, R.ClaveDocumento, D.Nombre, R.Fecha, R.FechaVence, R.ClavePropietario, R.Propiedad, CS.Descripcion, PR.RazonSocial, R.Divisa, R.Total, R.Saldo, CI.DiarioMensual, CI.ImportePorcentaje, CI.Importe, CI.Porcentaje, CI.ImporteConcepto, R.Notas, R.TipoCambio
+</CommandText>
+                    <Parameters>
+                      <Parameter AllowDbNull="true" AutogeneratedName="Propietario1" ColumnName="ClavePropietario" DataSourceName="ControlCondominios.dbo.Recibo" DataTypeServer="int" DbType="Int32" Direction="Input" ParameterName="@Propietario1" Precision="0" ProviderType="Int" Scale="0" Size="4" SourceColumn="ClavePropietario" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="Propietario2" ColumnName="ClavePropietario" DataSourceName="ControlCondominios.dbo.Recibo" DataTypeServer="int" DbType="Int32" Direction="Input" ParameterName="@Propietario2" Precision="0" ProviderType="Int" Scale="0" Size="4" SourceColumn="ClavePropietario" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="Fecha1" ColumnName="Fecha" DataSourceName="ControlCondominios.dbo.Recibo" DataTypeServer="date" DbType="AnsiString" Direction="Input" ParameterName="@Fecha1" Precision="0" ProviderType="Date" Scale="0" Size="3" SourceColumn="Fecha" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="Fecha2" ColumnName="Fecha" DataSourceName="ControlCondominios.dbo.Recibo" DataTypeServer="date" DbType="AnsiString" Direction="Input" ParameterName="@Fecha2" Precision="0" ProviderType="Date" Scale="0" Size="3" SourceColumn="Fecha" SourceColumnNullMapping="false" SourceVersion="Current" />
+                    </Parameters>
+                  </DbCommand>
+                </SelectCommand>
+              </DbSource>
+              <DbSource ConnectionRef="ControlCondominiosConnectionString (Settings)" DbObjectType="Unknown" FillMethodModifier="Public" FillMethodName="FillBy2" GenerateMethods="Both" GenerateShortCommands="true" GeneratorGetMethodName="GetDataBy2" GeneratorSourceName="FillBy2" GetMethodModifier="Public" GetMethodName="GetDataBy2" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetDataBy2" UserSourceName="FillBy2">
+                <SelectCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="true">
+                    <CommandText> Select  R.Folio,R.Propiedad, CS.Descripcion, R.ClaveDocumento, D.Nombre, R.Fecha, R.FechaVence, R.ClavePropietario, PR.RazonSocial, R.Divisa, R.TipoCambio, R.Total, R.Saldo, R.Notas,
+ (case when CI.DiarioMensual='Mensual' then ( case when CI.ImportePorcentaje='Importe' then (case when  DATEDIFF (month, R.FechaVence,Convert (date, sysdatetime())) &gt; 0 then CI.Importe *  DATEDIFF (month, R.FechaVence,Convert (date, sysdatetime())) end) Else (CI.Porcentaje / 100) * CI.ImporteConcepto end) else (case when CI.ImportePorcentaje='Importe' then (case when  DATEDIFF (day, R.FechaVence,Convert (date, sysdatetime())) &gt; 0 then CI.Importe *  DATEDIFF (day, R.FechaVence,Convert (date, sysdatetime())) Else (CI.Porcentaje / 100) * CI.ImporteConcepto end) end)  end) as SaldoVencido,
+ (R.Saldo) + sum(case when CI.DiarioMensual='Mensual' then ( case when CI.ImportePorcentaje='Importe' then (case when  DATEDIFF (month, R.FechaVence,Convert (date, sysdatetime())) &gt; 0 then CI.Importe *  DATEDIFF (month, R.FechaVence,Convert (date, sysdatetime())) end) Else (CI.Porcentaje / 100) * CI.ImporteConcepto end) else (case when CI.ImportePorcentaje='Importe' then (case when  DATEDIFF (day, R.FechaVence,Convert (date, sysdatetime())) &gt; 0 then CI.Importe *  DATEDIFF (day, R.FechaVence,Convert (date, sysdatetime())) Else (CI.Porcentaje / 100) * CI.ImporteConcepto end) end)  end) as Total
+ from Recibo as R, Documento as D, Propietarios as PR, Condominios_SubCondominios as CS, ConceptosIngreso as CI, Partida as P
+ where  R.ClaveDocumento=D.Clave and R.ClavePropietario=PR.IdPropietario and R.Propiedad=CS.Clave and P.ClaveRecibo=CI.Clave and R.Folio=P.FolioRecibo and (R.Fecha between @Fecha1 and @Fecha2)
+ Group By R.Folio, R.ClaveDocumento, D.Nombre, R.Fecha, R.FechaVence, R.ClavePropietario, R.Propiedad, CS.Descripcion, PR.RazonSocial, R.Divisa, R.Total, R.Saldo, CI.DiarioMensual, CI.ImportePorcentaje, CI.Importe, CI.Porcentaje, CI.ImporteConcepto, R.Notas, R.TipoCambio
+</CommandText>
+                    <Parameters>
+                      <Parameter AllowDbNull="true" AutogeneratedName="Fecha1" ColumnName="Fecha" DataSourceName="ControlCondominios.dbo.Recibo" DataTypeServer="date" DbType="AnsiString" Direction="Input" ParameterName="@Fecha1" Precision="0" ProviderType="Date" Scale="0" Size="3" SourceColumn="Fecha" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="Fecha2" ColumnName="Fecha" DataSourceName="ControlCondominios.dbo.Recibo" DataTypeServer="date" DbType="AnsiString" Direction="Input" ParameterName="@Fecha2" Precision="0" ProviderType="Date" Scale="0" Size="3" SourceColumn="Fecha" SourceColumnNullMapping="false" SourceVersion="Current" />
+                    </Parameters>
+                  </DbCommand>
+                </SelectCommand>
+              </DbSource>
+              <DbSource ConnectionRef="ControlCondominiosConnectionString (Settings)" DbObjectType="Unknown" FillMethodModifier="Public" FillMethodName="FillBy3" GenerateMethods="Both" GenerateShortCommands="true" GeneratorGetMethodName="GetDataBy3" GeneratorSourceName="FillBy3" GetMethodModifier="Public" GetMethodName="GetDataBy3" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetDataBy3" UserSourceName="FillBy3">
+                <SelectCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="true">
+                    <CommandText> Select  R.Folio,R.Propiedad, CS.Descripcion, R.ClaveDocumento, D.Nombre, R.Fecha, R.FechaVence, R.ClavePropietario, PR.RazonSocial, R.Divisa, R.TipoCambio, R.Total, R.Saldo, R.Notas,
+ (case when CI.DiarioMensual='Mensual' then ( case when CI.ImportePorcentaje='Importe' then (case when  DATEDIFF (month, R.FechaVence,Convert (date, sysdatetime())) &gt; 0 then CI.Importe *  DATEDIFF (month, R.FechaVence,Convert (date, sysdatetime())) end) Else (CI.Porcentaje / 100) * CI.ImporteConcepto end) else (case when CI.ImportePorcentaje='Importe' then (case when  DATEDIFF (day, R.FechaVence,Convert (date, sysdatetime())) &gt; 0 then CI.Importe *  DATEDIFF (day, R.FechaVence,Convert (date, sysdatetime())) Else (CI.Porcentaje / 100) * CI.ImporteConcepto end) end)  end) as SaldoVencido,
+ (R.Saldo) + sum(case when CI.DiarioMensual='Mensual' then ( case when CI.ImportePorcentaje='Importe' then (case when  DATEDIFF (month, R.FechaVence,Convert (date, sysdatetime())) &gt; 0 then CI.Importe *  DATEDIFF (month, R.FechaVence,Convert (date, sysdatetime())) end) Else (CI.Porcentaje / 100) * CI.ImporteConcepto end) else (case when CI.ImportePorcentaje='Importe' then (case when  DATEDIFF (day, R.FechaVence,Convert (date, sysdatetime())) &gt; 0 then CI.Importe *  DATEDIFF (day, R.FechaVence,Convert (date, sysdatetime())) Else (CI.Porcentaje / 100) * CI.ImporteConcepto end) end)  end) as Total
+ from Recibo as R, Documento as D, Propietarios as PR, Condominios_SubCondominios as CS, ConceptosIngreso as CI, Partida as P
+ where  R.ClaveDocumento=D.Clave and R.ClavePropietario=PR.IdPropietario and R.Propiedad=CS.Clave and P.ClaveRecibo=CI.Clave and R.Folio=P.FolioRecibo and R.Saldo&gt;0
+ Group By R.Folio, R.ClaveDocumento, D.Nombre, R.Fecha, R.FechaVence, R.ClavePropietario, R.Propiedad, CS.Descripcion, PR.RazonSocial, R.Divisa, R.Total, R.Saldo, CI.DiarioMensual, CI.ImportePorcentaje, CI.Importe, CI.Porcentaje, CI.ImporteConcepto, R.Notas, R.TipoCambio
+</CommandText>
+                    <Parameters />
+                  </DbCommand>
+                </SelectCommand>
+              </DbSource>
+              <DbSource ConnectionRef="ControlCondominiosConnectionString (Settings)" DbObjectType="Unknown" FillMethodModifier="Public" FillMethodName="FillBy4" GenerateMethods="Both" GenerateShortCommands="true" GeneratorGetMethodName="GetDataBy4" GeneratorSourceName="FillBy4" GetMethodModifier="Public" GetMethodName="GetDataBy4" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetDataBy4" UserSourceName="FillBy4">
+                <SelectCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="true">
+                    <CommandText> Select  R.Folio,R.Propiedad, CS.Descripcion, R.ClaveDocumento, D.Nombre, R.Fecha, R.FechaVence, R.ClavePropietario, PR.RazonSocial, R.Divisa, R.Total, R.Saldo, R.Notas,
+ (case when CI.DiarioMensual='Mensual' then ( case when CI.ImportePorcentaje='Importe' then (case when  DATEDIFF (month, R.FechaVence,Convert (date, sysdatetime())) &gt; 0 then CI.Importe *  DATEDIFF (month, R.FechaVence,Convert (date, sysdatetime())) end) Else (CI.Porcentaje / 100) * CI.ImporteConcepto end) else (case when CI.ImportePorcentaje='Importe' then (case when  DATEDIFF (day, R.FechaVence,Convert (date, sysdatetime())) &gt; 0 then CI.Importe *  DATEDIFF (day, R.FechaVence,Convert (date, sysdatetime())) Else (CI.Porcentaje / 100) * CI.ImporteConcepto end) end)  end) as SaldoVencido,
+ (R.Saldo) + sum(case when CI.DiarioMensual='Mensual' then ( case when CI.ImportePorcentaje='Importe' then (case when  DATEDIFF (month, R.FechaVence,Convert (date, sysdatetime())) &gt; 0 then CI.Importe *  DATEDIFF (month, R.FechaVence,Convert (date, sysdatetime())) end) Else (CI.Porcentaje / 100) * CI.ImporteConcepto end) else (case when CI.ImportePorcentaje='Importe' then (case when  DATEDIFF (day, R.FechaVence,Convert (date, sysdatetime())) &gt; 0 then CI.Importe *  DATEDIFF (day, R.FechaVence,Convert (date, sysdatetime())) Else (CI.Porcentaje / 100) * CI.ImporteConcepto end) end)  end) as Total
+ from Recibo as R, Documento as D, Propietarios as PR, Condominios_SubCondominios as CS, ConceptosIngreso as CI, Partida as P
+ where  R.ClaveDocumento=D.Clave and R.ClavePropietario=PR.IdPropietario and R.Propiedad=CS.Clave and P.ClaveRecibo=CI.Clave and R.Folio=P.FolioRecibo and  (R.ClavePropietario between @Propietario1 and @Propietario2) and R.Saldo&gt;0
+ Group By R.Folio, R.ClaveDocumento, D.Nombre, R.Fecha, R.FechaVence, R.ClavePropietario, R.Propiedad, CS.Descripcion, PR.RazonSocial, R.Divisa, R.Total, R.Saldo, CI.DiarioMensual, CI.ImportePorcentaje, CI.Importe, CI.Porcentaje, CI.ImporteConcepto, R.Notas
+</CommandText>
+                    <Parameters>
+                      <Parameter AllowDbNull="true" AutogeneratedName="Propietario1" ColumnName="ClavePropietario" DataSourceName="ControlCondominios.dbo.Recibo" DataTypeServer="int" DbType="Int32" Direction="Input" ParameterName="@Propietario1" Precision="0" ProviderType="Int" Scale="0" Size="4" SourceColumn="ClavePropietario" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="Propietario2" ColumnName="ClavePropietario" DataSourceName="ControlCondominios.dbo.Recibo" DataTypeServer="int" DbType="Int32" Direction="Input" ParameterName="@Propietario2" Precision="0" ProviderType="Int" Scale="0" Size="4" SourceColumn="ClavePropietario" SourceColumnNullMapping="false" SourceVersion="Current" />
+                    </Parameters>
+                  </DbCommand>
+                </SelectCommand>
+              </DbSource>
+              <DbSource ConnectionRef="ControlCondominiosConnectionString (Settings)" DbObjectType="Unknown" FillMethodModifier="Public" FillMethodName="FillBy5" GenerateMethods="Both" GenerateShortCommands="true" GeneratorGetMethodName="GetDataBy5" GeneratorSourceName="FillBy5" GetMethodModifier="Public" GetMethodName="GetDataBy5" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetDataBy5" UserSourceName="FillBy5">
+                <SelectCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="true">
+                    <CommandText> Select  R.Folio,R.Propiedad, CS.Descripcion, R.ClaveDocumento, D.Nombre, R.Fecha, R.FechaVence, R.ClavePropietario, PR.RazonSocial, R.Divisa, R.TipoCambio, R.Total, R.Saldo,  R.Notas,
+ (case when CI.DiarioMensual='Mensual' then ( case when CI.ImportePorcentaje='Importe' then (case when  DATEDIFF (month, R.FechaVence,Convert (date, sysdatetime())) &gt; 0 then CI.Importe *  DATEDIFF (month, R.FechaVence,Convert (date, sysdatetime())) end) Else (CI.Porcentaje / 100) * CI.ImporteConcepto end) else (case when CI.ImportePorcentaje='Importe' then (case when  DATEDIFF (day, R.FechaVence,Convert (date, sysdatetime())) &gt; 0 then CI.Importe *  DATEDIFF (day, R.FechaVence,Convert (date, sysdatetime())) Else (CI.Porcentaje / 100) * CI.ImporteConcepto end) end)  end) as SaldoVencido,
+ (R.Saldo) + sum(case when CI.DiarioMensual='Mensual' then ( case when CI.ImportePorcentaje='Importe' then (case when  DATEDIFF (month, R.FechaVence,Convert (date, sysdatetime())) &gt; 0 then CI.Importe *  DATEDIFF (month, R.FechaVence,Convert (date, sysdatetime())) end) Else (CI.Porcentaje / 100) * CI.ImporteConcepto end) else (case when CI.ImportePorcentaje='Importe' then (case when  DATEDIFF (day, R.FechaVence,Convert (date, sysdatetime())) &gt; 0 then CI.Importe *  DATEDIFF (day, R.FechaVence,Convert (date, sysdatetime())) Else (CI.Porcentaje / 100) * CI.ImporteConcepto end) end)  end) as Total
+ from Recibo as R, Documento as D, Propietarios as PR, Condominios_SubCondominios as CS, ConceptosIngreso as CI, Partida as P
+ where  R.ClaveDocumento=D.Clave and R.ClavePropietario=PR.IdPropietario and R.Propiedad=CS.Clave and P.ClaveRecibo=CI.Clave and R.Folio=P.FolioRecibo and  (R.ClavePropietario between @Propietario1 and @Propietario2) and (R.Fecha between @Fecha1 and @Fecha2) and R.Saldo&gt;0
+ Group By R.Folio, R.ClaveDocumento, D.Nombre, R.Fecha, R.FechaVence, R.ClavePropietario, R.Propiedad, CS.Descripcion, PR.RazonSocial, R.Divisa, R.Total, R.Saldo, CI.DiarioMensual, CI.ImportePorcentaje, CI.Importe, CI.Porcentaje, CI.ImporteConcepto, R.Notas, R.TipoCambio
+</CommandText>
+                    <Parameters>
+                      <Parameter AllowDbNull="true" AutogeneratedName="Propietario1" ColumnName="ClavePropietario" DataSourceName="ControlCondominios.dbo.Recibo" DataTypeServer="int" DbType="Int32" Direction="Input" ParameterName="@Propietario1" Precision="0" ProviderType="Int" Scale="0" Size="4" SourceColumn="ClavePropietario" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="Propietario2" ColumnName="ClavePropietario" DataSourceName="ControlCondominios.dbo.Recibo" DataTypeServer="int" DbType="Int32" Direction="Input" ParameterName="@Propietario2" Precision="0" ProviderType="Int" Scale="0" Size="4" SourceColumn="ClavePropietario" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="Fecha1" ColumnName="Fecha" DataSourceName="ControlCondominios.dbo.Recibo" DataTypeServer="date" DbType="AnsiString" Direction="Input" ParameterName="@Fecha1" Precision="0" ProviderType="Date" Scale="0" Size="3" SourceColumn="Fecha" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="Fecha2" ColumnName="Fecha" DataSourceName="ControlCondominios.dbo.Recibo" DataTypeServer="date" DbType="AnsiString" Direction="Input" ParameterName="@Fecha2" Precision="0" ProviderType="Date" Scale="0" Size="3" SourceColumn="Fecha" SourceColumnNullMapping="false" SourceVersion="Current" />
+                    </Parameters>
+                  </DbCommand>
+                </SelectCommand>
+              </DbSource>
+              <DbSource ConnectionRef="ControlCondominiosConnectionString (Settings)" DbObjectType="Unknown" FillMethodModifier="Public" FillMethodName="FillBy6" GenerateMethods="Both" GenerateShortCommands="true" GeneratorGetMethodName="GetDataBy6" GeneratorSourceName="FillBy6" GetMethodModifier="Public" GetMethodName="GetDataBy6" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetDataBy6" UserSourceName="FillBy6">
+                <SelectCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="true">
+                    <CommandText> Select  R.Folio,R.Propiedad, CS.Descripcion, R.ClaveDocumento, D.Nombre, R.Fecha, R.FechaVence, R.ClavePropietario, PR.RazonSocial, R.Divisa, R.TipoCambio, R.Total, R.Saldo, R.Notas,
+ (case when CI.DiarioMensual='Mensual' then ( case when CI.ImportePorcentaje='Importe' then (case when  DATEDIFF (month, R.FechaVence,Convert (date, sysdatetime())) &gt; 0 then CI.Importe *  DATEDIFF (month, R.FechaVence,Convert (date, sysdatetime())) end) Else (CI.Porcentaje / 100) * CI.ImporteConcepto end) else (case when CI.ImportePorcentaje='Importe' then (case when  DATEDIFF (day, R.FechaVence,Convert (date, sysdatetime())) &gt; 0 then CI.Importe *  DATEDIFF (day, R.FechaVence,Convert (date, sysdatetime())) Else (CI.Porcentaje / 100) * CI.ImporteConcepto end) end)  end) as SaldoVencido,
+ (R.Saldo) + sum(case when CI.DiarioMensual='Mensual' then ( case when CI.ImportePorcentaje='Importe' then (case when  DATEDIFF (month, R.FechaVence,Convert (date, sysdatetime())) &gt; 0 then CI.Importe *  DATEDIFF (month, R.FechaVence,Convert (date, sysdatetime())) end) Else (CI.Porcentaje / 100) * CI.ImporteConcepto end) else (case when CI.ImportePorcentaje='Importe' then (case when  DATEDIFF (day, R.FechaVence,Convert (date, sysdatetime())) &gt; 0 then CI.Importe *  DATEDIFF (day, R.FechaVence,Convert (date, sysdatetime())) Else (CI.Porcentaje / 100) * CI.ImporteConcepto end) end)  end) as Total
+ from Recibo as R, Documento as D, Propietarios as PR, Condominios_SubCondominios as CS, ConceptosIngreso as CI, Partida as P
+ where  R.ClaveDocumento=D.Clave and R.ClavePropietario=PR.IdPropietario and R.Propiedad=CS.Clave and P.ClaveRecibo=CI.Clave and R.Folio=P.FolioRecibo and (R.Fecha between @Fecha1 and @Fecha2) and R.Saldo&gt;0
+ Group By R.Folio, R.ClaveDocumento, D.Nombre, R.Fecha, R.FechaVence, R.ClavePropietario, R.Propiedad, CS.Descripcion, PR.RazonSocial, R.Divisa, R.Total, R.Saldo, CI.DiarioMensual, CI.ImportePorcentaje, CI.Importe, CI.Porcentaje, CI.ImporteConcepto, R.Notas, R.TipoCambio
+</CommandText>
+                    <Parameters>
+                      <Parameter AllowDbNull="true" AutogeneratedName="Fecha1" ColumnName="Fecha" DataSourceName="ControlCondominios.dbo.Recibo" DataTypeServer="date" DbType="AnsiString" Direction="Input" ParameterName="@Fecha1" Precision="0" ProviderType="Date" Scale="0" Size="3" SourceColumn="Fecha" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="Fecha2" ColumnName="Fecha" DataSourceName="ControlCondominios.dbo.Recibo" DataTypeServer="date" DbType="AnsiString" Direction="Input" ParameterName="@Fecha2" Precision="0" ProviderType="Date" Scale="0" Size="3" SourceColumn="Fecha" SourceColumnNullMapping="false" SourceVersion="Current" />
+                    </Parameters>
+                  </DbCommand>
+                </SelectCommand>
+              </DbSource>
+            </Sources>
+          </TableAdapter>
+        </Tables>
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="ControlCondominiosDataSet17" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="True" msprop:Generator_DataSetName="ControlCondominiosDataSet17" msprop:Generator_UserDSName="ControlCondominiosDataSet17">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="Recibo" msprop:Generator_TableClassName="ReciboDataTable" msprop:Generator_TableVarName="tableRecibo" msprop:Generator_RowChangedName="ReciboRowChanged" msprop:Generator_TablePropName="Recibo" msprop:Generator_RowDeletingName="ReciboRowDeleting" msprop:Generator_RowChangingName="ReciboRowChanging" msprop:Generator_RowEvHandlerName="ReciboRowChangeEventHandler" msprop:Generator_RowDeletedName="ReciboRowDeleted" msprop:Generator_RowClassName="ReciboRow" msprop:Generator_UserTableName="Recibo" msprop:Generator_RowEvArgName="ReciboRowChangeEvent">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="Folio" msprop:Generator_ColumnVarNameInTable="columnFolio" msprop:Generator_ColumnPropNameInRow="Folio" msprop:Generator_ColumnPropNameInTable="FolioColumn" msprop:Generator_UserColumnName="Folio" type="xs:int" />
+              <xs:element name="ClaveDocumento" msprop:Generator_ColumnVarNameInTable="columnClaveDocumento" msprop:Generator_ColumnPropNameInRow="ClaveDocumento" msprop:Generator_ColumnPropNameInTable="ClaveDocumentoColumn" msprop:Generator_UserColumnName="ClaveDocumento" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="10" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="Fecha" msprop:Generator_ColumnVarNameInTable="columnFecha" msprop:Generator_ColumnPropNameInRow="Fecha" msprop:Generator_ColumnPropNameInTable="FechaColumn" msprop:Generator_UserColumnName="Fecha" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="FechaVence" msprop:Generator_ColumnVarNameInTable="columnFechaVence" msprop:Generator_ColumnPropNameInRow="FechaVence" msprop:Generator_ColumnPropNameInTable="FechaVenceColumn" msprop:Generator_UserColumnName="FechaVence" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="ClavePropietario" msprop:Generator_ColumnVarNameInTable="columnClavePropietario" msprop:Generator_ColumnPropNameInRow="ClavePropietario" msprop:Generator_ColumnPropNameInTable="ClavePropietarioColumn" msprop:Generator_UserColumnName="ClavePropietario" type="xs:int" minOccurs="0" />
+              <xs:element name="Divisa" msprop:Generator_ColumnVarNameInTable="columnDivisa" msprop:Generator_ColumnPropNameInRow="Divisa" msprop:Generator_ColumnPropNameInTable="DivisaColumn" msprop:Generator_UserColumnName="Divisa" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="10" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="Total" msprop:Generator_ColumnVarNameInTable="columnTotal" msprop:Generator_ColumnPropNameInRow="Total" msprop:Generator_ColumnPropNameInTable="TotalColumn" msprop:Generator_UserColumnName="Total" type="xs:decimal" minOccurs="0" />
+              <xs:element name="Saldo" msprop:Generator_ColumnVarNameInTable="columnSaldo" msprop:Generator_ColumnPropNameInRow="Saldo" msprop:Generator_ColumnPropNameInTable="SaldoColumn" msprop:Generator_UserColumnName="Saldo" type="xs:decimal" minOccurs="0" />
+              <xs:element name="Propiedad" msprop:Generator_ColumnVarNameInTable="columnPropiedad" msprop:Generator_ColumnPropNameInRow="Propiedad" msprop:Generator_ColumnPropNameInTable="PropiedadColumn" msprop:Generator_UserColumnName="Propiedad" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="20" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="Descripcion" msprop:Generator_ColumnVarNameInTable="columnDescripcion" msprop:Generator_ColumnPropNameInRow="Descripcion" msprop:Generator_ColumnPropNameInTable="DescripcionColumn" msprop:Generator_UserColumnName="Descripcion" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="500" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="Nombre" msprop:Generator_ColumnVarNameInTable="columnNombre" msprop:Generator_ColumnPropNameInRow="Nombre" msprop:Generator_ColumnPropNameInTable="NombreColumn" msprop:Generator_UserColumnName="Nombre" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="100" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="RazonSocial" msprop:Generator_ColumnVarNameInTable="columnRazonSocial" msprop:Generator_ColumnPropNameInRow="RazonSocial" msprop:Generator_ColumnPropNameInTable="RazonSocialColumn" msprop:Generator_UserColumnName="RazonSocial" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="100" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="SaldoVencido" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnSaldoVencido" msprop:Generator_ColumnPropNameInRow="SaldoVencido" msprop:Generator_ColumnPropNameInTable="SaldoVencidoColumn" msprop:Generator_UserColumnName="SaldoVencido" type="xs:decimal" minOccurs="0" />
+              <xs:element name="Total1" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnTotal1" msprop:Generator_ColumnPropNameInRow="Total1" msprop:Generator_ColumnPropNameInTable="Total1Column" msprop:Generator_UserColumnName="Total1" type="xs:decimal" minOccurs="0" />
+              <xs:element name="Notas" msprop:Generator_ColumnVarNameInTable="columnNotas" msprop:Generator_ColumnPropNameInRow="Notas" msprop:Generator_ColumnPropNameInTable="NotasColumn" msprop:Generator_UserColumnName="Notas" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="100" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="TipoCambio" msprop:Generator_ColumnVarNameInTable="columnTipoCambio" msprop:Generator_ColumnPropNameInRow="TipoCambio" msprop:Generator_ColumnPropNameInTable="TipoCambioColumn" msprop:Generator_UserColumnName="TipoCambio" type="xs:decimal" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

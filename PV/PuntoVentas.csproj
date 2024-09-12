@@ -1,0 +1,371 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{DA2E0EB1-3B81-4201-BB8A-8F86E23629C7}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>PuntoVentas</RootNamespace>
+    <AssemblyName>PuntoVentas</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.ReportViewer.Common, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ReportingServices.ReportViewerControl.Winforms.150.900.148\lib\net40\Microsoft.ReportViewer.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ReportViewer.DataVisualization, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ReportingServices.ReportViewerControl.Winforms.150.900.148\lib\net40\Microsoft.ReportViewer.DataVisualization.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ReportViewer.Design, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ReportingServices.ReportViewerControl.Winforms.150.900.148\lib\net40\Microsoft.ReportViewer.Design.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ReportViewer.ProcessingObjectModel, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ReportingServices.ReportViewerControl.Winforms.150.900.148\lib\net40\Microsoft.ReportViewer.ProcessingObjectModel.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ReportViewer.WinForms, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ReportingServices.ReportViewerControl.Winforms.150.900.148\lib\net40\Microsoft.ReportViewer.WinForms.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.SqlServer.Types, Version=14.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.SqlServer.Types.14.0.314.76\lib\net40\Microsoft.SqlServer.Types.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.DirectoryServices" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AperturaCaja.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AperturaCaja.Designer.cs">
+      <DependentUpon>AperturaCaja.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CatalogoDivisa.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CatalogoDivisa.Designer.cs">
+      <DependentUpon>CatalogoDivisa.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CatalogoFamilias.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CatalogoFamilias.Designer.cs">
+      <DependentUpon>CatalogoFamilias.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CatalogoFormasPago.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CatalogoFormasPago.Designer.cs">
+      <DependentUpon>CatalogoFormasPago.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CatalogoPersonal.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CatalogoPersonal.Designer.cs">
+      <DependentUpon>CatalogoPersonal.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CerrarCaja.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CerrarCaja.Designer.cs">
+      <DependentUpon>CerrarCaja.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Clases\AperturaCaja\DBAperturaCaja.cs" />
+    <Compile Include="Clases\CategoriasFamilias\DBCategoriasFamilias.cs" />
+    <Compile Include="Clases\DatosEmpresa\DBDatosEmpresa.cs" />
+    <Compile Include="Clases\DatosTienda\DBDatosTienda.cs" />
+    <Compile Include="Clases\Divisas\DBDivisas.cs" />
+    <Compile Include="Clases\FormasPago\DBFormasPagos.cs" />
+    <Compile Include="Clases\Inventario\DBPartidas.cs" />
+    <Compile Include="Clases\Inventario\DBRegistrarEntradas.cs" />
+    <Compile Include="Clases\Login\DBLogin.cs" />
+    <Compile Include="Clases\OperaCaja\DBOperaCaja.cs" />
+    <Compile Include="Clases\Personal\DBPersonal.cs" />
+    <Compile Include="Clases\ProductosServicios\DBProductosServicios.cs" />
+    <Compile Include="Clases\TipoMovimiento\DBTipoMovimiento.cs" />
+    <Compile Include="Clases\Usuarios\DBUsuarios.cs" />
+    <Compile Include="DatosEmpresas.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DatosEmpresas.Designer.cs">
+      <DependentUpon>DatosEmpresas.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DatosTienda.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DatosTienda.Designer.cs">
+      <DependentUpon>DatosTienda.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Login.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Login.Designer.cs">
+      <DependentUpon>Login.cs</DependentUpon>
+    </Compile>
+    <Compile Include="LoginCaja.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="LoginCaja.Designer.cs">
+      <DependentUpon>LoginCaja.cs</DependentUpon>
+    </Compile>
+    <Compile Include="LoginCajaCierre.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="LoginCajaCierre.Designer.cs">
+      <DependentUpon>LoginCajaCierre.cs</DependentUpon>
+    </Compile>
+    <Compile Include="LoginSaldo.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="LoginSaldo.Designer.cs">
+      <DependentUpon>LoginSaldo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MenuPrincipal.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MenuPrincipal.Designer.cs">
+      <DependentUpon>MenuPrincipal.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CatalogoProductosServicios.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CatalogoProductosServicios.Designer.cs">
+      <DependentUpon>CatalogoProductosServicios.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MovimientosInventario.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MovimientosInventario.Designer.cs">
+      <DependentUpon>MovimientosInventario.cs</DependentUpon>
+    </Compile>
+    <Compile Include="OperaCaja.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="OperaCaja.Designer.cs">
+      <DependentUpon>OperaCaja.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PuntoVentas.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PuntoVentas.Designer.cs">
+      <DependentUpon>PuntoVentas.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RegistrarEntrada.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="RegistrarEntrada.Designer.cs">
+      <DependentUpon>RegistrarEntrada.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Saldo.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Saldo.Designer.cs">
+      <DependentUpon>Saldo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SqlServerTypes\Loader.cs" />
+    <Compile Include="TipoMovimientos.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TipoMovimientos.Designer.cs">
+      <DependentUpon>TipoMovimientos.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Usuarios.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Usuarios.Designer.cs">
+      <DependentUpon>Usuarios.cs</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="AperturaCaja.resx">
+      <DependentUpon>AperturaCaja.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CatalogoDivisa.resx">
+      <DependentUpon>CatalogoDivisa.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CatalogoFamilias.resx">
+      <DependentUpon>CatalogoFamilias.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CatalogoFormasPago.resx">
+      <DependentUpon>CatalogoFormasPago.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CatalogoPersonal.resx">
+      <DependentUpon>CatalogoPersonal.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CerrarCaja.resx">
+      <DependentUpon>CerrarCaja.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DatosEmpresas.resx">
+      <DependentUpon>DatosEmpresas.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DatosTienda.resx">
+      <DependentUpon>DatosTienda.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Login.resx">
+      <DependentUpon>Login.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="LoginCaja.resx">
+      <DependentUpon>LoginCaja.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="LoginCajaCierre.resx">
+      <DependentUpon>LoginCajaCierre.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="LoginSaldo.resx">
+      <DependentUpon>LoginSaldo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MenuPrincipal.resx">
+      <DependentUpon>MenuPrincipal.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CatalogoProductosServicios.resx">
+      <DependentUpon>CatalogoProductosServicios.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MovimientosInventario.resx">
+      <DependentUpon>MovimientosInventario.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="OperaCaja.resx">
+      <DependentUpon>OperaCaja.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <EmbeddedResource Include="PuntoVentas.resx">
+      <DependentUpon>PuntoVentas.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="RegistrarEntrada.resx">
+      <DependentUpon>RegistrarEntrada.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Saldo.resx">
+      <DependentUpon>Saldo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TipoMovimientos.resx">
+      <DependentUpon>TipoMovimientos.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Usuarios.resx">
+      <DependentUpon>Usuarios.cs</DependentUpon>
+    </EmbeddedResource>
+    <None Include="packages.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Logo PTIA.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\paper-clip-outline.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\garbage.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\store.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\dollar-symbol.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\maintenance.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\shopping-bag.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\cart.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\credit-cards-payment.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icons8-account-filled-25.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icons8-report-card-filled-25.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\time.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\clock.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\open-exit-door.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icons8-plus-25.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icons8-rename-25.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icons8-save-as-filled-25.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\cajalogo-02.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\search.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="SqlServerTypes\readme.htm" />
+    <Content Include="SqlServerTypes\x64\msvcr120.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SqlServerTypes\x64\SqlServerSpatial140.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SqlServerTypes\x86\msvcr120.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SqlServerTypes\x86\SqlServerSpatial140.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

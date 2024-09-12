@@ -1,0 +1,214 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="ControlCondominiosDataSet52" targetNamespace="http://tempuri.org/ControlCondominiosDataSet52.xsd" xmlns:mstns="http://tempuri.org/ControlCondominiosDataSet52.xsd" xmlns="http://tempuri.org/ControlCondominiosDataSet52.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections>
+          <Connection AppSettingsObjectName="Settings" AppSettingsPropertyName="ControlCondominiosConnectionString" ConnectionStringObject="" IsAppSettingsProperty="true" Modifier="Assembly" Name="ControlCondominiosConnectionString (Settings)" ParameterPrefix="@" PropertyReference="ApplicationSettings.PV.Properties.Settings.GlobalReference.Default.ControlCondominiosConnectionString" Provider="System.Data.SqlClient" />
+        </Connections>
+        <Tables>
+          <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="AnticipoCobrosTableAdapter" GeneratorDataComponentClassName="AnticipoCobrosTableAdapter" Name="AnticipoCobros" UserDataComponentName="AnticipoCobrosTableAdapter">
+            <MainSource>
+              <DbSource ConnectionRef="ControlCondominiosConnectionString (Settings)" DbObjectType="Unknown" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="false" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetData" UserSourceName="Fill">
+                <SelectCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="true">
+                    <CommandText>select C.Folio, C.ClavePropietario, c.Fecha, ' ' AS Observaciones, ' ' AS FormaPago, C.Pago, ' ' AS referencia, ' ' AS NumOperacion, ' ' AS NumAutorizacion, ' ' AS CuentaBancaria, C.FolioGeneral, P.RazonSocial, R.ClaveDocumento, D.Nombre, R.Saldo, R.Propiedad, CS.Descripcion, R.Notas,' ' AS Nombre, CD.Descripcion 
+from AnticipoCobros as C, Recibo as R, Documento as D, Condominios_SubCondominios as CS, Propietarios as P, Condominio as CD  
+where C.Folio=R.Folio and R.ClaveDocumento=D.Clave and R.Propiedad=CS.Clave and R.ClavePropietario=P.IdPropietario and CS.Condominio=CD.ClaveCondominio
+</CommandText>
+                    <Parameters />
+                  </DbCommand>
+                </SelectCommand>
+              </DbSource>
+            </MainSource>
+            <Mappings>
+              <Mapping SourceColumn="Folio" DataSetColumn="Folio" />
+              <Mapping SourceColumn="ClavePropietario" DataSetColumn="ClavePropietario" />
+              <Mapping SourceColumn="Fecha" DataSetColumn="Fecha" />
+              <Mapping SourceColumn="Pago" DataSetColumn="Pago" />
+              <Mapping SourceColumn="FolioGeneral" DataSetColumn="FolioGeneral" />
+              <Mapping SourceColumn="Observaciones" DataSetColumn="Observaciones" />
+              <Mapping SourceColumn="FormaPago" DataSetColumn="FormaPago" />
+              <Mapping SourceColumn="referencia" DataSetColumn="referencia" />
+              <Mapping SourceColumn="NumOperacion" DataSetColumn="NumOperacion" />
+              <Mapping SourceColumn="NumAutorizacion" DataSetColumn="NumAutorizacion" />
+              <Mapping SourceColumn="CuentaBancaria" DataSetColumn="CuentaBancaria" />
+              <Mapping SourceColumn="RazonSocial" DataSetColumn="RazonSocial" />
+              <Mapping SourceColumn="ClaveDocumento" DataSetColumn="ClaveDocumento" />
+              <Mapping SourceColumn="Nombre" DataSetColumn="Nombre" />
+              <Mapping SourceColumn="Saldo" DataSetColumn="Saldo" />
+              <Mapping SourceColumn="Propiedad" DataSetColumn="Propiedad" />
+              <Mapping SourceColumn="Descripcion" DataSetColumn="Descripcion" />
+              <Mapping SourceColumn="Notas" DataSetColumn="Notas" />
+              <Mapping SourceColumn="Nombre1" DataSetColumn="Nombre1" />
+              <Mapping SourceColumn="Descripcion1" DataSetColumn="Descripcion1" />
+            </Mappings>
+            <Sources>
+              <DbSource ConnectionRef="ControlCondominiosConnectionString (Settings)" DbObjectType="Unknown" FillMethodModifier="Public" FillMethodName="FillBy" GenerateMethods="Both" GenerateShortCommands="true" GeneratorGetMethodName="GetDataBy" GeneratorSourceName="FillBy" GetMethodModifier="Public" GetMethodName="GetDataBy" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetDataBy" UserSourceName="FillBy">
+                <SelectCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="true">
+                    <CommandText>select C.Folio, C.ClavePropietario, c.Fecha, ' ' AS Observaciones, ' ' AS FormaPago, C.Pago, ' ' AS referencia, ' ' AS NumOperacion, ' ' AS NumAutorizacion, ' ' AS CuentaBancaria, C.FolioGeneral, P.RazonSocial, R.ClaveDocumento, D.Nombre, R.Saldo, R.Propiedad, CS.Descripcion, R.Notas,' ' AS Nombre, CD.Descripcion 
+from AnticipoCobros as C, Recibo as R, Documento as D, Condominios_SubCondominios as CS, Propietarios as P, Condominio as CD  
+where C.Folio=R.Folio and R.ClaveDocumento=D.Clave and R.Propiedad=CS.Clave and R.ClavePropietario=P.IdPropietario and CS.Condominio=CD.ClaveCondominio and R.ClavePropietario between @Propietario1 and @Propietario2
+</CommandText>
+                    <Parameters>
+                      <Parameter AllowDbNull="true" AutogeneratedName="Propietario1" ColumnName="ClavePropietario" DataSourceName="ControlCondominios.dbo.Recibo" DataTypeServer="int" DbType="Int32" Direction="Input" ParameterName="@Propietario1" Precision="0" ProviderType="Int" Scale="0" Size="4" SourceColumn="ClavePropietario" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="Propietario2" ColumnName="ClavePropietario" DataSourceName="ControlCondominios.dbo.Recibo" DataTypeServer="int" DbType="Int32" Direction="Input" ParameterName="@Propietario2" Precision="0" ProviderType="Int" Scale="0" Size="4" SourceColumn="ClavePropietario" SourceColumnNullMapping="false" SourceVersion="Current" />
+                    </Parameters>
+                  </DbCommand>
+                </SelectCommand>
+              </DbSource>
+              <DbSource ConnectionRef="ControlCondominiosConnectionString (Settings)" DbObjectType="Unknown" FillMethodModifier="Public" FillMethodName="FillBy1" GenerateMethods="Both" GenerateShortCommands="true" GeneratorGetMethodName="GetDataBy1" GeneratorSourceName="FillBy1" GetMethodModifier="Public" GetMethodName="GetDataBy1" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetDataBy1" UserSourceName="FillBy1">
+                <SelectCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="true">
+                    <CommandText>select C.Folio, C.ClavePropietario, c.Fecha, ' ' AS Observaciones, ' ' AS FormaPago, C.Pago, ' ' AS referencia, ' ' AS NumOperacion, ' ' AS NumAutorizacion, ' ' AS CuentaBancaria, C.FolioGeneral, P.RazonSocial, R.ClaveDocumento, D.Nombre, R.Saldo, R.Propiedad, CS.Descripcion, R.Notas,' ' AS Nombre, CD.Descripcion 
+from AnticipoCobros as C, Recibo as R, Documento as D, Condominios_SubCondominios as CS, Propietarios as P, Condominio as CD  
+where C.Folio=R.Folio and R.ClaveDocumento=D.Clave and R.Propiedad=CS.Clave and R.ClavePropietario=P.IdPropietario and CS.Condominio=CD.ClaveCondominio and R.ClavePropietario between @Propietario1 and @Propietario2 and c.Fecha between @Fecha1 and @Fecha2
+</CommandText>
+                    <Parameters>
+                      <Parameter AllowDbNull="true" AutogeneratedName="Propietario1" ColumnName="ClavePropietario" DataSourceName="ControlCondominios.dbo.Recibo" DataTypeServer="int" DbType="Int32" Direction="Input" ParameterName="@Propietario1" Precision="0" ProviderType="Int" Scale="0" Size="4" SourceColumn="ClavePropietario" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="Propietario2" ColumnName="ClavePropietario" DataSourceName="ControlCondominios.dbo.Recibo" DataTypeServer="int" DbType="Int32" Direction="Input" ParameterName="@Propietario2" Precision="0" ProviderType="Int" Scale="0" Size="4" SourceColumn="ClavePropietario" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="Fecha1" ColumnName="Fecha" DataSourceName="ControlCondominios.dbo.AnticipoCobros" DataTypeServer="date" DbType="AnsiString" Direction="Input" ParameterName="@Fecha1" Precision="0" ProviderType="Date" Scale="0" Size="3" SourceColumn="Fecha" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="Fecha2" ColumnName="Fecha" DataSourceName="ControlCondominios.dbo.AnticipoCobros" DataTypeServer="date" DbType="AnsiString" Direction="Input" ParameterName="@Fecha2" Precision="0" ProviderType="Date" Scale="0" Size="3" SourceColumn="Fecha" SourceColumnNullMapping="false" SourceVersion="Current" />
+                    </Parameters>
+                  </DbCommand>
+                </SelectCommand>
+              </DbSource>
+              <DbSource ConnectionRef="ControlCondominiosConnectionString (Settings)" DbObjectType="Unknown" FillMethodModifier="Public" FillMethodName="FillBy2" GenerateMethods="Both" GenerateShortCommands="true" GeneratorGetMethodName="GetDataBy2" GeneratorSourceName="FillBy2" GetMethodModifier="Public" GetMethodName="GetDataBy2" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetDataBy2" UserSourceName="FillBy2">
+                <SelectCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="true">
+                    <CommandText>select C.Folio, C.ClavePropietario, c.Fecha, ' ' AS Observaciones, ' ' AS FormaPago, C.Pago, ' ' AS referencia, ' ' AS NumOperacion, ' ' AS NumAutorizacion, ' ' AS CuentaBancaria, C.FolioGeneral, P.RazonSocial, R.ClaveDocumento, D.Nombre, R.Saldo, R.Propiedad, CS.Descripcion, R.Notas,' ' AS Nombre, CD.Descripcion 
+from AnticipoCobros as C, Recibo as R, Documento as D, Condominios_SubCondominios as CS, Propietarios as P, Condominio as CD  
+where C.Folio=R.Folio and R.ClaveDocumento=D.Clave and R.Propiedad=CS.Clave and R.ClavePropietario=P.IdPropietario and CS.Condominio=CD.ClaveCondominio and c.Fecha between @Fecha1 and @Fecha2
+</CommandText>
+                    <Parameters>
+                      <Parameter AllowDbNull="true" AutogeneratedName="Fecha1" ColumnName="Fecha" DataSourceName="ControlCondominios.dbo.AnticipoCobros" DataTypeServer="date" DbType="AnsiString" Direction="Input" ParameterName="@Fecha1" Precision="0" ProviderType="Date" Scale="0" Size="3" SourceColumn="Fecha" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="Fecha2" ColumnName="Fecha" DataSourceName="ControlCondominios.dbo.AnticipoCobros" DataTypeServer="date" DbType="AnsiString" Direction="Input" ParameterName="@Fecha2" Precision="0" ProviderType="Date" Scale="0" Size="3" SourceColumn="Fecha" SourceColumnNullMapping="false" SourceVersion="Current" />
+                    </Parameters>
+                  </DbCommand>
+                </SelectCommand>
+              </DbSource>
+            </Sources>
+          </TableAdapter>
+        </Tables>
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="ControlCondominiosDataSet52" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="True" msprop:Generator_DataSetName="ControlCondominiosDataSet52" msprop:Generator_UserDSName="ControlCondominiosDataSet52">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="AnticipoCobros" msprop:Generator_TableClassName="AnticipoCobrosDataTable" msprop:Generator_TableVarName="tableAnticipoCobros" msprop:Generator_TablePropName="AnticipoCobros" msprop:Generator_RowDeletingName="AnticipoCobrosRowDeleting" msprop:Generator_RowChangingName="AnticipoCobrosRowChanging" msprop:Generator_RowEvHandlerName="AnticipoCobrosRowChangeEventHandler" msprop:Generator_RowDeletedName="AnticipoCobrosRowDeleted" msprop:Generator_UserTableName="AnticipoCobros" msprop:Generator_RowChangedName="AnticipoCobrosRowChanged" msprop:Generator_RowEvArgName="AnticipoCobrosRowChangeEvent" msprop:Generator_RowClassName="AnticipoCobrosRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="Folio" msprop:Generator_ColumnVarNameInTable="columnFolio" msprop:Generator_ColumnPropNameInRow="Folio" msprop:Generator_ColumnPropNameInTable="FolioColumn" msprop:Generator_UserColumnName="Folio" type="xs:int" minOccurs="0" />
+              <xs:element name="ClavePropietario" msprop:Generator_ColumnVarNameInTable="columnClavePropietario" msprop:Generator_ColumnPropNameInRow="ClavePropietario" msprop:Generator_ColumnPropNameInTable="ClavePropietarioColumn" msprop:Generator_UserColumnName="ClavePropietario" type="xs:int" minOccurs="0" />
+              <xs:element name="Fecha" msprop:Generator_ColumnVarNameInTable="columnFecha" msprop:Generator_ColumnPropNameInRow="Fecha" msprop:Generator_ColumnPropNameInTable="FechaColumn" msprop:Generator_UserColumnName="Fecha" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="Pago" msprop:Generator_ColumnVarNameInTable="columnPago" msprop:Generator_ColumnPropNameInRow="Pago" msprop:Generator_ColumnPropNameInTable="PagoColumn" msprop:Generator_UserColumnName="Pago" type="xs:decimal" minOccurs="0" />
+              <xs:element name="FolioGeneral" msprop:Generator_ColumnVarNameInTable="columnFolioGeneral" msprop:Generator_ColumnPropNameInRow="FolioGeneral" msprop:Generator_ColumnPropNameInTable="FolioGeneralColumn" msprop:Generator_UserColumnName="FolioGeneral" type="xs:int" minOccurs="0" />
+              <xs:element name="Observaciones" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnObservaciones" msprop:Generator_ColumnPropNameInRow="Observaciones" msprop:Generator_ColumnPropNameInTable="ObservacionesColumn" msprop:Generator_UserColumnName="Observaciones" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="1" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="FormaPago" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnFormaPago" msprop:Generator_ColumnPropNameInRow="FormaPago" msprop:Generator_ColumnPropNameInTable="FormaPagoColumn" msprop:Generator_UserColumnName="FormaPago" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="1" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="referencia" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnreferencia" msprop:Generator_ColumnPropNameInRow="referencia" msprop:Generator_ColumnPropNameInTable="referenciaColumn" msprop:Generator_UserColumnName="referencia" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="1" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="NumOperacion" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnNumOperacion" msprop:Generator_ColumnPropNameInRow="NumOperacion" msprop:Generator_ColumnPropNameInTable="NumOperacionColumn" msprop:Generator_UserColumnName="NumOperacion" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="1" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="NumAutorizacion" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnNumAutorizacion" msprop:Generator_ColumnPropNameInRow="NumAutorizacion" msprop:Generator_ColumnPropNameInTable="NumAutorizacionColumn" msprop:Generator_UserColumnName="NumAutorizacion" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="1" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="CuentaBancaria" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnCuentaBancaria" msprop:Generator_ColumnPropNameInRow="CuentaBancaria" msprop:Generator_ColumnPropNameInTable="CuentaBancariaColumn" msprop:Generator_UserColumnName="CuentaBancaria" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="1" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="RazonSocial" msprop:Generator_ColumnVarNameInTable="columnRazonSocial" msprop:Generator_ColumnPropNameInRow="RazonSocial" msprop:Generator_ColumnPropNameInTable="RazonSocialColumn" msprop:Generator_UserColumnName="RazonSocial" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="100" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="ClaveDocumento" msprop:Generator_ColumnVarNameInTable="columnClaveDocumento" msprop:Generator_ColumnPropNameInRow="ClaveDocumento" msprop:Generator_ColumnPropNameInTable="ClaveDocumentoColumn" msprop:Generator_UserColumnName="ClaveDocumento" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="10" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="Nombre" msprop:Generator_ColumnVarNameInTable="columnNombre" msprop:Generator_ColumnPropNameInRow="Nombre" msprop:Generator_ColumnPropNameInTable="NombreColumn" msprop:Generator_UserColumnName="Nombre" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="100" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="Saldo" msprop:Generator_ColumnVarNameInTable="columnSaldo" msprop:Generator_ColumnPropNameInRow="Saldo" msprop:Generator_ColumnPropNameInTable="SaldoColumn" msprop:Generator_UserColumnName="Saldo" type="xs:decimal" minOccurs="0" />
+              <xs:element name="Propiedad" msprop:Generator_ColumnVarNameInTable="columnPropiedad" msprop:Generator_ColumnPropNameInRow="Propiedad" msprop:Generator_ColumnPropNameInTable="PropiedadColumn" msprop:Generator_UserColumnName="Propiedad" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="20" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="Descripcion" msprop:Generator_ColumnVarNameInTable="columnDescripcion" msprop:Generator_ColumnPropNameInRow="Descripcion" msprop:Generator_ColumnPropNameInTable="DescripcionColumn" msprop:Generator_UserColumnName="Descripcion" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="500" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="Notas" msprop:Generator_ColumnVarNameInTable="columnNotas" msprop:Generator_ColumnPropNameInRow="Notas" msprop:Generator_ColumnPropNameInTable="NotasColumn" msprop:Generator_UserColumnName="Notas" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="100" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="Nombre1" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnNombre1" msprop:Generator_ColumnPropNameInRow="Nombre1" msprop:Generator_ColumnPropNameInTable="Nombre1Column" msprop:Generator_UserColumnName="Nombre1" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="1" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="Descripcion1" msprop:Generator_ColumnVarNameInTable="columnDescripcion1" msprop:Generator_ColumnPropNameInRow="Descripcion1" msprop:Generator_ColumnPropNameInTable="Descripcion1Column" msprop:Generator_UserColumnName="Descripcion1" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="100" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>
