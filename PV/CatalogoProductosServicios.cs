@@ -329,7 +329,9 @@ namespace PuntoVentas
             {
                 Limpiar();
                 string Clave = dataGridView2.Rows[e.RowIndex].Cells["Clave"].Value.ToString();
+
                 c.ConsultaProductoSeleccionado(Clave, txtAlias, txtDescripcion, cmbEstatus, txtMarca, txtUnidadMedida, txtPresentacion, tgInventariable, txtCaducidad, txtCategoria, txtFamilia, cmbCategorias, cmbFamilia, txtProveedor, txtExMinimo, txtExMaximo, txtExActual, txtUbicacion, cmbTipoCosteo, txtCostoUnitario, cmbDivisa, txtDescuentoPorc, txtDescuentoCant, txtImpuestoPorc, txtImpuestoCant, txtPrecioVenta, Foto, txtConcepto, cmbConcepto, txtPedidosProveedor, txtPedidosCliente);
+
                 CalcularDisponibilidad();
                 groupBox4.Enabled = true;
                 panel1.Enabled = true;
@@ -505,7 +507,7 @@ namespace PuntoVentas
 
         private void cmbCategorias_SelectedIndexChanged_1(object sender, EventArgs e)
         {
-
+            txtCategoria.Text = string.Empty;
             string claveCategoria = string.Empty;
             if (cmbCategorias.Text != string.Empty)
             {
@@ -513,7 +515,7 @@ namespace PuntoVentas
                 
                  claveCategoria = valores[0];
 
-                
+                txtCategoria.Text = claveCategoria; 
                 if (claveCategoria != string.Empty)
                 {
                  
@@ -793,6 +795,16 @@ namespace PuntoVentas
         private void CalcularDisponibilidad()
         {
             txtDisponibilidad.Text=(Convert.ToDecimal(txtExActual.Text) - Convert.ToDecimal(txtPedidosCliente.Text)).ToString();
+        }
+
+        private void cmbFamilia_SelectedIndexChanged_1(object sender, EventArgs e)
+        {
+            txtFamilia.Text=string.Empty;
+            if (!string.IsNullOrEmpty(cmbFamilia.Text))
+            {
+                string[] val=c.InformacionFamilia(cmbFamilia.Text);
+                txtFamilia.Text=val[0];
+            }
         }
     }
 }

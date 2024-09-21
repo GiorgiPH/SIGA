@@ -3,6 +3,8 @@ using Guna.UI2.WinForms;
 using PuntoVentas.Clases.Login;
 using PuntoVentas.Clases.ProductosServicios;
 using PV.Clases;
+using PV.Clases.Almacenes;
+using PV.Clases.Clientes;
 using PV.Clases.OrdenCompra;
 using PV.Clases.PedidoCliente;
 using SqlServerTypes;
@@ -29,6 +31,8 @@ namespace PV
 
         DBPedidoCliente c = new DBPedidoCliente();
         DBOrdenCompra o = new DBOrdenCompra();
+        DBAlmacenes a = new DBAlmacenes();
+        DBClientes cl = new DBClientes();
         DBProductosServicios p = new DBProductosServicios();
         string recibo = string.Empty;
         string reciboCol = string.Empty;
@@ -78,16 +82,34 @@ namespace PV
                 c.ActualizarOrdenAuto(txtFolio.Text, txtAutoriza.Text, txtFechaAuto.Text);
                 MessageBox.Show("Orden de Compra Autorizada");
                 Limpiar();
-                c.CargarRecibos(dataGridView1, tipo, txtFiltro.Text, txtFiltroDocumento.Text, txtFiltroNombre.Text);
-                c.CargarRecibos2(DataGridView2, tipo, txtFiltro.Text, txtFiltroDocumento.Text, txtFiltroNombre.Text);
+                if (tipo == "Remision")
+                {
+                    o.CargarRemisiones(dataGridView1, tipo, txtFiltro.Text, txtFiltroDocumento.Text, txtFiltroNombre.Text, false);
+                    o.CargarRemisiones(DataGridView2, tipo, txtFiltro.Text, txtFiltroDocumento.Text, txtFiltroNombre.Text, true);
+                }
+                else
+                {
+                    c.CargarRecibos(dataGridView1, tipo, txtFiltro.Text, txtFiltroDocumento.Text, txtFiltroNombre.Text);
+                    c.CargarRecibos2(DataGridView2, tipo, txtFiltro.Text, txtFiltroDocumento.Text, txtFiltroNombre.Text);
+                }
             }
         }
 
         private void OrdenCompra2_Load(object sender, EventArgs e)
         {
+            if (tipo == "Remision")
+            {
+                o.CargarRemisiones(dataGridView1, tipo, txtFiltro.Text, txtFiltroDocumento.Text, txtFiltroNombre.Text, false);
+                o.CargarRemisiones(DataGridView2, tipo, txtFiltro.Text, txtFiltroDocumento.Text, txtFiltroNombre.Text, true);
+            }
+            else
+            {
+                c.CargarRecibos(dataGridView1, tipo, txtFiltro.Text, txtFiltroDocumento.Text, txtFiltroNombre.Text);
+                c.CargarRecibos2(DataGridView2, tipo, txtFiltro.Text, txtFiltroDocumento.Text, txtFiltroNombre.Text);
+            }
             c.SeleccionarConceptoDocumentoV(cmbDocumento, tipo);
-            c.CargarRecibos(dataGridView1, tipo, txtFiltro.Text, txtFiltroDocumento.Text, txtFiltroNombre.Text);
-            c.CargarRecibos2(DataGridView2, tipo, txtFiltro.Text, txtFiltroDocumento.Text, txtFiltroNombre.Text);
+            
+            
             c.SeleccionarAlmacen(cmbAlmacen);
             cmbEstatus.SelectedIndex = 0;
             txtFecha.Text = DateTime.Today.ToString("yyyy/MM/dd");
@@ -208,10 +230,10 @@ namespace PV
 
         private void txtMatricular_TextChanged(object sender, EventArgs e)
         {
-            txtMatricular.Text = M2;
+            //txtMatricular.Text = M2;
             if (txtMatricular.Text != string.Empty)
             {
-                string[] valores = c.InformacionPropietarioRecibo(txtMatricular.Text);
+                string[] valores = cl.InformacionCliente(txtMatricular.Text);
                 txtNombreAlumnno.Text = valores[1];
             }
 
@@ -256,27 +278,27 @@ namespace PV
             }
             else
             {
-                if (tipo == "Remisión")
+                if (tipo == "Remision")
                 {
                     o.InsertarPartida(TxtFolio2.Text, txtPartida.Text, txtClave.Text, txtConcepto2.Text, txtCantidad.Text, txtUnidad.Text, txtDivisa1.Text, txtTipoCambio1.Text, Convert.ToDecimal(txtSubtotal1.Text), Convert.ToDecimal(txtDescuento1.Text), Convert.ToDecimal(txtTotal1.Text), Convert.ToDecimal(txtPrecio.Text), Convert.ToDecimal(txtImpuesto1.Text));
-                    Limpiar();
+                    
                     o.Consulta5OrdenCompra(TxtFolio2.Text, txtPartida);
-                    o.ReciboSaldosPartidasOrden(TxtFolio2.Text, txtSubtotalR, txtDescuentoR, txtTotalR);
-                    o.ReciboSaldosPartidasOrden2(TxtFolio2.Text, txtImpuestoR);
+                    o.ReciboSaldosPartidasOrden(TxtFolio2.Text, txtSubtotalR, txtDescuentoR, txtTotalR, txtImpuestoR);
+                    //o.ReciboSaldosPartidasOrden2(TxtFolio2.Text, txtImpuestoR);
 
                     if (!string.IsNullOrEmpty(txtFolioPedido.Text))
                     {
 
                         decimal cant = Convert.ToDecimal(txtCantidad.Text);
                         decimal cantneg = Convert.ToDecimal(txtCantidad.Text) * -1;
-                        c.ActualizaCantidadPendiente(cantneg.ToString(), cant.ToString(), txtFolioPedido.Text, txtClave.Text);
+                        c.ActualizaCantidadPendiente(cant.ToString(), cant.ToString(), txtFolioPedido.Text, txtClave.Text);
                         
                         p.RegistroPedidosCliente(txtClave.Text, cantneg.ToString().Replace(",", ""));
 
 
 
                     }
-                    
+                    //Limpiar();
                 }
                 else
                 {
@@ -285,16 +307,24 @@ namespace PV
 
 
                     c.InsertarPartidaOrdenCliente(TxtFolio2.Text, txtPartida.Text, txtClave.Text, txtConcepto2.Text, txtCantidad.Text, txtUnidad.Text, txtDivisa1.Text, txtTipoCambio1.Text, Convert.ToDecimal(txtSubtotal1.Text), Convert.ToDecimal(txtDescuento1.Text), Convert.ToDecimal(txtTotal1.Text), Convert.ToDecimal(txtPrecio.Text), Convert.ToDecimal(txtImpuesto1.Text));
-                    Limpiar();
-                    c.Consulta5OrdenCliente(TxtFolio2.Text, txtPartida);
-                    c.ReciboSaldosPartidasOrden(TxtFolio2.Text, txtSubtotalR, txtDescuentoR, txtTotalR);
-                    c.ReciboSaldosPartidasOrden2(TxtFolio2.Text, txtImpuestoR);
                     
+                    c.Consulta5OrdenCliente(TxtFolio2.Text, txtPartida);
+                    c.ReciboSaldosPartidasOrden(TxtFolio2.Text, txtSubtotalR, txtDescuentoR, txtTotalR, txtImpuestoR);
+                    //c.ReciboSaldosPartidasOrden2(TxtFolio2.Text, txtImpuestoR);
+                    //Limpiar();
                 }
-         
-                
-                
-            
+
+
+                if (string.IsNullOrEmpty(txtFolioPedido.Text))
+                {
+                    c.SeleccionarProducto2(cmbConcepto, TxtFolio2.Text);
+                }
+                else
+                {
+                    c.SeleccionarProductoOrdenPedido(cmbConcepto, txtFolioPedido.Text);
+
+                }
+
             }
             LimpiarPartida();
         }
@@ -308,7 +338,7 @@ namespace PV
                     int Partida = Convert.ToInt32(txtPartida.Text) - 1;
                     if (Partida > 0)
                     {
-                        if (tipo == "Remisión")
+                        if (tipo == "Remision")
                         {
                             c.ActualizarOrden(TxtFolio2.Text, Partida.ToString());
 
@@ -330,7 +360,7 @@ namespace PV
                     int Partida = Convert.ToInt32(txtPartida.Text) - 1;
                     if (Partida > 0)
                     {
-                        if (tipo == "Remisión")
+                        if (tipo == "Remision")
                         {
                             c.ActualizarOrden(TxtFolio2.Text, Partida.ToString());
 
@@ -351,7 +381,7 @@ namespace PV
             }
             else
             {
-                if (tipo == "Remisión")
+                if (tipo == "Remision")
                 {
                     o.InsertarPartida(TxtFolio2.Text, txtPartida.Text, txtClave.Text, txtConcepto2.Text, txtCantidad.Text, txtUnidad.Text, txtDivisa1.Text, txtTipoCambio1.Text, Convert.ToDecimal(txtSubtotal1.Text), Convert.ToDecimal(txtDescuento1.Text), Convert.ToDecimal(txtTotal1.Text), Convert.ToDecimal(txtPrecio.Text), Convert.ToDecimal(txtImpuesto1.Text));
                     o.ActualizarOrden(TxtFolio2.Text, txtPartida.Text);
@@ -360,7 +390,7 @@ namespace PV
 
                         decimal cant = Convert.ToDecimal(txtCantidad.Text);
                         decimal cantneg = Convert.ToDecimal(txtCantidad.Text) * -1;
-                        c.ActualizaCantidadPendiente(cantneg.ToString(), cant.ToString(), txtFolioPedido.Text, txtClave.Text);
+                        c.ActualizaCantidadPendiente(cant.ToString(), cant.ToString(), txtFolioPedido.Text, txtClave.Text);
 
                         p.RegistroPedidosCliente(txtClave.Text, cantneg.ToString().Replace(",", ""));
 
@@ -380,7 +410,7 @@ namespace PV
                 }
                 //    this.Close();
             }
-            if (tipo == "Remisión")
+            if (tipo == "Remision")
             {
                 o.CargarRecibosPartidas(guna2DataGridView1, TxtFolio2.Text);
 
@@ -388,7 +418,7 @@ namespace PV
             }
             else
             {
-                c.CargarRecibosPartidas(guna2DataGridView1, TxtFolio2.Text);
+                c.CargarOrdenPedidoClientePartidas(guna2DataGridView1, TxtFolio2.Text);
 
             }
             PanelPartidasRequisicion.Visible = false;
@@ -430,7 +460,16 @@ namespace PV
 
                 if (txtFolio.Text == string.Empty)
                 {
-                    c.InsertarOrden(txtFolio, txtClave.Text, cmbEstatus.Text, txtFecha.Text, txtDiasVence.Text, txtFechaVence.Text, txtMatricular.Text, txtDivisa1.Text, txtTipoCambio1.Text, txtNotas.Text, txtElaborado.Text, txtConsecutivo.Text, almacen, tipo);
+                    if (tipo.Equals("Remision"))
+                    {
+                        o.InsertarOrden(txtFolio, txtClave.Text, cmbEstatus.Text, txtFecha.Text, txtDiasVence.Text, txtFechaVence.Text, txtMatricular.Text, txtDivisa1.Text, txtTipoCambio1.Text, txtNotas.Text, txtElaborado.Text, txtConsecutivo.Text, almacen);
+
+                    }
+                    else
+                    {
+                        c.InsertarOrden(txtFolio, txtClave.Text, cmbEstatus.Text, txtFecha.Text, txtDiasVence.Text, txtFechaVence.Text, txtMatricular.Text, txtDivisa1.Text, txtTipoCambio1.Text, txtNotas.Text, txtElaborado.Text, txtConsecutivo.Text, almacen, tipo);
+
+                    }
                     //    MessageBox.Show(txtFolio.Text);
 
                 }
@@ -442,7 +481,7 @@ namespace PV
 
                 //PartidasOrden partidas = new PartidasOrden(txtFolio.Text, txtReciboInsc.Text, ReciboCol);
                 //partidas.ShowDialog();
-
+                cmbAlmacen.Enabled = false;
                 TxtFolio2.Text = txtFolio.Text;
                 guna2TabControl1.SelectedIndex = 1;
                 TxtFolio2.Text = txtFolio.Text;
@@ -458,9 +497,15 @@ namespace PV
                     c.SeleccionarProductoOrdenPedido(cmbConcepto, txtFolioPedido.Text);
 
                 }
-                
-               
-                c.Consulta5OrdenCliente(TxtFolio2.Text, txtPartida);
+
+                if (tipo == "Remision")
+                {
+                    o.Consulta5OrdenCompra(TxtFolio2.Text, txtPartida);                 
+                }
+                else
+                {
+                    c.Consulta5OrdenCliente(TxtFolio2.Text, txtPartida);
+                }
                 txtCantidad.Text = "1";
                 txtUnidad.Text = "Servicio";
                 txtDivisa1.Text = "MXN";
@@ -488,7 +533,6 @@ namespace PV
             txtDiasVence.Text = "0";
             txtTotalConceptos.Text = "0";
             txtFechaVence.Clear();
-            txtTotal.Clear();
             // txtMatricular.Clear();
             txtNombreAlumnno.Clear();
             txtPartidas.Text = "0";
@@ -498,6 +542,8 @@ namespace PV
             txtTotal.Text = "0.00";
             txtNotas.Clear();
             txtConsecutivo.Clear();
+            txtMatricular.Clear ();
+            txtNombreAlumnno.Clear ();
             cmbDocumento.Text = null;
             cmbDocumento.Enabled = false;
             txtDiasVence.Enabled = false;
@@ -518,11 +564,12 @@ namespace PV
             //button2.BackColor = Color.Gainsboro;
             //button6.BackColor = Color.Gainsboro;
             cmbConcepto.SelectedIndex = -1;
-            lblExistencias.Text = "0";
-            lblPedidosCliente.Text = "0.00";
-            lblPedidosProveedor.Text= "0.00";
-            lblDisponible.Text= "0.00";
+            
             cmbAlmacen.SelectedIndex= -1;
+            PanelPartidasRequisicion.Visible = false;
+            guna2TabControl1.SelectedIndex = 0;
+            dataGridView1.Rows.Clear();
+            txtFolioPedido.Text=string.Empty;
         }
 
         private void toolStrip2_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
@@ -897,6 +944,7 @@ namespace PV
 
         private void txtCantidad_TextChanged(object sender, EventArgs e)
         {
+            //Utilerias.ValidarFormatoMoneda;
 
             if (txtCantidad.Text != string.Empty && txtPrecio.Text != string.Empty)
             {
@@ -942,8 +990,14 @@ namespace PV
                 lblExistencias.Text = valores[5];
                 lblPedidosProveedor.Text = valores[7];
                 lblPedidosCliente.Text = valores[8];
-                txtCantidadP.Text = string.IsNullOrEmpty(valores[10]) ? "" : valores[10]; 
+                txtCantidadP.Text = string.IsNullOrEmpty(valores[10]) ? "" : valores[10];
 
+                if (tipo.Equals("Remision"))
+                {
+                    decimal valorDecimal = Convert.ToDecimal(txtCantidadP.Text);
+                    int cantidad = Convert.ToInt16(valorDecimal);
+                    txtCantidad.Text = cantidad.ToString();
+                }
                 decimal sub = Convert.ToDecimal(txtPrecio.Text) * Convert.ToInt32(txtCantidad.Text);
                 txtSubtotal1.Text = sub.ToString();
             }
@@ -951,6 +1005,11 @@ namespace PV
 
         private void guna2Button2_Click(object sender, EventArgs e)
         {
+            if (cmbEstatus.Text != "Abierto")
+            {
+                MessageBox.Show("Solo se puede agregar partidas si el documento esta abierto");
+                return;
+            }
             PanelPartidasRequisicion.Visible = true;
             txtPartida.Enabled = false;
             txtCantidad.Enabled = true;
@@ -995,7 +1054,7 @@ namespace PV
 
         private void Calcular()
         {
-            decimal sub = Convert.ToDecimal(txtPrecio.Text) * Convert.ToInt32(txtCantidad.Text);
+            decimal sub = Convert.ToDecimal(txtPrecio.Text) * Convert.ToDecimal(txtCantidad.Text);
             decimal Impuesto = (Convert.ToDecimal(txtImpuesto1.Text) / 100) * Convert.ToDecimal(sub);
             txtImpuestoIm.Text = Impuesto.ToString("N2");
             txtTotal1.Text = (Convert.ToDecimal(sub) + Impuesto - Convert.ToDecimal(txtDescuento1.Text)).ToString("N2");
@@ -1138,6 +1197,21 @@ namespace PV
                     MessageBox.Show("Foramto de impuesto incorrecto");
                 }*/
             Utilerias.Moneda2(ref txtImpuesto1);
+        
+
+            try
+            {
+                if (txtCantidad.Text != string.Empty && txtPrecio.Text != string.Empty)
+                {
+                    Calcular();
+                }
+            }
+
+            catch (Exception)
+            {
+
+                MessageBox.Show("Formato de precio incorrecto");
+            }
         }
 
         private void txtImpuesto1_KeyPress(object sender, KeyPressEventArgs e)
@@ -1186,10 +1260,14 @@ namespace PV
             txtUnidad.Clear();
             txtPrecio.Text = "0.00";
             txtDescuento1.Text = "0.00";
-            //    txtSubtotal1.Text= "0.00";
-            txtImpuesto1.Text = "0";
-            txtImpuestoIm.Text = "0";
+                txtSubtotal1.Text= "0.00";
+            txtImpuesto1.Text = "0.00";
+            txtImpuestoIm.Text = "0.00";
             cmbConcepto.Text = "";
+            lblExistencias.Text = "0";
+            lblPedidosCliente.Text = "0.00";
+            lblPedidosProveedor.Text = "0.00";
+            lblDisponible.Text = "0.00";
             c.SeleccionarProducto2(cmbConcepto, TxtFolio2.Text);
         }
 
@@ -1245,10 +1323,30 @@ namespace PV
             if (e.RowIndex != -1)
             {
                 string Partida = guna2DataGridView1.Rows[e.RowIndex].Cells["Partida"].Value.ToString();
-                c.ConsultaPartida(TxtFolio2.Text, Partida, cmbconcepto2, txtConcepto, txtConcepto2, txtCantidad, txtUnidad, txtDivisa1, txtTipoCambio1, txtSubtotal1, txtDescuento1, txtTotal1, txtPrecio, txtImpuesto1, txtEntregado);
+                cmbConcepto.SelectedIndexChanged -= cmbConcepto_SelectedIndexChanged;
+                if (tipo == "Remision")
+                {
+                    o.ConsultaPartidaOrden(TxtFolio2.Text, Partida, cmbconcepto2, txtConcepto, txtConcepto2, txtCantidad, txtUnidad, txtDivisa1, txtTipoCambio1, txtSubtotal1, txtDescuento1, txtTotal1, txtPrecio, txtImpuesto1, txtEntregado, cmbConcepto);
+
+                }
+                else
+                {
+                    c.ConsultaPartidaOrdenPedido(TxtFolio2.Text, Partida, cmbconcepto2, txtConcepto, txtConcepto2, txtCantidad, txtUnidad, txtDivisa1, txtTipoCambio1, txtSubtotal1, txtDescuento1, txtTotal1, txtPrecio, txtImpuesto1, txtEntregado, cmbConcepto);
+
+                }
+                string[] valores = c.InformacionRecibo(cmbConcepto.Text, "");
+                
+               
+                cmbConcepto.SelectedIndexChanged += cmbConcepto_SelectedIndexChanged;
+                lblExistencias.Text = valores[5];
+                lblPedidosProveedor.Text = valores[7];
+                lblPedidosCliente.Text = valores[8];
+                txtCantidadP.Text = string.IsNullOrEmpty(valores[10]) ? "" : valores[10];
+
                 txtPartida.Text = Partida;
                 // panel2.Visible = false;
                 label56.Visible = true;
+                txtPartida.Enabled = false;
                 txtEntregado.Visible = true;
                 PanelPartidasRequisicion.Visible = Visible;
                 guna2Button11.Visible = true;
@@ -1297,7 +1395,7 @@ namespace PV
             {
                 Matricula = string.Empty;
                 cmbEstatus.Text = "Bloqueado";
-                if (tipo == "Remisión")
+                if (tipo == "Remision")
                 {
                     string almacen = cmbAlmacen.Text.Split('-')[0];
                     //MessageBox.Show(TxtFolio2.Text);
@@ -1328,6 +1426,7 @@ namespace PV
            
 
                 Limpiar();
+                LimpiarPartida();
                 c.CargarRecibos(dataGridView1, tipo, txtFiltro.Text, txtFiltroDocumento.Text, txtFiltroNombre.Text);
                 c.CargarRecibos2(DataGridView2, tipo, txtFiltro.Text, txtFiltroDocumento.Text, txtFiltroNombre.Text);
             }
@@ -1392,11 +1491,19 @@ namespace PV
             {
                 string Folio = dataGridView1.Rows[e.RowIndex].Cells["Folio"].Value.ToString();
                 txtFolio.Text = "X";
-                c.ConsultaRecibo(Folio, txtClave, cmbEstatus, txtFecha, txtDiasVence, txtFechaVence, txtDivisa, txtTipoCambio, txtSubtotal, txtDescuento, txtRecargo, txtTotal, txtPartidas, txtNotas, txtElaborado, txtFolio, txtConsecutivo, txtAutoriza, txtFechaAuto);
+                if (tipo == "Remision")
+                {
+                    o.ConsultaRemision(Folio, txtClave, cmbEstatus, txtFecha, txtDiasVence, txtFechaVence, txtDivisa, txtTipoCambio, txtSubtotal, txtDescuento, txtRecargo, txtTotal, txtPartidas, txtNotas, txtElaborado, txtFolio, txtConsecutivo, txtAutoriza, txtFechaAuto, cmbAlmacen);
+                }
+                else
+                {
+                    c.ConsultaRecibo(Folio, txtClave, cmbEstatus, txtFecha, txtDiasVence, txtFechaVence, txtDivisa, txtTipoCambio, txtSubtotal, txtDescuento, txtRecargo, txtTotal, txtPartidas, txtNotas, txtElaborado, txtFolio, txtConsecutivo, txtAutoriza, txtFechaAuto, cmbAlmacen);
+
+                }
                 cmbDocumento.Enabled = false;
                 txtDiasVence.Enabled = false;
                 txtNotas.Enabled = false;
-
+                cmbAlmacen.Enabled = false;
                 TxtFolio2.Text = txtFolio.Text;
                 //  button3.Enabled = false;
                 //       button7.Enabled = true;
@@ -1411,6 +1518,13 @@ namespace PV
                 cmbDocumento.Text = txtClave.Text + " - " + txtDocumento.Text;
                 //   groupBox2.Enabled = true;
                 guna2GradientPanel2.Visible= false;
+
+                c.CargarOrdenPedidoClientePartidas(guna2DataGridView1, TxtFolio2.Text);
+                if (cmbEstatus.Text != "Abierto")
+                {
+                    c.SeleccionarProducto2(cmbConcepto, "");
+                }
+
             }
             else
             {
@@ -1424,7 +1538,15 @@ namespace PV
             {
                 string Folio = DataGridView2.Rows[e.RowIndex].Cells["Folio2"].Value.ToString();
                 txtFolio.Text = "X";
-                c.ConsultaRecibo(Folio, txtClave, cmbEstatus, txtFecha, txtDiasVence, txtFechaVence, txtDivisa, txtTipoCambio, txtSubtotal, txtDescuento, txtRecargo, txtTotal, txtPartidas, txtNotas, txtElaborado, txtFolio, txtConsecutivo, txtAutoriza, txtFechaAuto);
+                if (tipo == "Remision")
+                {
+                    o.ConsultaRemision(Folio, txtClave, cmbEstatus, txtFecha, txtDiasVence, txtFechaVence, txtDivisa, txtTipoCambio, txtSubtotal, txtDescuento, txtRecargo, txtTotal, txtPartidas, txtNotas, txtElaborado, txtFolio, txtConsecutivo, txtAutoriza, txtFechaAuto, cmbAlmacen);
+                }
+                else
+                {
+                    c.ConsultaRecibo(Folio, txtClave, cmbEstatus, txtFecha, txtDiasVence, txtFechaVence, txtDivisa, txtTipoCambio, txtSubtotal, txtDescuento, txtRecargo, txtTotal, txtPartidas, txtNotas, txtElaborado, txtFolio, txtConsecutivo, txtAutoriza, txtFechaAuto, cmbAlmacen);
+
+                }
                 cmbDocumento.Enabled = false;
                 txtDiasVence.Enabled = false;
                 txtNotas.Enabled = false;
@@ -1442,6 +1564,8 @@ namespace PV
                 cmbDocumento.Text = txtClave.Text + " - " + txtDocumento.Text;
                 //groupBox2.Enabled = true;
                 guna2GradientPanel2.Visible = false;
+                c.CargarOrdenPedidoClientePartidas(guna2DataGridView1, TxtFolio2.Text);
+
             }
             else
             {
@@ -1493,9 +1617,8 @@ namespace PV
                 guna2GradientPanel2.Visible = true;
 
             }
-            return;
-            //guna2GradientPanel6.Location = new Point(1017, 83);
-            //guna2GradientPanel6.Size = new Size(112, 583);
+            guna2GradientPanel6.Location = new Point(1017, 83);
+            guna2GradientPanel6.Size = new Size(112, 583);
             guna2GradientPanel7.Size = new Size(112, 583);
             guna2GradientPanel7.BringToFront();
 
@@ -1587,7 +1710,7 @@ namespace PV
 
         private void txtCantidad_Leave(object sender, EventArgs e)
         {
-            if (!string.IsNullOrEmpty(txtCantidadP.Text))
+            if (!string.IsNullOrEmpty(txtCantidadP.Text) && tipo.Equals("Remision"))
             {
                 decimal cantidadp = Convert.ToDecimal(txtCantidadP.Text);
                 decimal cantidad = Convert.ToDecimal(txtCantidad.Text);
@@ -1607,6 +1730,14 @@ namespace PV
             {
                 txtFolioPedido.Text = BuscarDocumento.FolioO;
                 d.Text = BuscarDocumento.DocumentoO + "-" + BuscarDocumento.Conscutivo;// + " - " + BuscarDocumento.Nombre;
+                string[] datos=c.InformacionOrdenPedido(txtFolioPedido.Text);
+                string[] datosAlmacen = a.InformacionAlmacen(datos[3]);
+                txtMatricular.Text= datos[2];
+
+                cmbAlmacen.Text= datosAlmacen[0]+" - "+datosAlmacen[1];
+                cmbAlmacen.Enabled = false;
+                btnCliente.Enabled = false;
+            
             }
         }
 
@@ -1668,6 +1799,30 @@ namespace PV
         private void tabPage2_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void guna2Button15_Click(object sender, EventArgs e)
+        {
+
+            Limpiar();
+            cmbDocumento.Enabled = true;
+            cmbAlmacen.Enabled=true;
+            txtDiasVence.Enabled=true;
+            txtNotas.Enabled=true;
+        }
+
+        private void guna2Button16_Click(object sender, EventArgs e)
+        {
+            if (guna2GradientPanel2.Visible)
+            {
+                guna2GradientPanel2.Visible = false;
+
+            }
+            else
+            {
+                guna2GradientPanel2.Visible = true;
+
+            }
         }
     }
 

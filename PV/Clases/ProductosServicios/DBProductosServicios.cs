@@ -443,106 +443,107 @@ namespace PuntoVentas.Clases.ProductosServicios
         }
         //_____________________________________________________________________________________________________
         //Mostrar Usuario seleccionado
-        public void ConsultaProductoSeleccionado(string txtClaveProducto, Guna2TextBox txtAlias, Guna2TextBox txtDescripcion, ComboBox cmbEstatus, Guna2TextBox txtMarca, Guna2TextBox txtUnidadMedida, Guna2TextBox txtPresentacion, Guna2ToggleSwitch tgInventariable,Guna2TextBox txtCaducidad, TextBox txtCategoria, TextBox txtFamilia, ComboBox cmbCategoria, ComboBox cmbFamilia, Guna2TextBox txtProveedor, Guna2TextBox txtExMinimo, Guna2TextBox txtExMaximo, Guna2TextBox txtExActual, Guna2TextBox txtUbicacion, ComboBox cmbTipoCosteo, Guna2TextBox txtCostoUnitario, ComboBox cmbDivisa, Guna2TextBox txtDescuentoPorc, Guna2TextBox txtDescuentoCant, Guna2TextBox txtImpuestoPorc, Guna2TextBox txtImpuestoCant, Guna2TextBox txtPrecioVenta, PictureBox Foto, TextBox txtConcepto, ComboBox cmbConcepto, Guna2TextBox txtPedidosProveedor, Guna2TextBox txtPedidosCliente)
+        public void ConsultaProductoSeleccionado(string txtClaveProducto, Guna2TextBox txtAlias, Guna2TextBox txtDescripcion, ComboBox cmbEstatus, Guna2TextBox txtMarca, Guna2TextBox txtUnidadMedida, Guna2TextBox txtPresentacion, Guna2ToggleSwitch tgInventariable, Guna2TextBox txtCaducidad, TextBox txtCategoria, TextBox txtFamilia, ComboBox cmbCategoria, ComboBox cmbFamilia, Guna2TextBox txtProveedor, Guna2TextBox txtExMinimo, Guna2TextBox txtExMaximo, Guna2TextBox txtExActual, Guna2TextBox txtUbicacion, ComboBox cmbTipoCosteo, Guna2TextBox txtCostoUnitario, ComboBox cmbDivisa, Guna2TextBox txtDescuentoPorc, Guna2TextBox txtDescuentoCant, Guna2TextBox txtImpuestoPorc, Guna2TextBox txtImpuestoCant, Guna2TextBox txtPrecioVenta, PictureBox Foto, TextBox txtConcepto, ComboBox cmbConcepto, Guna2TextBox txtPedidosProveedor, Guna2TextBox txtPedidosCliente)
         {
             try
             {
-                cmd = new SqlCommand("Select * from ProductosServicios where ClaveProducto='" + txtClaveProducto + "'", cn);
+                using (SqlCommand cmd = new SqlCommand("SELECT * FROM ProductosServicios WHERE ClaveProducto = @ClaveProducto", cn))
+                {
+                    cmd.Parameters.AddWithValue("@ClaveProducto", txtClaveProducto);
+
+                    using (SqlDataReader dr = cmd.ExecuteReader())
+                    {
+                        if (dr.Read())
+                        {
+                            // Asignar valores a los controles
+                            txtAlias.Text = dr["Alias"].ToString();
+                            txtDescripcion.Text = dr["Descripcion"].ToString();
+                            cmbEstatus.Text = dr["Estatus"].ToString();
+                            txtMarca.Text = dr["Marca"].ToString();
+                            txtUnidadMedida.Text = dr["UnidadMedida"].ToString();
+                            txtPresentacion.Text = dr["Presentacion"].ToString();
+                            tgInventariable.Checked = dr["Inventariable"].ToString() == "Si";
+                            txtCaducidad.Text = dr["Caducidad"].ToString();
+                            txtProveedor.Text = dr["Proveedor"].ToString();
+                            txtExMinimo.Text = dr["ExMinimo"].ToString();
+                            txtExMaximo.Text = dr["ExMaximo"].ToString();
+                            txtExActual.Text = dr["ExActual"].ToString();
+                            txtUbicacion.Text = dr["Ubicacion"].ToString();
+                            cmbTipoCosteo.Text = dr["TipoCosteo"].ToString();
+                            txtCostoUnitario.Text = dr["CostoUnitario"].ToString();
+                            cmbDivisa.Text = dr["Divisa"].ToString();
+                            txtDescuentoPorc.Text = dr["DescuentoPorc"].ToString();
+                            txtDescuentoCant.Text = dr["DescuentoCant"].ToString();
+                            txtImpuestoPorc.Text = dr["ImpuestoPorc"].ToString();
+                            txtImpuestoCant.Text = dr["ImpuestoCant"].ToString();
+                            txtPrecioVenta.Text = dr["PrecioVenta"].ToString();
+
+                            // Cargar imagen si existe
+                            if (dr["Foto"] != DBNull.Value)
+                            {
+                                byte[] datos = (byte[])dr["Foto"];
+                                using (System.IO.MemoryStream ms = new System.IO.MemoryStream(datos))
+                                {
+                                    Foto.Image = System.Drawing.Bitmap.FromStream(ms);
+                                }
+                            }
+
+                            // Asignar categorías, familias y conceptos
+                            txtCategoria.Text = dr["Categoria"].ToString();
+                            txtFamilia.Text = dr["Familia"].ToString();
+                            txtConcepto.Text = dr["ConceptoGlobales"].ToString();
+                        }
+                    }
+                }
+                dr.Close();
+                cmd = new SqlCommand("Select * from Categorias where ClaveCategoria= " + txtCategoria.Text + "", cn);
                 dr = cmd.ExecuteReader();
                 if (dr.Read())
                 {
-
-                    txtAlias.Text = dr["Alias"].ToString();
-                    txtDescripcion.Text = dr["Descripcion"].ToString();
-                    cmbEstatus.Text = dr["Estatus"].ToString();
-                    txtMarca.Text = dr["Marca"].ToString();
-                    txtUnidadMedida.Text = dr["UnidadMedida"].ToString();
-                    txtPresentacion.Text = dr["Presentacion"].ToString();
-
-                    if (dr["Inventariable"].ToString() == "Si")
-                    {
-                        tgInventariable.Checked = true;
-                    }
-                    else
-                    {
-                        tgInventariable.Checked = false;
-
-                    }
-
-                    txtCaducidad.Text = dr["Caducidad"].ToString();
-
-                    txtProveedor.Text = dr["Proveedor"].ToString();
-                    txtExMinimo.Text = dr["ExMinimo"].ToString();
-                    txtExMaximo.Text = dr["ExMaximo"].ToString();
-                    txtExActual.Text = dr["ExActual"].ToString();
-                    txtUbicacion.Text = dr["Ubicacion"].ToString();
-                    cmbTipoCosteo.Text = dr["TipoCosteo"].ToString();
-                    txtCostoUnitario.Text = dr["CostoUnitario"].ToString();
-                    cmbDivisa.Text = dr["Divisa"].ToString();
-                    txtDescuentoPorc.Text = dr["DescuentoPorc"].ToString();
-                    txtDescuentoCant.Text = dr["DescuentoCant"].ToString();
-                    txtImpuestoPorc.Text = dr["ImpuestoPorc"].ToString();
-                    txtImpuestoCant.Text = dr["ImpuestoCant"].ToString();
-                    txtPrecioVenta.Text = dr["PrecioVenta"].ToString();
-
-                    string Imagen = dr["Foto"].ToString();
-
-                    if (Imagen != "")
-                    {
-                        byte[] datos = new byte[0];
-                        datos = (byte[])dr["Foto"];
-
-                        System.IO.MemoryStream ms = new System.IO.MemoryStream(datos);
-                        Foto.Image = System.Drawing.Bitmap.FromStream(ms);
-                    }
-
-                    txtCategoria.Text = dr["Categoria"].ToString();
-                    txtFamilia.Text = dr["Familia"].ToString();
-                    txtConcepto.Text = dr["ConceptoGlobales"].ToString();
-
-                    string categoria = dr["Categoria"].ToString();
-                    string familia = dr["Familia"].ToString();
-                    string Concepto = dr["ConceptoGlobales"].ToString();
-                    dr.Close();
-
-                    cmd = new SqlCommand("Select * from Categorias where ClaveCategoria= " + categoria + "", cn);
-                    dr = cmd.ExecuteReader();
-                    if (dr.Read())
-                    {
-                        cmbCategoria.Text = dr["Nombre"].ToString();
-                    }
-                    dr.Close();
-
-                    cmd = new SqlCommand("Select * from Familias where ClaveFamilia= '" + familia + "'", cn);
-                    dr = cmd.ExecuteReader();
-                    if (dr.Read())
-                    {
-                        cmbFamilia.Text = dr["Nombre"].ToString();
-                    }
-                    dr.Close();
-
-                    cmd = new SqlCommand("Select * from ConceptosGlobales where Clave= '" + Concepto + "'", cn);
-                    dr = cmd.ExecuteReader();
-                    if (dr.Read())
-                    {
-                        cmbConcepto.Text = dr["Nombre"].ToString();
-                    }
-                    else
-                    {
-                        cmbConcepto.Text = null;
-                    }
-                    txtPedidosProveedor.Text = dr["PedidosProveedor"].ToString();
-                    txtPedidosCliente.Text = dr["PedidosCliente"].ToString();
-                    dr.Close();
+                    cmbCategoria.Text = dr["Nombre"].ToString();
                 }
                 dr.Close();
+
+                cmd = new SqlCommand("Select * from Familias where ClaveFamilia= '" + txtFamilia.Text + "'", cn);
+                dr = cmd.ExecuteReader();
+                if (dr.Read())
+                {
+                    cmbFamilia.Text = dr["Nombre"].ToString();
+                }
+                dr.Close();
+
+                cmd = new SqlCommand("Select * from ConceptosGlobales where Clave= '" + txtConcepto.Text + "'", cn);
+                dr = cmd.ExecuteReader();
+                if (dr.Read())
+                {
+                    cmbConcepto.Text = dr["Nombre"].ToString();
+                }
+                else
+                {
+                    cmbConcepto.Text = null;
+                }
+                dr.Close();
+
+                // Consultar PedidosProveedor y PedidosCliente
+                using (SqlCommand cmdPedidos = new SqlCommand("SELECT PedidosProveedor, PedidosCliente FROM ProductosServicios WHERE ClaveProducto = @ClaveProducto", cn))
+                {
+                    cmdPedidos.Parameters.AddWithValue("@ClaveProducto", txtClaveProducto);
+                    using (SqlDataReader drPedidos = cmdPedidos.ExecuteReader())
+                    {
+                        if (drPedidos.Read())
+                        {
+                            txtPedidosProveedor.Text = drPedidos["PedidosProveedor"].ToString();
+                            txtPedidosCliente.Text = drPedidos["PedidosCliente"].ToString();
+                        }
+                    }
+                }
             }
             catch (Exception ex)
             {
-                dr.Close();
-                MessageBox.Show("Error" + ex.ToString());
+                MessageBox.Show("Error: " + ex.Message);
             }
         }
+
         //_________________________________________________________________________________________________________________________--
         // registrar divisa 
         public string EliminarDivisa(string txtClaveDivisa)

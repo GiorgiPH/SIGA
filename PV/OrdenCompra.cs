@@ -120,7 +120,7 @@ namespace PV
 
                 if (txtFolio.Text == string.Empty)
                 {
-                    c.InsertarOrden(txtFolio, txtClave.Text, cmbEstatus.Text, txtFecha.Text, txtDiasVence.Text, txtFechaVence.Text, txtMatricular.Text, txtDivisa.Text, txtTipoCambio.Text, txtNotas.Text, txtElaborado.Text, txtConsecutivo.Text);
+                    c.InsertarOrden(txtFolio, txtClave.Text, cmbEstatus.Text, txtFecha.Text, txtDiasVence.Text, txtFechaVence.Text, txtMatricular.Text, txtDivisa.Text, txtTipoCambio.Text, txtNotas.Text, txtElaborado.Text, txtConsecutivo.Text, "0");
                 }
 
                 if (cmbDocumento.Text == txtDocumentoCol.Text)

@@ -354,8 +354,9 @@ namespace PV
 
             c.SeleccionarDivisa(cmbDivisa);
             txtUltimoFolio.Clear();
-            txtFolioRegistrar.Clear();
             txtReferencia.Clear();
+            txtFolioRegistrar.Text=string.Empty;
+
             cmbAlmacen.Text = null;
             txtTotalPartidas.Text = "0";
             txtTotal.Text = "0.00";
@@ -367,6 +368,7 @@ namespace PV
             txtAlmacenSalida.Clear();
             txtFolioP.Clear();
             cmbAlmacenSalida.Text = null;
+            guna2DataGridView1.Rows.Clear();
             // groupBox2.Enabled = false;
             MovimientosInventario.Subtotal = 0.00;
             MovimientosInventario.Descuento = 0.00;

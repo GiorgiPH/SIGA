@@ -381,6 +381,7 @@ namespace PV.Clases.PedidoCliente
                 MessageBox.Show("Error al cargar");
             }
         }
+       
         //__________________________________________________________________________________________________________-
         public void CargarRecibos2(DataGridView dgv, string tipo, string consecutivo, string documento, string proveedor)
         {
@@ -1903,7 +1904,7 @@ namespace PV.Clases.PedidoCliente
         {
             try
             {
-                cmd = new SqlCommand("update OrdenPedidoCliente  set CantidadPendiente=CantidadPendiente-'" + Cantidad + "', CantidadEntregada=CantidadEntregada+'" + CantidadEntre + "' where FolioOrden='" + Folio + "' and ClaveProducto='" + ClaveP + "'", cn);
+                cmd = new SqlCommand("update PartidaOrdenPedidoCliente set CantidadPendiente=CantidadPendiente-'" + Cantidad + "', CantidadEntregada=CantidadEntregada+'" + CantidadEntre + "' where FolioOrden='" + Folio + "' and ClaveProducto='" + ClaveP + "'", cn);
                 cmd.ExecuteNonQuery();
             }
             catch (Exception ex)
@@ -2319,23 +2320,7 @@ namespace PV.Clases.PedidoCliente
             }
         }
         //_________________________________________________________________________________________________________
-        public string[] InformacionPropietarioRecibo(string Matricula)
-        {
-            cmd = new SqlCommand("Select IdCliente, RazonSocial from Clientes where IdCliente= '" + Matricula + "'", cn);
-            dr = cmd.ExecuteReader();
-            string[] resultado = null;
-            while (dr.Read())
-            {
-                string[] valores =
-                {
-                    dr[0].ToString(),
-                    dr[1].ToString(),
-                };
-                resultado = valores;
-            }
-            dr.Close();
-            return resultado;
-        }
+       
         //_________________________________________________________________________________________________________
         public string[] InformacionCondominio(string Matricula)
         {
@@ -2418,7 +2403,7 @@ namespace PV.Clases.PedidoCliente
             try
             {
 
-                cmd = new SqlCommand("Select 1 from OrdenPedidoCliente where CantidadPendiente>0 and Folio='" + Folio + "'", cn);
+                cmd = new SqlCommand("Select 1 from partidaOrdenPedidoCliente where CantidadPendiente>0 and FolioOrden='" + Folio + "'", cn);
                 dr = cmd.ExecuteReader();
                 if (dr.Read())
                     pendiente = true;
@@ -2694,7 +2679,29 @@ namespace PV.Clases.PedidoCliente
             }
         }
         //_______________________________________________________________________________________________________________
-        public void ReciboSaldosPartidasOrden(string txtFolio, Guna.UI2.WinForms.Guna2TextBox txtSubtoral, Guna.UI2.WinForms.Guna2TextBox txtDescuento, Guna.UI2.WinForms.Guna2TextBox txtTotal)
+        public void ReciboSaldosPartidasOrden(string txtFolio, Guna.UI2.WinForms.Guna2TextBox txtSubtoral, Guna.UI2.WinForms.Guna2TextBox txtDescuento, Guna.UI2.WinForms.Guna2TextBox txtTotal, Guna.UI2.WinForms.Guna2TextBox txtImpuesto)
+        {
+            try
+            {
+
+                cmd = new SqlCommand("select sum(isnull(Subtotal, 0)) as Subtotal, sum(isnull(Descuento, 0)) as Descuento, sum(isnull(Total, 0)) as Total, sum(isnull(convert(decimal, (Impuesto / 100) * Subtotal), 0)) as Impuesto from [PartidaOrdenPedidoCliente] where FolioOrden = '" + txtFolio + "'", cn);
+                dr = cmd.ExecuteReader();
+
+                if (dr.Read())
+                {
+                    txtSubtoral.Text = dr["Subtotal"].ToString();
+                    txtDescuento.Text = dr["Descuento"].ToString();
+                    txtTotal.Text = dr["Total"].ToString();
+                    txtImpuesto.Text = dr["Impuesto"].ToString();
+                }
+                dr.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("ERROR" + ex.ToString());
+            }
+        }
+        public void ReciboSaldosPartidasCliente(string txtFolio, Guna.UI2.WinForms.Guna2TextBox txtSubtoral, Guna.UI2.WinForms.Guna2TextBox txtDescuento, Guna.UI2.WinForms.Guna2TextBox txtTotal)
         {
             try
             {
@@ -2999,12 +3006,12 @@ namespace PV.Clases.PedidoCliente
             }
         }
         //______________________________________________________________________________________________________-
-        public void ConsultaRecibo(string Folio, TextBox Documento, ComboBox Estatus, Guna.UI2.WinForms.Guna2TextBox Fecha, Guna.UI2.WinForms.Guna2TextBox Dias, Guna.UI2.WinForms.Guna2TextBox FechaVence, Guna.UI2.WinForms.Guna2TextBox Divisa, Guna.UI2.WinForms.Guna2TextBox TipoCambio, Guna.UI2.WinForms.Guna2TextBox Subtotal, Guna.UI2.WinForms.Guna2TextBox Descuentos, Guna.UI2.WinForms.Guna2TextBox Cargo, Guna.UI2.WinForms.Guna2TextBox Total, Guna.UI2.WinForms.Guna2TextBox Partidas, Guna.UI2.WinForms.Guna2TextBox Notas, Guna.UI2.WinForms.Guna2TextBox Elaborado, TextBox txtFolio, Guna.UI2.WinForms.Guna2TextBox txtConsecutivo, Guna.UI2.WinForms.Guna2TextBox txtAutoriza, Guna.UI2.WinForms.Guna2TextBox txtFechaAutoriza)
+        public void ConsultaRecibo(string Folio, TextBox Documento, ComboBox Estatus, Guna.UI2.WinForms.Guna2TextBox Fecha, Guna.UI2.WinForms.Guna2TextBox Dias, Guna.UI2.WinForms.Guna2TextBox FechaVence, Guna.UI2.WinForms.Guna2TextBox Divisa, Guna.UI2.WinForms.Guna2TextBox TipoCambio, Guna.UI2.WinForms.Guna2TextBox Subtotal, Guna.UI2.WinForms.Guna2TextBox Descuentos, Guna.UI2.WinForms.Guna2TextBox Cargo, Guna.UI2.WinForms.Guna2TextBox Total, Guna.UI2.WinForms.Guna2TextBox Partidas, Guna.UI2.WinForms.Guna2TextBox Notas, Guna.UI2.WinForms.Guna2TextBox Elaborado, TextBox txtFolio, Guna.UI2.WinForms.Guna2TextBox txtConsecutivo, Guna.UI2.WinForms.Guna2TextBox txtAutoriza, Guna.UI2.WinForms.Guna2TextBox txtFechaAutoriza, ComboBox cmbAlmacen)
         {
             try
             {
 
-                cmd = new SqlCommand("Select * from OrdenPedidoCliente where Folio='" + Folio + "'", cn);
+                cmd = new SqlCommand("Select *, (Cast(A.Clave as varchar)+' - '+A.Nombre) as Alm from OrdenPedidoCliente as O Left Join Almacenes as A on A.Clave=O.Almacen where Folio='" + Folio + "'", cn);
                 dr = cmd.ExecuteReader();
                 if (dr.Read())
                 {
@@ -3033,7 +3040,7 @@ namespace PV.Clases.PedidoCliente
                     {
                         txtFechaAutoriza.Text = Convert.ToDateTime(dr["FechaAutoriza"]).ToString("yyyy-MM-dd");
                     }
-
+                    cmbAlmacen.Text = dr["Alm"].ToString();
                 }
                 dr.Close();
             }
@@ -3219,19 +3226,54 @@ namespace PV.Clases.PedidoCliente
             dr.Close();
             return resultado;
         }
+        public void ConsultarPartidasOrdenPedido(DataGridView dgv, string Orden)
+        {
+            // Usar parámetros en lugar de concatenación para evitar SQL Injection
+            string query = "Select * from PartidaOrdenPedidoCliente where FolioOrden = @FolioOrden";
+            using (SqlCommand cmd = new SqlCommand(query, cn))
+            {
+                // Asignar el parámetro de la consulta
+                cmd.Parameters.AddWithValue("@FolioOrden", Orden);
+
+                using (SqlDataReader dr = cmd.ExecuteReader())
+                {
+                    // Limpiar el DataGridView antes de cargar nuevos datos
+                    dgv.Rows.Clear();
+
+                    // Leer cada fila de la consulta
+                    while (dr.Read())
+                    {
+                        // Asumiendo que dr[0], dr[1], etc. corresponden a las columnas que necesitas
+                        string[] valores =
+                        {
+                    dr[0].ToString(),
+                    dr[1].ToString(),
+                    dr[2].ToString(),
+                    // Agrega más columnas si es necesario
+                };
+
+                        // Agregar la fila al DataGridView
+                        dgv.Rows.Add(valores);
+                    }
+                }
+            }
+        }
 
         //_________________________________________________________________________________________
-        public string[] InformacionDocumento3(string Orden)
+        public string[] InformacionOrdenPedido(string Orden)
         {
-            cmd = new SqlCommand(" select OC.ClaveDocumento, D.Nombre from OrdenPedidoCliente as OC, Documento as D,Proveedor as P where OC.ClaveDocumento=D.Clave and  OC.IdCliente=P.IdCliente and (convert(varchar,OC.Consecutivo) + ' - ' +  P.RazonSocial)= '" + Orden + "'", cn);
+            cmd = new SqlCommand(" select OC.Folio, OC.ClaveDocumento, Oc.IdCliente, OC.Almacen, OC.Tipo from OrdenPedidoCliente as OC where Folio='"+Orden+"'", cn);
             dr = cmd.ExecuteReader();
             string[] resultado = null;
             while (dr.Read())
             {
                 string[] valores =
                 {
-                    dr[0].ToString(),
-                     dr[1].ToString(),
+                    dr["Folio"].ToString(),
+                     dr["ClaveDocumento"].ToString(),
+                     dr["IdCliente"].ToString(),
+                     dr["Almacen"].ToString(),
+                     dr["Tipo"].ToString(),
 
                 };
                 resultado = valores;
@@ -3258,7 +3300,7 @@ namespace PV.Clases.PedidoCliente
             return resultado;
         }
         //_______________________________________________________
-        public void CargarRecibosPartidas(DataGridView dgv, string Folio)
+        public void CargarOrdenPedidoClientePartidas(DataGridView dgv, string Folio)
         {
             try
             {
@@ -3353,7 +3395,7 @@ namespace PV.Clases.PedidoCliente
         }
         //___________________________________________________________________________
         //............................................................................................................
-        public void ConsultaPartida(string Folio, string Partida, TextBox claveconcepto, TextBox Concepto, Guna.UI2.WinForms.Guna2TextBox Concepto2, Guna.UI2.WinForms.Guna2TextBox cantidad, Guna.UI2.WinForms.Guna2TextBox unidad, Guna.UI2.WinForms.Guna2TextBox divisa, Guna.UI2.WinForms.Guna2TextBox tipocambio, Guna.UI2.WinForms.Guna2TextBox subtotal, Guna.UI2.WinForms.Guna2TextBox descuento, Guna.UI2.WinForms.Guna2TextBox total, Guna.UI2.WinForms.Guna2TextBox TxtPrecio, Guna.UI2.WinForms.Guna2TextBox txtImpuesto, Guna.UI2.WinForms.Guna2TextBox txtEntregado)
+        public void ConsultaPartidaOrdenPedido(string Folio, string Partida, TextBox claveconcepto, TextBox Concepto, Guna.UI2.WinForms.Guna2TextBox Concepto2, Guna.UI2.WinForms.Guna2TextBox cantidad, Guna.UI2.WinForms.Guna2TextBox unidad, Guna.UI2.WinForms.Guna2TextBox divisa, Guna.UI2.WinForms.Guna2TextBox tipocambio, Guna.UI2.WinForms.Guna2TextBox subtotal, Guna.UI2.WinForms.Guna2TextBox descuento, Guna.UI2.WinForms.Guna2TextBox total, Guna.UI2.WinForms.Guna2TextBox TxtPrecio, Guna.UI2.WinForms.Guna2TextBox txtImpuesto, Guna.UI2.WinForms.Guna2TextBox txtEntregado, ComboBox cmbConcepto2)
         {
             try
             {
@@ -3375,6 +3417,7 @@ namespace PV.Clases.PedidoCliente
                     total.Text = dr["Total"].ToString();
                     txtImpuesto.Text = dr["Impuesto"].ToString();
                     txtEntregado.Text = dr["CantidadRecibida"].ToString();
+                    cmbConcepto2.Text = dr["Descripcion"].ToString();
                 }
                 dr.Close();
             }
@@ -4236,7 +4279,7 @@ namespace PV.Clases.PedidoCliente
 
                     SqlCommand cmd = new SqlCommand("IF NOT EXISTS (SELECT * FROM TipoMovimiento WHERE Documento = 'SPR' AND TipoMovimiento = 'S') " +
                                                      "BEGIN " +
-                                                     "    INSERT INTO TipoMovimiento VALUES ('E', 'SPR', 'SALIDA POR REMISIÓN', 'Activo', '0', 'Si', 'Si', '', '') " +
+                                                     "    INSERT INTO TipoMovimiento VALUES ('S', 'SPR', 'SALIDA POR REMISIÓN', 'Activo', '0', 'Si', 'Si', '', '') " +
                                                      "END", cn);
 
                     cmd.ExecuteNonQuery();

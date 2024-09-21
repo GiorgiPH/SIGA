@@ -232,8 +232,6 @@
             this.btnDatosMmpresa = new Guna.UI2.WinForms.Guna2GradientButton();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.GroupCatalogo = new Guna.UI2.WinForms.Guna2GroupBox();
-            this.guna2VScrollBar1 = new Guna.UI2.WinForms.Guna2VScrollBar();
             this.guna2Panel5 = new Guna.UI2.WinForms.Guna2Panel();
             this.btnUtilerias2 = new Guna.UI2.WinForms.Guna2GradientButton();
             this.BtnParametros2 = new Guna.UI2.WinForms.Guna2GradientButton();
@@ -251,23 +249,25 @@
             this.btnTesoreria1 = new Guna.UI2.WinForms.Guna2GradientButton();
             this.btnventas1 = new Guna.UI2.WinForms.Guna2GradientButton();
             this.btnventas2 = new Guna.UI2.WinForms.Guna2GradientButton();
-            this.BtnCuentasBancarias = new Guna.UI2.WinForms.Guna2GradientButton();
-            this.btnDivisas = new Guna.UI2.WinForms.Guna2GradientButton();
-            this.btnAlmacen = new Guna.UI2.WinForms.Guna2GradientButton();
-            this.BtnProveedores = new Guna.UI2.WinForms.Guna2GradientButton();
-            this.BtnCategorias = new Guna.UI2.WinForms.Guna2GradientButton();
-            this.BtnProductos = new Guna.UI2.WinForms.Guna2GradientButton();
-            this.BtnClientes = new Guna.UI2.WinForms.Guna2GradientButton();
-            this.BtnServicios = new Guna.UI2.WinForms.Guna2GradientButton();
-            this.BtnCentroCosto = new Guna.UI2.WinForms.Guna2GradientButton();
-            this.BtnTiposZonas = new Guna.UI2.WinForms.Guna2GradientButton();
-            this.BtnDocumentos = new Guna.UI2.WinForms.Guna2GradientButton();
-            this.BtnConceptosGlobales = new Guna.UI2.WinForms.Guna2GradientButton();
-            this.BtnEmpleados = new Guna.UI2.WinForms.Guna2GradientButton();
-            this.BtnFormaPago = new Guna.UI2.WinForms.Guna2GradientButton();
             this.guna2Button2 = new Guna.UI2.WinForms.Guna2Button();
             this.guna2Button1 = new Guna.UI2.WinForms.Guna2Button();
             this.guna2HtmlLabel1 = new Guna.UI2.WinForms.Guna2HtmlLabel();
+            this.BtnFormaPago = new Guna.UI2.WinForms.Guna2GradientButton();
+            this.BtnEmpleados = new Guna.UI2.WinForms.Guna2GradientButton();
+            this.BtnConceptosGlobales = new Guna.UI2.WinForms.Guna2GradientButton();
+            this.BtnDocumentos = new Guna.UI2.WinForms.Guna2GradientButton();
+            this.BtnTiposZonas = new Guna.UI2.WinForms.Guna2GradientButton();
+            this.BtnCentroCosto = new Guna.UI2.WinForms.Guna2GradientButton();
+            this.BtnServicios = new Guna.UI2.WinForms.Guna2GradientButton();
+            this.BtnClientes = new Guna.UI2.WinForms.Guna2GradientButton();
+            this.BtnProductos = new Guna.UI2.WinForms.Guna2GradientButton();
+            this.BtnCategorias = new Guna.UI2.WinForms.Guna2GradientButton();
+            this.BtnProveedores = new Guna.UI2.WinForms.Guna2GradientButton();
+            this.btnAlmacen = new Guna.UI2.WinForms.Guna2GradientButton();
+            this.btnDivisas = new Guna.UI2.WinForms.Guna2GradientButton();
+            this.BtnCuentasBancarias = new Guna.UI2.WinForms.Guna2GradientButton();
+            this.guna2VScrollBar1 = new Guna.UI2.WinForms.Guna2VScrollBar();
+            this.GroupCatalogo = new Guna.UI2.WinForms.Guna2GroupBox();
             this.guna2Panel1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             this.guna2Panel3.SuspendLayout();
@@ -291,8 +291,8 @@
             this.GruopParametros.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
-            this.GroupCatalogo.SuspendLayout();
             this.guna2Panel5.SuspendLayout();
+            this.GroupCatalogo.SuspendLayout();
             this.SuspendLayout();
             // 
             // administracionDeGruposToolStripMenuItem
@@ -3074,48 +3074,6 @@
             this.pictureBox1.TabIndex = 43;
             this.pictureBox1.TabStop = false;
             // 
-            // GroupCatalogo
-            // 
-            this.GroupCatalogo.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.GroupCatalogo.BorderColor = System.Drawing.Color.White;
-            this.GroupCatalogo.BorderThickness = 0;
-            this.GroupCatalogo.Controls.Add(this.guna2VScrollBar1);
-            this.GroupCatalogo.Controls.Add(this.BtnCuentasBancarias);
-            this.GroupCatalogo.Controls.Add(this.btnDivisas);
-            this.GroupCatalogo.Controls.Add(this.btnAlmacen);
-            this.GroupCatalogo.Controls.Add(this.BtnProveedores);
-            this.GroupCatalogo.Controls.Add(this.BtnCategorias);
-            this.GroupCatalogo.Controls.Add(this.BtnProductos);
-            this.GroupCatalogo.Controls.Add(this.BtnClientes);
-            this.GroupCatalogo.Controls.Add(this.BtnServicios);
-            this.GroupCatalogo.Controls.Add(this.BtnCentroCosto);
-            this.GroupCatalogo.Controls.Add(this.BtnTiposZonas);
-            this.GroupCatalogo.Controls.Add(this.BtnDocumentos);
-            this.GroupCatalogo.Controls.Add(this.BtnConceptosGlobales);
-            this.GroupCatalogo.Controls.Add(this.BtnEmpleados);
-            this.GroupCatalogo.Controls.Add(this.BtnFormaPago);
-            this.GroupCatalogo.CustomBorderColor = System.Drawing.Color.Transparent;
-            this.GroupCatalogo.FillColor = System.Drawing.Color.DodgerBlue;
-            this.GroupCatalogo.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.GroupCatalogo.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(19)))), ((int)(((byte)(35)))), ((int)(((byte)(95)))));
-            this.GroupCatalogo.Location = new System.Drawing.Point(6, 78);
-            this.GroupCatalogo.Name = "GroupCatalogo";
-            this.GroupCatalogo.Size = new System.Drawing.Size(195, 671);
-            this.GroupCatalogo.TabIndex = 60;
-            this.GroupCatalogo.Visible = false;
-            this.GroupCatalogo.Click += new System.EventHandler(this.GroupCatalogo_Click);
-            // 
-            // guna2VScrollBar1
-            // 
-            this.guna2VScrollBar1.BindingContainer = this.guna2Panel5;
-            this.guna2VScrollBar1.InUpdate = false;
-            this.guna2VScrollBar1.LargeChange = 10;
-            this.guna2VScrollBar1.Location = new System.Drawing.Point(11, 112);
-            this.guna2VScrollBar1.Name = "guna2VScrollBar1";
-            this.guna2VScrollBar1.ScrollbarSize = 34;
-            this.guna2VScrollBar1.Size = new System.Drawing.Size(34, 455);
-            this.guna2VScrollBar1.TabIndex = 59;
-            // 
             // guna2Panel5
             // 
             this.guna2Panel5.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -3497,368 +3455,6 @@
             this.btnventas2.TabIndex = 52;
             this.btnventas2.Click += new System.EventHandler(this.btnventas2_Click);
             // 
-            // BtnCuentasBancarias
-            // 
-            this.BtnCuentasBancarias.BackColor = System.Drawing.Color.Transparent;
-            this.BtnCuentasBancarias.BorderColor = System.Drawing.Color.White;
-            this.BtnCuentasBancarias.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
-            this.BtnCuentasBancarias.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
-            this.BtnCuentasBancarias.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.BtnCuentasBancarias.DisabledState.FillColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.BtnCuentasBancarias.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.BtnCuentasBancarias.FillColor = System.Drawing.Color.Empty;
-            this.BtnCuentasBancarias.FillColor2 = System.Drawing.Color.Empty;
-            this.BtnCuentasBancarias.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BtnCuentasBancarias.ForeColor = System.Drawing.Color.White;
-            this.BtnCuentasBancarias.HoverState.FillColor = System.Drawing.Color.DimGray;
-            this.BtnCuentasBancarias.HoverState.FillColor2 = System.Drawing.Color.DimGray;
-            this.BtnCuentasBancarias.Image = global::PV.Properties.Resources.CUENTAS_BANCARIAS;
-            this.BtnCuentasBancarias.ImageAlign = System.Windows.Forms.HorizontalAlignment.Left;
-            this.BtnCuentasBancarias.ImageSize = new System.Drawing.Size(35, 35);
-            this.BtnCuentasBancarias.Location = new System.Drawing.Point(7, 599);
-            this.BtnCuentasBancarias.Name = "BtnCuentasBancarias";
-            this.BtnCuentasBancarias.Size = new System.Drawing.Size(166, 45);
-            this.BtnCuentasBancarias.TabIndex = 18;
-            this.BtnCuentasBancarias.Text = "Cuentas Bancarias";
-            this.BtnCuentasBancarias.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
-            this.BtnCuentasBancarias.Click += new System.EventHandler(this.BtnCuentasBancarias_Click);
-            // 
-            // btnDivisas
-            // 
-            this.btnDivisas.BackColor = System.Drawing.Color.Transparent;
-            this.btnDivisas.BorderColor = System.Drawing.Color.White;
-            this.btnDivisas.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
-            this.btnDivisas.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
-            this.btnDivisas.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.btnDivisas.DisabledState.FillColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.btnDivisas.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.btnDivisas.FillColor = System.Drawing.Color.Empty;
-            this.btnDivisas.FillColor2 = System.Drawing.Color.Empty;
-            this.btnDivisas.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnDivisas.ForeColor = System.Drawing.Color.White;
-            this.btnDivisas.HoverState.FillColor = System.Drawing.Color.DimGray;
-            this.btnDivisas.HoverState.FillColor2 = System.Drawing.Color.DimGray;
-            this.btnDivisas.Image = global::PV.Properties.Resources.DIVISAS;
-            this.btnDivisas.ImageAlign = System.Windows.Forms.HorizontalAlignment.Left;
-            this.btnDivisas.ImageSize = new System.Drawing.Size(35, 35);
-            this.btnDivisas.Location = new System.Drawing.Point(7, 4);
-            this.btnDivisas.Name = "btnDivisas";
-            this.btnDivisas.Size = new System.Drawing.Size(180, 45);
-            this.btnDivisas.TabIndex = 3;
-            this.btnDivisas.Text = "Divisas";
-            this.btnDivisas.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
-            this.btnDivisas.Click += new System.EventHandler(this.btnDivisas_Click);
-            // 
-            // btnAlmacen
-            // 
-            this.btnAlmacen.BackColor = System.Drawing.Color.Transparent;
-            this.btnAlmacen.BorderColor = System.Drawing.Color.White;
-            this.btnAlmacen.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
-            this.btnAlmacen.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
-            this.btnAlmacen.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.btnAlmacen.DisabledState.FillColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.btnAlmacen.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.btnAlmacen.FillColor = System.Drawing.Color.Empty;
-            this.btnAlmacen.FillColor2 = System.Drawing.Color.Empty;
-            this.btnAlmacen.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.btnAlmacen.ForeColor = System.Drawing.Color.White;
-            this.btnAlmacen.HoverState.FillColor = System.Drawing.Color.DimGray;
-            this.btnAlmacen.HoverState.FillColor2 = System.Drawing.Color.DimGray;
-            this.btnAlmacen.Image = global::PV.Properties.Resources.ALMACENES;
-            this.btnAlmacen.ImageAlign = System.Windows.Forms.HorizontalAlignment.Left;
-            this.btnAlmacen.ImageSize = new System.Drawing.Size(35, 35);
-            this.btnAlmacen.Location = new System.Drawing.Point(7, 50);
-            this.btnAlmacen.Name = "btnAlmacen";
-            this.btnAlmacen.Size = new System.Drawing.Size(180, 45);
-            this.btnAlmacen.TabIndex = 4;
-            this.btnAlmacen.Text = "Almacenes";
-            this.btnAlmacen.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
-            this.btnAlmacen.Click += new System.EventHandler(this.btnAlmacen_Click);
-            // 
-            // BtnProveedores
-            // 
-            this.BtnProveedores.BackColor = System.Drawing.Color.Transparent;
-            this.BtnProveedores.BorderColor = System.Drawing.Color.White;
-            this.BtnProveedores.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
-            this.BtnProveedores.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
-            this.BtnProveedores.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.BtnProveedores.DisabledState.FillColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.BtnProveedores.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.BtnProveedores.FillColor = System.Drawing.Color.Empty;
-            this.BtnProveedores.FillColor2 = System.Drawing.Color.Empty;
-            this.BtnProveedores.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BtnProveedores.ForeColor = System.Drawing.Color.White;
-            this.BtnProveedores.HoverState.FillColor = System.Drawing.Color.DimGray;
-            this.BtnProveedores.HoverState.FillColor2 = System.Drawing.Color.DimGray;
-            this.BtnProveedores.Image = global::PV.Properties.Resources.PROVEEDORES;
-            this.BtnProveedores.ImageAlign = System.Windows.Forms.HorizontalAlignment.Left;
-            this.BtnProveedores.ImageSize = new System.Drawing.Size(35, 35);
-            this.BtnProveedores.Location = new System.Drawing.Point(7, 553);
-            this.BtnProveedores.Name = "BtnProveedores";
-            this.BtnProveedores.Size = new System.Drawing.Size(180, 45);
-            this.BtnProveedores.TabIndex = 17;
-            this.BtnProveedores.Text = "Proveedores";
-            this.BtnProveedores.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
-            this.BtnProveedores.Click += new System.EventHandler(this.BtnProveedores_Click);
-            // 
-            // BtnCategorias
-            // 
-            this.BtnCategorias.BackColor = System.Drawing.Color.Transparent;
-            this.BtnCategorias.BorderColor = System.Drawing.Color.White;
-            this.BtnCategorias.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
-            this.BtnCategorias.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
-            this.BtnCategorias.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.BtnCategorias.DisabledState.FillColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.BtnCategorias.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.BtnCategorias.FillColor = System.Drawing.Color.Empty;
-            this.BtnCategorias.FillColor2 = System.Drawing.Color.Empty;
-            this.BtnCategorias.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BtnCategorias.ForeColor = System.Drawing.Color.White;
-            this.BtnCategorias.HoverState.FillColor = System.Drawing.Color.DimGray;
-            this.BtnCategorias.HoverState.FillColor2 = System.Drawing.Color.DimGray;
-            this.BtnCategorias.Image = global::PV.Properties.Resources.CATEGORIAS_Y_FAMILIAS;
-            this.BtnCategorias.ImageAlign = System.Windows.Forms.HorizontalAlignment.Left;
-            this.BtnCategorias.ImageSize = new System.Drawing.Size(35, 35);
-            this.BtnCategorias.Location = new System.Drawing.Point(7, 96);
-            this.BtnCategorias.Name = "BtnCategorias";
-            this.BtnCategorias.Size = new System.Drawing.Size(180, 45);
-            this.BtnCategorias.TabIndex = 5;
-            this.BtnCategorias.Text = "Categorias y Familias";
-            this.BtnCategorias.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
-            this.BtnCategorias.Click += new System.EventHandler(this.BtnCategorias_Click);
-            // 
-            // BtnProductos
-            // 
-            this.BtnProductos.BackColor = System.Drawing.Color.Transparent;
-            this.BtnProductos.BorderColor = System.Drawing.Color.White;
-            this.BtnProductos.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
-            this.BtnProductos.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
-            this.BtnProductos.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.BtnProductos.DisabledState.FillColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.BtnProductos.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.BtnProductos.FillColor = System.Drawing.Color.Empty;
-            this.BtnProductos.FillColor2 = System.Drawing.Color.Empty;
-            this.BtnProductos.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BtnProductos.ForeColor = System.Drawing.Color.White;
-            this.BtnProductos.HoverState.FillColor = System.Drawing.Color.DimGray;
-            this.BtnProductos.HoverState.FillColor2 = System.Drawing.Color.DimGray;
-            this.BtnProductos.Image = global::PV.Properties.Resources.PRODUCTOS;
-            this.BtnProductos.ImageAlign = System.Windows.Forms.HorizontalAlignment.Left;
-            this.BtnProductos.ImageSize = new System.Drawing.Size(35, 35);
-            this.BtnProductos.Location = new System.Drawing.Point(7, 142);
-            this.BtnProductos.Name = "BtnProductos";
-            this.BtnProductos.Size = new System.Drawing.Size(180, 45);
-            this.BtnProductos.TabIndex = 6;
-            this.BtnProductos.Text = "Productos";
-            this.BtnProductos.Click += new System.EventHandler(this.BtnProductos_Click);
-            // 
-            // BtnClientes
-            // 
-            this.BtnClientes.BackColor = System.Drawing.Color.Transparent;
-            this.BtnClientes.BorderColor = System.Drawing.Color.White;
-            this.BtnClientes.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
-            this.BtnClientes.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
-            this.BtnClientes.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.BtnClientes.DisabledState.FillColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.BtnClientes.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.BtnClientes.FillColor = System.Drawing.Color.Empty;
-            this.BtnClientes.FillColor2 = System.Drawing.Color.Empty;
-            this.BtnClientes.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BtnClientes.ForeColor = System.Drawing.Color.White;
-            this.BtnClientes.HoverState.FillColor = System.Drawing.Color.DimGray;
-            this.BtnClientes.HoverState.FillColor2 = System.Drawing.Color.DimGray;
-            this.BtnClientes.Image = global::PV.Properties.Resources.CLIENTES;
-            this.BtnClientes.ImageAlign = System.Windows.Forms.HorizontalAlignment.Left;
-            this.BtnClientes.ImageSize = new System.Drawing.Size(35, 35);
-            this.BtnClientes.Location = new System.Drawing.Point(7, 507);
-            this.BtnClientes.Name = "BtnClientes";
-            this.BtnClientes.Size = new System.Drawing.Size(180, 45);
-            this.BtnClientes.TabIndex = 16;
-            this.BtnClientes.Text = "Clientes";
-            this.BtnClientes.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
-            this.BtnClientes.Click += new System.EventHandler(this.BtnClientes_Click);
-            // 
-            // BtnServicios
-            // 
-            this.BtnServicios.BackColor = System.Drawing.Color.Transparent;
-            this.BtnServicios.BorderColor = System.Drawing.Color.White;
-            this.BtnServicios.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
-            this.BtnServicios.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
-            this.BtnServicios.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.BtnServicios.DisabledState.FillColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.BtnServicios.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.BtnServicios.FillColor = System.Drawing.Color.Empty;
-            this.BtnServicios.FillColor2 = System.Drawing.Color.Empty;
-            this.BtnServicios.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BtnServicios.ForeColor = System.Drawing.Color.White;
-            this.BtnServicios.HoverState.FillColor = System.Drawing.Color.DimGray;
-            this.BtnServicios.HoverState.FillColor2 = System.Drawing.Color.DimGray;
-            this.BtnServicios.Image = global::PV.Properties.Resources.SERVICIOS;
-            this.BtnServicios.ImageAlign = System.Windows.Forms.HorizontalAlignment.Left;
-            this.BtnServicios.ImageSize = new System.Drawing.Size(35, 35);
-            this.BtnServicios.Location = new System.Drawing.Point(7, 187);
-            this.BtnServicios.Name = "BtnServicios";
-            this.BtnServicios.Size = new System.Drawing.Size(180, 45);
-            this.BtnServicios.TabIndex = 7;
-            this.BtnServicios.Text = "Servicios";
-            this.BtnServicios.Click += new System.EventHandler(this.BtnServicios_Click);
-            // 
-            // BtnCentroCosto
-            // 
-            this.BtnCentroCosto.BackColor = System.Drawing.Color.Transparent;
-            this.BtnCentroCosto.BorderColor = System.Drawing.Color.White;
-            this.BtnCentroCosto.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
-            this.BtnCentroCosto.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
-            this.BtnCentroCosto.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.BtnCentroCosto.DisabledState.FillColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.BtnCentroCosto.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.BtnCentroCosto.FillColor = System.Drawing.Color.Empty;
-            this.BtnCentroCosto.FillColor2 = System.Drawing.Color.Empty;
-            this.BtnCentroCosto.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BtnCentroCosto.ForeColor = System.Drawing.Color.White;
-            this.BtnCentroCosto.HoverState.FillColor = System.Drawing.Color.DimGray;
-            this.BtnCentroCosto.HoverState.FillColor2 = System.Drawing.Color.DimGray;
-            this.BtnCentroCosto.Image = global::PV.Properties.Resources.CENTRO_DE_COSTOS;
-            this.BtnCentroCosto.ImageAlign = System.Windows.Forms.HorizontalAlignment.Left;
-            this.BtnCentroCosto.ImageSize = new System.Drawing.Size(35, 35);
-            this.BtnCentroCosto.Location = new System.Drawing.Point(7, 233);
-            this.BtnCentroCosto.Name = "BtnCentroCosto";
-            this.BtnCentroCosto.Size = new System.Drawing.Size(188, 45);
-            this.BtnCentroCosto.TabIndex = 10;
-            this.BtnCentroCosto.Text = "Centro de Costos";
-            this.BtnCentroCosto.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
-            this.BtnCentroCosto.Click += new System.EventHandler(this.BtnCentroCosto_Click);
-            // 
-            // BtnTiposZonas
-            // 
-            this.BtnTiposZonas.BackColor = System.Drawing.Color.Transparent;
-            this.BtnTiposZonas.BorderColor = System.Drawing.Color.White;
-            this.BtnTiposZonas.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
-            this.BtnTiposZonas.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
-            this.BtnTiposZonas.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.BtnTiposZonas.DisabledState.FillColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.BtnTiposZonas.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.BtnTiposZonas.FillColor = System.Drawing.Color.Empty;
-            this.BtnTiposZonas.FillColor2 = System.Drawing.Color.Empty;
-            this.BtnTiposZonas.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BtnTiposZonas.ForeColor = System.Drawing.Color.White;
-            this.BtnTiposZonas.HoverState.FillColor = System.Drawing.Color.DimGray;
-            this.BtnTiposZonas.HoverState.FillColor2 = System.Drawing.Color.DimGray;
-            this.BtnTiposZonas.Image = global::PV.Properties.Resources.TIPOS_Y_ZONAS;
-            this.BtnTiposZonas.ImageAlign = System.Windows.Forms.HorizontalAlignment.Left;
-            this.BtnTiposZonas.ImageSize = new System.Drawing.Size(35, 35);
-            this.BtnTiposZonas.Location = new System.Drawing.Point(7, 461);
-            this.BtnTiposZonas.Name = "BtnTiposZonas";
-            this.BtnTiposZonas.Size = new System.Drawing.Size(180, 45);
-            this.BtnTiposZonas.TabIndex = 15;
-            this.BtnTiposZonas.Text = "Tipos y Zonas";
-            this.BtnTiposZonas.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
-            this.BtnTiposZonas.Click += new System.EventHandler(this.BtnTiposZonas_Click);
-            // 
-            // BtnDocumentos
-            // 
-            this.BtnDocumentos.BackColor = System.Drawing.Color.Transparent;
-            this.BtnDocumentos.BorderColor = System.Drawing.Color.White;
-            this.BtnDocumentos.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
-            this.BtnDocumentos.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
-            this.BtnDocumentos.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.BtnDocumentos.DisabledState.FillColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.BtnDocumentos.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.BtnDocumentos.FillColor = System.Drawing.Color.Empty;
-            this.BtnDocumentos.FillColor2 = System.Drawing.Color.Empty;
-            this.BtnDocumentos.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BtnDocumentos.ForeColor = System.Drawing.Color.White;
-            this.BtnDocumentos.HoverState.FillColor = System.Drawing.Color.DimGray;
-            this.BtnDocumentos.HoverState.FillColor2 = System.Drawing.Color.DimGray;
-            this.BtnDocumentos.Image = global::PV.Properties.Resources.DOCUMENTOS;
-            this.BtnDocumentos.ImageAlign = System.Windows.Forms.HorizontalAlignment.Left;
-            this.BtnDocumentos.ImageSize = new System.Drawing.Size(35, 35);
-            this.BtnDocumentos.Location = new System.Drawing.Point(7, 278);
-            this.BtnDocumentos.Name = "BtnDocumentos";
-            this.BtnDocumentos.Size = new System.Drawing.Size(180, 45);
-            this.BtnDocumentos.TabIndex = 11;
-            this.BtnDocumentos.Text = "Documentos";
-            this.BtnDocumentos.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
-            this.BtnDocumentos.Click += new System.EventHandler(this.BtnDocumentos_Click);
-            // 
-            // BtnConceptosGlobales
-            // 
-            this.BtnConceptosGlobales.BackColor = System.Drawing.Color.Transparent;
-            this.BtnConceptosGlobales.BorderColor = System.Drawing.Color.White;
-            this.BtnConceptosGlobales.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
-            this.BtnConceptosGlobales.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
-            this.BtnConceptosGlobales.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.BtnConceptosGlobales.DisabledState.FillColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.BtnConceptosGlobales.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.BtnConceptosGlobales.FillColor = System.Drawing.Color.Empty;
-            this.BtnConceptosGlobales.FillColor2 = System.Drawing.Color.Empty;
-            this.BtnConceptosGlobales.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BtnConceptosGlobales.ForeColor = System.Drawing.Color.White;
-            this.BtnConceptosGlobales.HoverState.FillColor = System.Drawing.Color.DimGray;
-            this.BtnConceptosGlobales.HoverState.FillColor2 = System.Drawing.Color.DimGray;
-            this.BtnConceptosGlobales.Image = global::PV.Properties.Resources.CONCEPTOS_GLOBALESS;
-            this.BtnConceptosGlobales.ImageAlign = System.Windows.Forms.HorizontalAlignment.Left;
-            this.BtnConceptosGlobales.ImageSize = new System.Drawing.Size(35, 35);
-            this.BtnConceptosGlobales.Location = new System.Drawing.Point(7, 322);
-            this.BtnConceptosGlobales.Name = "BtnConceptosGlobales";
-            this.BtnConceptosGlobales.Size = new System.Drawing.Size(175, 45);
-            this.BtnConceptosGlobales.TabIndex = 12;
-            this.BtnConceptosGlobales.Text = "Conceptos Globales";
-            this.BtnConceptosGlobales.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
-            this.BtnConceptosGlobales.Click += new System.EventHandler(this.BtnConceptosGlobales_Click);
-            // 
-            // BtnEmpleados
-            // 
-            this.BtnEmpleados.BackColor = System.Drawing.Color.Transparent;
-            this.BtnEmpleados.BorderColor = System.Drawing.Color.White;
-            this.BtnEmpleados.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
-            this.BtnEmpleados.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
-            this.BtnEmpleados.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.BtnEmpleados.DisabledState.FillColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.BtnEmpleados.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.BtnEmpleados.FillColor = System.Drawing.Color.Empty;
-            this.BtnEmpleados.FillColor2 = System.Drawing.Color.Empty;
-            this.BtnEmpleados.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BtnEmpleados.ForeColor = System.Drawing.Color.White;
-            this.BtnEmpleados.HoverState.FillColor = System.Drawing.Color.DimGray;
-            this.BtnEmpleados.HoverState.FillColor2 = System.Drawing.Color.DimGray;
-            this.BtnEmpleados.Image = global::PV.Properties.Resources.empleados;
-            this.BtnEmpleados.ImageAlign = System.Windows.Forms.HorizontalAlignment.Left;
-            this.BtnEmpleados.ImageSize = new System.Drawing.Size(35, 35);
-            this.BtnEmpleados.Location = new System.Drawing.Point(7, 415);
-            this.BtnEmpleados.Name = "BtnEmpleados";
-            this.BtnEmpleados.Size = new System.Drawing.Size(180, 45);
-            this.BtnEmpleados.TabIndex = 14;
-            this.BtnEmpleados.Text = "Empleados";
-            this.BtnEmpleados.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
-            this.BtnEmpleados.Click += new System.EventHandler(this.BtnEmpleados_Click);
-            // 
-            // BtnFormaPago
-            // 
-            this.BtnFormaPago.BackColor = System.Drawing.Color.Transparent;
-            this.BtnFormaPago.BorderColor = System.Drawing.Color.White;
-            this.BtnFormaPago.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
-            this.BtnFormaPago.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
-            this.BtnFormaPago.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.BtnFormaPago.DisabledState.FillColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.BtnFormaPago.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.BtnFormaPago.FillColor = System.Drawing.Color.Empty;
-            this.BtnFormaPago.FillColor2 = System.Drawing.Color.Empty;
-            this.BtnFormaPago.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BtnFormaPago.ForeColor = System.Drawing.Color.White;
-            this.BtnFormaPago.HoverState.FillColor = System.Drawing.Color.DimGray;
-            this.BtnFormaPago.HoverState.FillColor2 = System.Drawing.Color.DimGray;
-            this.BtnFormaPago.Image = global::PV.Properties.Resources.FORMAD_DE_PAGO;
-            this.BtnFormaPago.ImageAlign = System.Windows.Forms.HorizontalAlignment.Left;
-            this.BtnFormaPago.ImageSize = new System.Drawing.Size(35, 35);
-            this.BtnFormaPago.Location = new System.Drawing.Point(7, 368);
-            this.BtnFormaPago.Name = "BtnFormaPago";
-            this.BtnFormaPago.Size = new System.Drawing.Size(156, 45);
-            this.BtnFormaPago.TabIndex = 13;
-            this.BtnFormaPago.Text = "Formas de Pago";
-            this.BtnFormaPago.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
-            this.BtnFormaPago.Click += new System.EventHandler(this.BtnFormaPago_Click);
-            // 
             // guna2Button2
             // 
             this.guna2Button2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
@@ -3911,12 +3507,416 @@
             this.guna2HtmlLabel1.TabIndex = 4;
             this.guna2HtmlLabel1.Text = "Sistema de Gestión Administrativa";
             // 
+            // BtnFormaPago
+            // 
+            this.BtnFormaPago.BackColor = System.Drawing.Color.Transparent;
+            this.BtnFormaPago.BorderColor = System.Drawing.Color.White;
+            this.BtnFormaPago.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.BtnFormaPago.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.BtnFormaPago.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.BtnFormaPago.DisabledState.FillColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.BtnFormaPago.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.BtnFormaPago.FillColor = System.Drawing.Color.Empty;
+            this.BtnFormaPago.FillColor2 = System.Drawing.Color.Empty;
+            this.BtnFormaPago.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BtnFormaPago.ForeColor = System.Drawing.Color.White;
+            this.BtnFormaPago.HoverState.FillColor = System.Drawing.Color.DimGray;
+            this.BtnFormaPago.HoverState.FillColor2 = System.Drawing.Color.DimGray;
+            this.BtnFormaPago.Image = global::PV.Properties.Resources.FORMAD_DE_PAGO;
+            this.BtnFormaPago.ImageAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.BtnFormaPago.ImageSize = new System.Drawing.Size(35, 35);
+            this.BtnFormaPago.Location = new System.Drawing.Point(7, 368);
+            this.BtnFormaPago.Name = "BtnFormaPago";
+            this.BtnFormaPago.Size = new System.Drawing.Size(156, 45);
+            this.BtnFormaPago.TabIndex = 13;
+            this.BtnFormaPago.Text = "Formas de Pago";
+            this.BtnFormaPago.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.BtnFormaPago.Click += new System.EventHandler(this.BtnFormaPago_Click);
+            // 
+            // BtnEmpleados
+            // 
+            this.BtnEmpleados.BackColor = System.Drawing.Color.Transparent;
+            this.BtnEmpleados.BorderColor = System.Drawing.Color.White;
+            this.BtnEmpleados.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.BtnEmpleados.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.BtnEmpleados.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.BtnEmpleados.DisabledState.FillColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.BtnEmpleados.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.BtnEmpleados.FillColor = System.Drawing.Color.Empty;
+            this.BtnEmpleados.FillColor2 = System.Drawing.Color.Empty;
+            this.BtnEmpleados.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BtnEmpleados.ForeColor = System.Drawing.Color.White;
+            this.BtnEmpleados.HoverState.FillColor = System.Drawing.Color.DimGray;
+            this.BtnEmpleados.HoverState.FillColor2 = System.Drawing.Color.DimGray;
+            this.BtnEmpleados.Image = global::PV.Properties.Resources.empleados;
+            this.BtnEmpleados.ImageAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.BtnEmpleados.ImageSize = new System.Drawing.Size(35, 35);
+            this.BtnEmpleados.Location = new System.Drawing.Point(7, 415);
+            this.BtnEmpleados.Name = "BtnEmpleados";
+            this.BtnEmpleados.Size = new System.Drawing.Size(180, 45);
+            this.BtnEmpleados.TabIndex = 14;
+            this.BtnEmpleados.Text = "Empleados";
+            this.BtnEmpleados.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.BtnEmpleados.Click += new System.EventHandler(this.BtnEmpleados_Click);
+            // 
+            // BtnConceptosGlobales
+            // 
+            this.BtnConceptosGlobales.BackColor = System.Drawing.Color.Transparent;
+            this.BtnConceptosGlobales.BorderColor = System.Drawing.Color.White;
+            this.BtnConceptosGlobales.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.BtnConceptosGlobales.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.BtnConceptosGlobales.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.BtnConceptosGlobales.DisabledState.FillColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.BtnConceptosGlobales.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.BtnConceptosGlobales.FillColor = System.Drawing.Color.Empty;
+            this.BtnConceptosGlobales.FillColor2 = System.Drawing.Color.Empty;
+            this.BtnConceptosGlobales.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BtnConceptosGlobales.ForeColor = System.Drawing.Color.White;
+            this.BtnConceptosGlobales.HoverState.FillColor = System.Drawing.Color.DimGray;
+            this.BtnConceptosGlobales.HoverState.FillColor2 = System.Drawing.Color.DimGray;
+            this.BtnConceptosGlobales.Image = global::PV.Properties.Resources.CONCEPTOS_GLOBALESS;
+            this.BtnConceptosGlobales.ImageAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.BtnConceptosGlobales.ImageSize = new System.Drawing.Size(35, 35);
+            this.BtnConceptosGlobales.Location = new System.Drawing.Point(7, 322);
+            this.BtnConceptosGlobales.Name = "BtnConceptosGlobales";
+            this.BtnConceptosGlobales.Size = new System.Drawing.Size(175, 45);
+            this.BtnConceptosGlobales.TabIndex = 12;
+            this.BtnConceptosGlobales.Text = "Conceptos Globales";
+            this.BtnConceptosGlobales.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.BtnConceptosGlobales.Click += new System.EventHandler(this.BtnConceptosGlobales_Click);
+            // 
+            // BtnDocumentos
+            // 
+            this.BtnDocumentos.BackColor = System.Drawing.Color.Transparent;
+            this.BtnDocumentos.BorderColor = System.Drawing.Color.White;
+            this.BtnDocumentos.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.BtnDocumentos.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.BtnDocumentos.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.BtnDocumentos.DisabledState.FillColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.BtnDocumentos.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.BtnDocumentos.FillColor = System.Drawing.Color.Empty;
+            this.BtnDocumentos.FillColor2 = System.Drawing.Color.Empty;
+            this.BtnDocumentos.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BtnDocumentos.ForeColor = System.Drawing.Color.White;
+            this.BtnDocumentos.HoverState.FillColor = System.Drawing.Color.DimGray;
+            this.BtnDocumentos.HoverState.FillColor2 = System.Drawing.Color.DimGray;
+            this.BtnDocumentos.Image = global::PV.Properties.Resources.DOCUMENTOS;
+            this.BtnDocumentos.ImageAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.BtnDocumentos.ImageSize = new System.Drawing.Size(35, 35);
+            this.BtnDocumentos.Location = new System.Drawing.Point(7, 278);
+            this.BtnDocumentos.Name = "BtnDocumentos";
+            this.BtnDocumentos.Size = new System.Drawing.Size(180, 45);
+            this.BtnDocumentos.TabIndex = 11;
+            this.BtnDocumentos.Text = "Documentos";
+            this.BtnDocumentos.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.BtnDocumentos.Click += new System.EventHandler(this.BtnDocumentos_Click);
+            // 
+            // BtnTiposZonas
+            // 
+            this.BtnTiposZonas.BackColor = System.Drawing.Color.Transparent;
+            this.BtnTiposZonas.BorderColor = System.Drawing.Color.White;
+            this.BtnTiposZonas.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.BtnTiposZonas.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.BtnTiposZonas.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.BtnTiposZonas.DisabledState.FillColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.BtnTiposZonas.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.BtnTiposZonas.FillColor = System.Drawing.Color.Empty;
+            this.BtnTiposZonas.FillColor2 = System.Drawing.Color.Empty;
+            this.BtnTiposZonas.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BtnTiposZonas.ForeColor = System.Drawing.Color.White;
+            this.BtnTiposZonas.HoverState.FillColor = System.Drawing.Color.DimGray;
+            this.BtnTiposZonas.HoverState.FillColor2 = System.Drawing.Color.DimGray;
+            this.BtnTiposZonas.Image = global::PV.Properties.Resources.TIPOS_Y_ZONAS;
+            this.BtnTiposZonas.ImageAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.BtnTiposZonas.ImageSize = new System.Drawing.Size(35, 35);
+            this.BtnTiposZonas.Location = new System.Drawing.Point(7, 461);
+            this.BtnTiposZonas.Name = "BtnTiposZonas";
+            this.BtnTiposZonas.Size = new System.Drawing.Size(180, 45);
+            this.BtnTiposZonas.TabIndex = 15;
+            this.BtnTiposZonas.Text = "Tipos y Zonas";
+            this.BtnTiposZonas.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.BtnTiposZonas.Click += new System.EventHandler(this.BtnTiposZonas_Click);
+            // 
+            // BtnCentroCosto
+            // 
+            this.BtnCentroCosto.BackColor = System.Drawing.Color.Transparent;
+            this.BtnCentroCosto.BorderColor = System.Drawing.Color.White;
+            this.BtnCentroCosto.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.BtnCentroCosto.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.BtnCentroCosto.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.BtnCentroCosto.DisabledState.FillColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.BtnCentroCosto.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.BtnCentroCosto.FillColor = System.Drawing.Color.Empty;
+            this.BtnCentroCosto.FillColor2 = System.Drawing.Color.Empty;
+            this.BtnCentroCosto.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BtnCentroCosto.ForeColor = System.Drawing.Color.White;
+            this.BtnCentroCosto.HoverState.FillColor = System.Drawing.Color.DimGray;
+            this.BtnCentroCosto.HoverState.FillColor2 = System.Drawing.Color.DimGray;
+            this.BtnCentroCosto.Image = global::PV.Properties.Resources.CENTRO_DE_COSTOS;
+            this.BtnCentroCosto.ImageAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.BtnCentroCosto.ImageSize = new System.Drawing.Size(35, 35);
+            this.BtnCentroCosto.Location = new System.Drawing.Point(7, 233);
+            this.BtnCentroCosto.Name = "BtnCentroCosto";
+            this.BtnCentroCosto.Size = new System.Drawing.Size(188, 45);
+            this.BtnCentroCosto.TabIndex = 10;
+            this.BtnCentroCosto.Text = "Centro de Costos";
+            this.BtnCentroCosto.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.BtnCentroCosto.Click += new System.EventHandler(this.BtnCentroCosto_Click);
+            // 
+            // BtnServicios
+            // 
+            this.BtnServicios.BackColor = System.Drawing.Color.Transparent;
+            this.BtnServicios.BorderColor = System.Drawing.Color.White;
+            this.BtnServicios.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.BtnServicios.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.BtnServicios.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.BtnServicios.DisabledState.FillColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.BtnServicios.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.BtnServicios.FillColor = System.Drawing.Color.Empty;
+            this.BtnServicios.FillColor2 = System.Drawing.Color.Empty;
+            this.BtnServicios.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BtnServicios.ForeColor = System.Drawing.Color.White;
+            this.BtnServicios.HoverState.FillColor = System.Drawing.Color.DimGray;
+            this.BtnServicios.HoverState.FillColor2 = System.Drawing.Color.DimGray;
+            this.BtnServicios.Image = global::PV.Properties.Resources.SERVICIOS;
+            this.BtnServicios.ImageAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.BtnServicios.ImageSize = new System.Drawing.Size(35, 35);
+            this.BtnServicios.Location = new System.Drawing.Point(7, 187);
+            this.BtnServicios.Name = "BtnServicios";
+            this.BtnServicios.Size = new System.Drawing.Size(180, 45);
+            this.BtnServicios.TabIndex = 7;
+            this.BtnServicios.Text = "Servicios";
+            this.BtnServicios.Click += new System.EventHandler(this.BtnServicios_Click);
+            // 
+            // BtnClientes
+            // 
+            this.BtnClientes.BackColor = System.Drawing.Color.Transparent;
+            this.BtnClientes.BorderColor = System.Drawing.Color.White;
+            this.BtnClientes.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.BtnClientes.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.BtnClientes.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.BtnClientes.DisabledState.FillColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.BtnClientes.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.BtnClientes.FillColor = System.Drawing.Color.Empty;
+            this.BtnClientes.FillColor2 = System.Drawing.Color.Empty;
+            this.BtnClientes.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BtnClientes.ForeColor = System.Drawing.Color.White;
+            this.BtnClientes.HoverState.FillColor = System.Drawing.Color.DimGray;
+            this.BtnClientes.HoverState.FillColor2 = System.Drawing.Color.DimGray;
+            this.BtnClientes.Image = global::PV.Properties.Resources.CLIENTES;
+            this.BtnClientes.ImageAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.BtnClientes.ImageSize = new System.Drawing.Size(35, 35);
+            this.BtnClientes.Location = new System.Drawing.Point(7, 507);
+            this.BtnClientes.Name = "BtnClientes";
+            this.BtnClientes.Size = new System.Drawing.Size(180, 45);
+            this.BtnClientes.TabIndex = 16;
+            this.BtnClientes.Text = "Clientes";
+            this.BtnClientes.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.BtnClientes.Click += new System.EventHandler(this.BtnClientes_Click);
+            // 
+            // BtnProductos
+            // 
+            this.BtnProductos.BackColor = System.Drawing.Color.Transparent;
+            this.BtnProductos.BorderColor = System.Drawing.Color.White;
+            this.BtnProductos.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.BtnProductos.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.BtnProductos.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.BtnProductos.DisabledState.FillColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.BtnProductos.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.BtnProductos.FillColor = System.Drawing.Color.Empty;
+            this.BtnProductos.FillColor2 = System.Drawing.Color.Empty;
+            this.BtnProductos.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BtnProductos.ForeColor = System.Drawing.Color.White;
+            this.BtnProductos.HoverState.FillColor = System.Drawing.Color.DimGray;
+            this.BtnProductos.HoverState.FillColor2 = System.Drawing.Color.DimGray;
+            this.BtnProductos.Image = global::PV.Properties.Resources.PRODUCTOS;
+            this.BtnProductos.ImageAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.BtnProductos.ImageSize = new System.Drawing.Size(35, 35);
+            this.BtnProductos.Location = new System.Drawing.Point(7, 142);
+            this.BtnProductos.Name = "BtnProductos";
+            this.BtnProductos.Size = new System.Drawing.Size(180, 45);
+            this.BtnProductos.TabIndex = 6;
+            this.BtnProductos.Text = "Productos";
+            this.BtnProductos.Click += new System.EventHandler(this.BtnProductos_Click);
+            // 
+            // BtnCategorias
+            // 
+            this.BtnCategorias.BackColor = System.Drawing.Color.Transparent;
+            this.BtnCategorias.BorderColor = System.Drawing.Color.White;
+            this.BtnCategorias.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.BtnCategorias.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.BtnCategorias.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.BtnCategorias.DisabledState.FillColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.BtnCategorias.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.BtnCategorias.FillColor = System.Drawing.Color.Empty;
+            this.BtnCategorias.FillColor2 = System.Drawing.Color.Empty;
+            this.BtnCategorias.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BtnCategorias.ForeColor = System.Drawing.Color.White;
+            this.BtnCategorias.HoverState.FillColor = System.Drawing.Color.DimGray;
+            this.BtnCategorias.HoverState.FillColor2 = System.Drawing.Color.DimGray;
+            this.BtnCategorias.Image = global::PV.Properties.Resources.CATEGORIAS_Y_FAMILIAS;
+            this.BtnCategorias.ImageAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.BtnCategorias.ImageSize = new System.Drawing.Size(35, 35);
+            this.BtnCategorias.Location = new System.Drawing.Point(7, 96);
+            this.BtnCategorias.Name = "BtnCategorias";
+            this.BtnCategorias.Size = new System.Drawing.Size(180, 45);
+            this.BtnCategorias.TabIndex = 5;
+            this.BtnCategorias.Text = "Categorias y Familias";
+            this.BtnCategorias.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.BtnCategorias.Click += new System.EventHandler(this.BtnCategorias_Click);
+            // 
+            // BtnProveedores
+            // 
+            this.BtnProveedores.BackColor = System.Drawing.Color.Transparent;
+            this.BtnProveedores.BorderColor = System.Drawing.Color.White;
+            this.BtnProveedores.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.BtnProveedores.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.BtnProveedores.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.BtnProveedores.DisabledState.FillColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.BtnProveedores.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.BtnProveedores.FillColor = System.Drawing.Color.Empty;
+            this.BtnProveedores.FillColor2 = System.Drawing.Color.Empty;
+            this.BtnProveedores.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BtnProveedores.ForeColor = System.Drawing.Color.White;
+            this.BtnProveedores.HoverState.FillColor = System.Drawing.Color.DimGray;
+            this.BtnProveedores.HoverState.FillColor2 = System.Drawing.Color.DimGray;
+            this.BtnProveedores.Image = global::PV.Properties.Resources.PROVEEDORES;
+            this.BtnProveedores.ImageAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.BtnProveedores.ImageSize = new System.Drawing.Size(35, 35);
+            this.BtnProveedores.Location = new System.Drawing.Point(7, 553);
+            this.BtnProveedores.Name = "BtnProveedores";
+            this.BtnProveedores.Size = new System.Drawing.Size(180, 45);
+            this.BtnProveedores.TabIndex = 17;
+            this.BtnProveedores.Text = "Proveedores";
+            this.BtnProveedores.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.BtnProveedores.Click += new System.EventHandler(this.BtnProveedores_Click);
+            // 
+            // btnAlmacen
+            // 
+            this.btnAlmacen.BackColor = System.Drawing.Color.Transparent;
+            this.btnAlmacen.BorderColor = System.Drawing.Color.White;
+            this.btnAlmacen.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.btnAlmacen.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.btnAlmacen.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.btnAlmacen.DisabledState.FillColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.btnAlmacen.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.btnAlmacen.FillColor = System.Drawing.Color.Empty;
+            this.btnAlmacen.FillColor2 = System.Drawing.Color.Empty;
+            this.btnAlmacen.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.btnAlmacen.ForeColor = System.Drawing.Color.White;
+            this.btnAlmacen.HoverState.FillColor = System.Drawing.Color.DimGray;
+            this.btnAlmacen.HoverState.FillColor2 = System.Drawing.Color.DimGray;
+            this.btnAlmacen.Image = global::PV.Properties.Resources.ALMACENES;
+            this.btnAlmacen.ImageAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.btnAlmacen.ImageSize = new System.Drawing.Size(35, 35);
+            this.btnAlmacen.Location = new System.Drawing.Point(7, 50);
+            this.btnAlmacen.Name = "btnAlmacen";
+            this.btnAlmacen.Size = new System.Drawing.Size(180, 45);
+            this.btnAlmacen.TabIndex = 4;
+            this.btnAlmacen.Text = "Almacenes";
+            this.btnAlmacen.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.btnAlmacen.Click += new System.EventHandler(this.btnAlmacen_Click);
+            // 
+            // btnDivisas
+            // 
+            this.btnDivisas.BackColor = System.Drawing.Color.Transparent;
+            this.btnDivisas.BorderColor = System.Drawing.Color.White;
+            this.btnDivisas.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.btnDivisas.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.btnDivisas.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.btnDivisas.DisabledState.FillColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.btnDivisas.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.btnDivisas.FillColor = System.Drawing.Color.Empty;
+            this.btnDivisas.FillColor2 = System.Drawing.Color.Empty;
+            this.btnDivisas.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnDivisas.ForeColor = System.Drawing.Color.White;
+            this.btnDivisas.HoverState.FillColor = System.Drawing.Color.DimGray;
+            this.btnDivisas.HoverState.FillColor2 = System.Drawing.Color.DimGray;
+            this.btnDivisas.Image = global::PV.Properties.Resources.DIVISAS;
+            this.btnDivisas.ImageAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.btnDivisas.ImageSize = new System.Drawing.Size(35, 35);
+            this.btnDivisas.Location = new System.Drawing.Point(7, 4);
+            this.btnDivisas.Name = "btnDivisas";
+            this.btnDivisas.Size = new System.Drawing.Size(180, 45);
+            this.btnDivisas.TabIndex = 3;
+            this.btnDivisas.Text = "Divisas";
+            this.btnDivisas.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.btnDivisas.Click += new System.EventHandler(this.btnDivisas_Click);
+            // 
+            // BtnCuentasBancarias
+            // 
+            this.BtnCuentasBancarias.BackColor = System.Drawing.Color.Transparent;
+            this.BtnCuentasBancarias.BorderColor = System.Drawing.Color.White;
+            this.BtnCuentasBancarias.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.BtnCuentasBancarias.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.BtnCuentasBancarias.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.BtnCuentasBancarias.DisabledState.FillColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.BtnCuentasBancarias.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.BtnCuentasBancarias.FillColor = System.Drawing.Color.Empty;
+            this.BtnCuentasBancarias.FillColor2 = System.Drawing.Color.Empty;
+            this.BtnCuentasBancarias.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BtnCuentasBancarias.ForeColor = System.Drawing.Color.White;
+            this.BtnCuentasBancarias.HoverState.FillColor = System.Drawing.Color.DimGray;
+            this.BtnCuentasBancarias.HoverState.FillColor2 = System.Drawing.Color.DimGray;
+            this.BtnCuentasBancarias.Image = global::PV.Properties.Resources.CUENTAS_BANCARIAS;
+            this.BtnCuentasBancarias.ImageAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.BtnCuentasBancarias.ImageSize = new System.Drawing.Size(35, 35);
+            this.BtnCuentasBancarias.Location = new System.Drawing.Point(7, 599);
+            this.BtnCuentasBancarias.Name = "BtnCuentasBancarias";
+            this.BtnCuentasBancarias.Size = new System.Drawing.Size(166, 45);
+            this.BtnCuentasBancarias.TabIndex = 18;
+            this.BtnCuentasBancarias.Text = "Cuentas Bancarias";
+            this.BtnCuentasBancarias.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.BtnCuentasBancarias.Click += new System.EventHandler(this.BtnCuentasBancarias_Click);
+            // 
+            // guna2VScrollBar1
+            // 
+            this.guna2VScrollBar1.BindingContainer = this.guna2Panel5;
+            this.guna2VScrollBar1.InUpdate = false;
+            this.guna2VScrollBar1.LargeChange = 10;
+            this.guna2VScrollBar1.Location = new System.Drawing.Point(11, 112);
+            this.guna2VScrollBar1.Name = "guna2VScrollBar1";
+            this.guna2VScrollBar1.ScrollbarSize = 34;
+            this.guna2VScrollBar1.Size = new System.Drawing.Size(34, 455);
+            this.guna2VScrollBar1.TabIndex = 59;
+            // 
+            // GroupCatalogo
+            // 
+            this.GroupCatalogo.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.GroupCatalogo.BorderColor = System.Drawing.Color.White;
+            this.GroupCatalogo.BorderThickness = 0;
+            this.GroupCatalogo.Controls.Add(this.BtnCuentasBancarias);
+            this.GroupCatalogo.Controls.Add(this.btnDivisas);
+            this.GroupCatalogo.Controls.Add(this.btnAlmacen);
+            this.GroupCatalogo.Controls.Add(this.BtnProveedores);
+            this.GroupCatalogo.Controls.Add(this.BtnCategorias);
+            this.GroupCatalogo.Controls.Add(this.BtnProductos);
+            this.GroupCatalogo.Controls.Add(this.BtnClientes);
+            this.GroupCatalogo.Controls.Add(this.BtnServicios);
+            this.GroupCatalogo.Controls.Add(this.BtnCentroCosto);
+            this.GroupCatalogo.Controls.Add(this.BtnTiposZonas);
+            this.GroupCatalogo.Controls.Add(this.BtnDocumentos);
+            this.GroupCatalogo.Controls.Add(this.BtnConceptosGlobales);
+            this.GroupCatalogo.Controls.Add(this.BtnEmpleados);
+            this.GroupCatalogo.Controls.Add(this.BtnFormaPago);
+            this.GroupCatalogo.CustomBorderColor = System.Drawing.Color.Transparent;
+            this.GroupCatalogo.FillColor = System.Drawing.Color.DodgerBlue;
+            this.GroupCatalogo.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.GroupCatalogo.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(19)))), ((int)(((byte)(35)))), ((int)(((byte)(95)))));
+            this.GroupCatalogo.Location = new System.Drawing.Point(6, 78);
+            this.GroupCatalogo.Name = "GroupCatalogo";
+            this.GroupCatalogo.Size = new System.Drawing.Size(195, 671);
+            this.GroupCatalogo.TabIndex = 60;
+            this.GroupCatalogo.Visible = false;
+            this.GroupCatalogo.Click += new System.EventHandler(this.GroupCatalogo_Click);
+            // 
             // MenuPrincipal
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.DodgerBlue;
             this.ClientSize = new System.Drawing.Size(1488, 786);
+            this.Controls.Add(this.guna2VScrollBar1);
             this.Controls.Add(this.guna2Panel5);
             this.Controls.Add(this.guna2Panel4);
             this.Controls.Add(this.guna2Panel2);
@@ -3956,8 +3956,8 @@
             this.GruopParametros.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
-            this.GroupCatalogo.ResumeLayout(false);
             this.guna2Panel5.ResumeLayout(false);
+            this.GroupCatalogo.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -4112,21 +4112,6 @@
         private Guna.UI2.WinForms.Guna2GradientButton guna2GradientButton29;
         private Guna.UI2.WinForms.Guna2GradientButton BtnInventariosfisicos;
         private Guna.UI2.WinForms.Guna2GradientButton BtnMovimientos;
-        private Guna.UI2.WinForms.Guna2GroupBox GroupCatalogo;
-        private Guna.UI2.WinForms.Guna2GradientButton BtnCuentasBancarias;
-        private Guna.UI2.WinForms.Guna2GradientButton BtnProveedores;
-        private Guna.UI2.WinForms.Guna2GradientButton BtnClientes;
-        private Guna.UI2.WinForms.Guna2GradientButton BtnTiposZonas;
-        private Guna.UI2.WinForms.Guna2GradientButton BtnEmpleados;
-        private Guna.UI2.WinForms.Guna2GradientButton BtnFormaPago;
-        private Guna.UI2.WinForms.Guna2GradientButton BtnConceptosGlobales;
-        private Guna.UI2.WinForms.Guna2GradientButton BtnDocumentos;
-        private Guna.UI2.WinForms.Guna2GradientButton BtnCentroCosto;
-        private Guna.UI2.WinForms.Guna2GradientButton BtnServicios;
-        private Guna.UI2.WinForms.Guna2GradientButton BtnProductos;
-        private Guna.UI2.WinForms.Guna2GradientButton BtnCategorias;
-        private Guna.UI2.WinForms.Guna2GradientButton btnAlmacen;
-        private Guna.UI2.WinForms.Guna2GradientButton btnDivisas;
         private Guna.UI2.WinForms.Guna2GroupBox GrupoCompras;
         private Guna.UI2.WinForms.Guna2GradientButton guna2GradientButton8;
         private Guna.UI2.WinForms.Guna2GradientButton guna2GradientButton7;
@@ -4176,7 +4161,6 @@
         protected Guna.UI2.WinForms.Guna2GradientButton btnventas1;
         protected Guna.UI2.WinForms.Guna2GradientButton btnventas2;
         protected Guna.UI2.WinForms.Guna2Panel guna2Panel5;
-        private Guna.UI2.WinForms.Guna2VScrollBar guna2VScrollBar1;
         private Guna.UI2.WinForms.Guna2GroupBox SubGrupoReportesProveedores;
         private Guna.UI2.WinForms.Guna2GradientButton guna2GradientButton43;
         private Guna.UI2.WinForms.Guna2GradientButton guna2GradientButton41;
@@ -4203,5 +4187,21 @@
         private Guna.UI2.WinForms.Guna2GradientButton guna2GradientButton47;
         private Guna.UI2.WinForms.Guna2GradientButton btnPedidoCliente;
         private Guna.UI2.WinForms.Guna2GradientButton guna2GradientButton49;
+        private Guna.UI2.WinForms.Guna2GroupBox GroupCatalogo;
+        private Guna.UI2.WinForms.Guna2GradientButton BtnCuentasBancarias;
+        private Guna.UI2.WinForms.Guna2GradientButton btnDivisas;
+        private Guna.UI2.WinForms.Guna2GradientButton btnAlmacen;
+        private Guna.UI2.WinForms.Guna2GradientButton BtnProveedores;
+        private Guna.UI2.WinForms.Guna2GradientButton BtnCategorias;
+        private Guna.UI2.WinForms.Guna2GradientButton BtnProductos;
+        private Guna.UI2.WinForms.Guna2GradientButton BtnClientes;
+        private Guna.UI2.WinForms.Guna2GradientButton BtnServicios;
+        private Guna.UI2.WinForms.Guna2GradientButton BtnCentroCosto;
+        private Guna.UI2.WinForms.Guna2GradientButton BtnTiposZonas;
+        private Guna.UI2.WinForms.Guna2GradientButton BtnDocumentos;
+        private Guna.UI2.WinForms.Guna2GradientButton BtnConceptosGlobales;
+        private Guna.UI2.WinForms.Guna2GradientButton BtnEmpleados;
+        private Guna.UI2.WinForms.Guna2GradientButton BtnFormaPago;
+        private Guna.UI2.WinForms.Guna2VScrollBar guna2VScrollBar1;
     }
 }

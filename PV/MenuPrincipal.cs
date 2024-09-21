@@ -932,7 +932,7 @@ namespace PuntoVentas
         {
             GrpoMovimientos.Visible = false;
             SubGrupoReportes.Visible = false;
-
+            SubGrupoReportesCompras.Visible = false;
             if (GroupCatalogo.Visible == true)           
             {
                
@@ -1029,7 +1029,7 @@ namespace PuntoVentas
         {
             GrpoMovimientos.Visible = false;
             SubGrupoReportes.Visible = false;
-
+            SubGrupoReportesCompras.Visible = false;
             if (GruopParametros.Visible == true)
             {
                
@@ -1107,7 +1107,7 @@ namespace PuntoVentas
         {
             GrpoMovimientos.Visible = false;
             SubGrupoReportes.Visible = false;
-
+            SubGrupoReportesCompras.Visible = false;
             if (Grupoinventarios.Visible == true)
             {
                 Grupoinventarios.Visible = false;
@@ -1198,7 +1198,7 @@ namespace PuntoVentas
         {
             GrpoMovimientos.Visible = false;
             SubGrupoReportes.Visible = false;
-
+            SubGrupoReportesCompras.Visible = false;
             if (GrupoVentas.Visible == true)
             {
            
@@ -1277,7 +1277,7 @@ namespace PuntoVentas
         {
             GrpoMovimientos.Visible = false;
             SubGrupoReportes.Visible = false;
-
+            SubGrupoReportesCompras.Visible = false;
             if (GrupoCompras.Visible == true)
             {
                
@@ -1350,6 +1350,7 @@ namespace PuntoVentas
         private void btnPresupuesto2_Click(object sender, EventArgs e)
         {
             GrpoMovimientos.Visible = false;
+            SubGrupoReportesCompras.Visible = false;
             SubGrupoReportes.Visible = false;
 
             if (GrupoPresupuesto.Visible == true)
@@ -1502,7 +1503,7 @@ namespace PuntoVentas
         {
             GrpoMovimientos.Visible = false;
             SubGrupoReportes.Visible = false;
-
+            SubGrupoReportesCompras.Visible = false;
             if (GrupoUtilerias.Visible == true)
             {
               

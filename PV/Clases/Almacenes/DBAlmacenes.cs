@@ -99,6 +99,26 @@ namespace PV.Clases.Almacenes
                 MessageBox.Show("Error" + ex.ToString());
             }
         }
+        public string[] InformacionAlmacen(string Orden)
+        {
+            cmd = new SqlCommand(" select OC.Clave, OC.Nombre, Oc.Estatus from Almacenes as OC where Clave='" + Orden + "'", cn);
+            dr = cmd.ExecuteReader();
+            string[] resultado = null;
+            while (dr.Read())
+            {
+                string[] valores =
+                {
+                    dr["Clave"].ToString(),
+                     dr["Nombre"].ToString(),
+                     dr["Estatus"].ToString(),
+                   
+
+                };
+                resultado = valores;
+            }
+            dr.Close();
+            return resultado;
+        }
         //_____________________________________________________________________________________________________
         //Mostrar Usuario seleccionado
         public void ConsultaAlmacenSeleccionada(string Clave, Guna2ToggleSwitch cmbEstatus, Guna2TextBox txtNombre, Guna2TextBox txtCuentaContable)

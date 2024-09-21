@@ -228,8 +228,8 @@ namespace PV
                 c.InsertarPartida(TxtFolio2.Text, txtPartida.Text, txtClave.Text, txtConcepto2.Text, txtCantidad.Text, txtUnidad.Text, txtDivisa1.Text, txtTipoCambio1.Text, Convert.ToDecimal(txtSubtotal1.Text), Convert.ToDecimal(txtDescuento1.Text), Convert.ToDecimal(txtTotal1.Text), Convert.ToDecimal(txtPrecio.Text), Convert.ToDecimal(txtImpuesto1.Text));
                 Limpiar();
                 c.Consulta5(TxtFolio2.Text, txtPartida);
-                c.ReciboSaldosPartidasOrden(TxtFolio2.Text, txtSubtotalR, txtDescuentoR, txtTotalR);
-                c.ReciboSaldosPartidasOrden2(TxtFolio2.Text, txtImpuestoR);
+                c.ReciboSaldosPartidasOrden(TxtFolio2.Text, txtSubtotalR, txtDescuentoR, txtTotalR, txtImpuestoR);
+                //c.ReciboSaldosPartidasOrden2(TxtFolio2.Text, txtImpuestoR);
             }
             LimpiarPartida();
         }
@@ -306,7 +306,7 @@ namespace PV
 
                 if (txtFolio.Text == string.Empty)
                 {
-                    c.InsertarOrden(txtFolio, txtClave.Text, cmbEstatus.Text, txtFecha.Text, txtDiasVence.Text, txtFechaVence.Text, txtMatricular.Text, txtDivisa1.Text, txtTipoCambio1.Text, txtNotas.Text, txtElaborado.Text, txtConsecutivo.Text);
+                    c.InsertarOrden(txtFolio, txtClave.Text, cmbEstatus.Text, txtFecha.Text, txtDiasVence.Text, txtFechaVence.Text, txtMatricular.Text, txtDivisa1.Text, txtTipoCambio1.Text, txtNotas.Text, txtElaborado.Text, txtConsecutivo.Text, "0");
                     //    MessageBox.Show(txtFolio.Text);
 
                 }

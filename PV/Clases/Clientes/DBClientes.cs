@@ -181,6 +181,27 @@ namespace PV.Clases.Clientes
                 MessageBox.Show("Error" + ex.ToString());
             }
         }
+        public string[] InformacionCliente(string Orden)
+        {
+            cmd = new SqlCommand("select OC.IdCliente, OC.RazonSocial, Oc.TipoCliente, OC.Estatus, OC.RFC from Clientes as OC where IdCliente='" + Orden + "'", cn);
+            dr = cmd.ExecuteReader();
+            string[] resultado = null;
+            while (dr.Read())
+            {
+                string[] valores =
+                {
+                    dr["IdCliente"].ToString(),
+                     dr["RazonSocial"].ToString(),
+                     dr["TipoCliente"].ToString(),
+                     dr["Estatus"].ToString(),
+                     dr["RFC"].ToString(),
+
+                };
+                resultado = valores;
+            }
+            dr.Close();
+            return resultado;
+        }
         //_____________________________________________________________________________________________________
         //Mostrar Usuario seleccionado
         public void ConsultaClienteSeleccionado(string IdCliente, Guna2TextBox RazonSocial, ComboBox TipoCliente, Guna2TextBox RFC, TextBox Calle, TextBox NoExterior, TextBox NoInterior, TextBox Colonia, TextBox Municipio, TextBox CodigoPostal, TextBox Ciudad, TextBox Pais, TextBox Referencias, ComboBox MetodoPago, ComboBox FormaPago, ComboBox CFDI, ComboBox ListaPrecio, DateTimePicker Del, DateTimePicker Al, ComboBox TipoCliente2, ComboBox Zona, TextBox Contacto, TextBox FormaEmbarque, TextBox DomicilioEntragas, ComboBox AgenteVentas, TextBox PorcentajeComision, TextBox AnticipioPedidos, ComboBox DivisaOperacion, TextBox DiasCredito, TextBox LimiteCredito, TextBox PorcentajeDescuentos, ComboBox BaseComision, TextBox PorcentajeRecargos, ComboBox EncargadoCuentasxPagar, TextBox BancoPagar, TextBox DomicilioFiscal, TextBox RegimelFiscal, TextBox Exportacion, TextBox Estado, TextBox Telefono, TextBox Celular, TextBox Correo, RadioButton Si, RadioButton No, TextBox txtCorreo2, RadioButton Si2, RadioButton No2, ComboBox Estatus, TextBox Anticipo)

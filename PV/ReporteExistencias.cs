@@ -28,27 +28,27 @@ namespace PV
 
              if (Articulo == "Todos" && Categoria == 0)
             {
-                MessageBox.Show("4");
+                //MessageBox.Show("4");
                 this.ProductosServiciosTableAdapter.Fill(this.ControlCondominiosDataSet32.ProductosServicios);
             }
             else if (Articulo == "Todos" && Categoria > 0)
             {
-                MessageBox.Show("5");
+                //MessageBox.Show("5");
                 this.ProductosServiciosTableAdapter.FillBy3(this.ControlCondominiosDataSet32.ProductosServicios, Categoria);
             }
             else if (Articulo != string.Empty && Categoria == 0)
             {
-                MessageBox.Show("1");
+                //MessageBox.Show("1");
                 this.ProductosServiciosTableAdapter.FillBy2(this.ControlCondominiosDataSet32.ProductosServicios, Articulo);
             }
             else if (Articulo == string.Empty && Categoria != 0)
             {
-                MessageBox.Show("2");
+                //MessageBox.Show("2");
                 this.ProductosServiciosTableAdapter.FillBy3(this.ControlCondominiosDataSet32.ProductosServicios, Categoria);
             }
             else if (Articulo != string.Empty && Articulo != "Todos" && Categoria != 0)
             {
-                MessageBox.Show("3");
+                //MessageBox.Show("3");
                 this.ProductosServiciosTableAdapter.FillBy4(this.ControlCondominiosDataSet32.ProductosServicios, Articulo, Categoria);
             }
            

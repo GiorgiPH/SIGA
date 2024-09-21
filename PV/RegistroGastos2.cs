@@ -1284,6 +1284,10 @@ namespace PV
             txtNotas.Text = string.Empty;
             txtElaborado.Text = string.Empty;
             txtArchivo.Text = string.Empty;
+            cmbDocumento.SelectedIndex = -1;
+            cmbFiltroDocumentoC.SelectedIndex = -1;
+            cmbProveedor.SelectedIndex = -1;
+            cmbOrdenCompra.SelectedIndex = -1;
 
         }
         void LimpiarDetalle()
@@ -1637,6 +1641,55 @@ namespace PV
                 guna2PictureBox2.Visible = false;
                 guna2PictureBox1.Visible = true;
             }
+        }
+
+        private void txtDiasVence_Leave(object sender, EventArgs e)
+        {
+            CalcularFechaVencimiento();
+        }
+        private void CalcularFechaVencimiento()
+        {
+            try
+            {
+                string diasv = string.IsNullOrEmpty(txtDiasVence.Text) ? "0" : txtDiasVence.Text;
+
+                int Dias = Convert.ToInt32(diasv);
+                DateTime FechaVence = Convert.ToDateTime(txtFecha.Text);
+                FechaVence = FechaVence.AddDays(Dias);
+                txtFechaVence.Text = FechaVence.ToString("yyyy/MM/dd");
+
+
+            }
+            catch (Exception)
+            {
+
+                MessageBox.Show("Formato de dias vencimiento incorrecto");
+            }
+        }
+
+        private void txtPrecio_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            c.Monto(e);
+        }
+
+        private void txtSubtotal1_KeyUp(object sender, KeyEventArgs e)
+        {
+
+        }
+
+        private void txtSubtotal1_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            c.Monto(e);
+        }
+
+        private void txtImpuesto1_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            c.Monto(e);
+        }
+
+        private void txtDescuento1_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            c.Monto(e);
         }
     }
     
