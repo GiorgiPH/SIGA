@@ -159,31 +159,48 @@ namespace PV.Clases.Clientes
         }
         //________________________________________________________________________________________________
         //Empleado Registrados
-        public void CargarClientes(DataGridView dgv)
+        public DataTable CargarClientes(string nombre)
         {
             try
             {
-                dgv.Rows.Clear();
-                da = new SqlDataAdapter("Select * from Clientes", cn);
-                dt = new DataTable();
-                da.Fill(dt);
-                foreach (DataRow item in dt.Rows)
-                {
-                    int n = dgv.Rows.Add();
-                    dgv.Rows[n].Cells[0].Value = item["IdCliente"].ToString();
-                    dgv.Rows[n].Cells[1].Value = item["RazonSocial"].ToString();
-                    dgv.Rows[n].Cells[2].Value = item["TipoCliente"].ToString();
-                }
+                da = new SqlDataAdapter(@"Select * from Clientes where razonsocial like '%"+nombre+"%'", cn);
 
+
+                DataTable dt = new DataTable();
+                da.Fill(dt);
+
+                return dt;
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error" + ex.ToString());
+                throw new Exception("Error al obtener los pagos del recibo: " + ex.Message);
             }
         }
+        //public void CargarClientes(DataGridView dgv)
+        //{
+        //    try
+        //    {
+        //        dgv.Rows.Clear();
+        //        da = new SqlDataAdapter("Select * from Clientes", cn);
+        //        dt = new DataTable();
+        //        da.Fill(dt);
+        //        foreach (DataRow item in dt.Rows)
+        //        {
+        //            int n = dgv.Rows.Add();
+        //            dgv.Rows[n].Cells[0].Value = item["IdCliente"].ToString();
+        //            dgv.Rows[n].Cells[1].Value = item["RazonSocial"].ToString();
+        //            dgv.Rows[n].Cells[2].Value = item["TipoCliente"].ToString();
+        //        }
+
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        MessageBox.Show("Error" + ex.ToString());
+        //    }
+        //}
         public string[] InformacionCliente(string Orden)
         {
-            cmd = new SqlCommand("select OC.IdCliente, OC.RazonSocial, Oc.TipoCliente, OC.Estatus, OC.RFC from Clientes as OC where IdCliente='" + Orden + "'", cn);
+            cmd = new SqlCommand("select OC.IdCliente, OC.RazonSocial, Oc.TipoCliente, OC.Estatus, OC.RFC, OC.Correo, OC.Correo2 from Clientes as OC where IdCliente='" + Orden + "'", cn);
             dr = cmd.ExecuteReader();
             string[] resultado = null;
             while (dr.Read())
@@ -195,6 +212,8 @@ namespace PV.Clases.Clientes
                      dr["TipoCliente"].ToString(),
                      dr["Estatus"].ToString(),
                      dr["RFC"].ToString(),
+                     dr["Correo"].ToString(),
+                     dr["Correo2"].ToString(),
 
                 };
                 resultado = valores;
@@ -359,6 +378,18 @@ namespace PV.Clases.Clientes
             }
             return mensaje;
 
+        }
+        public void SeleccionarPropietarios(ComboBox cb)
+        {
+            cb.Items.Clear();
+            cb.Items.Add("TODOS");
+            cmd = new SqlCommand("select (convert(varchar, idCliente) + ' - ' + RazonSocial) as Nombre from Clientes", cn);
+            dr = cmd.ExecuteReader();
+            while (dr.Read())
+            {
+                cb.Items.Add(dr[0].ToString());
+            }
+            dr.Close();
         }
         //______________________________________________________________________________________________________________________________
         public void SeleccionarTipoCliente(ComboBox cb)

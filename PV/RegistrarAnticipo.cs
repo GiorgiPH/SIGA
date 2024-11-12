@@ -1,48 +1,92 @@
-﻿using System;
-using System.Windows.Forms;
+﻿using Condominios;
 using ControlAcademico;
-using Condominios;
+using Guna.UI2.WinForms;
+using PuntoVentas;
+using PV.Clases;
 using PV.Clases.Anticipo;
+using PV.Clases.Clientes;
+using PV.Clases.Divisas;
+
+using System;
+using System.Windows.Forms;
 
 namespace PV
 {
     public partial class RegistrarAnticipo : Form
     {
         DBAnticipo c = new DBAnticipo();
+        DBDivisas d = new DBDivisas();
+        DBClientes cl = new DBClientes();
 
         public static string matricula = string.Empty;
         public static string nombre = string.Empty;
+        public static string FolioC = string.Empty;
+        public static string FolioCGeneral = string.Empty;
+        public static bool AnticipoRealizado = false;
         string Opcion = string.Empty;
 
         public RegistrarAnticipo(string opcion)
         {
             InitializeComponent();
+            ToolTip tt=new ToolTip();
+            tt.SetToolTip(button1, "Nuevo");
+            tt.SetToolTip(button10, "Imprimir Anticipo");
+            tt.SetToolTip(button11, "Enviar Anticipo");
+            tt.SetToolTip(button8, "Consultar Anticipo");
             Opcion = opcion;
-        }
-
-        private void RegistrarAnticipo_Load(object sender, EventArgs e)
-        {
             matricula = string.Empty;
             nombre = string.Empty;
+            foreach (Control l in panel1.Controls)
+            {
+                if (l is Label)
+                {
+                    l.Text = l.Text.ToUpper();
+                }
+            }
+            foreach (Control l in pnRegistrar.Controls)
+            {
+                if (l is Label)
+                {
+                    l.Text = l.Text.ToUpper();
+                }
+            }
             dtpFecha.Text = DateTime.Today.ToString("yyyy-MM-dd");
             txtCaja.Text = "1";
             c.SeleccionarCuentaBancaria(cmbCuentaBancaria);
             c.SeleccionarFormaPago(cmbFormaPago);
-            
+            d.SeleccionarDivisa(cmbDivisas);
+            if (cmbDivisas.Items.Count > 0)
+            {
+                cmbDivisas.SelectedIndex = 0;
+            }
+
+
 
             if (Opcion == "Propietario")
             {
                 c.ConsultaConceptoAnticipo(txtConcepto, txtConceptoClave);
-                c.CargarAnticipo(dataGridView1);
-                lbProp.Visible = true;
+                c.CargarAnticipoCliente(dataGridView1, txtFiltro.Text);
+
+                label12.Text = "CLIENTE";
+                lbProv.Text = "Cliente";
+                dataGridView1.Columns[1].HeaderText = "Cliente";
             }
             else
             {
-                c.CargarAnticipoProveedor(dataGridView1);
+                c.CargarAnticipoProveedor(dataGridView1, txtFiltro.Text);
                 lbProv.Visible = true;
-                txtConcepto.Text = "ANP - Anticipo Proveedores";
-                txtConceptoClave.Text = "ANP";
+                txtConcepto.Text = "APR - Anticipo Proveedores";
+                txtConceptoClave.Text = "APR";
+                label12.Text = "PROVEEDOR";
+                lbProv.Text = "Proveedor";
             }
+        }
+
+
+        private void RegistrarAnticipo_Load(object sender, EventArgs e)
+        {
+            txtimporte.Text = txtimporte.Text;
+            
 
         }
 
@@ -50,8 +94,13 @@ namespace PV
         {
             if (Opcion == "Propietario")
             {
-                BuscarListaAlumnos2 buscar = new BuscarListaAlumnos2();
+                BuscarCliente buscar = new BuscarCliente();
                 buscar.ShowDialog();
+                if (!string.IsNullOrEmpty(BuscarCliente.Cliente))
+                {
+                    txtMatricula.Text = BuscarCliente.Cliente;
+                    txtAlumno.Text = BuscarCliente.NombreCliente;
+                }
             }
             else
             {
@@ -73,11 +122,10 @@ namespace PV
 
         private void RegistrarAnticipo_Activated(object sender, EventArgs e)
         {
-            if (btnBuscar.Enabled==true)
-            {
-                txtMatricula.Text = matricula;
-                txtAlumno.Text = nombre;
-            }
+            
+                //txtMatricula.Text = matricula;
+                //txtAlumno.Text = nombre;
+            
         }
 
         void GenerarNoCategoria()
@@ -134,7 +182,7 @@ namespace PV
             {
                 MessageBox.Show("Registre la forma de pago para continuar.");
             }
-            else if (txtimporte.Text == string.Empty)
+            else if (Convert.ToDecimal(txtimporte.Text)<=0)
             {
                 MessageBox.Show("Registre el importe para continuar.");
             }
@@ -142,15 +190,15 @@ namespace PV
             {
                 if (Opcion == "Propietario")
                 {
-                    MessageBox.Show(c.RegistroAnticipo(txtFolio.Text, txtMatricula.Text, txtCaja.Text, dtpFecha.Text, cmbFormaPago.Text, txtConceptoClave.Text, txtReferencia.Text, txtCuenta.Text, txtNumOperacion.Text, Convert.ToDecimal(txtimporte.Text)));
-                    c.CargarAnticipo(dataGridView1);
+                    MessageBox.Show(c.RegistroAnticipo(txtFolio.Text, txtMatricula.Text, txtCaja.Text, dtpFecha.Text, cmbFormaPago.Text, txtConceptoClave.Text, txtReferencia.Text, txtCuenta.Text, txtNumOperacion.Text, Convert.ToDecimal(txtImporteMXN.Text), cmbDivisas.Text, txtTipoCambio.Text, FolioC, FolioCGeneral));
+                    c.CargarAnticipo(dataGridView1, txtFiltro.Text);
                 }
                 else
                 {
-                    MessageBox.Show(c.RegistroAnticipoProveedor(txtFolio.Text, txtMatricula.Text, txtCaja.Text, dtpFecha.Text, cmbFormaPago.Text, txtConceptoClave.Text, txtReferencia.Text, txtCuenta.Text, txtNumOperacion.Text, Convert.ToDecimal(txtimporte.Text)));
-                    c.CargarAnticipoProveedor(dataGridView1);
+                    MessageBox.Show(c.RegistroAnticipoProveedor(txtFolio.Text, txtMatricula.Text, txtCaja.Text, dtpFecha.Text, cmbFormaPago.Text, txtConceptoClave.Text, txtReferencia.Text, txtCuenta.Text, txtNumOperacion.Text, Convert.ToDecimal(txtImporteMXN.Text), cmbDivisas.Text, txtTipoCambio.Text));
+                    c.CargarAnticipoProveedor(dataGridView1, txtFiltro.Text);
                 }
-
+                AnticipoRealizado = true;
                 if (MessageBox.Show("¿Imprimir Recibo?", "Registrar Anticipo", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                 {
                     if (Opcion == "Propietario")
@@ -177,62 +225,44 @@ namespace PV
         void Limpiar()
         {
             txtFolio.Clear();
-            txtMatricula.Clear();
+            txtMatricula.Text = string.Empty;
+            txtAlumno.Text = string.Empty;
             txtConceptoClave.Clear();
             cmbFormaPago.Text = null;
             txtConcepto.Clear();
-            txtReferencia.Clear();
+            txtReferencia.Text = string.Empty;
             txtCuenta.Clear();
             cmbCuentaBancaria.Text = null;
-            txtNumOperacion.Clear();
+            txtNumOperacion.Text = string.Empty;
             txtimporte.Text = "0.00";
             txtAlumno.Clear();
             panel1.Enabled = false;
             button10.Enabled = false;
             button11.Enabled = false;
             btnBuscar.Enabled = true;
+            cmbDivisas.Text = null;
+            txtTipoCambio.Clear();
+            //txtimporte.Clear();
+            txtImporteMXN.Clear();
+            txtSaldo.Text = "0.00";
+            txtimporte.Enabled = true;
+  
             //c.ConsultaConceptoAnticipo(txtConcepto, txtConceptoClave);
             if (Opcion == "Propietario")
             {
                 c.ConsultaConceptoAnticipo(txtConcepto, txtConceptoClave);
-                c.CargarAnticipo(dataGridView1);
-                lbProp.Visible = true;
+                c.CargarAnticipoCliente(dataGridView1, txtFiltro.Text);
             }
             else
             {
-                c.CargarAnticipoProveedor(dataGridView1);
+                c.CargarAnticipoProveedor(dataGridView1, txtFiltro.Text);
                 lbProv.Visible = true;
-                txtConcepto.Text = "ANP - Anticipo Proveedores";
-                txtConceptoClave.Text = "ANP";
+                txtConcepto.Text = "APR - Anticipo Proveedores";
+                txtConceptoClave.Text = "APR";
             }
         }
 
-        private void Moneda(ref TextBox txt)
-        {
-            string n = string.Empty;
-            double v = 0;
-            try
-            {
-                n = txt.Text.Replace(",", "").Replace(".", "");
-                if (n.Equals(""))
-                {
-                    n = "";
-                }
-                n = n.PadLeft(3, '0');
-                if (n.Length > 3 && n.Substring(0, 1) == "0")
-                {
-                    n.Substring(1, n.Length - 1);
-                }
-                v = Convert.ToDouble(n) / 100;
-                txt.Text = string.Format("{0:N}", v);
-                txt.SelectionStart = txt.Text.Length;
-            }
-            catch (Exception)
-            {
-
-                throw;
-            }
-        }
+       
 
         private void button1_Click(object sender, EventArgs e)
         {
@@ -266,16 +296,42 @@ namespace PV
                 button10.Enabled = true;
                 button11.Enabled = true;
             }
+            pnRegistrar.Enabled = false;
+            dtpFecha.Enabled = true;
+
+
         }
 
         private void txtimporte_TextChanged(object sender, EventArgs e)
         {
-            Moneda(ref txtimporte);
+           
+                Utilerias.Moneda2(ref txtimporte);
+            
+
+
+            //if (txtimporte.Text == "0.00" || txtimporte.Text == "0")
+            //{
+            //    txtImporteMXN.Text = "0.00";
+
+            //}
+            
+                if (txtTipoCambio.Text == string.Empty)
+                {
+                    MessageBox.Show("Seleccione una divisa con tipo de cambio registrado");
+                    txtimporte.Text = "0.00";
+                    txtImporteMXN.Text = "0.00";
+                    return;
+                }
+                decimal importemxn = (Convert.ToDecimal(txtimporte.Text) * decimal.Round(Convert.ToDecimal(txtTipoCambio.Text),2));
+
+                txtImporteMXN.Text = importemxn.ToString("0.00");
+            
         }
 
         private void txtimporte_KeyPress(object sender, KeyPressEventArgs e)
         {
             c.Monto(e);
+
         }
 
         private void cmbCuentaBancaria_SelectedIndexChanged(object sender, EventArgs e)
@@ -294,19 +350,39 @@ namespace PV
                 string Clave = dataGridView1.Rows[e.RowIndex].Cells["Folio"].Value.ToString();
                 if (Opcion == "Propietario")
                 {
-                    c.ConsultaProductoSeleccionado(Clave, txtMatricula, txtCaja, dtpFecha, cmbFormaPago, txtConceptoClave, txtReferencia, txtCuenta, txtNumOperacion, txtimporte);
+
+                    if (c.ConsultaProductoSeleccionado(Clave, txtMatricula, txtCaja, dtpFecha, cmbFormaPago, txtConceptoClave, txtReferencia, txtCuenta, txtNumOperacion, txtImporteMXN, cmbDivisas, txtTipoCambio, txtSaldo, txtimporte) == "1")
+                    {
+                        lbEstatus.Text = "Estatus:  CANCELADO";
+                    }
+                    else
+                    {
+                        lbEstatus.Text = " ";
+                    }
 
                 }
                 else
                 {
-                    c.ConsultaProductoSeleccionadoProveedor(Clave, txtMatricula, txtCaja, dtpFecha, cmbFormaPago, txtConceptoClave, txtReferencia, txtCuenta, txtNumOperacion, txtimporte);
+                    c.ConsultaProductoSeleccionadoProveedor(Clave, txtMatricula, txtCaja, dtpFecha, cmbFormaPago, txtConceptoClave, txtReferencia, txtCuenta, txtNumOperacion, txtImporteMXN, cmbDivisas, txtTipoCambio, txtSaldo, txtimporte);
 
                 }
+
+
+                //double importemxn = (Convert.ToDouble(txtImporteMXN.Text) / Convert.ToDouble(txtTipoCambio.Text));
+                ////importemxn = importemxn * 100;
+
+                //txtimporte.Text = importemxn.ToString();
+
+                //decimal sal = Convert.ToDecimal(txtSaldo.Text);
+                //txtSaldo.Text = sal.ToString();
+                pnRegistrar.Enabled = false;
+                dtpFecha.Enabled = false;
                 panel1.Enabled = true;
                 txtFolio.Text = Clave;
                 PanelUsuario.Visible = false;
                 button10.Enabled = true;
                 button11.Enabled = true;
+                txtimporte.Enabled = false;
                 btnBuscar.Enabled = false;
 
                 if (txtCuenta.Text != string.Empty)
@@ -315,7 +391,7 @@ namespace PV
                     cmbCuentaBancaria.Text = valores[0];
                 }
 
-                if (txtConceptoClave.Text != string.Empty)
+                if (txtConceptoClave.Text != string.Empty && Opcion == "Propietario")
                 {
                     string[] valores = c.InformacionConcepto(txtConceptoClave.Text);
                     txtConcepto.Text = valores[0];
@@ -325,8 +401,8 @@ namespace PV
                 {
                     if (txtMatricula.Text != string.Empty)
                     {
-                        string[] valores = c.InformacionPropietario(txtMatricula.Text);
-                        txtAlumno.Text = valores[0];
+                        string[] valores = cl.InformacionCliente(txtMatricula.Text);
+                        txtAlumno.Text = valores[1];
                     }
                 }
                 else
@@ -336,6 +412,12 @@ namespace PV
                         string[] valores = c.InformacionProveedor(txtMatricula.Text);
                         txtAlumno.Text = valores[0];
                     }
+                }
+
+                if (cmbDivisas.Text != string.Empty)
+                {
+                    string[] valores = d.InformacionDivisa(cmbDivisas.Text);
+                    txtTipoCambio.Text = valores[0];
                 }
 
             }
@@ -380,7 +462,7 @@ namespace PV
                     reciboAnticipo.ShowDialog();
                 }
             }
-           
+
         }
 
         private void button11_Click(object sender, EventArgs e)
@@ -401,6 +483,122 @@ namespace PV
                     reciboAnticipo.ShowDialog();
                 }
             }
+        }
+
+        private void cmbDivisas_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (cmbDivisas.Text != string.Empty)
+            {
+                string[] valores = d.InformacionDivisa(cmbDivisas.Text);
+                txtTipoCambio.Text = valores[0];
+                txtimporte.Text = "0.00";
+                txtImporteMXN.Text = "0.00";
+            }
+        }
+
+        private void txtImporteMXN_TextChanged(object sender, EventArgs e)
+        {
+
+            Utilerias.Moneda2(ref txtImporteMXN);
+            
+
+
+        }
+
+        private void txtFiltro_TextChanged(object sender, EventArgs e)
+        {
+            if(Opcion== "Propietario")
+            {
+                
+                    c.CargarAnticipo(dataGridView1, txtFiltro.Text);
+                
+            }
+            else
+            {
+             
+                    c.CargarAnticipoProveedor(dataGridView1, txtFiltro.Text);
+
+                
+            }
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            if (txtFolio.Text == string.Empty)
+            {
+                MessageBox.Show("Seleccione el anticipo para continuar");
+            }
+            else if (txtImporteMXN.Text != txtSaldo.Text)
+            {
+                MessageBox.Show("No es posible cancelar anticipos aplicados");
+            }
+            else
+            {
+                if (Opcion == "Propietario")
+                {
+                    c.EliminarAnticipo(txtFolio.Text);
+                    MessageBox.Show("Anticipo cancelado");
+                    ReciboAnticipo reciboAnticipo = new ReciboAnticipo(txtFolio.Text, "0", txtMatricula.Text);
+                    reciboAnticipo.ShowDialog();
+                    
+                }
+                else
+                {
+                    c.EliminarAnticipoProveedor(txtFolio.Text);
+                    MessageBox.Show("Anticipo cancelado");
+                    ReciboAnticipoProveedor reciboAnticipo = new ReciboAnticipoProveedor(txtFolio.Text, "0", txtMatricula.Text);
+                    reciboAnticipo.ShowDialog();
+                }
+                Limpiar();
+            }
+        }
+
+        private void txtSaldo_TextChanged(object sender, EventArgs e)
+        {
+            
+                Utilerias.Moneda2(ref txtSaldo);
+            
+
+
+        }
+
+        private void guna2ControlBox1_Click(object sender, EventArgs e)
+        {
+           
+        }
+
+        private void txtConcepto_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void txtMatricula_TextChanged(object sender, EventArgs e)
+        {
+            if (!string.IsNullOrEmpty(txtMatricula.Text))
+            {
+                pnRegistrar.Enabled = true;
+            }
+            else
+            {
+                pnRegistrar.Enabled = false;
+            }
+        }
+
+        private void txtFolio_TextChanged(object sender, EventArgs e)
+        {
+            if (!string.IsNullOrEmpty(txtFolio.Text) && txtFolio.Text != DBAnticipo.Folio.ToString())
+            {
+                button3.Enabled = true;
+            }
+            else
+            {
+                button3.Enabled = false;
+            }
+        }
+
+        private void guna2CircleButton1_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }

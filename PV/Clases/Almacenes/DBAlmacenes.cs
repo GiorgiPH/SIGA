@@ -129,7 +129,7 @@ namespace PV.Clases.Almacenes
                 dr = cmd.ExecuteReader();
                 if (dr.Read())
                 {
-                    if (dr["Estatus"].ToString() == "Activo")
+                    if (dr["Estatus"].ToString().Trim() == "Activo")
                     {
                         cmbEstatus.Checked = true;
 
@@ -189,5 +189,17 @@ namespace PV.Clases.Almacenes
             return mensaje;
 
         }
+        public void SeleccionarAlmacen(ComboBox cb)
+        {
+            cb.Items.Clear();
+            cmd = new SqlCommand("select (convert(varchar, Clave) + ' - ' + Nombre) as Nombre from Almacenes", cn);
+            dr = cmd.ExecuteReader();
+            while (dr.Read())
+            {
+                cb.Items.Add(dr[0].ToString());
+            }
+            dr.Close();
+        }
+        
     }
 }

@@ -532,5 +532,26 @@ namespace PV.Clases.TipoMovimiento
             dr.Close();
             return resultado;
         }
+        public void ValidarDocumentoSPR()
+        {
+            try
+            {
+                using (SqlConnection cn = new SqlConnection(ObtenerCn()))
+                {
+                    cn.Open();
+
+                    SqlCommand cmd = new SqlCommand("IF NOT EXISTS (SELECT * FROM TipoMovimiento WHERE Documento = 'SPR' AND TipoMovimiento = 'S') " +
+                                                     "BEGIN " +
+                                                     "    INSERT INTO TipoMovimiento VALUES ('S', 'SPR', 'SALIDA POR REMISIÓN', 'Activo', '0', 'Si', 'Si', '', '') " +
+                                                     "END", cn);
+
+                    cmd.ExecuteNonQuery();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error: " + ex.Message);
+            }
+        }
     }
 }

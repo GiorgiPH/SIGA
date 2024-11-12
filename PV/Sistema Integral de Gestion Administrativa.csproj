@@ -158,6 +158,12 @@
     <Compile Include="Avisos.Designer.cs">
       <DependentUpon>Avisos.cs</DependentUpon>
     </Compile>
+    <Compile Include="BuscarCliente.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="BuscarCliente.Designer.cs">
+      <DependentUpon>BuscarCliente.cs</DependentUpon>
+    </Compile>
     <Compile Include="BuscarFecha.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -285,6 +291,7 @@
     <Compile Include="Clases\ConceptosIngresos\DBConceptosIngresos.cs" />
     <Compile Include="Clases\Condominios\DBCondominios.cs" />
     <Compile Include="Clases\ConsultaCondominio\DBConsultaCondominio.cs" />
+    <Compile Include="Clases\CorreosMasivos.cs" />
     <Compile Include="Clases\CuentasBancarias\DBCUentaBancaria.cs" />
     <Compile Include="Clases\DatosEmpresa\DBDatosEmpresa.cs" />
     <Compile Include="Clases\Divisas\DBDivisas.cs" />
@@ -307,6 +314,7 @@
     <Compile Include="Clases\Proveedores\DBProveedores.cs" />
     <Compile Include="Clases\RecibosAutomaticos\DBRecibosAutomaticos.cs" />
     <Compile Include="Clases\RegistrarIngresos\DBRegistrarIngresos.cs" />
+    <Compile Include="Clases\Remision\DBRemiision.cs" />
     <Compile Include="Clases\ReporteCompras\DBReporteCompras.cs" />
     <Compile Include="Clases\ReservaAreaComun\DBReservaAreaComun.cs" />
     <Compile Include="Clases\Respaldo\DBRespaldo.cs" />
@@ -374,6 +382,29 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>ControlCondominiosDataSet58.xsd</DependentUpon>
     </Compile>
+    <Compile Include="ControlCondominiosDataSet59.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ControlCondominiosDataSet59.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="ControlCondominiosDataSet60.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ControlCondominiosDataSet60.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="ControlCondominiosDataSet61.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ControlCondominiosDataSet61.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="ControlCondominiosDataSet70.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ControlCondominiosDataSet70.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="ControlCondominiosDataSet8.cs">
+      <DependentUpon>ControlCondominiosDataSet8.xsd</DependentUpon>
+    </Compile>
     <Compile Include="customProfessionalRender.cs" />
     <Compile Include="DefinePoliza.cs">
       <SubType>Form</SubType>
@@ -423,10 +454,17 @@
     <Compile Include="OrdenPedidoCliente.Designer.cs">
       <DependentUpon>OrdenPedidoCliente.cs</DependentUpon>
     </Compile>
+    <Compile Include="Properties\Moneda.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="ReciboRecepcionProductos.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ReciboRecepcionProductos.Designer.cs">
+      <DependentUpon>ReciboRecepcionProductos.cs</DependentUpon>
     </Compile>
     <Compile Include="RegistrarEntrada2.cs">
       <SubType>Form</SubType>
@@ -434,11 +472,35 @@
     <Compile Include="RegistrarEntrada2.Designer.cs">
       <DependentUpon>RegistrarEntrada2.cs</DependentUpon>
     </Compile>
+    <Compile Include="RecepcionProductos2.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="RecepcionProductos2.Designer.cs">
+      <DependentUpon>RecepcionProductos2.cs</DependentUpon>
+    </Compile>
     <Compile Include="RegistroGastos2.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="RegistroGastos2.Designer.cs">
       <DependentUpon>RegistroGastos2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ReporteOrdenPedidoCliente.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ReporteOrdenPedidoCliente.Designer.cs">
+      <DependentUpon>ReporteOrdenPedidoCliente.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ReporteReciboAnticipoAplicado.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ReporteReciboAnticipoAplicado.designer.cs">
+      <DependentUpon>ReporteReciboAnticipoAplicado.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ReporteRemision.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ReporteRemision.Designer.cs">
+      <DependentUpon>ReporteRemision.cs</DependentUpon>
     </Compile>
     <Compile Include="ReporteServicios.cs">
       <SubType>Form</SubType>
@@ -1027,12 +1089,6 @@
     <Compile Include="PartidasOrden.Designer.cs">
       <DependentUpon>PartidasOrden.cs</DependentUpon>
     </Compile>
-    <Compile Include="PartidasRecepcion.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="PartidasRecepcion.Designer.cs">
-      <DependentUpon>PartidasRecepcion.cs</DependentUpon>
-    </Compile>
     <Compile Include="PartidasRecepcionVer.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -1070,12 +1126,6 @@
     </Compile>
     <Compile Include="Proveedores.Designer.cs">
       <DependentUpon>Proveedores.cs</DependentUpon>
-    </Compile>
-    <Compile Include="RecepcionProductos.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="RecepcionProductos.Designer.cs">
-      <DependentUpon>RecepcionProductos.cs</DependentUpon>
     </Compile>
     <Compile Include="ReciboAnticipo.cs">
       <SubType>Form</SubType>
@@ -1660,6 +1710,9 @@
     <EmbeddedResource Include="Avisos.resx">
       <DependentUpon>Avisos.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="BuscarCliente.resx">
+      <DependentUpon>BuscarCliente.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="BuscarFecha.resx">
       <DependentUpon>BuscarFecha.cs</DependentUpon>
     </EmbeddedResource>
@@ -1770,11 +1823,30 @@
     </EmbeddedResource>
     <EmbeddedResource Include="PolizaComprasDetalle.rdlc" />
     <EmbeddedResource Include="PolizaComprasDetalle1.rdlc" />
+    <EmbeddedResource Include="ReciboRecepcionProductos.rdlc" />
+    <EmbeddedResource Include="ReciboRecepcionProductos.resx">
+      <DependentUpon>ReciboRecepcionProductos.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="RegistrarEntrada2.resx">
       <DependentUpon>RegistrarEntrada2.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="RecepcionProductos2.resx">
+      <DependentUpon>RecepcionProductos2.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="RegistroGastos2.resx">
       <DependentUpon>RegistroGastos2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ReporteOrdenPedidoCliente.rdlc" />
+    <EmbeddedResource Include="ReporteOrdenPedidoCliente.resx">
+      <DependentUpon>ReporteOrdenPedidoCliente.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ReporteReciboAnticipoAplicado.rdlc" />
+    <EmbeddedResource Include="ReporteReciboAnticipoAplicado.resx">
+      <DependentUpon>ReporteReciboAnticipoAplicado.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ReporteRemision.rdlc" />
+    <EmbeddedResource Include="ReporteRemision.resx">
+      <DependentUpon>ReporteRemision.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ReporteServicios.rdlc" />
     <EmbeddedResource Include="ReporteServicios.resx">
@@ -1925,9 +1997,6 @@
     <EmbeddedResource Include="PartidasOrdenVer.resx">
       <DependentUpon>PartidasOrdenVer.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="PartidasRecepcion.resx">
-      <DependentUpon>PartidasRecepcion.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="PartidasRecepcionVer.resx">
       <DependentUpon>PartidasRecepcionVer.cs</DependentUpon>
     </EmbeddedResource>
@@ -1950,9 +2019,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Proveedores.resx">
       <DependentUpon>Proveedores.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="RecepcionProductos.resx">
-      <DependentUpon>RecepcionProductos.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ReciboAnticipo.rdlc" />
     <EmbeddedResource Include="ReciboAnticipo.resx">
@@ -2887,6 +2953,17 @@
     <None Include="ControlCondominiosDataSet58.xss">
       <DependentUpon>ControlCondominiosDataSet58.xsd</DependentUpon>
     </None>
+    <None Include="ControlCondominiosDataSet59.xsc">
+      <DependentUpon>ControlCondominiosDataSet59.xsd</DependentUpon>
+    </None>
+    <None Include="ControlCondominiosDataSet59.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>ControlCondominiosDataSet59.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="ControlCondominiosDataSet59.xss">
+      <DependentUpon>ControlCondominiosDataSet59.xsd</DependentUpon>
+    </None>
     <None Include="ControlCondominiosDataSet6.xsc">
       <DependentUpon>ControlCondominiosDataSet6.xsd</DependentUpon>
     </None>
@@ -2898,6 +2975,28 @@
     <None Include="ControlCondominiosDataSet6.xss">
       <DependentUpon>ControlCondominiosDataSet6.xsd</DependentUpon>
     </None>
+    <None Include="ControlCondominiosDataSet60.xsc">
+      <DependentUpon>ControlCondominiosDataSet60.xsd</DependentUpon>
+    </None>
+    <None Include="ControlCondominiosDataSet60.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>ControlCondominiosDataSet60.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="ControlCondominiosDataSet60.xss">
+      <DependentUpon>ControlCondominiosDataSet60.xsd</DependentUpon>
+    </None>
+    <None Include="ControlCondominiosDataSet61.xsc">
+      <DependentUpon>ControlCondominiosDataSet61.xsd</DependentUpon>
+    </None>
+    <None Include="ControlCondominiosDataSet61.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>ControlCondominiosDataSet61.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="ControlCondominiosDataSet61.xss">
+      <DependentUpon>ControlCondominiosDataSet61.xsd</DependentUpon>
+    </None>
     <None Include="ControlCondominiosDataSet7.xsc">
       <DependentUpon>ControlCondominiosDataSet7.xsd</DependentUpon>
     </None>
@@ -2908,6 +3007,17 @@
     </None>
     <None Include="ControlCondominiosDataSet7.xss">
       <DependentUpon>ControlCondominiosDataSet7.xsd</DependentUpon>
+    </None>
+    <None Include="ControlCondominiosDataSet70.xsc">
+      <DependentUpon>ControlCondominiosDataSet70.xsd</DependentUpon>
+    </None>
+    <None Include="ControlCondominiosDataSet70.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>ControlCondominiosDataSet70.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="ControlCondominiosDataSet70.xss">
+      <DependentUpon>ControlCondominiosDataSet70.xsd</DependentUpon>
     </None>
     <None Include="ControlCondominiosDataSet8.xsc">
       <DependentUpon>ControlCondominiosDataSet8.xsd</DependentUpon>

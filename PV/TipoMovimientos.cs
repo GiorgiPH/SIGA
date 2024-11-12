@@ -640,6 +640,9 @@ namespace PuntoVentas
                 {
                     PanelUsuario.Enabled = true;
                     PanelUsuario.Visible = false;
+                    guna2GradientPanel2.Visible = false;
+                    guna2GradientPanel5.Visible = false;
+                    guna2GradientPanel3.Visible = false;
                     // guna2GradientPanel2.SendToBack();
                     BloquearEntrada();
                 }
@@ -649,36 +652,45 @@ namespace PuntoVentas
                     PanelUsuario.Visible = true;
                     PanelUsuario.BringToFront();
                     BloquearEntrada();
+                    
                 }
                 if (panel3.Visible == true && tabControl1.SelectedIndex == 1)
                 {
                     panel3.Enabled = true;
                     panel3.Visible = false;
+                    guna2GradientPanel2.Visible = false;
+                    guna2GradientPanel5.Visible = false;
+                    guna2GradientPanel3.Visible = false;
                     // guna2GradientPanel2.SendToBack();
                     BloquearSalida();
                 }
                 else
                 {
                     panel3.Enabled = true;
-                    panel3.Visible = true;
+                    panel3.Visible = false;
                     panel3.BringToFront();
                     BloquearSalida();
+                    
                 }
                 if (panel5.Visible == true && tabControl1.SelectedIndex == 2)
                 {
                     panel5.Enabled = true;
                     panel5.Visible = false;
+                    guna2GradientPanel2.Visible = false;
+                    guna2GradientPanel5.Visible = false;
+                    guna2GradientPanel3.Visible = false;
                     // guna2GradientPanel2.SendToBack();
                     BloquearTraspasos();
                 }
                 else
                 {
                     panel5.Enabled = true;
-                    panel5.Visible = true;
+                    panel5.Visible = false;
                     panel5.BringToFront();
                     BloquearTraspasos();
+                    
                 }
-
+                guna2GradientPanel4.Visible = false;
                 guna2GradientPanel4.Size = new Size(22, 569);
                 toolStrip1.Size = new Size(22, 569);
                 toolStripButton1.TextDirection = System.Windows.Forms.ToolStripTextDirection.Vertical270;
@@ -885,6 +897,9 @@ namespace PuntoVentas
                 {
                     PanelUsuario.Enabled = true;
                     PanelUsuario.Visible = false;
+                    guna2GradientPanel2.Visible = false;
+                    guna2GradientPanel5.Visible = false;
+                    guna2GradientPanel3.Visible = false;
                     // guna2GradientPanel2.SendToBack();
                     BloquearEntrada();
                 }
@@ -899,6 +914,9 @@ namespace PuntoVentas
                 {
                     panel3.Enabled = true;
                     panel3.Visible = false;
+                    guna2GradientPanel2.Visible = false;
+                    guna2GradientPanel5.Visible = false;
+                    guna2GradientPanel3.Visible = false;
                     // guna2GradientPanel2.SendToBack();
                     BloquearSalida();
                 }
@@ -913,6 +931,9 @@ namespace PuntoVentas
                 {
                     panel5.Enabled = true;
                     panel5.Visible = false;
+                    guna2GradientPanel2.Visible = false;
+                    guna2GradientPanel5.Visible = false;
+                    guna2GradientPanel3.Visible = false;
                     // guna2GradientPanel2.SendToBack();
                     BloquearTraspasos();
                 }

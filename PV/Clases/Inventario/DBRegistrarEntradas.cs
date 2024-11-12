@@ -222,8 +222,31 @@ namespace PV.Clases.Inventario
             dr.Close();
             return resultado;
         }
+
+        public void ValidarDocumentoEPR()
+        {
+            try
+            {
+                using (SqlConnection cn = new SqlConnection(ObtenerCn()))
+                {
+                    cn.Open();
+
+                    SqlCommand cmd = new SqlCommand("IF NOT EXISTS (SELECT * FROM TipoMovimiento WHERE Documento = 'EPR' AND TipoMovimiento = 'E') " +
+                                                     "BEGIN " +
+                                                     "    INSERT INTO TipoMovimiento VALUES ('E', 'EPR', 'ENTRADA POR RECEPCIÓN', 'Activo', '0', 'Si', 'Si', '', '') " +
+                                                     "END", cn);
+
+                    cmd.ExecuteNonQuery();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error: " + ex.Message);
+            }
+        }
         //_________________________________________________________________________________________________________________________--
         // registrar forma Movimiento 
+
         public string RegistroMovimientoInventario(string txtFolio, string txtTipoDocumento, string cmbDescripcion, string dtpFecha, string cmbEstatus, string txtReferencias, string txtAlmacen, string txtTotalPartidas, string cmbDivisa, string txtTipoCambio, string txtTotal, string txtNotas, string txtElaborado, TextBox FOlioP, string txtAlmacenSalida)
         {
             string mensaje = "";
@@ -274,6 +297,7 @@ namespace PV.Clases.Inventario
             return mensaje;
 
         }
+
         //_________________________________________________________________________________________________________________________--
         // registrar Movimiento 
         public string RegistroMovimiento(string txtTipoMovimiento, string txtDocumento, string txtUltimoFolio)
@@ -344,6 +368,26 @@ namespace PV.Clases.Inventario
                 MessageBox.Show("Error." + ex.ToString());
             }
             return mensaje;
+
+        }
+        public void CancelarMovimientoInventario(string Folio, string Documento, string Descripcion)
+        {
+
+            try
+            {
+                cmd = new SqlCommand("CancelarMovimientoInventario", cn);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.Add(new SqlParameter("@Folio", Folio));
+                cmd.Parameters.Add(new SqlParameter("@TipoDocumento", Documento));
+                cmd.Parameters.Add(new SqlParameter("@Descripcion", Descripcion));
+                cmd.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error." + ex.ToString());
+            }
+
+
 
         }
         //_____________________________________________________________________________________________________
@@ -507,15 +551,18 @@ namespace PV.Clases.Inventario
             try
             {
                 dgv.Rows.Clear();
-                da = new SqlDataAdapter("select * from PartidasMovimientoInventario where TipoDocumento='" + tipo + "' and Descripcion = '" + descripcion + "' and FolioMovimiento = " + folio + "", cn);
+                da = new SqlDataAdapter("select M.*, P.Descripcion as des from PartidasMovimientoInventario as M Join ProductosServicios as P on P.ClaveProducto=M.ClaveProducto where M.TipoDocumento='" + tipo + "' and M.Descripcion = '" + descripcion + "' and M.FolioMovimiento = " + folio + "", cn);
                 dt = new DataTable();
                 da.Fill(dt);
                 foreach (DataRow item in dt.Rows)
                 {
                     int n = dgv.Rows.Add();
-                    dgv.Rows[n].Cells[0].Value = item["TipoDocumento"].ToString();
-                    dgv.Rows[n].Cells[1].Value = item["NoPartida"].ToString();
-                    dgv.Rows[n].Cells[2].Value = item["Descripcion"].ToString();
+                    //dgv.Rows[n].Cells[0].Value = item["TipoDocumento"].ToString();
+                    dgv.Rows[n].Cells[0].Value = item["NoPartida"].ToString();
+                    dgv.Rows[n].Cells[1].Value = item["Descripcion"].ToString();
+                    dgv.Rows[n].Cells[2].Value = item["des"].ToString();
+                    dgv.Rows[n].Cells[3].Value = item["Cantidad"].ToString();
+                    dgv.Rows[n].Cells[4].Value = item["FolioMovimiento"].ToString();
                 }
 
             }
@@ -608,5 +655,6 @@ namespace PV.Clases.Inventario
                 MessageBox.Show("Error" + ex.ToString());
             }
         }
+       
     }
 }

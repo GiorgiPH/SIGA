@@ -40,7 +40,7 @@ namespace PV
             if (e.RowIndex != -1)
             {
                 OrdenCompra.Matricula = dataGridView1.Rows[e.RowIndex].Cells["Matricula"].Value.ToString();
-                RecepcionProductos.Matricula = dataGridView1.Rows[e.RowIndex].Cells["Matricula"].Value.ToString();
+                RecepcionProductos2.Matricula = dataGridView1.Rows[e.RowIndex].Cells["Matricula"].Value.ToString();
                 RegistroGastos.Matricula = dataGridView1.Rows[e.RowIndex].Cells["Matricula"].Value.ToString();
                 RegistroGastos2.Matricula = dataGridView1.Rows[e.RowIndex].Cells["Matricula"].Value.ToString();
                 RegistroEgreso.matricula = dataGridView1.Rows[e.RowIndex].Cells["Matricula"].Value.ToString();

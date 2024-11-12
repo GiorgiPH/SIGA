@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Globalization;
 using System.Windows.Forms;
+using Guna.UI2.WinForms;
 using PV.Properties;
 
 
@@ -40,6 +42,13 @@ namespace PV.Clases.OrdenCompra
             catch (Exception ex)
             {
                 MessageBox.Show("Error de Conexion" + ex.ToString());
+            }
+        }
+        private void CapturarMensajes(object sender, SqlInfoMessageEventArgs e)
+        {
+            foreach (SqlError info in e.Errors)
+            {
+                MessageBox.Show(info.Message);
             }
         }
         //___________________________________________________________________________________________
@@ -387,12 +396,12 @@ namespace PV.Clases.OrdenCompra
             }
         }
         //__________________________________________________________________________________________________________-
-        public void CargarRrecepcion(DataGridView dgv)
+        public void CargarRrecepcion(DataGridView dgv, string consecutivo, string documento, string proveedor)
         {
             try
             {
                 dgv.Rows.Clear();
-                da = new SqlDataAdapter("select O.*, P.RazonSocial from RecepcionProducto as O, Proveedor as P where O.ClaveProveedor=P.IdProveedor", cn);
+                da = new SqlDataAdapter("select O.*, P.RazonSocial from RecepcionProducto as O, Proveedor as P where O.ClaveProveedor=P.IdProveedor and O.Consecutivo like '%"+consecutivo+"%' and P.RazonSocial like '%"+proveedor+"%' and O.ClaveDocumento like '%"+documento+"%'", cn);
                 dt = new DataTable();
                 da.Fill(dt);
                 foreach (DataRow item in dt.Rows)
@@ -1076,7 +1085,7 @@ namespace PV.Clases.OrdenCompra
             }
         }
         //______________________________________________________________________________________________
-        public void InsertarOrden(TextBox txtFolio, string ClaveDocumento, string Estatus, string Fecha, string DiasVencen, string FechaVence, string ClavePropietario, string Divisa, string TipoCambio, string Notas, string Elaborado, string Consecutivo, string almacen)
+        public void InsertarOrden(TextBox txtFolio, string ClaveDocumento, string Estatus, string Fecha, string DiasVencen, string FechaVence, string ClavePropietario, string Divisa, string TipoCambio, string Notas, string Elaborado, string Consecutivo, string almacen, string FolioOrdenPedidoCliente)
         {
             try
             {
@@ -1093,7 +1102,7 @@ namespace PV.Clases.OrdenCompra
                     txtFolio.Text = Convert.ToString(Folio);
                         dr.Close();
 
-                    cmd = new SqlCommand("insert into OrdenCompra (Folio, ClaveDocumento, Estatus, Fecha, DiasVencen, FechaVence, ClaveProveedor, Divisa, TipoCambio, Notas, Elaborado, Consecutivo, almacen) values ('" + Folio + "', '" + ClaveDocumento + "', '" + Estatus + "', '" + Fecha + "', '" + DiasVencen + "', '" + FechaVence + "', '" + ClavePropietario + "', '" + Divisa + "', '" + TipoCambio + "', '" + Notas + "', '" + Elaborado + "', '" + Consecutivo + "','"+almacen+"')", cn);
+                    cmd = new SqlCommand("insert into OrdenCompra (Folio, ClaveDocumento, Estatus, Fecha, DiasVencen, FechaVence, ClaveProveedor, Divisa, TipoCambio, Notas, Elaborado, Consecutivo, almacen, FolioOrdenPedidoCliente) values ('" + Folio + "', '" + ClaveDocumento + "', '" + Estatus + "', '" + Fecha + "', '" + DiasVencen + "', '" + FechaVence + "', '" + ClavePropietario + "', '" + Divisa + "', '" + TipoCambio + "', '" + Notas + "', '" + Elaborado + "', '" + Consecutivo + "','"+almacen+"', '"+ FolioOrdenPedidoCliente + "')", cn);
                     cmd.ExecuteNonQuery();
                    
                 }
@@ -1103,6 +1112,42 @@ namespace PV.Clases.OrdenCompra
                     dr.Close();
 
                     cmd = new SqlCommand("insert into OrdenCompra (Folio, ClaveDocumento, Estatus, Fecha, DiasVencen, FechaVence, ClaveProveedor, Divisa, TipoCambio, Notas, Elaborado, Consecutivo, almacen) values (1, '" + ClaveDocumento + "', '" + Estatus + "', '" + Fecha + "', '" + DiasVencen + "', '" + FechaVence + "', '" + ClavePropietario + "', '" + Divisa + "', '" + TipoCambio + "', '" + Notas + "', '" + Elaborado + "', '" + Consecutivo + "', '"+almacen+"')", cn);
+                    cmd.ExecuteNonQuery();
+                }
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("ERROR" + ex.ToString());
+            }
+        }
+        public void InsertarRemision(TextBox txtFolio, string ClaveDocumento, string Estatus, string Fecha, string DiasVencen, string FechaVence, string ClavePropietario, string Divisa, string TipoCambio, string Notas, string Elaborado, string Consecutivo, string almacen, string FolioOrdenPedidoCliente)
+        {
+            try
+            {
+
+                cmd = new SqlCommand("Select top 1 * from Remision order by Folio Desc", cn);
+                dr = cmd.ExecuteReader();
+
+                if (dr.Read())
+                {
+                    int Folio = Convert.ToInt32(dr["Folio"].ToString());
+                    Folio++;
+
+                    //txtFolio.Text = Folio.ToString();
+                    txtFolio.Text = Convert.ToString(Folio);
+                    dr.Close();
+
+                    cmd = new SqlCommand("insert into Remision (Folio, ClaveDocumento, Estatus, Fecha, DiasVence, FechaVence, ClaveProveedor, Divisa, TipoCambio, Notas, Elaborado, Consecutivo, almacen, FolioOrdenPedidoCliente) values ('" + Folio + "', '" + ClaveDocumento + "', '" + Estatus + "', '" + Fecha + "', '" + DiasVencen + "', '" + FechaVence + "', '" + ClavePropietario + "', '" + Divisa + "', '" + TipoCambio + "', '" + Notas + "', '" + Elaborado + "', '" + Consecutivo + "','" + almacen + "', '" + FolioOrdenPedidoCliente + "')", cn);
+                    cmd.ExecuteNonQuery();
+
+                }
+                else
+                {
+                    txtFolio.Text = "1";
+                    dr.Close();
+
+                    cmd = new SqlCommand("insert into Remision (Folio, ClaveDocumento, Estatus, Fecha, DiasVence, FechaVence, ClaveProveedor, Divisa, TipoCambio, Notas, Elaborado, Consecutivo, almacen) values (1, '" + ClaveDocumento + "', '" + Estatus + "', '" + Fecha + "', '" + DiasVencen + "', '" + FechaVence + "', '" + ClavePropietario + "', '" + Divisa + "', '" + TipoCambio + "', '" + Notas + "', '" + Elaborado + "', '" + Consecutivo + "', '" + almacen + "')", cn);
                     cmd.ExecuteNonQuery();
                 }
 
@@ -1153,7 +1198,7 @@ namespace PV.Clases.OrdenCompra
             try
             {
 
-                cmd = new SqlCommand("Select top 1 * from OrdenCompra where ClaveDocumento='" + ClaveDocumento + "' order by Consecutivo Desc", cn);
+                cmd = new SqlCommand("Select top 1 * from Remision where ClaveDocumento='" + ClaveDocumento + "' order by Consecutivo Desc", cn);
                 dr = cmd.ExecuteReader();
 
                 if (dr.Read())
@@ -1178,7 +1223,7 @@ namespace PV.Clases.OrdenCompra
             }
         }
         //______________________________________________________________________________________________
-        public void ConsecutivoRecepcion(TextBox txtConsecutivo, string ClaveDocumento)
+        public void ConsecutivoRecepcion(Guna2TextBox txtConsecutivo, string ClaveDocumento)
         {
             try
             {
@@ -1597,7 +1642,7 @@ namespace PV.Clases.OrdenCompra
             }
         }
         //___________________________________________________________________________________________
-        public void ConsultaRecepcion(string Folio, TextBox txtPartida)
+        public void ConsultaRecepcion(string Folio, Guna2TextBox txtPartida)
         {
             try
             {
@@ -1772,8 +1817,9 @@ namespace PV.Clases.OrdenCompra
                 string[] valores =
                 {
                    dr[15].ToString(),
-                    dr[11].ToString(),
+                    
                      dr[8].ToString(),
+                     dr[11].ToString(),
                       dr[9].ToString(),
                        dr[10].ToString(),
                         dr[3].ToString(),
@@ -1795,7 +1841,7 @@ namespace PV.Clases.OrdenCompra
         {
             try
             {
-                cmd = new SqlCommand("insert into PartidaOrden (FolioOrden, Partida, ClaveProducto, Concepto2, Cantidad, Unidad, Divisa, TipoCambio, Precio, Subtotal, Descuento, Total, CantidadRecibida, Impuesto) values ('" + Folio + "', '" + Partida + "', '" + ClaveRecibo + "', '" + Concepto2 + "', '" + Cantidad + "', '" + Unidad + "', '" + Divisa + "', '" + TipoCambio + "', '" + Precio + "','" + Subtotal + "', '" + Descuento + "', '" + Total + "', '" + Cantidad + "', '" + Impuesto + "')", cn);
+                cmd = new SqlCommand("insert into PartidaRemision (FolioRemision, Partida, ClaveProducto, Concepto2, Cantidad, Unidad, Divisa, TipoCambio, Precio, Subtotal, Descuento, Total, CantidadRecibida, Impuesto) values ('" + Folio + "', '" + Partida + "', '" + ClaveRecibo + "', '" + Concepto2 + "', '" + Cantidad + "', '" + Unidad + "', '" + Divisa + "', '" + TipoCambio + "', '" + Precio + "','" + Subtotal + "', '" + Descuento + "', '" + Total + "', '" + Cantidad + "', '" + Impuesto + "')", cn);
                 cmd.ExecuteNonQuery();
             }
             catch (Exception)
@@ -1952,7 +1998,7 @@ namespace PV.Clases.OrdenCompra
         {
             try
             {
-                cmd = new SqlCommand("select sum(Descuento) as Descuento, sum(Subtotal) as Subtotal, sum(Total) as Total from PartidaOrden where FolioOrden='" + txtFolio + "'", cn);
+                cmd = new SqlCommand("select sum(Descuento) as Descuento, sum(Subtotal) as Subtotal, sum(Total) as Total from PartidaRemision where FolioRemision='" + txtFolio + "'", cn);
                 dr = cmd.ExecuteReader();
 
                 if (dr.Read())
@@ -1963,7 +2009,7 @@ namespace PV.Clases.OrdenCompra
                     string Impuesto = string.Empty;
                     dr.Close();
 
-                    cmd = new SqlCommand("select sum((Convert(decimal, Impuesto) / 100) * Subtotal) as Impuesto from PartidaOrden where FolioOrden='" + txtFolio + "'", cn);
+                    cmd = new SqlCommand("select sum((Convert(decimal, Impuesto) / 100) * (Subtotal-Descuento)) as Impuesto from PartidaRemision where FolioRemision='" + txtFolio + "'", cn);
                     dr = cmd.ExecuteReader();
 
                     if (dr.Read())
@@ -1973,7 +2019,7 @@ namespace PV.Clases.OrdenCompra
                     }
                     dr.Close();
 
-                    cmd = new SqlCommand("Update OrdenCompra set TotalPartidas='" + txtPartida + "', Subtotal='" + Subtotal + "', Descuento='" + Descuentos + "', Cargo='" + Impuesto + "', Total='" + Total + "', Saldo='" + Total + "' where Folio='" + txtFolio + "'", cn);
+                    cmd = new SqlCommand("Update Remision set TotalPartidas='" + txtPartida + "', Subtotal='" + Subtotal + "', Descuento='" + Descuentos + "', Cargo='" + Impuesto + "', Total='" + Total + "', Saldo='" + Total + "' where Folio='" + txtFolio + "'", cn);
                     cmd.ExecuteNonQuery();
                 }
 
@@ -2133,6 +2179,84 @@ namespace PV.Clases.OrdenCompra
                 MessageBox.Show("ERROR prov" + ex.ToString());
             }
         }
+        public void ValidarDocumentoEPR()
+        {
+            try
+            {
+                using (SqlConnection cn = new SqlConnection(ObtenerCn()))
+                {
+                    cn.Open();
+
+                    SqlCommand cmd = new SqlCommand("IF NOT EXISTS (SELECT * FROM TipoMovimiento WHERE Documento = 'EPR' AND TipoMovimiento = 'E') " +
+                                                     "BEGIN " +
+                                                     "    INSERT INTO TipoMovimiento VALUES ('E', 'EPR', 'ENTRADA POR RECEPCIÓN', 'Activo', '0', 'Si', 'Si', '', '') " +
+                                                     "END", cn);
+
+                    cmd.ExecuteNonQuery();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error: " + ex.Message);
+            }
+        }
+        public List<List<string>> ObtenerPartidas(string Folio)
+        {
+            List<List<string>> listam = new List<List<string>>();
+            //cmd = new SqlCommand("Select (convert(varchar, OC.Folio) + ' - ' + D.Nombre) as Nombre from OrdenCompra as OC, Documento as D where OC.ClaveDocumento=D.Clave", cn);
+            cmd = new SqlCommand("Select PS.ClaveProducto, PR.Cantidad, PS.TipoCosteo, (PR.Subtotal/PR.Cantidad), PR.Partida, PS.UnidadMedida, PR.Total from PartidaRecepcion as PR Join RecepcionProducto as R On R.Folio=PR.FolioRecepcion Join ProductosServicios as PS On PR.ClaveProducto=PS.ClaveProducto where FolioRecepcion=@Folio and PR.ClaveProducto=PS.ClaveProducto", cn);
+
+            //cmd = new SqlCommand("Select PS.ClaveProducto, PR.Cantidad, PS.TipoCosteo, (PR.Subtotal/PR.Cantidad), PO.Partida, PS.UnidadMedida, PR.Total from PartidaRecepcion as PR Join RecepcionProducto as R On R.Folio=PR.FolioRecepcion Join ProductosServicios as PS On PR.ClaveProducto=PS.ClaveProducto Left Join OrdenCompra as O On O.Folio=R.FolioOrden Left Join PartidaOrden as PO On O.Folio=PO.FolioOrden where FolioRecepcion=@Folio and PR.ClaveProducto=PS.ClaveProducto", cn);
+            cmd.Parameters.AddWithValue("@Folio", Folio);
+            dr = cmd.ExecuteReader();
+            while (dr.Read())
+            {
+                List<string> lista = new List<string>();
+                lista.Add(dr[0].ToString());
+                lista.Add(dr[1].ToString());
+                lista.Add(dr[2].ToString());
+                lista.Add(dr[3].ToString());
+                lista.Add(dr[4].ToString());
+                lista.Add(dr[5].ToString());
+                lista.Add(dr[6].ToString());
+                listam.Add(lista);
+            }
+            dr.Close();
+            return listam;
+        }
+        public string CancelarRecepcion(string folio)
+        {
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(ObtenerCn()))
+                {
+                    using (SqlCommand cmd = new SqlCommand("CancelarRecepcion", conn))
+                    {
+                        cmd.CommandType = CommandType.StoredProcedure;
+
+                        // Parámetro de entrada
+                        cmd.Parameters.AddWithValue("@FolioRecepcion", folio);
+
+                        // Parámetro de salida para el mensaje
+                        SqlParameter mensajeParam = new SqlParameter("@Mensaje", SqlDbType.VarChar, 200);
+                        mensajeParam.Direction = ParameterDirection.Output;
+                        cmd.Parameters.Add(mensajeParam);
+
+                        conn.Open();
+                        cmd.ExecuteNonQuery();
+
+                        // Captura el mensaje de resultado
+                        string mensaje = mensajeParam.Value?.ToString();
+                        return mensaje ?? "No se recibió ningún mensaje del procedimiento almacenado.";
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                // Puedes manejar el error de manera diferente si no quieres usar MessageBox en esta capa
+                return "Error: " + ex.Message;
+            }
+        }
         //____________________________________________________________________________________________________
         public void Monto(KeyPressEventArgs e)
         {
@@ -2216,12 +2340,12 @@ namespace PV.Clases.OrdenCompra
             return resultado;
         }
         //_______________________________________________________________________________________________________________
-        public void ActualizarReciboEstatus(string Folio, string Estatus, string MatriculaAlumno)
+        public void ActualizarReciboEstatus(string Folio, string Estatus, string MatriculaAlumno, string FolioMovimiento)
         {
             try
             {
 
-                cmd = new SqlCommand("Update OrdenCompra set Estatus='" + Estatus + "' where Folio='" + Folio + "'", cn);
+                cmd = new SqlCommand("Update Remision set Estatus='" + Estatus + "', FolioMovimiento='"+FolioMovimiento+"' where Folio='" + Folio + "'", cn);
                 cmd.ExecuteNonQuery();
 
                 //cmd = new SqlCommand("insert into Cobros (Folio, ClavePropietario) values ('" + Folio + "', '" + MatriculaAlumno + "')", cn);
@@ -2447,7 +2571,7 @@ namespace PV.Clases.OrdenCompra
             }
         }
         //_______________________________________________________________________________________________________________
-        public void ReciboSaldosPartidasRecepcion(string txtFolio, TextBox txtSubtoral, TextBox txtDescuento, TextBox txtTotal)
+        public void ReciboSaldosPartidasRecepcion(string txtFolio, Guna2TextBox txtSubtoral, Guna2TextBox txtDescuento, Guna2TextBox txtTotal)
         {
             try
             {
@@ -2469,7 +2593,7 @@ namespace PV.Clases.OrdenCompra
             }
         }
         //_______________________________________________________________________________________________________________
-        public void ReciboSaldosPartidasRecepcion2(string txtFolio, TextBox Impuesto)
+        public void ReciboSaldosPartidasRecepcion2(string txtFolio, Guna2TextBox Impuesto)
         {
             NumberFormatInfo formato = new CultureInfo("US-AR").NumberFormat;
 
@@ -2498,7 +2622,13 @@ namespace PV.Clases.OrdenCompra
         {
             try
             {
-                cmd = new SqlCommand("select sum(isnull(Subtotal, 0)) as Subtotal, sum(isnull(Descuento, 0)) as Descuento, sum(isnull(Total, 0)) as Total, sum(isnull(convert(decimal, (Impuesto / 100) * Subtotal), 0)) as Impuesto from [PartidaOrden] where FolioOrden = '" + txtFolio + "'", cn);
+                cmd = new SqlCommand(@"SELECT 
+                SUM(ISNULL(Subtotal, 0)) AS Subtotal, 
+                SUM(ISNULL(CAST((Descuento / 100.0) * Subtotal AS decimal(18, 2)), 0)) AS Descuento, 
+                SUM(ISNULL(Total, 0)) AS Total, 
+                SUM(ISNULL(CAST((Impuesto / 100.0) * (Subtotal - (Subtotal * Descuento / 100.0)) AS decimal(18, 2)), 0)) AS Impuesto
+                FROM [PartidaRemision]
+                where FolioRemision = '" + txtFolio + "'", cn);
 
                 dr = cmd.ExecuteReader();
 
@@ -2594,7 +2724,7 @@ namespace PV.Clases.OrdenCompra
             try
             {
 
-                cmd = new SqlCommand("select Subtotal, Descuento, Cargo, Total, Saldo, TotalPartidas from OrdenCompra where Folio='" + txtFolio + "'", cn);
+                cmd = new SqlCommand("select Subtotal, Descuento, Cargo, Total, Saldo, TotalPartidas from Remision where Folio='" + txtFolio + "'", cn);
                 dr = cmd.ExecuteReader();
 
                 if (dr.Read())
@@ -2656,7 +2786,7 @@ namespace PV.Clases.OrdenCompra
             }
         }
         //_______________________________________________________________________________________________________________
-        public void ReciboSaldosRecepcion(string txtFolio, TextBox txtSubtoral, TextBox txtDescuento, TextBox txtRecargo, TextBox txtTotal, TextBox txtTotalPartidas, TextBox txtSaldo)
+        public void ReciboSaldosRecepcion(string txtFolio, Guna2TextBox txtSubtoral, Guna2TextBox txtDescuento, Guna2TextBox txtRecargo, Guna2TextBox txtTotal, Guna2TextBox txtTotalPartidas, Guna2TextBox txtSaldo)
         {
             try
             {
@@ -2878,7 +3008,7 @@ namespace PV.Clases.OrdenCompra
             }
         }
         //______________________________________________________________________________________________________-
-        public void ConsultaRecepcion(string Folio, TextBox Documento, ComboBox Estatus, TextBox Fecha, TextBox Divisa, TextBox TipoCambio, TextBox Subtotal, TextBox Descuentos, TextBox Cargo, TextBox Total, TextBox Partidas, TextBox Notas, TextBox Elaborado, TextBox txtFolio, TextBox txtReciboCol, TextBox txtconsecutivo, TextBox txtAlmacen, TextBox txtReferencia, TextBox saldo, TextBox condominio, TextBox DiasVence, TextBox FechaVence, TextBox Archivo)
+        public void ConsultaRecepcion(string Folio, TextBox Documento, ComboBox Estatus, Guna2TextBox Fecha, Guna2TextBox Divisa, Guna2TextBox TipoCambio, Guna2TextBox Subtotal, Guna2TextBox Descuentos, Guna2TextBox Cargo, Guna2TextBox Total, Guna2TextBox Partidas, Guna2TextBox Notas, Guna2TextBox Elaborado, TextBox txtFolio, TextBox txtReciboCol, Guna2TextBox txtconsecutivo, TextBox txtAlmacen, Guna2TextBox txtReferencia, Guna2TextBox saldo, Guna2TextBox condominio, Guna2TextBox DiasVence, Guna2TextBox FechaVence, Guna2TextBox Archivo)
         {
             try
             {
@@ -3064,16 +3194,16 @@ namespace PV.Clases.OrdenCompra
             try
             {
                 dgv.Rows.Clear();
-                da = new SqlDataAdapter("select PO.*, PS.Descripcion from PartidaOrden as PO, ProductosServicios as PS where FolioOrden='" + Folio + "' and PO.ClaveProducto=PS.ClaveProducto order by Partida asc", cn);
+                da = new SqlDataAdapter("select PO.*, PS.Descripcion from PartidaRemision as PO, ProductosServicios as PS where FolioRemision='" + Folio + "' and PO.ClaveProducto=PS.ClaveProducto order by Partida asc", cn);
                 dt = new DataTable();
                 da.Fill(dt);
                 foreach (DataRow item in dt.Rows)
                 {
                     int n = dgv.Rows.Add();
-                    dgv.Rows[n].Cells[0].Value = item["FolioOrden"].ToString();
+                    dgv.Rows[n].Cells[0].Value = item["FolioRemision"].ToString();
                     dgv.Rows[n].Cells[1].Value = item["Partida"].ToString();
                     dgv.Rows[n].Cells[2].Value = item["Descripcion"].ToString();
-                    dgv.Rows[n].Cells[3].Value = item["Concepto2"].ToString();
+                    dgv.Rows[n].Cells[3].Value = item["Cantidad"].ToString();
                 }
             }
             catch (Exception ex)
@@ -3120,7 +3250,7 @@ namespace PV.Clases.OrdenCompra
                     dgv.Rows[n].Cells[0].Value = item["FolioRecepcion"].ToString();
                     dgv.Rows[n].Cells[1].Value = item["Partida"].ToString();
                     dgv.Rows[n].Cells[2].Value = item["Descripcion"].ToString();
-                    dgv.Rows[n].Cells[3].Value = item["Concepto2"].ToString();
+                    dgv.Rows[n].Cells[3].Value = item["Cantidad"].ToString();
                 }
             }
             catch (Exception ex)
@@ -3214,7 +3344,7 @@ namespace PV.Clases.OrdenCompra
         }
         //___________________________________________________________________________
         //............................................................................................................
-        public void ConsultaPartidaRecepcion(string Folio, string Partida, TextBox claveconcepto, TextBox Concepto, TextBox Concepto2, TextBox cantidad, TextBox unidad, TextBox divisa, TextBox tipocambio, TextBox txtPrecio, TextBox descuento, TextBox total, TextBox txtImpuestos, TextBox archivo)
+        public void ConsultaPartidaRecepcion(string Folio, string Partida, TextBox claveconcepto, TextBox Concepto, Guna2TextBox Concepto2, Guna2TextBox cantidad, Guna2TextBox unidad, Guna2TextBox divisa, Guna2TextBox tipocambio, Guna2TextBox txtPrecio, Guna2TextBox descuento, Guna2TextBox total, Guna2TextBox txtImpuestos, Guna2TextBox archivo, ComboBox cmbConcepto)
         {
             try
             {
@@ -3227,14 +3357,17 @@ namespace PV.Clases.OrdenCompra
                     Concepto.Text = dr["Descripcion"].ToString();
                     Concepto2.Text = dr["Concepto2"].ToString();
                     cantidad.Text = dr["Cantidad"].ToString();
+                    //Precio.Text = dr["Cantidad"].ToString();
                     unidad.Text = dr["Unidad"].ToString();
                     divisa.Text = dr["Divisa"].ToString();
                     tipocambio.Text = dr["TipoCambio"].ToString();
-                    txtPrecio.Text = dr["Subtotal"].ToString();
                     descuento.Text = dr["Descuento"].ToString();
                     total.Text = dr["Total"].ToString();
+                    txtPrecio.Text = dr["Subtotal"].ToString();
+                   
                     txtImpuestos.Text = dr["Impuesto"].ToString();
                     archivo.Text = dr["Archivo"].ToString();
+                    cmbConcepto.Text= dr["Descripcion"].ToString(); 
                 }
                 dr.Close();
             }
@@ -3939,7 +4072,7 @@ namespace PV.Clases.OrdenCompra
         public void RegistroProducto(string txtClaveProducto, string txtExActual, string txtAlmacen, string TipoCosteo, decimal precio)
         {
             int contador = 0;
-            int ExActual = 0;
+            decimal ExActual = 0;
             decimal Total = 0;
             decimal GranTotal = 0;
 
@@ -3956,67 +4089,82 @@ namespace PV.Clases.OrdenCompra
 
                 if (contador <= 0)
                 {
-                    cmd = new SqlCommand("Insert into AlmacenProducto (ClaveAlmacen, ClaveProducto, ExistenciaInicial, Entradas, Salidas, ExistenciaActual) values ('" + txtAlmacen + "', '" + txtClaveProducto + "', '" + txtExActual + "',  '" + txtExActual + "', '0','" + txtExActual + "')", cn);
+                    cmd = new SqlCommand("Insert into AlmacenProducto (ClaveAlmacen, ClaveProducto, ExistenciaInicial, Entradas, Salidas, ExistenciaActual) values ('" + txtAlmacen + "', '" + txtClaveProducto + "', '" + txtExActual + "',  '0', '0','" + txtExActual + "')", cn);
                     cmd.ExecuteNonQuery();
 
                     if (TipoCosteo == "Ultima Compra")
                     {
-                        cmd = new SqlCommand("Update ProductosServicios set CostoUnitario= " + precio + " where ClaveProducto= '" + txtClaveProducto + "'", cn);
+                        cmd = new SqlCommand("Update ProductosServicios set CostoUnitario= " + precio + ", ExActual= ExActual + '" + txtExActual + "' where ClaveProducto= '" + txtClaveProducto + "'", cn);
                         cmd.ExecuteNonQuery();
                     }
                     else if (TipoCosteo == "Promedio")
                     {
-                        cmd = new SqlCommand("select ExActual, (ExActual * CostoUnitario) as Total from ProductosServicios where ClaveProducto='" + txtClaveProducto + "' and Inventariable='Si' and ExActual>0 ", cn);
+                        cmd = new SqlCommand("select ExActual, (ExActual * CostoUnitario) as Total from ProductosServicios where ClaveProducto='" + txtClaveProducto + "' and Inventariable='Si' --and ExActual>0 ", cn);
                         dr = cmd.ExecuteReader();
 
                         if (dr.Read())
                         {
-                            ExActual = Convert.ToInt32(dr["ExActual"].ToString()) + Convert.ToInt32(txtExActual);
-                            Total = Convert.ToDecimal(dr["Total"].ToString()) + precio;
-                            GranTotal = Total / ExActual;
+                            GranTotal = (Convert.ToDecimal(dr["Total"])
+                                        + Convert.ToDecimal(txtExActual) * precio)
+                                        / (Convert.ToDecimal(dr["ExActual"]) + Convert.ToDecimal(txtExActual));
+
+                            //ExActual = Convert.ToDecimal(dr["ExActual"].ToString()) + Convert.ToDecimal(txtExActual);
+                            //Total =  + precio;
+                            //GranTotal = Total / ExActual;
+                            //57.52/55
+
+                            //codigo de jorge
+                            //ExActual = Convert.ToDecimal(dr["ExActual"].ToString()) + Convert.ToDecimal(txtExActual);
+                            ////pendiente de cambio
+                            //Total = Convert.ToDecimal(dr["Total"].ToString()) + (precio * Convert.ToDecimal(txtExActual));
+                            //GranTotal = Total / ExActual;
                         }
                         else
                         {
-                            ExActual = Convert.ToInt32(txtExActual);
+                            ExActual = Convert.ToDecimal(txtExActual);
                             Total = precio;
                             GranTotal = Total;
+
                         }
                         dr.Close();
 
-                        cmd = new SqlCommand("Update ProductosServicios set ExActual= ExActual + '" + txtExActual + "' where ClaveProducto= '" + txtClaveProducto + "' and Inventariable='Si'", cn);
+                        cmd = new SqlCommand("Update ProductosServicios set CostoUnitario= " + GranTotal + ", ExActual= ExActual + '" + txtExActual + "' where ClaveProducto= '" + txtClaveProducto + "'-- and Inventariable='Si'", cn);
                         cmd.ExecuteNonQuery();
                     }
                 }
                 else
                 {
-                    cmd = new SqlCommand("Update AlmacenProducto set ExistenciaInicial= ExistenciaActual, Entradas= Entradas + '" + txtExActual + "', ExistenciaActual= ExistenciaActual + '" + txtExActual + "' where ClaveProducto= '" + txtClaveProducto + "' and ClaveAlmacen = '" + txtAlmacen + "'", cn);
+                    cmd = new SqlCommand("Update AlmacenProducto set Entradas= Entradas + '" + txtExActual + "', ExistenciaActual= ExistenciaInicial + '" + txtExActual + "' + Entradas - Salidas where ClaveProducto= '" + txtClaveProducto + "' and ClaveAlmacen = '" + txtAlmacen + "'", cn);
+
+                    // cmd = new SqlCommand("Update AlmacenProducto set ExistenciaInicial= ExistenciaActual, Entradas= Entradas + '" + txtExActual + "', ExistenciaActual= ExistenciaActual + '" + txtExActual + "' where ClaveProducto= '" + txtClaveProducto + "' and ClaveAlmacen = '" + txtAlmacen + "'", cn);
                     cmd.ExecuteNonQuery();
 
                     if (TipoCosteo == "Ultima Compra")
                     {
-                        cmd = new SqlCommand("Update ProductosServicios set CostoUnitario= " + precio + " where ClaveProducto= '" + txtClaveProducto + "'", cn);
+                        cmd = new SqlCommand("Update ProductosServicios set CostoUnitario= " + precio + ", ExActual= ExActual + '" + txtExActual + "' where ClaveProducto= '" + txtClaveProducto + "'", cn);
                         cmd.ExecuteNonQuery();
                     }
                     else if (TipoCosteo == "Promedio")
                     {
-                        cmd = new SqlCommand("select ExActual, (ExActual * CostoUnitario) as Total from ProductosServicios where ClaveProducto='" + txtClaveProducto + "' and Inventariable='Si' and ExActual>0 ", cn);
+                        cmd = new SqlCommand("select ExActual, (ExActual * CostoUnitario) as Total from ProductosServicios where ClaveProducto='" + txtClaveProducto + "' and Inventariable='Si' --and ExActual>0 ", cn);
                         dr = cmd.ExecuteReader();
 
                         if (dr.Read())
                         {
-                            ExActual = Convert.ToInt32(dr["ExActual"].ToString()) + Convert.ToInt32(txtExActual);
-                            Total = Convert.ToDecimal(dr["Total"].ToString()) + precio;
-                            GranTotal = Total / ExActual;
+                            GranTotal = (Convert.ToDecimal(dr["Total"])
+                                        + Convert.ToDecimal(txtExActual) * precio)
+                                        / (Convert.ToDecimal(dr["ExActual"]) + Convert.ToDecimal(txtExActual));
+
                         }
                         else
                         {
-                            ExActual = Convert.ToInt32(txtExActual);
+                            ExActual = Convert.ToDecimal(txtExActual);
                             Total = precio;
                             GranTotal = Total;
                         }
                         dr.Close();
 
-                        cmd = new SqlCommand("Update ProductosServicios set ExActual= ExActual + '" + txtExActual + "' where ClaveProducto= '" + txtClaveProducto + "' and Inventariable='Si'", cn);
+                        cmd = new SqlCommand("Update ProductosServicios set  CostoUnitario= " + GranTotal + ", ExActual= ExActual + '" + txtExActual + "' where ClaveProducto= '" + txtClaveProducto + "' --and Inventariable='Si'", cn);
                         cmd.ExecuteNonQuery();
                     }
                 }
@@ -4499,7 +4647,7 @@ namespace PV.Clases.OrdenCompra
             try
             {
 
-                cmd = new SqlCommand("Select top 1 * from [PartidaOrden] where FolioOrden='" + Folio + "' order by Partida Desc", cn);
+                cmd = new SqlCommand("Select top 1 * from [PartidaRemision] where FolioRemision='" + Folio + "' order by Partida Desc", cn);
                 dr = cmd.ExecuteReader();
 
                 if (dr.Read())
@@ -4525,7 +4673,7 @@ namespace PV.Clases.OrdenCompra
         {
             try
             {
-                string query = "select O.*, P.RazonSocial from OrdenCompra as O, Clientes as P where O.ClaveProveedor=P.IdCliente and Autorizado is null and O.Consecutivo like '%" + consecutivo + "%' and O.ClaveDocumento like '%" + documento + "%' and P.RazonSocial like '%" + proveedor + "%'";
+                string query = "select O.*, P.RazonSocial from Remision as O, Clientes as P where O.ClaveProveedor=P.IdCliente and Autorizado is null and O.Consecutivo like '%" + consecutivo + "%' and O.ClaveDocumento like '%" + documento + "%' and P.RazonSocial like '%" + proveedor + "%'";
                 if (autorizado)
                 {
                     query += " and (Autorizado<>'' and autorizado is not null)";
@@ -4578,7 +4726,7 @@ namespace PV.Clases.OrdenCompra
         {
             try
             {
-                cmd = new SqlCommand("Select P.*, C.Descripcion from [PartidaOrden] as P, ProductosServicios as C where FolioOrden='" + Folio + "' and Partida='" + Partida + "'and P.ClaveProducto=C.ClaveProducto", cn);
+                cmd = new SqlCommand("Select P.*, C.Descripcion from [PartidaRemision] as P, ProductosServicios as C where FolioRemision='" + Folio + "' and Partida='" + Partida + "'and P.ClaveProducto=C.ClaveProducto", cn);
                 dr = cmd.ExecuteReader();
                 if (dr.Read())
                 {
@@ -4606,12 +4754,13 @@ namespace PV.Clases.OrdenCompra
                 dr.Close();
             }
         }
-        public void ConsultaRemision(string Folio, TextBox Documento, ComboBox Estatus, Guna.UI2.WinForms.Guna2TextBox Fecha, Guna.UI2.WinForms.Guna2TextBox Dias, Guna.UI2.WinForms.Guna2TextBox FechaVence, Guna.UI2.WinForms.Guna2TextBox Divisa, Guna.UI2.WinForms.Guna2TextBox TipoCambio, Guna.UI2.WinForms.Guna2TextBox Subtotal, Guna.UI2.WinForms.Guna2TextBox Descuentos, Guna.UI2.WinForms.Guna2TextBox Cargo, Guna.UI2.WinForms.Guna2TextBox Total, Guna.UI2.WinForms.Guna2TextBox Partidas, Guna.UI2.WinForms.Guna2TextBox Notas, Guna.UI2.WinForms.Guna2TextBox Elaborado, TextBox txtFolio, Guna.UI2.WinForms.Guna2TextBox txtConsecutivo, Guna.UI2.WinForms.Guna2TextBox txtAutoriza, Guna.UI2.WinForms.Guna2TextBox txtFechaAutoriza, ComboBox cmbAlmacen)
+        public void ConsultaRemision(string Folio, TextBox Documento, ComboBox Estatus, Guna2DateTimePicker Fecha, Guna.UI2.WinForms.Guna2TextBox Dias, Guna.UI2.WinForms.Guna2TextBox FechaVence, Guna.UI2.WinForms.Guna2TextBox Divisa, Guna.UI2.WinForms.Guna2TextBox TipoCambio, Guna.UI2.WinForms.Guna2TextBox Subtotal, Guna.UI2.WinForms.Guna2TextBox Descuentos, Guna.UI2.WinForms.Guna2TextBox Cargo, Guna.UI2.WinForms.Guna2TextBox Total, Guna.UI2.WinForms.Guna2TextBox Partidas, Guna.UI2.WinForms.Guna2TextBox Notas, Guna.UI2.WinForms.Guna2TextBox Elaborado, TextBox txtFolio, Guna.UI2.WinForms.Guna2TextBox txtConsecutivo, Guna.UI2.WinForms.Guna2TextBox txtAutoriza, Guna.UI2.WinForms.Guna2TextBox txtFechaAutoriza, ComboBox cmbAlmacen, TextBox txtFolioPedido, Guna.UI2.WinForms.Guna2TextBox txtPedidoCliente, out string cliente)
         {
+            cliente = string.Empty;
             try
             {
 
-                cmd = new SqlCommand("Select *, (Cast(A.Clave as varchar)+' - '+A.Nombre) as Alm from OrdenCompra as O Left Join Almacenes as A on A.Clave=O.Almacen where Folio='" + Folio + "'", cn);
+                cmd = new SqlCommand("Select O.*, (Cast(A.Clave as varchar)+' - '+A.Nombre) as Alm, (Cast(OC.ClaveDocumento as varchar)+' - '+Cast(OC.Consecutivo as varchar)) as FolioOrdenPedido from Remision as O Left Join Almacenes as A on A.Clave=O.Almacen Left Join OrdenPedidoCliente as OC on OC.Folio=O.FolioOrdenPedidoCliente where O.Folio='" + Folio + "'", cn);
                 dr = cmd.ExecuteReader();
                 if (dr.Read())
                 {
@@ -4619,7 +4768,7 @@ namespace PV.Clases.OrdenCompra
                     Documento.Text = dr["ClaveDocumento"].ToString();
                     Estatus.Text = dr["Estatus"].ToString();
                     Fecha.Text = Convert.ToDateTime(dr["Fecha"]).ToString("yyyy-MM-dd");
-                    Dias.Text = dr["DiasVencen"].ToString();
+                    Dias.Text = dr["DiasVence"].ToString();
                     FechaVence.Text = Convert.ToDateTime(dr["FechaVence"]).ToString("yyyy-MM-dd");
 
                     Divisa.Text = dr["Divisa"].ToString();
@@ -4628,7 +4777,7 @@ namespace PV.Clases.OrdenCompra
                     Descuentos.Text = dr["Descuento"].ToString();
                     Cargo.Text = dr["Cargo"].ToString();
                     Total.Text = dr["Total"].ToString();
-                    Partidas.Text = dr["TotalPartidas"].ToString();
+                    
                     Notas.Text = dr["Notas"].ToString();
                     Elaborado.Text = dr["Elaborado"].ToString();
 
@@ -4641,6 +4790,10 @@ namespace PV.Clases.OrdenCompra
                         txtFechaAutoriza.Text = Convert.ToDateTime(dr["FechaAutoriza"]).ToString("yyyy-MM-dd");
                     }
                     cmbAlmacen.Text = dr["Alm"].ToString();
+                    txtFolioPedido.Text= dr["FolioOrdenPedidoCliente"].ToString();
+                    txtPedidoCliente.Text = dr["FolioOrdenPedido"].ToString();
+                    cliente = dr["ClaveProveedor"].ToString();
+                    Partidas.Text = dr["TotalPartidas"].ToString();
                 }
                 dr.Close();
             }
@@ -4648,6 +4801,148 @@ namespace PV.Clases.OrdenCompra
             {
                 MessageBox.Show(ex.ToString());
                 dr.Close();
+            }
+        }
+        public List<List<string>> ObtenerPartidasRemision(string Folio)
+        {
+            List<List<string>> listam = new List<List<string>>();
+            //cmd = new SqlCommand("Select (convert(varchar, OC.Folio) + ' - ' + D.Nombre) as Nombre from OrdenCompra as OC, Documento as D where OC.ClaveDocumento=D.Clave", cn);
+            cmd = new SqlCommand("Select PS.ClaveProducto, PR.Cantidad, PS.TipoCosteo, (PR.Subtotal/PR.Cantidad), PR.Partida, PS.UnidadMedida, PR.Total from PartidaOrden as PR Join OrdenCompra as R On R.Folio=PR.FolioOrden Join ProductosServicios as PS On PR.ClaveProducto=PS.ClaveProducto where FolioOrden=@Folio and PR.ClaveProducto=PS.ClaveProducto", cn);
+
+            //cmd = new SqlCommand("Select PS.ClaveProducto, PR.Cantidad, PS.TipoCosteo, (PR.Subtotal/PR.Cantidad), PO.Partida, PS.UnidadMedida, PR.Total from PartidaRecepcion as PR Join RecepcionProducto as R On R.Folio=PR.FolioRecepcion Join ProductosServicios as PS On PR.ClaveProducto=PS.ClaveProducto Left Join OrdenCompra as O On O.Folio=R.FolioOrden Left Join PartidaOrden as PO On O.Folio=PO.FolioOrden where FolioRecepcion=@Folio and PR.ClaveProducto=PS.ClaveProducto", cn);
+            cmd.Parameters.AddWithValue("@Folio", Folio);
+            dr = cmd.ExecuteReader();
+            while (dr.Read())
+            {
+                List<string> lista = new List<string>();
+                lista.Add(dr[0].ToString());
+                lista.Add(dr[1].ToString());
+                lista.Add(dr[2].ToString());
+                lista.Add(dr[3].ToString());
+                lista.Add(dr[4].ToString());
+                lista.Add(dr[5].ToString());
+                lista.Add(dr[6].ToString());
+                listam.Add(lista);
+            }
+            dr.Close();
+            return listam;
+        }
+        public void ActualizarRemision(string Folio, string Estatus)
+        {
+            try
+            {
+
+                cmd = new SqlCommand("Update OrdenCompra set Estatus='" + Estatus + "' where Folio='" + Folio + "'", cn);
+                cmd.ExecuteNonQuery();
+
+                //cmd = new SqlCommand("insert into Cobros (Folio, ClavePropietario) values ('" + Folio + "', '" + MatriculaAlumno + "')", cn);
+                //cmd.ExecuteNonQuery();
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("ERROR" + ex.ToString());
+            }
+        }
+        public void CancelarOrdenPedidoCliente(string Folio)
+        {
+
+            try
+            {
+
+
+                using (SqlConnection connection = new SqlConnection(ObtenerCn()))
+                {
+                    try
+                    {
+                        connection.Open();
+
+                        // Evento para capturar mensajes PRINT
+                        connection.InfoMessage += new SqlInfoMessageEventHandler(CapturarMensajes);
+
+                        using (SqlCommand command = new SqlCommand("CancelarOrdenPedidoCliente", connection))
+                        {
+                            command.CommandType = System.Data.CommandType.StoredProcedure;
+                            command.Parameters.Add(new SqlParameter("@FolioOrdenPedido", Folio));
+
+
+                            // Ejecutar el procedimiento almacenado
+                            command.ExecuteNonQuery();
+                        }
+
+
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Ocurrió un error: " + ex.Message);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error." + ex.ToString());
+            }
+
+
+
+        }
+
+        public decimal ObtenerTotalRemision(string Folio)
+        {
+            decimal total = 0.00m;
+
+            try
+            {
+                cmd = new SqlCommand("select Total from Remision where Folio=" + Folio + "", cn);
+                dr = cmd.ExecuteReader();
+
+                if (dr.Read())
+                {
+                    total = Convert.ToDecimal(dr[0].ToString());
+                }
+                dr.Close();
+
+
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error." + ex.ToString());
+            }
+            return total;
+        }
+
+        public string CancelarRegistroGasto(string folio)
+        {
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(ObtenerCn()))
+                {
+                    using (SqlCommand cmd = new SqlCommand("CancelarRegistroGasto", conn))
+                    {
+                        cmd.CommandType = CommandType.StoredProcedure;
+
+                        // Parámetro de entrada
+                        cmd.Parameters.AddWithValue("@FolioRegistro", folio);
+
+                        // Parámetro de salida para el mensaje
+                        SqlParameter mensajeParam = new SqlParameter("@Mensaje", SqlDbType.VarChar, 200);
+                        mensajeParam.Direction = ParameterDirection.Output;
+                        cmd.Parameters.Add(mensajeParam);
+
+                        conn.Open();
+                        cmd.ExecuteNonQuery();
+
+                        // Captura el mensaje de resultado
+                        string mensaje = mensajeParam.Value?.ToString();
+                        return mensaje ?? "No se recibió ningún mensaje del procedimiento almacenado.";
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                // Puedes manejar el error de manera diferente si no quieres usar MessageBox en esta capa
+                return "Error: " + ex.Message;
             }
         }
 

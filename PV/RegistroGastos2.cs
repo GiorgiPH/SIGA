@@ -12,6 +12,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 
 using System.Diagnostics;
+using PV.Clases;
 
 namespace PV
 {
@@ -889,20 +890,12 @@ namespace PV
                     }
                     else
                     {
-                        decimal sub = Convert.ToDecimal(txtPrecio.Text) * Convert.ToInt32(txtCantidad.Text);
-                        txtSubtotal1.Text = sub.ToString();
-                        decimal Impuesto = (Convert.ToDecimal(txtImpuesto1.Text) / 100) * Convert.ToDecimal(txtSubtotal1.Text);
-                        txtImpuestoIm.Text = Impuesto.ToString("N2");
-                        txtTotal1.Text = (Convert.ToDecimal(txtSubtotal1.Text) + Impuesto - Convert.ToDecimal(txtDescuento1.Text)).ToString("N2");
+                        Calcular();
                     }
                 }
                 else if (txtCantidad.Text != string.Empty && txtPrecio.Text != string.Empty)
                 {
-                    decimal sub = Convert.ToDecimal(txtPrecio.Text) * Convert.ToInt32(txtCantidad.Text);
-                    txtSubtotal1.Text = sub.ToString();
-                    decimal Impuesto = (Convert.ToDecimal(txtImpuesto1.Text) / 100) * Convert.ToDecimal(txtSubtotal1.Text);
-                    txtImpuestoIm.Text = Impuesto.ToString("N2");
-                    txtTotal1.Text = (Convert.ToDecimal(txtSubtotal1.Text) + Impuesto - Convert.ToDecimal(txtDescuento1.Text)).ToString("N2");
+                    Calcular();
                 }
             }
             catch (Exception)
@@ -912,7 +905,15 @@ namespace PV
             }
 
         }
-
+        private void Calcular()
+        {
+            decimal sub = Convert.ToDecimal(txtPrecio.Text) * Convert.ToDecimal(txtCantidad.Text);
+            sub = sub - Convert.ToDecimal(txtDescuento1.Text);
+            decimal Impuesto = (Convert.ToDecimal(txtImpuesto1.Text) / 100) * Convert.ToDecimal(sub);
+            txtImpuestoIm.Text = Impuesto.ToString("N2");
+            txtTotal1.Text = (Convert.ToDecimal(sub) + Impuesto).ToString("N2");
+            txtSubtotal1.Text = Convert.ToString(sub);
+        }
         private void txtPrecio_TextChanged(object sender, EventArgs e)
         {
             Moneda(ref txtPrecio);
@@ -928,21 +929,12 @@ namespace PV
                     }
                     else
                     {
-                        decimal sub = Convert.ToDecimal(txtPrecio.Text) * Convert.ToInt32(txtCantidad.Text);
-                        txtSubtotal1.Text = sub.ToString();
-                        decimal Impuesto = (Convert.ToDecimal(txtImpuesto1.Text) / 100) * Convert.ToDecimal(txtSubtotal1.Text);
-                        txtImpuestoIm.Text = Impuesto.ToString("N2");
-                        txtTotal1.Text = (Convert.ToDecimal(txtSubtotal1.Text) + Impuesto - Convert.ToDecimal(txtDescuento1.Text)).ToString("N2");
+                        Calcular();
                     }
                 }
                 else if (txtCantidad.Text != string.Empty && txtPrecio.Text != string.Empty)
                 {
-                    decimal sub = Convert.ToDecimal(txtPrecio.Text) * Convert.ToInt32(txtCantidad.Text);
-                    txtSubtotal1.Text = sub.ToString();
-                    decimal Impuesto = (Convert.ToDecimal(txtImpuesto1.Text) / 100) * Convert.ToDecimal(txtSubtotal1.Text);
-                    txtImpuestoIm.Text = Impuesto.ToString("N2");
-                    txtTotal1.Text = (Convert.ToDecimal(txtSubtotal1.Text) + Impuesto - Convert.ToDecimal(txtDescuento1.Text)).ToString("N2");
-
+                    Calcular();
                 }
             }
             catch (Exception)
@@ -982,16 +974,7 @@ namespace PV
         {
             try
             {
-                if (txtImpuesto1.Text != string.Empty)
-                {
-                    decimal Impuesto = (Convert.ToDecimal(txtImpuesto1.Text) / 100) * Convert.ToDecimal(txtSubtotal1.Text);
-                    txtImpuestoIm.Text = Impuesto.ToString("N2");
-                    txtTotal1.Text = (Convert.ToDecimal(txtSubtotal1.Text) + Impuesto - Convert.ToDecimal(txtDescuento1.Text)).ToString("N2");
-                }
-                else if (txtImpuesto1.Text == string.Empty)
-                {
-                    txtImpuesto1.Text = "0";
-                }
+                Calcular();
             }
             catch (Exception)
             {
@@ -1006,16 +989,7 @@ namespace PV
 
             try
             {
-                if (txtDescuento1.Text != string.Empty)
-                {
-                    decimal Impuesto = (Convert.ToDecimal(txtImpuesto1.Text) / 100) * Convert.ToDecimal(txtSubtotal1.Text);
-                    txtImpuestoIm.Text = Impuesto.ToString("N2");
-                    txtTotal1.Text = (Convert.ToDecimal(txtSubtotal1.Text) + Impuesto - Convert.ToDecimal(txtDescuento1.Text)).ToString("N2");
-                }
-                else if (txtDescuento1.Text == string.Empty)
-                {
-                    txtDescuento1.Text = "0.00";
-                }
+                Calcular();
             }
             catch (Exception)
             {
@@ -1538,7 +1512,13 @@ namespace PV
                 guna2PictureBox2.Visible = false;
                 guna2PictureBox1.Visible = true;
 
-
+                if (!string.IsNullOrEmpty(txtFolio.Text) && cmbEstatus.Text == "Abierto")
+                {
+                    if (MessageBox.Show("El registro actual se perderá, ¿Desea continuar?", "Nuevo Registro de Gasto", MessageBoxButtons.YesNo, MessageBoxIcon.Question) != DialogResult.Yes)
+                    {
+                        return;
+                    }
+                }
                 Limpiarcabezado();
                 LimpiarDetalle();
                 DesbloquearEncabezado();
@@ -1669,7 +1649,7 @@ namespace PV
 
         private void txtPrecio_KeyPress(object sender, KeyPressEventArgs e)
         {
-            c.Monto(e);
+            Utilerias.SoloNumFracc(sender, e);
         }
 
         private void txtSubtotal1_KeyUp(object sender, KeyEventArgs e)
@@ -1679,17 +1659,56 @@ namespace PV
 
         private void txtSubtotal1_KeyPress(object sender, KeyPressEventArgs e)
         {
-            c.Monto(e);
+            Utilerias.SoloNumFracc(sender, e);
         }
 
         private void txtImpuesto1_KeyPress(object sender, KeyPressEventArgs e)
         {
-            c.Monto(e);
+            Utilerias.SoloNumFracc(sender, e);
         }
 
         private void txtDescuento1_KeyPress(object sender, KeyPressEventArgs e)
         {
-            c.Monto(e);
+            Utilerias.SoloNumFracc(sender, e);
+        }
+
+        private void guna2TabControl1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (guna2TabControl1.SelectedIndex == 1)
+            {
+                if (string.IsNullOrEmpty(txtFolio.Text))
+                {
+                    MessageBox.Show("Es necesario crear el encabezado");
+                    guna2TabControl1.SelectedIndex = 0;
+                }
+            }
+        }
+
+        private void guna2Button1_Click(object sender, EventArgs e)
+        {
+            if (txtFolio.Text == string.Empty)
+            {
+                MessageBox.Show("Seleccione la recepcion de productos");
+                return;
+            }
+            else if (txtTotal.Text != txtSaldo.Text)
+            {
+                MessageBox.Show("No es posible cancelar una recepcion de productos con un pago total o parcial");
+                return;
+            }
+            else if (cmbEstatus.Text != "Bloqueado")
+            {
+                MessageBox.Show("No es posible cancelar una recepcion de productos que no esta bloqueado");
+                return;
+            }
+            else if (MessageBox.Show("El saldo de esta recepcion de productos sera cancelado, ¿Desea continuar?", "Recepcion de Gastos", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+            {
+                cmbEstatus.Text = "Cancelado";
+                MessageBox.Show(c.CancelarRegistroGasto(txtFolio.Text));
+                //c.ActualizarRegistroRecepcion3(txtFolio.Text, cmbEstatus.Text, txtAlmacen.Text);
+
+                Limpiar();
+            }
         }
     }
     

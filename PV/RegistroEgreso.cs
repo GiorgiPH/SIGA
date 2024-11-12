@@ -39,7 +39,7 @@ namespace PV
             NotasCargo.Matricula = string.Empty;
             OrdenCompra.Matricula = string.Empty;
             RegistroGastos.Matricula = string.Empty;
-            RecepcionProductos.Matricula = string.Empty;
+            RecepcionProductos2.Matricula = string.Empty;
             this.Close();
         }
 
@@ -525,6 +525,11 @@ namespace PV
             {
                 MessageBox.Show("Seleccione el Proveedor");
             }
+        }
+
+        private void guna2CircleButton1_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }

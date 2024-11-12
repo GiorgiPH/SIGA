@@ -100,22 +100,75 @@ namespace PV.Clases.Servicios
 
                     if (Foto.Image == null)
                     {
-                        cmd = new SqlCommand("Insert into Servicios (ClaveServicio, Alias, Descripcion, Estatus, Categoria, Familia, Proveedor, ExMinimo, ExMaximo, ExActual, Ubicacion, TipoCosteo, CostoUnitario, Divisa, DescuentoPorc, DescuentoCant, ImpuestoPorc, ImpuestoCant, PrecioVenta, ConceptoGlobales) values ('" + txtClaveProducto + "', '" + txtAlias + "',  '" + txtDescripcion + "',  '" + cmbEstatus + "','" + txtCategoria + "','" + txtFamilia + "','" + cmbTipoCosteo + "', '" + txtCostoUnitario + "',  '" + cmbDivisa + "',  '" + txtDescuentoPorc + "', '" + txtDescuentoCant + "',  '" + txtImpuestoPorc + "',  '" + txtImpuestoCant + "', '" + txtPrecioVenta + "', '" + Concepto + "')", cn);
+                        cmd = new SqlCommand("Insert into Servicios (ClaveServicio, Alias, Descripcion, Estatus, Categoria, Familia, Proveedor, ExMinimo, ExMaximo, ExActual, Ubicacion, TipoCosteo, CostoUnitario, Divisa, DescuentoPorc, DescuentoCant, ImpuestoPorc, ImpuestoCant, PrecioVenta, ConceptoGlobales) values (@ClaveServicio, @Alias, @Descripcion, @Estatus, @Categoria, @Familia, @Proveedor, @ExMinimo, @ExMaximo, @ExActual, @Ubicacion, @TipoCosteo, @CostoUnitario, @Divisa, @DescuentoPorc, @DescuentoCant, @ImpuestoPorc, @ImpuestoCant, @PrecioVenta, @ConceptoGlobales)", cn);
+
+                        // Añadir parámetros
+                        cmd.Parameters.AddWithValue("@ClaveServicio", txtClaveProducto);
+                        cmd.Parameters.AddWithValue("@Alias", txtAlias);
+                        cmd.Parameters.AddWithValue("@Descripcion", txtDescripcion);
+                        cmd.Parameters.AddWithValue("@Estatus", cmbEstatus);
+                        cmd.Parameters.AddWithValue("@Categoria", txtCategoria);
+                        cmd.Parameters.AddWithValue("@Familia", txtFamilia);
+                        cmd.Parameters.AddWithValue("@Proveedor", 0);  // Asegúrate de agregar el proveedor, que falta en el query original
+                        cmd.Parameters.AddWithValue("@ExMinimo", 0);     // Estos campos faltan también
+                        cmd.Parameters.AddWithValue("@ExMaximo", 0);
+                        cmd.Parameters.AddWithValue("@ExActual", 0);
+                        cmd.Parameters.AddWithValue("@Ubicacion", "");   // Este también está faltando
+                        cmd.Parameters.AddWithValue("@TipoCosteo", cmbTipoCosteo);
+                        cmd.Parameters.AddWithValue("@CostoUnitario", txtCostoUnitario);
+                        cmd.Parameters.AddWithValue("@Divisa", cmbDivisa);
+                        cmd.Parameters.AddWithValue("@DescuentoPorc", txtDescuentoPorc);
+                        cmd.Parameters.AddWithValue("@DescuentoCant", txtDescuentoCant);
+                        cmd.Parameters.AddWithValue("@ImpuestoPorc", txtImpuestoPorc);
+                        cmd.Parameters.AddWithValue("@ImpuestoCant", txtImpuestoCant);
+                        cmd.Parameters.AddWithValue("@PrecioVenta", txtPrecioVenta);
+                        cmd.Parameters.AddWithValue("@ConceptoGlobales", Concepto);
+                        // Ejecutar el comando
                         cmd.ExecuteNonQuery();
-                        mensaje = "Registro guardado.";
                     }
                     else
                     {
-                        cmd = new SqlCommand("Insert into Servicios (ClaveServicio, Alias, Descripcion, Estatus, Categoria, Familia, Proveedor, ExMinimo, ExMaximo, ExActual, Ubicacion, TipoCosteo, CostoUnitario, Divisa, DescuentoPorc, DescuentoCant, ImpuestoPorc, ImpuestoCant, PrecioVenta, Foto, ConceptoGlobales) values ('" + txtClaveProducto + "', '" + txtAlias + "',  '" + txtDescripcion + "',  '" + cmbEstatus + "','" + txtCategoria + "','" + txtFamilia + "','" + cmbTipoCosteo + "', '" + txtCostoUnitario + "',  '" + cmbDivisa + "',  '" + txtDescuentoPorc + "', '" + txtDescuentoCant + "',  '" + txtImpuestoPorc + "',  '" + txtImpuestoCant + "', '" + txtPrecioVenta + "', @Foto, '" + Concepto + "')", cn);
+                        cmd = new SqlCommand("Insert into Servicios (ClaveServicio, Alias, Descripcion, Estatus, Categoria, Familia, Proveedor, ExMinimo, ExMaximo, ExActual, Ubicacion, TipoCosteo, CostoUnitario, Divisa, DescuentoPorc, DescuentoCant, ImpuestoPorc, ImpuestoCant, PrecioVenta, ConceptoGlobales) values (@ClaveServicio, @Alias, @Descripcion, @Estatus, @Categoria, @Familia, @Proveedor, @ExMinimo, @ExMaximo, @ExActual, @Ubicacion, @TipoCosteo, @CostoUnitario, @Divisa, @DescuentoPorc, @DescuentoCant, @ImpuestoPorc, @ImpuestoCant, @PrecioVenta, @ConceptoGlobales)", cn);
+
+                        // Añadir parámetros
+                        cmd.Parameters.AddWithValue("@ClaveServicio", txtClaveProducto);
+                        cmd.Parameters.AddWithValue("@Alias", txtAlias);
+                        cmd.Parameters.AddWithValue("@Descripcion", txtDescripcion);
+                        cmd.Parameters.AddWithValue("@Estatus", cmbEstatus);
+                        cmd.Parameters.AddWithValue("@Categoria", txtCategoria);
+                        cmd.Parameters.AddWithValue("@Familia", txtFamilia);
+                        cmd.Parameters.AddWithValue("@Proveedor", 0);  // Asegúrate de agregar el proveedor, que falta en el query original
+                        cmd.Parameters.AddWithValue("@ExMinimo", 0);     // Estos campos faltan también
+                        cmd.Parameters.AddWithValue("@ExMaximo", 0);
+                        cmd.Parameters.AddWithValue("@ExActual", 0);
+                        cmd.Parameters.AddWithValue("@Ubicacion", "");   // Este también está faltando
+                        cmd.Parameters.AddWithValue("@TipoCosteo", cmbTipoCosteo);
+                        cmd.Parameters.AddWithValue("@CostoUnitario", txtCostoUnitario);
+                        cmd.Parameters.AddWithValue("@Divisa", cmbDivisa);
+                        cmd.Parameters.AddWithValue("@DescuentoPorc", txtDescuentoPorc);
+                        cmd.Parameters.AddWithValue("@DescuentoCant", txtDescuentoCant);
+                        cmd.Parameters.AddWithValue("@ImpuestoPorc", txtImpuestoPorc);
+                        cmd.Parameters.AddWithValue("@ImpuestoCant", txtImpuestoCant);
+                        cmd.Parameters.AddWithValue("@PrecioVenta", txtPrecioVenta);
+                        cmd.Parameters.AddWithValue("@ConceptoGlobales", Concepto);
+
+
+                        // Preparar el parámetro de imagen
                         cmd.Parameters.Add("@Foto", SqlDbType.Image);
-                        System.IO.MemoryStream ms = new System.IO.MemoryStream();
-                        Foto.Image.Save(ms, System.Drawing.Imaging.ImageFormat.Jpeg);
-                        cmd.Parameters["@Foto"].Value = ms.GetBuffer();
+
+                        // Guardar la imagen en un MemoryStream
+                        using (System.IO.MemoryStream ms = new System.IO.MemoryStream())
+                        {
+                            Foto.Image.Save(ms, System.Drawing.Imaging.ImageFormat.Jpeg);
+                            cmd.Parameters["@Foto"].Value = ms.ToArray(); // Usar ToArray() para obtener los bytes exactos
+                        }
+
+                        // Ejecutar el comando
                         cmd.ExecuteNonQuery();
 
-                        mensaje = "Registro guardado.";
+                        
                     }
-
+                    mensaje = "Registro guardado.";
                 }
 
                 else if (contador > 0)

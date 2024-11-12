@@ -106,11 +106,14 @@ namespace PuntoVentas
         {
             if (e.RowIndex != -1)
             {
+               
+
                 Limpiar();
                 string Usuario = dataGridView1.Rows[e.RowIndex].Cells["Usuarios1"].Value.ToString();
                 usuario = Usuario;
                 txtUsuario.Text = usuario;
                 txtUsuario.Enabled = false;
+                guna2Button7.Enabled = true;
                 c.ConsultaUsuarioSeleccionado(usuario, txtNombre, txtContraseña, cmbTipo, dpFecha, cmbEstatus, txtNota, Foto);
                 PanelUsuario.Visible = false;
                 if (txtUsuario.Text == "Admin")

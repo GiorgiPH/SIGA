@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Globalization;
 using System.Windows.Forms;
-using PuntoVentas.Clases.Divisas;
+using PV.Clases.Divisas;
 using PuntoVentas.Clases.Login;
 using PV;
 

@@ -2982,7 +2982,7 @@ namespace PV
             this.guna2Button10.Size = new System.Drawing.Size(37, 32);
             this.guna2Button10.TabIndex = 240;
             this.guna2Button10.Text = "X";
-            this.guna2Button10.Click += new System.EventHandler(this.guna2Button10_Click);
+            //this.guna2Button10.Click += new System.EventHandler(this.guna2Button10_Click);
             // 
             // txtFiltroNombre
             // 

@@ -51,7 +51,7 @@ namespace Condominios
                 Matricula = string.Empty;
                 OrdenCompra.Matricula = string.Empty;
                 RegistroGastos.Matricula = string.Empty;
-                RecepcionProductos.Matricula = string.Empty;
+                RecepcionProductos2.Matricula = string.Empty;
                 ReporteReciboAutomatico.Opcion2 = 0;
                 this.Close();
             }

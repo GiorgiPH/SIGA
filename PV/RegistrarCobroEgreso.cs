@@ -181,5 +181,10 @@ namespace PV
                 txtCuenta.Text = valores[0];
             }
         }
+
+        private void guna2CircleButton1_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
     }
 }

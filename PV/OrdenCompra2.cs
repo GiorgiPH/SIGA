@@ -306,7 +306,7 @@ namespace PV
 
                 if (txtFolio.Text == string.Empty)
                 {
-                    c.InsertarOrden(txtFolio, txtClave.Text, cmbEstatus.Text, txtFecha.Text, txtDiasVence.Text, txtFechaVence.Text, txtMatricular.Text, txtDivisa1.Text, txtTipoCambio1.Text, txtNotas.Text, txtElaborado.Text, txtConsecutivo.Text, "0");
+                    c.InsertarOrden(txtFolio, txtClave.Text, cmbEstatus.Text, txtFecha.Text, txtDiasVence.Text, txtFechaVence.Text, txtMatricular.Text, txtDivisa1.Text, txtTipoCambio1.Text, txtNotas.Text, txtElaborado.Text, txtConsecutivo.Text, "0", "");
                     //    MessageBox.Show(txtFolio.Text);
 
                 }
@@ -1132,7 +1132,7 @@ namespace PV
             {
                 Matricula = string.Empty;
                 cmbEstatus.Text = "Bloqueado";
-                c.ActualizarReciboEstatus(txtFolio.Text, cmbEstatus.Text, txtMatricular.Text);
+                c.ActualizarReciboEstatus(txtFolio.Text, cmbEstatus.Text, txtMatricular.Text, "");
                 Limpiar();
                 c.CargarRecibos(dataGridView1);
             }
@@ -1140,7 +1140,8 @@ namespace PV
             guna2Button9.Visible = false;
         }
 
-        private void guna2Button10_Click(object sender, EventArgs e)
+        private void 
+            _Click(object sender, EventArgs e)
         {
             guna2GradientPanel2.Visible = false;
         }

@@ -190,7 +190,7 @@ namespace PuntoVentas
 
         private void registrarCobranzaToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            registroIngresos registroIngresos = new registroIngresos();
+            registroIngresos registroIngresos = new registroIngresos("","");
             registroIngresos.ShowDialog();
         }
 
@@ -384,7 +384,7 @@ namespace PuntoVentas
 
         private void recepcionDeProductosToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            RecepcionProductos recepcionProductos = new RecepcionProductos();
+            RecepcionProductos2 recepcionProductos = new RecepcionProductos2();
             recepcionProductos.ShowDialog();
         }
 
@@ -894,7 +894,7 @@ namespace PuntoVentas
 
         private void comprasRecepciónEntradaProductosAlmacénToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            RecepcionProductos recepcionProductos = new RecepcionProductos();
+            RecepcionProductos2 recepcionProductos = new RecepcionProductos2();
             recepcionProductos.ShowDialog();
         }
 
@@ -2281,7 +2281,44 @@ namespace PuntoVentas
 
         private void guna2GradientButton15_Click(object sender, EventArgs e)
         {
-            
+            ReporteIngresoFormulario reporteIngresos = new ReporteIngresoFormulario();
+            reporteIngresos.ShowDialog();
+        }
+
+        private void guna2GradientButton50_Click(object sender, EventArgs e)
+        {
+            RecepcionProductos2 recepcionProductos = new RecepcionProductos2();
+            recepcionProductos.ShowDialog();
+        }
+
+        private void guna2GradientButton51_Click(object sender, EventArgs e)
+        {
+            RegistroEgreso r =new RegistroEgreso();
+            r.ShowDialog();
+        }
+
+        private void guna2GradientButton12_Click(object sender, EventArgs e)
+        {
+            registroIngresos r = new registroIngresos("Remision", "");
+            r.ShowDialog();
+        }
+
+        private void guna2GradientButton11_Click(object sender, EventArgs e)
+        {
+            RegistrarAnticipo r = new RegistrarAnticipo("Propietario");
+            r.ShowDialog();
+        }
+
+        private void guna2GradientButton10_Click(object sender, EventArgs e)
+        {
+            AplicarAnticipo aplicarAnticipo = new AplicarAnticipo();
+            aplicarAnticipo.ShowDialog();
+        }
+
+        private void guna2GradientButton52_Click(object sender, EventArgs e)
+        {
+            ReporteAnticiposFiltro reporteAnticipos = new ReporteAnticiposFiltro();
+            reporteAnticipos.ShowDialog();
         }
     }
 }

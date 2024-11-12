@@ -90,7 +90,7 @@
             this.PanelUsuario.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.PanelUsuario.BackColor = System.Drawing.Color.White;
             this.PanelUsuario.Controls.Add(this.dataGridView1);
-            this.PanelUsuario.Location = new System.Drawing.Point(507, 92);
+            this.PanelUsuario.Location = new System.Drawing.Point(503, 91);
             this.PanelUsuario.Name = "PanelUsuario";
             this.PanelUsuario.Size = new System.Drawing.Size(334, 430);
             this.PanelUsuario.TabIndex = 82;
@@ -245,7 +245,7 @@
             "Traspaso",
             "Entrada por Devolucion",
             "Ajuste"});
-            this.cmbInventarios.Location = new System.Drawing.Point(396, -2);
+            this.cmbInventarios.Location = new System.Drawing.Point(464, 28);
             this.cmbInventarios.Name = "cmbInventarios";
             this.cmbInventarios.Size = new System.Drawing.Size(225, 26);
             this.cmbInventarios.TabIndex = 165;
@@ -455,6 +455,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox3.BackColor = System.Drawing.Color.Transparent;
             this.groupBox3.BorderRadius = 20;
+            this.groupBox3.Controls.Add(this.cmbInventarios);
             this.groupBox3.Controls.Add(this.cmbCompras);
             this.groupBox3.Controls.Add(this.guna2Separator1);
             this.groupBox3.Controls.Add(this.cmbTipoDocumento);
@@ -529,7 +530,6 @@
             // groupBox4
             // 
             this.groupBox4.BackColor = System.Drawing.Color.White;
-            this.groupBox4.Controls.Add(this.cmbInventarios);
             this.groupBox4.Controls.Add(this.tgBloquear);
             this.groupBox4.Controls.Add(this.tgConsecutivo);
             this.groupBox4.Controls.Add(this.txtCuenta2);

@@ -493,7 +493,7 @@
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>Clave Propietario:</Value>
+                              <Value>Clave Cliente:</Value>
                               <Style>
                                 <FontWeight>Bold</FontWeight>
                               </Style>
@@ -876,6 +876,7 @@
                       </Style>
                     </Textbox>
                     <ColSpan>2</ColSpan>
+                    <rd:Selected>true</rd:Selected>
                   </CellContents>
                 </TablixCell>
                 <TablixCell />

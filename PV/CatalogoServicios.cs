@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using Condominios;
 using Guna.UI2.WinForms;
 using PuntoVentas.Clases.Login;
+using PV.Clases;
 using PV.Clases.Servicios;
 
 namespace PV
@@ -622,6 +623,31 @@ namespace PV
         private void guna2Button10_Click(object sender, EventArgs e)
         {
             PanelUsuario.Visible = false;
+        }
+
+        private void txtDescuentoPorc_TextChanged(object sender, EventArgs e)
+        {
+            Utilerias.Moneda2(ref txtDescuentoPorc);
+        }
+
+        private void txtImpuestoPorc_TextChanged(object sender, EventArgs e)
+        {
+            Utilerias.Moneda2(ref txtImpuestoPorc);
+        }
+
+        private void txtDescuentoCant_TextChanged(object sender, EventArgs e)
+        {
+            Utilerias.Moneda2(ref txtDescuentoCant);
+        }
+
+        private void txtImpuestoCant_TextChanged_1(object sender, EventArgs e)
+        {
+            Utilerias.Moneda2(ref txtImpuestoCant);
+        }
+
+        private void txtCostoUnitario_TextChanged(object sender, EventArgs e)
+        {
+            Utilerias.Moneda2(ref txtCostoUnitario);
         }
     }
     

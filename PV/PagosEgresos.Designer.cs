@@ -38,8 +38,6 @@
             this.label5 = new System.Windows.Forms.Label();
             this.dtpFecha = new System.Windows.Forms.DateTimePicker();
             this.label2 = new System.Windows.Forms.Label();
-            this.txtMatricula = new System.Windows.Forms.TextBox();
-            this.txtAlumno = new System.Windows.Forms.TextBox();
             this.label8 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.dgvPagosPendientes = new System.Windows.Forms.DataGridView();
@@ -59,6 +57,8 @@
             this.Cancelar = new System.Windows.Forms.DataGridViewButtonColumn();
             this.label9 = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
+            this.txtMatricula = new Guna.UI2.WinForms.Guna2TextBox();
+            this.txtAlumno = new Guna.UI2.WinForms.Guna2TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.dgvPagosPendientes)).BeginInit();
             this.SuspendLayout();
             // 
@@ -90,26 +90,6 @@
             this.label2.TabIndex = 116;
             this.label2.Text = "Fecha";
             // 
-            // txtMatricula
-            // 
-            this.txtMatricula.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
-            this.txtMatricula.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
-            this.txtMatricula.Enabled = false;
-            this.txtMatricula.Location = new System.Drawing.Point(17, 34);
-            this.txtMatricula.Name = "txtMatricula";
-            this.txtMatricula.Size = new System.Drawing.Size(174, 20);
-            this.txtMatricula.TabIndex = 115;
-            // 
-            // txtAlumno
-            // 
-            this.txtAlumno.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
-            this.txtAlumno.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
-            this.txtAlumno.Enabled = false;
-            this.txtAlumno.Location = new System.Drawing.Point(197, 34);
-            this.txtAlumno.Name = "txtAlumno";
-            this.txtAlumno.Size = new System.Drawing.Size(257, 20);
-            this.txtAlumno.TabIndex = 114;
-            // 
             // label8
             // 
             this.label8.AutoSize = true;
@@ -134,11 +114,13 @@
             // 
             this.dgvPagosPendientes.AllowUserToAddRows = false;
             this.dgvPagosPendientes.AllowUserToDeleteRows = false;
+            this.dgvPagosPendientes.BackgroundColor = System.Drawing.Color.White;
             this.dgvPagosPendientes.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.dgvPagosPendientes.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
             dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(19)))), ((int)(((byte)(35)))), ((int)(((byte)(95)))));
             dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle1.ForeColor = System.Drawing.Color.White;
             dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Control;
             dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
@@ -167,6 +149,7 @@
             dataGridViewCellStyle7.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.dgvPagosPendientes.DefaultCellStyle = dataGridViewCellStyle7;
+            this.dgvPagosPendientes.EnableHeadersVisualStyles = false;
             this.dgvPagosPendientes.Location = new System.Drawing.Point(12, 109);
             this.dgvPagosPendientes.MultiSelect = false;
             this.dgvPagosPendientes.Name = "dgvPagosPendientes";
@@ -315,7 +298,7 @@
             this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label9.Location = new System.Drawing.Point(16, 85);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(112, 16);
+            this.label9.Size = new System.Drawing.Size(111, 16);
             this.label9.TabIndex = 110;
             this.label9.Text = "Lista de Pagos";
             // 
@@ -330,19 +313,67 @@
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
+            // txtMatricula
+            // 
+            this.txtMatricula.AutoRoundedCorners = true;
+            this.txtMatricula.BorderColor = System.Drawing.Color.Gray;
+            this.txtMatricula.BorderRadius = 11;
+            this.txtMatricula.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.txtMatricula.DefaultText = "";
+            this.txtMatricula.DisabledState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(208)))), ((int)(((byte)(208)))));
+            this.txtMatricula.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(226)))), ((int)(((byte)(226)))));
+            this.txtMatricula.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
+            this.txtMatricula.DisabledState.PlaceholderForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
+            this.txtMatricula.Enabled = false;
+            this.txtMatricula.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.txtMatricula.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.txtMatricula.ForeColor = System.Drawing.Color.Black;
+            this.txtMatricula.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.txtMatricula.Location = new System.Drawing.Point(17, 34);
+            this.txtMatricula.Name = "txtMatricula";
+            this.txtMatricula.PasswordChar = '\0';
+            this.txtMatricula.PlaceholderText = "";
+            this.txtMatricula.SelectedText = "";
+            this.txtMatricula.Size = new System.Drawing.Size(174, 25);
+            this.txtMatricula.TabIndex = 341;
+            // 
+            // txtAlumno
+            // 
+            this.txtAlumno.AutoRoundedCorners = true;
+            this.txtAlumno.BorderColor = System.Drawing.Color.Gray;
+            this.txtAlumno.BorderRadius = 11;
+            this.txtAlumno.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.txtAlumno.DefaultText = "";
+            this.txtAlumno.DisabledState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(208)))), ((int)(((byte)(208)))));
+            this.txtAlumno.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(226)))), ((int)(((byte)(226)))));
+            this.txtAlumno.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
+            this.txtAlumno.DisabledState.PlaceholderForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
+            this.txtAlumno.Enabled = false;
+            this.txtAlumno.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.txtAlumno.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.txtAlumno.ForeColor = System.Drawing.Color.Black;
+            this.txtAlumno.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.txtAlumno.Location = new System.Drawing.Point(197, 34);
+            this.txtAlumno.Name = "txtAlumno";
+            this.txtAlumno.PasswordChar = '\0';
+            this.txtAlumno.PlaceholderText = "";
+            this.txtAlumno.SelectedText = "";
+            this.txtAlumno.Size = new System.Drawing.Size(340, 25);
+            this.txtAlumno.TabIndex = 341;
+            // 
             // PagosEgresos
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.BurlyWood;
+            this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(1260, 614);
             this.ControlBox = false;
+            this.Controls.Add(this.txtAlumno);
+            this.Controls.Add(this.txtMatricula);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.dtpFecha);
             this.Controls.Add(this.label2);
-            this.Controls.Add(this.txtMatricula);
-            this.Controls.Add(this.txtAlumno);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.dgvPagosPendientes);
@@ -363,8 +394,6 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.DateTimePicker dtpFecha;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.TextBox txtMatricula;
-        private System.Windows.Forms.TextBox txtAlumno;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.DataGridView dgvPagosPendientes;
@@ -384,5 +413,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Abono;
         private System.Windows.Forms.DataGridViewTextBoxColumn Saldo;
         private System.Windows.Forms.DataGridViewButtonColumn Cancelar;
+        private Guna.UI2.WinForms.Guna2TextBox txtMatricula;
+        private Guna.UI2.WinForms.Guna2TextBox txtAlumno;
     }
 }

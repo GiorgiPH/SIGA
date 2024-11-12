@@ -35,7 +35,7 @@ namespace PV
             if (e.RowIndex != -1)
             {
                 string Partida = dataGridView1.Rows[e.RowIndex].Cells["Partida"].Value.ToString();
-                c.ConsultaPartidaRecepcion(TxtFolio.Text, Partida, txtClaveConcepto, txtConcepto, txtConcepto2, txtCantidad, txtUnidad, txtDivisa, txtTipoCambio, txtSubtotal, txtDescuento, txtTotal, txtImpuesto, txtArchivo);
+                //c.ConsultaPartidaRecepcion(TxtFolio.Text, Partida, txtClaveConcepto, txtConcepto, txtConcepto2, txtCantidad, txtUnidad, txtDivisa, txtTipoCambio, txtSubtotal, txtDescuento, txtTotal, txtImpuesto, txtArchivo);
                 txtPartida.Text = Partida;
                 txtPrecio.Text = (Convert.ToDecimal(txtSubtotal.Text) / Convert.ToDecimal(txtCantidad.Text)).ToString("N2");
                 panel2.Visible = false;

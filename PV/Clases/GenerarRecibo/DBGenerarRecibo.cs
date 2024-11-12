@@ -181,11 +181,11 @@ namespace Condominios.Clases.GenerarRecibo
             dr.Close();
         }
         //___________________________________________________________________________________________
-        public void SeleccionarConceptoDocumento3(ComboBox cb)
+        public void SeleccionarConceptoDocumentoRemision(ComboBox cb)
         {
             cb.Items.Clear();
             cb.Items.Add("TODOS");
-            cmd = new SqlCommand("select distinct (D.Clave +'-'+ D.Nombre) as Docuemnto from Recibo as R, Documento as D where R.ClaveDocumento=D.Clave", cn);
+            cmd = new SqlCommand("select distinct (D.Clave +'-'+ D.Nombre) as Docuemnto from Remision as R, Documento as D where R.ClaveDocumento=D.Clave", cn);
             dr = cmd.ExecuteReader();
             while (dr.Read())
             {

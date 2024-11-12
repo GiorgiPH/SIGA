@@ -64,7 +64,7 @@ namespace PV
             {
                 Matricula = string.Empty;
                 DBOrdenCompra.MatriculaC = string.Empty;
-                RecepcionProductos.Matricula = string.Empty;
+                RecepcionProductos2.Matricula = string.Empty;
                 RegistroGastos.Matricula = string.Empty;
                 RegistroEgreso.matricula = string.Empty;
                 RegistroEgreso.nombre = string.Empty;
@@ -120,7 +120,7 @@ namespace PV
 
                 if (txtFolio.Text == string.Empty)
                 {
-                    c.InsertarOrden(txtFolio, txtClave.Text, cmbEstatus.Text, txtFecha.Text, txtDiasVence.Text, txtFechaVence.Text, txtMatricular.Text, txtDivisa.Text, txtTipoCambio.Text, txtNotas.Text, txtElaborado.Text, txtConsecutivo.Text, "0");
+                    c.InsertarOrden(txtFolio, txtClave.Text, cmbEstatus.Text, txtFecha.Text, txtDiasVence.Text, txtFechaVence.Text, txtMatricular.Text, txtDivisa.Text, txtTipoCambio.Text, txtNotas.Text, txtElaborado.Text, txtConsecutivo.Text, "0", "");
                 }
 
                 if (cmbDocumento.Text == txtDocumentoCol.Text)
@@ -171,7 +171,7 @@ namespace PV
             {
                 Matricula = string.Empty;
                 cmbEstatus.Text = "Bloqueado";
-                c.ActualizarReciboEstatus(txtFolio.Text, cmbEstatus.Text, txtMatricular.Text);
+                c.ActualizarReciboEstatus(txtFolio.Text, cmbEstatus.Text, txtMatricular.Text, "");
                 Limpiar();
                 c.CargarRecibos(dataGridView1);
             }

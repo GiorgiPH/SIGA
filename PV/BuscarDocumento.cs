@@ -11,13 +11,16 @@ namespace PV
         public static string Conscutivo = string.Empty;
         public static string Nombre = string.Empty;
         public static string DocumentoO = string.Empty;
+        
         public static string FolioO = string.Empty;
         string tipo = string.Empty;
-        public BuscarDocumento(string tipo)
+        string cliente= string.Empty;
+        public BuscarDocumento(string tipo, string cliente)
         {
             InitializeComponent();
             this.tipo = tipo;
-            c.BuscarOrdenPedidoPendiente(dataGridView1, "", txtFiltro.Text);
+            this.cliente = cliente;
+            c.BuscarOrdenPedidoPendiente(dataGridView1, "", txtFiltro.Text, cliente);
         }
 
         private void BuscarListaProveedores_Load(object sender, EventArgs e)

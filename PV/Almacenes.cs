@@ -131,7 +131,7 @@ namespace PV
                 string Estatus = string.Empty;
                 if (guna2ToggleSwitch1.Checked)
                 {
-                    Estatus = " Activo";
+                    Estatus = "Activo";
                 }
                 else
                 {

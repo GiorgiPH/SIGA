@@ -142,35 +142,40 @@ namespace PV
 
         private void guna2Button1_Click(object sender, EventArgs e)
         {
-            if (txtTotalPartidas.Text != "0" || txtTotalPartidas.Text != string.Empty)
+           
+
+            if (!(MessageBox.Show("¿Desea cancelar el movimiento " + txtTipoDocumento.Text + "-" + txtFolioRegistrar.Text + "?", "Movimientos Inventario", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes))
             {
-                c.ActualizarMovimiento2(txtFolioP.Text, txtTipoDocumento.Text, cmbDescripcion.Text, txtTotalPartidas.Text, txtTotal.Text);
-                Limpiar();
-                Desbloquear();
+                return;
             }
-            else
+            if (cmbEstatus.Text == "Cancelado")
             {
-                Limpiar();
-                Desbloquear();
+                MessageBox.Show("No se puede cancelar un documento dos veces");
+                return;
             }
+        
+            c.CancelarMovimientoInventario(txtFolioP.Text, txtTipoDocumento.Text, cmbDescripcion.Text);
+            MessageBox.Show("REGISTRO CANCELADO");
+            Limpiar();
+            Desbloquear();
         }
 
         private void cmbDescripcion_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (txtTipoDocumento.Text == "E")
+            if (Documento == "E")
             {
                 string[] valores = c.InformacionEntrada(cmbDescripcion.Text);
                 txtDescripcion.Text = valores[0];
                 txtUltimoFolio.Text = valores[1];
                 txtCosteo.Text = valores[2];
             }
-            else if (txtTipoDocumento.Text == "S")
+            else if (Documento == "S")
             {
                 string[] valores = c.InformacionSalida(cmbDescripcion.Text);
                 txtDescripcion.Text = valores[0];
                 txtUltimoFolio.Text = valores[1];
             }
-            else if (txtTipoDocumento.Text == "T")
+            else if (Documento == "T")
             {
                 string[] valores = c.InformacionTraspaso(cmbDescripcion.Text);
                 txtDescripcion.Text = valores[0];
@@ -369,6 +374,7 @@ namespace PV
             txtFolioP.Clear();
             cmbAlmacenSalida.Text = null;
             guna2DataGridView1.Rows.Clear();
+            cmbEstatus.Text = "Abierto";
             // groupBox2.Enabled = false;
             MovimientosInventario.Subtotal = 0.00;
             MovimientosInventario.Descuento = 0.00;
@@ -489,15 +495,15 @@ namespace PV
                 c1.RegistroPartida(txtFolioRegistrar.Text, txtTipoDocumento.Text, cmbDescripcion.Text, txtNoPartida.Text, clave, txtCantidad.Text, txtUnidad.Text, Convert.ToDecimal(txtPrecio.Text), cmbDivisa1.Text, txtTipoCambio1.Text, Convert.ToDecimal(txtTotal1.Text), txtConcepto.Text);
                 Total = Total + (Convert.ToDouble(txtTotal1.Text));
 
-                if (cmbDescripcion.Text == "E")
+                if (Documento == "E")
                 {
                     c1.RegistroProducto(clave, txtCantidad.Text, Almacen, Costeo, Convert.ToDecimal(txtPrecio.Text), txtTipoCosteo.Text);
                 }
-                else if (cmbDescripcion.Text == "S")
+                else if (Documento == "S")
                 {
                     c1.RegistroProductoSalidas(clave, txtCantidad.Text, Almacen);
                 }
-                else if (cmbDescripcion.Text == "T")
+                else if (Documento == "T")
                 {
                     c1.RegistroProductoSalidas(clave, txtCantidad.Text, Almacen);
                     c1.RegistroProducto(clave, txtCantidad.Text, AlmacenSalida, Costeo, Convert.ToDecimal(txtPrecio.Text), txtTipoCosteo.Text);
@@ -535,7 +541,7 @@ namespace PV
                 string producto = cmbProducto.Text;
                 string clave = producto.Substring(0, index);
 
-                if (cmbDescripcion.Text == "S" || cmbDescripcion.Text == "T")
+                if (Documento == "S" || Documento == "T")
                 {
                     if (Convert.ToInt32(txtCantidad.Text) > Convert.ToInt32(txtExAlmacen.Text))
                     {
@@ -544,19 +550,19 @@ namespace PV
                     }
                 }
 
-                c1.RegistroPartida(txtFolioRegistrar.Text, txtTipoDocumento.Text, cmbDescripcion.Text, txtNoPartida.Text, clave, txtCantidad.Text, txtUnidad.Text, Convert.ToDecimal(txtPrecio.Text), cmbDivisa1.Text, txtTipoCambio1.Text, Convert.ToDecimal(txtTotal1.Text), txtConcepto.Text);
+                c1.RegistroPartida(txtFolioRegistrar.Text, Documento, cmbDescripcion.Text, txtNoPartida.Text, clave, txtCantidad.Text, txtUnidad.Text, Convert.ToDecimal(txtPrecio.Text), cmbDivisa1.Text, txtTipoCambio1.Text, Convert.ToDecimal(txtTotal1.Text), txtConcepto.Text);
                 Subtotal = Subtotal + Convert.ToDouble(txtTotal1 .Text);
                 Total = Total + (Convert.ToDouble(txtTotal1.Text));
 
-                if (cmbDescripcion.Text == "E")
+                if (Documento == "E")
                 {
                     c1.RegistroProducto(clave, txtCantidad.Text, Almacen, Costeo, Convert.ToDecimal(txtPrecio.Text), txtTipoCosteo.Text);
                 }
-                else if (cmbDescripcion.Text == "S")
+                else if (Documento == "S")
                 {
                     c1.RegistroProductoSalidas(clave, txtCantidad.Text, Almacen);
                 }
-                else if (cmbDescripcion.Text == "T")
+                else if (Documento == "T")
                 {
                     c1.RegistroProductoSalidas(clave, txtCantidad.Text, Almacen);
                     c1.RegistroProducto(clave, txtCantidad.Text, Almacen, Costeo, Convert.ToDecimal(txtPrecio.Text), txtTipoCosteo.Text);
@@ -569,7 +575,7 @@ namespace PV
 
                 PanelPartidasRequisicion.Visible = false;
                  
-            string  TipoM = txtTipoDocumento.Text;
+            string  TipoM = Documento;
                 Descripcion = cmbDescripcion.Text;
            string     Folio1 = txtFolioRegistrar.Text;
 
@@ -689,15 +695,19 @@ namespace PV
             }
 
         }
+        private void Calcular()
+        {
+            if (txtCantidad.Text != string.Empty && txtPrecio.Text != string.Empty)
+            {
+                txtTotal1.Text = (Convert.ToDecimal(txtCantidad.Text) * Convert.ToDecimal(txtPrecio.Text)).ToString();
+            }
+        }
 
         private void txtCantidad_TextChanged(object sender, EventArgs e)
         {
             try
             {
-                if (txtCantidad.Text != string.Empty && txtPrecio.Text != string.Empty)
-                {
-                    txtTotal1.Text = (Convert.ToDecimal(txtCantidad.Text) * Convert.ToDecimal(txtPrecio.Text)).ToString();
-                }
+                Calcular();
             }
             catch (Exception)
             {
@@ -717,10 +727,7 @@ namespace PV
 
             try
             {
-                if (txtCantidad.Text != string.Empty && txtPrecio.Text != string.Empty)
-                {
-                    txtTotal1.Text = (Convert.ToDecimal(txtCantidad.Text) * Convert.ToDecimal(txtPrecio.Text)).ToString();
-                }
+                Calcular();
             }
             catch (Exception)
             {
@@ -1171,7 +1178,6 @@ namespace PV
                 guna2TabControl1.SelectedIndex = 0;
                 guna2TabControl1.Enabled = true;
                 Limpiar();
-                cmbDescripcion.SelectedIndex = 0;
                 Desbloquear();
                 cmbDescripcion.DroppedDown = true;
                 cmbDescripcion.Focus();
@@ -1281,6 +1287,18 @@ namespace PV
                 CatalogoProductosServicios prod = new CatalogoProductosServicios(consulta);
                 prod.ShowDialog();
               
+            }
+        }
+
+        private void guna2TabControl1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (guna2TabControl1.SelectedIndex == 1)
+            {
+                if (string.IsNullOrEmpty(txtFolioRegistrar.Text))
+                {
+                    MessageBox.Show("Es necesario crear el encabezado");
+                    guna2TabControl1.SelectedIndex = 0;
+                }
             }
         }
     }

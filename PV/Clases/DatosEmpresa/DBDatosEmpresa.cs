@@ -2,6 +2,7 @@
 using System.Data;
 using System.Data.SqlClient;
 using System.Windows.Forms;
+using Guna.UI2.WinForms;
 using PV.Properties;
 
 namespace PuntoVentas.Clases.DatosEmpresa
@@ -33,7 +34,7 @@ namespace PuntoVentas.Clases.DatosEmpresa
         }
         //_________________________________________________________________________________________________________________________--
         // registrar empresa 
-        public string RegistroEmpresa(string txtRazonSocial, string txtNombreComercial, string txtRFC, string txtTelefono1, string txtTelefono2, string txtTelefono3, string txtCorreo, string Servidor,  string txtContraseña, string txtPaginaWeb, string txtCalleNumero, string txtColonia, string txtMunicipio, string txtEstado, string txtCodigoPostal, string txtPais, string txtReferencias, RadioButton rdbSiRecargo, RadioButton rdbNoRecargo, RadioButton rdbSiDescuento, RadioButton rdbNoDescuento, string ReciboAuto, string txtClave, string txtLeyendaTicket, decimal MontoMaximo, string DiasPlazo, RadioButton FechaCobranzaSi, RadioButton FechaCobranzaNo, decimal txtMontoMaximoD, string Concepto, string DocumentoExt, string ConceptoEXt, string Ruta, string DocumentoAnt, string ConceptoAnt, PictureBox Foto)
+        public string RegistroEmpresa(string txtRazonSocial, string txtNombreComercial, string txtRFC, string txtTelefono1, string txtTelefono2, string txtTelefono3, string txtCorreo, string Servidor,  string txtContraseña, string txtPaginaWeb, string txtCalleNumero, string txtColonia, string txtMunicipio, string txtEstado, string txtCodigoPostal, string txtPais, string txtReferencias, RadioButton rdbSiRecargo, RadioButton rdbNoRecargo, RadioButton rdbSiDescuento, RadioButton rdbNoDescuento, string ReciboAuto, string txtClave, string txtLeyendaTicket, decimal MontoMaximo, string DiasPlazo, RadioButton FechaCobranzaSi, RadioButton FechaCobranzaNo, decimal txtMontoMaximoD, string Concepto, string DocumentoExt, string ConceptoEXt, string Ruta, string DocumentoAnt, string ConceptoAnt, PictureBox Foto, string Puerto, string Host, string Ssl)
         {
             string mensaje = "";
             int contador = 0;
@@ -43,7 +44,7 @@ namespace PuntoVentas.Clases.DatosEmpresa
 
             try
             {
-                cmd = new SqlCommand("select * from DatosEmpresa where RazonSocial='" + txtRazonSocial + "'", cn);
+                cmd = new SqlCommand("select * from DatosEmpresa", cn);
                 dr = cmd.ExecuteReader();
 
                 while (dr.Read())
@@ -83,7 +84,7 @@ namespace PuntoVentas.Clases.DatosEmpresa
                             Fecha = "No";
                         }
 
-                        cmd = new SqlCommand("Insert into DatosEmpresa ( RazonSocial, NombreComercial, RFC, Telefono1, Telefono2, Telefono3, Correo, Servidor, Contraseña, PaginaWeb, CalleNumero, Colonia, Municipio, Estado, CodigoPostal, Pais, Referencias, Recargos, Descuentos, RecibosAutomaticos, Documento, LeyendaTicket, MontoMaximo, DiasPlazo, FechaCobranza, MontoMaximoD, Concepto, DocumentoExt, ConceptoExt, Ruta, DocumentoAnt, ConceptoAnt) values ('" + txtRazonSocial + "', '" + txtNombreComercial + "', '" + txtRFC + "', '" + txtTelefono1 + "', '" + txtTelefono2 + "', '" + txtTelefono3 + "', '" + txtCorreo + "', '" + Servidor + "','" + txtContraseña + "', '" + txtPaginaWeb + "', '" + txtCalleNumero + "', '" + txtColonia + "', '" + txtMunicipio + "', '" + txtEstado + "', '" + txtCodigoPostal + "', '" + txtPais + "', '" + txtReferencias + "', '"+Recargos+ "', '" + Descuento + "','" + ReciboAuto + "', '"+txtClave+"', '" + txtLeyendaTicket + "', " +MontoMaximo+ ", '"+DiasPlazo+"', '"+Fecha+"', "+txtMontoMaximoD+", '"+Concepto+"', '"+DocumentoExt+"', '"+ConceptoEXt+"', '"+Ruta+ "', '" + DocumentoAnt + "', '" + ConceptoAnt + "')", cn);
+                        cmd = new SqlCommand("Insert into DatosEmpresa ( RazonSocial, NombreComercial, RFC, Telefono1, Telefono2, Telefono3, Correo, Servidor, Contraseña, PaginaWeb, CalleNumero, Colonia, Municipio, Estado, CodigoPostal, Pais, Referencias, Recargos, Descuentos, RecibosAutomaticos, Documento, LeyendaTicket, MontoMaximo, DiasPlazo, FechaCobranza, MontoMaximoD, Concepto, DocumentoExt, ConceptoExt, Ruta, DocumentoAnt, ConceptoAnt, Puerto, Host, Ssl) values ('" + txtRazonSocial + "', '" + txtNombreComercial + "', '" + txtRFC + "', '" + txtTelefono1 + "', '" + txtTelefono2 + "', '" + txtTelefono3 + "', '" + txtCorreo + "', '" + Servidor + "','" + txtContraseña + "', '" + txtPaginaWeb + "', '" + txtCalleNumero + "', '" + txtColonia + "', '" + txtMunicipio + "', '" + txtEstado + "', '" + txtCodigoPostal + "', '" + txtPais + "', '" + txtReferencias + "', '"+Recargos+ "', '" + Descuento + "','" + ReciboAuto + "', '"+txtClave+"', '" + txtLeyendaTicket + "', " +MontoMaximo+ ", '"+DiasPlazo+"', '"+Fecha+"', "+txtMontoMaximoD+", '"+Concepto+"', '"+DocumentoExt+"', '"+ConceptoEXt+"', '"+Ruta+ "', '" + DocumentoAnt + "', '" + ConceptoAnt + "', '"+Puerto+"', '"+Host+"', '"+Ssl+"')", cn);
                         cmd.ExecuteNonQuery();
                         mensaje = "Registro guardado.";
                     }
@@ -116,7 +117,7 @@ namespace PuntoVentas.Clases.DatosEmpresa
                             Fecha = "No";
                         }
 
-                        cmd = new SqlCommand("Insert into DatosEmpresa ( RazonSocial, NombreComercial, RFC, Telefono1, Telefono2, Telefono3, Correo, Servidor, Contraseña, PaginaWeb, CalleNumero, Colonia, Municipio, Estado, CodigoPostal, Pais, Referencias, Recargos, Descuentos, RecibosAutomaticos, Documento, LeyendaTicket, MontoMaximo, DiasPlazo, FechaCobranza, MontoMaximoD, Concepto, DocumentoExt, ConceptoEx, Ruta, DocumentoAnt, ConceptoAnt, Foto) values ('" + txtRazonSocial + "', '" + txtNombreComercial + "', '" + txtRFC + "', '" + txtTelefono1 + "', '" + txtTelefono2 + "', '" + txtTelefono3 + "', '" + txtCorreo + "','" + Servidor + "', '" + txtContraseña + "', '" + txtPaginaWeb + "', '" + txtCalleNumero + "', '" + txtColonia + "', '" + txtMunicipio + "', '" + txtEstado + "', '" + txtCodigoPostal + "', '" + txtPais + "', '" + txtReferencias + "', '" + Recargos + "', '" + Descuento + "', '" + ReciboAuto + "', '" + txtClave + "', '" + txtLeyendaTicket + "'," + MontoMaximo + ", '" + DiasPlazo + "', '" + Fecha + "', "+txtMontoMaximoD+", '"+Concepto+"', '"+DocumentoExt+"', '"+ConceptoEXt+"', '"+Ruta+ "', '" + DocumentoAnt + "', '" + ConceptoAnt + "', @Foto)", cn);
+                        cmd = new SqlCommand("Insert into DatosEmpresa ( RazonSocial, NombreComercial, RFC, Telefono1, Telefono2, Telefono3, Correo, Servidor, Contraseña, PaginaWeb, CalleNumero, Colonia, Municipio, Estado, CodigoPostal, Pais, Referencias, Recargos, Descuentos, RecibosAutomaticos, Documento, LeyendaTicket, MontoMaximo, DiasPlazo, FechaCobranza, MontoMaximoD, Concepto, DocumentoExt, ConceptoEx, Ruta, DocumentoAnt, ConceptoAnt, Foto, Puerto, Host, Ssl) values ('" + txtRazonSocial + "', '" + txtNombreComercial + "', '" + txtRFC + "', '" + txtTelefono1 + "', '" + txtTelefono2 + "', '" + txtTelefono3 + "', '" + txtCorreo + "','" + Servidor + "', '" + txtContraseña + "', '" + txtPaginaWeb + "', '" + txtCalleNumero + "', '" + txtColonia + "', '" + txtMunicipio + "', '" + txtEstado + "', '" + txtCodigoPostal + "', '" + txtPais + "', '" + txtReferencias + "', '" + Recargos + "', '" + Descuento + "', '" + ReciboAuto + "', '" + txtClave + "', '" + txtLeyendaTicket + "'," + MontoMaximo + ", '" + DiasPlazo + "', '" + Fecha + "', "+txtMontoMaximoD+", '"+Concepto+"', '"+DocumentoExt+"', '"+ConceptoEXt+"', '"+Ruta+ "', '" + DocumentoAnt + "', '" + ConceptoAnt + "', @Foto, '"+Puerto+"', '"+Host+"', '"+Ssl+"')", cn);
                         cmd.Parameters.Add("@Foto", SqlDbType.Image);
                         System.IO.MemoryStream ms = new System.IO.MemoryStream();
                         Foto.Image.Save(ms, System.Drawing.Imaging.ImageFormat.Jpeg);
@@ -161,7 +162,7 @@ namespace PuntoVentas.Clases.DatosEmpresa
                                 Fecha = "No";
                             }
 
-                            cmd = new SqlCommand("Update DatosEmpresa set  NombreComercial='" + txtNombreComercial + "', RFC='" + txtRFC + "', Telefono1='" + txtTelefono1 + "', Telefono2='" + txtTelefono2 + "', Telefono3='" + txtTelefono3 + "', Correo='" + txtCorreo + "', Servidor='" + Servidor + "', Contraseña='" + txtContraseña+"', PaginaWeb='" + txtPaginaWeb + "', CalleNumero= '" + txtCalleNumero + "', Colonia='" + txtColonia + "', Municipio='" + txtMunicipio + "', Estado='" + txtEstado + "', CodigoPostal='" + txtCodigoPostal + "', Pais='" + txtPais + "', Referencias='" + txtReferencias + "', Recargos='"+Recargos+"', Descuentos='"+Descuento+ "', RecibosAutomaticos='"+ReciboAuto+ "', Documento='" + txtClave + "', LeyendaTicket='" + txtLeyendaTicket + "', MontoMaximo="+MontoMaximo+", DiasPlazo='"+DiasPlazo+"', FechaCobranza='"+Fecha+ "', MontoMaximoD=" + txtMontoMaximoD + ", Concepto='"+Concepto+"', DocumentoExt='"+DocumentoExt+"', ConceptoExt='"+ConceptoEXt+"', Ruta='"+Ruta+ "', DocumentoAnt='" + DocumentoAnt + "', ConceptoAnt='" + ConceptoAnt + "' where RazonSocial='" + txtRazonSocial + "'", cn);
+                            cmd = new SqlCommand("Update DatosEmpresa set   RazonSocial = '" + txtRazonSocial + "',NombreComercial='" + txtNombreComercial + "', RFC='" + txtRFC + "', Telefono1='" + txtTelefono1 + "', Telefono2='" + txtTelefono2 + "', Telefono3='" + txtTelefono3 + "', Correo='" + txtCorreo + "', Servidor='" + Servidor + "', Contraseña='" + txtContraseña+"', PaginaWeb='" + txtPaginaWeb + "', CalleNumero= '" + txtCalleNumero + "', Colonia='" + txtColonia + "', Municipio='" + txtMunicipio + "', Estado='" + txtEstado + "', CodigoPostal='" + txtCodigoPostal + "', Pais='" + txtPais + "', Referencias='" + txtReferencias + "', Recargos='"+Recargos+"', Descuentos='"+Descuento+ "', RecibosAutomaticos='"+ReciboAuto+ "', Documento='" + txtClave + "', LeyendaTicket='" + txtLeyendaTicket + "', MontoMaximo="+MontoMaximo+", DiasPlazo='"+DiasPlazo+"', FechaCobranza='"+Fecha+ "', MontoMaximoD=" + txtMontoMaximoD + ", Concepto='"+Concepto+"', DocumentoExt='"+DocumentoExt+"', ConceptoExt='"+ConceptoEXt+"', Ruta='"+Ruta+ "', DocumentoAnt='" + DocumentoAnt + "', ConceptoAnt='" + ConceptoAnt + "', Puerto='"+Puerto+"', Host='"+Host+"', Ssl='"+Ssl+"'", cn);
                             cmd.ExecuteNonQuery();
 
                             mensaje = "Registro modificado.";
@@ -195,7 +196,7 @@ namespace PuntoVentas.Clases.DatosEmpresa
                                 Fecha = "No";
                             }
 
-                            cmd = new SqlCommand("Update DatosEmpresa set  NombreComercial='" + txtNombreComercial + "', RFC='" + txtRFC + "', Telefono1='" + txtTelefono1 + "', Telefono2='" + txtTelefono2 + "', Telefono3='" + txtTelefono3 + "', Correo='" + txtCorreo + "',Servidor='" + Servidor + "', Contraseña='" + txtContraseña+"', PaginaWeb='" + txtPaginaWeb + "', CalleNumero= '" + txtCalleNumero + "', Colonia='" + txtColonia + "', Municipio='" + txtMunicipio + "', Estado='" + txtEstado + "', CodigoPostal='" + txtCodigoPostal + "', Pais='" + txtPais + "', Referencias='" + txtReferencias + "', Recargos='" + Recargos + "', Descuentos='" + Descuento + "', RecibosAutomaticos='" + ReciboAuto + "',  Documento='" + txtClave + "', LeyendaTicket='" + txtLeyendaTicket + "',MontoMaximo=" + MontoMaximo + ", DiasPlazo='" + DiasPlazo + "', FechaCobranza='" + Fecha + "', MontoMaximoD=" + txtMontoMaximoD + ", Concepto='"+Concepto+ "',  DocumentoExt='" + DocumentoExt + "', ConceptoExt='" + ConceptoEXt + "', Ruta='" + Ruta + "', DocumentoAnt='" + DocumentoAnt + "', ConceptoAnt='" + ConceptoAnt + "', Foto=@Foto where RazonSocial='" + txtRazonSocial + "'", cn);
+                            cmd = new SqlCommand("Update DatosEmpresa set  RazonSocial = '" + txtRazonSocial + "', NombreComercial='" + txtNombreComercial + "', RFC='" + txtRFC + "', Telefono1='" + txtTelefono1 + "', Telefono2='" + txtTelefono2 + "', Telefono3='" + txtTelefono3 + "', Correo='" + txtCorreo + "',Servidor='" + Servidor + "', Contraseña='" + txtContraseña+"', PaginaWeb='" + txtPaginaWeb + "', CalleNumero= '" + txtCalleNumero + "', Colonia='" + txtColonia + "', Municipio='" + txtMunicipio + "', Estado='" + txtEstado + "', CodigoPostal='" + txtCodigoPostal + "', Pais='" + txtPais + "', Referencias='" + txtReferencias + "', Recargos='" + Recargos + "', Descuentos='" + Descuento + "', RecibosAutomaticos='" + ReciboAuto + "',  Documento='" + txtClave + "', LeyendaTicket='" + txtLeyendaTicket + "',MontoMaximo=" + MontoMaximo + ", DiasPlazo='" + DiasPlazo + "', FechaCobranza='" + Fecha + "', MontoMaximoD=" + txtMontoMaximoD + ", Concepto='"+Concepto+ "',  DocumentoExt='" + DocumentoExt + "', ConceptoExt='" + ConceptoEXt + "', Ruta='" + Ruta + "', DocumentoAnt='" + DocumentoAnt + "', ConceptoAnt='" + ConceptoAnt + "', Foto=@Foto, Puerto='"+Puerto+"', Host='"+Host+"', Ssl='"+Ssl+"'", cn);
                             cmd.Parameters.Add("@Foto", SqlDbType.Image);
                             System.IO.MemoryStream ms = new System.IO.MemoryStream();
                             Foto.Image.Save(ms, System.Drawing.Imaging.ImageFormat.Jpeg);
@@ -237,7 +238,7 @@ namespace PuntoVentas.Clases.DatosEmpresa
 
         //_____________________________________________________________________________________________________
         //Mostrar empresa seleccionado
-        public void ConsultaUsuarioSeleccionado(Guna.UI2.WinForms.Guna2TextBox txtRazonSocial, Guna.UI2.WinForms.Guna2TextBox txtNombreComercial, Guna.UI2.WinForms.Guna2TextBox txtRFC, Guna.UI2.WinForms.Guna2TextBox txtTelefono1, Guna.UI2.WinForms.Guna2TextBox txtTelefono2, Guna.UI2.WinForms.Guna2TextBox txtTelefono3, Guna.UI2.WinForms.Guna2TextBox txtCorreo, ComboBox Servidor, Guna.UI2.WinForms.Guna2TextBox txtContraseña, Guna.UI2.WinForms.Guna2TextBox txtPaginaWeb, Guna.UI2.WinForms.Guna2TextBox txtCalleNumero, Guna.UI2.WinForms.Guna2TextBox txtColonia, Guna.UI2.WinForms.Guna2TextBox txtMunicipio, Guna.UI2.WinForms.Guna2TextBox txtEstado, Guna.UI2.WinForms.Guna2TextBox txtCodigoPostal, Guna.UI2.WinForms.Guna2TextBox txtPais, Guna.UI2.WinForms.Guna2TextBox txtReferencias, RadioButton rdbSiRecargos, RadioButton rdbNoRecargos, RadioButton rdbSiDescuentos, RadioButton rdbNoDescuentos, RadioButton rdbConcepto, RadioButton rdbEstructura, RadioButton rdbProIndiviso, TextBox txtClave, Guna.UI2.WinForms.Guna2TextBox txtLeyendaTicket, TextBox txtMontoMaximo, TextBox txtDiasPlazo, RadioButton rdfechasi, RadioButton rdFechano, TextBox txtMontoMaximoD, TextBox txtConcepto, TextBox txtDocumentoExt, TextBox txtConceptoExt, TextBox txtDocumentoAnt, TextBox txtConceptoAnt, Guna.UI2.WinForms.Guna2TextBox txtRuta, PictureBox Foto)
+        public void ConsultaUsuarioSeleccionado(Guna.UI2.WinForms.Guna2TextBox txtRazonSocial, Guna.UI2.WinForms.Guna2TextBox txtNombreComercial, Guna.UI2.WinForms.Guna2TextBox txtRFC, Guna.UI2.WinForms.Guna2TextBox txtTelefono1, Guna.UI2.WinForms.Guna2TextBox txtTelefono2, Guna.UI2.WinForms.Guna2TextBox txtTelefono3, Guna.UI2.WinForms.Guna2TextBox txtCorreo, Guna2TextBox Servidor, Guna.UI2.WinForms.Guna2TextBox txtContraseña, Guna.UI2.WinForms.Guna2TextBox txtPaginaWeb, Guna.UI2.WinForms.Guna2TextBox txtCalleNumero, Guna.UI2.WinForms.Guna2TextBox txtColonia, Guna.UI2.WinForms.Guna2TextBox txtMunicipio, Guna.UI2.WinForms.Guna2TextBox txtEstado, Guna.UI2.WinForms.Guna2TextBox txtCodigoPostal, Guna.UI2.WinForms.Guna2TextBox txtPais, Guna.UI2.WinForms.Guna2TextBox txtReferencias, RadioButton rdbSiRecargos, RadioButton rdbNoRecargos, RadioButton rdbSiDescuentos, RadioButton rdbNoDescuentos, RadioButton rdbConcepto, RadioButton rdbEstructura, RadioButton rdbProIndiviso, TextBox txtClave, Guna.UI2.WinForms.Guna2TextBox txtLeyendaTicket, TextBox txtMontoMaximo, TextBox txtDiasPlazo, RadioButton rdfechasi, RadioButton rdFechano, TextBox txtMontoMaximoD, TextBox txtConcepto, TextBox txtDocumentoExt, TextBox txtConceptoExt, TextBox txtDocumentoAnt, TextBox txtConceptoAnt, Guna.UI2.WinForms.Guna2TextBox txtRuta, PictureBox Foto, Guna2TextBox txtPuerto, Guna2TextBox txtHost, ComboBox cmbSSL)
         {
             try
             {
@@ -278,6 +279,9 @@ namespace PuntoVentas.Clases.DatosEmpresa
                     string Descuento = dr["Descuentos"].ToString();
                     string ReciboAuto = dr["RecibosAutomaticos"].ToString();
                     string Fecha = dr["FechaCobranza"].ToString();
+                    txtPuerto.Text = dr["puerto"].ToString();
+                    txtHost.Text = dr["host"].ToString();
+                    cmbSSL.Text = dr["Ssl"].ToString();
 
                     if (Recargos == "Si")
                     {
@@ -528,6 +532,41 @@ namespace PuntoVentas.Clases.DatosEmpresa
                 Descripcion.Text  = dr[0].ToString();
             }
             dr.Close();
+        }
+        public string[] CorreoContra()
+        {
+            string[] resultado = null;
+
+            try
+            {
+                cmd = new SqlCommand("select Correo, Servidor, Contraseña, Puerto, Host, Ssl, Ruta from DatosEmpresa", cn);
+                dr = cmd.ExecuteReader();
+
+                if (dr.HasRows)
+                {
+                    while (dr.Read())
+                    {
+                        // Cargar los valores en el array
+                        resultado = new string[]
+                        {
+                    dr["Correo"].ToString(),
+                    dr["Servidor"].ToString(),
+                    dr["Contraseña"].ToString(),
+                    dr["Puerto"].ToString(),
+                    dr["Host"].ToString(),
+                    dr["Ssl"].ToString(),
+                    dr["Ruta"].ToString()
+                        };
+                    }
+                }
+                dr.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
+
+            return resultado;
         }
     }
 }

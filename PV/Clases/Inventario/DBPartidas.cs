@@ -54,6 +54,7 @@ namespace PV.Clases.Inventario
                 MessageBox.Show("Error." + ex.ToString());
             }
         }
+       
         // registrar forma partida 
         public void ConsultarPartida(string FolioMovimiento, string TipoDocumento, string Descripcion, string NoPartida, Guna.UI2.WinForms.Guna2TextBox ClaveProducto, Guna.UI2.WinForms.Guna2TextBox Cantidad, Guna.UI2.WinForms.Guna2TextBox unidad, Guna.UI2.WinForms.Guna2TextBox Precio, Label Divisa, Guna.UI2.WinForms.Guna2TextBox TipoCambio, Guna.UI2.WinForms.Guna2TextBox Total, Guna.UI2.WinForms.Guna2TextBox Concepto)
         {
@@ -216,7 +217,7 @@ namespace PV.Clases.Inventario
 
                 if (contador <= 0)
                 {
-                    cmd = new SqlCommand("Insert into AlmacenProducto (ClaveAlmacen, ClaveProducto, ExistenciaInicial, Entradas, Salidas, ExistenciaActual) values ('" + txtAlmacen + "', '" + txtClaveProducto + "', '" + txtExActual + "',  '" + txtExActual + "', '0','" + txtExActual + "')", cn);
+                    cmd = new SqlCommand("Insert into AlmacenProducto (ClaveAlmacen, ClaveProducto, ExistenciaInicial, Entradas, Salidas, ExistenciaActual) values ('" + txtAlmacen + "', '" + txtClaveProducto + "', '" + txtExActual + "',  '0', '0','" + txtExActual + "')", cn);
                     cmd.ExecuteNonQuery();
 
                     if (costeo == "Si")
@@ -250,12 +251,12 @@ namespace PV.Clases.Inventario
                         }
                     }
 
-                    cmd = new SqlCommand("Update ProductosServicios set ExActual= ExActual + '" + txtExActual + "' where ClaveProducto= '" + txtClaveProducto + "' and Inventariable='Si'", cn);
+                    cmd = new SqlCommand("Update ProductosServicios set ExActual= ExActual + '" + txtExActual + "' where ClaveProducto= '" + txtClaveProducto + "'-- and Inventariable='Si'", cn);
                     cmd.ExecuteNonQuery();
                 }
                 else
                 {
-                    cmd = new SqlCommand("Update AlmacenProducto set ExistenciaInicial= ExistenciaActual, Entradas= Entradas + '" + txtExActual + "', ExistenciaActual= ExistenciaActual + '" + txtExActual + "' where ClaveProducto= '" + txtClaveProducto + "' and ClaveAlmacen = '" + txtAlmacen + "'", cn);
+                    cmd = new SqlCommand("Update AlmacenProducto set Entradas= Entradas + '" + txtExActual + "', ExistenciaActual= ExistenciaInicial + '" + txtExActual + "' + Entradas - Salidas where ClaveProducto= '" + txtClaveProducto + "' and ClaveAlmacen = '" + txtAlmacen + "'", cn);
                     cmd.ExecuteNonQuery();
 
                     if (costeo == "Si")
@@ -319,7 +320,8 @@ namespace PV.Clases.Inventario
 
                 if (contador <= 0)
                 {
-                    cmd = new SqlCommand("Insert into AlmacenProducto (ClaveAlmacen, ClaveProducto, ExistenciaInicial, Entradas, Salidas, ExistenciaActual) values ('" + txtAlmacen + "', '" + txtClaveProducto + "',  '" + txtExActual + "', '0','" + txtExActual + "', '" + txtExActual + "')", cn);
+                    cmd = new SqlCommand("Insert into AlmacenProducto (ClaveAlmacen, ClaveProducto, ExistenciaInicial, Entradas, Salidas, ExistenciaActual) values ('" + txtAlmacen + "', '" + txtClaveProducto + "',  '0', '0','" + txtExActual + "', 0-'" + txtExActual + "')", cn);
+                    //cmd = new SqlCommand("Insert into AlmacenProducto (ClaveAlmacen, ClaveProducto, ExistenciaInicial, Entradas, Salidas, ExistenciaActual) values ('" + txtAlmacen + "', '" + txtClaveProducto + "',  '" + txtExActual + "', '0','" + txtExActual + "', '" + txtExActual + "')", cn);
                     cmd.ExecuteNonQuery();
 
                     cmd = new SqlCommand("Update ProductosServicios set ExActual= ExActual - '" + txtExActual + "' where ClaveProducto= '" + txtClaveProducto + "' and Inventariable='Si'", cn);
@@ -327,7 +329,8 @@ namespace PV.Clases.Inventario
                 }
                 else
                 {
-                    cmd = new SqlCommand("Update AlmacenProducto set ExistenciaInicial= ExistenciaActual, Salidas= Salidas + '" + txtExActual + "', ExistenciaActual= ExistenciaActual - '" + txtExActual + "' where ClaveProducto= '" + txtClaveProducto + "' and ClaveAlmacen = '" + txtAlmacen + "'", cn);
+                    cmd = new SqlCommand("Update AlmacenProducto set Salidas= Salidas + '" + txtExActual + "', ExistenciaActual= ExistenciaInicial + Entradas - Salidas - '" + txtExActual + "' where ClaveProducto= '" + txtClaveProducto + "' and ClaveAlmacen = '" + txtAlmacen + "'", cn);
+                    //cmd = new SqlCommand("Update AlmacenProducto set ExistenciaInicial= ExistenciaActual, Salidas= Salidas + '" + txtExActual + "', ExistenciaActual= ExistenciaActual - '" + txtExActual + "' where ClaveProducto= '" + txtClaveProducto + "' and ClaveAlmacen = '" + txtAlmacen + "'", cn);
                     cmd.ExecuteNonQuery();
 
                     cmd = new SqlCommand("Update ProductosServicios set ExActual= ExActual - '" + txtExActual + "' where ClaveProducto= '" + txtClaveProducto + "' and Inventariable='Si'", cn);

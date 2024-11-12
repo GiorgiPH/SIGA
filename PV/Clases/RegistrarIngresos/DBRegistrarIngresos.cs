@@ -446,7 +446,7 @@ namespace Condominios.Clases.RegistrarIngresos
                 formato.NumberDecimalSeparator = ".";
 
                 dgv.Rows.Clear();
-                da = new SqlDataAdapter("(select E.FormaPago, 'P' as Tipo, R.*, D.Nombre, R.ClaveDocumento, R.Total, E.Pago, R.Saldo, E. NumAutorizacion, B.Nombre as Banco from RecepcionProducto as R, Documento as D, Egreso E, CuentasBancarias as B where B.Clave=E.CuentaBancaria and R.ClaveProveedor='" + Matricula+ "' and R.ClaveDocumento=D.Clave and E.Tipo='P' and R.Folio=E.Folio and R.ClaveProveedor=E.ClaveProveedor and E.FormaPago is not null) union (select E.FormaPago, 'G' as Tipo, R.*, D.Nombre, R.ClaveDocumento, R.Total, E.Pago, R.Saldo, E.NumAutorizacion, B.Nombre as Banco from RegistroGastos as R, Documento as D, Egreso E, CuentasBancarias as B where B.Clave=E.CuentaBancaria and R.ClaveProveedor='" + Matricula+ "' and R.ClaveDocumento=D.Clave and E.Tipo='G' and R.Folio=E.Folio and R.ClaveProveedor=E.ClaveProveedor and E.FormaPago is not null) union (select E.FormaPago, 'NCG' as Tipo, R.*, D.Nombre, R.ClaveDocumento, R.Total, E.Pago, R.Saldo, E.NumAutorizacion, B.Nombre as Banco from NotasGasto as R, Documento as D, Egreso E, CuentasBancarias as B where B.Clave=E.CuentaBancaria and R.ClaveProveedor='" + Matricula + "' and R.ClaveDocumento=D.Clave and E.Tipo='NCG' and R.Folio=E.Folio and R.ClaveProveedor=E.ClaveProveedor and E.FormaPago is not null)", cn);
+                da = new SqlDataAdapter("(select E.FormaPago, 'P' as Tipo, R.Folio, R.ClaveDocumento, R.Estatus, R.Fecha, R.ClaveProveedor, R.Divisa, R.TipoCambio, R.Subtotal, R.Descuento, R.Cargo, R.Total, R.TotalPartidas, R.Notas, R.Elaborado, R.Recargo, R.DescuentoPago, R.Saldo, R.FolioOrden, R.Consecutivo, R.Almacen, R.Referencia, R.Condominio, R.Extension, R.Archivo, D.Nombre, R.ClaveDocumento, R.Total, E.Pago, R.Saldo, E. NumAutorizacion, B.Nombre as Banco from RecepcionProducto as R, Documento as D, Egreso E, CuentasBancarias as B where B.Clave=E.CuentaBancaria and R.ClaveProveedor='" + Matricula+ "' and R.ClaveDocumento=D.Clave and E.Tipo='P' and R.Folio=E.Folio and R.ClaveProveedor=E.ClaveProveedor and E.FormaPago is not null) union (select E.FormaPago, 'G' as Tipo, R.Folio, R.ClaveDocumento, R.Estatus, R.Fecha, R.ClaveProveedor, R.Divisa, R.TipoCambio, R.Subtotal, R.Descuento, R.Cargo, R.Total, R.TotalPartidas, R.Notas, R.Elaborado, R.Recargo, R.DescuentoPago, R.Saldo, R.FolioOrden, R.Consecutivo, R.Almacen, R.Referencia, R.Condominio, R.Extension, R.Archivo, D.Nombre, R.ClaveDocumento, R.Total, E.Pago, R.Saldo, E.NumAutorizacion, B.Nombre as Banco from RegistroGastos as R, Documento as D, Egreso E, CuentasBancarias as B where B.Clave=E.CuentaBancaria and R.ClaveProveedor='" + Matricula+ "' and R.ClaveDocumento=D.Clave and E.Tipo='G' and R.Folio=E.Folio and R.ClaveProveedor=E.ClaveProveedor and E.FormaPago is not null) union (select E.FormaPago, 'NCG' as Tipo, R.Folio, R.ClaveDocumento, R.Estatus, R.Fecha, R.ClaveProveedor, R.Divisa, R.TipoCambio, R.Subtotal, R.Descuento, R.Cargo, R.Total, R.TotalPartidas, R.Notas, R.Elaborado, R.Recargo, R.DescuentoPago, R.Saldo, R.FolioOrden, R.Consecutivo, R.Almacen, R.Referencia, R.Condominio, R.Extension, R.Archivo, D.Nombre, R.ClaveDocumento, R.Total, E.Pago, R.Saldo, E.NumAutorizacion, B.Nombre as Banco from NotasGasto as R, Documento as D, Egreso E, CuentasBancarias as B where B.Clave=E.CuentaBancaria and R.ClaveProveedor='" + Matricula + "' and R.ClaveDocumento=D.Clave and E.Tipo='NCG' and R.Folio=E.Folio and R.ClaveProveedor=E.ClaveProveedor and E.FormaPago is not null)", cn);
                 dt = new DataTable();
                 da.Fill(dt);
                 foreach (DataRow item in dt.Rows)
@@ -475,17 +475,19 @@ namespace Condominios.Clases.RegistrarIngresos
         }
 
         //____________________________________________________________________________________________________
-        public void CargarPagosRecibo2(DataGridView dgv, string Matricula)
+        public void CargarPagosRemisiones(DataGridView dgv, string Matricula)
         {
             try
             {
-                NumberFormatInfo formato = new CultureInfo("US-AR").NumberFormat;
+                NumberFormatInfo formato = new CultureInfo("en-US").NumberFormat;
 
                 formato.CurrencyGroupSeparator = ",";
                 formato.NumberDecimalSeparator = ".";
 
                 dgv.Rows.Clear();
-                da = new SqlDataAdapter("select E.FormaPago, E.Fecha as FechaPago , R.*, D.Nombre, (R.ClaveDocumento + '-' + convert(varchar, R.Folio)) as Documento, R.Total, E.Pago, R.Saldo, E.Folio from Recibo as R, Documento as D, Cobros as E where R.ClavePropietario='"+Matricula+ "' and R.ClaveDocumento=D.Clave and R.Folio=E.Folio and R.ClavePropietario=E.ClavePropietario and E.FormaPago is not null Order by E.Folio", cn);
+                //da = new SqlDataAdapter("select E.FormaPago, E.Fecha as FechaPago , R.*, D.Nombre, (R.ClaveDocumento + '-' + convert(varchar, R.Consecutivo)) as Documento, R.Total, E.Pago, R.Saldo, E.FolioGeneral as FolioCobro, E.Recargo as RecargoCobro from Recibo as R, Documento as D, Cobros as E where R.ClavePropietario='" + Matricula + "' and R.ClaveDocumento=D.Clave and R.Folio=E.Folio and R.ClavePropietario=E.ClavePropietario and E.FormaPago is not null Order by E.Folio", cn);
+
+                da = new SqlDataAdapter("select E.FormaPago, E.Fecha as FechaPago , R.*, D.Nombre,(R.ClaveDocumento + '-' + convert(varchar, R.Consecutivo)) as Documento,R.Total ,0.00 as Descuento1, (E.Pago+0.00) as Pago, R.Saldo, E.FolioGeneral as FolioCobro, 0.00 as RecargoCobro,E.SaldoRestante,E.Folio as FolioD, 'Pago' as Tipo, E.TipoConcepto from Remision as R, Documento as D, Cobros as E where R.ClaveProveedor='" + Matricula + "' and R.ClaveDocumento=D.Clave and E.TipoConcepto='Remision' and E.ConceptoId=R.Folio and R.ClaveProveedor=E.ClavePropietario and E.FormaPago is not null --union select 'ANTICIPO APLICADO' FormaPago, E1.Fecha as FechaPago , R.*, D.Nombre, (R.ClaveDocumento + '-' + convert(varchar, R.Consecutivo)) as Documento,R.Total ,Convert(decimal,'0.00') as Descuento1, (E1.Pago) as Pago, R.Saldo, E1.FolioGeneral as FolioCobro,Convert(decimal,'0.00') as RecargoCobro,SaldoRestante,E1.Anticipo as FolioD, 'Anticipo' as Tipo from Recibo as R, Documento as D, AnticipoCobros as E1 where R.ClavePropietario='" + Matricula + "' and R.ClaveDocumento=D.Clave and R.Folio=E1.Folio  and R.ClavePropietario=E1.ClavePropietario order by E.Folio,E.FolioGeneral asc", cn);
                 dt = new DataTable();
                 da.Fill(dt);
                 foreach (DataRow item in dt.Rows)
@@ -493,16 +495,20 @@ namespace Condominios.Clases.RegistrarIngresos
                     int n = dgv.Rows.Add();
                     dgv.Rows[n].Cells[0].Value = item["FormaPago"].ToString();
                     dgv.Rows[n].Cells[1].Value = Convert.ToDateTime(item["FechaPago"]).ToString("yyyy/MM/dd");
-                    dgv.Rows[n].Cells[2].Value = item["Folio"].ToString();
+                    dgv.Rows[n].Cells[2].Value = item["FolioD"].ToString();
                     dgv.Rows[n].Cells[3].Value = item["Documento"].ToString();
                     dgv.Rows[n].Cells[4].Value = item["Nombre"].ToString();
                     dgv.Rows[n].Cells[5].Value = Convert.ToDateTime(item["Fecha"]).ToString("yyyy/MM/dd");
                     dgv.Rows[n].Cells[6].Value = Convert.ToDateTime(item["FechaVence"]).ToString("yyyy/MM/dd");
-                    dgv.Rows[n].Cells[7].Value = Convert.ToDouble(item["Recargo"]).ToString("N", formato);
-                    dgv.Rows[n].Cells[8].Value = Convert.ToDouble(item["DescuentoPago"]).ToString("N", formato);
-                    dgv.Rows[n].Cells[9].Value = Convert.ToDouble(item["Total"]).ToString("N", formato);
+                    dgv.Rows[n].Cells[7].Value = Convert.ToDouble(item["Total"]).ToString("N", formato);
+                    dgv.Rows[n].Cells[8].Value = Convert.ToDouble(item["RecargoCobro"]).ToString("N", formato);
+                    dgv.Rows[n].Cells[9].Value = Convert.ToDouble(item["Descuento1"]).ToString("N", formato);
                     dgv.Rows[n].Cells[10].Value = Convert.ToDouble(item["Pago"]).ToString("N", formato);
                     dgv.Rows[n].Cells[11].Value = Convert.ToDouble(item["Saldo"]).ToString("N", formato);
+                    dgv.Rows[n].Cells[12].Value = Convert.ToDouble(item["SaldoRestante"]).ToString("N", formato);
+                    dgv.Rows[n].Cells[13].Value = item["FolioCobro"].ToString();
+                    dgv.Rows[n].Cells[14].Value = item["Tipo"].ToString();
+                    dgv.Rows[n].Cells[15].Value = item["TipoConcepto"].ToString();
 
                 }
             }
@@ -512,14 +518,15 @@ namespace Condominios.Clases.RegistrarIngresos
             }
         }
         //___________________________________________________________________________________---
-        public void InsertarCobro(string Folio, string MatriculaAlumno, string Fecha, string Observaciones, string FormaPago, decimal Pago, string referencia, string NumOperacion, string NumAutorizacion, string Cuenta, string FolioGeneral)
+        public void InsertarCobro(string ConceptoId, string MatriculaAlumno, string Fecha, string Observaciones, string FormaPago, decimal Pago, string referencia, string NumOperacion, string NumAutorizacion, string Cuenta, string FolioGeneral, decimal Recargo, decimal DescuentoPago, decimal Saldo, string Tipo)
         {
             try
             {
-                cmd = new SqlCommand("insert into Cobros (Folio, ClavePropietario, Fecha, Observaciones, FormaPago, Pago, referencia, NumOperacion, NumAutorizacion, CuentaBancaria, FolioGeneral) values ('" + Folio + "', '" + MatriculaAlumno + "', '" + Fecha + "', '" + Observaciones + "', '" + FormaPago + "', '" + Pago + "','" + referencia + "','" + NumOperacion + "','" + NumAutorizacion + "', '"+Cuenta+"', '"+FolioGeneral+"')", cn);
+                cmd = new SqlCommand("insert into Cobros (ClavePropietario, Fecha, Observaciones, FormaPago, Pago, referencia, NumOperacion, NumAutorizacion, CuentaBancaria, FolioGeneral, Recargo,DescuentoPago,SaldoRestante, TipoConcepto, ConceptoId) values ('" + MatriculaAlumno + "', '" + Fecha + "', '" + Observaciones + "', '" + FormaPago + "', '" + Pago + "','" + referencia + "','" + NumOperacion + "','" + NumAutorizacion + "', '" + Cuenta + "', '" + FolioGeneral + "', '" + Recargo + "', '" + DescuentoPago + "', '" + Saldo + "', '" + Tipo + "', '" + ConceptoId + "' )", cn);
                 cmd.ExecuteNonQuery();
 
-                cmd = new SqlCommand("Delete Cobros where Folio='" + Folio + "' and ClavePropietario='" + MatriculaAlumno + "'and  Fecha is null", cn);
+
+                cmd = new SqlCommand("Delete Cobros where Folio='" + ConceptoId + "' and ClavePropietario='" + MatriculaAlumno + "'and  Fecha is null", cn);
                 cmd.ExecuteNonQuery();
             }
             catch (Exception ex)
@@ -527,6 +534,8 @@ namespace Condominios.Clases.RegistrarIngresos
                 MessageBox.Show("ERROR" + ex.ToString());
             }
         }
+
+        
         //___________________________________________________________________________________---
         public void InsertarCobroGeneral(decimal Importe, TextBox folio)
         {
@@ -692,6 +701,52 @@ namespace Condominios.Clases.RegistrarIngresos
             dr.Close();
             return resultado;
         }
-      
+        public void ModificarExtension(string Folio, string Extension)
+        {
+            int contador = 0;
+
+            try
+            {
+                cmd = new SqlCommand("select * from Cobros where FolioGeneral='" + Folio + "'", cn);
+                dr = cmd.ExecuteReader();
+
+                while (dr.Read())
+                {
+                    contador++;
+                }
+                dr.Close();
+
+                if (contador > 0)
+                {
+
+                    cmd = new SqlCommand("Update Cobros set Extension='" + Extension + "' where FolioGeneral='" + Folio + "'", cn);
+                    cmd.ExecuteNonQuery();
+
+                }
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error." + ex.ToString());
+            }
+        }
+        public void ActualizarArchivoCobro(string Folio, string Archivo)
+        {
+            try
+            {
+
+                cmd = new SqlCommand("Update Cobros set  Archivo='" + Archivo + "' where FolioGeneral='" + Folio + "' ", cn);
+                cmd.ExecuteNonQuery();
+
+                //cmd = new SqlCommand("insert into Cobros (Folio, ClavePropietario) values ('" + Folio + "', '" + MatriculaAlumno + "')", cn);
+                //cmd.ExecuteNonQuery();
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("ERROR" + ex.ToString());
+            }
+        }
+
     }
 }

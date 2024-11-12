@@ -22,7 +22,7 @@
         <rd:DefaultName>Textbox247</rd:DefaultName>
         <Top>0.10583cm</Top>
         <Height>0.6cm</Height>
-        <Width>26.29831cm</Width>
+        <Width>25.31935cm</Width>
         <Style>
           <Border>
             <Style>None</Style>
@@ -37,7 +37,7 @@
         <TablixBody>
           <TablixColumns>
             <TablixColumn>
-              <Width>3.10854cm</Width>
+              <Width>2.12958cm</Width>
             </TablixColumn>
             <TablixColumn>
               <Width>4.51083cm</Width>
@@ -71,7 +71,7 @@
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>Clave Producto</Value>
+                              <Value>Clave</Value>
                               <Style>
                                 <FontWeight>Bold</FontWeight>
                               </Style>
@@ -558,7 +558,7 @@
         <Top>0.88222cm</Top>
         <Left>0.3052cm</Left>
         <Height>1.2cm</Height>
-        <Width>25.99311cm</Width>
+        <Width>25.01415cm</Width>
         <ZIndex>1</ZIndex>
         <Style>
           <Border>
@@ -570,7 +570,7 @@
     <Height>1in</Height>
     <Style />
   </Body>
-  <Width>10.45374in</Width>
+  <Width>10.03707in</Width>
   <Page>
     <PageHeader>
       <Height>2.80458cm</Height>
@@ -599,7 +599,7 @@
           </Paragraphs>
           <rd:DefaultName>Textbox1</rd:DefaultName>
           <Top>0.30813cm</Top>
-          <Left>8.55894cm</Left>
+          <Left>6.97144cm</Left>
           <Height>0.86458cm</Height>
           <Width>11.62813cm</Width>
           <Style>
@@ -654,7 +654,7 @@
           </Paragraphs>
           <rd:DefaultName>Textbox2</rd:DefaultName>
           <Top>1.21391cm</Top>
-          <Left>20.64977cm</Left>
+          <Left>19.69727cm</Left>
           <Height>0.6cm</Height>
           <Width>5.64854cm</Width>
           <ZIndex>2</ZIndex>
@@ -693,7 +693,7 @@
           </Paragraphs>
           <rd:DefaultName>Textbox3</rd:DefaultName>
           <Top>1.91974cm</Top>
-          <Left>20.64977cm</Left>
+          <Left>19.69727cm</Left>
           <Height>0.6cm</Height>
           <Width>5.64854cm</Width>
           <ZIndex>3</ZIndex>
@@ -718,8 +718,8 @@
         <BackgroundColor>#13235f</BackgroundColor>
       </Style>
     </PageHeader>
-    <PageHeight>29.7cm</PageHeight>
-    <PageWidth>21cm</PageWidth>
+    <PageHeight>21cm</PageHeight>
+    <PageWidth>29.7cm</PageWidth>
     <LeftMargin>2cm</LeftMargin>
     <RightMargin>2cm</RightMargin>
     <TopMargin>2cm</TopMargin>

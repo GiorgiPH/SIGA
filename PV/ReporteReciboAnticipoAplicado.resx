@@ -117,66 +117,25 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="button10.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAABkAAAAZCAYAAADE6YVjAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
-        wwAADsMBx2+oZAAAAQZJREFUSEvt1C9vwkAcxvEKgsbyHhBLliB4A/xRMzN7DSjUBALEwiQEA4ihMBgI
-        BoubQQAJcpmZRU1Mju+F3uVyOeB6TVMET/JJeumlT39Je0Ga6eDfwwucI0peT5fOmeBe4pzbKHnAG95D
-        n1hpaxd7LLR1C3mo/MD2ScY1h4ptg68/7XoHFX1THG1ksQnXiZSMUcB3uE6kxHQbJQd8RfAL8xlXS3x+
-        RvMZziVdDC9oQCRWSRXPF5QgYivZQmUNc4MsGWFq0YQeW8kAKjk8Qb7dDNcmkRPIiJIe5P0aMjgb/RT+
-        gG0SSU4kSryP+jL0CUxFiHiV9PEYwRKRSuoQH0NUFaSRIDgCT+0YnLwE+JAAAAAASUVORK5CYII=
-</value>
-  </data>
-  <data name="button8.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAABkAAAAZCAYAAADE6YVjAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
-        wwAADsMBx2+oZAAAAVRJREFUSEvl1bsuBkEYxvGvQSHRoeIGJHoKCgotjTtwCAUSN6ChEQ1Rk7gACpHg
-        JrRoUDqXzv+nmOTNfM+3xqERT/JrZuedye6+O1v7d+nAOOaxhFkMoRk/Th+O8YJ34wHr6MSX04RNuIWd
-        R4yhOHoEB3CLVXnDJIqyAbeI3GEvG4v0WPWuKtMPV5ysQjmHuy5nqGyIQ7jCZBnKCdz1ZAI2atNXuKKk
-        dBN1pI2+A1cQlW7yBPvIFhAn3mINK8EIlDnE8R3EWulGXfQlx0nqotK04Rmxvgd1mUGcJFdQJyWLUPYR
-        x3XXea3ecV2GkU/Mlb6TG9i04B6uKCndZAsNo8POFSWlmwygYXSa6rBzhaIuasV1GMsVNcwodNi5BUTf
-        gBuXS7SjKNPIW/IzF7BtWxWdpqdwC+Z2YVu2JDoapnCE/M7UptsYxK9FG3ahF9/63f711GofnHAN0+lJ
-        rrwAAAAASUVORK5CYII=
-</value>
-  </data>
-  <data name="button5.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAABkAAAAZCAYAAADE6YVjAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
-        wwAADsMBx2+oZAAAASdJREFUSEvt1rFLAmEYx/HDOZKicIvWxiZxCKLN2T+gJv+FWgKbctdJiKYWJxsE
-        ERwMBIWGaGmKiHAKwiUsKfX7wB28vDwv3OmdSz3wQd7Xe/jJ+975nheh0mjjExWksFDtoYSyookrrKOP
-        a2jXnWEbznrDzDLGqW8XUlnI+BL29eIWztIaRnDVDrSeRzhLa1jEf0gkiYQ08GyMQ4f84EMRfD/xP5+w
-        hVd/LEKH1LBh2UQH8uxkcIccqjB7Y1uuFtZwhKk/F4h1TwYYWnMikY23JRLyhV9jHHuI3GX76BpzoUPk
-        7CgqHiC//BzfuEAeZm/okBfUFe+Qu6mAQ8jZYR8RsS2XLNMxboy5QCIbb/sjIfKfpDVF1YOzTiBvIvdL
-        kOflAKssz5sDwoKAA2v8muIAAAAASUVORK5CYII=
-</value>
-  </data>
-  <metadata name="toolStrip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+  <metadata name="DatosEmpresaBindingSource.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>238, 17</value>
+  </metadata>
+  <metadata name="ControlCondominiosDataSet23.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>
   </metadata>
-  <data name="toolStripButton1.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAABkAAAAZCAYAAADE6YVjAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAD5SURBVEhL7ZXBCcIwGIULetSbA3gRHcIB3ETw5C5eXEAQ
-        x1BwCe8OoHf1vdYHJSR//kbBiw8+SNMkX0nSpPrnWxmDXlPMZgSGTdGfNXiAExiwwsgc3MEVTFnhiQTP
-        N5ZIArWlaAbMTEBbIGIiCm4g1tZMH7BR2FGdJUoJ+IFLkA0HSomOYAFSAk61O5YoRmeB4hUVC5Sc6GOB
-        wjWICcgFaDMUJ/wPYnAzFIs8AlEkSgm4BpyisJ50ElkCLjIH4oDhe+IS8TS1BIol2gEzPK55yLU7pbZp
-        SrQB2fAUlSj3H4SiA/DeQfW9cAar+skORXuwBW7BP79MVb0A8rGoQix0j4wAAAAASUVORK5CYII=
-</value>
-  </data>
-  <metadata name="Folio.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
+  <metadata name="anticipoGeneralBindingSource.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>17, 54</value>
   </metadata>
-  <metadata name="Consecutivo.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
+  <metadata name="ControlCondominiosDataSet70.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>649, 17</value>
   </metadata>
-  <metadata name="Documento.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
+  <metadata name="DatosEmpresaTableAdapter.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>446, 17</value>
   </metadata>
-  <metadata name="Alumno.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
+  <metadata name="Anticipo_GeneralBindingSource.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>870, 17</value>
   </metadata>
-  <metadata name="Fecha.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
+  <metadata name="Anticipo_GeneralTableAdapter.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>1093, 17</value>
   </metadata>
 </root>

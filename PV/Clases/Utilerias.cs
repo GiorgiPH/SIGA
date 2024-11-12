@@ -14,6 +14,21 @@ namespace PV.Clases
 {
     public class Utilerias
     {
+        public static byte[] ConvertirReportViewerAPdf(ReportViewer reportViewer)
+        {
+            string mimeType;
+            string encoding;
+            string fileNameExtension;
+            string[] streams;
+            Warning[] warnings;
+
+            // Renderiza el ReportViewer a un byte array en formato PDF
+            byte[] bytes = reportViewer.LocalReport.Render(
+                "PDF", null, out mimeType, out encoding, out fileNameExtension,
+                out streams, out warnings);
+
+            return bytes;
+        }
         public static void ManejoNumero(Guna2TextBox textBox)
         {
             textBox.TextChanged += (sender, e) =>
@@ -209,6 +224,48 @@ namespace PV.Clases
             string patron = @"[^\d]"; // El patrón [^\d] coincide con cualquier cosa que no sea un dígito
             return Regex.Replace(input, patron, "");
         }
+        public static void SoloNumFracc(object sender, KeyPressEventArgs e)
+        {
+            if (char.IsDigit(e.KeyChar))
+            {
+                e.Handled = false;
+            }
+            else if (char.IsControl(e.KeyChar))
+            {
+                e.Handled = false;
+            }
+            else if (e.KeyChar == '.')
+            {
+                int numPuntos = 0;
+                foreach (char c in ((Guna2TextBox)sender).Text)
+                {
+                    if (c == '.')
+                    {
+                        numPuntos++;
+                    }
+                }
+
+                e.Handled = numPuntos >= 1;
+            }
+            else
+            {
+                e.Handled = true;
+            }
+        }
+        public static void SoloEnteros(object sender, KeyPressEventArgs e)
+        {
+            // Permitir solo dígitos y teclas de control (como Backspace)
+            if (char.IsDigit(e.KeyChar) || char.IsControl(e.KeyChar))
+            {
+                e.Handled = false;  // No bloquear la tecla
+            }
+            else
+            {
+                e.Handled = true;   // Bloquear cualquier otro carácter
+            }
+        }
+
+
 
 
     }

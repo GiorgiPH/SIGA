@@ -5,7 +5,7 @@ using System.Windows.Forms;
 using Guna.UI2.WinForms;
 using PV.Properties;
 
-namespace PuntoVentas.Clases.Divisas
+namespace PV.Clases.Divisas
 {
     class DBDivisas
     {
@@ -209,8 +209,21 @@ namespace PuntoVentas.Clases.Divisas
         {
             //dr.Close();
             cb.Items.Clear();
-            cb.Items.Add("TODOS");
+            //cb.Items.Add("TODOS");
             cmd = new SqlCommand("Select * from Divisas", cn);
+            dr = cmd.ExecuteReader();
+            while (dr.Read())
+            {
+                cb.Items.Add(dr[1].ToString());
+            }
+            dr.Close();
+        }
+        public void SeleccionarDivisaActivas(ComboBox cb)
+        {
+            //dr.Close();
+            cb.Items.Clear();
+            cb.Items.Add("TODOS");
+            cmd = new SqlCommand("Select * from Divisas where estatus = 'Activo'", cn);
             dr = cmd.ExecuteReader();
             while (dr.Read())
             {
@@ -247,6 +260,23 @@ namespace PuntoVentas.Clases.Divisas
 
                 throw;
             }
+        }
+        public string[] InformacionDivisa(string Documento)
+        {
+            cmd = new SqlCommand("Select TipoCambio from Divisas where Nombre = '" + Documento + "'", cn);
+            dr = cmd.ExecuteReader();
+            string[] resultado = null;
+            if (dr.Read())
+            {
+                string[] valores =
+                {
+                  decimal.Round(Convert.ToDecimal( dr[0]), 2).ToString(),
+
+                };
+                resultado = valores;
+            }
+            dr.Close();
+            return resultado;
         }
     }
 }

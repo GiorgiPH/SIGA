@@ -419,12 +419,12 @@ namespace PuntoVentas.Clases.ProductosServicios
 
         //________________________________________________________________________________________________
         //tiendas Registrados
-        public void CargarProductos(DataGridView dgv)
+        public void CargarProductos(DataGridView dgv, string filtro)
         {
             try
             {
                 dgv.Rows.Clear();
-                da = new SqlDataAdapter("Select * from ProductosServicios", cn);
+                da = new SqlDataAdapter("Select * from ProductosServicios where descripcion like '%"+filtro+"%'", cn);
                 dt = new DataTable();
                 da.Fill(dt);
                 foreach (DataRow item in dt.Rows)

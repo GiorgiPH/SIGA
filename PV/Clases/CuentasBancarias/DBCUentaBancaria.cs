@@ -204,5 +204,21 @@ namespace PV.Clases.CuentasBancarias
             }
             return mensaje;
         }
+        // En la capa de datos
+        public DataTable ObtenerCuentasBancarias()
+        {
+            var dataTable = new DataTable();
+
+            using (var cn = new SqlConnection(ObtenerCn()))
+            using (var cmd = new SqlCommand("SELECT Clave, Nombre FROM CuentasBancarias", cn))
+            {
+                cn.Open();
+                var adapter = new SqlDataAdapter(cmd);
+                adapter.Fill(dataTable);
+            }
+
+            return dataTable;
+        }
+
     }
 }

@@ -4,12 +4,16 @@ using PV.Clases.Clientes;
 using PuntoVentas;
 using PV;
 using System.Drawing;
+using PV.Clases.Divisas;
+using System.Data;
 
 namespace PV
 {
     public partial class Clientes : Form
     {
         DBClientes c = new DBClientes();
+        DBDivisas d = new DBDivisas();
+        DBClientes cl = new DBClientes();   
 
         public Clientes()
         {
@@ -25,12 +29,34 @@ namespace PV
         private void Clientes_Load(object sender, EventArgs e)
         {
             //GenerarNoCliente();
-            c.CargarClientes(dataGridView1);
+            CargarClientes();
+            d.SeleccionarDivisaActivas(cmbDivisaOperacion);
             c.SeleccionarTipoCliente(cmbTipoCliente2);
             c.SeleccionarZona(cmbZona);
             cmbEstatus.SelectedIndex = 0;
         }
+        private void CargarClientes()
+        {
+            try
+            {
+                var pagos = cl.CargarClientes("");
 
+                dataGridView1.Rows.Clear();
+
+                foreach (DataRow pago in pagos.Rows)
+                {
+                    int n = dataGridView1.Rows.Add();
+                    dataGridView1.Rows[n].Cells[0].Value = pago["IdCliente"];
+                    dataGridView1.Rows[n].Cells[1].Value = pago["RazonSocial"];
+                    dataGridView1.Rows[n].Cells[2].Value = pago["TipoCliente"].ToString();
+                }
+               
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al cargar pagos: " + ex.Message);
+            }
+        }
         void GenerarNoCliente()
         {
             DBClientes.Folio = 0;
@@ -129,7 +155,7 @@ namespace PV
                 MessageBox.Show(c.RegistroCliente(txtClaveCliente.Text, txtRazonSocial.Text, cmbTipoCliente.Text, txtRFC.Text, txtCalle.Text, txtNoExterior.Text, txtNoInterior.Text, txtColonia.Text, txtMunicipio.Text, txtCodigoPostal.Text, txtCiudad.Text, txtPais.Text, txtReferencia.Text, cmbMetodoPago.Text, cmbFormaPago.Text, cmbCFDI.Text, cmbListaPrecios.Text, dtpDel.Text, dtpAl.Text, cmbTipoCliente2.Text, cmbZona.Text, txtContacto.Text, txtFormaEmbarque.Text, txtDomicilioEntrega.Text, cmbAgenteVentas.Text, txtPorcentajeComision.Text, txtAnticipoPedidos.Text, cmbDivisaOperacion.Text, txtDiasCredito.Text, txtLimiteCredito.Text, txtPorcentajeDescuento.Text, cmbBaseComision.Text, txtPorcentajeRecargos.Text, cmbEncargadoCuentasPagar.Text, txtBancoPago.Text, txtDomicilioFiscal.Text, txtRegimenFiscal.Text, txtExportacion.Text, txtEstado.Text, txtTelefono.Text, txtCelular.Text, txtCorreo.Text, rdSi, rdNo, txtCorreo2.Text, rdSi2, rdNo2, cmbEstatus.Text));
                 Limpiar();
                 //GenerarNoCliente();
-                c.CargarClientes(dataGridView1);
+                CargarClientes();
             }
         }
 

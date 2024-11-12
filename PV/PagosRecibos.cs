@@ -24,7 +24,7 @@ namespace PV
 
         private void PagosRecibos_Load(object sender, EventArgs e)
         {
-            c.CargarPagosRecibo2(dgvPagosPendientes, txtMatricula.Text);
+            c.CargarPagosRemisiones(dgvPagosPendientes, txtMatricula.Text);
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -69,11 +69,38 @@ namespace PV
                     }
                 }
             }
+            else if (this.dgvPagosPendientes.Columns[e.ColumnIndex].Name == "Imprimir")
+            {
+                //   MessageBox.Show(""+ dgvPagosPendientes.Rows[e.RowIndex].Cells["FolioCobro"].Value.ToString());
+                //  MessageBox.Show(""+ txtMatricula.Text);
+                if (dgvPagosPendientes.Rows[e.RowIndex].Cells["Tipo"].Value.ToString() == "Pago")
+                {
+
+                    ReciboCobranza reciboCobranza = new ReciboCobranza(dgvPagosPendientes.Rows[e.RowIndex].Cells["FolioCobro"].Value.ToString(), txtMatricula.Text);
+                    reciboCobranza.ShowDialog();
+
+
+                }
+                else
+                {
+                    ReporteReciboAnticipoAplicado reporteReciboAnticipoAplicado = new ReporteReciboAnticipoAplicado(dgvPagosPendientes.Rows[e.RowIndex].Cells["FolioDocumento"].Value.ToString(), dgvPagosPendientes.Rows[e.RowIndex].Cells["FolioCobro"].Value.ToString());
+                    reporteReciboAnticipoAplicado.ShowDialog();
+                }
+
+
+
+                /*   if (dgvPagosPendientes.Rows[e.RowIndex].Cells["Descuento"].Value.ToString()!= string.Empty || dgvPagosPendientes.Rows[e.RowIndex].Cells["Descuento"].Value.ToString() != "0.00" || dgvPagosPendientes.Rows[e.RowIndex].Cells["Descuento"].Value.ToString() != "0")
+                   {
+                       ReciboNotaCredito reciboNotaCredito = new ReciboNotaCredito(dgvPagosPendientes.Rows[e.RowIndex].Cells["FolioCobro"].Value.ToString(), txtMatricula.Text, "0");
+                       reciboNotaCredito.ShowDialog();
+                   }*/
+
+            }
         }
 
         private void PagosRecibos_Activated(object sender, EventArgs e)
         {
-            c.CargarPagosRecibo2(dgvPagosPendientes, txtMatricula.Text);
+            //c.CargarPagosRemisiones(dgvPagosPendientes, txtMatricula.Text);
         }
     }
 }

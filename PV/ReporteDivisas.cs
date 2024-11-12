@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using PuntoVentas.Clases.Divisas;
+using PV.Clases.Divisas;
 
 namespace PV
 {
@@ -25,6 +25,8 @@ namespace PV
             // TODO: esta línea de código carga datos en la tabla 'ControlCondominiosDataSet3.Divisas' Puede moverla o quitarla según sea necesario.
 
             c.SeleccionarDivisa(cmbPropietario1);
+            cmbPropietario1.Items.Insert(0, "TODOS");
+
             cmbPropietario1.SelectedIndex = 0;
 
             this.DivisasTableAdapter.Fill(this.ControlCondominiosDataSet3.Divisas);

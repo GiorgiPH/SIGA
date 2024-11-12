@@ -3,6 +3,7 @@ using System.Windows.Forms;
 using System.Drawing;
 using PuntoVentas.Clases.DatosEmpresa;
 using PuntoVentas.Clases.Login;
+using PV.Clases;
 
 namespace PuntoVentas
 {
@@ -41,6 +42,9 @@ namespace PuntoVentas
             rdbSiDescuentos.Checked = false;
             rdbNoDescuentos.Checked = false;
             TXTrUTA.Clear();
+            txtPuerto.Clear();
+            txtHost.Clear();
+            cmbSSL.SelectedIndex = -1;
         }
 
         private void button4_Click(object sender, EventArgs e)
@@ -57,12 +61,18 @@ namespace PuntoVentas
             {
                 MessageBox.Show("Registre el telefono 1 para continuar");
             }
-            else if (txtCorreo.Text != string.Empty && cmbServidorC.Text== string.Empty)
+            else if (txtCorreo.Text != string.Empty && txtServidor.Text== string.Empty)
             {
                 MessageBox.Show("Registre el servidor de correo para continuar");
             }
             else
             {
+                if (!Utilerias.EsCorreoValido(txtCorreo.Text + "@" + txtServidor.Text))
+                {
+                    MessageBox.Show("El correo electronico no es válido");
+                    return;
+
+                }
                 string ReciboAuto = string.Empty;
 
                 if (rdbConcepto.Checked == true)
@@ -77,7 +87,7 @@ namespace PuntoVentas
                 {
                     ReciboAuto = "ProIndiviso";
                 }
-                MessageBox.Show(c.RegistroEmpresa(txtRazonSocial.Text, txtNombreComercial.Text, txtRFC.Text, txtTelefono1.Text, txtTelefono2.Text, txtTelefono3.Text, txtCorreo.Text, cmbServidorC.Text, txtContraseña.Text, txtPaginaWeb.Text, txtCalleNumero.Text, txtColonia.Text, txtMunicipio.Text, txtEstado.Text, txtCodigoPostal.Text, txtPais.Text, txtReferencias.Text, rdbRecargosSi, rdbRecargosNo, rdbSiDescuentos, rdbNoDescuentos, ReciboAuto, txtClave.Text, txtLeyendaTicket.Text, Convert.ToDecimal(txtMontoMaximo.Text), txtDiasPlazo.Text, rdFechaCobranzaSi, rdFechaCobranzaNo, Convert.ToDecimal( txtMontoMaximoD.Text), txtConcepto.Text, txtClave2.Text, txtConcepto2.Text, TXTrUTA.Text, txtClave3.Text, txtConcepto3.Text, Foto));
+                MessageBox.Show(c.RegistroEmpresa(txtRazonSocial.Text, txtNombreComercial.Text, txtRFC.Text, txtTelefono1.Text, txtTelefono2.Text, txtTelefono3.Text, txtCorreo.Text, txtServidor.Text, txtContraseña.Text, txtPaginaWeb.Text, txtCalleNumero.Text, txtColonia.Text, txtMunicipio.Text, txtEstado.Text, txtCodigoPostal.Text, txtPais.Text, txtReferencias.Text, rdbRecargosSi, rdbRecargosNo, rdbSiDescuentos, rdbNoDescuentos, ReciboAuto, txtClave.Text, txtLeyendaTicket.Text, Convert.ToDecimal(txtMontoMaximo.Text), txtDiasPlazo.Text, rdFechaCobranzaSi, rdFechaCobranzaNo, Convert.ToDecimal( txtMontoMaximoD.Text), txtConcepto.Text, txtClave2.Text, txtConcepto2.Text, TXTrUTA.Text, txtClave3.Text, txtConcepto3.Text, Foto, txtPuerto.Text, txtHost.Text, cmbSSL.Text));
 
             }
         }
@@ -145,48 +155,96 @@ namespace PuntoVentas
             c.SeleccionarConceptoRecibo(cmbConceptoAnticipo);
             c.SeleccionarConceptoRecibo(CmbDocumentoAnticipo);
             c.SeleccionarConceptoReciboEX(cmbConceptoExtra);
-            c.ConsultaUsuarioSeleccionado(txtRazonSocial, txtNombreComercial, txtRFC, txtTelefono1, txtTelefono2, txtTelefono3, txtCorreo, cmbServidorC, txtContraseña, txtPaginaWeb, txtCalleNumero, txtColonia, txtMunicipio, txtEstado, txtCodigoPostal, txtPais, txtReferencias, rdbRecargosSi, rdbRecargosNo, rdbSiDescuentos, rdbNoDescuentos, rdbConcepto, rdbEstructura, rdbProIndiviso, txtClave, txtLeyendaTicket, txtMontoMaximo, txtDiasPlazo, rdFechaCobranzaSi, rdFechaCobranzaNo, txtMontoMaximoD, txtConcepto, txtClave2, txtConcepto2, txtClave3, txtConcepto3, TXTrUTA, Foto);
+            c.ConsultaUsuarioSeleccionado(txtRazonSocial, txtNombreComercial, txtRFC, txtTelefono1, txtTelefono2, txtTelefono3, txtCorreo, txtServidor, txtContraseña, txtPaginaWeb, txtCalleNumero, txtColonia, txtMunicipio, txtEstado, txtCodigoPostal, txtPais, txtReferencias, rdbRecargosSi, rdbRecargosNo, rdbSiDescuentos, rdbNoDescuentos, rdbConcepto, rdbEstructura, rdbProIndiviso, txtClave, txtLeyendaTicket, txtMontoMaximo, txtDiasPlazo, rdFechaCobranzaSi, rdFechaCobranzaNo, txtMontoMaximoD, txtConcepto, txtClave2, txtConcepto2, txtClave3, txtConcepto3, TXTrUTA, Foto, txtPuerto, txtHost, cmbSSL);
 
-            if (txtClave.Text != string.Empty)
+            // Verificar txtClave
+            if (!string.IsNullOrEmpty(txtClave.Text))
             {
                 string[] valores = c.InformacionDocumento2(txtClave.Text);
-                txtDocumento.Text = valores[0];
-                cmbDocumento.Text = txtClave.Text + " - " + txtDocumento.Text;
+                if (valores != null && valores.Length > 0)
+                {
+                    txtDocumento.Text = valores[0];
+                    cmbDocumento.Text = $"{txtClave.Text} - {txtDocumento.Text}";
+                }
+                else
+                {
+                    // Opcional: Manejo si no se encontraron datos
+                    txtDocumento.Text = "No se encontraron datos";
+                    cmbDocumento.Text = txtClave.Text;
+                }
             }
-            if (txtConcepto.Text != string.Empty)
+
+            // Verificar txtConcepto
+            if (!string.IsNullOrEmpty(txtConcepto.Text))
             {
                 string[] valores = c.InformacionRecibo2(txtConcepto.Text);
-                txtConceptoDescrip.Text = valores[0];
-                cmbConcepto.Text = txtConcepto.Text + " - " + txtConceptoDescrip.Text;
+                if (valores != null && valores.Length > 0)
+                {
+                    txtConceptoDescrip.Text = valores[0];
+                    cmbConcepto.Text = $"{txtConcepto.Text} - {txtConceptoDescrip.Text}";
+                }
+                else
+                {
+                    txtConceptoDescrip.Text = "No se encontraron datos";
+                    cmbConcepto.Text = txtConcepto.Text;
+                }
             }
-  
-            if (txtClave2.Text != string.Empty)
+
+            // Verificar txtClave2
+            if (!string.IsNullOrEmpty(txtClave2.Text))
             {
                 string[] valores = c.InformacionDocumento2(txtClave2.Text);
-                txtDocumento2.Text = valores[0];
-                cmbDocumentoExtra.Text = txtClave2.Text + " - " + txtDocumento2.Text;
+                if (valores != null && valores.Length > 0)
+                {
+                    txtDocumento2.Text = valores[0];
+                    cmbDocumentoExtra.Text = $"{txtClave2.Text} - {txtDocumento2.Text}";
+                }
+                else
+                {
+                    txtDocumento2.Text = "No se encontraron datos";
+                    cmbDocumentoExtra.Text = txtClave2.Text;
+                }
             }
-          
-            if (txtConcepto2.Text != string.Empty)
+
+            // Verificar txtConcepto2
+            if (!string.IsNullOrEmpty(txtConcepto2.Text))
             {
-                /*string[] valores = c.InformacionReciboE2(txtConcepto2.Text);
-                txtConceptoDescrip2.Text = valores[0];
-                */
                 c.InformacionReciboE2(txtConcepto2.Text, txtConceptoDescrip2);
-                cmbConceptoExtra.Text = txtConcepto2.Text + " - " + txtConceptoDescrip2.Text;
+                cmbConceptoExtra.Text = $"{txtConcepto2.Text} - {txtConceptoDescrip2.Text}";
             }
-            if (txtClave3.Text != string.Empty)
+
+            // Verificar txtClave3
+            if (!string.IsNullOrEmpty(txtClave3.Text))
             {
                 string[] valores = c.InformacionRecibo2(txtClave3.Text);
-                txtDocumento3.Text = valores[0];
-                CmbDocumentoAnticipo.Text = txtClave3.Text + " - " + txtDocumento3.Text;
-            }           
-            if (txtConcepto3.Text != string.Empty)
+                if (valores != null && valores.Length > 0)
+                {
+                    txtDocumento3.Text = valores[0];
+                    CmbDocumentoAnticipo.Text = $"{txtClave3.Text} - {txtDocumento3.Text}";
+                }
+                else
+                {
+                    txtDocumento3.Text = "No se encontraron datos";
+                    CmbDocumentoAnticipo.Text = txtClave3.Text;
+                }
+            }
+
+            // Verificar txtConcepto3
+            if (!string.IsNullOrEmpty(txtConcepto3.Text))
             {
                 string[] valores = c.InformacionRecibo2(txtConcepto3.Text);
-                txtCOnceptoDescrip3.Text = valores[0];
-                cmbConceptoAnticipo.Text = txtConcepto3.Text + " - " + txtCOnceptoDescrip3.Text;
+                if (valores != null && valores.Length > 0)
+                {
+                    txtCOnceptoDescrip3.Text = valores[0];
+                    cmbConceptoAnticipo.Text = $"{txtConcepto3.Text} - {txtCOnceptoDescrip3.Text}";
+                }
+                else
+                {
+                    txtCOnceptoDescrip3.Text = "No se encontraron datos";
+                    cmbConceptoAnticipo.Text = txtConcepto3.Text;
+                }
             }
+
 
         }
 
@@ -197,11 +255,7 @@ namespace PuntoVentas
 
         private void cmbDocumento_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (cmbDocumento.Text != string.Empty)
-            {
-                string[] valores = c.InformacionDocumento(cmbDocumento.Text);
-                txtClave.Text =valores[0];
-            }
+
         }
 
         private void txtDiasPlazo_KeyPress(object sender, KeyPressEventArgs e)

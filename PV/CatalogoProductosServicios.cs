@@ -7,6 +7,7 @@ using System.Linq;
 using Condominios;
 using PV;
 using Guna.UI2.WinForms;
+using PV.Clases;
 
 namespace PuntoVentas
 {
@@ -36,7 +37,7 @@ namespace PuntoVentas
             cmbEstatus.Text = "Activo";
             c.SeleccionarCategorias(cmbCategorias);
             c.SeleccionarDivisa(cmbDivisa);
-            c.CargarProductos(dataGridView2);
+            c.CargarProductos(dataGridView2, txtFiltro.Text);
             c.SeleccionarConceptoGlobal(cmbConcepto);
         }
 
@@ -103,7 +104,7 @@ namespace PuntoVentas
                     {
                         MessageBox.Show(c.RegistroProducto(txtClaveProducto.Text, txtAlias.Text, txtDescripcion.Text, cmbEstatus.Text, txtMarca.Text, txtUnidadMedida.Text, txtPresentacion.Text, tgInventariable,txtCaducidad.Text, txtCategoria.Text, txtFamilia.Text, txtProveedor.Text, txtExMinimo.Text, txtExMaximo.Text, txtExActual.Text, txtUbicacion.Text, cmbTipoCosteo.Text, txtCostoUnitario.Text, cmbDivisa.Text, txtDescuentoPorc.Text, txtDescuentoCant.Text, txtImpuestoPorc.Text, txtImpuestoCant.Text, txtPrecioVenta.Text, Foto, txtConcepto.Text));
                         Limpiar();
-                        c.CargarProductos(dataGridView2);
+                        c.CargarProductos(dataGridView2, txtFiltro.Text);
                     }
                 }
                 else if (tgInventariable.Checked == false)
@@ -116,7 +117,7 @@ namespace PuntoVentas
                     {
                         MessageBox.Show(c.RegistroProducto(txtClaveProducto.Text, txtAlias.Text, txtDescripcion.Text, cmbEstatus.Text, txtMarca.Text, txtUnidadMedida.Text, txtPresentacion.Text, tgInventariable, txtCaducidad.Text, txtCategoria.Text, txtFamilia.Text, txtProveedor.Text, txtExMinimo.Text, txtExMaximo.Text, txtExActual.Text, txtUbicacion.Text, cmbTipoCosteo.Text, txtCostoUnitario.Text, cmbDivisa.Text, txtDescuentoPorc.Text, txtDescuentoCant.Text, txtImpuestoPorc.Text, txtImpuestoCant.Text, txtPrecioVenta.Text, Foto, txtConcepto.Text));
                         Limpiar();
-                        c.CargarProductos(dataGridView2);
+                        c.CargarProductos(dataGridView2, txtFiltro.Text);
                     }
                 }
             }
@@ -450,7 +451,7 @@ namespace PuntoVentas
                     try
                     {
                         MessageBox.Show( c.EliminarDivisa(txtClaveProducto.Text));
-                        c.CargarProductos(dataGridView2);
+                        c.CargarProductos(dataGridView2, txtFiltro.Text);
                         Limpiar();
 
                     }
@@ -805,6 +806,36 @@ namespace PuntoVentas
                 string[] val=c.InformacionFamilia(cmbFamilia.Text);
                 txtFamilia.Text=val[0];
             }
+        }
+
+        private void txtImpuestoPorc_TextChanged_1(object sender, EventArgs e)
+        {
+            Utilerias.Moneda2(ref txtImpuestoCant);
+        }
+
+        private void txtDescuentoPorc_TextChanged_1(object sender, EventArgs e)
+        {
+            Utilerias.Moneda2(ref txtDescuentoPorc);
+        }
+
+        private void txtDescuentoCant_TextChanged_1(object sender, EventArgs e)
+        {
+            Utilerias.Moneda2(ref txtDescuentoCant);
+        }
+
+        private void txtImpuestoCant_TextChanged_1(object sender, EventArgs e)
+        {
+            Utilerias.Moneda2(ref txtImpuestoCant);
+        }
+
+        private void txtCostoUnitario_TextChanged_1(object sender, EventArgs e)
+        {
+            Utilerias.Moneda2(ref txtCostoUnitario);
+        }
+
+        private void txtFiltro_TextChanged(object sender, EventArgs e)
+        {
+            c.CargarProductos(dataGridView2, txtFiltro.Text);
         }
     }
 }

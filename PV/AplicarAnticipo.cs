@@ -1,10 +1,10 @@
-﻿using System;
-using System.Windows.Forms;
-using PV.Clases.Anticipo;
+﻿using Condominios;
 using ControlAcademico;
+using PuntoVentas;
+using PV.Clases.Anticipo;
+using System;
 using System.Globalization;
-using Condominios;
-using System.Collections;
+using System.Windows.Forms;
 
 namespace PV
 {
@@ -25,6 +25,7 @@ namespace PV
             matricula = string.Empty;
             nombre = string.Empty;
             dtpFecha.Text = DateTime.Today.ToString("yyyy-MM-dd");
+            dtpFecha.MaxDate = DateTime.Today;
             txtCaja.Text = "1";
         }
 
@@ -37,28 +38,46 @@ namespace PV
             RegistrarAnticipo.nombre = string.Empty;
             registroIngresos.matricula = string.Empty;
             registroIngresos.nombre = string.Empty;
+         
             txtAlumno.Clear();
             this.Close();
         }
 
         private void btnBuscar_Click(object sender, EventArgs e)
         {
-            BuscarListaAlumnos2 buscar = new BuscarListaAlumnos2();
+            BuscarCliente buscar = new BuscarCliente();
             buscar.ShowDialog();
+            if (!string.IsNullOrEmpty(BuscarCliente.Cliente))
+            {
+                txtMatricula.Text = BuscarCliente.Cliente;
+                txtAlumno.Text = BuscarCliente.NombreCliente;
+            }
         }
 
         private void AplicarAnticipo_Activated(object sender, EventArgs e)
         {
-            txtMatricula.Text = matricula;
-            txtAlumno.Text = nombre;
+     
+
+            
         }
 
         private void txtMatricula_TextChanged(object sender, EventArgs e)
         {
-            NumberFormatInfo formato = new CultureInfo("US-AR").NumberFormat;
-
+            if (txtMatricula.Text == string.Empty)
+            {
+                //btnBuscar.BackColor = Color.Red;
+                button5.Enabled = false;
+                button6.Enabled = false;
+            }
+            else
+            {
+                //btnBuscar.BackColor = Color.Gainsboro;
+                button5.Enabled = true;
+                button6.Enabled = true;
+            }
             if (txtMatricula.Text != string.Empty)
             {
+                dgvPagosPendientes.Rows.Clear();
                 c.CargarReciboAlumno(dgvPagosPendientes, txtMatricula.Text);
 
             }
@@ -66,7 +85,7 @@ namespace PV
 
         private void dgvPagosPendientes_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            NumberFormatInfo formato = new CultureInfo("US-AR").NumberFormat;
+            NumberFormatInfo formato = new CultureInfo("en-US").NumberFormat;
 
             formato.CurrencyGroupSeparator = ",";
             formato.NumberDecimalSeparator = ".";
@@ -79,7 +98,7 @@ namespace PV
                 {
                     if (row.Cells["Seleccionar"].Value != null && (bool)row.Cells["Seleccionar"].Value == true)
                     {
-                        dgvPagosPendientes.Rows[e.RowIndex].Cells[5].Value = row.Cells["Saldo"].Value.ToString();
+                        dgvPagosPendientes.Rows[e.RowIndex].Cells[6].Value = row.Cells["Saldo"].Value.ToString();
                         Subtotal = Subtotal + Convert.ToDecimal(row.Cells["Saldo"].Value.ToString());
                     }
                 }
@@ -93,7 +112,7 @@ namespace PV
                 {
                     if (row.Cells["Seleccionar"].Value != null && (bool)row.Cells["Seleccionar"].Value == true)
                     {
-                        dgvPagosPendientes.Rows[e.RowIndex].Cells[5].Value = row.Cells["Saldo"].Value.ToString();
+                        dgvPagosPendientes.Rows[e.RowIndex].Cells[6].Value = row.Cells["Saldo"].Value.ToString();
                     }
 
                 }
@@ -144,7 +163,7 @@ namespace PV
                 }
             }
 
-            AplicarAnticipoSaldo cobro = new AplicarAnticipoSaldo(Importe, txtMatricula.Text, txtAlumno.Text, Anticipo);
+            AplicarAnticipoSaldo cobro = new AplicarAnticipoSaldo(Importe, txtMatricula.Text, txtAlumno.Text, Anticipo, dtpFecha.Text);
             cobro.ShowDialog();
 
             matricula = string.Empty;
@@ -159,6 +178,9 @@ namespace PV
             nombre = string.Empty;
             Limpiar();
             c.CargarReciboAlumno(dgvPagosPendientes, txtMatricula.Text);
+            //btnBuscar.BackColor = Color.Red;
+            button5.Enabled = false;
+            button6.Enabled = false;
         }
 
         void Limpiar()
@@ -166,6 +188,26 @@ namespace PV
             txtMatricula.Clear();
             txtAlumno.Clear();
         }
+        private void AplicarAnticipo_Shown(object sender, EventArgs e)
+        {
+            foreach (Control c in guna2Panel1.Controls)
+            {
+                if (c is Label)
+                {
+                    Label l = (Label)c;
+                    l.Text = l.Text.ToUpper();
+                }
+            }
+        }
 
+        private void guna2Panel1_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void dtpFecha_ValueChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }

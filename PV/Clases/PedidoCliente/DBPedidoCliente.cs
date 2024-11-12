@@ -42,6 +42,27 @@ namespace PV.Clases.PedidoCliente
                 MessageBox.Show("Error de Conexion" + ex.ToString());
             }
         }
+       
+        public void BuscarClienteFiltro(DataGridView dgv, string Filtro)
+        {
+            try
+            {
+                dgv.Rows.Clear();
+                da = new SqlDataAdapter("Select IdCliente, RazonSocial from Clientes where RazonSocial like '%" + Filtro + "%'", cn);
+                dt = new DataTable();
+                da.Fill(dt);
+                foreach (DataRow item in dt.Rows)
+                {
+                    int n = dgv.Rows.Add();
+                    dgv.Rows[n].Cells[0].Value = item["IdCliente"].ToString();
+                    dgv.Rows[n].Cells[1].Value = item["RazonSocial"].ToString();
+                }
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Error al cargar Alumnos");
+            }
+        }
         //___________________________________________________________________________________________
         //____________________________________________________________________________________________________________________________________________
         public void SeleccionarCondomini2(ComboBox cb)
@@ -83,7 +104,7 @@ namespace PV.Clases.PedidoCliente
             try
             {
                 dgv.Rows.Clear();
-                da = new SqlDataAdapter("Select IdCliente, RazonSocial fromClienteswhere RazonSocial like '%" + Filtro + "%'", cn);
+                da = new SqlDataAdapter("Select IdCliente, RazonSocial from Clientes where RazonSocial like '%" + Filtro + "%'", cn);
                 dt = new DataTable();
                 da.Fill(dt);
                 foreach (DataRow item in dt.Rows)
@@ -1456,7 +1477,7 @@ namespace PV.Clases.PedidoCliente
         {
 
             cb.Items.Clear();
-            cmd = new SqlCommand("Select Descripcion from ProductosServicios where ClaveProducto not in (Select ClaveProducto from PartidaOrdenPedidoCliente where FolioOrden='" + Folio+"')", cn);
+            cmd = new SqlCommand("Select Descripcion from ProductosServicios where ClaveProducto not in (Select ClaveProducto from PartidaOrdenPedidoCliente where FolioOrden='" + Folio+"') and inventariable='Si'", cn);
             dr = cmd.ExecuteReader();
             while (dr.Read())
             {
@@ -1830,6 +1851,45 @@ namespace PV.Clases.PedidoCliente
                           dr["PedidosCliente"].ToString(),
                           dr["CantidadEntregada"].ToString(),
                           dr["CantidadPendiente"].ToString(),
+                          dr["PrecioVenta"].ToString(),
+                          dr["DescuentoPorc"].ToString(),
+                };
+                resultado = valores;
+            }
+            dr.Close();
+            return resultado;
+        }
+        public string[] InformacionPartidaOrden(string Recibo, string folio)
+        {
+            dr.Close();
+            string query = @"
+            Select top 1 P.ClaveProducto,Po.Unidad,P.ExActual, P.PedidosProveedor, P.PedidosCliente, P.PrecioVenta, PO.Cantidad, PO.sUBTOTAL, PO.Descuento, PO.Impuesto, PO.Total, PO.Precio,PO.CantidadEntregada, PO.CantidadPendiente from ProductosServicios as P
+            Left Join PartidaOrdenPedidoCliente as PO on PO.ClaveProducto=P.ClaveProducto
+            where P.Descripcion= '" + Recibo + "'";
+            if (!string.IsNullOrEmpty(folio))
+            {
+                query += " and PO.FolioOrden='" + folio + "'";
+            }
+            cmd = new SqlCommand(query, cn);
+            dr = cmd.ExecuteReader();
+            string[] resultado = null;
+            while (dr.Read())
+            {
+                string[] valores =
+                {
+                    dr["CLaveProducto"].ToString(),
+                     dr["Cantidad"].ToString(),
+                    dr["sUBTOTAL"].ToString(),
+                     dr["Unidad"].ToString(),
+                     dr["Descuento"].ToString(),
+                         dr["Impuesto"].ToString(),
+                          dr["Total"].ToString(),
+                          dr["ExActual"].ToString(),
+                           dr["PedidosProveedor"].ToString(),
+                          dr["PedidosCliente"].ToString(),
+                          dr["CantidadEntregada"].ToString(),
+                          dr["CantidadPendiente"].ToString(),
+                          dr["Precio"].ToString(),
                 };
                 resultado = valores;
             }
@@ -1879,14 +1939,14 @@ namespace PV.Clases.PedidoCliente
                 //MessageBox.Show("ERROR" + ex.ToString());
             }
         }
-        public void BuscarOrdenPedidoPendiente(DataGridView dgv, string documento, string consecutivo)
+        public void BuscarOrdenPedidoPendiente(DataGridView dgv, string documento, string consecutivo, string cliente)
         {
             //cmd = new SqlCommand(" Select (convert(varchar, OC.Consecutivo)+ ' - ' + P.RazonSocial ) as Nombre from OrdenCompra as OC, Documento as D, Proveedor as P where OC.ClaveDocumento=D.Clave and P.RazonSocial='" + Proveedor + "' and OC.ClaveDocumento='" + Filtro + "' and OC.ClaveProveedor=P.IdProveedor and OC.Autorizado='Si' and (select Count(*) from PartidaOrden where CantidadRecibida>0 and FolioORden=OC.Folio)>0", cn);
 
             dgv.Rows.Clear();
             da = new SqlDataAdapter(@" Select OC.Folio, Oc.Consecutivo, OC.ClaveDocumento
  from OrdenPedidoCliente as OC, Documento as D 
- where OC.ClaveDocumento=D.Clave and OC.ClaveDocumento like '%" + documento + "%' and OC.Estatus in ('Bloqueado') and OC.Consecutivo like '%" + consecutivo + "%' and (select Count(*) from PartidaOrdenPedidoCliente where CantidadPendiente>0 and FolioOrden=OC.Folio)>0", cn);
+ where OC.ClaveDocumento=D.Clave and OC.ClaveDocumento like '%" + documento + "%' and OC.Estatus in ('Bloqueado') and OC.Consecutivo like '%" + consecutivo + "%' and Cast(OC.iDCLiente as varchar) like '%"+cliente+"%' and (select Count(*) from PartidaOrdenPedidoCliente where CantidadPendiente>0 and FolioOrden=OC.Folio)>0", cn);
             dt = new DataTable();
             da.Fill(dt);
             foreach (DataRow item in dt.Rows)
@@ -2073,7 +2133,7 @@ namespace PV.Clases.PedidoCliente
         {
             try
             {
-                cmd = new SqlCommand("select sum(Descuento) as Descuento, sum(Subtotal) as Subtotal, sum(Total) as Total from PartidaOrden where FolioOrden='" + txtFolio + "'", cn);
+                cmd = new SqlCommand("select sum(Subtotal) as Subtotal, sum((Convert(decimal, Impuesto) / 100) * (Subtotal-Descuento)) as Impuesto, sum((Convert(decimal, Descuento) / 100) * Subtotal) as Descuento, sum(Total) as Total from PartidaOrden where FolioOrden='" + txtFolio + "'", cn);
                 dr = cmd.ExecuteReader();
 
                 if (dr.Read())
@@ -2081,18 +2141,10 @@ namespace PV.Clases.PedidoCliente
                     string Subtotal = dr["Subtotal"].ToString();
                     string Descuentos = dr["Descuento"].ToString();
                     string Total = dr["Total"].ToString();
-                    string Impuesto = string.Empty;
+                    string Impuesto = dr["Impuesto"].ToString();
                     dr.Close();
 
-                    cmd = new SqlCommand("select sum((Convert(decimal, Impuesto) / 100) * Subtotal) as Impuesto from PartidaOrden where FolioOrden='" + txtFolio + "'", cn);
-                    dr = cmd.ExecuteReader();
-
-                    if (dr.Read())
-                    {
-                        Impuesto = dr["Impuesto"].ToString();
-
-                    }
-                    dr.Close();
+                   
 
                     cmd = new SqlCommand("Update OrdenPedidoCliente set TotalPartidas='" + txtPartida + "', Subtotal='" + Subtotal + "', Descuento='" + Descuentos + "', Cargo='" + Impuesto + "', Total='" + Total + "', Saldo='" + Total + "' where Folio='" + txtFolio + "'", cn);
                     cmd.ExecuteNonQuery();
@@ -2108,7 +2160,7 @@ namespace PV.Clases.PedidoCliente
         {
             try
             {
-                cmd = new SqlCommand("select sum(Descuento) as Descuento, sum(Subtotal) as Subtotal, sum(Total) as Total from [PartidaOrdenPedidoCliente] where FolioOrden='" + txtFolio + "'", cn);
+                cmd = new SqlCommand("select sum(Subtotal) as Subtotal, sum((Convert(decimal, Impuesto) / 100) * (Subtotal-Descuento)) as Impuesto, sum((Convert(decimal, Descuento) / 100) * (Subtotal)) as Descuento, sum(Total) as Total from [PartidaOrdenPedidoCliente] where FolioOrden='" + txtFolio + "'", cn);
                 dr = cmd.ExecuteReader();
 
                 if (dr.Read())
@@ -2116,17 +2168,7 @@ namespace PV.Clases.PedidoCliente
                     string Subtotal = dr["Subtotal"].ToString();
                     string Descuentos = dr["Descuento"].ToString();
                     string Total = dr["Total"].ToString();
-                    string Impuesto = string.Empty;
-                    dr.Close();
-
-                    cmd = new SqlCommand("select sum((Convert(decimal, Impuesto) / 100) * Subtotal) as Impuesto from [PartidaOrdenPedidoCliente] where FolioOrden='" + txtFolio + "'", cn);
-                    dr = cmd.ExecuteReader();
-
-                    if (dr.Read())
-                    {
-                        Impuesto = dr["Impuesto"].ToString();
-
-                    }
+                    string Impuesto = dr["Impuesto"].ToString();
                     dr.Close();
 
                     cmd = new SqlCommand("Update OrdenPedidoCliente set TotalPartidas='" + txtPartida + "', Subtotal='" + Subtotal + "', Descuento='" + Descuentos + "', Cargo='" + Impuesto + "', Total='" + Total + "', Saldo='" + Total + "' where Folio='" + txtFolio + "'", cn);
@@ -2359,7 +2401,7 @@ namespace PV.Clases.PedidoCliente
         {
             List<List<string>> listam = new List<List<string>>();
             //cmd = new SqlCommand("Select (convert(varchar, OC.Folio) + ' - ' + D.Nombre) as Nombre from OrdenCompra as OC, Documento as D where OC.ClaveDocumento=D.Clave", cn);
-            cmd = new SqlCommand("Select PS.ClaveProducto, PR.Cantidad, PS.TipoCosteo, (PR.Subtotal/PR.Cantidad), PR.Partida, PS.UnidadMedida, PR.Total from [PartidaOrdenPedidoCliente] as PR Join OrdenPedidoCliente as R On R.Folio=PR.[FolioOrden] Join ProductosServicios as PS On PR.ClaveProducto=PS.ClaveProducto where FolioOrden=@Folio and PR.ClaveProducto=PS.ClaveProducto", cn);
+            cmd = new SqlCommand("Select PS.ClaveProducto, PR.Cantidad, PS.TipoCosteo, (PR.Subtotal/PR.Cantidad), PR.Partida, PS.UnidadMedida, PR.Total from [PartidaRemision] as PR Join Remision as R On R.Folio=PR.[FolioRemision] Join ProductosServicios as PS On PR.ClaveProducto=PS.ClaveProducto where FolioRemision=@Folio and PR.ClaveProducto=PS.ClaveProducto", cn);
 
             //cmd = new SqlCommand("Select PS.ClaveProducto, PR.Cantidad, PS.TipoCosteo, (PR.Subtotal/PR.Cantidad), PO.Partida, PS.UnidadMedida, PR.Total from PartidaRecepcion as PR Join RecepcionProducto as R On R.Folio=PR.FolioRecepcion Join ProductosServicios as PS On PR.ClaveProducto=PS.ClaveProducto Left Join OrdenCompra as O On O.Folio=R.FolioOrden Left Join PartidaOrden as PO On O.Folio=PO.FolioOrden where FolioRecepcion=@Folio and PR.ClaveProducto=PS.ClaveProducto", cn);
             cmd.Parameters.AddWithValue("@Folio", Folio);
@@ -2684,7 +2726,13 @@ namespace PV.Clases.PedidoCliente
             try
             {
 
-                cmd = new SqlCommand("select sum(isnull(Subtotal, 0)) as Subtotal, sum(isnull(Descuento, 0)) as Descuento, sum(isnull(Total, 0)) as Total, sum(isnull(convert(decimal, (Impuesto / 100) * Subtotal), 0)) as Impuesto from [PartidaOrdenPedidoCliente] where FolioOrden = '" + txtFolio + "'", cn);
+                cmd = new SqlCommand(@"SELECT 
+                    SUM(ISNULL(Subtotal, 0)) AS Subtotal, 
+                    SUM(ISNULL(CAST((Descuento / 100.0) * Subtotal AS decimal(18, 2)), 0)) AS Descuento, 
+                    SUM(ISNULL(Total, 0)) AS Total, 
+                    SUM(ISNULL(CAST((Impuesto / 100.0) * (Subtotal - (Subtotal * (Descuento / 100.0))) AS decimal(18, 2)), 0)) AS Impuesto
+                    FROM [PartidaOrdenPedidoCliente]
+                     where FolioOrden = '" + txtFolio + "'", cn);
                 dr = cmd.ExecuteReader();
 
                 if (dr.Read())
@@ -3006,8 +3054,9 @@ namespace PV.Clases.PedidoCliente
             }
         }
         //______________________________________________________________________________________________________-
-        public void ConsultaRecibo(string Folio, TextBox Documento, ComboBox Estatus, Guna.UI2.WinForms.Guna2TextBox Fecha, Guna.UI2.WinForms.Guna2TextBox Dias, Guna.UI2.WinForms.Guna2TextBox FechaVence, Guna.UI2.WinForms.Guna2TextBox Divisa, Guna.UI2.WinForms.Guna2TextBox TipoCambio, Guna.UI2.WinForms.Guna2TextBox Subtotal, Guna.UI2.WinForms.Guna2TextBox Descuentos, Guna.UI2.WinForms.Guna2TextBox Cargo, Guna.UI2.WinForms.Guna2TextBox Total, Guna.UI2.WinForms.Guna2TextBox Partidas, Guna.UI2.WinForms.Guna2TextBox Notas, Guna.UI2.WinForms.Guna2TextBox Elaborado, TextBox txtFolio, Guna.UI2.WinForms.Guna2TextBox txtConsecutivo, Guna.UI2.WinForms.Guna2TextBox txtAutoriza, Guna.UI2.WinForms.Guna2TextBox txtFechaAutoriza, ComboBox cmbAlmacen)
+        public void ConsultaRecibo(string Folio, TextBox Documento, ComboBox Estatus, Guna.UI2.WinForms.Guna2DateTimePicker Fecha, Guna.UI2.WinForms.Guna2TextBox Dias, Guna.UI2.WinForms.Guna2TextBox FechaVence, Guna.UI2.WinForms.Guna2TextBox Divisa, Guna.UI2.WinForms.Guna2TextBox TipoCambio, Guna.UI2.WinForms.Guna2TextBox Subtotal, Guna.UI2.WinForms.Guna2TextBox Descuentos, Guna.UI2.WinForms.Guna2TextBox Cargo, Guna.UI2.WinForms.Guna2TextBox Total, Guna.UI2.WinForms.Guna2TextBox Partidas, Guna.UI2.WinForms.Guna2TextBox Notas, Guna.UI2.WinForms.Guna2TextBox Elaborado, TextBox txtFolio, Guna.UI2.WinForms.Guna2TextBox txtConsecutivo, Guna.UI2.WinForms.Guna2TextBox txtAutoriza, Guna.UI2.WinForms.Guna2TextBox txtFechaAutoriza, ComboBox cmbAlmacen, out string cliente)
         {
+            cliente = string.Empty;
             try
             {
 
@@ -3028,7 +3077,7 @@ namespace PV.Clases.PedidoCliente
                     Descuentos.Text = dr["Descuento"].ToString();
                     Cargo.Text = dr["Cargo"].ToString();
                     Total.Text = dr["Total"].ToString();
-                    Partidas.Text = dr["TotalPartidas"].ToString();
+                    
                     Notas.Text = dr["Notas"].ToString();
                     Elaborado.Text = dr["Elaborado"].ToString();
 
@@ -3041,6 +3090,8 @@ namespace PV.Clases.PedidoCliente
                         txtFechaAutoriza.Text = Convert.ToDateTime(dr["FechaAutoriza"]).ToString("yyyy-MM-dd");
                     }
                     cmbAlmacen.Text = dr["Alm"].ToString();
+                    cliente = dr["IdCliente"].ToString();
+                    Partidas.Text = dr["TotalPartidas"].ToString();
                 }
                 dr.Close();
             }
@@ -3262,7 +3313,7 @@ namespace PV.Clases.PedidoCliente
         //_________________________________________________________________________________________
         public string[] InformacionOrdenPedido(string Orden)
         {
-            cmd = new SqlCommand(" select OC.Folio, OC.ClaveDocumento, Oc.IdCliente, OC.Almacen, OC.Tipo from OrdenPedidoCliente as OC where Folio='"+Orden+"'", cn);
+            cmd = new SqlCommand(" select OC.Folio, OC.ClaveDocumento, Oc.IdCliente, OC.Almacen, OC.Tipo, OC.Notas from OrdenPedidoCliente as OC where Folio='"+Orden+"'", cn);
             dr = cmd.ExecuteReader();
             string[] resultado = null;
             while (dr.Read())
@@ -3274,6 +3325,7 @@ namespace PV.Clases.PedidoCliente
                      dr["IdCliente"].ToString(),
                      dr["Almacen"].ToString(),
                      dr["Tipo"].ToString(),
+                     dr["Notas"].ToString(),
 
                 };
                 resultado = valores;
@@ -3314,7 +3366,7 @@ namespace PV.Clases.PedidoCliente
                     dgv.Rows[n].Cells[0].Value = item["FolioOrden"].ToString();
                     dgv.Rows[n].Cells[1].Value = item["Partida"].ToString();
                     dgv.Rows[n].Cells[2].Value = item["Descripcion"].ToString();
-                    dgv.Rows[n].Cells[3].Value = item["Concepto2"].ToString();
+                    dgv.Rows[n].Cells[3].Value = item["Cantidad"].ToString();
                 }
             }
             catch (Exception ex)
@@ -4941,6 +4993,30 @@ namespace PV.Clases.PedidoCliente
             {
                 MessageBox.Show(ex.ToString());
             }
+        }
+        public decimal ObtenerTotalOrdenPedidoCliente(string Folio)
+        {
+            decimal total = 0.00m;
+
+            try
+            {
+                cmd = new SqlCommand("select Total from OrdenPedidoCliente where Folio=" + Folio + "", cn);
+                dr = cmd.ExecuteReader();
+
+                if (dr.Read())
+                {
+                    total = Convert.ToDecimal(dr[0].ToString());
+                }
+                dr.Close();
+
+               
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error." + ex.ToString());
+            }
+            return total;
         }
     }
 

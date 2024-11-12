@@ -37,6 +37,18 @@ namespace PuntoVentas.Clases.FormasPago
                 MessageBox.Show("Error de Conexion" + ex.ToString());
             }
         }
+        public void SeleccionarFormaPAgo2(ComboBox cb)
+        {
+            cb.Items.Clear();
+            cb.Items.Add("TODOS");
+            cmd = new SqlCommand("Select Descripcion from FormasPago", cn);
+            dr = cmd.ExecuteReader();
+            while (dr.Read())
+            {
+                cb.Items.Add(dr[0].ToString());
+            }
+            dr.Close();
+        }
         //____________________________________________________________________________________________________________________________________________
         //Obtener la clave consecutiva
         public int ClaveFormaPagoSiguiente()

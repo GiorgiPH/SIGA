@@ -134,10 +134,12 @@
             this.button10 = new Guna.UI2.WinForms.Guna2Button();
             this.guna2Button10 = new Guna.UI2.WinForms.Guna2Button();
             this.dataGridView2 = new Guna.UI2.WinForms.Guna2DataGridView();
+            this.PanelUsuario = new Guna.UI2.WinForms.Guna2GradientPanel();
             this.Clave = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Descripcion = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Estatus = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.PanelUsuario = new Guna.UI2.WinForms.Guna2GradientPanel();
+            this.txtFiltro = new Guna.UI2.WinForms.Guna2TextBox();
+            this.label32 = new System.Windows.Forms.Label();
             this.guna2Panel2.SuspendLayout();
             this.guna2GradientPanel1.SuspendLayout();
             this.groupBox4.SuspendLayout();
@@ -1104,6 +1106,7 @@
             this.txtImpuestoPorc.Size = new System.Drawing.Size(62, 25);
             this.txtImpuestoPorc.TabIndex = 272;
             this.txtImpuestoPorc.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.txtImpuestoPorc.TextChanged += new System.EventHandler(this.txtImpuestoPorc_TextChanged_1);
             // 
             // txtDescuentoPorc
             // 
@@ -1128,6 +1131,7 @@
             this.txtDescuentoPorc.Size = new System.Drawing.Size(62, 25);
             this.txtDescuentoPorc.TabIndex = 271;
             this.txtDescuentoPorc.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.txtDescuentoPorc.TextChanged += new System.EventHandler(this.txtDescuentoPorc_TextChanged_1);
             // 
             // txtImpuestoCant
             // 
@@ -1152,6 +1156,7 @@
             this.txtImpuestoCant.Size = new System.Drawing.Size(130, 25);
             this.txtImpuestoCant.TabIndex = 270;
             this.txtImpuestoCant.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.txtImpuestoCant.TextChanged += new System.EventHandler(this.txtImpuestoCant_TextChanged_1);
             // 
             // txtDescuentoCant
             // 
@@ -1176,6 +1181,7 @@
             this.txtDescuentoCant.Size = new System.Drawing.Size(128, 25);
             this.txtDescuentoCant.TabIndex = 269;
             this.txtDescuentoCant.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.txtDescuentoCant.TextChanged += new System.EventHandler(this.txtDescuentoCant_TextChanged_1);
             // 
             // txtCostoUnitario
             // 
@@ -1199,6 +1205,7 @@
             this.txtCostoUnitario.SelectedText = "";
             this.txtCostoUnitario.Size = new System.Drawing.Size(176, 25);
             this.txtCostoUnitario.TabIndex = 268;
+            this.txtCostoUnitario.TextChanged += new System.EventHandler(this.txtCostoUnitario_TextChanged_1);
             // 
             // cmbTipoCosteo
             // 
@@ -1803,7 +1810,7 @@
             this.guna2Button10.FillColor = System.Drawing.Color.Transparent;
             this.guna2Button10.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(1)), true);
             this.guna2Button10.ForeColor = System.Drawing.Color.White;
-            this.guna2Button10.Location = new System.Drawing.Point(259, 2);
+            this.guna2Button10.Location = new System.Drawing.Point(652, 4);
             this.guna2Button10.Name = "guna2Button10";
             this.guna2Button10.Size = new System.Drawing.Size(37, 32);
             this.guna2Button10.TabIndex = 240;
@@ -1839,7 +1846,7 @@
             dataGridViewCellStyle18.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.dataGridView2.DefaultCellStyle = dataGridViewCellStyle18;
             this.dataGridView2.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(229)))), ((int)(((byte)(255)))));
-            this.dataGridView2.Location = new System.Drawing.Point(11, 37);
+            this.dataGridView2.Location = new System.Drawing.Point(11, 51);
             this.dataGridView2.Name = "dataGridView2";
             this.dataGridView2.ReadOnly = true;
             dataGridViewCellStyle19.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
@@ -1856,7 +1863,7 @@
             dataGridViewCellStyle20.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             dataGridViewCellStyle20.ForeColor = System.Drawing.Color.Black;
             this.dataGridView2.RowsDefaultCellStyle = dataGridViewCellStyle20;
-            this.dataGridView2.Size = new System.Drawing.Size(279, 479);
+            this.dataGridView2.Size = new System.Drawing.Size(672, 482);
             this.dataGridView2.TabIndex = 241;
             this.dataGridView2.ThemeStyle.AlternatingRowsStyle.BackColor = System.Drawing.Color.White;
             this.dataGridView2.ThemeStyle.AlternatingRowsStyle.Font = null;
@@ -1881,11 +1888,34 @@
             this.dataGridView2.ThemeStyle.RowsStyle.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(71)))), ((int)(((byte)(69)))), ((int)(((byte)(94)))));
             this.dataGridView2.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellDoubleClick);
             // 
+            // PanelUsuario
+            // 
+            this.PanelUsuario.BorderRadius = 20;
+            this.PanelUsuario.Controls.Add(this.dataGridView2);
+            this.PanelUsuario.Controls.Add(this.guna2Button10);
+            this.PanelUsuario.Controls.Add(this.txtFiltro);
+            this.PanelUsuario.Controls.Add(this.label32);
+            this.PanelUsuario.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(19)))), ((int)(((byte)(35)))), ((int)(((byte)(95)))));
+            this.PanelUsuario.FillColor2 = System.Drawing.Color.SteelBlue;
+            this.PanelUsuario.GradientMode = System.Drawing.Drawing2D.LinearGradientMode.ForwardDiagonal;
+            this.PanelUsuario.Location = new System.Drawing.Point(314, 80);
+            this.PanelUsuario.Name = "PanelUsuario";
+            this.PanelUsuario.ShadowDecoration.BorderRadius = 1;
+            this.PanelUsuario.ShadowDecoration.CustomizableEdges.BottomLeft = false;
+            this.PanelUsuario.ShadowDecoration.CustomizableEdges.BottomRight = false;
+            this.PanelUsuario.ShadowDecoration.CustomizableEdges.TopLeft = false;
+            this.PanelUsuario.ShadowDecoration.Mode = Guna.UI2.WinForms.Enums.ShadowMode.Circle;
+            this.PanelUsuario.Size = new System.Drawing.Size(697, 548);
+            this.PanelUsuario.TabIndex = 244;
+            this.PanelUsuario.Visible = false;
+            // 
             // Clave
             // 
+            this.Clave.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader;
             this.Clave.HeaderText = "Clave";
             this.Clave.Name = "Clave";
             this.Clave.ReadOnly = true;
+            this.Clave.Width = 57;
             // 
             // Descripcion
             // 
@@ -1896,28 +1926,48 @@
             // 
             // Estatus
             // 
+            this.Estatus.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
             this.Estatus.HeaderText = "Estatus";
             this.Estatus.Name = "Estatus";
             this.Estatus.ReadOnly = true;
+            this.Estatus.Width = 65;
             // 
-            // PanelUsuario
+            // txtFiltro
             // 
-            this.PanelUsuario.BorderRadius = 20;
-            this.PanelUsuario.Controls.Add(this.dataGridView2);
-            this.PanelUsuario.Controls.Add(this.guna2Button10);
-            this.PanelUsuario.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(19)))), ((int)(((byte)(35)))), ((int)(((byte)(95)))));
-            this.PanelUsuario.FillColor2 = System.Drawing.Color.SteelBlue;
-            this.PanelUsuario.GradientMode = System.Drawing.Drawing2D.LinearGradientMode.ForwardDiagonal;
-            this.PanelUsuario.Location = new System.Drawing.Point(714, 80);
-            this.PanelUsuario.Name = "PanelUsuario";
-            this.PanelUsuario.ShadowDecoration.BorderRadius = 1;
-            this.PanelUsuario.ShadowDecoration.CustomizableEdges.BottomLeft = false;
-            this.PanelUsuario.ShadowDecoration.CustomizableEdges.BottomRight = false;
-            this.PanelUsuario.ShadowDecoration.CustomizableEdges.TopLeft = false;
-            this.PanelUsuario.ShadowDecoration.Mode = Guna.UI2.WinForms.Enums.ShadowMode.Circle;
-            this.PanelUsuario.Size = new System.Drawing.Size(297, 529);
-            this.PanelUsuario.TabIndex = 244;
-            this.PanelUsuario.Visible = false;
+            this.txtFiltro.AutoRoundedCorners = true;
+            this.txtFiltro.BackColor = System.Drawing.Color.Transparent;
+            this.txtFiltro.BorderColor = System.Drawing.Color.Gray;
+            this.txtFiltro.BorderRadius = 11;
+            this.txtFiltro.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.txtFiltro.DefaultText = "";
+            this.txtFiltro.DisabledState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(208)))), ((int)(((byte)(208)))));
+            this.txtFiltro.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(226)))), ((int)(((byte)(226)))));
+            this.txtFiltro.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
+            this.txtFiltro.DisabledState.PlaceholderForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
+            this.txtFiltro.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.txtFiltro.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.txtFiltro.ForeColor = System.Drawing.Color.Black;
+            this.txtFiltro.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.txtFiltro.Location = new System.Drawing.Point(224, 12);
+            this.txtFiltro.Name = "txtFiltro";
+            this.txtFiltro.PasswordChar = '\0';
+            this.txtFiltro.PlaceholderText = "";
+            this.txtFiltro.SelectedText = "";
+            this.txtFiltro.Size = new System.Drawing.Size(356, 25);
+            this.txtFiltro.TabIndex = 226;
+            this.txtFiltro.TextChanged += new System.EventHandler(this.txtFiltro_TextChanged);
+            // 
+            // label32
+            // 
+            this.label32.AutoSize = true;
+            this.label32.BackColor = System.Drawing.Color.Transparent;
+            this.label32.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label32.ForeColor = System.Drawing.Color.White;
+            this.label32.Location = new System.Drawing.Point(114, 20);
+            this.label32.Name = "label32";
+            this.label32.Size = new System.Drawing.Size(84, 15);
+            this.label32.TabIndex = 195;
+            this.label32.Text = "DESCRIPCIÓN:";
             // 
             // CatalogoProductosServicios
             // 
@@ -1961,6 +2011,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.guna2PictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).EndInit();
             this.PanelUsuario.ResumeLayout(false);
+            this.PanelUsuario.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -2061,9 +2112,11 @@
         private System.Windows.Forms.Label label23;
         private Guna.UI2.WinForms.Guna2Button guna2Button10;
         private Guna.UI2.WinForms.Guna2DataGridView dataGridView2;
+        private Guna.UI2.WinForms.Guna2GradientPanel PanelUsuario;
         private System.Windows.Forms.DataGridViewTextBoxColumn Clave;
         private System.Windows.Forms.DataGridViewTextBoxColumn Descripcion;
         private System.Windows.Forms.DataGridViewTextBoxColumn Estatus;
-        private Guna.UI2.WinForms.Guna2GradientPanel PanelUsuario;
+        private Guna.UI2.WinForms.Guna2TextBox txtFiltro;
+        private System.Windows.Forms.Label label32;
     }
 }
