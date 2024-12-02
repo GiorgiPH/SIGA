@@ -69,6 +69,12 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_3F546B47E4659171050760F602601114"
+        "OwnerKey" = "8:_2BE72DF30DF349FA91B897D7936BB621"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_6C2055C3FC2849C7843C14FB8EE4F126"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -105,6 +111,12 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_A999E34A565A47CB9E6362E1160685FD"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_F9733E8A4703729CACBFE5A476A18D06"
         "OwnerKey" = "8:_3CDB61510A55664D76320FAFFE23CB05"
         "MsmSig" = "8:_UNDEFINED"
@@ -119,12 +131,6 @@
         {
         "MsmKey" = "8:_F9733E8A4703729CACBFE5A476A18D06"
         "OwnerKey" = "8:_01601F08C88F70D6A3E62867C0731856"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_FC0F3F8764F91FABBA3F1C37267654F3"
-        "OwnerKey" = "8:_2BE72DF30DF349FA91B897D7936BB621"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -184,7 +190,7 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_FC0F3F8764F91FABBA3F1C37267654F3"
+        "OwnerKey" = "8:_3F546B47E4659171050760F602601114"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -292,7 +298,7 @@
                 {
                 "Name" = "8:.NET Framework"
                 "Message" = "8:[VSDNETMSG]"
-                "FrameworkVersion" = "8:v4.6.1"
+                "FrameworkVersion" = "8:v4.6.1 "
                 "AllowLaterVersions" = "11:FALSE"
                 "InstallUrl" = "8:http://go.microsoft.com/fwlink/?LinkId=671728"
                 }
@@ -455,6 +461,37 @@
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_3F546B47E4659171050760F602601114"
+            {
+            "AssemblyRegister" = "3:1"
+            "AssemblyIsInGAC" = "11:FALSE"
+            "AssemblyAsmDisplayName" = "8:Guna.UI2, Version=2.0.4.6, Culture=neutral, PublicKeyToken=8b9d14aa5142e261, processorArchitecture=MSIL"
+                "ScatterAssemblies"
+                {
+                    "_3F546B47E4659171050760F602601114"
+                    {
+                    "Name" = "8:Guna.UI2.dll"
+                    "Attributes" = "3:512"
+                    }
+                }
+            "SourcePath" = "8:Guna.UI2.dll"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_3F5375B05D76463384835A3DE3A7781D"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:TRUE"
+            "IsolateTo" = "8:"
+            }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_6C2055C3FC2849C7843C14FB8EE4F126"
             {
             "SourcePath" = "8:..\\sigalogo.ico"
@@ -557,6 +594,26 @@
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_A999E34A565A47CB9E6362E1160685FD"
+            {
+            "SourcePath" = "8:..\\Siga.ico"
+            "TargetName" = "8:Siga.ico"
+            "Tag" = "8:"
+            "Folder" = "8:_3F5375B05D76463384835A3DE3A7781D"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
             "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_F9733E8A4703729CACBFE5A476A18D06"
             {
             "AssemblyRegister" = "3:1"
@@ -571,37 +628,6 @@
                     }
                 }
             "SourcePath" = "8:Microsoft.SqlServer.Types.dll"
-            "TargetName" = "8:"
-            "Tag" = "8:"
-            "Folder" = "8:_3F5375B05D76463384835A3DE3A7781D"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:TRUE"
-            "IsolateTo" = "8:"
-            }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_FC0F3F8764F91FABBA3F1C37267654F3"
-            {
-            "AssemblyRegister" = "3:1"
-            "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:Guna.UI2, Version=2.0.3.5, Culture=neutral, PublicKeyToken=4015e4865bda28a4, processorArchitecture=MSIL"
-                "ScatterAssemblies"
-                {
-                    "_FC0F3F8764F91FABBA3F1C37267654F3"
-                    {
-                    "Name" = "8:Guna.UI2.dll"
-                    "Attributes" = "3:512"
-                    }
-                }
-            "SourcePath" = "8:Guna.UI2.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_3F5375B05D76463384835A3DE3A7781D"
@@ -838,7 +864,7 @@
             "Target" = "8:_2BE72DF30DF349FA91B897D7936BB621"
             "Folder" = "8:_3F720D25044F43BBAA86659D86AB7B00"
             "WorkingFolder" = "8:_3F5375B05D76463384835A3DE3A7781D"
-            "Icon" = "8:_6C2055C3FC2849C7843C14FB8EE4F126"
+            "Icon" = "8:_A999E34A565A47CB9E6362E1160685FD"
             "Feature" = "8:"
             }
             "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_92F4733DAB894591B8E747916F6DBA9B"
@@ -852,7 +878,7 @@
             "Target" = "8:_2BE72DF30DF349FA91B897D7936BB621"
             "Folder" = "8:_5154745BD4314A1FBEBFD79119D469E9"
             "WorkingFolder" = "8:_3F5375B05D76463384835A3DE3A7781D"
-            "Icon" = "8:_6C2055C3FC2849C7843C14FB8EE4F126"
+            "Icon" = "8:_A999E34A565A47CB9E6362E1160685FD"
             "Feature" = "8:"
             }
         }

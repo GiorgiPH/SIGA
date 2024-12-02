@@ -282,8 +282,97 @@ namespace PV
            
 
         }
-      
-        private void button2_Click(object sender, EventArgs e)
+        private void btnConfirmar_Click(object sender, EventArgs e)
+        {
+            if (cmbConcepto.Text == string.Empty)
+            {
+                if (MessageBox.Show("¿Desea terminar el registro de partidas?", "Partida", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                {
+                    int Partida = Convert.ToInt32(txtPartida.Text) - 1;
+                    if (Partida > 0)
+                    {
+                        if (tipo == "Remision")
+                        {
+                            o.ActualizarTotalesRemision(TxtFolio2.Text, Partida.ToString());
+
+                        }
+                        else
+                        {
+                            c.ActualizarTotalesOrdenPedidoCliente(TxtFolio2.Text, Partida.ToString());
+
+                        }
+                    }
+                    // this.Close();
+                    PanelPartidasRequisicion.Visible = false;
+                }
+            }
+            else if (txtTotal1.Text == "0.00" || txtTotal1.Text == "0")
+            {
+                if (MessageBox.Show("Si termina la partida sin registrar un importe no se guardara", "Partida", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                {
+                    int Partida = Convert.ToInt32(txtPartida.Text) - 1;
+                    if (Partida > 0)
+                    {
+                        if (tipo == "Remision")
+                        {
+                            o.ActualizarTotalesRemision(TxtFolio2.Text, Partida.ToString());
+
+                        }
+                        else
+                        {
+                            c.ActualizarTotalesOrdenPedidoCliente(TxtFolio2.Text, Partida.ToString());
+
+                        }
+                    }
+                    //  this.Close();
+                    PanelPartidasRequisicion.Visible = false;
+                }
+            }
+            else if (txtFrecuencia.Text == "Automatico" && txtPartida.Text != "1")
+            {
+                MessageBox.Show("Los conceptos con cargos automaticos deben registrarse en recibos individuales, este recibo ya cuenta con una partida, seleccione otro concepto");
+            }
+            else
+            {
+                if (tipo == "Remision")
+                {
+                    o.InsertarPartidaRemision(TxtFolio2.Text, txtPartida.Text, txtClave.Text, txtConcepto2.Text, txtCantidad.Text, txtUnidad.Text, txtDivisa1.Text, txtTipoCambio1.Text, Convert.ToDecimal(txtImporte1.Text), Convert.ToDecimal(txtDescuento1.Text), Convert.ToDecimal(txtTotal1.Text), Convert.ToDecimal(txtPrecio.Text), Convert.ToDecimal(txtImpuesto1.Text));
+                    o.ActualizarTotalesRemision(TxtFolio2.Text, txtPartida.Text);
+                    if (!string.IsNullOrEmpty(txtFolioPedido.Text))
+                    {
+
+                        decimal cant = Convert.ToDecimal(txtCantidad.Text);
+                        decimal cantneg = Convert.ToDecimal(txtCantidad.Text) * -1;
+                        c.ActualizaCantidadPendientePartidaOrden(cant.ToString(), cant.ToString(), txtFolioPedido.Text, txtClave.Text);
+
+                        p.RegistroPedidosCliente(txtClave.Text, cantneg.ToString().Replace(",", ""));
+
+
+
+                    }
+
+                }
+                else
+                {
+
+                    string mensaje = c.InsertarPartidaOrdenCliente(TxtFolio2.Text, txtPartida.Text, txtClave.Text, txtConcepto2.Text, txtCantidad.Text, txtUnidad.Text, txtDivisa1.Text, txtTipoCambio1.Text, Convert.ToDecimal(txtImporte1.Text), Convert.ToDecimal(txtDescuento1.Text), Convert.ToDecimal(txtTotal1.Text), Convert.ToDecimal(txtPrecio.Text), Convert.ToDecimal(txtImpuesto1.Text));
+                    if (!string.IsNullOrEmpty(mensaje))
+                    {
+                        MessageBox.Show(mensaje);
+                    }
+                    c.ActualizarTotalesOrdenPedidoCliente(TxtFolio2.Text, txtPartida.Text);
+                    p.RegistroPedidosCliente(txtClave.Text, txtCantidad.Text);
+
+
+                }
+                //    this.Close();
+                CargarPartidas();
+                PanelPartidasRequisicion.Visible = false;
+                guna2Button9.Visible = true;
+            }
+
+        }
+        private void btnSiguiente_Click(object sender, EventArgs e)
         {
             if (cmbConcepto.Text == string.Empty)
             {
@@ -307,8 +396,9 @@ namespace PV
             {
                 if (tipo == "Remision")
                 {
-                    o.InsertarPartida(TxtFolio2.Text, txtPartida.Text, txtClave.Text, txtConcepto2.Text, txtCantidad.Text, txtUnidad.Text, txtDivisa1.Text, txtTipoCambio1.Text, Convert.ToDecimal(txtImporte1.Text), Convert.ToDecimal(txtDescuento1.Text), Convert.ToDecimal(txtTotal1.Text), Convert.ToDecimal(txtPrecio.Text), Convert.ToDecimal(txtImpuesto1.Text));
-                    
+                    o.InsertarPartidaRemision(TxtFolio2.Text, txtPartida.Text, txtClave.Text, txtConcepto2.Text, txtCantidad.Text, txtUnidad.Text, txtDivisa1.Text, txtTipoCambio1.Text, Convert.ToDecimal(txtImporte1.Text), Convert.ToDecimal(txtDescuento1.Text), Convert.ToDecimal(txtTotal1.Text), Convert.ToDecimal(txtPrecio.Text), Convert.ToDecimal(txtImpuesto1.Text));
+                    o.ActualizarTotalesRemision(TxtFolio2.Text, txtPartida.Text);
+
                     o.Consulta5OrdenCompra(TxtFolio2.Text, txtPartida);
                     o.ReciboSaldosPartidasOrden(TxtFolio2.Text, txtSubtotalR, txtDescuentoR, txtTotalR, txtImpuestoR);
                     //o.ReciboSaldosPartidasOrden2(TxtFolio2.Text, txtImpuestoR);
@@ -318,27 +408,27 @@ namespace PV
 
                         decimal cant = Convert.ToDecimal(txtCantidad.Text);
                         decimal cantneg = Convert.ToDecimal(txtCantidad.Text) * -1;
-                        c.ActualizaCantidadPendiente(cant.ToString(), cant.ToString(), txtFolioPedido.Text, txtClave.Text);
+                        c.ActualizaCantidadPendientePartidaOrden(cant.ToString(), cant.ToString(), txtFolioPedido.Text, txtClave.Text);
                         
                         p.RegistroPedidosCliente(txtClave.Text, cantneg.ToString().Replace(",", ""));
 
 
 
                     }
-                    //Limpiar();
                 }
                 else
                 {
-                    
-
-
-
-                    c.InsertarPartidaOrdenCliente(TxtFolio2.Text, txtPartida.Text, txtClave.Text, txtConcepto2.Text, txtCantidad.Text, txtUnidad.Text, txtDivisa1.Text, txtTipoCambio1.Text, Convert.ToDecimal(txtImporte1.Text), Convert.ToDecimal(txtDescuento1.Text), Convert.ToDecimal(txtTotal1.Text), Convert.ToDecimal(txtPrecio.Text), Convert.ToDecimal(txtImpuesto1.Text));
-                    
+                    string mensaje=c.InsertarPartidaOrdenCliente(TxtFolio2.Text, txtPartida.Text, txtClave.Text, txtConcepto2.Text, txtCantidad.Text, txtUnidad.Text, txtDivisa1.Text, txtTipoCambio1.Text, Convert.ToDecimal(txtImporte1.Text), Convert.ToDecimal(txtDescuento1.Text), Convert.ToDecimal(txtTotal1.Text), Convert.ToDecimal(txtPrecio.Text), Convert.ToDecimal(txtImpuesto1.Text));
+                    if (!string.IsNullOrEmpty(mensaje))
+                    {
+                        MessageBox.Show(mensaje);
+                    }
+                    c.ActualizarTotalesOrdenPedidoCliente(TxtFolio2.Text, txtPartida.Text);
                     c.Consulta5OrdenCliente(TxtFolio2.Text, txtPartida);
                     c.ReciboSaldosPartidasOrden(TxtFolio2.Text, txtSubtotalR, txtDescuentoR, txtTotalR, txtImpuestoR);
-                    //c.ReciboSaldosPartidasOrden2(TxtFolio2.Text, txtImpuestoR);
-                    //Limpiar();
+                    p.RegistroPedidosCliente(txtClave.Text, txtCantidad.Text);
+
+
                 }
 
 
@@ -357,92 +447,7 @@ namespace PV
             LimpiarPartida();
         }
 
-        private void button1_Click(object sender, EventArgs e)
-        {
-            if (cmbConcepto.Text == string.Empty)
-            {
-                if (MessageBox.Show("¿Desea terminar el registro de partidas?", "Partida", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
-                {
-                    int Partida = Convert.ToInt32(txtPartida.Text) - 1;
-                    if (Partida > 0)
-                    {
-                        if (tipo == "Remision")
-                        {
-                            o.ActualizarOrden(TxtFolio2.Text, Partida.ToString());
-
-                        }
-                        else
-                        {
-                            c.ActualizarOrdenCliente(TxtFolio2.Text, Partida.ToString());
-
-                        }
-                    }
-                    // this.Close();
-                    PanelPartidasRequisicion.Visible = false;
-                }
-            }
-            else if (txtTotal1.Text == "0.00" || txtTotal1.Text == "0")
-            {
-                if (MessageBox.Show("Si termina la partida sin registrar un importe no se guardara", "Partida", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
-                {
-                    int Partida = Convert.ToInt32(txtPartida.Text) - 1;
-                    if (Partida > 0)
-                    {
-                        if (tipo == "Remision")
-                        {
-                            o.ActualizarOrden(TxtFolio2.Text, Partida.ToString());
-
-                        }
-                        else
-                        {
-                            c.ActualizarOrdenCliente(TxtFolio2.Text, Partida.ToString());
-
-                        }
-                    }
-                    //  this.Close();
-                    PanelPartidasRequisicion.Visible = false;
-                }
-            }
-            else if (txtFrecuencia.Text == "Automatico" && txtPartida.Text != "1")
-            {
-                MessageBox.Show("Los conceptos con cargos automaticos deben registrarse en recibos individuales, este recibo ya cuenta con una partida, seleccione otro concepto");
-            }
-            else
-            {
-                if (tipo == "Remision")
-                {
-                    o.InsertarPartida(TxtFolio2.Text, txtPartida.Text, txtClave.Text, txtConcepto2.Text, txtCantidad.Text, txtUnidad.Text, txtDivisa1.Text, txtTipoCambio1.Text, Convert.ToDecimal(txtImporte1.Text), Convert.ToDecimal(txtDescuento1.Text), Convert.ToDecimal(txtTotal1.Text), Convert.ToDecimal(txtPrecio.Text), Convert.ToDecimal(txtImpuesto1.Text));
-                    o.ActualizarOrden(TxtFolio2.Text, txtPartida.Text);
-                    if (!string.IsNullOrEmpty(txtFolioPedido.Text))
-                    {
-
-                        decimal cant = Convert.ToDecimal(txtCantidad.Text);
-                        decimal cantneg = Convert.ToDecimal(txtCantidad.Text) * -1;
-                        c.ActualizaCantidadPendiente(cant.ToString(), cant.ToString(), txtFolioPedido.Text, txtClave.Text);
-
-                        p.RegistroPedidosCliente(txtClave.Text, cantneg.ToString().Replace(",", ""));
-
-
-
-                    }
-
-                }
-                else
-                {
-
-                    c.InsertarPartidaOrdenCliente(TxtFolio2.Text, txtPartida.Text, txtClave.Text, txtConcepto2.Text, txtCantidad.Text, txtUnidad.Text, txtDivisa1.Text, txtTipoCambio1.Text, Convert.ToDecimal(txtImporte1.Text), Convert.ToDecimal(txtDescuento1.Text), Convert.ToDecimal(txtTotal1.Text), Convert.ToDecimal(txtPrecio.Text), Convert.ToDecimal(txtImpuesto1.Text));
-                    c.ActualizarOrdenCliente(TxtFolio2.Text, txtPartida.Text);
-                    p.RegistroPedidosCliente(txtClave.Text, txtCantidad.Text);
-                    
-
-                }
-                //    this.Close();
-                CargarPartidas();
-                PanelPartidasRequisicion.Visible = false;
-                guna2Button9.Visible = true;
-            }
-            
-        }
+       
         private void CargarPartidas()
         {
             if (tipo == "Remision")
@@ -645,13 +650,13 @@ namespace PV
                 guna2Button5.Visible = true;
                 guna2Button6.Visible = true;
                 guna2Button7.Visible = true;
-                guna2Button8.Visible = true;
+                btnSiguiente.Visible = true;
 
                 guna2Button2.Enabled = true;
                 guna2Button5.Enabled = true;
                 guna2Button6.Enabled = true;
                 guna2Button7.Enabled = true;
-                guna2Button8.Enabled = true;
+                btnSiguiente.Enabled = true;
 
                 cmbDocumento.Enabled = true;
                 c.CargarRequisicionPartidas(guna2DataGridView1, TxtFolio2.Text);
@@ -702,13 +707,13 @@ namespace PV
                 guna2Button5.Visible = true;
                 guna2Button6.Visible = true;
                 guna2Button7.Visible = true;
-                guna2Button8.Visible = true;
+                btnSiguiente.Visible = true;
 
                 guna2Button2.Enabled = false;
                 guna2Button5.Enabled = false;
                 guna2Button6.Enabled = false;
                 guna2Button7.Enabled = false;
-                guna2Button8.Enabled = false;
+                btnSiguiente.Enabled = false;
 
                 guna2PictureBox2.Visible = false;
                 guna2PictureBox1.Visible = true;
@@ -1040,18 +1045,8 @@ namespace PV
                 return;
             }
             PanelPartidasRequisicion.Visible = true;
-            txtPartida.Enabled = false;
-            txtCantidad.Enabled = true;
-            txtUnidad.Enabled = true;
-            txtPrecio.Enabled = true;
-            txtDescuento1.Enabled = true;
-            txtImpuesto1.Enabled = true;
-
-            guna2Button5.Visible = false;
-
-            guna2Button6.Visible = true;
-            guna2Button7.Visible = true;
-            guna2Button8.Visible = true;
+            
+            ConfigurarPartida(false);
 
             cmbConcepto.Text = "";
 
@@ -1283,14 +1278,16 @@ namespace PV
             txtUnidad.Clear();
             txtPrecio.Text = "0.00";
             txtDescuento1.Text = "0.00";
-                txtImporte1.Text= "0.00";
+            txtImporte1.Text= "0.00";
             txtImpuesto1.Text = "0.00";
             txtImpuestoIm.Text = "0.00";
-            cmbConcepto.Text = "";
+            cmbConcepto.SelectedIndex=-1;
             lblExistencias.Text = "0";
             lblPedidosCliente.Text = "0.00";
             lblPedidosProveedor.Text = "0.00";
             lblDisponible.Text = "0.00";
+            txtConcepto2.Text = string.Empty;
+
             //c.SeleccionarProducto2(cmbConcepto, TxtFolio2.Text);
         }
 
@@ -1365,35 +1362,45 @@ namespace PV
                 lblPedidosProveedor.Text = valores[7];
                 lblPedidosCliente.Text = valores[8];
                 txtCantidadP.Text = string.IsNullOrEmpty(valores[10]) ? "" : valores[10];
+                PanelPartidasRequisicion.Visible = true;
 
                 txtPartida.Text = Partida;
                 // panel2.Visible = false;
-                label56.Visible = true;
-                txtPartida.Enabled = false;
-                txtEntregado.Visible = true;
-                PanelPartidasRequisicion.Visible = Visible;
-                guna2Button11.Visible = true;
-                guna2Button5.Visible = false;
-                guna2Button6.Visible = false;
-                guna2Button7.Visible = false;
-                guna2Button8.Visible = false;
-
-
-
-                txtCantidad.Enabled = false;
-                txtUnidad.Enabled = false;
-                txtPrecio.Enabled = false;
-                txtDescuento1.Enabled = false;
-                txtImpuesto1.Enabled = false;
-                guna2Button5.Visible = false;
-                guna2Button6.Visible = false;
-                guna2Button7.Visible = false;
-                guna2Button8.Visible = false;
+                if (cmbEstatus.Text.Equals("Abierto", StringComparison.OrdinalIgnoreCase) & tipo != "Remision" )
+                {
+                    ConfigurarPartida(false); // Habilitar
+                    
+                }
+                else
+                {
+                    ConfigurarPartida(true); // Bloquear
+                }
             }
             else
             {
                 return;
             }
+        }
+        private void ConfigurarPartida(bool bloquear)
+        {
+            // Mostrar/ocultar etiquetas y paneles según el estado
+            label56.Visible = bloquear;
+            txtEntregado.Visible = bloquear;
+
+            // Cambiar estado de botones
+            guna2Button5.Visible = !bloquear; // Botones visibles si no está bloqueado
+            guna2Button6.Visible = !bloquear;
+            guna2Button7.Visible = !bloquear;
+            btnSiguiente.Visible = !bloquear;
+
+            // Cambiar estado de los campos
+            txtCantidad.Enabled = !bloquear;
+            txtUnidad.Enabled = !bloquear;
+            txtPrecio.Enabled = !bloquear;
+            txtDescuento1.Enabled = !bloquear;
+            txtImpuesto1.Enabled = !bloquear;
+            cmbConcepto.Enabled = !bloquear;
+            txtConcepto2.Enabled = !bloquear;
         }
 
         private void guna2Button9_Click(object sender, EventArgs e)
@@ -1652,14 +1659,7 @@ namespace PV
 
         private void guna2Button6_Click(object sender, EventArgs e)
         {
-            cmbConcepto.Text = "";
-            
-            txtCantidad.Text = "1";
-            txtUnidad.Text = "";
-            txtPrecio.Text = "0.00";
-            txtDescuento1.Text = "0.00";
-            txtImpuesto1.Text = "0";
-            c.SeleccionarProducto2(cmbConcepto, TxtFolio2.Text);
+            LimpiarPartida();
         }
 
         void CambioTamañotoolstripPequeño()
@@ -1914,7 +1914,30 @@ namespace PV
 
         private void guna2Button5_Click(object sender, EventArgs e)
         {
+            if (string.IsNullOrEmpty(txtPartida.Text))
+            {
+                MessageBox.Show("Selecciona una partida");
+                return;
+            }
 
+            if (tipo == "Remision")
+            {
+
+            }
+            else
+            {
+                p.EliminarOrdenCliente(TxtFolio2.Text, txtPartida.Text);
+                MessageBox.Show(c.EliminarPartidaOrdenPedidoCliente(TxtFolio2.Text, txtPartida.Text));                
+                c.CargarOrdenPedidoClientePartidas(dataGridView1, TxtFolio2.Text);
+                string maximo = c.ObtenerTotalPartidasOrdenPedidoCliente(TxtFolio2.Text);
+                c.ActualizarTotalesOrdenPedidoCliente(TxtFolio2.Text, maximo);
+                c.ReciboSaldosPartidasOrden(TxtFolio2.Text, txtSubtotalR, txtDescuentoR, txtTotalR, txtImpuestoR);
+                
+
+            }
+            ConfigurarPartida(true);
+            LimpiarPartida();
+            CargarPartidas();
         }
 
         private void button10_Click(object sender, EventArgs e)
@@ -1941,11 +1964,11 @@ namespace PV
                     MessageBox.Show("Es necesario seleccionar una orden de pedido cliente");
                     return;
                 }
-                if (cmbEstatus.Text == "Abierto")
-                {
-                    MessageBox.Show("Es necesario que la orden de pedido cliente este bloqueada");
-                    return;
-                }
+                //if (cmbEstatus.Text == "Abierto")
+                //{
+                //    MessageBox.Show("Es necesario que la orden de pedido cliente este bloqueada");
+                //    return;
+                //}
                 ReporteOrdenPedidoCliente r = new ReporteOrdenPedidoCliente(txtFolio.Text, txtMatricular.Text);
                 r.ShowDialog();
 

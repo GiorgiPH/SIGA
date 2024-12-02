@@ -30,15 +30,16 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(registroIngresos));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle22 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle28 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle23 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle24 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle25 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle26 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle27 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.dtpFecha = new Guna.UI2.WinForms.Guna2DateTimePicker();
             this.button6 = new Guna.UI2.WinForms.Guna2Button();
             this.txtTotal = new Guna.UI2.WinForms.Guna2TextBox();
             this.txtDescuentos = new Guna.UI2.WinForms.Guna2TextBox();
@@ -55,33 +56,6 @@
             this.txtCaja = new Guna.UI2.WinForms.Guna2TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.dgvPagosPendientes = new System.Windows.Forms.DataGridView();
-            this.Seleccionar = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.Documento = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.FolioDocumento = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Consecutivo = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Propiedad1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Concepto = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Fecha = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Importe = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.SaldoActual = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Vencimiento = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.MasRecargo = new System.Windows.Forms.DataGridViewButtonColumn();
-            this.MenosRecargo = new System.Windows.Forms.DataGridViewButtonColumn();
-            this.Recargos = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.RecargosAcumulados = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.MasDescuentos = new System.Windows.Forms.DataGridViewButtonColumn();
-            this.MenosDescuentos = new System.Windows.Forms.DataGridViewButtonColumn();
-            this.Descuento = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Saldo = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ImporteEstructura = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ImporteArea = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Area = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.TipoCuota = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ProIndiviso = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.CuotaMantenimiento = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ClaveRecibo = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.FechaRecargo = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Rec = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.txtFechaRecargo = new System.Windows.Forms.TextBox();
             this.txtCalculo = new System.Windows.Forms.TextBox();
             this.txtConcepto = new System.Windows.Forms.TextBox();
@@ -115,7 +89,33 @@
             this.txtFolioPedido = new System.Windows.Forms.TextBox();
             this.label18 = new System.Windows.Forms.Label();
             this.guna2CircleButton1 = new Guna.UI2.WinForms.Guna2CircleButton();
-            this.dtpFecha = new Guna.UI2.WinForms.Guna2DateTimePicker();
+            this.Seleccionar = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.Documento = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.FolioDocumento = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Consecutivo = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Propiedad1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Concepto = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Fecha = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Importe = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.SaldoActual = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Vencimiento = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.MasRecargo = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.MenosRecargo = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.Recargos = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.RecargosAcumulados = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.MasDescuentos = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.MenosDescuentos = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.Descuento = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Saldo = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ImporteEstructura = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ImporteArea = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Area = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.TipoCuota = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ProIndiviso = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CuotaMantenimiento = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ClaveRecibo = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.FechaRecargo = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Rec = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvPagosPendientes)).BeginInit();
             this.guna2GradientPanel1.SuspendLayout();
@@ -174,6 +174,24 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(1199, 584);
             this.panel1.TabIndex = 1;
+            // 
+            // dtpFecha
+            // 
+            this.dtpFecha.AutoRoundedCorners = true;
+            this.dtpFecha.BorderRadius = 11;
+            this.dtpFecha.Checked = true;
+            this.dtpFecha.CustomFormat = "yyyy/MM/dd";
+            this.dtpFecha.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(19)))), ((int)(((byte)(35)))), ((int)(((byte)(95)))));
+            this.dtpFecha.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.dtpFecha.ForeColor = System.Drawing.Color.White;
+            this.dtpFecha.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.dtpFecha.Location = new System.Drawing.Point(15, 46);
+            this.dtpFecha.MaxDate = new System.DateTime(9998, 12, 31, 0, 0, 0, 0);
+            this.dtpFecha.MinDate = new System.DateTime(1753, 1, 1, 0, 0, 0, 0);
+            this.dtpFecha.Name = "dtpFecha";
+            this.dtpFecha.Size = new System.Drawing.Size(119, 25);
+            this.dtpFecha.TabIndex = 231;
+            this.dtpFecha.Value = new System.DateTime(2024, 11, 11, 21, 47, 21, 59);
             // 
             // button6
             // 
@@ -287,7 +305,6 @@
             this.txtRecargos.TabIndex = 229;
             this.txtRecargos.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.txtRecargos.TextOffset = new System.Drawing.Point(10, 0);
-            this.txtRecargos.Visible = false;
             // 
             // txtTotalRecibo
             // 
@@ -536,14 +553,14 @@
             this.dgvPagosPendientes.BackgroundColor = System.Drawing.Color.WhiteSmoke;
             this.dgvPagosPendientes.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.dgvPagosPendientes.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle22.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle22.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(19)))), ((int)(((byte)(35)))), ((int)(((byte)(95)))));
-            dataGridViewCellStyle22.Font = new System.Drawing.Font("Arial", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle22.ForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle22.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(19)))), ((int)(((byte)(35)))), ((int)(((byte)(95)))));
-            dataGridViewCellStyle22.SelectionForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle22.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvPagosPendientes.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle22;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(19)))), ((int)(((byte)(35)))), ((int)(((byte)(95)))));
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Arial", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(19)))), ((int)(((byte)(35)))), ((int)(((byte)(95)))));
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvPagosPendientes.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.dgvPagosPendientes.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvPagosPendientes.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Seleccionar,
@@ -573,14 +590,14 @@
             this.ClaveRecibo,
             this.FechaRecargo,
             this.Rec});
-            dataGridViewCellStyle28.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle28.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle28.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle28.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle28.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle28.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle28.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgvPagosPendientes.DefaultCellStyle = dataGridViewCellStyle28;
+            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle7.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle7.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle7.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle7.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle7.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvPagosPendientes.DefaultCellStyle = dataGridViewCellStyle7;
             this.dgvPagosPendientes.EnableHeadersVisualStyles = false;
             this.dgvPagosPendientes.Location = new System.Drawing.Point(11, 132);
             this.dgvPagosPendientes.MultiSelect = false;
@@ -593,228 +610,6 @@
             this.dgvPagosPendientes.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvPagosPendientes_CellContentClick_1);
             this.dgvPagosPendientes.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvPagosPendientes_CellEndEdit_1);
             this.dgvPagosPendientes.CurrentCellDirtyStateChanged += new System.EventHandler(this.dgvPagosPendientes_CurrentCellDirtyStateChanged_1);
-            // 
-            // Seleccionar
-            // 
-            this.Seleccionar.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader;
-            this.Seleccionar.HeaderText = "Selec";
-            this.Seleccionar.Name = "Seleccionar";
-            this.Seleccionar.Width = 49;
-            // 
-            // Documento
-            // 
-            this.Documento.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.Documento.HeaderText = "Documento";
-            this.Documento.Name = "Documento";
-            this.Documento.ReadOnly = true;
-            // 
-            // FolioDocumento
-            // 
-            this.FolioDocumento.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader;
-            this.FolioDocumento.HeaderText = "Folio";
-            this.FolioDocumento.Name = "FolioDocumento";
-            this.FolioDocumento.ReadOnly = true;
-            this.FolioDocumento.Visible = false;
-            // 
-            // Consecutivo
-            // 
-            this.Consecutivo.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader;
-            this.Consecutivo.HeaderText = "Folio";
-            this.Consecutivo.Name = "Consecutivo";
-            this.Consecutivo.ReadOnly = true;
-            this.Consecutivo.Width = 62;
-            // 
-            // Propiedad1
-            // 
-            this.Propiedad1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.Propiedad1.HeaderText = "Propiedad";
-            this.Propiedad1.Name = "Propiedad1";
-            this.Propiedad1.Visible = false;
-            // 
-            // Concepto
-            // 
-            this.Concepto.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.Concepto.HeaderText = "Concepto";
-            this.Concepto.Name = "Concepto";
-            this.Concepto.ReadOnly = true;
-            // 
-            // Fecha
-            // 
-            this.Fecha.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader;
-            this.Fecha.HeaderText = "Fecha";
-            this.Fecha.Name = "Fecha";
-            this.Fecha.ReadOnly = true;
-            this.Fecha.Width = 72;
-            // 
-            // Importe
-            // 
-            this.Importe.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
-            dataGridViewCellStyle23.Format = "C2";
-            dataGridViewCellStyle23.NullValue = "0.00";
-            this.Importe.DefaultCellStyle = dataGridViewCellStyle23;
-            this.Importe.HeaderText = "Importe";
-            this.Importe.Name = "Importe";
-            this.Importe.ReadOnly = true;
-            this.Importe.Width = 80;
-            // 
-            // SaldoActual
-            // 
-            dataGridViewCellStyle24.Format = "C2";
-            dataGridViewCellStyle24.NullValue = "0.00";
-            this.SaldoActual.DefaultCellStyle = dataGridViewCellStyle24;
-            this.SaldoActual.HeaderText = "Saldo Capital";
-            this.SaldoActual.Name = "SaldoActual";
-            this.SaldoActual.ReadOnly = true;
-            this.SaldoActual.Width = 117;
-            // 
-            // Vencimiento
-            // 
-            this.Vencimiento.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader;
-            this.Vencimiento.HeaderText = "Vencimiento";
-            this.Vencimiento.Name = "Vencimiento";
-            this.Vencimiento.ReadOnly = true;
-            this.Vencimiento.Width = 110;
-            // 
-            // MasRecargo
-            // 
-            this.MasRecargo.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader;
-            this.MasRecargo.HeaderText = "+";
-            this.MasRecargo.Name = "MasRecargo";
-            this.MasRecargo.Text = "+";
-            this.MasRecargo.UseColumnTextForButtonValue = true;
-            this.MasRecargo.Visible = false;
-            // 
-            // MenosRecargo
-            // 
-            this.MenosRecargo.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader;
-            this.MenosRecargo.HeaderText = "-";
-            this.MenosRecargo.Name = "MenosRecargo";
-            this.MenosRecargo.Text = "-";
-            this.MenosRecargo.UseColumnTextForButtonValue = true;
-            this.MenosRecargo.Visible = false;
-            // 
-            // Recargos
-            // 
-            this.Recargos.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
-            dataGridViewCellStyle25.BackColor = System.Drawing.SystemColors.ControlDarkDark;
-            dataGridViewCellStyle25.ForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle25.Format = "C2";
-            dataGridViewCellStyle25.NullValue = "0.00";
-            dataGridViewCellStyle25.SelectionBackColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.Recargos.DefaultCellStyle = dataGridViewCellStyle25;
-            this.Recargos.HeaderText = "Recargos";
-            this.Recargos.Name = "Recargos";
-            this.Recargos.ReadOnly = true;
-            this.Recargos.Visible = false;
-            // 
-            // RecargosAcumulados
-            // 
-            this.RecargosAcumulados.HeaderText = "Recargos Acumulados";
-            this.RecargosAcumulados.Name = "RecargosAcumulados";
-            this.RecargosAcumulados.ReadOnly = true;
-            this.RecargosAcumulados.Visible = false;
-            // 
-            // MasDescuentos
-            // 
-            this.MasDescuentos.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader;
-            this.MasDescuentos.HeaderText = "+";
-            this.MasDescuentos.Name = "MasDescuentos";
-            this.MasDescuentos.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.MasDescuentos.Text = "+";
-            this.MasDescuentos.UseColumnTextForButtonValue = true;
-            this.MasDescuentos.Visible = false;
-            // 
-            // MenosDescuentos
-            // 
-            this.MenosDescuentos.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader;
-            this.MenosDescuentos.HeaderText = "-";
-            this.MenosDescuentos.Name = "MenosDescuentos";
-            this.MenosDescuentos.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.MenosDescuentos.Text = "-";
-            this.MenosDescuentos.UseColumnTextForButtonValue = true;
-            this.MenosDescuentos.Visible = false;
-            // 
-            // Descuento
-            // 
-            this.Descuento.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
-            dataGridViewCellStyle26.BackColor = System.Drawing.SystemColors.ControlDarkDark;
-            dataGridViewCellStyle26.ForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle26.Format = "C2";
-            dataGridViewCellStyle26.NullValue = "0.00";
-            dataGridViewCellStyle26.SelectionBackColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.Descuento.DefaultCellStyle = dataGridViewCellStyle26;
-            this.Descuento.HeaderText = "Descuento";
-            this.Descuento.Name = "Descuento";
-            this.Descuento.ReadOnly = true;
-            this.Descuento.Visible = false;
-            // 
-            // Saldo
-            // 
-            this.Saldo.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
-            dataGridViewCellStyle27.BackColor = System.Drawing.SystemColors.ControlDarkDark;
-            dataGridViewCellStyle27.ForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle27.Format = "C2";
-            dataGridViewCellStyle27.NullValue = "0.00";
-            dataGridViewCellStyle27.SelectionBackColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.Saldo.DefaultCellStyle = dataGridViewCellStyle27;
-            this.Saldo.HeaderText = "Saldo (R + D)";
-            this.Saldo.Name = "Saldo";
-            this.Saldo.ReadOnly = true;
-            this.Saldo.Width = 85;
-            // 
-            // ImporteEstructura
-            // 
-            this.ImporteEstructura.HeaderText = "ImporteEstructura";
-            this.ImporteEstructura.Name = "ImporteEstructura";
-            this.ImporteEstructura.Visible = false;
-            // 
-            // ImporteArea
-            // 
-            this.ImporteArea.HeaderText = "ImporteArea";
-            this.ImporteArea.Name = "ImporteArea";
-            this.ImporteArea.Visible = false;
-            // 
-            // Area
-            // 
-            this.Area.HeaderText = "Area";
-            this.Area.Name = "Area";
-            this.Area.Visible = false;
-            // 
-            // TipoCuota
-            // 
-            this.TipoCuota.HeaderText = "TipoCuota";
-            this.TipoCuota.Name = "TipoCuota";
-            this.TipoCuota.Visible = false;
-            // 
-            // ProIndiviso
-            // 
-            this.ProIndiviso.HeaderText = "ProIndiviso";
-            this.ProIndiviso.Name = "ProIndiviso";
-            this.ProIndiviso.Visible = false;
-            // 
-            // CuotaMantenimiento
-            // 
-            this.CuotaMantenimiento.HeaderText = "CuotaMantenimiento";
-            this.CuotaMantenimiento.Name = "CuotaMantenimiento";
-            this.CuotaMantenimiento.Visible = false;
-            // 
-            // ClaveRecibo
-            // 
-            this.ClaveRecibo.HeaderText = "ClaveRecibo";
-            this.ClaveRecibo.Name = "ClaveRecibo";
-            this.ClaveRecibo.Visible = false;
-            // 
-            // FechaRecargo
-            // 
-            this.FechaRecargo.HeaderText = "FechaRecargo";
-            this.FechaRecargo.Name = "FechaRecargo";
-            this.FechaRecargo.Visible = false;
-            // 
-            // Rec
-            // 
-            this.Rec.HeaderText = "Rec";
-            this.Rec.Name = "Rec";
-            this.Rec.Visible = false;
             // 
             // txtFechaRecargo
             // 
@@ -996,10 +791,9 @@
             this.label12.ForeColor = System.Drawing.Color.Maroon;
             this.label12.Location = new System.Drawing.Point(940, 431);
             this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(85, 17);
+            this.label12.Size = new System.Drawing.Size(69, 17);
             this.label12.TabIndex = 52;
-            this.label12.Text = "+ Recargos";
-            this.label12.Visible = false;
+            this.label12.Text = "+ Cargos";
             // 
             // label11
             // 
@@ -1176,23 +970,233 @@
             this.guna2CircleButton1.TabIndex = 79;
             this.guna2CircleButton1.Click += new System.EventHandler(this.guna2CircleButton1_Click);
             // 
-            // dtpFecha
+            // Seleccionar
             // 
-            this.dtpFecha.AutoRoundedCorners = true;
-            this.dtpFecha.BorderRadius = 11;
-            this.dtpFecha.Checked = true;
-            this.dtpFecha.CustomFormat = "yyyy/MM/dd";
-            this.dtpFecha.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(19)))), ((int)(((byte)(35)))), ((int)(((byte)(95)))));
-            this.dtpFecha.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.dtpFecha.ForeColor = System.Drawing.Color.White;
-            this.dtpFecha.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dtpFecha.Location = new System.Drawing.Point(15, 46);
-            this.dtpFecha.MaxDate = new System.DateTime(9998, 12, 31, 0, 0, 0, 0);
-            this.dtpFecha.MinDate = new System.DateTime(1753, 1, 1, 0, 0, 0, 0);
-            this.dtpFecha.Name = "dtpFecha";
-            this.dtpFecha.Size = new System.Drawing.Size(119, 25);
-            this.dtpFecha.TabIndex = 231;
-            this.dtpFecha.Value = new System.DateTime(2024, 11, 11, 21, 47, 21, 59);
+            this.Seleccionar.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader;
+            this.Seleccionar.HeaderText = "Selec";
+            this.Seleccionar.Name = "Seleccionar";
+            this.Seleccionar.Width = 49;
+            // 
+            // Documento
+            // 
+            this.Documento.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.Documento.HeaderText = "Documento";
+            this.Documento.Name = "Documento";
+            this.Documento.ReadOnly = true;
+            // 
+            // FolioDocumento
+            // 
+            this.FolioDocumento.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader;
+            this.FolioDocumento.HeaderText = "Folio";
+            this.FolioDocumento.Name = "FolioDocumento";
+            this.FolioDocumento.ReadOnly = true;
+            this.FolioDocumento.Visible = false;
+            this.FolioDocumento.Width = 62;
+            // 
+            // Consecutivo
+            // 
+            this.Consecutivo.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader;
+            this.Consecutivo.HeaderText = "Folio";
+            this.Consecutivo.Name = "Consecutivo";
+            this.Consecutivo.ReadOnly = true;
+            this.Consecutivo.Width = 62;
+            // 
+            // Propiedad1
+            // 
+            this.Propiedad1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.Propiedad1.HeaderText = "Propiedad";
+            this.Propiedad1.Name = "Propiedad1";
+            this.Propiedad1.Visible = false;
+            this.Propiedad1.Width = 97;
+            // 
+            // Concepto
+            // 
+            this.Concepto.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.Concepto.HeaderText = "Concepto";
+            this.Concepto.Name = "Concepto";
+            this.Concepto.ReadOnly = true;
+            // 
+            // Fecha
+            // 
+            this.Fecha.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader;
+            this.Fecha.HeaderText = "Fecha";
+            this.Fecha.Name = "Fecha";
+            this.Fecha.ReadOnly = true;
+            this.Fecha.Width = 72;
+            // 
+            // Importe
+            // 
+            this.Importe.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
+            dataGridViewCellStyle2.Format = "C2";
+            dataGridViewCellStyle2.NullValue = "0.00";
+            this.Importe.DefaultCellStyle = dataGridViewCellStyle2;
+            this.Importe.HeaderText = "Importe";
+            this.Importe.Name = "Importe";
+            this.Importe.ReadOnly = true;
+            this.Importe.Width = 80;
+            // 
+            // SaldoActual
+            // 
+            dataGridViewCellStyle3.Format = "C2";
+            dataGridViewCellStyle3.NullValue = "0.00";
+            this.SaldoActual.DefaultCellStyle = dataGridViewCellStyle3;
+            this.SaldoActual.HeaderText = "Saldo Capital";
+            this.SaldoActual.Name = "SaldoActual";
+            this.SaldoActual.ReadOnly = true;
+            this.SaldoActual.Width = 117;
+            // 
+            // Vencimiento
+            // 
+            this.Vencimiento.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader;
+            this.Vencimiento.HeaderText = "Vencimiento";
+            this.Vencimiento.Name = "Vencimiento";
+            this.Vencimiento.ReadOnly = true;
+            this.Vencimiento.Width = 110;
+            // 
+            // MasRecargo
+            // 
+            this.MasRecargo.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader;
+            this.MasRecargo.HeaderText = "+";
+            this.MasRecargo.Name = "MasRecargo";
+            this.MasRecargo.Text = "+";
+            this.MasRecargo.UseColumnTextForButtonValue = true;
+            this.MasRecargo.Visible = false;
+            this.MasRecargo.Width = 21;
+            // 
+            // MenosRecargo
+            // 
+            this.MenosRecargo.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader;
+            this.MenosRecargo.HeaderText = "-";
+            this.MenosRecargo.Name = "MenosRecargo";
+            this.MenosRecargo.Text = "-";
+            this.MenosRecargo.UseColumnTextForButtonValue = true;
+            this.MenosRecargo.Visible = false;
+            this.MenosRecargo.Width = 17;
+            // 
+            // Recargos
+            // 
+            this.Recargos.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
+            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.ControlDarkDark;
+            dataGridViewCellStyle4.ForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle4.Format = "C2";
+            dataGridViewCellStyle4.NullValue = "0.00";
+            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.Recargos.DefaultCellStyle = dataGridViewCellStyle4;
+            this.Recargos.HeaderText = "Recargos";
+            this.Recargos.Name = "Recargos";
+            this.Recargos.ReadOnly = true;
+            this.Recargos.Visible = false;
+            this.Recargos.Width = 95;
+            // 
+            // RecargosAcumulados
+            // 
+            this.RecargosAcumulados.HeaderText = "Recargos Acumulados";
+            this.RecargosAcumulados.Name = "RecargosAcumulados";
+            this.RecargosAcumulados.ReadOnly = true;
+            // 
+            // MasDescuentos
+            // 
+            this.MasDescuentos.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader;
+            this.MasDescuentos.HeaderText = "+";
+            this.MasDescuentos.Name = "MasDescuentos";
+            this.MasDescuentos.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.MasDescuentos.Text = "+";
+            this.MasDescuentos.UseColumnTextForButtonValue = true;
+            this.MasDescuentos.Visible = false;
+            this.MasDescuentos.Width = 21;
+            // 
+            // MenosDescuentos
+            // 
+            this.MenosDescuentos.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader;
+            this.MenosDescuentos.HeaderText = "-";
+            this.MenosDescuentos.Name = "MenosDescuentos";
+            this.MenosDescuentos.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.MenosDescuentos.Text = "-";
+            this.MenosDescuentos.UseColumnTextForButtonValue = true;
+            this.MenosDescuentos.Visible = false;
+            this.MenosDescuentos.Width = 17;
+            // 
+            // Descuento
+            // 
+            this.Descuento.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
+            dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.ControlDarkDark;
+            dataGridViewCellStyle5.ForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle5.Format = "C2";
+            dataGridViewCellStyle5.NullValue = "0.00";
+            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.Descuento.DefaultCellStyle = dataGridViewCellStyle5;
+            this.Descuento.HeaderText = "Descuento";
+            this.Descuento.Name = "Descuento";
+            this.Descuento.ReadOnly = true;
+            this.Descuento.Width = 102;
+            // 
+            // Saldo
+            // 
+            this.Saldo.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
+            dataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.ControlDarkDark;
+            dataGridViewCellStyle6.ForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle6.Format = "C2";
+            dataGridViewCellStyle6.NullValue = "0.00";
+            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.Saldo.DefaultCellStyle = dataGridViewCellStyle6;
+            this.Saldo.HeaderText = "Saldo (R + D)";
+            this.Saldo.Name = "Saldo";
+            this.Saldo.ReadOnly = true;
+            this.Saldo.Width = 85;
+            // 
+            // ImporteEstructura
+            // 
+            this.ImporteEstructura.HeaderText = "ImporteEstructura";
+            this.ImporteEstructura.Name = "ImporteEstructura";
+            this.ImporteEstructura.Visible = false;
+            // 
+            // ImporteArea
+            // 
+            this.ImporteArea.HeaderText = "ImporteArea";
+            this.ImporteArea.Name = "ImporteArea";
+            this.ImporteArea.Visible = false;
+            // 
+            // Area
+            // 
+            this.Area.HeaderText = "Area";
+            this.Area.Name = "Area";
+            this.Area.Visible = false;
+            // 
+            // TipoCuota
+            // 
+            this.TipoCuota.HeaderText = "TipoCuota";
+            this.TipoCuota.Name = "TipoCuota";
+            this.TipoCuota.Visible = false;
+            // 
+            // ProIndiviso
+            // 
+            this.ProIndiviso.HeaderText = "ProIndiviso";
+            this.ProIndiviso.Name = "ProIndiviso";
+            this.ProIndiviso.Visible = false;
+            // 
+            // CuotaMantenimiento
+            // 
+            this.CuotaMantenimiento.HeaderText = "CuotaMantenimiento";
+            this.CuotaMantenimiento.Name = "CuotaMantenimiento";
+            this.CuotaMantenimiento.Visible = false;
+            // 
+            // ClaveRecibo
+            // 
+            this.ClaveRecibo.HeaderText = "ClaveRecibo";
+            this.ClaveRecibo.Name = "ClaveRecibo";
+            this.ClaveRecibo.Visible = false;
+            // 
+            // FechaRecargo
+            // 
+            this.FechaRecargo.HeaderText = "FechaRecargo";
+            this.FechaRecargo.Name = "FechaRecargo";
+            this.FechaRecargo.Visible = false;
+            // 
+            // Rec
+            // 
+            this.Rec.HeaderText = "Rec";
+            this.Rec.Name = "Rec";
+            this.Rec.Visible = false;
             // 
             // registroIngresos
             // 
@@ -1272,6 +1276,7 @@
         private System.Windows.Forms.Label label18;
         private Guna.UI2.WinForms.Guna2CircleButton guna2CircleButton1;
         private Guna.UI2.WinForms.Guna2Button button6;
+        private Guna.UI2.WinForms.Guna2DateTimePicker dtpFecha;
         private System.Windows.Forms.DataGridViewCheckBoxColumn Seleccionar;
         private System.Windows.Forms.DataGridViewTextBoxColumn Documento;
         private System.Windows.Forms.DataGridViewTextBoxColumn FolioDocumento;
@@ -1299,6 +1304,5 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn ClaveRecibo;
         private System.Windows.Forms.DataGridViewTextBoxColumn FechaRecargo;
         private System.Windows.Forms.DataGridViewTextBoxColumn Rec;
-        private Guna.UI2.WinForms.Guna2DateTimePicker dtpFecha;
     }
 }

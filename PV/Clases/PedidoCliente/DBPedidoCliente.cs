@@ -1960,7 +1960,7 @@ namespace PV.Clases.PedidoCliente
 
 
         }
-        public void ActualizaCantidadPendiente(string Cantidad, string CantidadEntre, string Folio, string ClaveP)
+        public void ActualizaCantidadPendientePartidaOrden(string Cantidad, string CantidadEntre, string Folio, string ClaveP)
         {
             try
             {
@@ -1972,18 +1972,78 @@ namespace PV.Clases.PedidoCliente
                 MessageBox.Show("Error." + ex.ToString());
             }
         }
-        public void InsertarPartidaOrdenCliente(string Folio, string Partida, string ClaveRecibo, string Concepto2, string Cantidad, string Unidad, string Divisa, string TipoCambio, decimal Subtotal, decimal Descuento, decimal Total, decimal Precio, decimal Impuesto)
+        public string InsertarPartidaOrdenCliente(string Folio, string Partida, string ClaveRecibo, string Concepto2, string Cantidad, string Unidad, string Divisa, string TipoCambio, decimal Subtotal, decimal Descuento, decimal Total, decimal Precio, decimal Impuesto)
         {
+            string mensaje = string.Empty;
             try
             {
-                cmd = new SqlCommand("insert into [PartidaOrdenPedidoCliente] (FolioOrden, Partida, ClaveProducto, Concepto2, Cantidad, Unidad, Divisa, TipoCambio, Precio, Subtotal, Descuento, Total, CantidadRecibida, Impuesto, CantidadPendiente) values ('" + Folio + "', '" + Partida + "', '" + ClaveRecibo + "', '" + Concepto2 + "', '" + Cantidad + "', '" + Unidad + "', '" + Divisa + "', '" + TipoCambio + "', '" + Precio + "','" + Subtotal + "', '" + Descuento + "', '" + Total + "', '" + Cantidad + "', '" + Impuesto + "', '"+Cantidad+"')", cn);
+                // Consulta para verificar si la partida ya existe
+                string queryExiste = "SELECT COUNT(*) FROM [PartidaOrdenPedidoCliente] WHERE FolioOrden = @Folio AND Partida = @Partida";
+                cmd = new SqlCommand(queryExiste, cn);
+                cmd.Parameters.AddWithValue("@Folio", Folio);
+                cmd.Parameters.AddWithValue("@Partida", Partida);
+
+                int existe = Convert.ToInt32(cmd.ExecuteScalar());
+
+                if (existe > 0) // Si el registro existe, actualizamos
+                {
+                    string queryActualizar = @"
+                UPDATE [PartidaOrdenPedidoCliente]
+                SET 
+                    ClaveProducto = @ClaveRecibo,
+                    Concepto2 = @Concepto2,
+                    Cantidad = @Cantidad,
+                    Unidad = @Unidad,
+                    Divisa = @Divisa,
+                    TipoCambio = @TipoCambio,
+                    Precio = @Precio,
+                    Subtotal = @Subtotal,
+                    Descuento = @Descuento,
+                    Total = @Total,
+                    CantidadRecibida = @Cantidad,
+                    Impuesto = @Impuesto,
+                    CantidadPendiente = @Cantidad
+                WHERE FolioOrden = @Folio AND Partida = @Partida";
+
+                    cmd = new SqlCommand(queryActualizar, cn);
+                    mensaje= "Registro actualizado correctamente.";
+                }
+                else // Si no existe, insertamos
+                {
+                    string queryInsertar = @"
+                INSERT INTO [PartidaOrdenPedidoCliente] 
+                (FolioOrden, Partida, ClaveProducto, Concepto2, Cantidad, Unidad, Divisa, TipoCambio, Precio, Subtotal, Descuento, Total, CantidadRecibida, Impuesto, CantidadPendiente)
+                VALUES 
+                (@Folio, @Partida, @ClaveRecibo, @Concepto2, @Cantidad, @Unidad, @Divisa, @TipoCambio, @Precio, @Subtotal, @Descuento, @Total, @Cantidad, @Impuesto, @Cantidad)";
+
+                    cmd = new SqlCommand(queryInsertar, cn);
+                }
+
+                // Parámetros compartidos
+                cmd.Parameters.AddWithValue("@Folio", Folio);
+                cmd.Parameters.AddWithValue("@Partida", Partida);
+                cmd.Parameters.AddWithValue("@ClaveRecibo", ClaveRecibo);
+                cmd.Parameters.AddWithValue("@Concepto2", Concepto2);
+                cmd.Parameters.AddWithValue("@Cantidad", Cantidad);
+                cmd.Parameters.AddWithValue("@Unidad", Unidad);
+                cmd.Parameters.AddWithValue("@Divisa", Divisa);
+                cmd.Parameters.AddWithValue("@TipoCambio", TipoCambio);
+                cmd.Parameters.AddWithValue("@Precio", Precio);
+                cmd.Parameters.AddWithValue("@Subtotal", Subtotal);
+                cmd.Parameters.AddWithValue("@Descuento", Descuento);
+                cmd.Parameters.AddWithValue("@Total", Total);
+                cmd.Parameters.AddWithValue("@Impuesto", Impuesto);
+
                 cmd.ExecuteNonQuery();
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                //MessageBox.Show("ERROR" + ex.ToString());
+                // Manejo de excepciones
+                Console.WriteLine("ERROR: " + ex.Message);
             }
+            return mensaje;
         }
+
         //___________________________________________________________________________________________
         public void InsertarPartidaRequisicion(string Folio, string Partida, string ClaveRecibo, string Concepto2, string Cantidad, string Unidad)
         {
@@ -2156,11 +2216,11 @@ namespace PV.Clases.PedidoCliente
                 MessageBox.Show("ERROR" + ex.ToString());
             }
         }
-        public void ActualizarOrdenCliente(string txtFolio, string txtPartida)
+        public void ActualizarTotalesOrdenPedidoCliente(string txtFolio, string txtPartida)
         {
             try
             {
-                cmd = new SqlCommand("select sum(Subtotal) as Subtotal, sum((Convert(decimal, Impuesto) / 100) * (Subtotal-Descuento)) as Impuesto, sum((Convert(decimal, Descuento) / 100) * (Subtotal)) as Descuento, sum(Total) as Total from [PartidaOrdenPedidoCliente] where FolioOrden='" + txtFolio + "'", cn);
+                cmd = new SqlCommand("select coalesce(sum(Subtotal),0.00) as Subtotal, coalesce(sum((Convert(decimal, Impuesto) / 100) * (Subtotal-Descuento)),0.00) as Impuesto, coalesce(sum((Convert(decimal, Descuento) / 100) * (Subtotal)),0.00) as Descuento, coalesce(sum(Total),0.00) as Total from [PartidaOrdenPedidoCliente] where FolioOrden='" + txtFolio + "'", cn);
                 dr = cmd.ExecuteReader();
 
                 if (dr.Read())
@@ -3469,6 +3529,7 @@ namespace PV.Clases.PedidoCliente
                     total.Text = dr["Total"].ToString();
                     txtImpuesto.Text = dr["Impuesto"].ToString();
                     txtEntregado.Text = dr["CantidadRecibida"].ToString();
+                    cmbConcepto2.Items.Add(dr["Descripcion"].ToString());
                     cmbConcepto2.Text = dr["Descripcion"].ToString();
                 }
                 dr.Close();
@@ -4577,51 +4638,11 @@ namespace PV.Clases.PedidoCliente
         }
 
         //_________________________________________________________________________________________
-        public void eliminarPartidaRequisicion(string Folio, string partida)
-        {
-            try
-            {
-                cmd = new SqlCommand("delete PartidaRequisicion where FolioRequisicion='" + Folio + "' and Partida='" + partida + "'", cn);
-                cmd.ExecuteNonQuery();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("ERROR" + ex.ToString());
-            }
-        }
+      
 
 
         //_________________________________________________________________________________________
-        public int ruta()
-        {
-            int contador = 0;
-
-            try
-            {
-                cmd = new SqlCommand("select Ruta from DatosEmpresa", cn);
-                dr = cmd.ExecuteReader();
-
-                while (dr.Read())
-                {
-                    contador++;
-                }
-                dr.Close();
-
-                if (contador > 0)
-                {
-                    da = new SqlDataAdapter(cmd);
-                    dt = new DataTable();
-                    da.Fill(dt);
-                    Ruta = dt.Rows[0][0].ToString();
-
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.ToString());
-            }
-            return contador;
-        }
+       
         //_______________________________________________________________________________________________________________________________------
         //Registrar datos del aviso
         public void ModificarExtension(string Folio, string Extension)
@@ -5017,6 +5038,68 @@ namespace PV.Clases.PedidoCliente
                 MessageBox.Show("Error." + ex.ToString());
             }
             return total;
+        }
+        public string EliminarPartidaOrdenPedidoCliente(string Folio, string Partida)
+        {
+            int contador = 0;
+            string mensaje = string.Empty;
+            try
+            {
+                using (SqlConnection cn = new SqlConnection(ObtenerCn()))
+                {
+                    cn.Open();
+                    using (SqlCommand cmd = new SqlCommand("Delete from PartidaOrdenPedidoCliente where FolioOrden=@Folio and Partida=@Partida", cn))
+                    {
+                        cmd.Parameters.AddWithValue("@Folio", Folio);
+                        cmd.Parameters.AddWithValue("@Partida", Partida);
+                        int filasAfectadas = cmd.ExecuteNonQuery();
+
+                        if (filasAfectadas > 0)
+                        {
+                            mensaje = "Eliminación exitosa";
+                        }
+                        else
+                        {
+                            mensaje = "No se encontró ninguna fila para eliminar";
+                        }
+                    }
+
+                }
+                string queryUpdate = "UPDATE PartidaOrdenPedidoCliente SET Partida = Partida - 1 WHERE Partida > @NumeroOrdenCompra and FolioOrden=@Folio";
+
+                using (SqlConnection connection = new SqlConnection(ObtenerCn()))
+                {
+                    using (SqlCommand command = new SqlCommand(queryUpdate, connection))
+                    {
+                        command.Parameters.AddWithValue("@NumeroOrdenCompra", Partida);
+                        command.Parameters.AddWithValue("@Folio", Folio);
+                        connection.Open();
+                        command.ExecuteNonQuery();
+                    }
+                }
+
+
+
+            }
+            catch (Exception ex)
+            {
+                mensaje = "Error." + ex.ToString();
+            }
+            return mensaje;
+
+        }
+        
+        public string ObtenerTotalPartidasOrdenPedidoCliente(string Folio)
+        {
+            string maximo = "0";
+            cmd = new SqlCommand("select max(Partida) as maximo from PartidaOrdenPedidoCliente where FolioOrden='" + Folio + "'", cn);
+            dr = cmd.ExecuteReader();
+            if (dr.Read())
+            {
+                maximo = dr[0].ToString();
+            }
+            dr.Close();
+            return maximo;
         }
     }
 

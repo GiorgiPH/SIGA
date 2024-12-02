@@ -1837,7 +1837,7 @@ namespace PV.Clases.OrdenCompra
             return resultado;
         }
         //___________________________________________________________________________________________
-        public void InsertarPartida(string Folio, string Partida, string ClaveRecibo, string Concepto2, string Cantidad, string Unidad, string Divisa, string TipoCambio, decimal Subtotal, decimal Descuento, decimal Total, decimal Precio, decimal Impuesto)
+        public void InsertarPartidaRemision(string Folio, string Partida, string ClaveRecibo, string Concepto2, string Cantidad, string Unidad, string Divisa, string TipoCambio, decimal Subtotal, decimal Descuento, decimal Total, decimal Precio, decimal Impuesto)
         {
             try
             {
@@ -1994,7 +1994,7 @@ namespace PV.Clases.OrdenCompra
             }
         }
         //____________________________________________________________________________________________
-        public void ActualizarOrden(string txtFolio, string txtPartida)
+        public void ActualizarTotalesRemision(string txtFolio, string txtPartida)
         {
             try
             {
@@ -4944,8 +4944,31 @@ namespace PV.Clases.OrdenCompra
                 // Puedes manejar el error de manera diferente si no quieres usar MessageBox en esta capa
                 return "Error: " + ex.Message;
             }
-        }
 
+        }
+        public string[] InformacionOrdenPedidoCliente(string Orden)
+        {
+            cmd = new SqlCommand("select Folio, ClaveDocumento, Fecha, IdCliente, Consecutivo from OrdenPedidoCliente as OC where Folio='" + Orden + "'", cn);
+            dr = cmd.ExecuteReader();
+            string[] resultado = null;
+            while (dr.Read())
+            {
+                string[] valores =
+                {
+                    dr["Folio"].ToString(),
+                     dr["ClaveDocumento"].ToString(),
+                     dr["Fecha"].ToString(),
+                     dr["IdCliente"].ToString(),
+                     dr["Consecutivo"].ToString(),
+
+
+                };
+                resultado = valores;
+            }
+            dr.Close();
+            return resultado;
+        }
+        
     }
 
 

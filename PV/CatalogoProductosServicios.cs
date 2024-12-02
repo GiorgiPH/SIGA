@@ -285,13 +285,13 @@ namespace PuntoVentas
             txtExActual.Text = "0";
             txtUbicacion.Clear(); 
             cmbTipoCosteo.Text = null;
-            txtCostoUnitario.Clear();
+            txtCostoUnitario.Text = "0.00";
             cmbDivisa.Text = null;
-            txtDescuentoPorc.Clear();
+            txtDescuentoPorc.Text = "0.00";
             txtDescuentoCant.Text = "0.00";
-            txtImpuestoPorc.Clear(); 
+            txtImpuestoPorc.Text = "0.00";
             txtImpuestoCant.Text = "0.00";
-            txtPrecioVenta.Clear();
+            txtPrecioVenta.Text = "0.00";
             txtCategoria.Clear();
             txtFamilia.Clear();
             c.SeleccionarCategorias(cmbCategorias);
@@ -836,6 +836,11 @@ namespace PuntoVentas
         private void txtFiltro_TextChanged(object sender, EventArgs e)
         {
             c.CargarProductos(dataGridView2, txtFiltro.Text);
+        }
+
+        private void txtPrecioVenta_TextChanged_1(object sender, EventArgs e)
+        {
+            Utilerias.Moneda2(ref txtPrecioVenta);
         }
     }
 }

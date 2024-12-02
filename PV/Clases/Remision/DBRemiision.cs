@@ -57,7 +57,7 @@ namespace PV.Clases.Remision
                 foreach (DataRow item in dt.Rows)
                 {
                     int n = dgv.Rows.Add();
-                    
+                    decimal subtotal = Convert.ToDecimal(item["Subtotal"]);
 
 
                     dgv.Rows[n].Cells[1].Value = item["ClaveDocumento"].ToString();
@@ -66,14 +66,14 @@ namespace PV.Clases.Remision
                     //dgv.Rows[n].Cells[4].Value = item["PropiedadNombre"].ToString();
                     dgv.Rows[n].Cells[5].Value = item["Nombre"].ToString();
                     dgv.Rows[n].Cells[6].Value = Convert.ToDateTime(item["Fecha"]).ToString("yyyy/MM/dd");
-                    dgv.Rows[n].Cells[7].Value = Convert.ToDecimal(item["Total"]).ToString("N", formato);
+                    dgv.Rows[n].Cells[7].Value = subtotal;
                     dgv.Rows[n].Cells[8].Value = Convert.ToDecimal(item["Saldo"]).ToString("N", formato);
                     dgv.Rows[n].Cells[9].Value = Convert.ToDateTime(item["FechaVence"]).ToString("yyyy/MM/dd");
-                    dgv.Rows[n].Cells[12].Value = "0.00";
+                    dgv.Rows[n].Cells[13].Value = Convert.ToDecimal(item["Cargo"]).ToString("N", formato);
                     //dgv.Rows[n].Cells[26].ReadOnly = Convert.ToDecimal(item["Recargo"]) > 0.00m ? true : false;
 
-                    dgv.Rows[n].Cells[13].Value = "0.00";
-                    //dgv.Rows[n].Cells[16].Value = Convert.ToDecimal(0.00).ToString("N", formato);
+                    //dgv.Rows[n].Cells[13].Value = "0.00";
+                    dgv.Rows[n].Cells[16].Value = Convert.ToDecimal(item["Descuento"]).ToString("N", formato);
                     //dgv.Rows[n].Cells[17].Value = Convert.ToDecimal(0.00).ToString("N", formato);
                     //dgv.Rows[n].Cells[18].Value = Convert.ToDecimal(item["Importe"]).ToString("N", formato);
                     //dgv.Rows[n].Cells[19].Value = Convert.ToDecimal(item["ImporteA"]).ToString("N", formato);
@@ -118,8 +118,8 @@ namespace PV.Clases.Remision
                         dgv.Rows[n].Cells[1].Value = item["Folio"].ToString();
                         dgv.Rows[n].Cells[2].Value = item["ClaveDocumento"].ToString();
                         dgv.Rows[n].Cells[3].Value = item["Nombre"].ToString();
-                        dgv.Rows[n].Cells[4].Value = Convert.ToDecimal(item["RecargosAcumulados"]).ToString("N", formato);
-                        dgv.Rows[n].Cells[5].Value = Convert.ToDecimal(0.00).ToString("N", formato);
+                        dgv.Rows[n].Cells[4].Value = Convert.ToDecimal(item["Cargo"]).ToString("N", formato);
+                        dgv.Rows[n].Cells[5].Value = Convert.ToDecimal(item["Descuento"]).ToString("N", formato);
                         dgv.Rows[n].Cells[6].Value = Convert.ToDecimal(item["Saldo"]).ToString("N", formato);
                         dgv.Rows[n].Cells[7].Value = (Convert.ToDecimal(item["Saldo"]) + Convert.ToDecimal(item["RecargosAcumulados"])).ToString("N", formato);
                         dgv.Rows[n].Cells[9].Value = Convert.ToDecimal(0.00).ToString("N", formato);
@@ -146,6 +146,28 @@ namespace PV.Clases.Remision
             {
                 MessageBox.Show("ERROR" + ex.ToString());
             }
+        }
+        public string[] InformacionRemision(string Orden)
+        {
+            cmd = new SqlCommand("select Folio, ClaveDocumento, Fecha, ClaveProveedor, Consecutivo from Remision as OC where Folio='" + Orden + "'", cn);
+            dr = cmd.ExecuteReader();
+            string[] resultado = null;
+            while (dr.Read())
+            {
+                string[] valores =
+                {
+                    dr["Folio"].ToString(),
+                     dr["ClaveDocumento"].ToString(),
+                     dr["Fecha"].ToString(),
+                     dr["ClaveProveedor"].ToString(),
+                     dr["Consecutivo"].ToString(),
+         
+
+                };
+                resultado = valores;
+            }
+            dr.Close();
+            return resultado;
         }
     }
 }

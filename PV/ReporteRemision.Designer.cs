@@ -29,9 +29,9 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            Microsoft.Reporting.WinForms.ReportDataSource reportDataSource1 = new Microsoft.Reporting.WinForms.ReportDataSource();
-            Microsoft.Reporting.WinForms.ReportDataSource reportDataSource2 = new Microsoft.Reporting.WinForms.ReportDataSource();
-            Microsoft.Reporting.WinForms.ReportDataSource reportDataSource3 = new Microsoft.Reporting.WinForms.ReportDataSource();
+            Microsoft.Reporting.WinForms.ReportDataSource reportDataSource4 = new Microsoft.Reporting.WinForms.ReportDataSource();
+            Microsoft.Reporting.WinForms.ReportDataSource reportDataSource5 = new Microsoft.Reporting.WinForms.ReportDataSource();
+            Microsoft.Reporting.WinForms.ReportDataSource reportDataSource6 = new Microsoft.Reporting.WinForms.ReportDataSource();
             this.datosEmpresaBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.controlCondominiosDataSet23 = new PV.ControlCondominiosDataSet23();
             this.dataTable1BindingSource = new System.Windows.Forms.BindingSource(this.components);
@@ -45,6 +45,9 @@
             this.controlCondominiosDataSet14 = new PV.ControlCondominiosDataSet14();
             this.controlCondominiosDataSet14BindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.clientesTableAdapter = new PV.ControlCondominiosDataSet8TableAdapters.ClientesTableAdapter();
+            this.txtcorreo2 = new System.Windows.Forms.TextBox();
+            this.txtcorreo = new System.Windows.Forms.TextBox();
+            this.button1 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.datosEmpresaBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.controlCondominiosDataSet23)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataTable1BindingSource)).BeginInit();
@@ -88,21 +91,20 @@
             // 
             // reportViewer1
             // 
-            this.reportViewer1.Dock = System.Windows.Forms.DockStyle.Fill;
-            reportDataSource1.Name = "DataSet1";
-            reportDataSource1.Value = this.datosEmpresaBindingSource;
-            reportDataSource2.Name = "DataSet2";
-            reportDataSource2.Value = this.dataTable1BindingSource;
-            reportDataSource3.Name = "DataSet3";
-            reportDataSource3.Value = this.clientesBindingSource;
-            this.reportViewer1.LocalReport.DataSources.Add(reportDataSource1);
-            this.reportViewer1.LocalReport.DataSources.Add(reportDataSource2);
-            this.reportViewer1.LocalReport.DataSources.Add(reportDataSource3);
+            reportDataSource4.Name = "DataSet1";
+            reportDataSource4.Value = this.datosEmpresaBindingSource;
+            reportDataSource5.Name = "DataSet2";
+            reportDataSource5.Value = this.dataTable1BindingSource;
+            reportDataSource6.Name = "DataSet3";
+            reportDataSource6.Value = this.clientesBindingSource;
+            this.reportViewer1.LocalReport.DataSources.Add(reportDataSource4);
+            this.reportViewer1.LocalReport.DataSources.Add(reportDataSource5);
+            this.reportViewer1.LocalReport.DataSources.Add(reportDataSource6);
             this.reportViewer1.LocalReport.ReportEmbeddedResource = "PV.ReporteRemision.rdlc";
             this.reportViewer1.Location = new System.Drawing.Point(0, 0);
             this.reportViewer1.Name = "reportViewer1";
             this.reportViewer1.ServerReport.BearerToken = null;
-            this.reportViewer1.Size = new System.Drawing.Size(800, 450);
+            this.reportViewer1.Size = new System.Drawing.Size(711, 645);
             this.reportViewer1.TabIndex = 0;
             // 
             // controlCondominiosDataSet23BindingSource
@@ -132,11 +134,40 @@
             // 
             this.clientesTableAdapter.ClearBeforeFill = true;
             // 
+            // txtcorreo2
+            // 
+            this.txtcorreo2.Location = new System.Drawing.Point(717, 87);
+            this.txtcorreo2.Name = "txtcorreo2";
+            this.txtcorreo2.Size = new System.Drawing.Size(78, 20);
+            this.txtcorreo2.TabIndex = 9;
+            this.txtcorreo2.Visible = false;
+            // 
+            // txtcorreo
+            // 
+            this.txtcorreo.Location = new System.Drawing.Point(716, 61);
+            this.txtcorreo.Name = "txtcorreo";
+            this.txtcorreo.Size = new System.Drawing.Size(78, 20);
+            this.txtcorreo.TabIndex = 8;
+            this.txtcorreo.Visible = false;
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(717, 12);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(78, 43);
+            this.button1.TabIndex = 7;
+            this.button1.Text = "Enviar por Correo";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
             // ReporteRemision
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(800, 641);
+            this.Controls.Add(this.txtcorreo2);
+            this.Controls.Add(this.txtcorreo);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.reportViewer1);
             this.Name = "ReporteRemision";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
@@ -152,6 +183,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.controlCondominiosDataSet14)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.controlCondominiosDataSet14BindingSource)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -169,5 +201,8 @@
         private System.Windows.Forms.BindingSource clientesBindingSource;
         private ControlCondominiosDataSet8TableAdapters.ClientesTableAdapter clientesTableAdapter;
         public Microsoft.Reporting.WinForms.ReportViewer reportViewer1;
+        private System.Windows.Forms.TextBox txtcorreo2;
+        private System.Windows.Forms.TextBox txtcorreo;
+        private System.Windows.Forms.Button button1;
     }
 }

@@ -74,7 +74,7 @@ namespace PV
             }
             else
             {
-                c.InsertarPartida(TxtFolio.Text, txtPartida.Text, txtClave.Text, txtConcepto2.Text, txtCantidad.Text, txtUnidad.Text, txtDivisa.Text, txtTipoCambio.Text, Convert.ToDecimal(txtSubtotal.Text), Convert.ToDecimal(txtDescuento.Text), Convert.ToDecimal(txtTotal.Text), Convert.ToDecimal(txtPrecio.Text), Convert.ToDecimal(txtImpuesto.Text));
+                c.InsertarPartidaRemision(TxtFolio.Text, txtPartida.Text, txtClave.Text, txtConcepto2.Text, txtCantidad.Text, txtUnidad.Text, txtDivisa.Text, txtTipoCambio.Text, Convert.ToDecimal(txtSubtotal.Text), Convert.ToDecimal(txtDescuento.Text), Convert.ToDecimal(txtTotal.Text), Convert.ToDecimal(txtPrecio.Text), Convert.ToDecimal(txtImpuesto.Text));
                 Limpiar();
              //   c.Consulta5(TxtFolio.Text, txtPartida);
          //       c.ReciboSaldosPartidasOrden(TxtFolio.Text, txtSubtotalR, txtDescuentoR, txtTotalR);
@@ -104,7 +104,7 @@ namespace PV
                     int Partida = Convert.ToInt32(txtPartida.Text) - 1;
                     if (Partida > 0)
                     {
-                        c.ActualizarOrden(TxtFolio.Text, Partida.ToString());
+                        c.ActualizarTotalesRemision(TxtFolio.Text, Partida.ToString());
                     }
                     this.Close();
                 }
@@ -116,7 +116,7 @@ namespace PV
                     int Partida = Convert.ToInt32(txtPartida.Text) - 1;
                     if (Partida > 0)
                     {
-                        c.ActualizarOrden(TxtFolio.Text, Partida.ToString());
+                        c.ActualizarTotalesRemision(TxtFolio.Text, Partida.ToString());
                     }
                     this.Close();
                 }
@@ -127,8 +127,8 @@ namespace PV
             }
             else
             {
-                c.InsertarPartida(TxtFolio.Text, txtPartida.Text, txtClave.Text, txtConcepto2.Text, txtCantidad.Text, txtUnidad.Text, txtDivisa.Text, txtTipoCambio.Text, Convert.ToDecimal(txtSubtotal.Text), Convert.ToDecimal(txtDescuento.Text), Convert.ToDecimal(txtTotal.Text), Convert.ToDecimal(txtPrecio.Text), Convert.ToDecimal(txtImpuesto.Text));
-                c.ActualizarOrden(TxtFolio.Text, txtPartida.Text);
+                c.InsertarPartidaRemision(TxtFolio.Text, txtPartida.Text, txtClave.Text, txtConcepto2.Text, txtCantidad.Text, txtUnidad.Text, txtDivisa.Text, txtTipoCambio.Text, Convert.ToDecimal(txtSubtotal.Text), Convert.ToDecimal(txtDescuento.Text), Convert.ToDecimal(txtTotal.Text), Convert.ToDecimal(txtPrecio.Text), Convert.ToDecimal(txtImpuesto.Text));
+                c.ActualizarTotalesRemision(TxtFolio.Text, txtPartida.Text);
                 this.Close();
             }
 

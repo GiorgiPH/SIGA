@@ -523,11 +523,11 @@ namespace PV
                     return false;
                 }
 
-                if (descuento > (recargos + recargosAcumulados))
-                {
-                    MessageBox.Show("No es posible ingresar un descuento mayor al total de los recargos");
-                    return false;
-                }
+                //if (descuento > (recargos + recargosAcumulados))
+                //{
+                //    MessageBox.Show("No es posible ingresar un descuento mayor al total de los recargos");
+                //    return false;
+                //}
             }
             return true;
         }
@@ -784,7 +784,7 @@ namespace PV
             }
             else
             {
-                MessageBox.Show("Seleccione el Propietario");
+                MessageBox.Show("Seleccione el Cliente");
             }
         }
 
@@ -826,25 +826,25 @@ namespace PV
                         decimal Importe = 0.00M;
                         decimal Saldo = 0.00M;
 
-                        if (dgvPagosPendientes.Rows[e.RowIndex].Cells[8].Value != null)
+                        if (dgvPagosPendientes.Rows[e.RowIndex].Cells["Importe"].Value != null)
                         {
-                            Importe = Convert.ToDecimal(dgvPagosPendientes.Rows[e.RowIndex].Cells[8].Value.ToString());
+                            Importe = Convert.ToDecimal(dgvPagosPendientes.Rows[e.RowIndex].Cells["Importe"].Value.ToString());
                         }
-                        if (dgvPagosPendientes.Rows[e.RowIndex].Cells[12].Value != null)
+                        if (dgvPagosPendientes.Rows[e.RowIndex].Cells["RecargosAcumulados"].Value != null)
                         {
-                            Recargos = Convert.ToDecimal(dgvPagosPendientes.Rows[e.RowIndex].Cells[12].Value.ToString()) + Convert.ToDecimal(dgvPagosPendientes.Rows[e.RowIndex].Cells[13].Value.ToString());
+                            Recargos = Convert.ToDecimal(dgvPagosPendientes.Rows[e.RowIndex].Cells["RecargosAcumulados"].Value.ToString());
                         }
                         else
                         {
                             dgvPagosPendientes.Rows[e.RowIndex].Cells[12].Value = 0.00;
                         }
-                        if (dgvPagosPendientes.Rows[e.RowIndex].Cells[16].Value != null)
+                        if (dgvPagosPendientes.Rows[e.RowIndex].Cells["Descuento"].Value != null)
                         {
-                            Descuentos = Convert.ToDecimal(dgvPagosPendientes.Rows[e.RowIndex].Cells[16].Value.ToString());
+                            Descuentos = Convert.ToDecimal(dgvPagosPendientes.Rows[e.RowIndex].Cells["Descuento"].Value.ToString());
                         }
                         else
                         {
-                            dgvPagosPendientes.Rows[e.RowIndex].Cells[16].Value = 0.00;
+                            dgvPagosPendientes.Rows[e.RowIndex].Cells["Descuento"].Value = 0.00;
                         }
 
 
@@ -862,9 +862,9 @@ namespace PV
                             if (row.Cells["Seleccionar"].Value != null && (bool)row.Cells["Seleccionar"].Value == true)
                             {
 
-                                if (row.Cells["Recargos"].Value != null)
+                                if (row.Cells["RecargosAcumulados"].Value != null)
                                 {
-                                    TotalRecargos = TotalRecargos + Convert.ToDecimal(row.Cells["Recargos"].Value.ToString()) + Convert.ToDecimal(row.Cells["RecargosAcumulados"].Value.ToString());
+                                    TotalRecargos = TotalRecargos + Convert.ToDecimal(row.Cells["RecargosAcumulados"].Value.ToString());
                                     txtRecargos.Text = TotalRecargos.ToString("N", formato);
                                 }
                                 if (row.Cells["Descuento"].Value != null)
@@ -872,7 +872,7 @@ namespace PV
                                     TotalDescuentos = TotalDescuentos + Convert.ToDecimal(row.Cells["Descuento"].Value.ToString());
                                     txtDescuentos.Text = TotalDescuentos.ToString("N", formato);
                                 }
-                                Subtotal = Subtotal + Convert.ToDecimal(row.Cells["SaldoActual"].Value.ToString());
+                                Subtotal = Subtotal + Convert.ToDecimal(row.Cells["Importe"].Value.ToString());
                                 txtSubtotal.Text = Subtotal.ToString("N", formato);
 
                                 txtTotal.Text = (Convert.ToDecimal(txtSubtotal.Text) + Convert.ToDecimal(txtRecargos.Text) - Convert.ToDecimal(txtDescuentos.Text)).ToString("N", formato);
@@ -913,9 +913,9 @@ namespace PV
                         {
                             if (row.Cells["Seleccionar"].Value != null && (bool)row.Cells["Seleccionar"].Value == true)
                             {
-                                if (row.Cells["Recargos"].Value != null)
+                                if (row.Cells["RecargosAcumulados"].Value != null)
                                 {
-                                    TotalRecargos = TotalRecargos + Convert.ToDecimal(row.Cells["Recargos"].Value.ToString()) + Convert.ToDecimal(row.Cells["RecargosAcumulados"].Value.ToString());
+                                    TotalRecargos = TotalRecargos + Convert.ToDecimal(row.Cells["RecargosAcumulados"].Value.ToString());
                                     txtRecargos.Text = TotalRecargos.ToString("N", formato);
                                 }
                                 if (row.Cells["Descuento"].Value != null)
@@ -923,7 +923,7 @@ namespace PV
                                     TotalDescuentos = TotalDescuentos + Convert.ToDecimal(row.Cells["Descuento"].Value.ToString());
                                     txtDescuentos.Text = TotalDescuentos.ToString("N", formato);
                                 }
-                                Subtotal = Subtotal + Convert.ToDecimal(row.Cells["SaldoActual"].Value.ToString());
+                                Subtotal = Subtotal + Convert.ToDecimal(row.Cells["Importe"].Value.ToString());
                                 txtSubtotal.Text = Subtotal.ToString("N", formato);
 
                                 txtTotal.Text = (Convert.ToDecimal(txtSubtotal.Text) + Convert.ToDecimal(txtRecargos.Text) - Convert.ToDecimal(txtDescuentos.Text)).ToString("N", formato);
@@ -978,25 +978,25 @@ namespace PV
                                 decimal Importe = 0.00M;
                                 decimal Saldo = 0.00M;
 
-                                if (dgvPagosPendientes.Rows[e.RowIndex].Cells[8].Value != null)
+                                if (dgvPagosPendientes.Rows[e.RowIndex].Cells["Importe"].Value != null)
                                 {
-                                    Importe = Convert.ToDecimal(dgvPagosPendientes.Rows[e.RowIndex].Cells[8].Value.ToString());
+                                    Importe = Convert.ToDecimal(dgvPagosPendientes.Rows[e.RowIndex].Cells["Importe"].Value.ToString());
                                 }
-                                if (dgvPagosPendientes.Rows[e.RowIndex].Cells[12].Value != null)
+                                if (dgvPagosPendientes.Rows[e.RowIndex].Cells["RecargosAcumulados"].Value != null)
                                 {
-                                    Recargos = Convert.ToDecimal(dgvPagosPendientes.Rows[e.RowIndex].Cells[12].Value.ToString()) + Convert.ToDecimal(dgvPagosPendientes.Rows[e.RowIndex].Cells[13].Value.ToString());
+                                    Recargos = Convert.ToDecimal(dgvPagosPendientes.Rows[e.RowIndex].Cells["RecargosAcumulados"].Value.ToString()) + Convert.ToDecimal(dgvPagosPendientes.Rows[e.RowIndex].Cells[13].Value.ToString());
                                 }
                                 else
                                 {
                                     dgvPagosPendientes.Rows[e.RowIndex].Cells[12].Value = 0.00;
                                 }
-                                if (dgvPagosPendientes.Rows[e.RowIndex].Cells[16].Value != null)
+                                if (dgvPagosPendientes.Rows[e.RowIndex].Cells["Descuento"].Value != null)
                                 {
-                                    Descuentos = Convert.ToDecimal(dgvPagosPendientes.Rows[e.RowIndex].Cells[16].Value.ToString());
+                                    Descuentos = Convert.ToDecimal(dgvPagosPendientes.Rows[e.RowIndex].Cells["Descuento"].Value.ToString());
                                 }
                                 else
                                 {
-                                    dgvPagosPendientes.Rows[e.RowIndex].Cells[16].Value = 0.00;
+                                    dgvPagosPendientes.Rows[e.RowIndex].Cells["Descuento"].Value = 0.00;
                                 }
 
 
@@ -1013,9 +1013,9 @@ namespace PV
                             {
                                 if (row.Cells["Seleccionar"].Value != null && (bool)row.Cells["Seleccionar"].Value == true)
                                 {
-                                    if (row.Cells["Recargos"].Value != null)
+                                    if (row.Cells["RecargosAcumulados"].Value != null)
                                     {
-                                        TotalRecargos = TotalRecargos + Convert.ToDecimal(row.Cells["Recargos"].Value.ToString()) + Convert.ToDecimal(row.Cells["RecargosAcumulados"].Value.ToString());
+                                        TotalRecargos = TotalRecargos + Convert.ToDecimal(row.Cells["RecargosAcumulados"].Value.ToString());
                                         txtRecargos.Text = TotalRecargos.ToString("N", formato);
                                     }
                                     if (row.Cells["Descuento"].Value != null)
@@ -1023,7 +1023,7 @@ namespace PV
                                         TotalDescuentos = TotalDescuentos + Convert.ToDecimal(row.Cells["Descuento"].Value.ToString());
                                         txtDescuentos.Text = TotalDescuentos.ToString("N", formato);
                                     }
-                                    Subtotal = Subtotal + Convert.ToDecimal(row.Cells["SaldoActual"].Value.ToString());
+                                    Subtotal = Subtotal + Convert.ToDecimal(row.Cells["Importe"].Value.ToString());
                                     txtSubtotal.Text = Subtotal.ToString("N", formato);
 
                                     txtTotal.Text = (Convert.ToDecimal(txtSubtotal.Text) + Convert.ToDecimal(txtRecargos.Text) - Convert.ToDecimal(txtDescuentos.Text)).ToString("N", formato);
@@ -1078,25 +1078,25 @@ namespace PV
                                 decimal Importe = 0.00M;
                                 decimal Saldo = 0.00M;
 
-                                if (dgvPagosPendientes.Rows[e.RowIndex].Cells[8].Value != null)
+                                if (dgvPagosPendientes.Rows[e.RowIndex].Cells["Importe"].Value != null)
                                 {
-                                    Importe = Convert.ToDecimal(dgvPagosPendientes.Rows[e.RowIndex].Cells[8].Value.ToString());
+                                    Importe = Convert.ToDecimal(dgvPagosPendientes.Rows[e.RowIndex].Cells["Importe"].Value.ToString());
                                 }
-                                if (dgvPagosPendientes.Rows[e.RowIndex].Cells[12].Value != null)
+                                if (dgvPagosPendientes.Rows[e.RowIndex].Cells["RecargosAcumulados"].Value != null)
                                 {
-                                    Recargos = Convert.ToDecimal(dgvPagosPendientes.Rows[e.RowIndex].Cells[12].Value.ToString()) + Convert.ToDecimal(dgvPagosPendientes.Rows[e.RowIndex].Cells[13].Value.ToString());
+                                    Recargos = Convert.ToDecimal(dgvPagosPendientes.Rows[e.RowIndex].Cells["RecargosAcumulados"].Value.ToString()) + Convert.ToDecimal(dgvPagosPendientes.Rows[e.RowIndex].Cells[13].Value.ToString());
                                 }
                                 else
                                 {
                                     dgvPagosPendientes.Rows[e.RowIndex].Cells[12].Value = 0.00;
                                 }
-                                if (dgvPagosPendientes.Rows[e.RowIndex].Cells[16].Value != null)
+                                if (dgvPagosPendientes.Rows[e.RowIndex].Cells["Descuento"].Value != null)
                                 {
-                                    Descuentos = Convert.ToDecimal(dgvPagosPendientes.Rows[e.RowIndex].Cells[16].Value.ToString());
+                                    Descuentos = Convert.ToDecimal(dgvPagosPendientes.Rows[e.RowIndex].Cells["Descuento"].Value.ToString());
                                 }
                                 else
                                 {
-                                    dgvPagosPendientes.Rows[e.RowIndex].Cells[16].Value = 0.00;
+                                    dgvPagosPendientes.Rows[e.RowIndex].Cells["Descuento"].Value = 0.00;
                                 }
 
 
@@ -1113,9 +1113,9 @@ namespace PV
                             {
                                 if (row.Cells["Seleccionar"].Value != null && (bool)row.Cells["Seleccionar"].Value == true)
                                 {
-                                    if (row.Cells["Recargos"].Value != null)
+                                    if (row.Cells["RecargosAcumulados"].Value != null)
                                     {
-                                        TotalRecargos = TotalRecargos + Convert.ToDecimal(row.Cells["Recargos"].Value.ToString()) + Convert.ToDecimal(row.Cells["RecargosAcumulados"].Value.ToString());
+                                        TotalRecargos = TotalRecargos + Convert.ToDecimal(row.Cells["RecargosAcumulados"].Value.ToString());
                                         txtRecargos.Text = TotalRecargos.ToString("N", formato);
                                     }
                                     if (row.Cells["Descuento"].Value != null)
@@ -1123,7 +1123,7 @@ namespace PV
                                         TotalDescuentos = TotalDescuentos + Convert.ToDecimal(row.Cells["Descuento"].Value.ToString());
                                         txtDescuentos.Text = TotalDescuentos.ToString("N", formato);
                                     }
-                                    Subtotal = Subtotal + Convert.ToDecimal(row.Cells["SaldoActual"].Value.ToString());
+                                    Subtotal = Subtotal + Convert.ToDecimal(row.Cells["Importe"].Value.ToString());
                                     txtSubtotal.Text = Subtotal.ToString("N", formato);
 
                                     txtTotal.Text = (Convert.ToDecimal(txtSubtotal.Text) + Convert.ToDecimal(txtRecargos.Text) - Convert.ToDecimal(txtDescuentos.Text)).ToString("N", formato);

@@ -62,6 +62,7 @@
             this.txtTipoCambio = new Guna.UI2.WinForms.Guna2TextBox();
             this.txtConcepto = new Guna.UI2.WinForms.Guna2TextBox();
             this.btnBuscar = new Guna.UI2.WinForms.Guna2Button();
+            this.dtpFecha = new Guna.UI2.WinForms.Guna2DateTimePicker();
             this.txtAlumno = new Guna.UI2.WinForms.Guna2TextBox();
             this.txtMatricula = new Guna.UI2.WinForms.Guna2TextBox();
             this.txtCaja = new Guna.UI2.WinForms.Guna2TextBox();
@@ -87,11 +88,10 @@
             this.txtFolioPedido = new System.Windows.Forms.TextBox();
             this.label18 = new System.Windows.Forms.Label();
             this.guna2CircleButton1 = new Guna.UI2.WinForms.Guna2CircleButton();
-            this.dtpFecha = new Guna.UI2.WinForms.Guna2DateTimePicker();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.Saldo = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Propietario = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Folio = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Propietario = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Saldo = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.label12 = new System.Windows.Forms.Label();
             this.txtFiltro = new Guna.UI2.WinForms.Guna2TextBox();
             this.PanelUsuario = new System.Windows.Forms.Panel();
@@ -576,6 +576,25 @@
             this.btnBuscar.Text = "Buscar";
             this.btnBuscar.Click += new System.EventHandler(this.btnBuscar_Click);
             // 
+            // dtpFecha
+            // 
+            this.dtpFecha.AutoRoundedCorners = true;
+            this.dtpFecha.BackColor = System.Drawing.Color.Transparent;
+            this.dtpFecha.BorderRadius = 10;
+            this.dtpFecha.Checked = true;
+            this.dtpFecha.CustomFormat = "yyyy/MM/dd";
+            this.dtpFecha.FillColor = System.Drawing.Color.DodgerBlue;
+            this.dtpFecha.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.dtpFecha.ForeColor = System.Drawing.Color.White;
+            this.dtpFecha.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.dtpFecha.Location = new System.Drawing.Point(502, 34);
+            this.dtpFecha.MaxDate = new System.DateTime(9998, 12, 31, 0, 0, 0, 0);
+            this.dtpFecha.MinDate = new System.DateTime(1753, 1, 1, 0, 0, 0, 0);
+            this.dtpFecha.Name = "dtpFecha";
+            this.dtpFecha.Size = new System.Drawing.Size(118, 22);
+            this.dtpFecha.TabIndex = 2;
+            this.dtpFecha.Value = new System.DateTime(2022, 11, 4, 18, 45, 56, 112);
+            // 
             // txtAlumno
             // 
             this.txtAlumno.AutoRoundedCorners = true;
@@ -972,25 +991,6 @@
             this.guna2CircleButton1.TabIndex = 79;
             this.guna2CircleButton1.Click += new System.EventHandler(this.guna2CircleButton1_Click);
             // 
-            // dtpFecha
-            // 
-            this.dtpFecha.AutoRoundedCorners = true;
-            this.dtpFecha.BackColor = System.Drawing.Color.Transparent;
-            this.dtpFecha.BorderRadius = 10;
-            this.dtpFecha.Checked = true;
-            this.dtpFecha.CustomFormat = "yyyy/MM/dd";
-            this.dtpFecha.FillColor = System.Drawing.Color.DodgerBlue;
-            this.dtpFecha.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.dtpFecha.ForeColor = System.Drawing.Color.White;
-            this.dtpFecha.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dtpFecha.Location = new System.Drawing.Point(502, 34);
-            this.dtpFecha.MaxDate = new System.DateTime(9998, 12, 31, 0, 0, 0, 0);
-            this.dtpFecha.MinDate = new System.DateTime(1753, 1, 1, 0, 0, 0, 0);
-            this.dtpFecha.Name = "dtpFecha";
-            this.dtpFecha.Size = new System.Drawing.Size(118, 22);
-            this.dtpFecha.TabIndex = 2;
-            this.dtpFecha.Value = new System.DateTime(2022, 11, 4, 18, 45, 56, 112);
-            // 
             // dataGridView1
             // 
             this.dataGridView1.AllowUserToAddRows = false;
@@ -1039,13 +1039,13 @@
             this.dataGridView1.TabIndex = 0;
             this.dataGridView1.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellDoubleClick);
             // 
-            // Saldo
+            // Folio
             // 
-            this.Saldo.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
-            this.Saldo.HeaderText = "Saldo";
-            this.Saldo.Name = "Saldo";
-            this.Saldo.ReadOnly = true;
-            this.Saldo.Width = 57;
+            this.Folio.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
+            this.Folio.HeaderText = "Folio";
+            this.Folio.Name = "Folio";
+            this.Folio.ReadOnly = true;
+            this.Folio.Width = 52;
             // 
             // Propietario
             // 
@@ -1054,13 +1054,13 @@
             this.Propietario.Name = "Propietario";
             this.Propietario.ReadOnly = true;
             // 
-            // Folio
+            // Saldo
             // 
-            this.Folio.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
-            this.Folio.HeaderText = "Folio";
-            this.Folio.Name = "Folio";
-            this.Folio.ReadOnly = true;
-            this.Folio.Width = 52;
+            this.Saldo.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
+            this.Saldo.HeaderText = "Saldo";
+            this.Saldo.Name = "Saldo";
+            this.Saldo.ReadOnly = true;
+            this.Saldo.Width = 57;
             // 
             // label12
             // 

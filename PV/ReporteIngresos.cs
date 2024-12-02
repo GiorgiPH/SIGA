@@ -108,7 +108,7 @@ namespace PV
             FROM 
                 Cobros AS C
             JOIN 
-                Remision AS R ON C.Folio = R.Folio
+                Remision AS R ON C.conceptoId = R.Folio and C.TipoConcepto='Remision'
             JOIN 
                 Documento AS D ON R.ClaveDocumento = D.Clave
             JOIN 

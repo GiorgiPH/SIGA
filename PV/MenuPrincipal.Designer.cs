@@ -267,6 +267,10 @@
             this.btnventas2 = new Guna.UI2.WinForms.Guna2GradientButton();
             this.guna2HtmlLabel1 = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.guna2VScrollBar1 = new Guna.UI2.WinForms.Guna2VScrollBar();
+            this.guna2GroupBox1 = new Guna.UI2.WinForms.Guna2GroupBox();
+            this.guna2GradientButton7 = new Guna.UI2.WinForms.Guna2GradientButton();
+            this.guna2GradientButton8 = new Guna.UI2.WinForms.Guna2GradientButton();
+            this.guna2GradientButton53 = new Guna.UI2.WinForms.Guna2GradientButton();
             this.guna2Panel1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             this.guna2Panel3.SuspendLayout();
@@ -292,6 +296,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.GroupCatalogo.SuspendLayout();
             this.guna2Panel5.SuspendLayout();
+            this.guna2GroupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // administracionDeGruposToolStripMenuItem
@@ -1348,6 +1353,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.guna2Panel2.BackColor = System.Drawing.Color.Transparent;
             this.guna2Panel2.BorderRadius = 20;
+            this.guna2Panel2.Controls.Add(this.guna2GroupBox1);
             this.guna2Panel2.Controls.Add(this.GrupoCompras);
             this.guna2Panel2.Controls.Add(this.subgrupoPresupuesto3);
             this.guna2Panel2.Controls.Add(this.subgrupoPresupuesto1);
@@ -3896,6 +3902,91 @@
             this.guna2VScrollBar1.Size = new System.Drawing.Size(34, 455);
             this.guna2VScrollBar1.TabIndex = 59;
             // 
+            // guna2GroupBox1
+            // 
+            this.guna2GroupBox1.BackColor = System.Drawing.Color.DodgerBlue;
+            this.guna2GroupBox1.BorderColor = System.Drawing.Color.White;
+            this.guna2GroupBox1.BorderThickness = 0;
+            this.guna2GroupBox1.Controls.Add(this.guna2GradientButton7);
+            this.guna2GroupBox1.Controls.Add(this.guna2GradientButton8);
+            this.guna2GroupBox1.Controls.Add(this.guna2GradientButton53);
+            this.guna2GroupBox1.CustomBorderColor = System.Drawing.Color.DodgerBlue;
+            this.guna2GroupBox1.FillColor = System.Drawing.Color.DodgerBlue;
+            this.guna2GroupBox1.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.guna2GroupBox1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(19)))), ((int)(((byte)(35)))), ((int)(((byte)(95)))));
+            this.guna2GroupBox1.Location = new System.Drawing.Point(423, 344);
+            this.guna2GroupBox1.Name = "guna2GroupBox1";
+            this.guna2GroupBox1.Size = new System.Drawing.Size(195, 147);
+            this.guna2GroupBox1.TabIndex = 68;
+            this.guna2GroupBox1.Visible = false;
+            // 
+            // guna2GradientButton7
+            // 
+            this.guna2GradientButton7.BorderColor = System.Drawing.Color.White;
+            this.guna2GradientButton7.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.guna2GradientButton7.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.guna2GradientButton7.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.guna2GradientButton7.DisabledState.FillColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.guna2GradientButton7.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.guna2GradientButton7.Enabled = false;
+            this.guna2GradientButton7.FillColor = System.Drawing.Color.Empty;
+            this.guna2GradientButton7.FillColor2 = System.Drawing.Color.Empty;
+            this.guna2GradientButton7.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.guna2GradientButton7.ForeColor = System.Drawing.Color.White;
+            this.guna2GradientButton7.HoverState.FillColor = System.Drawing.Color.DimGray;
+            this.guna2GradientButton7.HoverState.FillColor2 = System.Drawing.Color.DimGray;
+            this.guna2GradientButton7.ImageAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.guna2GradientButton7.Location = new System.Drawing.Point(7, 97);
+            this.guna2GradientButton7.Name = "guna2GradientButton7";
+            this.guna2GradientButton7.Size = new System.Drawing.Size(180, 45);
+            this.guna2GradientButton7.TabIndex = 5;
+            this.guna2GradientButton7.Text = "Antiguedad de saldos";
+            this.guna2GradientButton7.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            // 
+            // guna2GradientButton8
+            // 
+            this.guna2GradientButton8.BorderColor = System.Drawing.Color.White;
+            this.guna2GradientButton8.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.guna2GradientButton8.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.guna2GradientButton8.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.guna2GradientButton8.DisabledState.FillColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.guna2GradientButton8.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.guna2GradientButton8.FillColor = System.Drawing.Color.Empty;
+            this.guna2GradientButton8.FillColor2 = System.Drawing.Color.Empty;
+            this.guna2GradientButton8.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.guna2GradientButton8.ForeColor = System.Drawing.Color.White;
+            this.guna2GradientButton8.HoverState.FillColor = System.Drawing.Color.DimGray;
+            this.guna2GradientButton8.HoverState.FillColor2 = System.Drawing.Color.DimGray;
+            this.guna2GradientButton8.ImageAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.guna2GradientButton8.Location = new System.Drawing.Point(7, 51);
+            this.guna2GradientButton8.Name = "guna2GradientButton8";
+            this.guna2GradientButton8.Size = new System.Drawing.Size(180, 45);
+            this.guna2GradientButton8.TabIndex = 4;
+            this.guna2GradientButton8.Text = "Reporte Saldos Cliente Detallados";
+            this.guna2GradientButton8.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            // 
+            // guna2GradientButton53
+            // 
+            this.guna2GradientButton53.BorderColor = System.Drawing.Color.White;
+            this.guna2GradientButton53.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.guna2GradientButton53.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.guna2GradientButton53.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.guna2GradientButton53.DisabledState.FillColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.guna2GradientButton53.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.guna2GradientButton53.FillColor = System.Drawing.Color.Empty;
+            this.guna2GradientButton53.FillColor2 = System.Drawing.Color.Empty;
+            this.guna2GradientButton53.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.guna2GradientButton53.ForeColor = System.Drawing.Color.White;
+            this.guna2GradientButton53.HoverState.FillColor = System.Drawing.Color.DimGray;
+            this.guna2GradientButton53.HoverState.FillColor2 = System.Drawing.Color.DimGray;
+            this.guna2GradientButton53.ImageAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.guna2GradientButton53.Location = new System.Drawing.Point(7, 5);
+            this.guna2GradientButton53.Name = "guna2GradientButton53";
+            this.guna2GradientButton53.Size = new System.Drawing.Size(180, 45);
+            this.guna2GradientButton53.TabIndex = 3;
+            this.guna2GradientButton53.Text = "Reporte Saldos Cliente";
+            this.guna2GradientButton53.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            // 
             // MenuPrincipal
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
@@ -3944,6 +4035,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.GroupCatalogo.ResumeLayout(false);
             this.guna2Panel5.ResumeLayout(false);
+            this.guna2GroupBox1.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -4188,5 +4280,9 @@
         private Guna.UI2.WinForms.Guna2GradientButton guna2GradientButton50;
         private Guna.UI2.WinForms.Guna2GradientButton guna2GradientButton51;
         private Guna.UI2.WinForms.Guna2GradientButton guna2GradientButton52;
+        private Guna.UI2.WinForms.Guna2GroupBox guna2GroupBox1;
+        private Guna.UI2.WinForms.Guna2GradientButton guna2GradientButton7;
+        private Guna.UI2.WinForms.Guna2GradientButton guna2GradientButton8;
+        private Guna.UI2.WinForms.Guna2GradientButton guna2GradientButton53;
     }
 }

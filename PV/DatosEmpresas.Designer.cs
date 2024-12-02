@@ -56,6 +56,7 @@
             this.guna2CircleButton1 = new Guna.UI2.WinForms.Guna2CircleButton();
             this.guna2HtmlLabel1 = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.guna2Panel2 = new Guna.UI2.WinForms.Guna2Panel();
+            this.cmbSSL = new Guna.UI2.WinForms.Guna2ComboBox();
             this.guna2GradientPanel2 = new Guna.UI2.WinForms.Guna2GradientPanel();
             this.Foto = new Guna.UI2.WinForms.Guna2CirclePictureBox();
             this.guna2Button2 = new Guna.UI2.WinForms.Guna2Button();
@@ -77,9 +78,15 @@
             this.txtRazonSocial = new Guna.UI2.WinForms.Guna2TextBox();
             this.label37 = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.txtServidor = new Guna.UI2.WinForms.Guna2TextBox();
+            this.txtHost = new Guna.UI2.WinForms.Guna2TextBox();
+            this.txtPuerto = new Guna.UI2.WinForms.Guna2TextBox();
             this.txtCorreo = new Guna.UI2.WinForms.Guna2TextBox();
             this.txtContraseña = new Guna.UI2.WinForms.Guna2TextBox();
             this.label27 = new System.Windows.Forms.Label();
+            this.label41 = new System.Windows.Forms.Label();
+            this.label40 = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
@@ -140,13 +147,6 @@
             this.txtDocumento = new System.Windows.Forms.TextBox();
             this.txtClave = new System.Windows.Forms.TextBox();
             this.label26 = new System.Windows.Forms.Label();
-            this.txtServidor = new Guna.UI2.WinForms.Guna2TextBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label40 = new System.Windows.Forms.Label();
-            this.label41 = new System.Windows.Forms.Label();
-            this.txtPuerto = new Guna.UI2.WinForms.Guna2TextBox();
-            this.txtHost = new Guna.UI2.WinForms.Guna2TextBox();
-            this.cmbSSL = new Guna.UI2.WinForms.Guna2ComboBox();
             this.panel2.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.groupBox4.SuspendLayout();
@@ -485,7 +485,6 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.guna2Panel2.BackColor = System.Drawing.Color.Transparent;
             this.guna2Panel2.BorderRadius = 20;
-            this.guna2Panel2.Controls.Add(this.cmbSSL);
             this.guna2Panel2.Controls.Add(this.guna2GradientPanel2);
             this.guna2Panel2.Controls.Add(this.txtLeyendaTicket);
             this.guna2Panel2.Controls.Add(this.label22);
@@ -499,6 +498,28 @@
             this.guna2Panel2.Name = "guna2Panel2";
             this.guna2Panel2.Size = new System.Drawing.Size(1020, 613);
             this.guna2Panel2.TabIndex = 173;
+            // 
+            // cmbSSL
+            // 
+            this.cmbSSL.AutoRoundedCorners = true;
+            this.cmbSSL.BackColor = System.Drawing.Color.Transparent;
+            this.cmbSSL.BorderColor = System.Drawing.Color.Gray;
+            this.cmbSSL.BorderRadius = 12;
+            this.cmbSSL.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
+            this.cmbSSL.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbSSL.FocusedColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.cmbSSL.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.cmbSSL.Font = new System.Drawing.Font("Segoe UI", 10F);
+            this.cmbSSL.ForeColor = System.Drawing.Color.Black;
+            this.cmbSSL.IntegralHeight = false;
+            this.cmbSSL.ItemHeight = 20;
+            this.cmbSSL.Items.AddRange(new object[] {
+            "true",
+            "false"});
+            this.cmbSSL.Location = new System.Drawing.Point(406, 87);
+            this.cmbSSL.Name = "cmbSSL";
+            this.cmbSSL.Size = new System.Drawing.Size(123, 26);
+            this.cmbSSL.TabIndex = 364;
             // 
             // guna2GradientPanel2
             // 
@@ -901,6 +922,7 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.cmbSSL);
             this.groupBox2.Controls.Add(this.txtServidor);
             this.groupBox2.Controls.Add(this.txtHost);
             this.groupBox2.Controls.Add(this.txtPuerto);
@@ -918,6 +940,75 @@
             this.groupBox2.TabIndex = 9;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "EMAIL PARA AVISOS";
+            // 
+            // txtServidor
+            // 
+            this.txtServidor.AutoRoundedCorners = true;
+            this.txtServidor.BorderColor = System.Drawing.Color.Gray;
+            this.txtServidor.BorderRadius = 11;
+            this.txtServidor.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.txtServidor.DefaultText = "";
+            this.txtServidor.DisabledState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(208)))), ((int)(((byte)(208)))));
+            this.txtServidor.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(226)))), ((int)(((byte)(226)))));
+            this.txtServidor.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
+            this.txtServidor.DisabledState.PlaceholderForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
+            this.txtServidor.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.txtServidor.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.txtServidor.ForeColor = System.Drawing.Color.Black;
+            this.txtServidor.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.txtServidor.Location = new System.Drawing.Point(351, 19);
+            this.txtServidor.Name = "txtServidor";
+            this.txtServidor.PasswordChar = '\0';
+            this.txtServidor.PlaceholderText = "";
+            this.txtServidor.SelectedText = "";
+            this.txtServidor.Size = new System.Drawing.Size(179, 25);
+            this.txtServidor.TabIndex = 167;
+            // 
+            // txtHost
+            // 
+            this.txtHost.AutoRoundedCorners = true;
+            this.txtHost.BorderColor = System.Drawing.Color.Gray;
+            this.txtHost.BorderRadius = 11;
+            this.txtHost.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.txtHost.DefaultText = "";
+            this.txtHost.DisabledState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(208)))), ((int)(((byte)(208)))));
+            this.txtHost.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(226)))), ((int)(((byte)(226)))));
+            this.txtHost.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
+            this.txtHost.DisabledState.PlaceholderForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
+            this.txtHost.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.txtHost.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.txtHost.ForeColor = System.Drawing.Color.Black;
+            this.txtHost.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.txtHost.Location = new System.Drawing.Point(230, 88);
+            this.txtHost.Name = "txtHost";
+            this.txtHost.PasswordChar = '\0';
+            this.txtHost.PlaceholderText = "";
+            this.txtHost.SelectedText = "";
+            this.txtHost.Size = new System.Drawing.Size(124, 25);
+            this.txtHost.TabIndex = 167;
+            // 
+            // txtPuerto
+            // 
+            this.txtPuerto.AutoRoundedCorners = true;
+            this.txtPuerto.BorderColor = System.Drawing.Color.Gray;
+            this.txtPuerto.BorderRadius = 11;
+            this.txtPuerto.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.txtPuerto.DefaultText = "";
+            this.txtPuerto.DisabledState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(208)))), ((int)(((byte)(208)))));
+            this.txtPuerto.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(226)))), ((int)(((byte)(226)))));
+            this.txtPuerto.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
+            this.txtPuerto.DisabledState.PlaceholderForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
+            this.txtPuerto.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.txtPuerto.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.txtPuerto.ForeColor = System.Drawing.Color.Black;
+            this.txtPuerto.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.txtPuerto.Location = new System.Drawing.Point(84, 88);
+            this.txtPuerto.Name = "txtPuerto";
+            this.txtPuerto.PasswordChar = '\0';
+            this.txtPuerto.PlaceholderText = "";
+            this.txtPuerto.SelectedText = "";
+            this.txtPuerto.Size = new System.Drawing.Size(80, 25);
+            this.txtPuerto.TabIndex = 167;
             // 
             // txtCorreo
             // 
@@ -974,6 +1065,36 @@
             this.label27.Size = new System.Drawing.Size(19, 15);
             this.label27.TabIndex = 10;
             this.label27.Text = "@";
+            // 
+            // label41
+            // 
+            this.label41.AutoSize = true;
+            this.label41.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label41.Location = new System.Drawing.Point(367, 93);
+            this.label41.Name = "label41";
+            this.label41.Size = new System.Drawing.Size(33, 15);
+            this.label41.TabIndex = 8;
+            this.label41.Text = "SSL:";
+            // 
+            // label40
+            // 
+            this.label40.AutoSize = true;
+            this.label40.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label40.Location = new System.Drawing.Point(181, 93);
+            this.label40.Name = "label40";
+            this.label40.Size = new System.Drawing.Size(43, 15);
+            this.label40.TabIndex = 8;
+            this.label40.Text = "HOST:";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(18, 93);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(60, 15);
+            this.label1.TabIndex = 8;
+            this.label1.Text = "PUERTO:";
             // 
             // label3
             // 
@@ -1125,7 +1246,7 @@
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(603, 433);
+            this.tabPage2.Size = new System.Drawing.Size(603, 482);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "DIRECCIÓN ";
             // 
@@ -1370,7 +1491,7 @@
             this.tabPage3.Location = new System.Drawing.Point(4, 22);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(603, 433);
+            this.tabPage3.Size = new System.Drawing.Size(603, 482);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "PARAMETROS DE COBRANZA";
             // 
@@ -1774,127 +1895,6 @@
             this.label26.Size = new System.Drawing.Size(84, 15);
             this.label26.TabIndex = 39;
             this.label26.Text = "Documento:";
-            // 
-            // txtServidor
-            // 
-            this.txtServidor.AutoRoundedCorners = true;
-            this.txtServidor.BorderColor = System.Drawing.Color.Gray;
-            this.txtServidor.BorderRadius = 11;
-            this.txtServidor.Cursor = System.Windows.Forms.Cursors.IBeam;
-            this.txtServidor.DefaultText = "";
-            this.txtServidor.DisabledState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(208)))), ((int)(((byte)(208)))));
-            this.txtServidor.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(226)))), ((int)(((byte)(226)))));
-            this.txtServidor.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
-            this.txtServidor.DisabledState.PlaceholderForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
-            this.txtServidor.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.txtServidor.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.txtServidor.ForeColor = System.Drawing.Color.Black;
-            this.txtServidor.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.txtServidor.Location = new System.Drawing.Point(351, 19);
-            this.txtServidor.Name = "txtServidor";
-            this.txtServidor.PasswordChar = '\0';
-            this.txtServidor.PlaceholderText = "";
-            this.txtServidor.SelectedText = "";
-            this.txtServidor.Size = new System.Drawing.Size(179, 25);
-            this.txtServidor.TabIndex = 167;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(18, 93);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(60, 15);
-            this.label1.TabIndex = 8;
-            this.label1.Text = "PUERTO:";
-            // 
-            // label40
-            // 
-            this.label40.AutoSize = true;
-            this.label40.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label40.Location = new System.Drawing.Point(181, 93);
-            this.label40.Name = "label40";
-            this.label40.Size = new System.Drawing.Size(43, 15);
-            this.label40.TabIndex = 8;
-            this.label40.Text = "HOST:";
-            // 
-            // label41
-            // 
-            this.label41.AutoSize = true;
-            this.label41.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label41.Location = new System.Drawing.Point(367, 93);
-            this.label41.Name = "label41";
-            this.label41.Size = new System.Drawing.Size(33, 15);
-            this.label41.TabIndex = 8;
-            this.label41.Text = "SSL:";
-            // 
-            // txtPuerto
-            // 
-            this.txtPuerto.AutoRoundedCorners = true;
-            this.txtPuerto.BorderColor = System.Drawing.Color.Gray;
-            this.txtPuerto.BorderRadius = 11;
-            this.txtPuerto.Cursor = System.Windows.Forms.Cursors.IBeam;
-            this.txtPuerto.DefaultText = "";
-            this.txtPuerto.DisabledState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(208)))), ((int)(((byte)(208)))));
-            this.txtPuerto.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(226)))), ((int)(((byte)(226)))));
-            this.txtPuerto.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
-            this.txtPuerto.DisabledState.PlaceholderForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
-            this.txtPuerto.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.txtPuerto.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.txtPuerto.ForeColor = System.Drawing.Color.Black;
-            this.txtPuerto.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.txtPuerto.Location = new System.Drawing.Point(84, 88);
-            this.txtPuerto.Name = "txtPuerto";
-            this.txtPuerto.PasswordChar = '\0';
-            this.txtPuerto.PlaceholderText = "";
-            this.txtPuerto.SelectedText = "";
-            this.txtPuerto.Size = new System.Drawing.Size(80, 25);
-            this.txtPuerto.TabIndex = 167;
-            // 
-            // txtHost
-            // 
-            this.txtHost.AutoRoundedCorners = true;
-            this.txtHost.BorderColor = System.Drawing.Color.Gray;
-            this.txtHost.BorderRadius = 11;
-            this.txtHost.Cursor = System.Windows.Forms.Cursors.IBeam;
-            this.txtHost.DefaultText = "";
-            this.txtHost.DisabledState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(208)))), ((int)(((byte)(208)))));
-            this.txtHost.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(226)))), ((int)(((byte)(226)))));
-            this.txtHost.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
-            this.txtHost.DisabledState.PlaceholderForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
-            this.txtHost.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.txtHost.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.txtHost.ForeColor = System.Drawing.Color.Black;
-            this.txtHost.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.txtHost.Location = new System.Drawing.Point(230, 88);
-            this.txtHost.Name = "txtHost";
-            this.txtHost.PasswordChar = '\0';
-            this.txtHost.PlaceholderText = "";
-            this.txtHost.SelectedText = "";
-            this.txtHost.Size = new System.Drawing.Size(124, 25);
-            this.txtHost.TabIndex = 167;
-            // 
-            // cmbSSL
-            // 
-            this.cmbSSL.AutoRoundedCorners = true;
-            this.cmbSSL.BackColor = System.Drawing.Color.Transparent;
-            this.cmbSSL.BorderColor = System.Drawing.Color.Gray;
-            this.cmbSSL.BorderRadius = 12;
-            this.cmbSSL.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
-            this.cmbSSL.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbSSL.FocusedColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.cmbSSL.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.cmbSSL.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.cmbSSL.ForeColor = System.Drawing.Color.Black;
-            this.cmbSSL.IntegralHeight = false;
-            this.cmbSSL.ItemHeight = 20;
-            this.cmbSSL.Items.AddRange(new object[] {
-            "true",
-            "false"});
-            this.cmbSSL.Location = new System.Drawing.Point(445, 408);
-            this.cmbSSL.Name = "cmbSSL";
-            this.cmbSSL.Size = new System.Drawing.Size(123, 26);
-            this.cmbSSL.TabIndex = 364;
             // 
             // DatosEmpresas
             // 

@@ -12,17 +12,24 @@ using System.Net.Mail;
 using System.IO;
 using Microsoft.Reporting.WinForms;
 using System.Drawing.Printing;
+using PV.Clases;
+using PV.Clases.Clientes;
+using PV.Clases.Remision;
 
 namespace PV
 {
     public partial class ReciboCobranza : Form
     {
         DBOrdenCompra c = new DBOrdenCompra();
+        DBClientes cl= new DBClientes();
+        DBRemiision r = new DBRemiision();
         string folio = string.Empty;
         string Correo = string.Empty;
         string Correo2 = string.Empty;
         string cliente = string.Empty;
         public static string Carpeta = string.Empty;
+        string[] valores = null;
+        string[] valoresR = null;
 
         public ReciboCobranza(string Folio, string propietario)
         {
@@ -51,34 +58,49 @@ namespace PV
 
 
             c.ruta();
-            c.Consultapropicorreo(cliente, txtcorreo, txtcorreo2);
+            valores = cl.InformacionCliente(cliente);
+            valoresR = r.InformacionRemision(folio);
+
             Correo = txtcorreo.Text;
             Correo2 = txtcorreo2.Text;
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            try
-            {
-                SavePDF(reportViewer1);
-            }
-            catch (Exception)
-            {
+            //try
+            //{
+            //    SavePDF(reportViewer1);
+            //}
+            //catch (Exception)
+            //{
 
-                MessageBox.Show("Revisar la ruta en Parametros -> Datos Condominio");
-                return;
-            }
-            try
+            //    MessageBox.Show("Revisar la ruta en Parametros -> Datos Condominio");
+            //    return;
+            //}
+            //try
+            //{
+            //    enviarcorreo();
+            //}
+            //catch (Exception)
+            //{
+            //    MessageBox.Show("No es posible enviar correos, revise los datos de correo en Parametros -> Datos Condominio o los permisos de seguridad de su correo");
+            //    return;
+            //}
+
+            string carpeta = Utilerias.SavePDF(reportViewer1, "Pagos", valoresR[1], valoresR[4]);
+            bool enviado = CorreosMasivos.EnviarCorreos(
+                        "Pago Remision",
+                        "",
+                        Utilerias.ConvertirReportViewerAPdf(reportViewer1),
+                        "Pago-Remision-" + valoresR[4] + ".pdf",
+                        valores[5]);
+
+            if (enviado)
             {
-                enviarcorreo();
+                MessageBox.Show("Correo enviado exitosamente");
             }
-            catch (Exception)
-            {
-                MessageBox.Show("No es posible enviar correos, revise los datos de correo en Parametros -> Datos Condominio o los permisos de seguridad de su correo");
-                return;
-            }
-          
-          
+
+
         }
 
         public void SavePDF(ReportViewer viewer)

@@ -205,26 +205,7 @@ namespace PuntoVentas.Clases.ProductosServicios
             return mensaje;
 
         }
-        public string RegistroOrdenCliente(string txtClaveProducto, string Pedido)
-        {
-            string mensaje = "";
-            int contador = 0;
 
-            try
-            {
-                cmd = new SqlCommand("Update ProductosServicios Set PedidosCliente=PedidosCliente+@Pedido Where claveProducto=@Clave", cn);
-                cmd.Parameters.AddWithValue("@Pedido", Pedido);
-                cmd.Parameters.AddWithValue("@Clave", txtClaveProducto);
-                cmd.ExecuteNonQuery();
-                mensaje = "Registro Eliminado";
-            }
-            catch (Exception)
-            {
-                mensaje = "El registro esta en uso, no es posible eliminar";
-            }
-            return mensaje;
-
-        }
         //___________________________________________________________________________________________________________________
         public void Monto(KeyPressEventArgs e)
         {
@@ -560,6 +541,26 @@ namespace PuntoVentas.Clases.ProductosServicios
                mensaje="El registro esta en uso, no es posible eliminar";
             }
             return mensaje;
+        }
+        public string EliminarOrdenCliente(string Folio, string Partida)
+        {
+            string mensaje = "";
+            int contador = 0;
+
+            try
+            {
+                cmd = new SqlCommand("Update  P  Set PedidosCliente=P.PedidosCliente-PO.Cantidad From ProductosServicios as P Join PartidaOrdenPedidoCliente as PO ON P.claveProducto=PO.ClaveProducto Where PO.FolioOrden=@Folio and PO.Partida=@Partida", cn);
+                cmd.Parameters.AddWithValue("@Folio", Folio);
+                cmd.Parameters.AddWithValue("@Partida", Partida);
+                cmd.ExecuteNonQuery();
+                mensaje = "Registro Eliminado";
+            }
+            catch (Exception)
+            {
+                mensaje = "El registro esta en uso, no es posible eliminar";
+            }
+            return mensaje;
+
         }
     }
 }

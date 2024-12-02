@@ -225,7 +225,7 @@ namespace PV
             }
             else
             {
-                c.InsertarPartida(TxtFolio2.Text, txtPartida.Text, txtClave.Text, txtConcepto2.Text, txtCantidad.Text, txtUnidad.Text, txtDivisa1.Text, txtTipoCambio1.Text, Convert.ToDecimal(txtSubtotal1.Text), Convert.ToDecimal(txtDescuento1.Text), Convert.ToDecimal(txtTotal1.Text), Convert.ToDecimal(txtPrecio.Text), Convert.ToDecimal(txtImpuesto1.Text));
+                c.InsertarPartidaRemision(TxtFolio2.Text, txtPartida.Text, txtClave.Text, txtConcepto2.Text, txtCantidad.Text, txtUnidad.Text, txtDivisa1.Text, txtTipoCambio1.Text, Convert.ToDecimal(txtSubtotal1.Text), Convert.ToDecimal(txtDescuento1.Text), Convert.ToDecimal(txtTotal1.Text), Convert.ToDecimal(txtPrecio.Text), Convert.ToDecimal(txtImpuesto1.Text));
                 Limpiar();
                 c.Consulta5(TxtFolio2.Text, txtPartida);
                 c.ReciboSaldosPartidasOrden(TxtFolio2.Text, txtSubtotalR, txtDescuentoR, txtTotalR, txtImpuestoR);
@@ -243,7 +243,7 @@ namespace PV
                     int Partida = Convert.ToInt32(txtPartida.Text) - 1;
                     if (Partida > 0)
                     {
-                        c.ActualizarOrden(TxtFolio2.Text, Partida.ToString());
+                        c.ActualizarTotalesRemision(TxtFolio2.Text, Partida.ToString());
                     }
                     // this.Close();
                     PanelPartidasRequisicion.Visible = false;
@@ -256,7 +256,7 @@ namespace PV
                     int Partida = Convert.ToInt32(txtPartida.Text) - 1;
                     if (Partida > 0)
                     {
-                        c.ActualizarOrden(TxtFolio2.Text, Partida.ToString());
+                        c.ActualizarTotalesRemision(TxtFolio2.Text, Partida.ToString());
                     }
                     //  this.Close();
                     PanelPartidasRequisicion.Visible = false;
@@ -268,8 +268,8 @@ namespace PV
             }
             else
             {
-                c.InsertarPartida(TxtFolio2.Text, txtPartida.Text, txtClave.Text, txtConcepto2.Text, txtCantidad.Text, txtUnidad.Text, txtDivisa1.Text, txtTipoCambio1.Text, Convert.ToDecimal(txtSubtotal1.Text), Convert.ToDecimal(txtDescuento1.Text), Convert.ToDecimal(txtTotal1.Text), Convert.ToDecimal(txtPrecio.Text), Convert.ToDecimal(txtImpuesto1.Text));
-                c.ActualizarOrden(TxtFolio2.Text, txtPartida.Text);
+                c.InsertarPartidaRemision(TxtFolio2.Text, txtPartida.Text, txtClave.Text, txtConcepto2.Text, txtCantidad.Text, txtUnidad.Text, txtDivisa1.Text, txtTipoCambio1.Text, Convert.ToDecimal(txtSubtotal1.Text), Convert.ToDecimal(txtDescuento1.Text), Convert.ToDecimal(txtTotal1.Text), Convert.ToDecimal(txtPrecio.Text), Convert.ToDecimal(txtImpuesto1.Text));
+                c.ActualizarTotalesRemision(TxtFolio2.Text, txtPartida.Text);
                 //    this.Close();
             }
             PanelPartidasRequisicion.Visible = false;

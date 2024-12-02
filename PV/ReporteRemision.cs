@@ -1,5 +1,9 @@
 ﻿using Microsoft.Reporting.WinForms;
+using PV.Clases;
+using PV.Clases.Clientes;
 using PV.Clases.OrdenCompra;
+using PV.Clases.PedidoCliente;
+using PV.Clases.Remision;
 using PV.Properties;
 using System;
 using System.Collections.Generic;
@@ -17,14 +21,19 @@ namespace PV
     {
         string FolioOrdenPedido = string.Empty;
         string IdCliente = string.Empty;
-        DBOrdenCompra c = new DBOrdenCompra();
+        string[] valores = null;
+        string[] valoresR = null;
+        DBOrdenCompra co = new DBOrdenCompra();
         Moneda m = new Moneda();
+        DBClientes cl = new DBClientes();
+        DBRemiision r = new DBRemiision();  
         public ReporteRemision(string FolioOrdenPedido, string IdCliente)
         {
             InitializeComponent();
             this.FolioOrdenPedido = FolioOrdenPedido;
             this.IdCliente = IdCliente;
-
+            valores = cl.InformacionCliente(IdCliente);
+            valoresR = r.InformacionRemision(FolioOrdenPedido);
             // TODO: This line of code loads data into the 'controlCondominiosDataSet8.Clientes' table. You can move, or remove it, as needed.
             this.clientesTableAdapter.FillBy(this.controlCondominiosDataSet8.Clientes, int.Parse(IdCliente));
             this.controlCondominiosDataSet60.EnforceConstraints = false;
@@ -33,7 +42,7 @@ namespace PV
             // TODO: This line of code loads data into the 'controlCondominiosDataSet23.DatosEmpresa' table. You can move, or remove it, as needed.
             this.datosEmpresaTableAdapter.Fill(this.controlCondominiosDataSet23.DatosEmpresa);
 
-            decimal Total = c.ObtenerTotalRemision(FolioOrdenPedido);
+            decimal Total = co.ObtenerTotalRemision(FolioOrdenPedido);
 
             string numerotexto = m.Convertir(Total.ToString(), false, "pesos");
 
@@ -49,6 +58,23 @@ namespace PV
             
 
             this.reportViewer1.RefreshReport();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            string carpeta = Utilerias.SavePDF(reportViewer1, "Remision", valoresR[1], valoresR[4]);
+
+            bool enviado = CorreosMasivos.EnviarCorreos(
+                                "Remisión",
+                                "",
+                                Utilerias.ConvertirReportViewerAPdf(reportViewer1),
+                                "Remisión-" + valoresR[4] + ".pdf",
+                                valores[5]);
+
+            if (enviado)
+            {
+                MessageBox.Show("Correo enviado exitosamente");
+            }
         }
     }
 }
