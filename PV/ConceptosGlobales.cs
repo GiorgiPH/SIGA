@@ -60,11 +60,11 @@ namespace Condominios
             {
                 if (txtPorcentaje.Visible == true)
                 {
-                    MessageBox.Show(c.RegistrConcepto(txtClave.Text, txtNombre.Text, cmbClase.Text, cmbTipo.Text, cmbRelativo.Text, txtCuenta.Text, Convert.ToDecimal(txtPorcentaje.Text)));
+                    MessageBox.Show(c.RegistrConcepto(txtClave.Text, txtNombre.Text, cmbClase.Text, cmbTipo.Text, cmbRelativo.Text, txtCuenta.Text, Convert.ToDecimal(txtPorcentaje.Text), Convert.ToInt16(tgIva.Checked)));
                 }
                 else
                 {
-                    MessageBox.Show(c.RegistrConcepto(txtClave.Text, txtNombre.Text, cmbClase.Text, cmbTipo.Text, cmbRelativo.Text, txtCuenta.Text, Convert.ToDecimal(txtImporte.Text)));
+                    MessageBox.Show(c.RegistrConcepto(txtClave.Text, txtNombre.Text, cmbClase.Text, cmbTipo.Text, cmbRelativo.Text, txtCuenta.Text, Convert.ToDecimal(txtImporte.Text), Convert.ToInt16(tgIva.Checked)));
                 }
                 Limpiar();
                 c.CargarConceptos(dataGridView1);
@@ -95,6 +95,7 @@ namespace Condominios
             txtNombre.Enabled = true;
             groupBox1.Enabled = false;
             PanelUsuario.Visible = false;
+            tgIva.Checked = false;
         }
 
         private void dataGridView1_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
@@ -103,18 +104,18 @@ namespace Condominios
             {
                 string Clave = dataGridView1.Rows[e.RowIndex].Cells["Clave"].Value.ToString();
                 string Nombre = dataGridView1.Rows[e.RowIndex].Cells["Documento"].Value.ToString();
-                c.ConsultConceptoSeleccionado(Clave, Nombre, cmbClase, cmbTipo, cmbRelativo, txtCuenta, txtImporte);
+                c.ConsultConceptoSeleccionado(Clave, Nombre, cmbClase, cmbTipo, cmbRelativo, txtCuenta, txtImporte, tgIva);
                 if (cmbTipo.Text == "Porcentaje")
                 {
                     txtPorcentaje.Clear();
                     txtImporte.Clear();
-                    c.ConsultConceptoSeleccionado(Clave, Nombre, cmbClase, cmbTipo, cmbRelativo, txtCuenta, txtPorcentaje);
+                    c.ConsultConceptoSeleccionado(Clave, Nombre, cmbClase, cmbTipo, cmbRelativo, txtCuenta, txtPorcentaje, tgIva);
                 }
                 else
                 {
                     txtPorcentaje.Clear();
                     txtImporte.Clear();
-                    c.ConsultConceptoSeleccionado(Clave, Nombre, cmbClase, cmbTipo, cmbRelativo, txtCuenta, txtImporte);
+                    c.ConsultConceptoSeleccionado(Clave, Nombre, cmbClase, cmbTipo, cmbRelativo, txtCuenta, txtImporte, tgIva);
                 }
                 txtClave.Text = Clave;
                 txtNombre.Text = Nombre;
@@ -253,6 +254,9 @@ namespace Condominios
             }
         }
 
-        
+        private void label10_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

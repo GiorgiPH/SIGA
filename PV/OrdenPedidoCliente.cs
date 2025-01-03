@@ -336,36 +336,34 @@ namespace PV
             {
                 if (tipo == "Remision")
                 {
-                    o.InsertarPartidaRemision(TxtFolio2.Text, txtPartida.Text, txtClave.Text, txtConcepto2.Text, txtCantidad.Text, txtUnidad.Text, txtDivisa1.Text, txtTipoCambio1.Text, Convert.ToDecimal(txtImporte1.Text), Convert.ToDecimal(txtDescuento1.Text), Convert.ToDecimal(txtTotal1.Text), Convert.ToDecimal(txtPrecio.Text), Convert.ToDecimal(txtImpuesto1.Text));
+                    o.InsertarPartidaRemision(TxtFolio2.Text, txtPartida.Text, txtConcepto2.Text, txtConcepto2.Text, txtCantidad.Text, txtUnidad.Text, txtDivisa1.Text, txtTipoCambio1.Text, Convert.ToDecimal(txtImporte1.Text), Convert.ToDecimal(txtDescuento1.Text), Convert.ToDecimal(txtTotal1.Text), Convert.ToDecimal(txtPrecio.Text), Convert.ToDecimal(txtImpuesto1.Text));
                     o.ActualizarTotalesRemision(TxtFolio2.Text, txtPartida.Text);
                     if (!string.IsNullOrEmpty(txtFolioPedido.Text))
                     {
 
                         decimal cant = Convert.ToDecimal(txtCantidad.Text);
                         decimal cantneg = Convert.ToDecimal(txtCantidad.Text) * -1;
-                        c.ActualizaCantidadPendientePartidaOrden(cant.ToString(), cant.ToString(), txtFolioPedido.Text, txtClave.Text);
+                        c.ActualizaCantidadPendientePartidaOrden(cant.ToString(), cant.ToString(), txtFolioPedido.Text, txtConcepto2.Text);
 
-                        p.RegistroPedidosCliente(txtClave.Text, cantneg.ToString().Replace(",", ""));
-
-
-
+                        p.RegistroPedidosCliente(txtConcepto2.Text, cantneg.ToString().Replace(",", ""));
                     }
+                    ConceptosGlobalesPartidaRemision cg = new ConceptosGlobalesPartidaRemision(txtFolio.Text, "", "");
+                    cg.ShowDialog();
 
                 }
                 else
                 {
 
-                    string mensaje = c.InsertarPartidaOrdenCliente(TxtFolio2.Text, txtPartida.Text, txtClave.Text, txtConcepto2.Text, txtCantidad.Text, txtUnidad.Text, txtDivisa1.Text, txtTipoCambio1.Text, Convert.ToDecimal(txtImporte1.Text), Convert.ToDecimal(txtDescuento1.Text), Convert.ToDecimal(txtTotal1.Text), Convert.ToDecimal(txtPrecio.Text), Convert.ToDecimal(txtImpuesto1.Text));
+                    string mensaje = c.InsertarPartidaOrdenCliente(TxtFolio2.Text, txtPartida.Text, txtConcepto2.Text, txtConcepto2.Text, txtCantidad.Text, txtUnidad.Text, txtDivisa1.Text, txtTipoCambio1.Text, Convert.ToDecimal(txtImporte1.Text), Convert.ToDecimal(txtDescuento1.Text), Convert.ToDecimal(txtTotal1.Text), Convert.ToDecimal(txtPrecio.Text), Convert.ToDecimal(txtImpuesto1.Text));
                     if (!string.IsNullOrEmpty(mensaje))
                     {
                         MessageBox.Show(mensaje);
                     }
                     c.ActualizarTotalesOrdenPedidoCliente(TxtFolio2.Text, txtPartida.Text);
-                    p.RegistroPedidosCliente(txtClave.Text, txtCantidad.Text);
+                    p.RegistroPedidosCliente(txtConcepto2.Text, txtCantidad.Text);
 
 
                 }
-                //    this.Close();
                 CargarPartidas();
                 PanelPartidasRequisicion.Visible = false;
                 guna2Button9.Visible = true;
@@ -396,7 +394,7 @@ namespace PV
             {
                 if (tipo == "Remision")
                 {
-                    o.InsertarPartidaRemision(TxtFolio2.Text, txtPartida.Text, txtClave.Text, txtConcepto2.Text, txtCantidad.Text, txtUnidad.Text, txtDivisa1.Text, txtTipoCambio1.Text, Convert.ToDecimal(txtImporte1.Text), Convert.ToDecimal(txtDescuento1.Text), Convert.ToDecimal(txtTotal1.Text), Convert.ToDecimal(txtPrecio.Text), Convert.ToDecimal(txtImpuesto1.Text));
+                    o.InsertarPartidaRemision(TxtFolio2.Text, txtPartida.Text, txtConcepto2.Text, txtConcepto2.Text, txtCantidad.Text, txtUnidad.Text, txtDivisa1.Text, txtTipoCambio1.Text, Convert.ToDecimal(txtImporte1.Text), Convert.ToDecimal(txtDescuento1.Text), Convert.ToDecimal(txtTotal1.Text), Convert.ToDecimal(txtPrecio.Text), Convert.ToDecimal(txtImpuesto1.Text));
                     o.ActualizarTotalesRemision(TxtFolio2.Text, txtPartida.Text);
 
                     o.Consulta5OrdenCompra(TxtFolio2.Text, txtPartida);
@@ -408,17 +406,18 @@ namespace PV
 
                         decimal cant = Convert.ToDecimal(txtCantidad.Text);
                         decimal cantneg = Convert.ToDecimal(txtCantidad.Text) * -1;
-                        c.ActualizaCantidadPendientePartidaOrden(cant.ToString(), cant.ToString(), txtFolioPedido.Text, txtClave.Text);
+                        c.ActualizaCantidadPendientePartidaOrden(cant.ToString(), cant.ToString(), txtFolioPedido.Text, txtConcepto2.Text);
                         
-                        p.RegistroPedidosCliente(txtClave.Text, cantneg.ToString().Replace(",", ""));
+                        p.RegistroPedidosCliente(txtConcepto2.Text, cantneg.ToString().Replace(",", ""));
 
 
 
                     }
+                   
                 }
                 else
                 {
-                    string mensaje=c.InsertarPartidaOrdenCliente(TxtFolio2.Text, txtPartida.Text, txtClave.Text, txtConcepto2.Text, txtCantidad.Text, txtUnidad.Text, txtDivisa1.Text, txtTipoCambio1.Text, Convert.ToDecimal(txtImporte1.Text), Convert.ToDecimal(txtDescuento1.Text), Convert.ToDecimal(txtTotal1.Text), Convert.ToDecimal(txtPrecio.Text), Convert.ToDecimal(txtImpuesto1.Text));
+                    string mensaje=c.InsertarPartidaOrdenCliente(TxtFolio2.Text, txtPartida.Text, txtConcepto2.Text, txtConcepto2.Text, txtCantidad.Text, txtUnidad.Text, txtDivisa1.Text, txtTipoCambio1.Text, Convert.ToDecimal(txtImporte1.Text), Convert.ToDecimal(txtDescuento1.Text), Convert.ToDecimal(txtTotal1.Text), Convert.ToDecimal(txtPrecio.Text), Convert.ToDecimal(txtImpuesto1.Text));
                     if (!string.IsNullOrEmpty(mensaje))
                     {
                         MessageBox.Show(mensaje);
@@ -426,7 +425,7 @@ namespace PV
                     c.ActualizarTotalesOrdenPedidoCliente(TxtFolio2.Text, txtPartida.Text);
                     c.Consulta5OrdenCliente(TxtFolio2.Text, txtPartida);
                     c.ReciboSaldosPartidasOrden(TxtFolio2.Text, txtSubtotalR, txtDescuentoR, txtTotalR, txtImpuestoR);
-                    p.RegistroPedidosCliente(txtClave.Text, txtCantidad.Text);
+                    p.RegistroPedidosCliente(txtConcepto2.Text, txtCantidad.Text);
 
 
                 }
@@ -999,7 +998,7 @@ namespace PV
                 if (!tipo.Equals("Remision"))
                 {
                     string[] valores = c.InformacionRecibo(cmbConcepto.Text, txtFolioPedido.Text);
-                    txtClave.Text = valores[0];
+                    txtConcepto2.Text = valores[0];
                     txtConcepto.Text = valores[1];
                     txtPrecio.Text = valores[11];
                     txtUnidad.Text = valores[3];
@@ -1010,6 +1009,7 @@ namespace PV
                     lblPedidosCliente.Text = valores[8];
                     decimal sub = Convert.ToDecimal(txtPrecio.Text) * Convert.ToInt32(txtCantidad.Text);
                     //txtImporte1.Text = sub.ToString();
+                    txtCantidad.Text = "1";
                 }
                 
 
@@ -1017,7 +1017,7 @@ namespace PV
                 {
                     string[] valores = c.InformacionPartidaOrden(cmbConcepto.Text, txtFolioPedido.Text);
 
-                    txtClave.Text = valores[0];
+                    txtConcepto2.Text = valores[0];
                     //txtConcepto.Text = valores[1];
                     txtPrecio.Text = valores[12];
                     txtUnidad.Text = valores[3];
@@ -1028,11 +1028,13 @@ namespace PV
                     lblPedidosCliente.Text = valores[9];
                     txtCantidadP.Text = string.IsNullOrEmpty(valores[11]) ? "" : valores[11];
                     decimal valorDecimal = Convert.ToDecimal(txtCantidadP.Text);
-                    int cantidad = Convert.ToInt16(valorDecimal);
+                    int cantidad = Convert.ToInt16(valorDecimal)==0?1: Convert.ToInt16(valorDecimal);
                     txtCantidad.Text = cantidad.ToString();
                     txtImporte1.Text = valores[2];
 
                 }
+                Calcular();
+                
 
             }
         }

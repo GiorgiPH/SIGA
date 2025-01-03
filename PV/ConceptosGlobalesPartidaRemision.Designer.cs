@@ -1,6 +1,6 @@
 ﻿namespace PV
 {
-    partial class ConceptosGlobalesPartidaGastos
+    partial class ConceptosGlobalesPartidaRemision
     {
         /// <summary>
         /// Required designer variable.
@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ConceptosGlobalesPartidaGastos));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ConceptosGlobalesPartidaRemision));
             this.txtBeca = new System.Windows.Forms.TextBox();
             this.txtFrecuencia = new System.Windows.Forms.TextBox();
             this.TxtFolio = new System.Windows.Forms.TextBox();
@@ -50,6 +50,7 @@
             this.label11 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.guna2GradientPanel1 = new Guna.UI2.WinForms.Guna2GradientPanel();
+            this.txtPorcentaje = new System.Windows.Forms.TextBox();
             this.guna2HtmlLabel1 = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.cmbConcepto = new Guna.UI2.WinForms.Guna2ComboBox();
             this.txtclase = new Guna.UI2.WinForms.Guna2TextBox();
@@ -66,7 +67,7 @@
             this.guna2Button3 = new Guna.UI2.WinForms.Guna2Button();
             this.guna2Button9 = new Guna.UI2.WinForms.Guna2Button();
             this.guna2Separator1 = new Guna.UI2.WinForms.Guna2Separator();
-            this.txtPorcentaje = new System.Windows.Forms.TextBox();
+            this.txtIncluyeIva = new System.Windows.Forms.TextBox();
             this.guna2GradientPanel1.SuspendLayout();
             this.guna2Panel1.SuspendLayout();
             this.SuspendLayout();
@@ -270,6 +271,7 @@
             // 
             this.guna2GradientPanel1.BorderRadius = 80;
             this.guna2GradientPanel1.Controls.Add(this.txtPorcentaje);
+            this.guna2GradientPanel1.Controls.Add(this.txtIncluyeIva);
             this.guna2GradientPanel1.Controls.Add(this.guna2HtmlLabel1);
             this.guna2GradientPanel1.CustomizableEdges.BottomRight = false;
             this.guna2GradientPanel1.CustomizableEdges.TopLeft = false;
@@ -282,6 +284,15 @@
             this.guna2GradientPanel1.Name = "guna2GradientPanel1";
             this.guna2GradientPanel1.Size = new System.Drawing.Size(724, 75);
             this.guna2GradientPanel1.TabIndex = 126;
+            // 
+            // txtPorcentaje
+            // 
+            this.txtPorcentaje.Location = new System.Drawing.Point(584, 24);
+            this.txtPorcentaje.Name = "txtPorcentaje";
+            this.txtPorcentaje.Size = new System.Drawing.Size(90, 20);
+            this.txtPorcentaje.TabIndex = 350;
+            this.txtPorcentaje.TabStop = false;
+            this.txtPorcentaje.Visible = false;
             // 
             // guna2HtmlLabel1
             // 
@@ -374,6 +385,7 @@
             this.txtSubtotal.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(226)))), ((int)(((byte)(226)))));
             this.txtSubtotal.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
             this.txtSubtotal.DisabledState.PlaceholderForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
+            this.txtSubtotal.Enabled = false;
             this.txtSubtotal.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.txtSubtotal.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.txtSubtotal.ForeColor = System.Drawing.Color.Black;
@@ -398,6 +410,7 @@
             this.txtDivisa.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(226)))), ((int)(((byte)(226)))));
             this.txtDivisa.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
             this.txtDivisa.DisabledState.PlaceholderForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
+            this.txtDivisa.Enabled = false;
             this.txtDivisa.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.txtDivisa.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.txtDivisa.ForeColor = System.Drawing.Color.Black;
@@ -421,6 +434,7 @@
             this.txtTipoCambio.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(226)))), ((int)(((byte)(226)))));
             this.txtTipoCambio.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
             this.txtTipoCambio.DisabledState.PlaceholderForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
+            this.txtTipoCambio.Enabled = false;
             this.txtTipoCambio.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.txtTipoCambio.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.txtTipoCambio.ForeColor = System.Drawing.Color.Black;
@@ -456,6 +470,7 @@
             this.txtDescuento.Size = new System.Drawing.Size(134, 25);
             this.txtDescuento.TabIndex = 346;
             this.txtDescuento.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.txtDescuento.TextChanged += new System.EventHandler(this.txtDescuento_TextChanged_1);
             // 
             // txtTotal
             // 
@@ -468,6 +483,7 @@
             this.txtTotal.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(226)))), ((int)(((byte)(226)))));
             this.txtTotal.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
             this.txtTotal.DisabledState.PlaceholderForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
+            this.txtTotal.Enabled = false;
             this.txtTotal.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.txtTotal.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.txtTotal.ForeColor = System.Drawing.Color.Black;
@@ -492,6 +508,7 @@
             this.txtImpuesto.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(226)))), ((int)(((byte)(226)))));
             this.txtImpuesto.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
             this.txtImpuesto.DisabledState.PlaceholderForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
+            this.txtImpuesto.Enabled = false;
             this.txtImpuesto.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.txtImpuesto.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.txtImpuesto.ForeColor = System.Drawing.Color.Black;
@@ -663,16 +680,16 @@
             this.guna2Separator1.Size = new System.Drawing.Size(283, 10);
             this.guna2Separator1.TabIndex = 253;
             // 
-            // txtPorcentaje
+            // txtIncluyeIva
             // 
-            this.txtPorcentaje.Location = new System.Drawing.Point(584, 24);
-            this.txtPorcentaje.Name = "txtPorcentaje";
-            this.txtPorcentaje.Size = new System.Drawing.Size(90, 20);
-            this.txtPorcentaje.TabIndex = 350;
-            this.txtPorcentaje.TabStop = false;
-            this.txtPorcentaje.Visible = false;
+            this.txtIncluyeIva.Location = new System.Drawing.Point(495, 50);
+            this.txtIncluyeIva.Name = "txtIncluyeIva";
+            this.txtIncluyeIva.Size = new System.Drawing.Size(90, 20);
+            this.txtIncluyeIva.TabIndex = 73;
+            this.txtIncluyeIva.TabStop = false;
+            this.txtIncluyeIva.Visible = false;
             // 
-            // ConceptosGlobalesPartidaGastos
+            // ConceptosGlobalesPartidaRemision
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -686,7 +703,7 @@
             this.Controls.Add(this.label18);
             this.Controls.Add(this.guna2GradientPanel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-            this.Name = "ConceptosGlobalesPartidaGastos";
+            this.Name = "ConceptosGlobalesPartidaRemision";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "SIGA - Conceptos Globales";
             this.Load += new System.EventHandler(this.ConceptosGlobalesPartidaGastos_Load);
@@ -738,5 +755,6 @@
         private Guna.UI2.WinForms.Guna2Separator guna2Separator1;
         private Guna.UI2.WinForms.Guna2Button guna2Button8;
         private System.Windows.Forms.TextBox txtPorcentaje;
+        private System.Windows.Forms.TextBox txtIncluyeIva;
     }
 }

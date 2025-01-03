@@ -70,11 +70,28 @@ namespace PV
                                 Utilerias.ConvertirReportViewerAPdf(reportViewer1),
                                 "Remisión-" + valoresR[4] + ".pdf",
                                 valores[5]);
-
-            if (enviado)
+            if (!string.IsNullOrEmpty(valores[6]))
             {
-                MessageBox.Show("Correo enviado exitosamente");
+                CorreosMasivos.EnviarCorreos(
+                                "Remisión",
+                                "",
+                                Utilerias.ConvertirReportViewerAPdf(reportViewer1),
+                                "Remisión-" + valoresR[4] + ".pdf",
+                                valores[6]);
             }
+            if (!string.IsNullOrEmpty(valores[7]))
+            {
+                CorreosMasivos.EnviarCorreos(
+                                "Remisión",
+                                "",
+                                Utilerias.ConvertirReportViewerAPdf(reportViewer1),
+                                "Remisión-" + valoresR[4] + ".pdf",
+                                valores[7]);
+            }
+
+          
+                MessageBox.Show("Correo enviado exitosamente");
+            
         }
     }
 }

@@ -307,8 +307,6 @@ namespace PV {
             
             private global::System.Data.DataColumn columnPartida;
             
-            private global::System.Data.DataColumn columnClaveProducto;
-            
             private global::System.Data.DataColumn columnDescripcion;
             
             private global::System.Data.DataColumn columnAlias;
@@ -330,6 +328,18 @@ namespace PV {
             private global::System.Data.DataColumn columnSATImpuestos;
             
             private global::System.Data.DataColumn columnDiasVence;
+            
+            private global::System.Data.DataColumn columnClaveProducto;
+            
+            private global::System.Data.DataColumn columnidentificador;
+            
+            private global::System.Data.DataColumn columnGloablDescuento;
+            
+            private global::System.Data.DataColumn columnGlobalImpuesto;
+            
+            private global::System.Data.DataColumn columnGlobalCargo;
+            
+            private global::System.Data.DataColumn columnIncluyeIva;
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
@@ -478,14 +488,6 @@ namespace PV {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public global::System.Data.DataColumn ClaveProductoColumn {
-                get {
-                    return this.columnClaveProducto;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
             public global::System.Data.DataColumn DescripcionColumn {
                 get {
                     return this.columnDescripcion;
@@ -574,6 +576,54 @@ namespace PV {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public global::System.Data.DataColumn ClaveProductoColumn {
+                get {
+                    return this.columnClaveProducto;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public global::System.Data.DataColumn identificadorColumn {
+                get {
+                    return this.columnidentificador;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public global::System.Data.DataColumn GloablDescuentoColumn {
+                get {
+                    return this.columnGloablDescuento;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public global::System.Data.DataColumn GlobalImpuestoColumn {
+                get {
+                    return this.columnGlobalImpuesto;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public global::System.Data.DataColumn GlobalCargoColumn {
+                get {
+                    return this.columnGlobalCargo;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public global::System.Data.DataColumn IncluyeIvaColumn {
+                get {
+                    return this.columnIncluyeIva;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -624,7 +674,6 @@ namespace PV {
                         string Notas, 
                         int Consecutivo, 
                         int Partida, 
-                        int ClaveProducto, 
                         string Descripcion, 
                         string Alias, 
                         int CantidadPartida, 
@@ -635,7 +684,13 @@ namespace PV {
                         decimal ImpuestoPartida, 
                         string UnidadPartida, 
                         string SATImpuestos, 
-                        int DiasVence) {
+                        int DiasVence, 
+                        string ClaveProducto, 
+                        int identificador, 
+                        decimal GloablDescuento, 
+                        decimal GlobalImpuesto, 
+                        decimal GlobalCargo, 
+                        int IncluyeIva) {
                 DataTable1Row rowDataTable1Row = ((DataTable1Row)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         Folio,
@@ -652,7 +707,6 @@ namespace PV {
                         Notas,
                         Consecutivo,
                         Partida,
-                        ClaveProducto,
                         Descripcion,
                         Alias,
                         CantidadPartida,
@@ -663,7 +717,13 @@ namespace PV {
                         ImpuestoPartida,
                         UnidadPartida,
                         SATImpuestos,
-                        DiasVence};
+                        DiasVence,
+                        ClaveProducto,
+                        identificador,
+                        GloablDescuento,
+                        GlobalImpuesto,
+                        GlobalCargo,
+                        IncluyeIva};
                 rowDataTable1Row.ItemArray = columnValuesArray;
                 this.Rows.Add(rowDataTable1Row);
                 return rowDataTable1Row;
@@ -707,7 +767,6 @@ namespace PV {
                 this.columnNotas = base.Columns["Notas"];
                 this.columnConsecutivo = base.Columns["Consecutivo"];
                 this.columnPartida = base.Columns["Partida"];
-                this.columnClaveProducto = base.Columns["ClaveProducto"];
                 this.columnDescripcion = base.Columns["Descripcion"];
                 this.columnAlias = base.Columns["Alias"];
                 this.columnCantidadPartida = base.Columns["CantidadPartida"];
@@ -719,6 +778,12 @@ namespace PV {
                 this.columnUnidadPartida = base.Columns["UnidadPartida"];
                 this.columnSATImpuestos = base.Columns["SATImpuestos"];
                 this.columnDiasVence = base.Columns["DiasVence"];
+                this.columnClaveProducto = base.Columns["ClaveProducto"];
+                this.columnidentificador = base.Columns["identificador"];
+                this.columnGloablDescuento = base.Columns["GloablDescuento"];
+                this.columnGlobalImpuesto = base.Columns["GlobalImpuesto"];
+                this.columnGlobalCargo = base.Columns["GlobalCargo"];
+                this.columnIncluyeIva = base.Columns["IncluyeIva"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -752,8 +817,6 @@ namespace PV {
                 base.Columns.Add(this.columnConsecutivo);
                 this.columnPartida = new global::System.Data.DataColumn("Partida", typeof(int), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnPartida);
-                this.columnClaveProducto = new global::System.Data.DataColumn("ClaveProducto", typeof(int), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnClaveProducto);
                 this.columnDescripcion = new global::System.Data.DataColumn("Descripcion", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnDescripcion);
                 this.columnAlias = new global::System.Data.DataColumn("Alias", typeof(string), null, global::System.Data.MappingType.Element);
@@ -776,6 +839,18 @@ namespace PV {
                 base.Columns.Add(this.columnSATImpuestos);
                 this.columnDiasVence = new global::System.Data.DataColumn("DiasVence", typeof(int), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnDiasVence);
+                this.columnClaveProducto = new global::System.Data.DataColumn("ClaveProducto", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnClaveProducto);
+                this.columnidentificador = new global::System.Data.DataColumn("identificador", typeof(int), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnidentificador);
+                this.columnGloablDescuento = new global::System.Data.DataColumn("GloablDescuento", typeof(decimal), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnGloablDescuento);
+                this.columnGlobalImpuesto = new global::System.Data.DataColumn("GlobalImpuesto", typeof(decimal), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnGlobalImpuesto);
+                this.columnGlobalCargo = new global::System.Data.DataColumn("GlobalCargo", typeof(decimal), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnGlobalCargo);
+                this.columnIncluyeIva = new global::System.Data.DataColumn("IncluyeIva", typeof(int), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnIncluyeIva);
                 this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint1", new global::System.Data.DataColumn[] {
                                 this.columnFolio}, true));
                 this.columnFolio.AllowDBNull = false;
@@ -784,10 +859,18 @@ namespace PV {
                 this.columnEstatus.MaxLength = 10;
                 this.columnDivisa.MaxLength = 10;
                 this.columnNotas.MaxLength = 100;
+                this.columnPartida.AllowDBNull = false;
                 this.columnDescripcion.MaxLength = 100;
                 this.columnAlias.MaxLength = 100;
                 this.columnUnidadPartida.MaxLength = 50;
                 this.columnSATImpuestos.MaxLength = 100;
+                this.columnClaveProducto.ReadOnly = true;
+                this.columnClaveProducto.MaxLength = 30;
+                this.columnidentificador.ReadOnly = true;
+                this.columnGloablDescuento.ReadOnly = true;
+                this.columnGlobalImpuesto.ReadOnly = true;
+                this.columnGlobalCargo.ReadOnly = true;
+                this.columnIncluyeIva.ReadOnly = true;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -1135,31 +1218,10 @@ namespace PV {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
             public int Partida {
                 get {
-                    try {
-                        return ((int)(this[this.tableDataTable1.PartidaColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'Partida\' in table \'DataTable1\' is DBNull.", e);
-                    }
+                    return ((int)(this[this.tableDataTable1.PartidaColumn]));
                 }
                 set {
                     this[this.tableDataTable1.PartidaColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public int ClaveProducto {
-                get {
-                    try {
-                        return ((int)(this[this.tableDataTable1.ClaveProductoColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'ClaveProducto\' in table \'DataTable1\' is DBNull.", e);
-                    }
-                }
-                set {
-                    this[this.tableDataTable1.ClaveProductoColumn] = value;
                 }
             }
             
@@ -1341,6 +1403,102 @@ namespace PV {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public string ClaveProducto {
+                get {
+                    try {
+                        return ((string)(this[this.tableDataTable1.ClaveProductoColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'ClaveProducto\' in table \'DataTable1\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableDataTable1.ClaveProductoColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public int identificador {
+                get {
+                    try {
+                        return ((int)(this[this.tableDataTable1.identificadorColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'identificador\' in table \'DataTable1\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableDataTable1.identificadorColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public decimal GloablDescuento {
+                get {
+                    try {
+                        return ((decimal)(this[this.tableDataTable1.GloablDescuentoColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'GloablDescuento\' in table \'DataTable1\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableDataTable1.GloablDescuentoColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public decimal GlobalImpuesto {
+                get {
+                    try {
+                        return ((decimal)(this[this.tableDataTable1.GlobalImpuestoColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'GlobalImpuesto\' in table \'DataTable1\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableDataTable1.GlobalImpuestoColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public decimal GlobalCargo {
+                get {
+                    try {
+                        return ((decimal)(this[this.tableDataTable1.GlobalCargoColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'GlobalCargo\' in table \'DataTable1\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableDataTable1.GlobalCargoColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public int IncluyeIva {
+                get {
+                    try {
+                        return ((int)(this[this.tableDataTable1.IncluyeIvaColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'IncluyeIva\' in table \'DataTable1\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableDataTable1.IncluyeIvaColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
             public bool IsClaveDocumentoNull() {
                 return this.IsNull(this.tableDataTable1.ClaveDocumentoColumn);
             }
@@ -1485,30 +1643,6 @@ namespace PV {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public bool IsPartidaNull() {
-                return this.IsNull(this.tableDataTable1.PartidaColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public void SetPartidaNull() {
-                this[this.tableDataTable1.PartidaColumn] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public bool IsClaveProductoNull() {
-                return this.IsNull(this.tableDataTable1.ClaveProductoColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public void SetClaveProductoNull() {
-                this[this.tableDataTable1.ClaveProductoColumn] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
             public bool IsDescripcionNull() {
                 return this.IsNull(this.tableDataTable1.DescripcionColumn);
             }
@@ -1637,6 +1771,78 @@ namespace PV {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
             public void SetDiasVenceNull() {
                 this[this.tableDataTable1.DiasVenceColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public bool IsClaveProductoNull() {
+                return this.IsNull(this.tableDataTable1.ClaveProductoColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public void SetClaveProductoNull() {
+                this[this.tableDataTable1.ClaveProductoColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public bool IsidentificadorNull() {
+                return this.IsNull(this.tableDataTable1.identificadorColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public void SetidentificadorNull() {
+                this[this.tableDataTable1.identificadorColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public bool IsGloablDescuentoNull() {
+                return this.IsNull(this.tableDataTable1.GloablDescuentoColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public void SetGloablDescuentoNull() {
+                this[this.tableDataTable1.GloablDescuentoColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public bool IsGlobalImpuestoNull() {
+                return this.IsNull(this.tableDataTable1.GlobalImpuestoColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public void SetGlobalImpuestoNull() {
+                this[this.tableDataTable1.GlobalImpuestoColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public bool IsGlobalCargoNull() {
+                return this.IsNull(this.tableDataTable1.GlobalCargoColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public void SetGlobalCargoNull() {
+                this[this.tableDataTable1.GlobalCargoColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public bool IsIncluyeIvaNull() {
+                return this.IsNull(this.tableDataTable1.IncluyeIvaColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public void SetIncluyeIvaNull() {
+                this[this.tableDataTable1.IncluyeIvaColumn] = global::System.Convert.DBNull;
             }
         }
         
@@ -1813,7 +2019,6 @@ namespace PV.ControlCondominiosDataSet60TableAdapters {
             tableMapping.ColumnMappings.Add("Notas", "Notas");
             tableMapping.ColumnMappings.Add("Consecutivo", "Consecutivo");
             tableMapping.ColumnMappings.Add("Partida", "Partida");
-            tableMapping.ColumnMappings.Add("ClaveProducto", "ClaveProducto");
             tableMapping.ColumnMappings.Add("Descripcion", "Descripcion");
             tableMapping.ColumnMappings.Add("Alias", "Alias");
             tableMapping.ColumnMappings.Add("CantidadPartida", "CantidadPartida");
@@ -1825,6 +2030,12 @@ namespace PV.ControlCondominiosDataSet60TableAdapters {
             tableMapping.ColumnMappings.Add("UnidadPartida", "UnidadPartida");
             tableMapping.ColumnMappings.Add("SATImpuestos", "SATImpuestos");
             tableMapping.ColumnMappings.Add("DiasVence", "DiasVence");
+            tableMapping.ColumnMappings.Add("ClaveProducto", "ClaveProducto");
+            tableMapping.ColumnMappings.Add("identificador", "identificador");
+            tableMapping.ColumnMappings.Add("GloablDescuento", "GloablDescuento");
+            tableMapping.ColumnMappings.Add("GlobalImpuesto", "GlobalImpuesto");
+            tableMapping.ColumnMappings.Add("GlobalCargo", "GlobalCargo");
+            tableMapping.ColumnMappings.Add("IncluyeIva", "IncluyeIva");
             this._adapter.TableMappings.Add(tableMapping);
         }
         
@@ -1842,19 +2053,51 @@ namespace PV.ControlCondominiosDataSet60TableAdapters {
             this._commandCollection[0] = new global::System.Data.SqlClient.SqlCommand();
             this._commandCollection[0].Connection = this.Connection;
             this._commandCollection[0].CommandText = @"select Folio, ClaveDocumento, O.Estatus, Fecha, DiasVence, O.Divisa, O.TipoCambio, O.Subtotal, O.Descuento, Cargo, O.Total, TotalPartidas, Notas, Consecutivo,
-P.Partida, P.ClaveProducto, PS.Descripcion, PS.Alias, P.Cantidad as CantidadPartida, P.Subtotal as SubtotalPartida, P.Descuento as DescuentoPartida, P.Precio as PrecioPartida, P.Total as TotalPartida, P.Impuesto as ImpuestoPartida, P.Unidad as UnidadPartida, PS.SATImpuestos
+P.Partida, Cast(P.ClaveProducto as varchar) as ClaveProducto , PS.Descripcion, PS.Alias, P.Cantidad as CantidadPartida, P.Subtotal as SubtotalPartida, P.Descuento as DescuentoPartida, P.Precio as PrecioPartida, P.Total as TotalPartida, P.Impuesto as ImpuestoPartida, P.Unidad as UnidadPartida, PS.SATImpuestos, 0 as identificador,
+0.00 AS GloablDescuento,
+0.00 AS GlobalImpuesto,
+0.00 AS GlobalCargo,
+0 as IncluyeIva
 from Remision as O
 Join PartidaRemision as P on P.FolioRemision=O.Folio
 Join ProductosServicios as PS on PS.ClaveProducto=P.ClaveProducto";
             this._commandCollection[0].CommandType = global::System.Data.CommandType.Text;
             this._commandCollection[1] = new global::System.Data.SqlClient.SqlCommand();
             this._commandCollection[1].Connection = this.Connection;
-            this._commandCollection[1].CommandText = @"select Folio, ClaveDocumento, O.Estatus, Fecha, DiasVence, O.Divisa, O.TipoCambio, O.Subtotal, O.Descuento, Cargo, O.Total, TotalPartidas, Notas, Consecutivo,
-P.Partida, P.ClaveProducto, PS.Descripcion, PS.Alias, P.Cantidad as CantidadPartida, P.Subtotal as SubtotalPartida, P.Descuento as DescuentoPartida, P.Precio as PrecioPartida, P.Total as TotalPartida, P.Impuesto as ImpuestoPartida, P.Unidad as UnidadPartida, PS.SATImpuestos
-from Remision as O
-Join PartidaRemision as P on P.FolioRemision=O.Folio
-Join ProductosServicios as PS on PS.ClaveProducto=P.ClaveProducto
-Where Folio=@Folio";
+            this._commandCollection[1].CommandText = "(\r\n    select \r\n        O.Folio,           -- Especificamos que Folio viene de la" +
+                " tabla Remision (alias O)\r\n        O.ClaveDocumento,  \r\n        O.Estatus, \r\n   " +
+                "     O.Fecha, \r\n        O.DiasVence, \r\n        O.Divisa, \r\n        O.TipoCambio," +
+                " \r\n        O.Subtotal, \r\n        O.Descuento, \r\n        O.Cargo,          -- Esp" +
+                "ecificamos que Cargo viene de la tabla Remision (alias O)\r\n        O.Total, \r\n  " +
+                "      O.TotalPartidas, \r\n        O.Notas, \r\n        O.Consecutivo,\r\n        P.Pa" +
+                "rtida, \r\n        Cast(P.ClaveProducto as varchar), \r\n        PS.Descripcion, \r\n " +
+                "       PS.Alias, \r\n        P.Cantidad as CantidadPartida, \r\n        P.Subtotal a" +
+                "s SubtotalPartida, \r\n        P.Descuento as DescuentoPartida, \r\n        P.Precio" +
+                " as PrecioPartida, \r\n        P.Total as TotalPartida, \r\n        P.Impuesto as Im" +
+                "puestoPartida, \r\n        P.Unidad as UnidadPartida, \r\n        PS.SATImpuestos,\r\n" +
+                "\t\t1 as identificador,\r\n\t\t0.00 AS GloablDescuento,\r\n\t\t0.00 AS GlobalImpuesto,\r\n\t\t" +
+                "0.00 AS GlobalCargo,\r\n0 as IncluyeIva\r\n    from \r\n        Remision as O\r\n    Joi" +
+                "n \r\n        PartidaRemision as P on P.FolioRemision = O.Folio\r\n    Join \r\n      " +
+                "  ProductosServicios as PS on PS.ClaveProducto = P.ClaveProducto\r\n    Where \r\n  " +
+                "      O.Folio = @Folio       -- Especificamos que Folio viene de la tabla Remisi" +
+                "on (alias O)\r\n)\r\nunion\r\n(\r\n    select \r\n        O.Folio,          -- Especificam" +
+                "os que Folio viene de la tabla Remision (alias O)\r\n        O.ClaveDocumento, \r\n " +
+                "       O.Estatus, \r\n        O.Fecha, \r\n        O.DiasVence, \r\n        O.Divisa, " +
+                "\r\n        O.TipoCambio, \r\n        O.Subtotal, \r\n        O.Descuento, \r\n        O" +
+                ".Cargo,          -- Especificamos que Cargo viene de la tabla Remision (alias O)" +
+                "\r\n        O.Total, \r\n        O.TotalPartidas, \r\n        O.Notas, \r\n        O.Con" +
+                "secutivo,\r\n        0 as Partida, \r\n        CG.Clave as ClaveProducto, \r\n        " +
+                "CG.Nombre as Descripcion, \r\n        \'\' as Alias, \r\n        \'1\' as CantidadPartid" +
+                "a, \r\n        \'0.00\' as SubtotalPartida, \r\n        0.00 as DescuentoPartida, \r\n  " +
+                "      0.00 as PrecioPartida, \r\n        0.00 as TotalPartida, \r\n        0.00 as I" +
+                "mpuestoPartida, \r\n        \'\' as UnidadPartida, \r\n        \'0.00\' as SATImpuestos," +
+                "\r\n\t\t2 as identificador,\r\n\t\tCGR.Descuento AS GloablDescuento,\r\n\t\tiif(CG.Clase=\'Im" +
+                "puesto\',  CGR.Cargo, 0) AS GlobalImpuesto,\r\n\t\tiif(CG.Clase=\'Cargo\',  CGR.Cargo, " +
+                "0) AS GlobalCargo,\r\nCGR.IncluyeIva\r\n    from \r\n        Remision as O\r\n    Join \r" +
+                "\n        ConceptoGlobalesRemision as CGR on CGR.Folio = O.Folio\r\n    Join \r\n    " +
+                "    ConceptosGlobales as CG on CG.Clave = CGR.ClaveConceptoG\r\n    Where \r\n      " +
+                "  O.Folio = @Folio       -- Especificamos que Folio viene de la tabla Remision (" +
+                "alias O)\r\n)";
             this._commandCollection[1].CommandType = global::System.Data.CommandType.Text;
             this._commandCollection[1].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Folio", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.Input, 0, 0, "Folio", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
         }

@@ -75,7 +75,7 @@ namespace PV.Clases.Clientes
         }
         //_________________________________________________________________________________________________________________________--
         // registrar Empleado 
-        public string RegistroCliente(string IdCliente, string RazonSocial, string TipoCliente, string RFC, string Calle, string NoExterior, string NoInterior, string Colonia, string Municipio, string CodigoPostal, string Ciudad, string Pais, string Referencias, string MetodoPago, string FormaPago, string CFDI, string ListaPrecio, string Del, string Al, string TipoCliente2, string Zona, string Contacto, string FormaEmbarque, string DomicilioEntragas, string AgenteVentas, string PorcentajeComision, string AnticipioPedidos, string DivisaOperacion, string DiasCredito, string LimiteCredito, string PorcentajeDescuentos, string BaseComision, string PorcentajeRecargos, string EncargadoCuentasxPagar, string BancoPagar, string DomicilioFiscal, string RegimelFiscal, string Exportacion, string Estado, string Telefono, string Celular, string Correo, RadioButton Si, RadioButton No, string txtCorreo2, RadioButton Si2, RadioButton No2, string Estatus)
+        public string RegistroCliente(string IdCliente, string RazonSocial, string TipoCliente, string RFC, string Calle, string NoExterior, string NoInterior, string Colonia, string Municipio, string CodigoPostal, string Ciudad, string Pais, string Referencias, string MetodoPago, string FormaPago, string CFDI, string ListaPrecio, string Del, string Al, string TipoCliente2, string Zona, string Contacto, string FormaEmbarque, string DomicilioEntragas, string AgenteVentas, string PorcentajeComision, string AnticipioPedidos, string DivisaOperacion, string DiasCredito, string LimiteCredito, string PorcentajeDescuentos, string BaseComision, string PorcentajeRecargos, string EncargadoCuentasxPagar, string BancoPagar, string DomicilioFiscal, string RegimelFiscal, string Exportacion, string Estado, string Telefono, string Celular, string Correo, RadioButton Si, RadioButton No, string txtCorreo2, RadioButton Si2, RadioButton No2, string txtCorreo3, RadioButton Si3, RadioButton No3, string Estatus)
         {
             string mensaje = "";
             int contador = 0;
@@ -114,8 +114,18 @@ namespace PV.Clases.Clientes
                     {
                         aviso2 = "No";
                     }
+                    string aviso3 = string.Empty;
 
-                    cmd = new SqlCommand("Insert into Clientes (IdCliente, RazonSocial, TipoCliente, RFC, Calle, NoExterior, NoInterior, Colonia, Municipio, CodigoPostal, Ciudad, Pais, Referencias, MetodoPago, FormaPago, CFDI, ListaPrecios, FechaDel, FechaAl, TipoCliente2, Zona, Contacto, FormaEmbarque, DomicilioEntrega, AgenteVentas, PorcentajeComision, AnticipoPedido, DivisaOperacion, DiasCredito, LimiteCredito, PorcentajeDescuentos, BaseComision, PorcentajeRecargos, EncargadoCuentasPagar, BancoPago, DomicilioFiscal, RegimenFiscal, Exportacion, Estado, Telefono, Celular, Correo, EnviarAviso, Correo2, EnviarAviso2, Estatus) values ('" + IdCliente + "','" + RazonSocial + "','" + TipoCliente + "','" + RFC + "','" + Calle + "','" + NoExterior + "','" + NoInterior + "','" + Colonia + "','" + Municipio + "','" + CodigoPostal + "','" + Ciudad + "','" + Pais + "','" + Referencias + "','" + MetodoPago + "','" + FormaPago + "','" + CFDI + "', '" + ListaPrecio + "',  '" + Del + "',  '" + Al + "',  '" + TipoCliente2 + "',  '" + Zona + "',  '" + Contacto + "',  '" + FormaEmbarque + "',  '" + DomicilioEntragas + "',  '" + AgenteVentas + "',  '" + PorcentajeComision + "',  '" + AnticipioPedidos + "',  '" + DivisaOperacion + "',  '" + DiasCredito + "',  '" + LimiteCredito + "',  '" + PorcentajeDescuentos + "',  '" + BaseComision + "',  '" + PorcentajeRecargos + "',  '" + EncargadoCuentasxPagar + "',  '" + BancoPagar + "',  '" + DomicilioFiscal + "',  '" + RegimelFiscal + "',  '" + Exportacion + "', '" + Estado + "', '" + Telefono + "', '" + Celular + "', '" + Correo + "', '" + aviso + "', '" + txtCorreo2 + "', '" + aviso2 + "','" + Estatus + "')", cn);
+                    if (Si3.Checked == true)
+                    {
+                        aviso3 = "Si";
+                    }
+                    else if (No3.Checked == true)
+                    {
+                        aviso3 = "No";
+                    }
+
+                    cmd = new SqlCommand("Insert into Clientes (IdCliente, RazonSocial, TipoCliente, RFC, Calle, NoExterior, NoInterior, Colonia, Municipio, CodigoPostal, Ciudad, Pais, Referencias, MetodoPago, FormaPago, CFDI, ListaPrecios, FechaDel, FechaAl, TipoCliente2, Zona, Contacto, FormaEmbarque, DomicilioEntrega, AgenteVentas, PorcentajeComision, AnticipoPedido, DivisaOperacion, DiasCredito, LimiteCredito, PorcentajeDescuentos, BaseComision, PorcentajeRecargos, EncargadoCuentasPagar, BancoPago, DomicilioFiscal, RegimenFiscal, Exportacion, Estado, Telefono, Celular, Correo, EnviarAviso, Correo2, EnviarAviso2, Correo3, EnviarAviso3, Estatus) values ('" + IdCliente + "','" + RazonSocial + "','" + TipoCliente + "','" + RFC + "','" + Calle + "','" + NoExterior + "','" + NoInterior + "','" + Colonia + "','" + Municipio + "','" + CodigoPostal + "','" + Ciudad + "','" + Pais + "','" + Referencias + "','" + MetodoPago + "','" + FormaPago + "','" + CFDI + "', '" + ListaPrecio + "',  '" + Del + "',  '" + Al + "',  '" + TipoCliente2 + "',  '" + Zona + "',  '" + Contacto + "',  '" + FormaEmbarque + "',  '" + DomicilioEntragas + "',  '" + AgenteVentas + "',  '" + PorcentajeComision + "',  '" + AnticipioPedidos + "',  '" + DivisaOperacion + "',  '" + DiasCredito + "',  '" + LimiteCredito + "',  '" + PorcentajeDescuentos + "',  '" + BaseComision + "',  '" + PorcentajeRecargos + "',  '" + EncargadoCuentasxPagar + "',  '" + BancoPagar + "',  '" + DomicilioFiscal + "',  '" + RegimelFiscal + "',  '" + Exportacion + "', '" + Estado + "', '" + Telefono + "', '" + Celular + "', '" + Correo + "', '" + aviso + "', '" + txtCorreo2 + "', '" + aviso2 + "', '" + txtCorreo3 + "', '" + aviso3 + "','" + Estatus + "')", cn);
                     cmd.ExecuteNonQuery();
                     mensaje = "Registro guardado.";
                 }
@@ -144,7 +154,18 @@ namespace PV.Clases.Clientes
                         aviso2 = "No";
                     }
 
-                    cmd = new SqlCommand("Update Clientes set RazonSocial='" + RazonSocial + "', TipoCliente='" + TipoCliente + "', RFC='" + RFC + "', Calle='" + Calle + "', NoExterior='" + NoExterior + "', NoInterior='" + NoInterior + "', Colonia='" + Colonia + "', Municipio='" + Municipio + "', CodigoPostal='" + CodigoPostal + "', Ciudad='" + Ciudad + "', Pais='" + Pais + "', Referencias='" + Referencias + "', MetodoPago='" + MetodoPago + "', FormaPago='" + FormaPago + "', CFDI='" + CFDI + "', ListaPrecios='" + ListaPrecio + "', FechaDel='" + Del + "', FechaAl='" + Al + "', TipoCliente2='" + TipoCliente2 + "', Zona='" + Zona + "', Contacto='" + Contacto + "', FormaEmbarque='" + FormaEmbarque + "', DomicilioEntrega='" + DomicilioEntragas + "', AgenteVentas='" + AgenteVentas + "', PorcentajeComision='" + PorcentajeComision + "', AnticipoPedido='" + AnticipioPedidos + "', DivisaOperacion='" + DivisaOperacion + "', DiasCredito='" + DiasCredito + "', LimiteCredito= '" + LimiteCredito + "', PorcentajeDescuentos='" + PorcentajeDescuentos + "', BaseComision='" + BaseComision + "', PorcentajeRecargos='" + PorcentajeRecargos + "', EncargadoCuentasPagar='" + EncargadoCuentasxPagar + "', BancoPago='" + BancoPagar + "', DomicilioFiscal='" + DomicilioFiscal + "', RegimenFiscal='" + RegimelFiscal + "', Exportacion='" + Exportacion + "', Estado='" + Estado + "', Telefono='" + Telefono + "', Celular='" + Celular + "', Correo='" + Correo + "', EnviarAviso='" + aviso + "', Correo2='" + txtCorreo2 + "', EnviarAviso2='" + aviso2 + "', Estatus='" + Estatus + "' where IdCliente='" + IdCliente + "'", cn);
+                    string aviso3 = string.Empty;
+
+                    if (Si3.Checked == true)
+                    {
+                        aviso3 = "Si";
+                    }
+                    else if (No3.Checked == true)
+                    {
+                        aviso3 = "No";
+                    }
+
+                    cmd = new SqlCommand("Update Clientes set RazonSocial='" + RazonSocial + "', TipoCliente='" + TipoCliente + "', RFC='" + RFC + "', Calle='" + Calle + "', NoExterior='" + NoExterior + "', NoInterior='" + NoInterior + "', Colonia='" + Colonia + "', Municipio='" + Municipio + "', CodigoPostal='" + CodigoPostal + "', Ciudad='" + Ciudad + "', Pais='" + Pais + "', Referencias='" + Referencias + "', MetodoPago='" + MetodoPago + "', FormaPago='" + FormaPago + "', CFDI='" + CFDI + "', ListaPrecios='" + ListaPrecio + "', FechaDel='" + Del + "', FechaAl='" + Al + "', TipoCliente2='" + TipoCliente2 + "', Zona='" + Zona + "', Contacto='" + Contacto + "', FormaEmbarque='" + FormaEmbarque + "', DomicilioEntrega='" + DomicilioEntragas + "', AgenteVentas='" + AgenteVentas + "', PorcentajeComision='" + PorcentajeComision + "', AnticipoPedido='" + AnticipioPedidos + "', DivisaOperacion='" + DivisaOperacion + "', DiasCredito='" + DiasCredito + "', LimiteCredito= '" + LimiteCredito + "', PorcentajeDescuentos='" + PorcentajeDescuentos + "', BaseComision='" + BaseComision + "', PorcentajeRecargos='" + PorcentajeRecargos + "', EncargadoCuentasPagar='" + EncargadoCuentasxPagar + "', BancoPago='" + BancoPagar + "', DomicilioFiscal='" + DomicilioFiscal + "', RegimenFiscal='" + RegimelFiscal + "', Exportacion='" + Exportacion + "', Estado='" + Estado + "', Telefono='" + Telefono + "', Celular='" + Celular + "', Correo='" + Correo + "', EnviarAviso='" + aviso + "', Correo2='" + txtCorreo2 + "', EnviarAviso2='" + aviso2 + "', Correo3='" + txtCorreo3 + "', EnviarAviso3='" + aviso3 + "', Estatus='" + Estatus + "' where IdCliente='" + IdCliente + "'", cn);
                     cmd.ExecuteNonQuery();
 
                     mensaje = "Registro modificado.";
@@ -200,7 +221,7 @@ namespace PV.Clases.Clientes
         //}
         public string[] InformacionCliente(string Orden)
         {
-            cmd = new SqlCommand("select OC.IdCliente, OC.RazonSocial, Oc.TipoCliente, OC.Estatus, OC.RFC, OC.Correo, OC.Correo2 from Clientes as OC where IdCliente='" + Orden + "'", cn);
+            cmd = new SqlCommand("select OC.IdCliente, OC.RazonSocial, Oc.TipoCliente, OC.Estatus, OC.RFC, OC.Correo, OC.Correo2, OC.Correo3 from Clientes as OC where IdCliente='" + Orden + "'", cn);
             dr = cmd.ExecuteReader();
             string[] resultado = null;
             while (dr.Read())
@@ -214,6 +235,8 @@ namespace PV.Clases.Clientes
                      dr["RFC"].ToString(),
                      dr["Correo"].ToString(),
                      dr["Correo2"].ToString(),
+                                          dr["Correo3"].ToString(),
+
 
                 };
                 resultado = valores;
@@ -223,7 +246,7 @@ namespace PV.Clases.Clientes
         }
         //_____________________________________________________________________________________________________
         //Mostrar Usuario seleccionado
-        public void ConsultaClienteSeleccionado(string IdCliente, Guna2TextBox RazonSocial, ComboBox TipoCliente, Guna2TextBox RFC, TextBox Calle, TextBox NoExterior, TextBox NoInterior, TextBox Colonia, TextBox Municipio, TextBox CodigoPostal, TextBox Ciudad, TextBox Pais, TextBox Referencias, ComboBox MetodoPago, ComboBox FormaPago, ComboBox CFDI, ComboBox ListaPrecio, DateTimePicker Del, DateTimePicker Al, ComboBox TipoCliente2, ComboBox Zona, TextBox Contacto, TextBox FormaEmbarque, TextBox DomicilioEntragas, ComboBox AgenteVentas, TextBox PorcentajeComision, TextBox AnticipioPedidos, ComboBox DivisaOperacion, TextBox DiasCredito, TextBox LimiteCredito, TextBox PorcentajeDescuentos, ComboBox BaseComision, TextBox PorcentajeRecargos, ComboBox EncargadoCuentasxPagar, TextBox BancoPagar, TextBox DomicilioFiscal, TextBox RegimelFiscal, TextBox Exportacion, TextBox Estado, TextBox Telefono, TextBox Celular, TextBox Correo, RadioButton Si, RadioButton No, TextBox txtCorreo2, RadioButton Si2, RadioButton No2, ComboBox Estatus, TextBox Anticipo)
+        public void ConsultaClienteSeleccionado(string IdCliente, Guna2TextBox RazonSocial, ComboBox TipoCliente, Guna2TextBox RFC, TextBox Calle, TextBox NoExterior, TextBox NoInterior, TextBox Colonia, TextBox Municipio, TextBox CodigoPostal, TextBox Ciudad, TextBox Pais, TextBox Referencias, ComboBox MetodoPago, ComboBox FormaPago, ComboBox CFDI, ComboBox ListaPrecio, DateTimePicker Del, DateTimePicker Al, ComboBox TipoCliente2, ComboBox Zona, TextBox Contacto, TextBox FormaEmbarque, TextBox DomicilioEntragas, ComboBox AgenteVentas, TextBox PorcentajeComision, TextBox AnticipioPedidos, ComboBox DivisaOperacion, TextBox DiasCredito, TextBox LimiteCredito, TextBox PorcentajeDescuentos, ComboBox BaseComision, TextBox PorcentajeRecargos, ComboBox EncargadoCuentasxPagar, TextBox BancoPagar, TextBox DomicilioFiscal, TextBox RegimelFiscal, TextBox Exportacion, TextBox Estado, TextBox Telefono, TextBox Celular, TextBox Correo, RadioButton Si, RadioButton No, TextBox txtCorreo2, RadioButton Si2, RadioButton No2, TextBox txtCorreo3, RadioButton Si3, RadioButton No3, ComboBox Estatus, TextBox Anticipo)
         {
             try
             {
@@ -247,6 +270,15 @@ namespace PV.Clases.Clientes
                     else
                     {
                         No2.Checked = true;
+                    }
+
+                    if (dr["EnviarAviso3"].ToString() == "Si")
+                    {
+                        Si3.Checked = true;
+                    }
+                    else
+                    {
+                        No3.Checked = true;
                     }
 
                     RazonSocial.Text = dr["RazonSocial"].ToString();
@@ -289,6 +321,8 @@ namespace PV.Clases.Clientes
                     Celular.Text = dr["Celular"].ToString();
                     Correo.Text = dr["Correo"].ToString();
                     txtCorreo2.Text = dr["Correo2"].ToString();
+                    txtCorreo2.Text = dr["Correo3"].ToString();
+
                     Exportacion.Text = dr["Exportacion"].ToString();
                     Estatus.Text = dr["Estatus"].ToString();
                 }

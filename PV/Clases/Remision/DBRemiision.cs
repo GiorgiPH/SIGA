@@ -40,7 +40,25 @@ namespace PV.Clases.Remision
         {
             return Settings.Default.ControlCondominiosConnectionString;
         }
+        public void ConsultaTotalRemision(string Folio, Guna.UI2.WinForms.Guna2TextBox Subtotal)
+        {
+            try
+            {
+                cmd = new SqlCommand("Select Total from Remision where Folio='" + Folio + "'", cn);
+                dr = cmd.ExecuteReader();
+                if (dr.Read())
+                {
+                    Subtotal.Text = dr["Total"].ToString();
 
+                }
+                dr.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+                dr.Close();
+            }
+        }
         public void CargarRemisionCobro(DataGridView dgv, string Matricula)
         {
             try

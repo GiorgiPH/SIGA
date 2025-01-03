@@ -68,6 +68,8 @@
             this.label5 = new System.Windows.Forms.Label();
             this.txtNombre = new Guna.UI2.WinForms.Guna2TextBox();
             this.txtCuenta = new Guna.UI2.WinForms.Guna2TextBox();
+            this.tgIva = new Guna.UI2.WinForms.Guna2ToggleSwitch();
+            this.label2 = new System.Windows.Forms.Label();
             this.PanelUsuario.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.guna2Panel2.SuspendLayout();
@@ -380,6 +382,7 @@
             // 
             this.groupBox1.BackColor = System.Drawing.Color.Transparent;
             this.groupBox1.BorderRadius = 20;
+            this.groupBox1.Controls.Add(this.tgIva);
             this.groupBox1.Controls.Add(this.guna2Separator1);
             this.groupBox1.Controls.Add(this.txtImporte);
             this.groupBox1.Controls.Add(this.txtPorcentaje);
@@ -390,6 +393,7 @@
             this.groupBox1.Controls.Add(this.lbPorcentaje);
             this.groupBox1.Controls.Add(this.label6);
             this.groupBox1.Controls.Add(this.label8);
+            this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Controls.Add(this.label10);
             this.groupBox1.Controls.Add(this.label9);
             this.groupBox1.Controls.Add(this.label1);
@@ -597,6 +601,7 @@
             this.label10.Size = new System.Drawing.Size(135, 13);
             this.label10.TabIndex = 179;
             this.label10.Text = "IMPORTE/PORCENTAJE:";
+            this.label10.Click += new System.EventHandler(this.label10_Click);
             // 
             // label9
             // 
@@ -690,6 +695,31 @@
             this.txtCuenta.Size = new System.Drawing.Size(380, 25);
             this.txtCuenta.TabIndex = 186;
             // 
+            // tgIva
+            // 
+            this.tgIva.CheckedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.tgIva.CheckedState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.tgIva.CheckedState.InnerBorderColor = System.Drawing.Color.White;
+            this.tgIva.CheckedState.InnerColor = System.Drawing.Color.White;
+            this.tgIva.Location = new System.Drawing.Point(192, 337);
+            this.tgIva.Name = "tgIva";
+            this.tgIva.Size = new System.Drawing.Size(35, 20);
+            this.tgIva.TabIndex = 238;
+            this.tgIva.UncheckedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(137)))), ((int)(((byte)(149)))));
+            this.tgIva.UncheckedState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(137)))), ((int)(((byte)(149)))));
+            this.tgIva.UncheckedState.InnerBorderColor = System.Drawing.Color.White;
+            this.tgIva.UncheckedState.InnerColor = System.Drawing.Color.White;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(51, 337);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(24, 13);
+            this.label2.TabIndex = 179;
+            this.label2.Text = "IVA";
+            this.label2.Click += new System.EventHandler(this.label10_Click);
+            // 
             // ConceptosGlobales
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -756,5 +786,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Clave;
         private System.Windows.Forms.DataGridViewTextBoxColumn Documento;
         private System.Windows.Forms.DataGridViewTextBoxColumn Clase;
+        private Guna.UI2.WinForms.Guna2ToggleSwitch tgIva;
+        private System.Windows.Forms.Label label2;
     }
 }

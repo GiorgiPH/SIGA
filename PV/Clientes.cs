@@ -129,6 +129,9 @@ namespace PV
             rdNo.Checked = false;
             rdSi2.Checked = false;
             rdNo2.Checked = false;
+            rdSi3.Checked = false;
+            rdNo3.Checked = false;
+            txtCorreo3.Clear();
             PanelUsuario.Visible = false;
         }
 
@@ -152,7 +155,7 @@ namespace PV
             }
             else
             {
-                MessageBox.Show(c.RegistroCliente(txtClaveCliente.Text, txtRazonSocial.Text, cmbTipoCliente.Text, txtRFC.Text, txtCalle.Text, txtNoExterior.Text, txtNoInterior.Text, txtColonia.Text, txtMunicipio.Text, txtCodigoPostal.Text, txtCiudad.Text, txtPais.Text, txtReferencia.Text, cmbMetodoPago.Text, cmbFormaPago.Text, cmbCFDI.Text, cmbListaPrecios.Text, dtpDel.Text, dtpAl.Text, cmbTipoCliente2.Text, cmbZona.Text, txtContacto.Text, txtFormaEmbarque.Text, txtDomicilioEntrega.Text, cmbAgenteVentas.Text, txtPorcentajeComision.Text, txtAnticipoPedidos.Text, cmbDivisaOperacion.Text, txtDiasCredito.Text, txtLimiteCredito.Text, txtPorcentajeDescuento.Text, cmbBaseComision.Text, txtPorcentajeRecargos.Text, cmbEncargadoCuentasPagar.Text, txtBancoPago.Text, txtDomicilioFiscal.Text, txtRegimenFiscal.Text, txtExportacion.Text, txtEstado.Text, txtTelefono.Text, txtCelular.Text, txtCorreo.Text, rdSi, rdNo, txtCorreo2.Text, rdSi2, rdNo2, cmbEstatus.Text));
+                MessageBox.Show(c.RegistroCliente(txtClaveCliente.Text, txtRazonSocial.Text, cmbTipoCliente.Text, txtRFC.Text, txtCalle.Text, txtNoExterior.Text, txtNoInterior.Text, txtColonia.Text, txtMunicipio.Text, txtCodigoPostal.Text, txtCiudad.Text, txtPais.Text, txtReferencia.Text, cmbMetodoPago.Text, cmbFormaPago.Text, cmbCFDI.Text, cmbListaPrecios.Text, dtpDel.Text, dtpAl.Text, cmbTipoCliente2.Text, cmbZona.Text, txtContacto.Text, txtFormaEmbarque.Text, txtDomicilioEntrega.Text, cmbAgenteVentas.Text, txtPorcentajeComision.Text, txtAnticipoPedidos.Text, cmbDivisaOperacion.Text, txtDiasCredito.Text, txtLimiteCredito.Text, txtPorcentajeDescuento.Text, cmbBaseComision.Text, txtPorcentajeRecargos.Text, cmbEncargadoCuentasPagar.Text, txtBancoPago.Text, txtDomicilioFiscal.Text, txtRegimenFiscal.Text, txtExportacion.Text, txtEstado.Text, txtTelefono.Text, txtCelular.Text, txtCorreo.Text, rdSi, rdNo, txtCorreo2.Text, rdSi2, rdNo2, txtCorreo3.Text, rdSi3, rdNo3, cmbEstatus.Text));
                 Limpiar();
                 //GenerarNoCliente();
                 CargarClientes();
@@ -190,7 +193,7 @@ namespace PV
             if (e.RowIndex != -1)
             {
                 string Clave = dataGridView1.Rows[e.RowIndex].Cells["ClaveCliente"].Value.ToString();
-                c.ConsultaClienteSeleccionado(Clave, txtRazonSocial, cmbTipoCliente, txtRFC, txtCalle, txtNoExterior, txtNoInterior, txtColonia, txtMunicipio, txtCodigoPostal, txtCiudad, txtPais, txtReferencia, cmbMetodoPago, cmbFormaPago, cmbCFDI, cmbListaPrecios, dtpDel, dtpAl, cmbTipoCliente2, cmbZona, txtContacto, txtFormaEmbarque, txtDomicilioEntrega, cmbAgenteVentas, txtPorcentajeComision, txtAnticipoPedidos, cmbDivisaOperacion, txtDiasCredito, txtLimiteCredito, txtPorcentajeDescuento, cmbBaseComision, txtPorcentajeRecargos, cmbEncargadoCuentasPagar, txtBancoPago, txtDomicilioFiscal, txtRegimenFiscal, txtExportacion, txtEstado, txtTelefono, txtCelular, txtCorreo, rdSi, rdNo, txtCorreo2, rdSi2, rdNo2, cmbEstatus, txtAnticipo);
+                c.ConsultaClienteSeleccionado(Clave, txtRazonSocial, cmbTipoCliente, txtRFC, txtCalle, txtNoExterior, txtNoInterior, txtColonia, txtMunicipio, txtCodigoPostal, txtCiudad, txtPais, txtReferencia, cmbMetodoPago, cmbFormaPago, cmbCFDI, cmbListaPrecios, dtpDel, dtpAl, cmbTipoCliente2, cmbZona, txtContacto, txtFormaEmbarque, txtDomicilioEntrega, cmbAgenteVentas, txtPorcentajeComision, txtAnticipoPedidos, cmbDivisaOperacion, txtDiasCredito, txtLimiteCredito, txtPorcentajeDescuento, cmbBaseComision, txtPorcentajeRecargos, cmbEncargadoCuentasPagar, txtBancoPago, txtDomicilioFiscal, txtRegimenFiscal, txtExportacion, txtEstado, txtTelefono, txtCelular, txtCorreo, rdSi, rdNo, txtCorreo2, rdSi2, rdNo2, txtCorreo3, rdSi3, rdNo3, cmbEstatus, txtAnticipo);
                 txtClaveCliente.Text = Clave;
                 PanelUsuario.Visible = false;
                 groupBox1.Enabled = true;

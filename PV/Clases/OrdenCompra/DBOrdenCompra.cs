@@ -3514,6 +3514,7 @@ namespace PV.Clases.OrdenCompra
                      dr[2].ToString(),
                       dr[3].ToString(),
                        dr[6].ToString(),
+                       dr[7].ToString(),
                 };
                 resultado = valores;
             }
@@ -3577,17 +3578,130 @@ namespace PV.Clases.OrdenCompra
             }
         }
         //___________________________________________________________________________________________
-        public void InsertarReciboConceptoGlobalGasto2(string ClaveConceptoG, string Folio, decimal Subtotal, decimal DescuentCargo, decimal Total)
+        public void InsertarReciboConceptoGlobalGasto2(string ClaveConceptoG, string Folio, decimal Subtotal, decimal DescuentCargo, decimal Total, string clase)
         {
             try
             {
-                cmd = new SqlCommand("insert into ConceptoGlobalesGasto (ClaveConceptoG, Folio, Subtotal, Cargo, Total) values ('" + ClaveConceptoG + "','" + Folio + "', '" + Subtotal + "', '" + DescuentCargo + "', '" + Total + "')", cn);
-                cmd.ExecuteNonQuery();
+                string query = @"
+            MERGE INTO ConceptoGlobalesGasto AS target
+            USING (SELECT @ClaveConceptoG AS ClaveConceptoG, @Folio AS Folio) AS source
+            ON (target.ClaveConceptoG = source.ClaveConceptoG AND target.Folio = source.Folio)
+            WHEN MATCHED THEN 
+                UPDATE SET Subtotal = @Subtotal, Descuento=@Descuento, Cargo = @Cargo, Total = @Total
+            WHEN NOT MATCHED THEN 
+                INSERT (ClaveConceptoG, Folio, Subtotal, Descuento, Cargo, Total)
+                VALUES (@ClaveConceptoG, @Folio, @Subtotal, @Descuento, @Cargo, @Total);";
 
+                using (SqlCommand cmd = new SqlCommand(query, cn))
+                {
+                    cmd.Parameters.AddWithValue("@ClaveConceptoG", ClaveConceptoG);
+                    cmd.Parameters.AddWithValue("@Folio", Folio);
+                    cmd.Parameters.AddWithValue("@Subtotal", Subtotal);
+                    if (clase == "Impuesto" || clase == "Cargo")
+                    {
+                        cmd.Parameters.AddWithValue("@Cargo", DescuentCargo);
+                        cmd.Parameters.AddWithValue("@Descuento", "0.00");
+
+                    }
+                    else
+                    {
+                        cmd.Parameters.AddWithValue("@Cargo", "0.00");
+                        cmd.Parameters.AddWithValue("@Descuento", DescuentCargo);
+                    }
+                    cmd.Parameters.AddWithValue("@Total", Total);
+
+                    cmd.ExecuteNonQuery();
+                }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                //MessageBox.Show("ERROR" + ex.ToString());
+                // Manejar la excepción de manera adecuada
+                // MessageBox.Show("ERROR: " + ex.ToString());
+                throw new Exception("Error al insertar o actualizar ConceptoGlobalesGasto", ex);
+            }
+        }
+        public void InsertarReciboConceptoGlobalRemision2(string ClaveConceptoG, string Folio, decimal Subtotal, decimal DescuentCargo, decimal Total, string clase, string IncluyeIva)
+        {
+            try
+            {
+                string query = @"
+            MERGE INTO ConceptoGlobalesRemision AS target
+            USING (SELECT @ClaveConceptoG AS ClaveConceptoG, @Folio AS Folio) AS source
+            ON (target.ClaveConceptoG = source.ClaveConceptoG AND target.Folio = source.Folio)
+            WHEN MATCHED THEN 
+                UPDATE SET Subtotal = @Subtotal, Descuento=@Descuento, Cargo = @Cargo, Total = @Total, IncluyeIva=@IncluyeIva
+            WHEN NOT MATCHED THEN 
+                INSERT (ClaveConceptoG, Folio, Subtotal, Descuento, Cargo, Total, IncluyeIva)
+                VALUES (@ClaveConceptoG, @Folio, @Subtotal, @Descuento, @Cargo, @Total, @IncluyeIva);";
+
+                using (SqlCommand cmd = new SqlCommand(query, cn))
+                {
+                    cmd.Parameters.AddWithValue("@ClaveConceptoG", ClaveConceptoG);
+                    cmd.Parameters.AddWithValue("@Folio", Folio);
+                    cmd.Parameters.AddWithValue("@Subtotal", Subtotal);
+                    if (clase == "Impuesto" || clase == "Cargo")
+                    {
+                        cmd.Parameters.AddWithValue("@Cargo", DescuentCargo);
+                        cmd.Parameters.AddWithValue("@Descuento", "0.00");
+
+                    }
+                    else
+                    {
+                        cmd.Parameters.AddWithValue("@Cargo", "0.00");
+                        cmd.Parameters.AddWithValue("@Descuento", DescuentCargo);
+                    }
+                    cmd.Parameters.AddWithValue("@Total", Total);
+                    cmd.Parameters.AddWithValue("@IncluyeIva", IncluyeIva);
+                    cmd.ExecuteNonQuery();
+                }
+            }
+            catch (Exception ex)
+            {
+                // Manejar la excepción de manera adecuada
+                // MessageBox.Show("ERROR: " + ex.ToString());
+                throw new Exception("Error al insertar o actualizar ConceptoGlobalesGasto", ex);
+            }
+        }
+        public void InsertarReciboConceptoGlobalOrdenPedidoCliente2(string ClaveConceptoG, string Folio, decimal Subtotal, decimal DescuentCargo, decimal Total, string clase)
+        {
+            try
+            {
+                string query = @"
+            MERGE INTO ConceptoGlobalesOrdenPedidoCliente AS target
+            USING (SELECT @ClaveConceptoG AS ClaveConceptoG, @Folio AS Folio) AS source
+            ON (target.ClaveConceptoG = source.ClaveConceptoG AND target.Folio = source.Folio)
+            WHEN MATCHED THEN 
+                UPDATE SET Subtotal = @Subtotal, Descuento=@Descuento, Cargo = @Cargo, Total = @Total
+            WHEN NOT MATCHED THEN 
+                INSERT (ClaveConceptoG, Folio, Subtotal, Descuento, Cargo, Total)
+                VALUES (@ClaveConceptoG, @Folio, @Subtotal, @Descuento, @Cargo, @Total);";
+
+                using (SqlCommand cmd = new SqlCommand(query, cn))
+                {
+                    cmd.Parameters.AddWithValue("@ClaveConceptoG", ClaveConceptoG);
+                    cmd.Parameters.AddWithValue("@Folio", Folio);
+                    cmd.Parameters.AddWithValue("@Subtotal", Subtotal);
+                    if (clase == "Impuesto" || clase == "Cargo")
+                    {
+                        cmd.Parameters.AddWithValue("@Cargo", DescuentCargo);
+                        cmd.Parameters.AddWithValue("@Descuento", "0.00");
+
+                    }
+                    else
+                    {
+                        cmd.Parameters.AddWithValue("@Cargo", "0.00");
+                        cmd.Parameters.AddWithValue("@Descuento", DescuentCargo);
+                    }
+                    cmd.Parameters.AddWithValue("@Total", Total);
+
+                    cmd.ExecuteNonQuery();
+                }
+            }
+            catch (Exception ex)
+            {
+                // Manejar la excepción de manera adecuada
+                // MessageBox.Show("ERROR: " + ex.ToString());
+                throw new Exception("Error al insertar o actualizar ConceptoGlobalesGasto", ex);
             }
         }
         //___________________________________________________________________________________________
@@ -3683,26 +3797,57 @@ namespace PV.Clases.OrdenCompra
                     string Descuento = dr["Descuento"].ToString();
                     string Cargo = dr["Cargo"].ToString();
 
-                    if (Descuento == string.Empty)
+                    if (string.IsNullOrEmpty(Descuento))
                     {
                         Descuento = "0.00";
                     }
-                    if (Cargo == string.Empty)
+                    if (string.IsNullOrEmpty(Cargo))
                     {
                         Cargo = "0.00";
                     }
                     dr.Close();
 
-                    cmd = new SqlCommand("Update RegistroGastos set Descuento= Descuento + '" + Descuento + "', Cargo= Cargo + '" + Cargo + "', Total='" + txtTotal + "', Saldo = '" + txtTotal + "' where Folio='" + txtFolio + "'", cn);
+                    cmd = new SqlCommand("Update RegistroGastos set Descuento= '" + Descuento + "', Cargo= '" + Cargo + "', Total=Subtotal+'" + Cargo + "'-'" + Descuento + "', Saldo = Subtotal+'" + Cargo + "'-'" + Descuento + "' where Folio='" + txtFolio + "'", cn);
                     cmd.ExecuteNonQuery();
                 }
-
             }
             catch (Exception ex)
             {
                 MessageBox.Show("ERROR act" + ex.ToString());
             }
         }
+        public void ActualizarReciboConceptoGlobalRemision(int txtFolio, decimal txtTotal)
+        {
+            try
+            {
+                cmd = new SqlCommand("select sum(Descuento) as Descuento, sum(Cargo) as Cargo from ConceptoGlobalesRemision where Folio=" + txtFolio + "", cn);
+                dr = cmd.ExecuteReader();
+
+                if (dr.Read())
+                {
+                    string Descuento = dr["Descuento"].ToString();
+                    string Cargo = dr["Cargo"].ToString();
+
+                    if (string.IsNullOrEmpty(Descuento))
+                    {
+                        Descuento = "0.00";
+                    }
+                    if (string.IsNullOrEmpty(Cargo))
+                    {
+                        Cargo = "0.00";
+                    }
+                    dr.Close();
+
+                    cmd = new SqlCommand("Update Remision set Descuento= '" + Descuento + "', Cargo= '" + Cargo + "', Total=Subtotal+'" + Cargo + "'-'" + Descuento + "', Saldo = Subtotal+'" + Cargo + "'-'" + Descuento + "' where Folio='" + txtFolio + "'", cn);
+                    cmd.ExecuteNonQuery();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("ERROR act" + ex.ToString());
+            }
+        }
+
         //____________________________________________________________________________________________
         public void ActualizarReciboConceptoGlobalNotaCArgo(int txtFolio, decimal Subtotal, decimal txtTotal, string Partida)
         {
@@ -3862,12 +4007,107 @@ namespace PV.Clases.OrdenCompra
                 MessageBox.Show("ERROR" + ex.ToString());
             }
         }
+        public void ActualizarPartidaReciboConceptoGlobalGasto(int txtFolio, decimal Porcentaje, string txtClase)
+        {
+            try
+            {
+
+                string query = "";
+                SqlCommand cmd;
+
+                if (txtClase == "Impuesto" || txtClase == "Cargo")
+                {
+                    query = "Update P set " +
+                            "P.Impuesto = (Case when CG.Tipo = 'Porcentaje' Then (P.Subtotal * (CG.Importe / 100)) Else CGG.Cargo End), " +
+                            "P.Total = P.Subtotal + (Case when CG.Tipo = 'Porcentaje' Then (P.Subtotal * (CG.Importe / 100)) Else CGG.Cargo End) " +
+                            "from PartidaRegistroGastos as P " +
+                            "Join ConceptoGlobalesGasto as CGG On P.FolioGasto=CGG.Folio " +
+                            "Join ConceptosGlobales as CG On CGG.ClaveConceptoG = CG.Clave " +
+                            "where P.FolioGasto = @Folio";
+                }
+                else
+                {
+                    query = "Update P set " +
+                            "P.Descuento = (Case when CG.Tipo = 'Porcentaje' Then (P.Subtotal * (CG.Importe / 100)) Else CGG.Descuento End), " +
+                            "P.Total = P.Subtotal - (Case when CG.Tipo = 'Porcentaje' Then (P.Subtotal * (CG.Importe / 100)) Else CGG.Descuento End) " +
+                            "from PartidaRegistroGastos as P " +
+                            "Join ConceptoGlobalesGasto as CGG On P.FolioGasto=CGG.Folio " +
+                            "Join ConceptosGlobales as CG On CGG.ClaveConceptoG = CG.Clave " +
+                            "where P.FolioGasto = @Folio";
+                }
+
+
+                cmd = new SqlCommand(query, cn);
+                cmd.Parameters.AddWithValue("@Folio", txtFolio);
+
+                cmd.ExecuteNonQuery();
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("ERROR act" + ex.ToString());
+            }
+        }
+        public void ActualizarPartidaReciboConceptoGlobalRemision(int txtFolio, decimal Porcentaje, string txtClase)
+        {
+            try
+            {
+
+                string query = "";
+                SqlCommand cmd;
+
+                if (txtClase == "Impuesto" || txtClase == "Cargo")
+                {
+                    query = "Update P set " +
+                            "P.Impuesto = (Case when CG.Tipo = 'Porcentaje' Then (P.Subtotal * (CG.Importe / 100)) Else CGG.Cargo End), " +
+                            "P.Total = P.Subtotal + (Case when CG.Tipo = 'Porcentaje' Then (P.Subtotal * (CG.Importe / 100)) Else CGG.Cargo End) " +
+                            "from PartidaRemision as P " +
+                            "Join ConceptoGlobalesRemision as CGG On P.FolioRemision=CGG.Folio " +
+                            "Join ConceptosGlobales as CG On CGG.ClaveConceptoG = CG.Clave " +
+                            "where P.FolioRemision = @Folio";
+                }
+                else
+                {
+                    query = "Update P set " +
+                            "P.Descuento = (Case when CG.Tipo = 'Porcentaje' Then (P.Subtotal * (CG.Importe / 100)) Else CGG.Descuento End), " +
+                            "P.Total = P.Subtotal - (Case when CG.Tipo = 'Porcentaje' Then (P.Subtotal * (CG.Importe / 100)) Else CGG.Descuento End) " +
+                            "from PartidaRemision as P " +
+                            "Join ConceptoGlobalesRemision as CGG On P.FolioRemision=CGG.Folio " +
+                            "Join ConceptosGlobales as CG On CGG.ClaveConceptoG = CG.Clave " +
+                            "where P.FolioRemision = @Folio";
+                }
+
+
+                cmd = new SqlCommand(query, cn);
+                cmd.Parameters.AddWithValue("@Folio", txtFolio);
+
+                cmd.ExecuteNonQuery();
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("ERROR act" + ex.ToString());
+            }
+        }
         //___________________________________________________________________________________________
         public void EliminarReciboConceptoGlobalGastos3(string Folio)
         {
             try
             {
                 cmd = new SqlCommand("delete ConceptoGlobalesGasto where Folio='" + Folio + "' and Total= '0.00'", cn);
+                cmd.ExecuteNonQuery();
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("ERROR" + ex.ToString());
+            }
+        }
+        public void EliminarReciboConceptoGlobalRemision3(string Folio)
+        {
+            try
+            {
+                cmd = new SqlCommand("delete ConceptoGlobalesRemision where Folio='" + Folio + "' and Total= '0.00'", cn);
                 cmd.ExecuteNonQuery();
 
             }
@@ -4733,7 +4973,7 @@ namespace PV.Clases.OrdenCompra
 
                     claveconcepto.Text = dr["ClaveProducto"].ToString();
                     Concepto.Text = dr["Descripcion"].ToString();
-                    Concepto2.Text = dr["Concepto2"].ToString();
+                    Concepto2.Text = dr["ClaveProducto"].ToString();
                     cantidad.Text = dr["Cantidad"].ToString();
                     unidad.Text = dr["Unidad"].ToString();
                     divisa.Text = dr["Divisa"].ToString();
@@ -4893,7 +5133,7 @@ namespace PV.Clases.OrdenCompra
 
             try
             {
-                cmd = new SqlCommand("select Total from Remision where Folio=" + Folio + "", cn);
+                cmd = new SqlCommand("select (R.Total+CG.Cargo-CG.Descuento) from Remision as R Join ConceptoGlobalesRemision as CG On CG.Folio=R.Folio where R.Folio=" + Folio + "", cn);
                 dr = cmd.ExecuteReader();
 
                 if (dr.Read())

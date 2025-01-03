@@ -344,6 +344,18 @@
     <Compile Include="ConceptosGlobalesNotasCargoVer.Designer.cs">
       <DependentUpon>ConceptosGlobalesNotasCargoVer.cs</DependentUpon>
     </Compile>
+    <Compile Include="ConceptosGlobalesPartidaOrdenPedidoCliente.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ConceptosGlobalesPartidaOrdenPedidoCliente.Designer.cs">
+      <DependentUpon>ConceptosGlobalesPartidaOrdenPedidoCliente.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ConceptosGlobalesPartidaRemision.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ConceptosGlobalesPartidaRemision.Designer.cs">
+      <DependentUpon>ConceptosGlobalesPartidaRemision.cs</DependentUpon>
+    </Compile>
     <Compile Include="ConceptosGlobalesPartidaGastos.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -389,6 +401,9 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>ControlCondominiosDataSet59.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="ControlCondominiosDataSet60.cs">
+      <DependentUpon>ControlCondominiosDataSet60.xsd</DependentUpon>
     </Compile>
     <Compile Include="ControlCondominiosDataSet60.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -1781,6 +1796,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="ConceptosGlobalesNotasCargoVer.resx">
       <DependentUpon>ConceptosGlobalesNotasCargoVer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ConceptosGlobalesPartidaOrdenPedidoCliente.resx">
+      <DependentUpon>ConceptosGlobalesPartidaOrdenPedidoCliente.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ConceptosGlobalesPartidaRemision.resx">
+      <DependentUpon>ConceptosGlobalesPartidaRemision.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ConceptosGlobalesPartidaGastos.resx">
       <DependentUpon>ConceptosGlobalesPartidaGastos.cs</DependentUpon>

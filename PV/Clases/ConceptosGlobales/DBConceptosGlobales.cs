@@ -38,7 +38,7 @@ namespace Condominios.Clases.ConceptosGlobales
         }
         //_________________________________________________________________________________________________________________________--
         // registrar divisa 
-        public string RegistrConcepto(string Clave, string Nombre, string Clase, string Tipo, string Relativo, string Cuenta, Decimal Importe)
+        public string RegistrConcepto(string Clave, string Nombre, string Clase, string Tipo, string Relativo, string Cuenta, Decimal Importe, int Iva)
         {
             string mensaje = "";
             int contador = 0;
@@ -57,7 +57,7 @@ namespace Condominios.Clases.ConceptosGlobales
                 if (contador <= 0)
                 {
 
-                    cmd = new SqlCommand("Insert into ConceptosGlobales (Clave, Nombre, Clase, Tipo, Relativo, Cuenta, Importe) values ('" + Clave + "', '" + Nombre + "', '" + Clase + "', '" + Tipo + "', '" + Relativo + "', '" + Cuenta + "', '" + Importe + "')", cn);
+                    cmd = new SqlCommand("Insert into ConceptosGlobales (Clave, Nombre, Clase, Tipo, Relativo, Cuenta, Importe, IncluyeIva) values ('" + Clave + "', '" + Nombre + "', '" + Clase + "', '" + Tipo + "', '" + Relativo + "', '" + Cuenta + "', '" + Importe + "', "+Convert.ToInt16(Iva)+")", cn);
                     cmd.ExecuteNonQuery();
                     mensaje = "Registro guardado.";
 
@@ -66,7 +66,7 @@ namespace Condominios.Clases.ConceptosGlobales
                 {
                     if (MessageBox.Show("El concepto ya existe, si continua sera modificado", "Documento", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                     {
-                        cmd = new SqlCommand("Update ConceptosGlobales set  Clase='" + Clase + "', Tipo='" + Tipo + "', Relativo='" + Relativo + "', Cuenta='" + Cuenta + "', Importe='" + Importe + "' where Clave='" + Clave + "' and Nombre= '" + Nombre + "'", cn);
+                        cmd = new SqlCommand("Update ConceptosGlobales set  Clase='" + Clase + "', Tipo='" + Tipo + "', Relativo='" + Relativo + "', Cuenta='" + Cuenta + "', Importe='" + Importe + "', IncluyeIva="+Iva+" where Clave='" + Clave + "' and Nombre= '" + Nombre + "'", cn);
                         cmd.ExecuteNonQuery();
                         mensaje = "Registro modificado.";
                     }
@@ -108,7 +108,7 @@ namespace Condominios.Clases.ConceptosGlobales
 
         //_____________________________________________________________________________________________________
         //Mostrar Usuario seleccionado
-        public void ConsultConceptoSeleccionado(string Clave, string Nombre, ComboBox Clase, ComboBox Tipo, ComboBox Relativa, Guna2TextBox Cuenta, Guna2TextBox Importe)
+        public void ConsultConceptoSeleccionado(string Clave, string Nombre, ComboBox Clase, ComboBox Tipo, ComboBox Relativa, Guna2TextBox Cuenta, Guna2TextBox Importe, Guna2ToggleSwitch IncluyeiVA)
         {
             try
             {
@@ -122,6 +122,7 @@ namespace Condominios.Clases.ConceptosGlobales
                     Relativa.Text = dr["RelativO"].ToString();
                     Cuenta.Text = dr["Cuenta"].ToString();
                     Importe.Text = dr["Importe"].ToString();
+                    IncluyeiVA.Checked = Convert.ToBoolean(dr["IncluyeIva"]);
                 }
                 dr.Close();
             }

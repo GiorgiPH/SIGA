@@ -13,7 +13,11 @@
                 <SelectCommand>
                   <DbCommand CommandType="Text" ModifiedByUser="true">
                     <CommandText>select Folio, ClaveDocumento, O.Estatus, Fecha, DiasVence, O.Divisa, O.TipoCambio, O.Subtotal, O.Descuento, Cargo, O.Total, TotalPartidas, Notas, Consecutivo,
-P.Partida, P.ClaveProducto, PS.Descripcion, PS.Alias, P.Cantidad as CantidadPartida, P.Subtotal as SubtotalPartida, P.Descuento as DescuentoPartida, P.Precio as PrecioPartida, P.Total as TotalPartida, P.Impuesto as ImpuestoPartida, P.Unidad as UnidadPartida, PS.SATImpuestos
+P.Partida, Cast(P.ClaveProducto as varchar) as ClaveProducto , PS.Descripcion, PS.Alias, P.Cantidad as CantidadPartida, P.Subtotal as SubtotalPartida, P.Descuento as DescuentoPartida, P.Precio as PrecioPartida, P.Total as TotalPartida, P.Impuesto as ImpuestoPartida, P.Unidad as UnidadPartida, PS.SATImpuestos, 0 as identificador,
+0.00 AS GloablDescuento,
+0.00 AS GlobalImpuesto,
+0.00 AS GlobalCargo,
+0 as IncluyeIva
 from Remision as O
 Join PartidaRemision as P on P.FolioRemision=O.Folio
 Join ProductosServicios as PS on PS.ClaveProducto=P.ClaveProducto</CommandText>
@@ -37,7 +41,6 @@ Join ProductosServicios as PS on PS.ClaveProducto=P.ClaveProducto</CommandText>
               <Mapping SourceColumn="Notas" DataSetColumn="Notas" />
               <Mapping SourceColumn="Consecutivo" DataSetColumn="Consecutivo" />
               <Mapping SourceColumn="Partida" DataSetColumn="Partida" />
-              <Mapping SourceColumn="ClaveProducto" DataSetColumn="ClaveProducto" />
               <Mapping SourceColumn="Descripcion" DataSetColumn="Descripcion" />
               <Mapping SourceColumn="Alias" DataSetColumn="Alias" />
               <Mapping SourceColumn="CantidadPartida" DataSetColumn="CantidadPartida" />
@@ -49,19 +52,104 @@ Join ProductosServicios as PS on PS.ClaveProducto=P.ClaveProducto</CommandText>
               <Mapping SourceColumn="UnidadPartida" DataSetColumn="UnidadPartida" />
               <Mapping SourceColumn="SATImpuestos" DataSetColumn="SATImpuestos" />
               <Mapping SourceColumn="DiasVence" DataSetColumn="DiasVence" />
+              <Mapping SourceColumn="ClaveProducto" DataSetColumn="ClaveProducto" />
+              <Mapping SourceColumn="identificador" DataSetColumn="identificador" />
+              <Mapping SourceColumn="GloablDescuento" DataSetColumn="GloablDescuento" />
+              <Mapping SourceColumn="GlobalImpuesto" DataSetColumn="GlobalImpuesto" />
+              <Mapping SourceColumn="GlobalCargo" DataSetColumn="GlobalCargo" />
+              <Mapping SourceColumn="IncluyeIva" DataSetColumn="IncluyeIva" />
             </Mappings>
             <Sources>
-              <DbSource ConnectionRef="ControlCondominiosConnectionString (Settings)" DbObjectType="Unknown" FillMethodModifier="Public" FillMethodName="FillBy" GenerateMethods="Both" GenerateShortCommands="true" GeneratorGetMethodName="GetDataBy" GeneratorSourceName="FillBy" GetMethodModifier="Public" GetMethodName="GetDataBy" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetDataBy" UserSourceName="FillBy">
+              <DbSource ConnectionRef="ControlCondominiosConnectionString (Settings)" DbObjectName="" DbObjectType="Unknown" FillMethodModifier="Public" FillMethodName="FillBy" GenerateMethods="Both" GenerateShortCommands="true" GeneratorGetMethodName="GetDataBy" GeneratorSourceName="FillBy" GetMethodModifier="Public" GetMethodName="GetDataBy" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetDataBy" UserSourceName="FillBy">
                 <SelectCommand>
                   <DbCommand CommandType="Text" ModifiedByUser="true">
-                    <CommandText>select Folio, ClaveDocumento, O.Estatus, Fecha, DiasVence, O.Divisa, O.TipoCambio, O.Subtotal, O.Descuento, Cargo, O.Total, TotalPartidas, Notas, Consecutivo,
-P.Partida, P.ClaveProducto, PS.Descripcion, PS.Alias, P.Cantidad as CantidadPartida, P.Subtotal as SubtotalPartida, P.Descuento as DescuentoPartida, P.Precio as PrecioPartida, P.Total as TotalPartida, P.Impuesto as ImpuestoPartida, P.Unidad as UnidadPartida, PS.SATImpuestos
-from Remision as O
-Join PartidaRemision as P on P.FolioRemision=O.Folio
-Join ProductosServicios as PS on PS.ClaveProducto=P.ClaveProducto
-Where Folio=@Folio</CommandText>
+                    <CommandText>(
+    select 
+        O.Folio,           -- Especificamos que Folio viene de la tabla Remision (alias O)
+        O.ClaveDocumento,  
+        O.Estatus, 
+        O.Fecha, 
+        O.DiasVence, 
+        O.Divisa, 
+        O.TipoCambio, 
+        O.Subtotal, 
+        O.Descuento, 
+        O.Cargo,          -- Especificamos que Cargo viene de la tabla Remision (alias O)
+        O.Total, 
+        O.TotalPartidas, 
+        O.Notas, 
+        O.Consecutivo,
+        P.Partida, 
+        Cast(P.ClaveProducto as varchar), 
+        PS.Descripcion, 
+        PS.Alias, 
+        P.Cantidad as CantidadPartida, 
+        P.Subtotal as SubtotalPartida, 
+        P.Descuento as DescuentoPartida, 
+        P.Precio as PrecioPartida, 
+        P.Total as TotalPartida, 
+        P.Impuesto as ImpuestoPartida, 
+        P.Unidad as UnidadPartida, 
+        PS.SATImpuestos,
+		1 as identificador,
+		0.00 AS GloablDescuento,
+		0.00 AS GlobalImpuesto,
+		0.00 AS GlobalCargo,
+0 as IncluyeIva
+    from 
+        Remision as O
+    Join 
+        PartidaRemision as P on P.FolioRemision = O.Folio
+    Join 
+        ProductosServicios as PS on PS.ClaveProducto = P.ClaveProducto
+    Where 
+        O.Folio = @Folio       -- Especificamos que Folio viene de la tabla Remision (alias O)
+)
+union
+(
+    select 
+        O.Folio,          -- Especificamos que Folio viene de la tabla Remision (alias O)
+        O.ClaveDocumento, 
+        O.Estatus, 
+        O.Fecha, 
+        O.DiasVence, 
+        O.Divisa, 
+        O.TipoCambio, 
+        O.Subtotal, 
+        O.Descuento, 
+        O.Cargo,          -- Especificamos que Cargo viene de la tabla Remision (alias O)
+        O.Total, 
+        O.TotalPartidas, 
+        O.Notas, 
+        O.Consecutivo,
+        0 as Partida, 
+        CG.Clave as ClaveProducto, 
+        CG.Nombre as Descripcion, 
+        '' as Alias, 
+        '1' as CantidadPartida, 
+        '0.00' as SubtotalPartida, 
+        0.00 as DescuentoPartida, 
+        0.00 as PrecioPartida, 
+        0.00 as TotalPartida, 
+        0.00 as ImpuestoPartida, 
+        '' as UnidadPartida, 
+        '0.00' as SATImpuestos,
+		2 as identificador,
+		CGR.Descuento AS GloablDescuento,
+		iif(CG.Clase='Impuesto',  CGR.Cargo, 0) AS GlobalImpuesto,
+		iif(CG.Clase='Cargo',  CGR.Cargo, 0) AS GlobalCargo,
+CGR.IncluyeIva
+    from 
+        Remision as O
+    Join 
+        ConceptoGlobalesRemision as CGR on CGR.Folio = O.Folio
+    Join 
+        ConceptosGlobales as CG on CG.Clave = CGR.ClaveConceptoG
+    Where 
+        O.Folio = @Folio       -- Especificamos que Folio viene de la tabla Remision (alias O)
+)</CommandText>
                     <Parameters>
-                      <Parameter AllowDbNull="false" AutogeneratedName="Folio" ColumnName="Folio" DataSourceName="Administracion.dbo.Remision" DataTypeServer="int" DbType="Int32" Direction="Input" ParameterName="@Folio" Precision="0" ProviderType="Int" Scale="0" Size="4" SourceColumn="Folio" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="Folio" ColumnName="Folio" DataSourceName="" DataTypeServer="int" DbType="Int32" Direction="Input" ParameterName="@Folio" Precision="0" ProviderType="Int" Scale="0" Size="4" SourceColumn="Folio" SourceColumnNullMapping="false" SourceVersion="Current" />
                     </Parameters>
                   </DbCommand>
                 </SelectCommand>
@@ -76,83 +164,94 @@ Where Folio=@Folio</CommandText>
   <xs:element name="ControlCondominiosDataSet60" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:Generator_UserDSName="ControlCondominiosDataSet60" msprop:EnableTableAdapterManager="true" msprop:Generator_DataSetName="ControlCondominiosDataSet60">
     <xs:complexType>
       <xs:choice minOccurs="0" maxOccurs="unbounded">
-        <xs:element name="DataTable1" msprop:Generator_RowClassName="DataTable1Row" msprop:Generator_RowEvHandlerName="DataTable1RowChangeEventHandler" msprop:Generator_RowDeletedName="DataTable1RowDeleted" msprop:Generator_RowDeletingName="DataTable1RowDeleting" msprop:Generator_RowEvArgName="DataTable1RowChangeEvent" msprop:Generator_TablePropName="DataTable1" msprop:Generator_RowChangedName="DataTable1RowChanged" msprop:Generator_UserTableName="DataTable1" msprop:Generator_RowChangingName="DataTable1RowChanging" msprop:Generator_TableClassName="DataTable1DataTable" msprop:Generator_TableVarName="tableDataTable1">
+        <xs:element name="DataTable1" msprop:Generator_RowEvHandlerName="DataTable1RowChangeEventHandler" msprop:Generator_RowDeletedName="DataTable1RowDeleted" msprop:Generator_RowDeletingName="DataTable1RowDeleting" msprop:Generator_RowEvArgName="DataTable1RowChangeEvent" msprop:Generator_TablePropName="DataTable1" msprop:Generator_RowChangedName="DataTable1RowChanged" msprop:Generator_UserTableName="DataTable1" msprop:Generator_RowChangingName="DataTable1RowChanging" msprop:Generator_RowClassName="DataTable1Row" msprop:Generator_TableClassName="DataTable1DataTable" msprop:Generator_TableVarName="tableDataTable1">
           <xs:complexType>
             <xs:sequence>
-              <xs:element name="Folio" msprop:Generator_UserColumnName="Folio" msprop:Generator_ColumnPropNameInTable="FolioColumn" msprop:Generator_ColumnPropNameInRow="Folio" msprop:Generator_ColumnVarNameInTable="columnFolio" type="xs:int" />
-              <xs:element name="ClaveDocumento" msprop:Generator_UserColumnName="ClaveDocumento" msprop:Generator_ColumnPropNameInTable="ClaveDocumentoColumn" msprop:Generator_ColumnPropNameInRow="ClaveDocumento" msprop:Generator_ColumnVarNameInTable="columnClaveDocumento" minOccurs="0">
+              <xs:element name="Folio" msprop:Generator_ColumnPropNameInTable="FolioColumn" msprop:Generator_ColumnPropNameInRow="Folio" msprop:Generator_UserColumnName="Folio" msprop:Generator_ColumnVarNameInTable="columnFolio" type="xs:int" />
+              <xs:element name="ClaveDocumento" msprop:Generator_ColumnPropNameInTable="ClaveDocumentoColumn" msprop:Generator_ColumnPropNameInRow="ClaveDocumento" msprop:Generator_UserColumnName="ClaveDocumento" msprop:Generator_ColumnVarNameInTable="columnClaveDocumento" minOccurs="0">
                 <xs:simpleType>
                   <xs:restriction base="xs:string">
                     <xs:maxLength value="10" />
                   </xs:restriction>
                 </xs:simpleType>
               </xs:element>
-              <xs:element name="Estatus" msprop:Generator_UserColumnName="Estatus" msprop:Generator_ColumnPropNameInTable="EstatusColumn" msprop:Generator_ColumnPropNameInRow="Estatus" msprop:Generator_ColumnVarNameInTable="columnEstatus" minOccurs="0">
+              <xs:element name="Estatus" msprop:Generator_ColumnPropNameInTable="EstatusColumn" msprop:Generator_ColumnPropNameInRow="Estatus" msprop:Generator_UserColumnName="Estatus" msprop:Generator_ColumnVarNameInTable="columnEstatus" minOccurs="0">
                 <xs:simpleType>
                   <xs:restriction base="xs:string">
                     <xs:maxLength value="10" />
                   </xs:restriction>
                 </xs:simpleType>
               </xs:element>
-              <xs:element name="Fecha" msprop:Generator_UserColumnName="Fecha" msprop:Generator_ColumnPropNameInTable="FechaColumn" msprop:Generator_ColumnPropNameInRow="Fecha" msprop:Generator_ColumnVarNameInTable="columnFecha" type="xs:dateTime" minOccurs="0" />
-              <xs:element name="Divisa" msprop:Generator_UserColumnName="Divisa" msprop:Generator_ColumnPropNameInTable="DivisaColumn" msprop:Generator_ColumnPropNameInRow="Divisa" msprop:Generator_ColumnVarNameInTable="columnDivisa" minOccurs="0">
+              <xs:element name="Fecha" msprop:Generator_ColumnPropNameInTable="FechaColumn" msprop:Generator_ColumnPropNameInRow="Fecha" msprop:Generator_UserColumnName="Fecha" msprop:Generator_ColumnVarNameInTable="columnFecha" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="Divisa" msprop:Generator_ColumnPropNameInTable="DivisaColumn" msprop:Generator_ColumnPropNameInRow="Divisa" msprop:Generator_UserColumnName="Divisa" msprop:Generator_ColumnVarNameInTable="columnDivisa" minOccurs="0">
                 <xs:simpleType>
                   <xs:restriction base="xs:string">
                     <xs:maxLength value="10" />
                   </xs:restriction>
                 </xs:simpleType>
               </xs:element>
-              <xs:element name="TipoCambio" msprop:Generator_UserColumnName="TipoCambio" msprop:Generator_ColumnPropNameInTable="TipoCambioColumn" msprop:Generator_ColumnPropNameInRow="TipoCambio" msprop:Generator_ColumnVarNameInTable="columnTipoCambio" type="xs:decimal" minOccurs="0" />
-              <xs:element name="Subtotal" msprop:Generator_UserColumnName="Subtotal" msprop:Generator_ColumnPropNameInTable="SubtotalColumn" msprop:Generator_ColumnPropNameInRow="Subtotal" msprop:Generator_ColumnVarNameInTable="columnSubtotal" type="xs:decimal" minOccurs="0" />
-              <xs:element name="Descuento" msprop:Generator_UserColumnName="Descuento" msprop:Generator_ColumnPropNameInTable="DescuentoColumn" msprop:Generator_ColumnPropNameInRow="Descuento" msprop:Generator_ColumnVarNameInTable="columnDescuento" type="xs:decimal" minOccurs="0" />
-              <xs:element name="Cargo" msprop:Generator_UserColumnName="Cargo" msprop:Generator_ColumnPropNameInTable="CargoColumn" msprop:Generator_ColumnPropNameInRow="Cargo" msprop:Generator_ColumnVarNameInTable="columnCargo" type="xs:decimal" minOccurs="0" />
-              <xs:element name="Total" msprop:Generator_UserColumnName="Total" msprop:Generator_ColumnPropNameInTable="TotalColumn" msprop:Generator_ColumnPropNameInRow="Total" msprop:Generator_ColumnVarNameInTable="columnTotal" type="xs:decimal" minOccurs="0" />
-              <xs:element name="TotalPartidas" msprop:Generator_UserColumnName="TotalPartidas" msprop:Generator_ColumnPropNameInTable="TotalPartidasColumn" msprop:Generator_ColumnPropNameInRow="TotalPartidas" msprop:Generator_ColumnVarNameInTable="columnTotalPartidas" type="xs:int" minOccurs="0" />
-              <xs:element name="Notas" msprop:Generator_UserColumnName="Notas" msprop:Generator_ColumnPropNameInTable="NotasColumn" msprop:Generator_ColumnPropNameInRow="Notas" msprop:Generator_ColumnVarNameInTable="columnNotas" minOccurs="0">
+              <xs:element name="TipoCambio" msprop:Generator_ColumnPropNameInTable="TipoCambioColumn" msprop:Generator_ColumnPropNameInRow="TipoCambio" msprop:Generator_UserColumnName="TipoCambio" msprop:Generator_ColumnVarNameInTable="columnTipoCambio" type="xs:decimal" minOccurs="0" />
+              <xs:element name="Subtotal" msprop:Generator_ColumnPropNameInTable="SubtotalColumn" msprop:Generator_ColumnPropNameInRow="Subtotal" msprop:Generator_UserColumnName="Subtotal" msprop:Generator_ColumnVarNameInTable="columnSubtotal" type="xs:decimal" minOccurs="0" />
+              <xs:element name="Descuento" msprop:Generator_ColumnPropNameInTable="DescuentoColumn" msprop:Generator_ColumnPropNameInRow="Descuento" msprop:Generator_UserColumnName="Descuento" msprop:Generator_ColumnVarNameInTable="columnDescuento" type="xs:decimal" minOccurs="0" />
+              <xs:element name="Cargo" msprop:Generator_ColumnPropNameInTable="CargoColumn" msprop:Generator_ColumnPropNameInRow="Cargo" msprop:Generator_UserColumnName="Cargo" msprop:Generator_ColumnVarNameInTable="columnCargo" type="xs:decimal" minOccurs="0" />
+              <xs:element name="Total" msprop:Generator_ColumnPropNameInTable="TotalColumn" msprop:Generator_ColumnPropNameInRow="Total" msprop:Generator_UserColumnName="Total" msprop:Generator_ColumnVarNameInTable="columnTotal" type="xs:decimal" minOccurs="0" />
+              <xs:element name="TotalPartidas" msprop:Generator_ColumnPropNameInTable="TotalPartidasColumn" msprop:Generator_ColumnPropNameInRow="TotalPartidas" msprop:Generator_UserColumnName="TotalPartidas" msprop:Generator_ColumnVarNameInTable="columnTotalPartidas" type="xs:int" minOccurs="0" />
+              <xs:element name="Notas" msprop:Generator_ColumnPropNameInTable="NotasColumn" msprop:Generator_ColumnPropNameInRow="Notas" msprop:Generator_UserColumnName="Notas" msprop:Generator_ColumnVarNameInTable="columnNotas" minOccurs="0">
                 <xs:simpleType>
                   <xs:restriction base="xs:string">
                     <xs:maxLength value="100" />
                   </xs:restriction>
                 </xs:simpleType>
               </xs:element>
-              <xs:element name="Consecutivo" msprop:Generator_UserColumnName="Consecutivo" msprop:Generator_ColumnPropNameInTable="ConsecutivoColumn" msprop:Generator_ColumnPropNameInRow="Consecutivo" msprop:Generator_ColumnVarNameInTable="columnConsecutivo" type="xs:int" minOccurs="0" />
-              <xs:element name="Partida" msprop:Generator_UserColumnName="Partida" msprop:Generator_ColumnPropNameInTable="PartidaColumn" msprop:Generator_ColumnPropNameInRow="Partida" msprop:Generator_ColumnVarNameInTable="columnPartida" type="xs:int" minOccurs="0" />
-              <xs:element name="ClaveProducto" msprop:Generator_UserColumnName="ClaveProducto" msprop:Generator_ColumnPropNameInTable="ClaveProductoColumn" msprop:Generator_ColumnPropNameInRow="ClaveProducto" msprop:Generator_ColumnVarNameInTable="columnClaveProducto" type="xs:int" minOccurs="0" />
-              <xs:element name="Descripcion" msprop:Generator_UserColumnName="Descripcion" msprop:Generator_ColumnPropNameInTable="DescripcionColumn" msprop:Generator_ColumnPropNameInRow="Descripcion" msprop:Generator_ColumnVarNameInTable="columnDescripcion" minOccurs="0">
+              <xs:element name="Consecutivo" msprop:Generator_ColumnPropNameInTable="ConsecutivoColumn" msprop:Generator_ColumnPropNameInRow="Consecutivo" msprop:Generator_UserColumnName="Consecutivo" msprop:Generator_ColumnVarNameInTable="columnConsecutivo" type="xs:int" minOccurs="0" />
+              <xs:element name="Partida" msprop:Generator_ColumnPropNameInTable="PartidaColumn" msprop:Generator_ColumnPropNameInRow="Partida" msprop:Generator_UserColumnName="Partida" msprop:Generator_ColumnVarNameInTable="columnPartida" type="xs:int" />
+              <xs:element name="Descripcion" msprop:Generator_ColumnPropNameInTable="DescripcionColumn" msprop:Generator_ColumnPropNameInRow="Descripcion" msprop:Generator_UserColumnName="Descripcion" msprop:Generator_ColumnVarNameInTable="columnDescripcion" minOccurs="0">
                 <xs:simpleType>
                   <xs:restriction base="xs:string">
                     <xs:maxLength value="100" />
                   </xs:restriction>
                 </xs:simpleType>
               </xs:element>
-              <xs:element name="Alias" msprop:Generator_UserColumnName="Alias" msprop:Generator_ColumnPropNameInTable="AliasColumn" msprop:Generator_ColumnPropNameInRow="Alias" msprop:Generator_ColumnVarNameInTable="columnAlias" minOccurs="0">
+              <xs:element name="Alias" msprop:Generator_ColumnPropNameInTable="AliasColumn" msprop:Generator_ColumnPropNameInRow="Alias" msprop:Generator_UserColumnName="Alias" msprop:Generator_ColumnVarNameInTable="columnAlias" minOccurs="0">
                 <xs:simpleType>
                   <xs:restriction base="xs:string">
                     <xs:maxLength value="100" />
                   </xs:restriction>
                 </xs:simpleType>
               </xs:element>
-              <xs:element name="CantidadPartida" msprop:Generator_UserColumnName="CantidadPartida" msprop:Generator_ColumnPropNameInTable="CantidadPartidaColumn" msprop:Generator_ColumnPropNameInRow="CantidadPartida" msprop:Generator_ColumnVarNameInTable="columnCantidadPartida" type="xs:int" minOccurs="0" />
-              <xs:element name="SubtotalPartida" msprop:Generator_UserColumnName="SubtotalPartida" msprop:Generator_ColumnPropNameInTable="SubtotalPartidaColumn" msprop:Generator_ColumnPropNameInRow="SubtotalPartida" msprop:Generator_ColumnVarNameInTable="columnSubtotalPartida" type="xs:decimal" minOccurs="0" />
-              <xs:element name="DescuentoPartida" msprop:Generator_UserColumnName="DescuentoPartida" msprop:Generator_ColumnPropNameInTable="DescuentoPartidaColumn" msprop:Generator_ColumnPropNameInRow="DescuentoPartida" msprop:Generator_ColumnVarNameInTable="columnDescuentoPartida" type="xs:decimal" minOccurs="0" />
-              <xs:element name="PrecioPartida" msprop:Generator_UserColumnName="PrecioPartida" msprop:Generator_ColumnPropNameInTable="PrecioPartidaColumn" msprop:Generator_ColumnPropNameInRow="PrecioPartida" msprop:Generator_ColumnVarNameInTable="columnPrecioPartida" type="xs:decimal" minOccurs="0" />
-              <xs:element name="TotalPartida" msprop:Generator_UserColumnName="TotalPartida" msprop:Generator_ColumnPropNameInTable="TotalPartidaColumn" msprop:Generator_ColumnPropNameInRow="TotalPartida" msprop:Generator_ColumnVarNameInTable="columnTotalPartida" type="xs:decimal" minOccurs="0" />
-              <xs:element name="ImpuestoPartida" msprop:Generator_UserColumnName="ImpuestoPartida" msprop:Generator_ColumnPropNameInTable="ImpuestoPartidaColumn" msprop:Generator_ColumnPropNameInRow="ImpuestoPartida" msprop:Generator_ColumnVarNameInTable="columnImpuestoPartida" type="xs:decimal" minOccurs="0" />
-              <xs:element name="UnidadPartida" msprop:Generator_UserColumnName="UnidadPartida" msprop:Generator_ColumnPropNameInTable="UnidadPartidaColumn" msprop:Generator_ColumnPropNameInRow="UnidadPartida" msprop:Generator_ColumnVarNameInTable="columnUnidadPartida" minOccurs="0">
+              <xs:element name="CantidadPartida" msprop:Generator_ColumnPropNameInTable="CantidadPartidaColumn" msprop:Generator_ColumnPropNameInRow="CantidadPartida" msprop:Generator_UserColumnName="CantidadPartida" msprop:Generator_ColumnVarNameInTable="columnCantidadPartida" type="xs:int" minOccurs="0" />
+              <xs:element name="SubtotalPartida" msprop:Generator_ColumnPropNameInTable="SubtotalPartidaColumn" msprop:Generator_ColumnPropNameInRow="SubtotalPartida" msprop:Generator_UserColumnName="SubtotalPartida" msprop:Generator_ColumnVarNameInTable="columnSubtotalPartida" type="xs:decimal" minOccurs="0" />
+              <xs:element name="DescuentoPartida" msprop:Generator_ColumnPropNameInTable="DescuentoPartidaColumn" msprop:Generator_ColumnPropNameInRow="DescuentoPartida" msprop:Generator_UserColumnName="DescuentoPartida" msprop:Generator_ColumnVarNameInTable="columnDescuentoPartida" type="xs:decimal" minOccurs="0" />
+              <xs:element name="PrecioPartida" msprop:Generator_ColumnPropNameInTable="PrecioPartidaColumn" msprop:Generator_ColumnPropNameInRow="PrecioPartida" msprop:Generator_UserColumnName="PrecioPartida" msprop:Generator_ColumnVarNameInTable="columnPrecioPartida" type="xs:decimal" minOccurs="0" />
+              <xs:element name="TotalPartida" msprop:Generator_ColumnPropNameInTable="TotalPartidaColumn" msprop:Generator_ColumnPropNameInRow="TotalPartida" msprop:Generator_UserColumnName="TotalPartida" msprop:Generator_ColumnVarNameInTable="columnTotalPartida" type="xs:decimal" minOccurs="0" />
+              <xs:element name="ImpuestoPartida" msprop:Generator_ColumnPropNameInTable="ImpuestoPartidaColumn" msprop:Generator_ColumnPropNameInRow="ImpuestoPartida" msprop:Generator_UserColumnName="ImpuestoPartida" msprop:Generator_ColumnVarNameInTable="columnImpuestoPartida" type="xs:decimal" minOccurs="0" />
+              <xs:element name="UnidadPartida" msprop:Generator_ColumnPropNameInTable="UnidadPartidaColumn" msprop:Generator_ColumnPropNameInRow="UnidadPartida" msprop:Generator_UserColumnName="UnidadPartida" msprop:Generator_ColumnVarNameInTable="columnUnidadPartida" minOccurs="0">
                 <xs:simpleType>
                   <xs:restriction base="xs:string">
                     <xs:maxLength value="50" />
                   </xs:restriction>
                 </xs:simpleType>
               </xs:element>
-              <xs:element name="SATImpuestos" msprop:Generator_UserColumnName="SATImpuestos" msprop:Generator_ColumnPropNameInTable="SATImpuestosColumn" msprop:Generator_ColumnPropNameInRow="SATImpuestos" msprop:Generator_ColumnVarNameInTable="columnSATImpuestos" minOccurs="0">
+              <xs:element name="SATImpuestos" msprop:Generator_ColumnPropNameInTable="SATImpuestosColumn" msprop:Generator_ColumnPropNameInRow="SATImpuestos" msprop:Generator_UserColumnName="SATImpuestos" msprop:Generator_ColumnVarNameInTable="columnSATImpuestos" minOccurs="0">
                 <xs:simpleType>
                   <xs:restriction base="xs:string">
                     <xs:maxLength value="100" />
                   </xs:restriction>
                 </xs:simpleType>
               </xs:element>
-              <xs:element name="DiasVence" msprop:Generator_ColumnPropNameInRow="DiasVence" msprop:Generator_ColumnPropNameInTable="DiasVenceColumn" msprop:Generator_ColumnVarNameInTable="columnDiasVence" msprop:Generator_UserColumnName="DiasVence" type="xs:int" minOccurs="0" />
+              <xs:element name="DiasVence" msprop:Generator_ColumnPropNameInTable="DiasVenceColumn" msprop:Generator_ColumnPropNameInRow="DiasVence" msprop:Generator_UserColumnName="DiasVence" msprop:Generator_ColumnVarNameInTable="columnDiasVence" type="xs:int" minOccurs="0" />
+              <xs:element name="ClaveProducto" msdata:ReadOnly="true" msprop:Generator_ColumnPropNameInTable="ClaveProductoColumn" msprop:Generator_ColumnPropNameInRow="ClaveProducto" msprop:Generator_UserColumnName="ClaveProducto" msprop:Generator_ColumnVarNameInTable="columnClaveProducto" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="30" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="identificador" msdata:ReadOnly="true" msprop:Generator_ColumnPropNameInTable="identificadorColumn" msprop:Generator_ColumnPropNameInRow="identificador" msprop:Generator_UserColumnName="identificador" msprop:Generator_ColumnVarNameInTable="columnidentificador" type="xs:int" minOccurs="0" />
+              <xs:element name="GloablDescuento" msdata:ReadOnly="true" msprop:Generator_UserColumnName="GloablDescuento" msprop:Generator_ColumnPropNameInTable="GloablDescuentoColumn" msprop:Generator_ColumnPropNameInRow="GloablDescuento" msprop:Generator_ColumnVarNameInTable="columnGloablDescuento" type="xs:decimal" minOccurs="0" />
+              <xs:element name="GlobalImpuesto" msdata:ReadOnly="true" msprop:Generator_UserColumnName="GlobalImpuesto" msprop:Generator_ColumnPropNameInTable="GlobalImpuestoColumn" msprop:Generator_ColumnPropNameInRow="GlobalImpuesto" msprop:Generator_ColumnVarNameInTable="columnGlobalImpuesto" type="xs:decimal" minOccurs="0" />
+              <xs:element name="GlobalCargo" msdata:ReadOnly="true" msprop:Generator_UserColumnName="GlobalCargo" msprop:Generator_ColumnPropNameInTable="GlobalCargoColumn" msprop:Generator_ColumnPropNameInRow="GlobalCargo" msprop:Generator_ColumnVarNameInTable="columnGlobalCargo" type="xs:decimal" minOccurs="0" />
+              <xs:element name="IncluyeIva" msdata:ReadOnly="true" msprop:Generator_ColumnPropNameInRow="IncluyeIva" msprop:Generator_ColumnPropNameInTable="IncluyeIvaColumn" msprop:Generator_ColumnVarNameInTable="columnIncluyeIva" msprop:Generator_UserColumnName="IncluyeIva" type="xs:int" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>

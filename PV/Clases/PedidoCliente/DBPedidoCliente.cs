@@ -42,7 +42,25 @@ namespace PV.Clases.PedidoCliente
                 MessageBox.Show("Error de Conexion" + ex.ToString());
             }
         }
-       
+        public void ConsultaTotalOrdenPedidoCliente(string Folio, Guna.UI2.WinForms.Guna2TextBox Subtotal)
+        {
+            try
+            {
+                cmd = new SqlCommand("Select Total from OrdenPedidoCliente where Folio='" + Folio + "'", cn);
+                dr = cmd.ExecuteReader();
+                if (dr.Read())
+                {
+                    Subtotal.Text = dr["Total"].ToString();
+
+                }
+                dr.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+                dr.Close();
+            }
+        }
         public void BuscarClienteFiltro(DataGridView dgv, string Filtro)
         {
             try
@@ -1862,39 +1880,90 @@ namespace PV.Clases.PedidoCliente
         public string[] InformacionPartidaOrden(string Recibo, string folio)
         {
             dr.Close();
-            string query = @"
-            Select top 1 P.ClaveProducto,Po.Unidad,P.ExActual, P.PedidosProveedor, P.PedidosCliente, P.PrecioVenta, PO.Cantidad, PO.sUBTOTAL, PO.Descuento, PO.Impuesto, PO.Total, PO.Precio,PO.CantidadEntregada, PO.CantidadPendiente from ProductosServicios as P
-            Left Join PartidaOrdenPedidoCliente as PO on PO.ClaveProducto=P.ClaveProducto
-            where P.Descripcion= '" + Recibo + "'";
-            if (!string.IsNullOrEmpty(folio))
+            string query;
+
+            if (string.IsNullOrEmpty(folio))
             {
-                query += " and PO.FolioOrden='" + folio + "'";
+                // Si no hay folio, solo consultamos la tabla ProductosServicios
+                query = @"
+        Select top 1 
+            P.ClaveProducto,
+            '' as Unidad,
+            P.ExActual, 
+            P.PedidosProveedor, 
+            P.PedidosCliente, 
+            P.PrecioVenta,
+            1 as Cantidad,
+            0 as Subtotal,
+            0 as Descuento,
+            0 as Impuesto,
+            0 as Total,
+            P.PrecioVenta as Precio,
+            0 as CantidadEntregada,
+            0 as CantidadPendiente
+        from ProductosServicios as P
+        where P.Descripcion = @Recibo";
             }
-            cmd = new SqlCommand(query, cn);
-            dr = cmd.ExecuteReader();
-            string[] resultado = null;
-            while (dr.Read())
+            else
             {
-                string[] valores =
+                // Si hay folio, hacemos el JOIN con PartidaOrdenPedidoCliente
+                query = @"
+        Select top 1 
+            P.ClaveProducto,
+            PO.Unidad,
+            P.ExActual, 
+            P.PedidosProveedor, 
+            P.PedidosCliente, 
+            P.PrecioVenta,
+            PO.Cantidad,
+            PO.Subtotal,
+            PO.Descuento,
+            PO.Impuesto,
+            PO.Total,
+            PO.Precio,
+            PO.CantidadEntregada,
+            PO.CantidadPendiente
+        from ProductosServicios as P
+        Inner Join PartidaOrdenPedidoCliente as PO on PO.ClaveProducto = P.ClaveProducto
+        where P.Descripcion = @Recibo AND PO.FolioOrden = @Folio";
+            }
+
+            using (SqlCommand cmd = new SqlCommand(query, cn))
+            {
+                cmd.Parameters.AddWithValue("@Recibo", Recibo);
+                if (!string.IsNullOrEmpty(folio))
                 {
-                    dr["CLaveProducto"].ToString(),
-                     dr["Cantidad"].ToString(),
-                    dr["sUBTOTAL"].ToString(),
-                     dr["Unidad"].ToString(),
-                     dr["Descuento"].ToString(),
-                         dr["Impuesto"].ToString(),
-                          dr["Total"].ToString(),
-                          dr["ExActual"].ToString(),
-                           dr["PedidosProveedor"].ToString(),
-                          dr["PedidosCliente"].ToString(),
-                          dr["CantidadEntregada"].ToString(),
-                          dr["CantidadPendiente"].ToString(),
-                          dr["Precio"].ToString(),
+                    cmd.Parameters.AddWithValue("@Folio", folio);
+                }
+
+                using (SqlDataReader dr = cmd.ExecuteReader())
+                {
+                    string[] resultado = null;
+
+                    while (dr.Read())
+                    {
+                        string[] valores =
+                        {
+                    dr["ClaveProducto"].ToString(),
+                    dr["Cantidad"].ToString(),
+                    dr["Subtotal"].ToString(),
+                    dr["Unidad"].ToString(),
+                    dr["Descuento"].ToString(),
+                    dr["Impuesto"].ToString(),
+                    dr["Total"].ToString(),
+                    dr["ExActual"].ToString(),
+                    dr["PedidosProveedor"].ToString(),
+                    dr["PedidosCliente"].ToString(),
+                    dr["CantidadEntregada"].ToString(),
+                    dr["CantidadPendiente"].ToString(),
+                    dr["Precio"].ToString(),
                 };
-                resultado = valores;
+                        resultado = valores;
+                    }
+
+                    return resultado;
+                }
             }
-            dr.Close();
-            return resultado;
         }
         //_____________________________________________________________________________________________________
         public string[] InformacionRecepcion(string Producto, string Orden)
@@ -3518,7 +3587,7 @@ namespace PV.Clases.PedidoCliente
 
                     claveconcepto.Text = dr["ClaveProducto"].ToString();
                     Concepto.Text = dr["Descripcion"].ToString();
-                    Concepto2.Text = dr["Concepto2"].ToString();
+                    Concepto2.Text = dr["ClaveProducto"].ToString();
                     cantidad.Text = dr["Cantidad"].ToString();
                     unidad.Text = dr["Unidad"].ToString();
                     divisa.Text = dr["Divisa"].ToString();

@@ -3334,6 +3334,7 @@ namespace PV
             this.button11.Name = "button11";
             this.button11.Size = new System.Drawing.Size(65, 65);
             this.button11.TabIndex = 303;
+            this.button11.Visible = false;
             this.button11.Click += new System.EventHandler(this.button11_Click);
             // 
             // button10
