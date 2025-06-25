@@ -1020,6 +1020,7 @@ namespace PV
                     txtConcepto2.Text = valores[0];
                     //txtConcepto.Text = valores[1];
                     txtPrecio.Text = valores[12];
+                    txtCostoUnitario.Text = valores[13];
                     txtUnidad.Text = valores[3];
                     txtImpuesto1.Text = valores[5];
                     txtDescuento1.Text = valores[4];
@@ -1288,6 +1289,7 @@ namespace PV
             lblPedidosCliente.Text = "0.00";
             lblPedidosProveedor.Text = "0.00";
             lblDisponible.Text = "0.00";
+            txtCostoUnitario.Text = "0.00";
             txtConcepto2.Text = string.Empty;
 
             //c.SeleccionarProducto2(cmbConcepto, TxtFolio2.Text);

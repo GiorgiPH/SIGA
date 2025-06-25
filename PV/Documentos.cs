@@ -32,6 +32,7 @@ namespace Condominios
                 cmbInventarios.Visible = false;
                 cmbInventarios.Enabled = false;
                 groupBox4.Enabled = true;
+                cmbtarea.Enabled = true;
             }
             else if (cmbTipoDocumento.Text == "Venta")
             {
@@ -42,6 +43,8 @@ namespace Condominios
                 cmbInventarios.Visible = false;
                 cmbInventarios.Enabled = false;
                 groupBox4.Enabled = true;
+                cmbtarea.Enabled = false;
+                cmbtarea.SelectedIndex = -1;
             }
             else if (cmbTipoDocumento.Text == "Inventario")
             {
@@ -52,6 +55,8 @@ namespace Condominios
                 cmbVentas.Visible = false;
                 cmbVentas.Enabled = false;
                 groupBox4.Enabled = true;
+                cmbtarea.Enabled = false;
+                cmbtarea.SelectedIndex = -1;
             }
         }
 
@@ -81,7 +86,10 @@ namespace Condominios
             {
                 MessageBox.Show("Registre el almacen para continuar");
             }
-            
+            else if (cmbtarea.Text == string.Empty && cmbTipoDocumento.Text == "Compra")
+            {
+                MessageBox.Show("Se debe agregar un valor en el campo tarea");
+            }
             else
             {
                 string Clase = string.Empty;
@@ -117,9 +125,10 @@ namespace Condominios
                 {
                     Bloqueo = "No";
                 }
-                MessageBox.Show( c.RegistroDocumento(cmbTipoDocumento.Text, Clase, txtClave.Text, txtNombre.Text, txtAlmacen.Text, txtUltimoFolio.Text, Consecutivo, Bloqueo, txtCuenta.Text, txtCuenta2.Text));
+                MessageBox.Show( c.RegistroDocumento(cmbTipoDocumento.Text, Clase, txtClave.Text, txtNombre.Text, txtAlmacen.Text, txtUltimoFolio.Text, Consecutivo, Bloqueo, txtCuenta.Text, txtCuenta2.Text, cmbtarea.Text));
                 Limpiar();
                 c.CargarDocumentos(dataGridView1);
+                cmbtarea.SelectedIndex = -1;
             }
         }
 
@@ -151,6 +160,7 @@ namespace Condominios
         {
             if (e.RowIndex != -1)
             {
+                cmbtarea.SelectedIndex = -1;
                 string Clave = dataGridView1.Rows[e.RowIndex].Cells["Clave"].Value.ToString();
                 string Nombre = dataGridView1.Rows[e.RowIndex].Cells["Documento"].Value.ToString();
 
@@ -160,7 +170,7 @@ namespace Condominios
                     cmbInventarios.Visible = true;
                     cmbVentas.Visible = false;
                     cmbCompras.Visible = false;
-                    c.ConsultaDocumentoSeleccionado(cmbTipoDocumento, cmbInventarios, Clave, Nombre, txtAlmacen, txtUltimoFolio, tgConsecutivo, tgBloquear, txtCuenta, txtCuenta2);
+                    c.ConsultaDocumentoSeleccionado(cmbTipoDocumento, cmbInventarios, Clave, Nombre, txtAlmacen, txtUltimoFolio, tgConsecutivo, tgBloquear, txtCuenta, txtCuenta2,cmbtarea);
 
                 }
                 else if (cmbVentas.Visible == true)
@@ -169,7 +179,7 @@ namespace Condominios
                     cmbInventarios.Visible = false;
                     cmbVentas.Visible = true;
                     cmbCompras.Visible = false;
-                    c.ConsultaDocumentoSeleccionado(cmbTipoDocumento, cmbVentas, Clave, Nombre, txtAlmacen, txtUltimoFolio, tgConsecutivo, tgBloquear, txtCuenta, txtCuenta2);
+                    c.ConsultaDocumentoSeleccionado(cmbTipoDocumento, cmbVentas, Clave, Nombre, txtAlmacen, txtUltimoFolio, tgConsecutivo, tgBloquear, txtCuenta, txtCuenta2, cmbtarea);
          
                 }
                 else if (cmbCompras.Visible == true)
@@ -178,7 +188,7 @@ namespace Condominios
                     cmbInventarios.Visible = false;
                     cmbVentas.Visible = false;
                     cmbCompras.Visible = true;
-                    c.ConsultaDocumentoSeleccionado(cmbTipoDocumento, cmbCompras, Clave, Nombre, txtAlmacen, txtUltimoFolio, tgConsecutivo, tgBloquear, txtCuenta, txtCuenta2);
+                    c.ConsultaDocumentoSeleccionado(cmbTipoDocumento, cmbCompras, Clave, Nombre, txtAlmacen, txtUltimoFolio, tgConsecutivo, tgBloquear, txtCuenta, txtCuenta2, cmbtarea);
                   
                 }
 
@@ -205,6 +215,7 @@ namespace Condominios
                 txtNombre.Enabled = false;
                 PanelUsuario.Visible = false;
                 groupBox3.Enabled = true;
+                
             }
             else
             {

@@ -63,6 +63,9 @@
     <SignManifests>true</SignManifests>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Guna.Charts.WinForms, Version=1.1.0.0, Culture=neutral, PublicKeyToken=8b9d14aa5142e261, processorArchitecture=MSIL">
+      <HintPath>..\packages\Guna.Charts.WinForms.1.1.0\lib\net48\Guna.Charts.WinForms.dll</HintPath>
+    </Reference>
     <Reference Include="Guna.UI2, Version=2.0.4.6, Culture=neutral, PublicKeyToken=8b9d14aa5142e261, processorArchitecture=MSIL">
       <HintPath>..\packages\Guna.UI2.WinForms.2.0.4.6\lib\net48\Guna.UI2.dll</HintPath>
     </Reference>
@@ -197,6 +200,11 @@
     <Compile Include="BuscarNombre.Designer.cs">
       <DependentUpon>BuscarNombre.cs</DependentUpon>
     </Compile>
+    <Compile Include="CajaRDataSet.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CajaRDataSet.xsd</DependentUpon>
+    </Compile>
     <Compile Include="CancelarCitas.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -287,9 +295,11 @@
     <Compile Include="Clases\AreasComunes\DBAreasComunes.cs" />
     <Compile Include="Clases\Avisos\DBAvisos.cs" />
     <Compile Include="Clases\CategoriaFamilias\DBCategoriasFamilias.cs" />
+    <Compile Include="Clases\CentroCostos\DBDatosProyecto.cs" />
     <Compile Include="Clases\CentroCostos\DBCentroCostos.cs" />
     <Compile Include="Clases\Clientes\DBClientes.cs" />
     <Compile Include="Clases\colores.cs" />
+    <Compile Include="Clases\ConceptosGlobalesReembolso\DBConceptosGloablesReembolso.cs" />
     <Compile Include="Clases\ConceptosGlobales\DBConceptosGlobales.cs" />
     <Compile Include="Clases\ConceptosIngresos\DBConceptosIngresos.cs" />
     <Compile Include="Clases\Condominios\DBCondominios.cs" />
@@ -308,6 +318,7 @@
     <Compile Include="Clases\Inventario\DBRegistrarEntradas.cs" />
     <Compile Include="Clases\Login\DBLogin.cs" />
     <Compile Include="Clases\OrdenCompra\DBOrdenCompra.cs" />
+    <Compile Include="Clases\OrdenCompra\DBRegistroReembolsos.cs" />
     <Compile Include="Clases\PedidoCliente\DBPedidoCliente.cs" />
     <Compile Include="Clases\Personal\DBPersonal.cs" />
     <Compile Include="Clases\Poliza\DBPolizas.cs" />
@@ -343,6 +354,12 @@
     </Compile>
     <Compile Include="ConceptosGlobalesNotasCargoVer.Designer.cs">
       <DependentUpon>ConceptosGlobalesNotasCargoVer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ConceptosGlobalesPartida.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ConceptosGlobalesPartida.Designer.cs">
+      <DependentUpon>ConceptosGlobalesPartida.cs</DependentUpon>
     </Compile>
     <Compile Include="ConceptosGlobalesPartidaOrdenPedidoCliente.cs">
       <SubType>Form</SubType>
@@ -424,17 +441,58 @@
       <DependentUpon>ControlCondominiosDataSet8.xsd</DependentUpon>
     </Compile>
     <Compile Include="customProfessionalRender.cs" />
+    <Compile Include="DatosProyecto.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DatosProyecto.Designer.cs">
+      <DependentUpon>DatosProyecto.cs</DependentUpon>
+    </Compile>
     <Compile Include="DefinePoliza.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="DefinePoliza.Designer.cs">
       <DependentUpon>DefinePoliza.cs</DependentUpon>
     </Compile>
+    <Compile Include="DTSReporteDiarioGastos.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DTSReporteDiarioGastos.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="DTSReporteDiarioOrdenesPedido1.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DTSReporteDiarioOrdenesPedido.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="DTSReporteDiarioReembolsos.cs">
+      <DependentUpon>DTSReporteDiarioReembolsos.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="DTSReporteDiarioReembolsos.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DTSReporteDiarioReembolsos.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="DTSReporteOrdenesPedidoUtilidad.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DTSReporteOrdenesPedidoUtilidad.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Form1.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form1.Designer.cs">
+      <DependentUpon>Form1.cs</DependentUpon>
+    </Compile>
     <Compile Include="GENERARPOLIZAS.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="GENERARPOLIZAS.Designer.cs">
       <DependentUpon>GENERARPOLIZAS.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GraficaMontoGastosxMes.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GraficaMontoGastosxMes.Designer.cs">
+      <DependentUpon>GraficaMontoGastosxMes.cs</DependentUpon>
     </Compile>
     <Compile Include="LoginDemo.cs">
       <SubType>Form</SubType>
@@ -502,6 +560,36 @@
     <Compile Include="RegistroGastos2.Designer.cs">
       <DependentUpon>RegistroGastos2.cs</DependentUpon>
     </Compile>
+    <Compile Include="RegistroReembolsos.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="RegistroReembolsos.Designer.cs">
+      <DependentUpon>RegistroReembolsos.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ReporteComprasReembolso.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ReporteComprasReembolso.Designer.cs">
+      <DependentUpon>ReporteComprasReembolso.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ReporteDiarioGastos.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ReporteDiarioGastos.Designer.cs">
+      <DependentUpon>ReporteDiarioGastos.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ReporteDiarioP.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ReporteDiarioP.Designer.cs">
+      <DependentUpon>ReporteDiarioP.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ReporteDiarioReembolsos.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ReporteDiarioReembolsos.Designer.cs">
+      <DependentUpon>ReporteDiarioReembolsos.cs</DependentUpon>
+    </Compile>
     <Compile Include="ReporteOrdenPedidoCliente.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -525,6 +613,18 @@
     </Compile>
     <Compile Include="ReporteServicios.Designer.cs">
       <DependentUpon>ReporteServicios.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ReporteUtilidadPedido.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ReporteUtilidadPedido.Designer.cs">
+      <DependentUpon>ReporteUtilidadPedido.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ReporteUtilidadProducto.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ReporteUtilidadProducto.Designer.cs">
+      <DependentUpon>ReporteUtilidadProducto.cs</DependentUpon>
     </Compile>
     <Compile Include="Requisicion2.cs">
       <SubType>Form</SubType>
@@ -1797,6 +1897,9 @@
     <EmbeddedResource Include="ConceptosGlobalesNotasCargoVer.resx">
       <DependentUpon>ConceptosGlobalesNotasCargoVer.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="ConceptosGlobalesPartida.resx">
+      <DependentUpon>ConceptosGlobalesPartida.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="ConceptosGlobalesPartidaOrdenPedidoCliente.resx">
       <DependentUpon>ConceptosGlobalesPartidaOrdenPedidoCliente.cs</DependentUpon>
     </EmbeddedResource>
@@ -1821,11 +1924,17 @@
     <EmbeddedResource Include="ConsultaInventario2.resx">
       <DependentUpon>ConsultaInventario2.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="DatosProyecto.resx">
+      <DependentUpon>DatosProyecto.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="DefinePoliza.resx">
       <DependentUpon>DefinePoliza.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="GENERARPOLIZAS.resx">
       <DependentUpon>GENERARPOLIZAS.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GraficaMontoGastosxMes.resx">
+      <DependentUpon>GraficaMontoGastosxMes.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="LoginDemo.resx">
       <DependentUpon>LoginDemo.cs</DependentUpon>
@@ -1860,6 +1969,25 @@
     <EmbeddedResource Include="RegistroGastos2.resx">
       <DependentUpon>RegistroGastos2.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="RegistroReembolsos.resx">
+      <DependentUpon>RegistroReembolsos.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ReporteComprasReembolso.rdlc" />
+    <EmbeddedResource Include="ReporteComprasReembolso.resx">
+      <DependentUpon>ReporteComprasReembolso.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ReporteDiarioGastos.rdlc" />
+    <EmbeddedResource Include="ReporteDiarioGastos.resx">
+      <DependentUpon>ReporteDiarioGastos.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ReporteDiarioP.rdlc" />
+    <EmbeddedResource Include="ReporteDiarioP.resx">
+      <DependentUpon>ReporteDiarioP.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ReporteDiarioReembolsos.rdlc" />
+    <EmbeddedResource Include="ReporteDiarioReembolsos.resx">
+      <DependentUpon>ReporteDiarioReembolsos.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="ReporteOrdenPedidoCliente.rdlc" />
     <EmbeddedResource Include="ReporteOrdenPedidoCliente.resx">
       <DependentUpon>ReporteOrdenPedidoCliente.cs</DependentUpon>
@@ -1875,6 +2003,14 @@
     <EmbeddedResource Include="ReporteServicios.rdlc" />
     <EmbeddedResource Include="ReporteServicios.resx">
       <DependentUpon>ReporteServicios.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ReporteUtilidadPedido.rdlc" />
+    <EmbeddedResource Include="ReporteUtilidadPedido.resx">
+      <DependentUpon>ReporteUtilidadPedido.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ReporteUtilidadProducto.rdlc" />
+    <EmbeddedResource Include="ReporteUtilidadProducto.resx">
+      <DependentUpon>ReporteUtilidadProducto.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Requisicion2.resx">
       <DependentUpon>Requisicion2.cs</DependentUpon>
@@ -2372,6 +2508,17 @@
     <EmbeddedResource Include="Usuarios.resx">
       <DependentUpon>Usuarios.cs</DependentUpon>
     </EmbeddedResource>
+    <None Include="CajaRDataSet.xsc">
+      <DependentUpon>CajaRDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="CajaRDataSet.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>CajaRDataSet.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="CajaRDataSet.xss">
+      <DependentUpon>CajaRDataSet.xsd</DependentUpon>
+    </None>
     <None Include="ControlCondominiosDataSet.xsc">
       <DependentUpon>ControlCondominiosDataSet.xsd</DependentUpon>
     </None>
@@ -3065,6 +3212,50 @@
     <None Include="ControlCondominiosDataSet9.xss">
       <DependentUpon>ControlCondominiosDataSet9.xsd</DependentUpon>
     </None>
+    <None Include="DTSReporteDiarioGastos.xsc">
+      <DependentUpon>DTSReporteDiarioGastos.xsd</DependentUpon>
+    </None>
+    <None Include="DTSReporteDiarioGastos.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>DTSReporteDiarioGastos.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="DTSReporteDiarioGastos.xss">
+      <DependentUpon>DTSReporteDiarioGastos.xsd</DependentUpon>
+    </None>
+    <None Include="DTSReporteDiarioOrdenesPedido.xsc">
+      <DependentUpon>DTSReporteDiarioOrdenesPedido.xsd</DependentUpon>
+    </None>
+    <None Include="DTSReporteDiarioOrdenesPedido.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>DTSReporteDiarioOrdenesPedido1.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="DTSReporteDiarioOrdenesPedido.xss">
+      <DependentUpon>DTSReporteDiarioOrdenesPedido.xsd</DependentUpon>
+    </None>
+    <None Include="DTSReporteDiarioReembolsos.xsc">
+      <DependentUpon>DTSReporteDiarioReembolsos.xsd</DependentUpon>
+    </None>
+    <None Include="DTSReporteDiarioReembolsos.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>DTSReporteDiarioReembolsos.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="DTSReporteDiarioReembolsos.xss">
+      <DependentUpon>DTSReporteDiarioReembolsos.xsd</DependentUpon>
+    </None>
+    <None Include="DTSReporteOrdenesPedidoUtilidad.xsc">
+      <DependentUpon>DTSReporteOrdenesPedidoUtilidad.xsd</DependentUpon>
+    </None>
+    <None Include="DTSReporteOrdenesPedidoUtilidad.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>DTSReporteOrdenesPedidoUtilidad.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="DTSReporteOrdenesPedidoUtilidad.xss">
+      <DependentUpon>DTSReporteOrdenesPedidoUtilidad.xsd</DependentUpon>
+    </None>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -3154,6 +3345,8 @@
     <None Include="Resources\CLIENTES.png" />
     <None Include="Resources\PROVEEDORES.png" />
     <None Include="Resources\CUENTAS BANCARIAS.png" />
+    <None Include="Resources\logo proyecto.png" />
+    <None Include="Resources\logo proyecto2.png" />
     <Content Include="SqlServerTypes\readme.htm" />
     <Content Include="SqlServerTypes\x64\msvcr120.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -3180,5 +3373,6 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

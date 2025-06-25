@@ -190,14 +190,147 @@ namespace Condominios.Clases.RegistrarIngresos
             try
             {
                 NumberFormatInfo formato = new CultureInfo("US-AR").NumberFormat;
-
                 formato.CurrencyGroupSeparator = ",";
                 formato.NumberDecimalSeparator = ".";
-
                 dgv.Rows.Clear();
-                da = new SqlDataAdapter("(select 'P' as Tipo, R.*, D.Nombre from RecepcionProducto as R, Documento as D where R.ClaveProveedor='" + Matricula + "' and Saldo!=0 and R.ClaveDocumento=D.Clave) union (select 'G' as Tipo, R.*, D.Nombre from RegistroGastos as R, Documento as D where R.ClaveProveedor='" + Matricula + "' and Saldo!=0 and R.ClaveDocumento=D.Clave) union (select 'NCG' as Tipo, R.*, '' as DiasVence, '' as FechaVence, D.Nombre from NotasGasto as R, Documento as D where R.ClaveProveedor='" + Matricula + "' and Saldo!=0 and R.ClaveDocumento=D.Clave)", cn);
+
+                // Corrected SQL query with explicit column selection for all tables
+                string sql = @"
+            (SELECT 
+                'P' as Tipo, 
+                R.Folio, 
+                R.ClaveDocumento, 
+                R.Estatus, 
+                R.Fecha, 
+                R.ClaveProveedor, 
+                R.Divisa, 
+                R.TipoCambio, 
+                R.Subtotal, 
+                R.Descuento, 
+                R.Cargo, 
+                R.Total, 
+                R.TotalPartidas, 
+                R.Notas, 
+                R.Elaborado, 
+                R.Recargo, 
+                R.DescuentoPago, 
+                R.Saldo, 
+                R.FolioOrden, 
+                R.Consecutivo, 
+                R.Almacen, 
+                R.Referencia, 
+                R.Condominio, 
+                R.Extension, 
+                R.Archivo, 
+                R.DiasVence, 
+                R.FechaVence,
+                NULL as CentroCostos,
+                NULL as Semana,
+                NULL as Anio,
+                NULL as ProveedorAlterno,
+                D.Nombre 
+            FROM 
+                RecepcionProducto as R, 
+                Documento as D 
+            WHERE 
+                R.ClaveProveedor = @Matricula AND 
+                Saldo != 0 AND 
+                R.ClaveDocumento = D.Clave)
+
+            UNION 
+
+            (SELECT 
+                'G' as Tipo, 
+                R.Folio, 
+                R.ClaveDocumento, 
+                R.Estatus, 
+                R.Fecha, 
+                R.ClaveProveedor, 
+                R.Divisa, 
+                R.TipoCambio, 
+                R.Subtotal, 
+                R.Descuento, 
+                R.Cargo, 
+                R.Total, 
+                R.TotalPartidas, 
+                R.Notas, 
+                R.Elaborado, 
+                R.Recargo, 
+                R.DescuentoPago, 
+                R.Saldo, 
+                R.FolioOrden, 
+                R.Consecutivo, 
+                R.Almacen, 
+                R.Referencia, 
+                R.Condominio, 
+                R.Extension, 
+                R.Archivo, 
+                R.DiasVence, 
+                R.FechaVence,
+                R.CentroCostos,
+                R.Semana,
+                R.Anio,
+                R.ProveedorAlterno,
+                D.Nombre 
+            FROM 
+                RegistroGastos as R, 
+                Documento as D 
+            WHERE 
+                R.ClaveProveedor = @Matricula AND 
+                Saldo != 0 AND 
+                R.ClaveDocumento = D.Clave)
+
+            UNION 
+
+            (SELECT 
+                'NCG' as Tipo, 
+                R.Folio, 
+                R.ClaveDocumento, 
+                R.Estatus, 
+                R.Fecha, 
+                R.ClaveProveedor, 
+                R.Divisa, 
+                R.TipoCambio, 
+                R.Subtotal, 
+                R.Descuento, 
+                R.Cargo, 
+                R.Total, 
+                R.TotalPartidas, 
+                R.Notas, 
+                R.Elaborado, 
+                R.Recargo, 
+                R.DescuentoPago, 
+                R.Saldo, 
+                R.FolioOrden, 
+                R.Consecutivo, 
+                R.Almacen, 
+                R.Referencia, 
+                R.Condominio, 
+                R.Extension, 
+                R.Archivo, 
+                NULL as DiasVence, 
+                NULL as FechaVence,
+                NULL as CentroCostos,
+                NULL as Semana,
+                NULL as Anio,
+                NULL as ProveedorAlterno,
+                D.Nombre 
+            FROM 
+                NotasGasto as R, 
+                Documento as D 
+            WHERE 
+                R.ClaveProveedor = @Matricula AND 
+                Saldo != 0 AND 
+                R.ClaveDocumento = D.Clave)";
+
+                // Use parameterized query to prevent SQL injection
+                SqlCommand cmd = new SqlCommand(sql, cn);
+                cmd.Parameters.AddWithValue("@Matricula", Matricula);
+
+                da = new SqlDataAdapter(cmd);
                 dt = new DataTable();
                 da.Fill(dt);
+
                 foreach (DataRow item in dt.Rows)
                 {
                     int n = dgv.Rows.Add();
@@ -206,17 +339,16 @@ namespace Condominios.Clases.RegistrarIngresos
                     dgv.Rows[n].Cells[3].Value = item["ClaveDocumento"].ToString();
                     dgv.Rows[n].Cells[4].Value = item["Nombre"].ToString();
                     dgv.Rows[n].Cells[5].Value = Convert.ToDateTime(item["Fecha"]).ToString("yyyy/MM/dd");
-                    dgv.Rows[n].Cells[6].Value = Convert.ToDouble( item["Total"]).ToString("N", formato);
+                    dgv.Rows[n].Cells[6].Value = Convert.ToDouble(item["Total"]).ToString("N", formato);
                     dgv.Rows[n].Cells[7].Value = Convert.ToDouble(item["Saldo"]).ToString("N", formato);
                     dgv.Rows[n].Cells[8].Value = Convert.ToDouble(0.00).ToString("N", formato);
                     dgv.Rows[n].Cells[9].Value = Convert.ToDouble(0.00).ToString("N", formato);
                     dgv.Rows[n].Cells[10].Value = Convert.ToDouble(0.00).ToString("N", formato);
-
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error al cargar Conceptos1" + ex.ToString());
+                MessageBox.Show("Error al cargar Conceptos: " + ex.Message);
             }
         }
         //_________________________________________________________________________________

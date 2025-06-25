@@ -59,10 +59,17 @@
             this.label21 = new System.Windows.Forms.Label();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.label54 = new System.Windows.Forms.Label();
             this.label23 = new System.Windows.Forms.Label();
+            this.txtCorreo3 = new System.Windows.Forms.TextBox();
             this.txtCorreo2 = new System.Windows.Forms.TextBox();
             this.label46 = new System.Windows.Forms.Label();
             this.txtCorreo = new System.Windows.Forms.TextBox();
+            this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.rdNo3 = new System.Windows.Forms.RadioButton();
+            this.rdSi3 = new System.Windows.Forms.RadioButton();
+            this.label53 = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.rdNo = new System.Windows.Forms.RadioButton();
             this.label63 = new System.Windows.Forms.Label();
@@ -169,16 +176,10 @@
             this.guna2PictureBox1 = new Guna.UI2.WinForms.Guna2PictureBox();
             this.button3 = new Guna.UI2.WinForms.Guna2Button();
             this.button1 = new Guna.UI2.WinForms.Guna2Button();
-            this.groupBox4 = new System.Windows.Forms.GroupBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.rdNo3 = new System.Windows.Forms.RadioButton();
-            this.rdSi3 = new System.Windows.Forms.RadioButton();
-            this.label53 = new System.Windows.Forms.Label();
-            this.txtCorreo3 = new System.Windows.Forms.TextBox();
-            this.label54 = new System.Windows.Forms.Label();
             this.tabPage2.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
+            this.groupBox4.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.tabPage5.SuspendLayout();
@@ -193,7 +194,6 @@
             this.guna2GradientPanel7.SuspendLayout();
             this.toolStrip2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.guna2PictureBox1)).BeginInit();
-            this.groupBox4.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabPage2
@@ -224,7 +224,7 @@
             this.tabPage2.Location = new System.Drawing.Point(4, 24);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(874, 432);
+            this.tabPage2.Size = new System.Drawing.Size(874, 470);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Datos Comerciales";
             // 
@@ -502,6 +502,17 @@
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Datos Generales";
             // 
+            // label54
+            // 
+            this.label54.AutoSize = true;
+            this.label54.BackColor = System.Drawing.Color.Transparent;
+            this.label54.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label54.Location = new System.Drawing.Point(28, 445);
+            this.label54.Name = "label54";
+            this.label54.Size = new System.Drawing.Size(62, 15);
+            this.label54.TabIndex = 159;
+            this.label54.Text = "CORREO:";
+            // 
             // label23
             // 
             this.label23.AutoSize = true;
@@ -512,6 +523,14 @@
             this.label23.Size = new System.Drawing.Size(62, 15);
             this.label23.TabIndex = 159;
             this.label23.Text = "CORREO:";
+            // 
+            // txtCorreo3
+            // 
+            this.txtCorreo3.Location = new System.Drawing.Point(140, 441);
+            this.txtCorreo3.MaxLength = 100;
+            this.txtCorreo3.Name = "txtCorreo3";
+            this.txtCorreo3.Size = new System.Drawing.Size(388, 21);
+            this.txtCorreo3.TabIndex = 158;
             // 
             // txtCorreo2
             // 
@@ -539,6 +558,62 @@
             this.txtCorreo.Name = "txtCorreo";
             this.txtCorreo.Size = new System.Drawing.Size(388, 21);
             this.txtCorreo.TabIndex = 156;
+            // 
+            // groupBox4
+            // 
+            this.groupBox4.Controls.Add(this.label1);
+            this.groupBox4.Controls.Add(this.rdNo3);
+            this.groupBox4.Controls.Add(this.rdSi3);
+            this.groupBox4.Controls.Add(this.label53);
+            this.groupBox4.Location = new System.Drawing.Point(534, 419);
+            this.groupBox4.Name = "groupBox4";
+            this.groupBox4.Size = new System.Drawing.Size(200, 44);
+            this.groupBox4.TabIndex = 161;
+            this.groupBox4.TabStop = false;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(183, 17);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(12, 15);
+            this.label1.TabIndex = 153;
+            this.label1.Text = "*";
+            // 
+            // rdNo3
+            // 
+            this.rdNo3.AutoSize = true;
+            this.rdNo3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.rdNo3.Location = new System.Drawing.Point(145, 17);
+            this.rdNo3.Name = "rdNo3";
+            this.rdNo3.Size = new System.Drawing.Size(41, 19);
+            this.rdNo3.TabIndex = 151;
+            this.rdNo3.TabStop = true;
+            this.rdNo3.Text = "No";
+            this.rdNo3.UseVisualStyleBackColor = true;
+            // 
+            // rdSi3
+            // 
+            this.rdSi3.AutoSize = true;
+            this.rdSi3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.rdSi3.Location = new System.Drawing.Point(105, 17);
+            this.rdSi3.Name = "rdSi3";
+            this.rdSi3.Size = new System.Drawing.Size(36, 19);
+            this.rdSi3.TabIndex = 150;
+            this.rdSi3.TabStop = true;
+            this.rdSi3.Text = "Si";
+            this.rdSi3.UseVisualStyleBackColor = true;
+            // 
+            // label53
+            // 
+            this.label53.AutoSize = true;
+            this.label53.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label53.Location = new System.Drawing.Point(6, 21);
+            this.label53.Name = "label53";
+            this.label53.Size = new System.Drawing.Size(98, 15);
+            this.label53.TabIndex = 152;
+            this.label53.Text = "ENVIAR AVISOS:";
             // 
             // groupBox2
             // 
@@ -917,7 +992,7 @@
             this.tabPage5.Controls.Add(this.label39);
             this.tabPage5.Location = new System.Drawing.Point(4, 24);
             this.tabPage5.Name = "tabPage5";
-            this.tabPage5.Size = new System.Drawing.Size(874, 432);
+            this.tabPage5.Size = new System.Drawing.Size(874, 470);
             this.tabPage5.TabIndex = 0;
             this.tabPage5.Text = "Datos Financieros";
             // 
@@ -1117,7 +1192,7 @@
             this.tabPage3.Controls.Add(this.label17);
             this.tabPage3.Location = new System.Drawing.Point(4, 24);
             this.tabPage3.Name = "tabPage3";
-            this.tabPage3.Size = new System.Drawing.Size(874, 432);
+            this.tabPage3.Size = new System.Drawing.Size(874, 470);
             this.tabPage3.TabIndex = 0;
             this.tabPage3.Text = "Datos Fiscales";
             // 
@@ -1287,7 +1362,7 @@
             this.tabPage4.BackColor = System.Drawing.Color.White;
             this.tabPage4.Location = new System.Drawing.Point(4, 24);
             this.tabPage4.Name = "tabPage4";
-            this.tabPage4.Size = new System.Drawing.Size(874, 432);
+            this.tabPage4.Size = new System.Drawing.Size(874, 470);
             this.tabPage4.TabIndex = 0;
             this.tabPage4.Text = "Otros";
             // 
@@ -1635,7 +1710,7 @@
             this.PanelUsuario.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.PanelUsuario.BackColor = System.Drawing.Color.White;
             this.PanelUsuario.Controls.Add(this.dataGridView1);
-            this.PanelUsuario.Location = new System.Drawing.Point(278, 736);
+            this.PanelUsuario.Location = new System.Drawing.Point(627, 86);
             this.PanelUsuario.Name = "PanelUsuario";
             this.PanelUsuario.Size = new System.Drawing.Size(279, 613);
             this.PanelUsuario.TabIndex = 87;
@@ -1922,81 +1997,6 @@
             this.button1.TextOffset = new System.Drawing.Point(23, 0);
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
-            // groupBox4
-            // 
-            this.groupBox4.Controls.Add(this.label1);
-            this.groupBox4.Controls.Add(this.rdNo3);
-            this.groupBox4.Controls.Add(this.rdSi3);
-            this.groupBox4.Controls.Add(this.label53);
-            this.groupBox4.Location = new System.Drawing.Point(534, 419);
-            this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(200, 44);
-            this.groupBox4.TabIndex = 161;
-            this.groupBox4.TabStop = false;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(183, 17);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(12, 15);
-            this.label1.TabIndex = 153;
-            this.label1.Text = "*";
-            // 
-            // rdNo3
-            // 
-            this.rdNo3.AutoSize = true;
-            this.rdNo3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.rdNo3.Location = new System.Drawing.Point(145, 17);
-            this.rdNo3.Name = "rdNo3";
-            this.rdNo3.Size = new System.Drawing.Size(41, 19);
-            this.rdNo3.TabIndex = 151;
-            this.rdNo3.TabStop = true;
-            this.rdNo3.Text = "No";
-            this.rdNo3.UseVisualStyleBackColor = true;
-            // 
-            // rdSi3
-            // 
-            this.rdSi3.AutoSize = true;
-            this.rdSi3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.rdSi3.Location = new System.Drawing.Point(105, 17);
-            this.rdSi3.Name = "rdSi3";
-            this.rdSi3.Size = new System.Drawing.Size(36, 19);
-            this.rdSi3.TabIndex = 150;
-            this.rdSi3.TabStop = true;
-            this.rdSi3.Text = "Si";
-            this.rdSi3.UseVisualStyleBackColor = true;
-            // 
-            // label53
-            // 
-            this.label53.AutoSize = true;
-            this.label53.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label53.Location = new System.Drawing.Point(6, 21);
-            this.label53.Name = "label53";
-            this.label53.Size = new System.Drawing.Size(98, 15);
-            this.label53.TabIndex = 152;
-            this.label53.Text = "ENVIAR AVISOS:";
-            // 
-            // txtCorreo3
-            // 
-            this.txtCorreo3.Location = new System.Drawing.Point(140, 441);
-            this.txtCorreo3.MaxLength = 100;
-            this.txtCorreo3.Name = "txtCorreo3";
-            this.txtCorreo3.Size = new System.Drawing.Size(388, 21);
-            this.txtCorreo3.TabIndex = 158;
-            // 
-            // label54
-            // 
-            this.label54.AutoSize = true;
-            this.label54.BackColor = System.Drawing.Color.Transparent;
-            this.label54.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label54.Location = new System.Drawing.Point(28, 445);
-            this.label54.Name = "label54";
-            this.label54.Size = new System.Drawing.Size(62, 15);
-            this.label54.TabIndex = 159;
-            this.label54.Text = "CORREO:";
-            // 
             // Clientes
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -2023,6 +2023,8 @@
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
+            this.groupBox4.ResumeLayout(false);
+            this.groupBox4.PerformLayout();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
             this.groupBox3.ResumeLayout(false);
@@ -2045,8 +2047,6 @@
             this.toolStrip2.ResumeLayout(false);
             this.toolStrip2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.guna2PictureBox1)).EndInit();
-            this.groupBox4.ResumeLayout(false);
-            this.groupBox4.PerformLayout();
             this.ResumeLayout(false);
 
         }

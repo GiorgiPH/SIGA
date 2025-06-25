@@ -131,6 +131,29 @@ namespace PV.Clases.Graficas
                 dr.Close();
             }
         }
+        public DataTable ObtenerDatosGastosPorProyectoYMes()
+        {
+            string connStr = ObtenerCn();
+            string query = @"
+        SELECT 
+            CAST(CentroCostos AS VARCHAR) AS Proyecto,
+            FORMAT(Fecha, 'yyyy-MM') AS Mes,
+            YEAR(Fecha) AS Año,
+            SUM(Total) AS Monto
+        FROM RegistroGastos
+        WHERE Estatus = 'Bloqueado'
+        GROUP BY CentroCostos, FORMAT(Fecha, 'yyyy-MM'), YEAR(Fecha)
+    ";
+
+            using (SqlConnection conn = new SqlConnection(connStr))
+            using (SqlDataAdapter da = new SqlDataAdapter(query, conn))
+            {
+                DataTable dt = new DataTable();
+                da.Fill(dt);
+                return dt;
+            }
+        }
+
         //___________________________________________________________________--
     }
 }

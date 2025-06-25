@@ -78,7 +78,7 @@ namespace PV.Clases.Servicios
         }
         //_________________________________________________________________________________________________________________________--
         // registrar producto 
-        public string RegistroProducto(string txtClaveProducto, string txtAlias, string txtDescripcion, string cmbEstatus, string txtCategoria, string txtFamilia, string cmbTipoCosteo, string txtCostoUnitario, string cmbDivisa, string txtDescuentoPorc, string txtDescuentoCant, string txtImpuestoPorc, string txtImpuestoCant, string txtPrecioVenta, PictureBox Foto, string Concepto)
+        public string RegistroProducto(string txtClaveProducto, string txtAlias, string txtDescripcion, string cmbEstatus, string txtCategoria, string txtFamilia, string cmbTipoCosteo, string txtCostoUnitario, string cmbDivisa, string txtDescuentoPorc, string txtDescuentoCant, string txtImpuestoPorc, string txtImpuestoCant, string txtPrecioVenta, PictureBox Foto, string Concepto, string IEPS, string CuentaContable)
         {
             string mensaje = "";
             int contador = 0;
@@ -100,7 +100,7 @@ namespace PV.Clases.Servicios
 
                     if (Foto.Image == null)
                     {
-                        cmd = new SqlCommand("Insert into Servicios (ClaveServicio, Alias, Descripcion, Estatus, Categoria, Familia, Proveedor, ExMinimo, ExMaximo, ExActual, Ubicacion, TipoCosteo, CostoUnitario, Divisa, DescuentoPorc, DescuentoCant, ImpuestoPorc, ImpuestoCant, PrecioVenta, ConceptoGlobales) values (@ClaveServicio, @Alias, @Descripcion, @Estatus, @Categoria, @Familia, @Proveedor, @ExMinimo, @ExMaximo, @ExActual, @Ubicacion, @TipoCosteo, @CostoUnitario, @Divisa, @DescuentoPorc, @DescuentoCant, @ImpuestoPorc, @ImpuestoCant, @PrecioVenta, @ConceptoGlobales)", cn);
+                        cmd = new SqlCommand("Insert into Servicios (ClaveServicio, Alias, Descripcion, Estatus, Categoria, Familia, Proveedor, ExMinimo, ExMaximo, ExActual, Ubicacion, TipoCosteo, CostoUnitario, Divisa, DescuentoPorc, DescuentoCant, ImpuestoPorc, ImpuestoCant, PrecioVenta, ConceptoGlobales,IEPS, CuentaContable) values (@ClaveServicio, @Alias, @Descripcion, @Estatus, @Categoria, @Familia, @Proveedor, @ExMinimo, @ExMaximo, @ExActual, @Ubicacion, @TipoCosteo, @CostoUnitario, @Divisa, @DescuentoPorc, @DescuentoCant, @ImpuestoPorc, @ImpuestoCant, @PrecioVenta, @ConceptoGlobales,@IEPS, @CuentaContable)", cn);
 
                         // Añadir parámetros
                         cmd.Parameters.AddWithValue("@ClaveServicio", txtClaveProducto);
@@ -123,12 +123,14 @@ namespace PV.Clases.Servicios
                         cmd.Parameters.AddWithValue("@ImpuestoCant", txtImpuestoCant);
                         cmd.Parameters.AddWithValue("@PrecioVenta", txtPrecioVenta);
                         cmd.Parameters.AddWithValue("@ConceptoGlobales", Concepto);
+                        cmd.Parameters.AddWithValue("@IEPS", IEPS);
+                        cmd.Parameters.AddWithValue("@CuentaContable", CuentaContable);
                         // Ejecutar el comando
                         cmd.ExecuteNonQuery();
                     }
                     else
                     {
-                        cmd = new SqlCommand("Insert into Servicios (ClaveServicio, Alias, Descripcion, Estatus, Categoria, Familia, Proveedor, ExMinimo, ExMaximo, ExActual, Ubicacion, TipoCosteo, CostoUnitario, Divisa, DescuentoPorc, DescuentoCant, ImpuestoPorc, ImpuestoCant, PrecioVenta, ConceptoGlobales) values (@ClaveServicio, @Alias, @Descripcion, @Estatus, @Categoria, @Familia, @Proveedor, @ExMinimo, @ExMaximo, @ExActual, @Ubicacion, @TipoCosteo, @CostoUnitario, @Divisa, @DescuentoPorc, @DescuentoCant, @ImpuestoPorc, @ImpuestoCant, @PrecioVenta, @ConceptoGlobales)", cn);
+                        cmd = new SqlCommand("Insert into Servicios (ClaveServicio, Alias, Descripcion, Estatus, Categoria, Familia, Proveedor, ExMinimo, ExMaximo, ExActual, Ubicacion, TipoCosteo, CostoUnitario, Divisa, DescuentoPorc, DescuentoCant, ImpuestoPorc, ImpuestoCant, PrecioVenta, ConceptoGlobales, IEPS, CuentaContable) values (@ClaveServicio, @Alias, @Descripcion, @Estatus, @Categoria, @Familia, @Proveedor, @ExMinimo, @ExMaximo, @ExActual, @Ubicacion, @TipoCosteo, @CostoUnitario, @Divisa, @DescuentoPorc, @DescuentoCant, @ImpuestoPorc, @ImpuestoCant, @PrecioVenta, @ConceptoGlobales, @IEPS, @CuentaContable)", cn);
 
                         // Añadir parámetros
                         cmd.Parameters.AddWithValue("@ClaveServicio", txtClaveProducto);
@@ -151,7 +153,8 @@ namespace PV.Clases.Servicios
                         cmd.Parameters.AddWithValue("@ImpuestoCant", txtImpuestoCant);
                         cmd.Parameters.AddWithValue("@PrecioVenta", txtPrecioVenta);
                         cmd.Parameters.AddWithValue("@ConceptoGlobales", Concepto);
-
+                        cmd.Parameters.AddWithValue("@IEPS", IEPS);
+                        cmd.Parameters.AddWithValue("@CuentaContable", CuentaContable);
 
                         // Preparar el parámetro de imagen
                         cmd.Parameters.Add("@Foto", SqlDbType.Image);
@@ -181,12 +184,12 @@ namespace PV.Clases.Servicios
 
                         if (Foto.Image == null)
                         {
-                            cmd = new SqlCommand("Update Servicios set Alias='" + txtAlias + "', Descripcion='" + txtDescripcion + "', Estatus='" + cmbEstatus + "', Inventariable='" + Inventariable + "', Categoria= '" + txtCategoria + "', Familia= '" + txtFamilia + "', TipoCosteo='" + cmbTipoCosteo + "', CostoUnitario='" + txtCostoUnitario + "', Divisa='" + cmbDivisa + "', DescuentoPorc='" + txtDescuentoPorc + "', DescuentoCant='" + txtDescuentoCant + "', ImpuestoPorc='" + txtImpuestoPorc + "', ImpuestoCant='" + txtImpuestoCant + "', PrecioVenta='" + txtPrecioVenta + "', ConceptoGlobales='" + Concepto + "' where ClaveServicio= '" + txtClaveProducto + "'", cn);
+                            cmd = new SqlCommand("Update Servicios set Alias='" + txtAlias + "', Descripcion='" + txtDescripcion + "', Estatus='" + cmbEstatus + "', Inventariable='" + Inventariable + "', Categoria= '" + txtCategoria + "', Familia= '" + txtFamilia + "', TipoCosteo='" + cmbTipoCosteo + "', CostoUnitario='" + txtCostoUnitario + "', Divisa='" + cmbDivisa + "', DescuentoPorc='" + txtDescuentoPorc + "', DescuentoCant='" + txtDescuentoCant + "', ImpuestoPorc='" + txtImpuestoPorc + "', ImpuestoCant='" + txtImpuestoCant + "', PrecioVenta='" + txtPrecioVenta + "', ConceptoGlobales='" + Concepto + "', IEPS = '"+IEPS+"', CuentaContable='"+CuentaContable+"' where ClaveServicio= '" + txtClaveProducto + "'", cn);
                             cmd.ExecuteNonQuery();
                         }
                         else
                         {
-                            cmd = new SqlCommand("Update Servicios set Alias='" + txtAlias + "', Descripcion='" + txtDescripcion + "', Estatus='" + cmbEstatus + "', Inventariable='" + Inventariable + "', Categoria= '" + txtCategoria + "', Familia= '" + txtFamilia + "', TipoCosteo='" + cmbTipoCosteo + "', CostoUnitario='" + txtCostoUnitario + "', Divisa='" + cmbDivisa + "', DescuentoPorc='" + txtDescuentoPorc + "', DescuentoCant='" + txtDescuentoCant + "', ImpuestoPorc='" + txtImpuestoPorc + "', ImpuestoCant='" + txtImpuestoCant + "', PrecioVenta='" + txtPrecioVenta + "', Foto=@Foto, ConceptoGlobales='" + Concepto + "' where ClaveServicio= '" + txtClaveProducto + "'", cn);
+                            cmd = new SqlCommand("Update Servicios set Alias='" + txtAlias + "', Descripcion='" + txtDescripcion + "', Estatus='" + cmbEstatus + "', Inventariable='" + Inventariable + "', Categoria= '" + txtCategoria + "', Familia= '" + txtFamilia + "', TipoCosteo='" + cmbTipoCosteo + "', CostoUnitario='" + txtCostoUnitario + "', Divisa='" + cmbDivisa + "', DescuentoPorc='" + txtDescuentoPorc + "', DescuentoCant='" + txtDescuentoCant + "', ImpuestoPorc='" + txtImpuestoPorc + "', ImpuestoCant='" + txtImpuestoCant + "', PrecioVenta='" + txtPrecioVenta + "', Foto=@Foto, ConceptoGlobales='" + Concepto + "', IEPS = '"+IEPS+"', CuentaContable='"+CuentaContable+"' where ClaveServicio= '" + txtClaveProducto + "'", cn);
                             cmd.Parameters.Add("@Foto", SqlDbType.Image);
                             System.IO.MemoryStream ms = new System.IO.MemoryStream();
                             Foto.Image.Save(ms, System.Drawing.Imaging.ImageFormat.Jpeg);
@@ -267,7 +270,7 @@ namespace PV.Clases.Servicios
         {
             //dr.Close();
             cb.Items.Clear();
-            cmd = new SqlCommand("Select * from Familias where ClaveCategoria= " + ClaveCategoria + " and Vincular in ('Ambos','Servicios')", cn);
+            cmd = new SqlCommand("Select * from Familias where ClaveCategoria= " + ClaveCategoria + " and Vincular in ('Ambos','Productos','Servicios')", cn);
             dr = cmd.ExecuteReader();
             while (dr.Read())
             {
@@ -371,7 +374,7 @@ namespace PV.Clases.Servicios
         }
         //_____________________________________________________________________________________________________
         //Mostrar Usuario seleccionado
-        public void ConsultaProductoSeleccionado(string txtClaveProducto, Guna2TextBox txtAlias, Guna2TextBox txtDescripcion, ComboBox cmbEstatus, TextBox txtCategoria, TextBox txtFamilia, ComboBox cmbCategoria, ComboBox cmbFamilia, ComboBox cmbTipoCosteo, Guna2TextBox txtCostoUnitario, ComboBox cmbDivisa, Guna2TextBox txtDescuentoPorc, Guna2TextBox txtDescuentoCant, Guna2TextBox txtImpuestoPorc, Guna2TextBox txtImpuestoCant, Guna2TextBox txtPrecioVenta, PictureBox Foto, TextBox txtConcepto, ComboBox cmbConcepto)
+        public void ConsultaProductoSeleccionado(string txtClaveProducto, Guna2TextBox txtAlias, Guna2TextBox txtDescripcion, ComboBox cmbEstatus, TextBox txtCategoria, TextBox txtFamilia, ComboBox cmbCategoria, ComboBox cmbFamilia, ComboBox cmbTipoCosteo, Guna2TextBox txtCostoUnitario, ComboBox cmbDivisa, Guna2TextBox txtDescuentoPorc, Guna2TextBox txtDescuentoCant, Guna2TextBox txtImpuestoPorc, Guna2TextBox txtImpuestoCant, Guna2TextBox txtPrecioVenta, PictureBox Foto, TextBox txtConcepto, ComboBox cmbConcepto, ComboBox cmbIEPS, Guna2TextBox txtCuentaContable)
         {
             try
             {
@@ -391,7 +394,8 @@ namespace PV.Clases.Servicios
                     txtImpuestoPorc.Text = dr["ImpuestoPorc"].ToString();
                     txtImpuestoCant.Text = dr["ImpuestoCant"].ToString();
                     txtPrecioVenta.Text = dr["PrecioVenta"].ToString();
-
+                    cmbIEPS.Text = dr["IEPS"].ToString();
+                    txtCuentaContable.Text = dr["CuentaContable"].ToString();
                     string Imagen = dr["Foto"].ToString();
 
                     if (Imagen != "")

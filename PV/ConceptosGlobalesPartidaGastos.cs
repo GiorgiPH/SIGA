@@ -7,7 +7,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Condominios.Clases.CentroCostos;
+using Condominios.Clases.ConceptosGlobales;
+using ControlAcademico;
 using Guna.UI2.WinForms;
+using PV.Clases;
 using PV.Clases.OrdenCompra;
 
 namespace PV
@@ -15,65 +19,83 @@ namespace PV
     public partial class ConceptosGlobalesPartidaGastos : Form
     {
         DBOrdenCompra c = new DBOrdenCompra();
+        DBRegistroReembolso r = new DBRegistroReembolso();
+        DBConceptosGlobales conceptosGlobales = new DBConceptosGlobales();
         string recibo = string.Empty;
         string reciboCol = string.Empty;
-
-        public ConceptosGlobalesPartidaGastos(string Folio, string Recibo, string ReciboCol)
+        string impuesto = string.Empty;
+        int Cantidadimpuesto = 0;
+        int contadorimpuesto = 0;
+        private string[] datosconceptos;
+        DataTable partidas;
+        public ConceptosGlobalesPartidaGastos(string Folio, string Recibo, string ReciboCol, string [] datosConceptosG)
         {
             InitializeComponent();
             TxtFolio.Text = Folio;
             recibo = Recibo;
             reciboCol = ReciboCol;
+       
+          
         }
-
-        private void ConceptosGlobalesPartidaGastos_Load(object sender, EventArgs e)
+        private void LlenarComboConceptos()
         {
-            c.SeleccionarConceptoGlobalesRecibo(cmbConcepto);
-            c.ConsultaSubtotalGasto(TxtFolio.Text, txtSubtotal);
-            txtDivisa.Text = "MXN";
-            txtTipoCambio.Text = "1.00";
-        }
-
-        private void cmbConcepto_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (cmbConcepto.Text != string.Empty)
+            try
             {
-                string[] valores = c.InformacionReciboConceptoGlobal(cmbConcepto.Text);
-                txtClave.Text = valores[0];
-                txtConcepto.Text = valores[1];
-                txtclase.Text = valores[2];
-                txtTipo.Text = valores[3];
-                txtPorcentaje.Text = valores[4];
+                DataTable menus = conceptosGlobales.CargarConceptos();
 
 
-                if (txtTipo.Text == "Importe")
-                {
-                    txtDescuento.Text = valores[4];
-                }
-                else if (txtTipo.Text == "Porcentaje")
-                {
-                    decimal Descuento = Convert.ToDecimal(valores[4]);
-                    Descuento = Descuento / 100;
-                    decimal Totaldescuento = Convert.ToDecimal(txtSubtotal.Text) * Descuento;
-                    txtDescuento.Text = Totaldescuento.ToString("N2");
-                }
-
-                //if (c.ConsultaConceptoPartidasGasto(TxtFolio.Text, txtClave.Text, txtImpuesto) > 0)
-                //{
-                //    txtTotal.Text = txtSubtotal.Text;
-                //    txtDescuento.Text = "0.00";
-                //}
-                if (txtclase.Text == "Cargo" || txtclase.Text == "Impuesto")
-                {
-                    txtTotal.Text = (Convert.ToDecimal(txtSubtotal.Text) + Convert.ToDecimal(txtDescuento.Text)).ToString("N2");
-                }
-                else if (txtclase.Text == "Descuento")
-                {
-                    txtTotal.Text = (Convert.ToDecimal(txtSubtotal.Text) - Convert.ToDecimal(txtDescuento.Text)).ToString("N2");
-                }
-
+                cmbConcepto.DropDownStyle = ComboBoxStyle.DropDown; // Cambiar a DropDown
+                cmbConcepto.DataSource = menus;
+                cmbConcepto.DisplayMember = "Nombre"; // Campo visible
+                cmbConcepto.ValueMember = "Clave";   // Campo interno
+                cmbConcepto.SelectedIndex = -1;     // Ningún elemento seleccionado al inicio
+               
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+        private void ConceptosGlobalesPartidaGastos_Load(object sender, EventArgs e)
+        {
+            Limpiar();
+            partidas = r.ObtenerPartidasReembolso(TxtFolio.Text);
+            cmbConcepto.SelectedIndexChanged -= cmbConcepto_SelectedIndexChanged;
+            LlenarComboConceptos();
+            cmbConcepto.SelectedIndexChanged += cmbConcepto_SelectedIndexChanged;
+
+            var subtotalesUnicos = partidas.AsEnumerable()
+            .GroupBy(row => row.Field<int>("Partida")) // o Field<int> si es numérica
+            .Select(g => g.First()) // una sola fila por partida
+            .Sum(row => row.Field<decimal>("Subtotal"));
+
+            txtSubtotal.Text = subtotalesUnicos.ToString("N2");
+        }
+        private void cmbConcepto_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (!string.IsNullOrWhiteSpace(cmbConcepto.Text))
+            {
+                try
+                {
+                    // Obtener valores
+                    string[] valores = conceptosGlobales.InformacionReciboConceptoGlobal(cmbConcepto.SelectedValue.ToString());
+                    txtClave.Text = valores[0];
+                    txtConcepto.Text = valores[1];
+                    txtclase.Text = valores[2];
+                    txtTipo.Text = valores[3];
+                    txtPorcentaje.Text = valores[4];
+                    txtIncluyeIva.Text = valores[5];
+
+                    // Calcular y actualizar los valores
+                    ActualizarCalculos();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Ocurrió un error: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
+       
 
         private void txtDescuento_KeyPress(object sender, KeyPressEventArgs e)
         {
@@ -100,85 +122,87 @@ namespace PV
             int folio = Convert.ToInt32(TxtFolio.Text);
             string clase = txtclase.Text;
 
-            switch (clase)
-            {
-                case "Cargo":
-                case "Descuento":
-                    c.InsertarReciboConceptoGlobalGasto2(txtClave.Text, TxtFolio.Text, subtotal, descuento, total, clase);
-                    c.ActualizarReciboConceptoGlobalGasto(folio, total);
-                    break;
+            //switch (clase)
+            //{
+            //    case "Cargo":
+            //    case "Descuento":
+            //        c.InsertarReciboConceptoGlobalGasto(txtClave.Text, TxtFolio.Text, subtotal, descuento, total, clase, txtIncluyeIva.Text);
+            //        c.ActualizarReciboConceptoGlobalGastos(folio, total);
+            //        break;
 
-                case "Impuesto":
-                    if (impuesto == 0)
-                    {
-                        c.InsertarReciboConceptoGlobalGasto2(txtClave.Text, TxtFolio.Text, subtotal, descuento, total, clase);
-                        c.ActualizarReciboConceptoGlobalGasto(folio, total);
-                    }
-                    else
-                    {
-                        subtotal -= impuesto;
-                        c.InsertarReciboConceptoGlobalGasto2(txtClave.Text, TxtFolio.Text, subtotal, impuesto, total, clase);
-                        c.ActualizarReciboConceptoGlobalGasto(folio, total);
-                    }
-                    break;
+            //    case "Impuesto":
+            //        if (impuesto == 0)
+            //        {
+            //            c.InsertarReciboConceptoGlobalGasto(txtClave.Text, TxtFolio.Text, subtotal, descuento, total, clase, txtIncluyeIva.Text);
+            //            c.ActualizarReciboConceptoGlobalGastos(folio, total);
+            //        }
+            //        else
+            //        {
+            //            subtotal -= impuesto;
+            //            c.InsertarReciboConceptoGlobalGasto(txtClave.Text, TxtFolio.Text, subtotal, descuento, total, clase, txtIncluyeIva.Text);
+            //            c.ActualizarReciboConceptoGlobalGastos(folio, total);
+            //        }
+            //        break;
 
-                default:
-                    MessageBox.Show("Clase no reconocida");
-                    return;
-            }
+            //    default:
+            //        MessageBox.Show("Clase no reconocida");
+            //        return;
+            //}
 
-            // Operaciones comunes después del switch
-            c.ActualizarPartidaReciboConceptoGlobalGasto(folio, Convert.ToDecimal(txtPorcentaje.Text), clase);
-            c.EliminarReciboConceptoGlobalGastos3(TxtFolio.Text);
+            //// Operaciones comunes después del switch
+            //c.ActualizarPartidaReciboConceptoGlobalGasto(int.Parse(TxtFolio.Text), Convert.ToDecimal(txtPorcentaje.Text), txtclase.Text);
+            ////c.ActualizarPartidaReciboConceptoGlobalRemision(folio, Convert.ToDecimal(txtPorcentaje.Text), clase, txtIncluyeIva.Text);
+            //c.EliminarReciboConceptoGlobalRemision3(TxtFolio.Text);
             this.Close();
         }
 
 
         private void button2_Click(object sender, EventArgs e)
         {
-            if (cmbConcepto.Text == string.Empty)
+            if (string.IsNullOrWhiteSpace(cmbConcepto.Text))
             {
                 MessageBox.Show("Registre el concepto para continuar");
                 return;
             }
-            else if (Convert.ToDecimal(txtTotal.Text) < 0)
+
+            if (!decimal.TryParse(txtTotal.Text, out decimal total) || total < 0)
             {
                 MessageBox.Show("No es posible continuar con un Total menor a 0");
                 return;
             }
-            else
-            {
-                //c.InsertarReciboConceptoGlobalGastos3(txtClave.Text, TxtFolio.Text);
-                if (txtclase.Text == "Cargo")
-                {
-                    c.InsertarReciboConceptoGlobalGasto2(txtClave.Text, TxtFolio.Text, Convert.ToDecimal(txtSubtotal.Text), Convert.ToDecimal(txtDescuento.Text), Convert.ToDecimal(txtTotal.Text), txtclase.Text);
-                    c.ActualizarReciboConceptoGlobalGasto(Convert.ToInt32(TxtFolio.Text), Convert.ToDecimal(txtTotal.Text));
-                }
-                else if (txtclase.Text == "Impuesto")
-                {
-                    if (txtImpuesto.Text == "0.00")
-                    {
-                        c.InsertarReciboConceptoGlobalGasto2(txtClave.Text, TxtFolio.Text, Convert.ToDecimal(txtSubtotal.Text), Convert.ToDecimal(txtDescuento.Text), Convert.ToDecimal(txtTotal.Text), txtclase.Text);
-                        c.ActualizarReciboConceptoGlobalGasto(Convert.ToInt32(TxtFolio.Text), Convert.ToDecimal(txtTotal.Text));
-                    }
-                    else
-                    {
-                        txtSubtotal.Text = (Convert.ToDecimal(txtSubtotal.Text) - Convert.ToDecimal(txtImpuesto.Text)).ToString("N2");
-                        c.InsertarReciboConceptoGlobalGasto2(txtClave.Text, TxtFolio.Text, Convert.ToDecimal(txtSubtotal.Text), Convert.ToDecimal(txtImpuesto.Text), Convert.ToDecimal(txtTotal.Text), txtclase.Text);
-                        c.ActualizarReciboConceptoGlobalGasto(Convert.ToInt32(TxtFolio.Text), Convert.ToDecimal(txtTotal.Text));
-                    }
 
-                }
-                else if (txtclase.Text == "Descuento")
-                {
+            // Avanzar en conceptos
+            //if (contadorimpuesto <= Cantidadimpuesto)
+            //{
+            //    contadorimpuesto++;
+            //    impuesto = datosconceptos[contadorimpuesto];
+            //}
 
-                    c.InsertarReciboConceptoGlobalGasto2(txtClave.Text, TxtFolio.Text, Convert.ToDecimal(txtSubtotal.Text), Convert.ToDecimal(txtDescuento.Text), Convert.ToDecimal(txtTotal.Text), txtclase.Text);
-                    c.ActualizarReciboConceptoGlobalGasto(Convert.ToInt32(TxtFolio.Text), Convert.ToDecimal(txtTotal.Text));
+            //c.SeleccionarConceptoGlobalesReciboreembolso(cmbConcepto, impuesto);
 
-                }
-                c.ConsultaSubtotalGasto(TxtFolio.Text, txtSubtotal);
-                Limpiar();
-            }
+            //// Conversión de campos
+            //decimal subtotal = Convert.ToDecimal(txtSubtotal.Text);
+            //decimal descuento = Convert.ToDecimal(txtDescuento.Text);
+            //string clase = txtclase.Text;
+            //string incluyeIva = txtIncluyeIva.Text;
+
+            //if (clase == "Impuesto" && txtImpuesto.Text != "0.00")
+            //{
+            //    subtotal -= Convert.ToDecimal(txtDescuento.Text);
+            //}
+
+            //if (clase != "Descuento")
+            //{
+            //    c.InsertarReciboConceptoGlobalGasto(txtClave.Text, TxtFolio.Text, subtotal, descuento, total, clase, incluyeIva);
+            //}
+            //else
+            //{
+            //    c.InsertarReciboConceptoGlobalGasto(txtClave.Text, TxtFolio.Text, subtotal, descuento, total, clase, incluyeIva);
+            //}
+
+
+            //c.ConsultaSubtotalGasto(TxtFolio.Text, txtSubtotal);
+            Limpiar();
         }
 
         void Limpiar()
@@ -194,6 +218,9 @@ namespace PV
             txtDescuento.Text = "0.00";
             txtTotal.Text = "0.00";
             txtImpuesto.Text = "0.00";
+            txtIncluyeIva.Text = string.Empty;
+            txtDivisa.Text = "MXN";
+            txtTipoCambio.Text = "1.00";
         }
 
         private void button3_Click(object sender, EventArgs e)
@@ -203,12 +230,12 @@ namespace PV
 
         private void txtSubtotal_TextChanged(object sender, EventArgs e)
         {
-            Moneda(ref txtSubtotal);
+            Utilerias.Moneda2(ref txtSubtotal);
         }
 
         private void txtDescuento_TextChanged(object sender, EventArgs e)
         {
-            Moneda(ref txtDescuento);
+            Utilerias.Moneda2(ref txtDescuento);
 
             if (txtDescuento.Text != string.Empty)
             {
@@ -225,39 +252,142 @@ namespace PV
 
         private void txtTotal_TextChanged(object sender, EventArgs e)
         {
-            Moneda(ref txtTotal);
-        }
-
-        private void Moneda(ref Guna2TextBox txt)
-        {
-            string n = string.Empty;
-            double v = 0;
-            try
-            {
-                n = txt.Text.Replace(",", "").Replace(".", "");
-                if (n.Equals(""))
-                {
-                    n = "";
-                }
-                n = n.PadLeft(3, '0');
-                if (n.Length > 3 && n.Substring(0, 1) == "0")
-                {
-                    n.Substring(1, n.Length - 1);
-                }
-                v = Convert.ToDouble(n) / 100;
-                txt.Text = string.Format("{0:N}", v);
-                txt.SelectionStart = txt.Text.Length;
-            }
-            catch (Exception)
-            {
-
-                throw;
-            }
+            Utilerias.Moneda2(ref txtTotal);
         }
 
         private void guna2Button1_Click(object sender, EventArgs e)
         {
+            this.Close();
+        }
+        private decimal CalcularDescuento(string tipo, decimal porcentaje, decimal subtotal)
+        {
+            switch (tipo)
+            {
+                case "Importe":
+                    return porcentaje;
 
+                case "Porcentaje":
+                    return (porcentaje / 100) * subtotal;
+
+                default:
+                    return 0;
+            }
+        }
+
+        private decimal CalcularTotal(string clase, decimal subtotal, decimal descuento)
+        {
+            switch (clase)
+            {
+                case "Cargo":
+                case "Impuesto":
+                    return subtotal + descuento;
+
+                case "Descuento":
+                    return subtotal - descuento;
+
+                default:
+                    return subtotal; // Por defecto, retornar el subtotal
+            }
+        }
+        private decimal CalcularIva(decimal total, string iva)
+        {
+            switch (iva)
+            {
+                case "1":
+
+                    return (total * 0.16m);
+
+                case "0":
+                    return total;
+
+                default:
+                    return total; // Por defecto, retornar el subtotal
+            }
+        }
+        private bool _calculando = false;
+
+        private void ActualizarCalculos()
+        {
+            if (_calculando) return;
+
+            try
+            {
+                _calculando = true;
+
+                decimal totalDescuento = 0;
+                decimal totalImpuesto = 0;
+                decimal totalIEPS = 0;
+                decimal subtotalGeneral = 0;
+
+                foreach (DataRow row in partidas.Rows)
+                {
+                    if (row.RowState == DataRowState.Deleted) continue;
+
+                    decimal subtotalPartida = row.IsNull("Subtotal") ? 0 : Convert.ToDecimal(row["Subtotal"]);
+                    subtotalGeneral += subtotalPartida;
+
+                    string clase = row.IsNull("Clase") ? "" : row["Clase"].ToString();
+                    string clave = row.IsNull("Clave") ? "" : row["Clave"].ToString();
+
+                    string tipo = row.IsNull("Tipo") ? "" : row["Tipo"].ToString();
+                    decimal valorDescuento = row.IsNull("DescuentoConcepto") ? 0 : Convert.ToDecimal(row["DescuentoConcepto"]);
+                    decimal valorCargo = row.IsNull("CargoConcepto") ? 0 : Convert.ToDecimal(row["CargoConcepto"]);
+                    decimal valorIEPS = row.IsNull("IEPS") ? 0 : Convert.ToDecimal(row["IEPS"]);
+
+                    if (clave=="IEPS")
+                    {
+                        totalIEPS += Convert.ToDecimal(row["IEPS"]);
+                        if (clave == cmbConcepto.SelectedValue.ToString())
+                            txtDescuento.Text = totalIEPS.ToString("N2");
+                    }
+                        
+
+                    else if (clase == "Descuento")
+                    {
+                        if (tipo == "Porcentaje")
+                            totalDescuento += (valorDescuento  / 100m) * (subtotalPartida + valorDescuento);
+                        else
+                            totalDescuento += valorDescuento;
+                        if(clave == cmbConcepto.SelectedValue.ToString())
+                            txtDescuento.Text = totalDescuento.ToString("N2");
+                    }
+
+                    else if (clase == "Impuesto")
+                    {
+                        if (tipo == "Porcentaje")
+                            totalImpuesto += (valorCargo / 100m) * subtotalPartida;
+                        else
+                            totalImpuesto += valorCargo;
+
+                        if (clave == cmbConcepto.SelectedValue.ToString())
+                            txtDescuento.Text = totalImpuesto.ToString("N2");
+                    }
+
+                    
+                }
+
+                // Asignar valores a cajas de texto
+                //txtSubtotal.Text = subtotalGeneral.ToString("N2");
+
+                decimal totalFinal = Convert.ToDecimal(txtSubtotal.Text) - totalDescuento + totalImpuesto + totalIEPS;
+                txtTotal.Text = totalFinal.ToString("N2");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error al calcular: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            finally
+            {
+                _calculando = false;
+            }
+        }
+
+
+
+        private void txtDescuento_TextChanged_1(object sender, EventArgs e)
+        {
+            Utilerias.Moneda2(ref txtDescuento);
+            ActualizarCalculos();
         }
     }
 }

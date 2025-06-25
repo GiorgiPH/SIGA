@@ -1,15 +1,19 @@
 ﻿using System;
 using System.Collections;
+using System.Data;
 using System.Windows.Forms;
 using Condominios.Clases.CentroCostos;
+using PuntoVentas.Clases.FormasPago;
 using PuntoVentas.Clases.Login;
 using PV;
+using PV.Clases.CentroCostos;
 
 namespace Condominios
 {
     public partial class CentroCostos : Form
     {
         DBCentroCostos c = new DBCentroCostos();
+        DBDatosProyecto d = new DBDatosProyecto();
         public CentroCostos()
         {
             InitializeComponent();
@@ -54,6 +58,50 @@ namespace Condominios
 
         private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
         {
+            //if (this.dataGridView1.Columns[e.ColumnIndex].Name == "Eliminar")
+            //{
+            //    if (e.RowIndex != -1)
+            //    {
+            //        if (dataGridView1.Rows[e.RowIndex].Cells["Nombre"].Value != null)
+            //        {
+            //            string Clave = dataGridView1.Rows[e.RowIndex].Cells["ClaveFamilia"].Value.ToString();
+            //            MessageBox.Show(c.EliminarDepartamento(Clave));
+
+            //            if (DBCentroCostos.Eliminado == 0)
+            //            {
+            //                dataGridView1.Rows.Remove(dataGridView1.CurrentRow);
+
+            //            }
+
+            //        }
+            //    }
+            //}
+            //else if (this.dataGridView1.Columns[e.ColumnIndex].Name == "Dependen")
+            //{
+            //    if (e.RowIndex != -1)
+            //    {
+            //        if (dataGridView1.Rows[e.RowIndex].Cells["Nombre"].Value != null)
+            //        {
+            //            string Clave = dataGridView1.Rows[e.RowIndex].Cells["ClaveFamilia"].Value.ToString();
+            //            string Nombre = dataGridView1.Rows[e.RowIndex].Cells["Nombre"].Value.ToString();
+
+            //            if (c.ConsultaExistencia(Clave) != 0)
+            //            {
+            //                DepartamentoSubDepartamentos departamentoSub = new DepartamentoSubDepartamentos(Clave, Nombre);
+            //                departamentoSub.ShowDialog();
+            //            }
+            //            else
+            //            {
+            //                MessageBox.Show("Confirme el registro actual antes de registrar dependencias");
+            //            }
+
+            //        }
+            //    }
+            //}
+            //else
+            //{
+            //    return;
+            //}
             if (this.dataGridView1.Columns[e.ColumnIndex].Name == "Eliminar")
             {
                 if (e.RowIndex != -1)
@@ -61,39 +109,26 @@ namespace Condominios
                     if (dataGridView1.Rows[e.RowIndex].Cells["Nombre"].Value != null)
                     {
                         string Clave = dataGridView1.Rows[e.RowIndex].Cells["ClaveFamilia"].Value.ToString();
-                        MessageBox.Show(c.EliminarDepartamento(Clave));
-
-                        if (DBCentroCostos.Eliminado == 0)
+                        if (d.ActualizarEstatusProyecto(Clave))
                         {
-                            dataGridView1.Rows.Remove(dataGridView1.CurrentRow);
+                            MessageBox.Show("Se elimino el poryecto correctamente");
+                            CargarDatosProyecto(Clave);
 
-                        }
-
-                    }
-                }
-            }
-            else if (this.dataGridView1.Columns[e.ColumnIndex].Name == "Dependen")
-            {
-                if (e.RowIndex != -1)
-                {
-                    if (dataGridView1.Rows[e.RowIndex].Cells["Nombre"].Value != null)
-                    {
-                        string Clave = dataGridView1.Rows[e.RowIndex].Cells["ClaveFamilia"].Value.ToString();
-                        string Nombre = dataGridView1.Rows[e.RowIndex].Cells["Nombre"].Value.ToString();
-
-                        if (c.ConsultaExistencia(Clave) != 0)
-                        {
-                            DepartamentoSubDepartamentos departamentoSub = new DepartamentoSubDepartamentos(Clave, Nombre);
-                            departamentoSub.ShowDialog();
                         }
                         else
                         {
-                            MessageBox.Show("Confirme el registro actual antes de registrar dependencias");
+                            MessageBox.Show("No es posible eliminar el poryecto correctamente");
                         }
-
                     }
+
+
+
+                        
+
+                    
                 }
             }
+            
             else
             {
                 return;
@@ -206,6 +241,9 @@ namespace Condominios
                 PanelUsuario.Visible = false;
                 groupBox1.Enabled = true;
                 groupBox2.Enabled = true;
+                string nombre = dataGridView2.Rows[e.RowIndex].Cells["NombreC"].Value.ToString();
+
+                CargarDatosProyecto(nombre);
             }
             else
             {
@@ -269,9 +307,67 @@ namespace Condominios
 
         }
 
-        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+
+        private void guna2Button2_Click(object sender, EventArgs e)
+        {
+            if (txtNombre.Text == string.Empty) {
+                MessageBox.Show("Se debe seleccionar un centro de costos");
+            }
+            else { 
+            DatosProyecto datosproyecto = new DatosProyecto("","");
+            datosproyecto.centrocosto = txtNombre.Text;
+            datosproyecto.ShowDialog();
+            }
+        }
+
+        private void dataGridView2_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
 
+        }
+        private void CargarDatosProyecto(string folio)
+        {
+            try
+            {
+                var pagos = d.CargarDatosProyectos(folio);
+
+                dataGridView1.Rows.Clear();
+
+                foreach (DataRow pago in pagos.Rows)
+                {
+                    int n = dataGridView1.Rows.Add();
+                    dataGridView1.Rows[n].Cells[0].Value = pago["Folio"];
+                    dataGridView1.Rows[n].Cells[1].Value = pago["Proyecto"];
+                  
+
+                }
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al cargar pagos: " + ex.Message);
+            }
+        }
+
+        private void txtClaveCategoria_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void dataGridView1_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex != -1)
+            {
+                string ClaveCategoria = dataGridView1.Rows[e.RowIndex].Cells["ClaveFamilia"].Value.ToString();
+                string nombre = dataGridView1.Rows[e.RowIndex].Cells["Nombre"].Value.ToString();
+
+                DatosProyecto datosproyecto = new DatosProyecto(ClaveCategoria, nombre);
+                datosproyecto.centrocosto = txtNombre.Text;
+                datosproyecto.ShowDialog();
+            }
+            else
+            {
+                return;
+            }
         }
     }
 }

@@ -33,8 +33,7 @@ namespace PV
         {
             c.SeleccionarConceptoGlobalesRecibo(cmbConcepto);
             r.ConsultaTotalRemision(TxtFolio.Text, txtSubtotal);
-            txtDivisa.Text = "MXN";
-            txtTipoCambio.Text = "1.00";
+            
         }
         private void ActualizarCalculos()
         {

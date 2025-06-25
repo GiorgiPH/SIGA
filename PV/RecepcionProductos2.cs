@@ -195,8 +195,8 @@ namespace PV
                     }
 
                   //  this.Close();
-                    ConceptosGlobalesPartidaGastos documentoConceptoGlobal = new ConceptosGlobalesPartidaGastos(TxtFolio1.Text, recibo, reciboCol);
-                    documentoConceptoGlobal.ShowDialog();
+                 //   ConceptosGlobalesPartidaGastos documentoConceptoGlobal = new ConceptosGlobalesPartidaGastos(TxtFolio1.Text, recibo, reciboCol);
+                  //  documentoConceptoGlobal.ShowDialog();
                 }
             }
             else if (txtOrden.Text == "Automatico" && txtPartida.Text != "1")
@@ -208,8 +208,8 @@ namespace PV
                 c.InsertarPartidaRecepcion(TxtFolio1.Text, txtPartida.Text, txtClave1.Text, txtConcepto2.Text, txtCantidad.Text, txtUnidad.Text, txtDivisa1.Text, txtTipoCambio1.Text, Convert.ToDecimal(txtSubtotal1.Text), Convert.ToDecimal(txtDescuento1.Text), Convert.ToDecimal(txtTotal1.Text), Convert.ToDecimal(txtImpuesto1.Text), txtArchivo1.Text);
                 c.ActualizarRecepcion(TxtFolio1.Text, txtPartida.Text);
                
-                ConceptosGlobalesPartidaGastos documentoConceptoGlobal = new ConceptosGlobalesPartidaGastos(TxtFolio1.Text, recibo, reciboCol);
-                documentoConceptoGlobal.ShowDialog();
+               // ConceptosGlobalesPartidaGastos documentoConceptoGlobal = new ConceptosGlobalesPartidaGastos(TxtFolio1.Text, recibo, reciboCol);
+               // documentoConceptoGlobal.ShowDialog();
             }
             PanelPartidasRequisicion.Visible = false;
             guna2Button9.Visible = true;
@@ -272,6 +272,7 @@ namespace PV
             txtUnidad.Clear();
             //cmbConcepto.Text = null;
             txtArchivo1.Clear();
+            
         }
 
         private void guna2Button10_Click(object sender, EventArgs e)
@@ -506,7 +507,7 @@ namespace PV
                 int opcion = 0;
                 if (txtFolio.Text == string.Empty)
                 {
-                    c.InsertarRegistroGasto(txtFolio, txtClave.Text, cmbEstatus.Text, txtFecha.Text, txtMatricular.Text, txtDivisa.Text, txtTipoCambio.Text, txtNotas.Text, txtElaborado.Text, FolioOrden, txtConsecutivo.Text, txtReferencia.Text, txtCondominio.Text, txtDiasVence.Text, txtFechaVence.Text);
+                    //c.InsertarRegistroGasto(txtFolio, txtClave.Text, cmbEstatus.Text, txtFecha.Text, txtMatricular.Text, txtDivisa.Text, txtTipoCambio.Text, txtNotas.Text, txtElaborado.Text, FolioOrden, txtConsecutivo.Text, txtReferencia.Text, txtCondominio.Text, txtDiasVence.Text, txtFechaVence.Text);
                     opcion = 1;
                 }
 

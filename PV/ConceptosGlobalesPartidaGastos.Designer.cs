@@ -50,6 +50,8 @@
             this.label11 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.guna2GradientPanel1 = new Guna.UI2.WinForms.Guna2GradientPanel();
+            this.txtIncluyeIva = new System.Windows.Forms.TextBox();
+            this.txtPorcentaje = new System.Windows.Forms.TextBox();
             this.guna2HtmlLabel1 = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.cmbConcepto = new Guna.UI2.WinForms.Guna2ComboBox();
             this.txtclase = new Guna.UI2.WinForms.Guna2TextBox();
@@ -66,7 +68,6 @@
             this.guna2Button3 = new Guna.UI2.WinForms.Guna2Button();
             this.guna2Button9 = new Guna.UI2.WinForms.Guna2Button();
             this.guna2Separator1 = new Guna.UI2.WinForms.Guna2Separator();
-            this.txtPorcentaje = new System.Windows.Forms.TextBox();
             this.guna2GradientPanel1.SuspendLayout();
             this.guna2Panel1.SuspendLayout();
             this.SuspendLayout();
@@ -101,11 +102,11 @@
             // label18
             // 
             this.label18.AutoSize = true;
-            this.label18.Font = new System.Drawing.Font("Elephant", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label18.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label18.ForeColor = System.Drawing.Color.RoyalBlue;
             this.label18.Location = new System.Drawing.Point(11, 8);
             this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(0, 27);
+            this.label18.Size = new System.Drawing.Size(0, 25);
             this.label18.TabIndex = 71;
             // 
             // txtClave
@@ -131,7 +132,7 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(37, 60);
+            this.label2.Location = new System.Drawing.Point(50, 60);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(47, 15);
             this.label2.TabIndex = 13;
@@ -150,7 +151,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(37, 22);
+            this.label1.Location = new System.Drawing.Point(50, 22);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(71, 15);
             this.label1.TabIndex = 5;
@@ -160,27 +161,29 @@
             // 
             this.label19.AutoSize = true;
             this.label19.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label19.Location = new System.Drawing.Point(167, 187);
+            this.label19.Location = new System.Drawing.Point(194, 274);
             this.label19.Name = "label19";
             this.label19.Size = new System.Drawing.Size(15, 15);
             this.label19.TabIndex = 77;
             this.label19.Text = "$";
+            this.label19.Visible = false;
             // 
             // label20
             // 
             this.label20.AutoSize = true;
             this.label20.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label20.Location = new System.Drawing.Point(37, 189);
+            this.label20.Location = new System.Drawing.Point(112, 274);
             this.label20.Name = "label20";
             this.label20.Size = new System.Drawing.Size(70, 15);
             this.label20.TabIndex = 76;
             this.label20.Text = "Impuesto:";
+            this.label20.Visible = false;
             // 
             // label12
             // 
             this.label12.AutoSize = true;
             this.label12.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label12.Location = new System.Drawing.Point(518, 186);
+            this.label12.Location = new System.Drawing.Point(167, 185);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(15, 15);
             this.label12.TabIndex = 54;
@@ -220,7 +223,7 @@
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(37, 96);
+            this.label4.Location = new System.Drawing.Point(50, 96);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(64, 15);
             this.label4.TabIndex = 28;
@@ -240,7 +243,7 @@
             // 
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(446, 186);
+            this.label6.Location = new System.Drawing.Point(54, 185);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(43, 15);
             this.label6.TabIndex = 53;
@@ -260,15 +263,16 @@
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(37, 139);
+            this.label5.Location = new System.Drawing.Point(50, 139);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(121, 15);
+            this.label5.Size = new System.Drawing.Size(60, 15);
             this.label5.TabIndex = 52;
-            this.label5.Text = "Descuento/Cargo:";
+            this.label5.Text = "Importe:";
             // 
             // guna2GradientPanel1
             // 
             this.guna2GradientPanel1.BorderRadius = 80;
+            this.guna2GradientPanel1.Controls.Add(this.txtIncluyeIva);
             this.guna2GradientPanel1.Controls.Add(this.txtPorcentaje);
             this.guna2GradientPanel1.Controls.Add(this.guna2HtmlLabel1);
             this.guna2GradientPanel1.CustomizableEdges.BottomRight = false;
@@ -282,6 +286,24 @@
             this.guna2GradientPanel1.Name = "guna2GradientPanel1";
             this.guna2GradientPanel1.Size = new System.Drawing.Size(724, 75);
             this.guna2GradientPanel1.TabIndex = 126;
+            // 
+            // txtIncluyeIva
+            // 
+            this.txtIncluyeIva.Location = new System.Drawing.Point(317, 27);
+            this.txtIncluyeIva.Name = "txtIncluyeIva";
+            this.txtIncluyeIva.Size = new System.Drawing.Size(90, 20);
+            this.txtIncluyeIva.TabIndex = 351;
+            this.txtIncluyeIva.TabStop = false;
+            this.txtIncluyeIva.Visible = false;
+            // 
+            // txtPorcentaje
+            // 
+            this.txtPorcentaje.Location = new System.Drawing.Point(584, 24);
+            this.txtPorcentaje.Name = "txtPorcentaje";
+            this.txtPorcentaje.Size = new System.Drawing.Size(90, 20);
+            this.txtPorcentaje.TabIndex = 350;
+            this.txtPorcentaje.TabStop = false;
+            this.txtPorcentaje.Visible = false;
             // 
             // guna2HtmlLabel1
             // 
@@ -328,6 +350,7 @@
             this.txtclase.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(226)))), ((int)(((byte)(226)))));
             this.txtclase.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
             this.txtclase.DisabledState.PlaceholderForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
+            this.txtclase.Enabled = false;
             this.txtclase.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.txtclase.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.txtclase.ForeColor = System.Drawing.Color.Black;
@@ -351,6 +374,7 @@
             this.txtTipo.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(226)))), ((int)(((byte)(226)))));
             this.txtTipo.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
             this.txtTipo.DisabledState.PlaceholderForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
+            this.txtTipo.Enabled = false;
             this.txtTipo.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.txtTipo.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.txtTipo.ForeColor = System.Drawing.Color.Black;
@@ -374,6 +398,7 @@
             this.txtSubtotal.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(226)))), ((int)(((byte)(226)))));
             this.txtSubtotal.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
             this.txtSubtotal.DisabledState.PlaceholderForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
+            this.txtSubtotal.Enabled = false;
             this.txtSubtotal.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.txtSubtotal.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.txtSubtotal.ForeColor = System.Drawing.Color.Black;
@@ -398,6 +423,7 @@
             this.txtDivisa.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(226)))), ((int)(((byte)(226)))));
             this.txtDivisa.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
             this.txtDivisa.DisabledState.PlaceholderForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
+            this.txtDivisa.Enabled = false;
             this.txtDivisa.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.txtDivisa.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.txtDivisa.ForeColor = System.Drawing.Color.Black;
@@ -421,6 +447,7 @@
             this.txtTipoCambio.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(226)))), ((int)(((byte)(226)))));
             this.txtTipoCambio.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
             this.txtTipoCambio.DisabledState.PlaceholderForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
+            this.txtTipoCambio.Enabled = false;
             this.txtTipoCambio.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.txtTipoCambio.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.txtTipoCambio.ForeColor = System.Drawing.Color.Black;
@@ -456,6 +483,7 @@
             this.txtDescuento.Size = new System.Drawing.Size(134, 25);
             this.txtDescuento.TabIndex = 346;
             this.txtDescuento.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.txtDescuento.TextChanged += new System.EventHandler(this.txtDescuento_TextChanged_1);
             // 
             // txtTotal
             // 
@@ -468,16 +496,17 @@
             this.txtTotal.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(226)))), ((int)(((byte)(226)))));
             this.txtTotal.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
             this.txtTotal.DisabledState.PlaceholderForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
+            this.txtTotal.Enabled = false;
             this.txtTotal.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.txtTotal.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.txtTotal.ForeColor = System.Drawing.Color.Black;
             this.txtTotal.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.txtTotal.Location = new System.Drawing.Point(545, 180);
+            this.txtTotal.Location = new System.Drawing.Point(188, 180);
             this.txtTotal.Name = "txtTotal";
             this.txtTotal.PasswordChar = '\0';
             this.txtTotal.PlaceholderText = "";
             this.txtTotal.SelectedText = "";
-            this.txtTotal.Size = new System.Drawing.Size(121, 25);
+            this.txtTotal.Size = new System.Drawing.Size(135, 25);
             this.txtTotal.TabIndex = 347;
             this.txtTotal.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
@@ -496,7 +525,7 @@
             this.txtImpuesto.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.txtImpuesto.ForeColor = System.Drawing.Color.Black;
             this.txtImpuesto.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.txtImpuesto.Location = new System.Drawing.Point(188, 179);
+            this.txtImpuesto.Location = new System.Drawing.Point(215, 266);
             this.txtImpuesto.Name = "txtImpuesto";
             this.txtImpuesto.PasswordChar = '\0';
             this.txtImpuesto.PlaceholderText = "";
@@ -504,6 +533,7 @@
             this.txtImpuesto.Size = new System.Drawing.Size(134, 25);
             this.txtImpuesto.TabIndex = 348;
             this.txtImpuesto.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.txtImpuesto.Visible = false;
             // 
             // guna2Panel1
             // 
@@ -573,6 +603,7 @@
             this.guna2Button8.TabIndex = 349;
             this.guna2Button8.Text = "Siguiente";
             this.guna2Button8.TextOffset = new System.Drawing.Point(23, 0);
+            this.guna2Button8.Visible = false;
             this.guna2Button8.Click += new System.EventHandler(this.button2_Click);
             // 
             // guna2Button1
@@ -663,15 +694,6 @@
             this.guna2Separator1.Size = new System.Drawing.Size(283, 10);
             this.guna2Separator1.TabIndex = 253;
             // 
-            // txtPorcentaje
-            // 
-            this.txtPorcentaje.Location = new System.Drawing.Point(584, 24);
-            this.txtPorcentaje.Name = "txtPorcentaje";
-            this.txtPorcentaje.Size = new System.Drawing.Size(90, 20);
-            this.txtPorcentaje.TabIndex = 350;
-            this.txtPorcentaje.TabStop = false;
-            this.txtPorcentaje.Visible = false;
-            // 
             // ConceptosGlobalesPartidaGastos
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -738,5 +760,6 @@
         private Guna.UI2.WinForms.Guna2Separator guna2Separator1;
         private Guna.UI2.WinForms.Guna2Button guna2Button8;
         private System.Windows.Forms.TextBox txtPorcentaje;
+        private System.Windows.Forms.TextBox txtIncluyeIva;
     }
 }

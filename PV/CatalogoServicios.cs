@@ -8,9 +8,11 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Condominios;
+using Condominios.Clases.CentroCostos;
 using Guna.UI2.WinForms;
 using PuntoVentas.Clases.Login;
 using PV.Clases;
+using PV.Clases.OrdenCompra;
 using PV.Clases.Servicios;
 
 namespace PV
@@ -19,7 +21,13 @@ namespace PV
     {
         DBServicios c = new DBServicios();
         DBLogin s = new DBLogin();
+RegistroGastos2 RG2 = new RegistroGastos2();
+        DBOrdenCompra O = new DBOrdenCompra();
+
         int Consulta = 0;
+
+        public string actualizarcomboS = string.Empty;
+
         public CatalogoServicios(int consulta)
         {
             InitializeComponent();
@@ -105,7 +113,7 @@ namespace PV
                 }
                 else
                 {
-                    MessageBox.Show(c.RegistroProducto(txtClaveProducto.Text, txtAlias.Text, txtDescripcion.Text, cmbEstatus.Text, txtCategoria.Text, txtFamilia.Text, cmbTipoCosteo.Text, txtCostoUnitario.Text, cmbDivisa.Text, txtDescuentoPorc.Text, txtDescuentoCant.Text, txtImpuestoPorc.Text, txtImpuestoCant.Text, txtPrecioVenta.Text, Foto, txtConcepto.Text));
+                    MessageBox.Show(c.RegistroProducto(txtClaveProducto.Text, txtAlias.Text, txtDescripcion.Text, cmbEstatus.Text, txtCategoria.Text, txtFamilia.Text, cmbTipoCosteo.Text, txtCostoUnitario.Text, cmbDivisa.Text, txtDescuentoPorc.Text, txtDescuentoCant.Text, txtImpuestoPorc.Text, txtImpuestoCant.Text, txtPrecioVenta.Text, Foto, txtConcepto.Text, cmbIEPS.Text, txtCuentaContable.Text));
                     Limpiar();
                     c.CargarProductos(dataGridView2);
                 }
@@ -239,6 +247,8 @@ namespace PV
             PanelUsuario.Visible = false;
             cmbConcepto.Text = null;
             txtConcepto.Clear();
+            cmbIEPS.Text = "No";
+            txtCuentaContable.Clear();
         }
         private void button5_Click(object sender, EventArgs e)
         {
@@ -264,7 +274,7 @@ namespace PV
             if (e.RowIndex != -1)
             {
                 string Clave = dataGridView2.Rows[e.RowIndex].Cells["Clave"].Value.ToString();
-                c.ConsultaProductoSeleccionado(Clave, txtAlias, txtDescripcion, cmbEstatus, txtCategoria, txtFamilia, cmbCategorias, cmbFamilia, cmbTipoCosteo, txtCostoUnitario, cmbDivisa, txtDescuentoPorc, txtDescuentoCant, txtImpuestoPorc, txtImpuestoCant, txtPrecioVenta, Foto, txtConcepto, cmbConcepto);
+                c.ConsultaProductoSeleccionado(Clave, txtAlias, txtDescripcion, cmbEstatus, txtCategoria, txtFamilia, cmbCategorias, cmbFamilia, cmbTipoCosteo, txtCostoUnitario, cmbDivisa, txtDescuentoPorc, txtDescuentoCant, txtImpuestoPorc, txtImpuestoCant, txtPrecioVenta, Foto, txtConcepto, cmbConcepto, cmbIEPS, txtCuentaContable);
                 groupBox4.Enabled = true;
                 
                 txtClaveProducto.Text = Clave;
@@ -282,10 +292,8 @@ namespace PV
             {
                 string[] valores = c.InformacionCategorias(cmbCategorias.Text);
                 txtCategoria.Text = valores[0];
-
                 c.SeleccionarFamilia(cmbFamilia, txtCategoria.Text);
             }
-
         }
 
         private void cmbFamilia_SelectedIndexChanged(object sender, EventArgs e)
@@ -648,6 +656,11 @@ namespace PV
         private void txtCostoUnitario_TextChanged(object sender, EventArgs e)
         {
             Utilerias.Moneda2(ref txtCostoUnitario);
+        }
+
+        private void CatalogoServicios_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            
         }
     }
     

@@ -38,6 +38,18 @@ namespace Condominios.Clases.CentroCostos
                 MessageBox.Show("Error de Conexion" + ex.ToString());
             }
         }
+        public void CerrarConexion()
+        {
+            try
+            {
+                cn.Close();
+
+            }
+            catch (Exception ex)
+            {
+
+            }
+        }
         //____________________________________________________________________________________________________________________________________________
         //Obtener la clave consecutiva
         public int ClaveCentroSiguiente()
@@ -100,20 +112,20 @@ namespace Condominios.Clases.CentroCostos
                     cmd = new SqlCommand("Insert into CentroCostos (Clave, Nombre, Estatus, CuentaContable, Descripcion) values ('" + txtClave + "', '" + txtNombre + "', '" + cmbEstatus + "', '" + txtCuentacontable + "', '" + txtDescricpion + "')", cn);
                     cmd.ExecuteNonQuery();
 
-                    foreach (object item in ListaConceptos)
-                    {
-                        ClaveDep = item.ToString();
+                    //foreach (object item in ListaConceptos)
+                    //{
+                    //    ClaveDep = item.ToString();
 
-                        foreach (object item2 in ListaConceptos2)
-                        {
-                            NombreDep = item2.ToString();
-                            ListaConceptos2.Remove(item2);
-                            break;
-                        }
+                    //    foreach (object item2 in ListaConceptos2)
+                    //    {
+                    //        NombreDep = item2.ToString();
+                    //        ListaConceptos2.Remove(item2);
+                    //        break;
+                    //    }
 
-                        cmd = new SqlCommand("Insert into CentroCostos_Departamentos (Clave, Nombre, CentroCosto) values ('" + ClaveDep + "', '" + NombreDep + "', '" + txtClave + "')", cn);
-                        cmd.ExecuteNonQuery();
-                    }
+                    //    cmd = new SqlCommand("Insert into CentroCostos_Departamentos (Clave, Nombre, CentroCosto) values ('" + ClaveDep + "', '" + NombreDep + "', '" + txtClave + "')", cn);
+                    //    cmd.ExecuteNonQuery();
+                    //}
 
                     mensaje = "Registro guardado.";
 
@@ -195,16 +207,16 @@ namespace Condominios.Clases.CentroCostos
                 }
                 dr.Close();
 
-                dgv.Rows.Clear();
-                da = new SqlDataAdapter("Select *, CONVERT(INT, SUBSTRING (Clave, 3,1000)) as Orden from CentroCostos_Departamentos where CentroCosto = '" + txtclave + "' order by Orden asc", cn);
-                dt = new DataTable();
-                da.Fill(dt);
-                foreach (DataRow item in dt.Rows)
-                {
-                    int n = dgv.Rows.Add();
-                    dgv.Rows[n].Cells[0].Value = item["Clave"].ToString();
-                    dgv.Rows[n].Cells[1].Value = item["Nombre"].ToString();
-                }
+                //dgv.Rows.Clear();
+                //da = new SqlDataAdapter("Select *, CONVERT(INT, SUBSTRING (Clave, 3,1000)) as Orden from CentroCostos_Departamentos where CentroCosto = '" + txtclave + "' order by Orden asc", cn);
+                //dt = new DataTable();
+                //da.Fill(dt);
+                //foreach (DataRow item in dt.Rows)
+                //{
+                //    int n = dgv.Rows.Add();
+                //    dgv.Rows[n].Cells[0].Value = item["Clave"].ToString();
+                //    dgv.Rows[n].Cells[1].Value = item["Nombre"].ToString();
+                //}
             }
             catch (Exception ex)
             {
@@ -403,6 +415,20 @@ namespace Condominios.Clases.CentroCostos
                 mensaje="El registro esta en uso, no es posible eliminar";
             }
             return mensaje;
+        }
+        public DataTable ConsultarTodos()
+        {
+            string query = "SELECT * FROM CentroCostos";
+            var dataTable = new DataTable();
+
+            using (var connection = new SqlConnection(ObtenerCn()))
+            {
+                var command = new SqlCommand(query, connection);
+                var adapter = new SqlDataAdapter(command);
+                adapter.Fill(dataTable);
+            }
+
+            return dataTable;
         }
     }
 }

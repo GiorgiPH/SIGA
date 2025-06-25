@@ -1900,7 +1900,8 @@ namespace PV.Clases.PedidoCliente
             0 as Total,
             P.PrecioVenta as Precio,
             0 as CantidadEntregada,
-            0 as CantidadPendiente
+            0 as CantidadPendiente,
+            P.CostoUnitario
         from ProductosServicios as P
         where P.Descripcion = @Recibo";
             }
@@ -1922,7 +1923,8 @@ namespace PV.Clases.PedidoCliente
             PO.Total,
             PO.Precio,
             PO.CantidadEntregada,
-            PO.CantidadPendiente
+            PO.CantidadPendiente,
+            P.CostoUnitario
         from ProductosServicios as P
         Inner Join PartidaOrdenPedidoCliente as PO on PO.ClaveProducto = P.ClaveProducto
         where P.Descripcion = @Recibo AND PO.FolioOrden = @Folio";
@@ -1957,6 +1959,7 @@ namespace PV.Clases.PedidoCliente
                     dr["CantidadEntregada"].ToString(),
                     dr["CantidadPendiente"].ToString(),
                     dr["Precio"].ToString(),
+                    dr["CostoUnitario"].ToString(),
                 };
                         resultado = valores;
                     }

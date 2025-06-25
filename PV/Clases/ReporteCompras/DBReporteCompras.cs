@@ -25,7 +25,18 @@ namespace PV.Clases.ReporteCompras
         {
             return Settings.Default.ControlCondominiosConnectionString;
         }
+        public void CerrarConexion()
+        {
+            try
+            {
+                cn.Close();
 
+            }
+            catch (Exception ex)
+            {
+
+            }
+        }
         public DBReporteCompras()
         {
             try

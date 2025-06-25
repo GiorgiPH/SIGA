@@ -6,6 +6,8 @@ using PV;
 using System.Drawing;
 using System.IO;
 using System.Diagnostics;
+using System.Data;
+using Condominios.Clases.CentroCostos;
 
 namespace PV
 {
@@ -14,17 +16,43 @@ namespace PV
         public static string Matricula = string.Empty;
         DBOrdenCompra c = new DBOrdenCompra();
         public static string Carpeta = string.Empty;
+        DBCentroCostos cc = new DBCentroCostos();
 
         public RegistroGastos()
         {
             InitializeComponent();
         }
+        private void LlenarComboCentro()
+        {
+            try
+            {
+                DataTable menus = cc.ConsultarTodos();
 
+                // Evitar eventos mientras actualizas la fuente de datos
+
+                // Configurar estilo y autocompletado
+                cmbCentroCostos.DropDownStyle = ComboBoxStyle.DropDown; // Cambiar a DropDown
+                cmbCentroCostos.DataSource = menus;
+                cmbCentroCostos.DisplayMember = "Nombre"; // Campo visible
+                cmbCentroCostos.ValueMember = "Clave";   // Campo interno
+                cmbCentroCostos.SelectedIndex = -1;     // Ningún elemento seleccionado al inicio
+
+                cmbCentroCostos.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
+                cmbCentroCostos.AutoCompleteSource = AutoCompleteSource.ListItems;
+
+                // Reanudar eventos
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
         private void RegistroGastos_Load(object sender, EventArgs e)
         {
             c.SeleccionarRecepcionProducto(cmbDocumento);
             c.SeleccionarConceptoDocumento(cmbFiltroDocumentoC);
             c.SeleccionarCondomini2(cmbCondominio);
+            LlenarComboCentro();
             c.ruta();
             //c.SeleccionarOrdenEntrega(cmbOrdenCompra);
             c.CargarGasto(guna2DataGridView1);
@@ -259,13 +287,18 @@ namespace PV
                 MessageBox.Show("No es posible agregar partidas a una recepcion deproductos Bloqueada o Cancelada");
                 return;
             }
+            else if (string.IsNullOrEmpty(cmbCentroCostos.Text))
+            {
+                MessageBox.Show("Selecciona un centro de costo");
+                return;
+            }
             else
             {
                 string FolioOrden = txtOrdenCompra.Text;
 
                 if (txtFolio.Text == string.Empty)
                 {
-                    c.InsertarRegistroGasto(txtFolio, txtClave.Text, cmbEstatus.Text, txtFecha.Text, txtMatricular.Text, txtDivisa.Text, txtTipoCambio.Text, txtNotas.Text, txtElaborado.Text, FolioOrden, txtConsecutivo.Text, txtReferencia.Text, txtCondominio.Text, txtDiasVence.Text, txtFechaVence.Text);
+                    //c.InsertarRegistroGasto(txtFolio, txtClave.Text, cmbEstatus.Text, txtFecha.Text, txtMatricular.Text, txtDivisa.Text, txtTipoCambio.Text, txtNotas.Text, txtElaborado.Text, FolioOrden, txtConsecutivo.Text, txtReferencia.Text, txtCondominio.Text, txtDiasVence.Text, txtFechaVence.Text, cmbCentroCostos.SelectedValue);
                 }
                 int opcion = 0;
                 if (txtArchivo.Text != string.Empty)
@@ -908,7 +941,7 @@ namespace PV
                 int opcion = 0;
                 if (txtFolio.Text == string.Empty)
                 {
-                    c.InsertarRegistroGasto(txtFolio, txtClave.Text, cmbEstatus.Text, txtFecha.Text, txtMatricular.Text, txtDivisa.Text, txtTipoCambio.Text, txtNotas.Text, txtElaborado.Text, FolioOrden, txtConsecutivo.Text, txtReferencia.Text, txtCondominio.Text, txtDiasVence.Text, txtFechaVence.Text);
+                    //c.InsertarRegistroGasto(txtFolio, txtClave.Text, cmbEstatus.Text, txtFecha.Text, txtMatricular.Text, txtDivisa.Text, txtTipoCambio.Text, txtNotas.Text, txtElaborado.Text, FolioOrden, txtConsecutivo.Text, txtReferencia.Text, txtCondominio.Text, txtDiasVence.Text, txtFechaVence.Text);
                     opcion = 1;
                 }
 

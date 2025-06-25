@@ -43,6 +43,7 @@ namespace PV
                 RecepcionProductos2.Matricula = dataGridView1.Rows[e.RowIndex].Cells["Matricula"].Value.ToString();
                 RegistroGastos.Matricula = dataGridView1.Rows[e.RowIndex].Cells["Matricula"].Value.ToString();
                 RegistroGastos2.Matricula = dataGridView1.Rows[e.RowIndex].Cells["Matricula"].Value.ToString();
+                RegistroReembolsos.Matricula = dataGridView1.Rows[e.RowIndex].Cells["Matricula"].Value.ToString();
                 RegistroEgreso.matricula = dataGridView1.Rows[e.RowIndex].Cells["Matricula"].Value.ToString();
                 RegistroEgreso.nombre = dataGridView1.Rows[e.RowIndex].Cells["Nombre"].Value.ToString();
                 NotasCargo.Matricula = dataGridView1.Rows[e.RowIndex].Cells["Matricula"].Value.ToString();
@@ -50,6 +51,7 @@ namespace PV
                 RegistrarAnticipo.nombre = dataGridView1.Rows[e.RowIndex].Cells["Nombre"].Value.ToString();
                 AplicarAnticipoProveedor.matricula = dataGridView1.Rows[e.RowIndex].Cells["Matricula"].Value.ToString();
                 AplicarAnticipoProveedor.nombre = dataGridView1.Rows[e.RowIndex].Cells["Nombre"].Value.ToString();
+                RegistroReembolsos.Matricula = dataGridView1.Rows[e.RowIndex].Cells["Matricula"].Value.ToString();
                 this.Close();
             }
             else

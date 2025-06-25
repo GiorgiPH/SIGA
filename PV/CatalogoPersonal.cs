@@ -98,9 +98,8 @@ namespace PuntoVentas
             }
             else
             {
-               MessageBox.Show(c.RegistroEmpleado(txtClaveEmpleado.Text, txtNombre.Text, txtApellidoP.Text, txtApellidoM.Text, cmbEstatus.Text, dtpFechaNacimiento.Text, dtpFechaIngreso.Text, txtEscolaridad.Text, txtTelefonoCasa.Text, txtCelular.Text, txtEmail.Text, txtCalleNumero.Text, txtColonia.Text, txtMunicipio.Text, txtEstado.Text, txtCodigoPostal.Text, txtPais.Text, txtNotas.Text, cmbClaveUsuario.Text, txtPuesto.Text, txtNIP.Text, txtTipoContrato.Text, txtRFC.Text, txtCURP.Text, txtIMSS.Text, Convert.ToDecimal(txtSueldo.Text), txtBono.Text, txtVacaciones.Text, txtHorario.Text, Foto));
+                MessageBox.Show(c.RegistroEmpleado(txtClaveEmpleado.Text, txtNombre.Text, txtApellidoP.Text, txtApellidoM.Text, cmbEstatus.Text, dtpFechaNacimiento.Value.ToString("yyyy-MM-dd"), dtpFechaIngreso.Value.ToString("yyyy-MM-dd"), txtEscolaridad.Text, txtTelefonoCasa.Text, txtCelular.Text, txtEmail.Text, txtCalleNumero.Text, txtColonia.Text, txtMunicipio.Text, txtEstado.Text, txtCodigoPostal.Text, txtPais.Text, txtNotas.Text, cmbClaveUsuario.Text, txtPuesto.Text, txtNIP.Text, txtTipoContrato.Text, txtRFC.Text, txtCURP.Text, txtIMSS.Text, Convert.ToDecimal(txtSueldo.Text), txtBono.Text, txtVacaciones.Text, txtHorario.Text, Foto));
                 Limpiar();
-                //GenerarNoEmpleado();
                 c.CargarEmpleados(dataGridView1);
             }
         }

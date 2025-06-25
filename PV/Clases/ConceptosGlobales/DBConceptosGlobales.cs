@@ -105,7 +105,83 @@ namespace Condominios.Clases.ConceptosGlobales
                 MessageBox.Show("Error" + ex.ToString());
             }
         }
+        public DataTable CargarConceptos()
+        {
+            try
+            {
+                SqlDataAdapter da = new SqlDataAdapter(
+                    @"SELECT * FROM ConceptosGlobales", cn);
 
+                DataTable dt = new DataTable();
+                da.Fill(dt);
+                return dt;
+            }
+            catch (Exception ex)
+            {
+                // Puedes manejar mejor el error o lanzarlo para la capa superior
+                throw new Exception("Error al obtener partidas de reembolso", ex);
+            }
+        }
+        public string[] InformacionReciboConceptoGlobal(string recibo)
+        {
+            using (SqlCommand cmd = new SqlCommand("SELECT * FROM ConceptosGlobales WHERE Clave = @recibo", cn))
+            {
+                cmd.Parameters.AddWithValue("@recibo", recibo);
+
+                using (SqlDataReader dr = cmd.ExecuteReader())
+                {
+                    if (dr.Read())
+                    {
+                        return new string[]
+                        {
+                    dr[0]?.ToString(),
+                    dr[1]?.ToString(),
+                    dr[2]?.ToString(),
+                    dr[3]?.ToString(),
+                    dr[6]?.ToString(),
+                    dr[7]?.ToString()
+                        };
+                    }
+                }
+            }
+
+            return null; // o string[0] si prefieres evitar null
+        }
+
+        public DataTable CargarConceptosDescuento()
+        {
+            try
+            {
+                SqlDataAdapter da = new SqlDataAdapter(
+                    @"SELECT * FROM ConceptosGlobales WHERE Clase = 'Descuento'", cn);
+
+                DataTable dt = new DataTable();
+                da.Fill(dt);
+                return dt;
+            }
+            catch (Exception ex)
+            {
+                // Puedes manejar mejor el error o lanzarlo para la capa superior
+                throw new Exception("Error al obtener partidas de reembolso", ex);
+            }
+        }
+        public DataTable CargarConceptosImpuesto()
+        {
+            try
+            {
+                SqlDataAdapter da = new SqlDataAdapter(
+                    @"SELECT * FROM ConceptosGlobales WHERE Clase = 'Impuesto'", cn);
+
+                DataTable dt = new DataTable();
+                da.Fill(dt);
+                return dt;
+            }
+            catch (Exception ex)
+            {
+                // Puedes manejar mejor el error o lanzarlo para la capa superior
+                throw new Exception("Error al obtener partidas de reembolso", ex);
+            }
+        }
         //_____________________________________________________________________________________________________
         //Mostrar Usuario seleccionado
         public void ConsultConceptoSeleccionado(string Clave, string Nombre, ComboBox Clase, ComboBox Tipo, ComboBox Relativa, Guna2TextBox Cuenta, Guna2TextBox Importe, Guna2ToggleSwitch IncluyeiVA)
@@ -177,5 +253,6 @@ namespace Condominios.Clases.ConceptosGlobales
             }
             return mensaje;
         }
+        
     }
 }

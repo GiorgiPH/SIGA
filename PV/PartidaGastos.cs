@@ -119,7 +119,7 @@ namespace PV
             }
             else
             {
-                c.InsertarPartidaGasto(TxtFolio.Text, txtPartida.Text, txtClave.Text, txtConcepto2.Text, txtCantidad.Text, txtUnidad.Text, txtDivisa.Text, txtTipoCambio.Text, Convert.ToDecimal(txtSubtotal.Text), Convert.ToDecimal(txtDescuento.Text), Convert.ToDecimal(txtTotal.Text), Convert.ToDecimal(txtImpuesto.Text), txtArchivo.Text);
+               // c.InsertarPartidaGasto(TxtFolio.Text, txtPartida.Text, txtClave.Text, txtConcepto2.Text, txtCantidad.Text, txtUnidad.Text, txtDivisa.Text, txtTipoCambio.Text, Convert.ToDecimal(txtSubtotal.Text), Convert.ToDecimal(txtDescuento.Text), Convert.ToDecimal(txtTotal.Text), Convert.ToDecimal(txtImpuesto.Text), txtArchivo.Text);
                 c.ActualizarPartidaOrden(txtOrden.Text, txtPartidaOrden.Text, txtCantidad.Text);
                 //c.RegistroProducto(txtClave.Text, txtCantidad.Text, txtAlmacen.Text);
                 Limpiar();
@@ -168,8 +168,8 @@ namespace PV
                     }
 
                     this.Close();
-                    ConceptosGlobalesPartidaGastos documentoConceptoGlobal = new ConceptosGlobalesPartidaGastos(TxtFolio.Text, recibo, reciboCol);
-                    documentoConceptoGlobal.ShowDialog();
+                   // ConceptosGlobalesPartidaGastos documentoConceptoGlobal = new ConceptosGlobalesPartidaGastos(TxtFolio.Text, recibo, reciboCol);
+                   // documentoConceptoGlobal.ShowDialog();
                 }
             }
             else if (txtOrden.Text == "Automatico" && txtPartida.Text != "1")
@@ -178,13 +178,13 @@ namespace PV
             }
             else
             {
-                c.InsertarPartidaGasto(TxtFolio.Text, txtPartida.Text, txtClave.Text, txtConcepto2.Text, txtCantidad.Text, txtUnidad.Text, txtDivisa.Text, txtTipoCambio.Text, Convert.ToDecimal(txtSubtotal.Text), Convert.ToDecimal(txtDescuento.Text), Convert.ToDecimal(txtTotal.Text), Convert.ToDecimal(txtImpuesto.Text), txtArchivo.Text);
+                //c.InsertarPartidaGasto(TxtFolio.Text, txtPartida.Text, txtClave.Text, txtConcepto2.Text, txtCantidad.Text, txtUnidad.Text, txtDivisa.Text, txtTipoCambio.Text, Convert.ToDecimal(txtSubtotal.Text), Convert.ToDecimal(txtDescuento.Text), Convert.ToDecimal(txtTotal.Text), Convert.ToDecimal(txtImpuesto.Text), txtArchivo.Text);
                 c.ActualizarGasto(TxtFolio.Text, txtPartida.Text);
                 c.ActualizarPartidaOrden(txtOrden.Text, txtPartidaOrden.Text, txtCantidad.Text);
                 //c.RegistroProducto(txtClave.Text, txtCantidad.Text, txtAlmacen.Text);
                 this.Close();
-                ConceptosGlobalesPartidaGastos documentoConceptoGlobal = new ConceptosGlobalesPartidaGastos(TxtFolio.Text, recibo, reciboCol);
-                documentoConceptoGlobal.ShowDialog();
+                //ConceptosGlobalesPartidaGastos documentoConceptoGlobal = new ConceptosGlobalesPartidaGastos(TxtFolio.Text, recibo, reciboCol);
+               // documentoConceptoGlobal.ShowDialog();
             }
 
         }
@@ -415,7 +415,7 @@ namespace PV
             {
                 if (TxtFolio.Text != string.Empty)
                 {
-                    c.InsertarPartidaGasto(TxtFolio.Text, txtPartida.Text, txtClave.Text, txtConcepto2.Text, txtCantidad.Text, txtUnidad.Text, txtDivisa.Text, txtTipoCambio.Text, Convert.ToDecimal(txtSubtotal.Text), Convert.ToDecimal(txtDescuento.Text), Convert.ToDecimal(txtTotal.Text), Convert.ToDecimal(txtImpuesto.Text), txtArchivo.Text);
+                    //c.InsertarPartidaGasto(TxtFolio.Text, txtPartida.Text, txtClave.Text, txtConcepto2.Text, txtCantidad.Text, txtUnidad.Text, txtDivisa.Text, txtTipoCambio.Text, Convert.ToDecimal(txtSubtotal.Text), Convert.ToDecimal(txtDescuento.Text), Convert.ToDecimal(txtTotal.Text), Convert.ToDecimal(txtImpuesto.Text), txtArchivo.Text);
                     string NoOrdenResl = TxtFolio.Text;
                     string Descripcion = txtPartida.Text;
 

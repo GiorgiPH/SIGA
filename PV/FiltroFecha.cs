@@ -12,9 +12,12 @@ namespace PV
 {
     public partial class FiltroFecha : Form
     {
-        public FiltroFecha()
+        string tipoReporte = string.Empty;
+        public FiltroFecha(string tipoReporte="")
         {
             InitializeComponent();
+            this.tipoReporte = tipoReporte;
+            dtFecha1.Value=DateTime.Now;
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -37,6 +40,21 @@ namespace PV
             ReporteSaldoPropietario.fecha1 = dtFecha1.Text;
             ReporteSaldoPropietario.fecha2 = dtFecha2.Text;
             ReporteSaldoPropietario.fecha = "Si";
+            if (tipoReporte == "Utilidad Producto")
+            {
+                ReporteUtilidadPedido r = new ReporteUtilidadPedido(dtFecha1.Text, dtFecha2.Text);
+                r.ShowDialog();
+            }
+            else if (tipoReporte == "Utilidad Pedido")
+            {
+                ReporteUtilidadProducto r = new ReporteUtilidadProducto(dtFecha1.Text, dtFecha2.Text);
+                r.ShowDialog();
+            }
+            else if (tipoReporte == "Diario Pedidos")
+            {
+                ReporteDiarioP r = new ReporteDiarioP(dtFecha1.Text, dtFecha2.Text);
+                r.ShowDialog();
+            }
             this.Close();
         }
 

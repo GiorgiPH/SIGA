@@ -30,11 +30,11 @@ namespace PV
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CatalogoServicios));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle21 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle22 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle23 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle24 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle25 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
             this.guna2GradientPanel1 = new Guna.UI2.WinForms.Guna2GradientPanel();
             this.guna2CircleButton1 = new Guna.UI2.WinForms.Guna2CircleButton();
             this.guna2HtmlLabel1 = new Guna.UI2.WinForms.Guna2HtmlLabel();
@@ -44,6 +44,8 @@ namespace PV
             this.button6 = new Guna.UI2.WinForms.Guna2Button();
             this.button7 = new Guna.UI2.WinForms.Guna2Button();
             this.groupBox4 = new Guna.UI2.WinForms.Guna2Panel();
+            this.cmbIEPS = new Guna.UI2.WinForms.Guna2ComboBox();
+            this.label1 = new System.Windows.Forms.Label();
             this.txtPrecioVenta = new Guna.UI2.WinForms.Guna2TextBox();
             this.cmbDivisa = new Guna.UI2.WinForms.Guna2ComboBox();
             this.cmbConcepto = new Guna.UI2.WinForms.Guna2ComboBox();
@@ -100,6 +102,8 @@ namespace PV
             this.toolStripButton3 = new System.Windows.Forms.ToolStripButton();
             this.toolStripButton4 = new System.Windows.Forms.ToolStripButton();
             this.guna2PictureBox1 = new Guna.UI2.WinForms.Guna2PictureBox();
+            this.txtCuentaContable = new Guna.UI2.WinForms.Guna2TextBox();
+            this.label7 = new System.Windows.Forms.Label();
             this.guna2GradientPanel1.SuspendLayout();
             this.guna2Panel2.SuspendLayout();
             this.groupBox4.SuspendLayout();
@@ -262,6 +266,8 @@ namespace PV
             | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox4.BackColor = System.Drawing.Color.Transparent;
             this.groupBox4.BorderRadius = 20;
+            this.groupBox4.Controls.Add(this.cmbIEPS);
+            this.groupBox4.Controls.Add(this.label1);
             this.groupBox4.Controls.Add(this.txtPrecioVenta);
             this.groupBox4.Controls.Add(this.cmbDivisa);
             this.groupBox4.Controls.Add(this.cmbConcepto);
@@ -272,6 +278,7 @@ namespace PV
             this.groupBox4.Controls.Add(this.txtCostoUnitario);
             this.groupBox4.Controls.Add(this.cmbTipoCosteo);
             this.groupBox4.Controls.Add(this.txtConcepto);
+            this.groupBox4.Controls.Add(this.label7);
             this.groupBox4.Controls.Add(this.label3);
             this.groupBox4.Controls.Add(this.label18);
             this.groupBox4.Controls.Add(this.label20);
@@ -288,6 +295,7 @@ namespace PV
             this.groupBox4.Controls.Add(this.cmbFamilia);
             this.groupBox4.Controls.Add(this.cmbCategorias);
             this.groupBox4.Controls.Add(this.cmbEstatus);
+            this.groupBox4.Controls.Add(this.txtCuentaContable);
             this.groupBox4.Controls.Add(this.txtDescripcion);
             this.groupBox4.Controls.Add(this.txtAlias);
             this.groupBox4.Controls.Add(this.txtClaveProducto);
@@ -308,6 +316,39 @@ namespace PV
             this.groupBox4.Size = new System.Drawing.Size(1023, 520);
             this.groupBox4.TabIndex = 98;
             // 
+            // cmbIEPS
+            // 
+            this.cmbIEPS.AutoRoundedCorners = true;
+            this.cmbIEPS.BackColor = System.Drawing.Color.Transparent;
+            this.cmbIEPS.BorderColor = System.Drawing.Color.Gray;
+            this.cmbIEPS.BorderRadius = 12;
+            this.cmbIEPS.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
+            this.cmbIEPS.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbIEPS.FocusedColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.cmbIEPS.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.cmbIEPS.Font = new System.Drawing.Font("Segoe UI", 10F);
+            this.cmbIEPS.ForeColor = System.Drawing.Color.Black;
+            this.cmbIEPS.IntegralHeight = false;
+            this.cmbIEPS.ItemHeight = 20;
+            this.cmbIEPS.Items.AddRange(new object[] {
+            "Si",
+            "No"});
+            this.cmbIEPS.Location = new System.Drawing.Point(152, 405);
+            this.cmbIEPS.Name = "cmbIEPS";
+            this.cmbIEPS.Size = new System.Drawing.Size(96, 26);
+            this.cmbIEPS.TabIndex = 297;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.BackColor = System.Drawing.Color.White;
+            this.label1.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(15, 411);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(32, 15);
+            this.label1.TabIndex = 296;
+            this.label1.Text = "IEPS:";
+            // 
             // txtPrecioVenta
             // 
             this.txtPrecioVenta.AutoRoundedCorners = true;
@@ -323,7 +364,7 @@ namespace PV
             this.txtPrecioVenta.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.txtPrecioVenta.ForeColor = System.Drawing.Color.Black;
             this.txtPrecioVenta.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.txtPrecioVenta.Location = new System.Drawing.Point(814, 347);
+            this.txtPrecioVenta.Location = new System.Drawing.Point(848, 481);
             this.txtPrecioVenta.Name = "txtPrecioVenta";
             this.txtPrecioVenta.PasswordChar = '\0';
             this.txtPrecioVenta.PlaceholderText = "";
@@ -368,7 +409,7 @@ namespace PV
             this.cmbConcepto.Items.AddRange(new object[] {
             "Ultima Compra",
             "Promedio"});
-            this.cmbConcepto.Location = new System.Drawing.Point(157, 380);
+            this.cmbConcepto.Location = new System.Drawing.Point(150, 441);
             this.cmbConcepto.Name = "cmbConcepto";
             this.cmbConcepto.Size = new System.Drawing.Size(327, 26);
             this.cmbConcepto.TabIndex = 293;
@@ -489,7 +530,7 @@ namespace PV
             this.txtCostoUnitario.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.txtCostoUnitario.ForeColor = System.Drawing.Color.Black;
             this.txtCostoUnitario.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.txtCostoUnitario.Location = new System.Drawing.Point(441, 290);
+            this.txtCostoUnitario.Location = new System.Drawing.Point(157, 290);
             this.txtCostoUnitario.Name = "txtCostoUnitario";
             this.txtCostoUnitario.PasswordChar = '\0';
             this.txtCostoUnitario.PlaceholderText = "";
@@ -515,15 +556,16 @@ namespace PV
             this.cmbTipoCosteo.Items.AddRange(new object[] {
             "Ultima Compra",
             "Promedio"});
-            this.cmbTipoCosteo.Location = new System.Drawing.Point(157, 290);
+            this.cmbTipoCosteo.Location = new System.Drawing.Point(157, 247);
             this.cmbTipoCosteo.Name = "cmbTipoCosteo";
             this.cmbTipoCosteo.Size = new System.Drawing.Size(143, 26);
             this.cmbTipoCosteo.TabIndex = 287;
+            this.cmbTipoCosteo.Visible = false;
             this.cmbTipoCosteo.SelectedIndexChanged += new System.EventHandler(this.cmbTipoCosteo_SelectedIndexChanged);
             // 
             // txtConcepto
             // 
-            this.txtConcepto.Location = new System.Drawing.Point(495, 379);
+            this.txtConcepto.Location = new System.Drawing.Point(488, 440);
             this.txtConcepto.Name = "txtConcepto";
             this.txtConcepto.Size = new System.Drawing.Size(57, 20);
             this.txtConcepto.TabIndex = 286;
@@ -534,9 +576,9 @@ namespace PV
             this.label3.AutoSize = true;
             this.label3.BackColor = System.Drawing.Color.White;
             this.label3.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(12, 385);
+            this.label3.Location = new System.Drawing.Point(15, 447);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(118, 15);
+            this.label3.Size = new System.Drawing.Size(119, 15);
             this.label3.TabIndex = 285;
             this.label3.Text = "CONCEPTO GLOBAL:";
             // 
@@ -545,11 +587,12 @@ namespace PV
             this.label18.AutoSize = true;
             this.label18.BackColor = System.Drawing.Color.White;
             this.label18.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label18.Location = new System.Drawing.Point(12, 294);
+            this.label18.Location = new System.Drawing.Point(12, 251);
             this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(99, 15);
+            this.label18.Size = new System.Drawing.Size(101, 15);
             this.label18.TabIndex = 284;
             this.label18.Text = "TIPO DE COSTEO:";
+            this.label18.Visible = false;
             // 
             // label20
             // 
@@ -567,7 +610,7 @@ namespace PV
             this.label26.AutoSize = true;
             this.label26.BackColor = System.Drawing.Color.White;
             this.label26.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label26.Location = new System.Drawing.Point(678, 352);
+            this.label26.Location = new System.Drawing.Point(712, 486);
             this.label26.Name = "label26";
             this.label26.Size = new System.Drawing.Size(109, 15);
             this.label26.TabIndex = 278;
@@ -578,9 +621,9 @@ namespace PV
             this.label19.AutoSize = true;
             this.label19.BackColor = System.Drawing.Color.White;
             this.label19.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label19.Location = new System.Drawing.Point(335, 294);
+            this.label19.Location = new System.Drawing.Point(13, 294);
             this.label19.Name = "label19";
-            this.label19.Size = new System.Drawing.Size(102, 15);
+            this.label19.Size = new System.Drawing.Size(104, 15);
             this.label19.TabIndex = 279;
             this.label19.Text = "COSTO UNITARIO:";
             // 
@@ -603,7 +646,7 @@ namespace PV
             this.label22.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label22.Location = new System.Drawing.Point(12, 354);
             this.label22.Name = "label22";
-            this.label22.Size = new System.Drawing.Size(65, 15);
+            this.label22.Size = new System.Drawing.Size(66, 15);
             this.label22.TabIndex = 281;
             this.label22.Text = "IMPUESTO:";
             // 
@@ -614,7 +657,7 @@ namespace PV
             this.label21.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label21.Location = new System.Drawing.Point(12, 328);
             this.label21.Name = "label21";
-            this.label21.Size = new System.Drawing.Size(75, 15);
+            this.label21.Size = new System.Drawing.Size(76, 15);
             this.label21.TabIndex = 280;
             this.label21.Text = "DESCUENTO:";
             // 
@@ -652,6 +695,7 @@ namespace PV
             this.Foto.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.Foto.TabIndex = 251;
             this.Foto.TabStop = false;
+            this.Foto.Visible = false;
             // 
             // button3
             // 
@@ -671,6 +715,7 @@ namespace PV
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(45, 45);
             this.button3.TabIndex = 249;
+            this.button3.Visible = false;
             // 
             // button1
             // 
@@ -690,6 +735,7 @@ namespace PV
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(45, 45);
             this.button1.TabIndex = 250;
+            this.button1.Visible = false;
             // 
             // cmbFamilia
             // 
@@ -849,7 +895,7 @@ namespace PV
             this.label29.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label29.Location = new System.Drawing.Point(4, 148);
             this.label29.Name = "label29";
-            this.label29.Size = new System.Drawing.Size(72, 15);
+            this.label29.Size = new System.Drawing.Size(73, 15);
             this.label29.TabIndex = 220;
             this.label29.Text = "CATEGORIA:";
             // 
@@ -860,7 +906,7 @@ namespace PV
             this.label6.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label6.Location = new System.Drawing.Point(4, 120);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(54, 15);
+            this.label6.Size = new System.Drawing.Size(56, 15);
             this.label6.TabIndex = 217;
             this.label6.Text = "ESTATUS:";
             // 
@@ -871,9 +917,9 @@ namespace PV
             this.label4.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label4.Location = new System.Drawing.Point(4, 55);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(105, 15);
+            this.label4.Size = new System.Drawing.Size(93, 15);
             this.label4.TabIndex = 194;
-            this.label4.Text = "ALIAS PRODUCTO:";
+            this.label4.Text = "ALIAS SERVICIO:";
             // 
             // label5
             // 
@@ -893,9 +939,9 @@ namespace PV
             this.label2.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.Location = new System.Drawing.Point(3, 26);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(108, 15);
+            this.label2.Size = new System.Drawing.Size(96, 15);
             this.label2.TabIndex = 213;
-            this.label2.Text = "CLAVE PRODUCTO:";
+            this.label2.Text = "CLAVE SERVICIO:";
             // 
             // label28
             // 
@@ -918,6 +964,7 @@ namespace PV
             this.label27.Size = new System.Drawing.Size(124, 15);
             this.label27.TabIndex = 207;
             this.label27.Text = "FOTO DE PRODUCTO";
+            this.label27.Visible = false;
             // 
             // PanelUsuario
             // 
@@ -927,7 +974,7 @@ namespace PV
             this.PanelUsuario.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(19)))), ((int)(((byte)(35)))), ((int)(((byte)(95)))));
             this.PanelUsuario.FillColor2 = System.Drawing.Color.SteelBlue;
             this.PanelUsuario.GradientMode = System.Drawing.Drawing2D.LinearGradientMode.ForwardDiagonal;
-            this.PanelUsuario.Location = new System.Drawing.Point(725, 82);
+            this.PanelUsuario.Location = new System.Drawing.Point(776, 81);
             this.PanelUsuario.Name = "PanelUsuario";
             this.PanelUsuario.ShadowDecoration.BorderRadius = 1;
             this.PanelUsuario.ShadowDecoration.CustomizableEdges.BottomLeft = false;
@@ -942,48 +989,48 @@ namespace PV
             // 
             this.dataGridView2.AllowUserToAddRows = false;
             this.dataGridView2.AllowUserToDeleteRows = false;
-            dataGridViewCellStyle21.BackColor = System.Drawing.Color.White;
-            this.dataGridView2.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle21;
-            dataGridViewCellStyle22.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle22.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(19)))), ((int)(((byte)(35)))), ((int)(((byte)(95)))));
-            dataGridViewCellStyle22.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle22.ForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle22.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle22.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle22.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridView2.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle22;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.White;
+            this.dataGridView2.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(19)))), ((int)(((byte)(35)))), ((int)(((byte)(95)))));
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridView2.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
             this.dataGridView2.ColumnHeadersHeight = 19;
             this.dataGridView2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.EnableResizing;
             this.dataGridView2.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Clave,
             this.Descripcion,
             this.Estatus});
-            dataGridViewCellStyle23.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle23.BackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle23.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle23.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle23.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(99)))), ((int)(((byte)(114)))), ((int)(((byte)(169)))));
-            dataGridViewCellStyle23.SelectionForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle23.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dataGridView2.DefaultCellStyle = dataGridViewCellStyle23;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(99)))), ((int)(((byte)(114)))), ((int)(((byte)(169)))));
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dataGridView2.DefaultCellStyle = dataGridViewCellStyle3;
             this.dataGridView2.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(229)))), ((int)(((byte)(255)))));
             this.dataGridView2.Location = new System.Drawing.Point(8, 47);
             this.dataGridView2.Name = "dataGridView2";
             this.dataGridView2.ReadOnly = true;
-            dataGridViewCellStyle24.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle24.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle24.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle24.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle24.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle24.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle24.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridView2.RowHeadersDefaultCellStyle = dataGridViewCellStyle24;
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridView2.RowHeadersDefaultCellStyle = dataGridViewCellStyle4;
             this.dataGridView2.RowHeadersVisible = false;
-            dataGridViewCellStyle25.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle25.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            dataGridViewCellStyle25.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle25.ForeColor = System.Drawing.Color.Black;
-            this.dataGridView2.RowsDefaultCellStyle = dataGridViewCellStyle25;
+            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            dataGridViewCellStyle5.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle5.ForeColor = System.Drawing.Color.Black;
+            this.dataGridView2.RowsDefaultCellStyle = dataGridViewCellStyle5;
             this.dataGridView2.Size = new System.Drawing.Size(279, 469);
             this.dataGridView2.TabIndex = 241;
             this.dataGridView2.ThemeStyle.AlternatingRowsStyle.BackColor = System.Drawing.Color.White;
@@ -1237,7 +1284,7 @@ namespace PV
             this.toolStripButton3.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.toolStripButton3.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButton3.Name = "toolStripButton3";
-            this.toolStripButton3.Size = new System.Drawing.Size(23, 147);
+            this.toolStripButton3.Size = new System.Drawing.Size(23, 149);
             this.toolStripButton3.Text = "CONSULTAR CATEGORIAS";
             this.toolStripButton3.TextDirection = System.Windows.Forms.ToolStripTextDirection.Vertical270;
             this.toolStripButton3.Visible = false;
@@ -1272,6 +1319,40 @@ namespace PV
             this.guna2PictureBox1.UseTransparentBackground = true;
             this.guna2PictureBox1.Click += new System.EventHandler(this.guna2PictureBox1_Click);
             // 
+            // txtCuentaContable
+            // 
+            this.txtCuentaContable.AutoRoundedCorners = true;
+            this.txtCuentaContable.BorderColor = System.Drawing.Color.Gray;
+            this.txtCuentaContable.BorderRadius = 11;
+            this.txtCuentaContable.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.txtCuentaContable.DefaultText = "";
+            this.txtCuentaContable.DisabledState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(208)))), ((int)(((byte)(208)))));
+            this.txtCuentaContable.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(226)))), ((int)(((byte)(226)))));
+            this.txtCuentaContable.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
+            this.txtCuentaContable.DisabledState.PlaceholderForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
+            this.txtCuentaContable.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.txtCuentaContable.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.txtCuentaContable.ForeColor = System.Drawing.Color.Black;
+            this.txtCuentaContable.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.txtCuentaContable.Location = new System.Drawing.Point(152, 481);
+            this.txtCuentaContable.Name = "txtCuentaContable";
+            this.txtCuentaContable.PasswordChar = '\0';
+            this.txtCuentaContable.PlaceholderText = "";
+            this.txtCuentaContable.SelectedText = "";
+            this.txtCuentaContable.Size = new System.Drawing.Size(325, 25);
+            this.txtCuentaContable.TabIndex = 227;
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.BackColor = System.Drawing.Color.White;
+            this.label7.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label7.Location = new System.Drawing.Point(15, 486);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(117, 15);
+            this.label7.TabIndex = 285;
+            this.label7.Text = "CUENTA CONTABLE:";
+            // 
             // CatalogoServicios
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1289,6 +1370,7 @@ namespace PV
             this.Name = "CatalogoServicios";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Servicios";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.CatalogoServicios_FormClosed);
             this.Load += new System.EventHandler(this.Servicios_Load);
             this.guna2GradientPanel1.ResumeLayout(false);
             this.guna2GradientPanel1.PerformLayout();
@@ -1376,5 +1458,9 @@ namespace PV
         private System.Windows.Forms.DataGridViewTextBoxColumn Descripcion;
         private System.Windows.Forms.DataGridViewTextBoxColumn Estatus;
         private Guna.UI2.WinForms.Guna2Button guna2Button10;
+        private Guna.UI2.WinForms.Guna2ComboBox cmbIEPS;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label label7;
+        private Guna.UI2.WinForms.Guna2TextBox txtCuentaContable;
     }
 }

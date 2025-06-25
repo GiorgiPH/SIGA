@@ -23,7 +23,18 @@ namespace PV.Clases.Proveedores
         {
             return Settings.Default.ControlCondominiosConnectionString;
         }
+        public void CerrarConexion()
+        {
+            try
+            {
+                cn.Close();
 
+            }
+            catch (Exception ex)
+            {
+
+            }
+        }
         public DBProveedores()
         {
             try
@@ -295,6 +306,21 @@ namespace PV.Clases.Proveedores
                 cb.Items.Add(dr[0].ToString());
             }
             dr.Close();
+        }
+        public DataTable ConsultarProveedores()
+        {
+            string query = "SELECT * FROM Proveedor where estatus ='Activo'";
+            var dataTable = new DataTable();
+
+            using (var connection = new SqlConnection(ObtenerCn()))
+            {
+                var command = new SqlCommand(query, connection);
+                var adapter = new SqlDataAdapter(command);
+                adapter.Fill(dataTable);
+            }
+
+            return dataTable;
+
         }
     }
 }

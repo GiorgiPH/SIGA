@@ -21,7 +21,18 @@ namespace Condominios.Clases.Documentos
         {
             return Settings.Default.ControlCondominiosConnectionString;
         }
+        public void CerrarConexion()
+        {
+            try
+            {
+                cn.Close();
 
+            }
+            catch (Exception ex)
+            {
+
+            }
+        }
         public DBDocumentos()
         {
             try
@@ -38,7 +49,7 @@ namespace Condominios.Clases.Documentos
         }
         //_________________________________________________________________________________________________________________________--
         // registrar divisa 
-        public string RegistroDocumento(string TipoDocumento, string Clase, string Clave, string Nombre, string Almace, string UltimoFolio, string Consecutivo, string Bloquear, string Cuenta, string Cuenta2)
+        public string RegistroDocumento(string TipoDocumento, string Clase, string Clave, string Nombre, string Almace, string UltimoFolio, string Consecutivo, string Bloquear, string Cuenta, string Cuenta2, string tarea)
         {
             string mensaje = "";
             int contador = 0;
@@ -57,7 +68,7 @@ namespace Condominios.Clases.Documentos
                 if (contador <= 0)
                 {
 
-                    cmd = new SqlCommand("Insert into Documento (TipoDocumento, Clase, Clave, Nombre, Almace, UltimoFolio, Consecutivo, Bloquear, Cuenta, Cuenta2) values ('" + TipoDocumento + "', '" + Clase + "', '" + Clave + "', '" + Nombre + "', '" + Almace + "', '" + UltimoFolio + "', '" + Consecutivo + "', '" + Bloquear + "', '" + Cuenta + "', '" + Cuenta2 + "')", cn);
+                    cmd = new SqlCommand("Insert into Documento (TipoDocumento, Clase, Clave, Nombre, Almace, UltimoFolio, Consecutivo, Bloquear, Cuenta, Cuenta2,Tarea) values ('" + TipoDocumento + "', '" + Clase + "', '" + Clave + "', '" + Nombre + "', '" + Almace + "', '" + UltimoFolio + "', '" + Consecutivo + "', '" + Bloquear + "', '" + Cuenta + "', '" + Cuenta2 + "', '" + tarea + "')", cn);
                     cmd.ExecuteNonQuery();
                     mensaje = "Registro guardado.";
 
@@ -87,7 +98,7 @@ namespace Condominios.Clases.Documentos
                     {
                         if (MessageBox.Show("El documento ya existe, si continua sera modificado", "Documento", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                         {
-                            cmd = new SqlCommand("Update Documento set TipoDocumento=  '" + TipoDocumento + "', Clase='" + Clase + "', Almace='" + Almace + "', UltimoFolio='" + UltimoFolio + "', Consecutivo='" + Consecutivo + "', Bloquear='" + Bloquear + "', Cuenta='" + Cuenta + "', Cuenta2= '" + Cuenta2 + "' where Clave='" + Clave + "' and TipoDocumento= '" + TipoDocumento + "'", cn);
+                            cmd = new SqlCommand("Update Documento set Tarea='"+tarea+"', TipoDocumento=  '" + TipoDocumento + "', Clase='" + Clase + "', Almace='" + Almace + "', UltimoFolio='" + UltimoFolio + "', Consecutivo='" + Consecutivo + "', Bloquear='" + Bloquear + "', Cuenta='" + Cuenta + "', Cuenta2= '" + Cuenta2 + "' where Clave='" + Clave + "' and TipoDocumento= '" + TipoDocumento + "'", cn);
                             cmd.ExecuteNonQuery();
                             mensaje = "Registro modificado.";
                         }
@@ -128,7 +139,7 @@ namespace Condominios.Clases.Documentos
         }
         //_____________________________________________________________________________________________________
         //Mostrar Usuario seleccionado
-        public void ConsultaDocumentoSeleccionado(ComboBox TipoDocumento, ComboBox Clase, string Clave, string Nombre, Guna2TextBox Almace, Guna2TextBox UltimoFolio, Guna2ToggleSwitch tgConsecutivo, Guna2ToggleSwitch tgBloquear, Guna2TextBox Cuenta, Guna2TextBox Cuenta2)
+        public void ConsultaDocumentoSeleccionado(ComboBox TipoDocumento, ComboBox Clase, string Clave, string Nombre, Guna2TextBox Almace, Guna2TextBox UltimoFolio, Guna2ToggleSwitch tgConsecutivo, Guna2ToggleSwitch tgBloquear, Guna2TextBox Cuenta, Guna2TextBox Cuenta2,ComboBox Tarea )
         {
             try
             {
@@ -165,6 +176,7 @@ namespace Condominios.Clases.Documentos
                     Cuenta.Text = dr["Cuenta"].ToString();
                     Cuenta2.Text = dr["Cuenta2"].ToString();
                     Clase.Text = dr["Clase"].ToString();
+                    Tarea.Text = dr["Tarea"].ToString();
                 }
                 dr.Close();
             }
@@ -258,6 +270,28 @@ namespace Condominios.Clases.Documentos
                 MessageBox.Show("El registro esta en uso, no es posible eliminar");
             }
             return mensaje;
+        }
+        public DataTable ConsultarDocumento(string tipo = null, string clase = null)
+        {
+            string query = "SELECT * FROM Documento where 1=1";
+            if (!string.IsNullOrEmpty(tipo))
+            {
+                query += " and TipoDocumento='" + tipo + "'";
+            }
+            if (!string.IsNullOrEmpty(clase))
+            {
+                query += " and clase='" + clase + "'";
+            }
+            var dataTable = new DataTable();
+
+            using (var connection = new SqlConnection(ObtenerCn()))
+            {
+                var command = new SqlCommand(query, connection);
+                var adapter = new SqlDataAdapter(command);
+                adapter.Fill(dataTable);
+            }
+
+            return dataTable;
         }
     }
 }
