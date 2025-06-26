@@ -12,7 +12,7 @@
               <Width>1.33296cm</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>5.10504cm</Width>
+              <Width>4.82826cm</Width>
             </TablixColumn>
             <TablixColumn>
               <Width>2.08078cm</Width>
@@ -21,10 +21,10 @@
               <Width>2.10313cm</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>2.49345cm</Width>
+              <Width>2.11877cm</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>2.5cm</Width>
+              <Width>2.12882cm</Width>
             </TablixColumn>
             <TablixColumn>
               <Width>2.23542cm</Width>
@@ -672,7 +672,7 @@
         <Top>0.43187cm</Top>
         <Left>0.32797cm</Left>
         <Height>1.72917cm</Height>
-        <Width>19.01782cm</Width>
+        <Width>17.99518cm</Width>
         <Style>
           <Border>
             <Color>White</Color>
@@ -1114,7 +1114,7 @@
         </TablixRowHierarchy>
         <DataSetName>DataSet2</DataSetName>
         <Top>2.57458cm</Top>
-        <Left>11.22755cm</Left>
+        <Left>10.20491cm</Left>
         <Height>3.6cm</Height>
         <Width>8.11824cm</Width>
         <ZIndex>1</ZIndex>
@@ -1224,7 +1224,7 @@
     <Height>2.52083in</Height>
     <Style />
   </Body>
-  <Width>7.61645in</Width>
+  <Width>7.28312in</Width>
   <Page>
     <PageHeader>
       <Height>7.17283cm</Height>
@@ -1354,7 +1354,7 @@
               <Top>0.14139cm</Top>
               <Left>0.51684cm</Left>
               <Height>0.6cm</Height>
-              <Width>5.55625cm</Width>
+              <Width>11.25189cm</Width>
               <Style>
                 <Border>
                   <Style>None</Style>
@@ -1925,6 +1925,7 @@
       </rd:DataSetInfo>
     </DataSet>
   </DataSets>
+  <Language>es-MX</Language>
   <rd:ReportUnitType>Cm</rd:ReportUnitType>
   <rd:ReportID>50634f21-30ef-422c-a167-4c3899e1a7cf</rd:ReportID>
 </Report>

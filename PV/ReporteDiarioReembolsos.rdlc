@@ -6,22 +6,22 @@
         <TablixBody>
           <TablixColumns>
             <TablixColumn>
-              <Width>2.45721cm</Width>
+              <Width>1.75872cm</Width>
             </TablixColumn>
             <TablixColumn>
               <Width>2.10991cm</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>3.87583cm</Width>
+              <Width>2.89687cm</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>3.10854cm</Width>
+              <Width>2.67229cm</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>3.69312cm</Width>
+              <Width>2.18499cm</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>2.87042cm</Width>
+              <Width>1.87558cm</Width>
             </TablixColumn>
             <TablixColumn>
               <Width>1.99729cm</Width>
@@ -57,6 +57,7 @@
                             <TextRun>
                               <Value>Proveedor:</Value>
                               <Style>
+                                <FontSize>8pt</FontSize>
                                 <FontWeight>Bold</FontWeight>
                               </Style>
                             </TextRun>
@@ -92,6 +93,7 @@
                             <TextRun>
                               <Value>=Fields!RazonSocial.Value</Value>
                               <Style>
+                                <FontSize>8pt</FontSize>
                                 <FontWeight>Bold</FontWeight>
                               </Style>
                             </TextRun>
@@ -143,6 +145,7 @@
                             <TextRun>
                               <Value>Folio</Value>
                               <Style>
+                                <FontSize>8pt</FontSize>
                                 <FontWeight>Bold</FontWeight>
                               </Style>
                             </TextRun>
@@ -177,6 +180,7 @@
                             <TextRun>
                               <Value>Documento</Value>
                               <Style>
+                                <FontSize>8pt</FontSize>
                                 <FontWeight>Bold</FontWeight>
                               </Style>
                             </TextRun>
@@ -211,6 +215,7 @@
                             <TextRun>
                               <Value>Centro Costos</Value>
                               <Style>
+                                <FontSize>8pt</FontSize>
                                 <FontWeight>Bold</FontWeight>
                               </Style>
                             </TextRun>
@@ -245,6 +250,7 @@
                             <TextRun>
                               <Value>Proyecto</Value>
                               <Style>
+                                <FontSize>8pt</FontSize>
                                 <FontWeight>Bold</FontWeight>
                               </Style>
                             </TextRun>
@@ -279,6 +285,7 @@
                             <TextRun>
                               <Value>Año/Semana</Value>
                               <Style>
+                                <FontSize>8pt</FontSize>
                                 <FontWeight>Bold</FontWeight>
                               </Style>
                             </TextRun>
@@ -313,6 +320,7 @@
                             <TextRun>
                               <Value>Fecha</Value>
                               <Style>
+                                <FontSize>8pt</FontSize>
                                 <FontWeight>Bold</FontWeight>
                               </Style>
                             </TextRun>
@@ -347,6 +355,7 @@
                             <TextRun>
                               <Value>Divisa</Value>
                               <Style>
+                                <FontSize>8pt</FontSize>
                                 <FontWeight>Bold</FontWeight>
                               </Style>
                             </TextRun>
@@ -381,6 +390,7 @@
                             <TextRun>
                               <Value>Subtotal</Value>
                               <Style>
+                                <FontSize>8pt</FontSize>
                                 <FontWeight>Bold</FontWeight>
                               </Style>
                             </TextRun>
@@ -415,6 +425,7 @@
                             <TextRun>
                               <Value>Descuento</Value>
                               <Style>
+                                <FontSize>8pt</FontSize>
                                 <FontWeight>Bold</FontWeight>
                               </Style>
                             </TextRun>
@@ -449,6 +460,7 @@
                             <TextRun>
                               <Value>Impuestos</Value>
                               <Style>
+                                <FontSize>8pt</FontSize>
                                 <FontWeight>Bold</FontWeight>
                               </Style>
                             </TextRun>
@@ -483,6 +495,7 @@
                             <TextRun>
                               <Value>IEPS</Value>
                               <Style>
+                                <FontSize>8pt</FontSize>
                                 <FontWeight>Bold</FontWeight>
                               </Style>
                             </TextRun>
@@ -517,6 +530,7 @@
                             <TextRun>
                               <Value>Total</Value>
                               <Style>
+                                <FontSize>8pt</FontSize>
                                 <FontWeight>Bold</FontWeight>
                               </Style>
                             </TextRun>
@@ -555,7 +569,9 @@
                           <TextRuns>
                             <TextRun>
                               <Value>=Fields!Consecutivo.Value</Value>
-                              <Style />
+                              <Style>
+                                <FontSize>8pt</FontSize>
+                              </Style>
                             </TextRun>
                           </TextRuns>
                           <Style>
@@ -587,7 +603,9 @@
                           <TextRuns>
                             <TextRun>
                               <Value>=Fields!ClaveDocumento.Value+"-"+Fields!NombreDocumento.Value</Value>
-                              <Style />
+                              <Style>
+                                <FontSize>8pt</FontSize>
+                              </Style>
                             </TextRun>
                           </TextRuns>
                           <Style>
@@ -619,7 +637,9 @@
                           <TextRuns>
                             <TextRun>
                               <Value>=Fields!NombreCentroCostos.Value</Value>
-                              <Style />
+                              <Style>
+                                <FontSize>8pt</FontSize>
+                              </Style>
                             </TextRun>
                           </TextRuns>
                           <Style>
@@ -651,7 +671,9 @@
                           <TextRuns>
                             <TextRun>
                               <Value>=Fields!ProyectoEncabezado.Value</Value>
-                              <Style />
+                              <Style>
+                                <FontSize>8pt</FontSize>
+                              </Style>
                             </TextRun>
                           </TextRuns>
                           <Style>
@@ -683,7 +705,9 @@
                           <TextRuns>
                             <TextRun>
                               <Value>=Fields!Anio.Value.ToString()+"/"+Fields!Semana.Value.ToString()</Value>
-                              <Style />
+                              <Style>
+                                <FontSize>8pt</FontSize>
+                              </Style>
                             </TextRun>
                           </TextRuns>
                           <Style>
@@ -716,6 +740,7 @@
                             <TextRun>
                               <Value>=Fields!Fecha.Value</Value>
                               <Style>
+                                <FontSize>8pt</FontSize>
                                 <Format>d</Format>
                               </Style>
                             </TextRun>
@@ -749,7 +774,9 @@
                           <TextRuns>
                             <TextRun>
                               <Value>=Fields!Divisa.Value</Value>
-                              <Style />
+                              <Style>
+                                <FontSize>8pt</FontSize>
+                              </Style>
                             </TextRun>
                           </TextRuns>
                           <Style>
@@ -782,6 +809,7 @@
                             <TextRun>
                               <Value>=Fields!Subtotal.Value</Value>
                               <Style>
+                                <FontSize>8pt</FontSize>
                                 <Format>'$'#,0.00;('$'#,0.00)</Format>
                               </Style>
                             </TextRun>
@@ -816,6 +844,7 @@
                             <TextRun>
                               <Value>=Fields!Descuento.Value</Value>
                               <Style>
+                                <FontSize>8pt</FontSize>
                                 <Format>'$'#,0.00;('$'#,0.00)</Format>
                               </Style>
                             </TextRun>
@@ -851,6 +880,7 @@
                             <TextRun>
                               <Value>=Fields!Cargo.Value</Value>
                               <Style>
+                                <FontSize>8pt</FontSize>
                                 <Format>'$'#,0.00;('$'#,0.00)</Format>
                               </Style>
                             </TextRun>
@@ -886,6 +916,7 @@
                             <TextRun>
                               <Value>=Fields!IEPS.Value</Value>
                               <Style>
+                                <FontSize>8pt</FontSize>
                                 <Format>'$'#,0.00;('$'#,0.00)</Format>
                               </Style>
                             </TextRun>
@@ -921,6 +952,7 @@
                             <TextRun>
                               <Value>=Fields!Total.Value</Value>
                               <Style>
+                                <FontSize>8pt</FontSize>
                                 <Format>'$'#,0.00;('$'#,0.00)</Format>
                               </Style>
                             </TextRun>
@@ -960,7 +992,9 @@
                           <TextRuns>
                             <TextRun>
                               <Value />
-                              <Style />
+                              <Style>
+                                <FontSize>8pt</FontSize>
+                              </Style>
                             </TextRun>
                           </TextRuns>
                           <Style>
@@ -993,6 +1027,7 @@
                             <TextRun>
                               <Value>Partida</Value>
                               <Style>
+                                <FontSize>8pt</FontSize>
                                 <FontWeight>Bold</FontWeight>
                               </Style>
                             </TextRun>
@@ -1027,6 +1062,7 @@
                             <TextRun>
                               <Value>Servicio</Value>
                               <Style>
+                                <FontSize>8pt</FontSize>
                                 <FontWeight>Bold</FontWeight>
                               </Style>
                             </TextRun>
@@ -1061,6 +1097,7 @@
                             <TextRun>
                               <Value>Forma Pago</Value>
                               <Style>
+                                <FontSize>8pt</FontSize>
                                 <FontWeight>Bold</FontWeight>
                               </Style>
                             </TextRun>
@@ -1095,6 +1132,7 @@
                             <TextRun>
                               <Value>Referencia</Value>
                               <Style>
+                                <FontSize>8pt</FontSize>
                                 <FontWeight>Bold</FontWeight>
                               </Style>
                             </TextRun>
@@ -1129,6 +1167,7 @@
                             <TextRun>
                               <Value>Cantidad</Value>
                               <Style>
+                                <FontSize>8pt</FontSize>
                                 <FontWeight>Bold</FontWeight>
                               </Style>
                             </TextRun>
@@ -1163,6 +1202,7 @@
                             <TextRun>
                               <Value>Precio</Value>
                               <Style>
+                                <FontSize>8pt</FontSize>
                                 <FontWeight>Bold</FontWeight>
                               </Style>
                             </TextRun>
@@ -1197,6 +1237,7 @@
                             <TextRun>
                               <Value>Subtotal</Value>
                               <Style>
+                                <FontSize>8pt</FontSize>
                                 <FontWeight>Bold</FontWeight>
                               </Style>
                             </TextRun>
@@ -1231,6 +1272,7 @@
                             <TextRun>
                               <Value>Descuento</Value>
                               <Style>
+                                <FontSize>8pt</FontSize>
                                 <FontWeight>Bold</FontWeight>
                               </Style>
                             </TextRun>
@@ -1265,6 +1307,7 @@
                             <TextRun>
                               <Value>Impuesto</Value>
                               <Style>
+                                <FontSize>8pt</FontSize>
                                 <FontWeight>Bold</FontWeight>
                               </Style>
                             </TextRun>
@@ -1299,6 +1342,7 @@
                             <TextRun>
                               <Value>IEPS</Value>
                               <Style>
+                                <FontSize>8pt</FontSize>
                                 <FontWeight>Bold</FontWeight>
                               </Style>
                             </TextRun>
@@ -1333,6 +1377,7 @@
                             <TextRun>
                               <Value>Total</Value>
                               <Style>
+                                <FontSize>8pt</FontSize>
                                 <FontWeight>Bold</FontWeight>
                               </Style>
                             </TextRun>
@@ -1371,7 +1416,9 @@
                           <TextRuns>
                             <TextRun>
                               <Value />
-                              <Style />
+                              <Style>
+                                <FontSize>8pt</FontSize>
+                              </Style>
                             </TextRun>
                           </TextRuns>
                           <Style>
@@ -1403,7 +1450,9 @@
                           <TextRuns>
                             <TextRun>
                               <Value>=Fields!Partida.Value</Value>
-                              <Style />
+                              <Style>
+                                <FontSize>8pt</FontSize>
+                              </Style>
                             </TextRun>
                           </TextRuns>
                           <Style>
@@ -1435,7 +1484,9 @@
                           <TextRuns>
                             <TextRun>
                               <Value>=Fields!Descripcion.Value</Value>
-                              <Style />
+                              <Style>
+                                <FontSize>8pt</FontSize>
+                              </Style>
                             </TextRun>
                           </TextRuns>
                           <Style>
@@ -1467,7 +1518,9 @@
                           <TextRuns>
                             <TextRun>
                               <Value>=Fields!FormadePago.Value</Value>
-                              <Style />
+                              <Style>
+                                <FontSize>8pt</FontSize>
+                              </Style>
                             </TextRun>
                           </TextRuns>
                           <Style>
@@ -1499,7 +1552,9 @@
                           <TextRuns>
                             <TextRun>
                               <Value>=Fields!referencia.Value</Value>
-                              <Style />
+                              <Style>
+                                <FontSize>8pt</FontSize>
+                              </Style>
                             </TextRun>
                           </TextRuns>
                           <Style>
@@ -1531,7 +1586,9 @@
                           <TextRuns>
                             <TextRun>
                               <Value>=Fields!Cantidad.Value</Value>
-                              <Style />
+                              <Style>
+                                <FontSize>8pt</FontSize>
+                              </Style>
                             </TextRun>
                           </TextRuns>
                           <Style>
@@ -1564,6 +1621,7 @@
                             <TextRun>
                               <Value>=Fields!Subtotal1.Value / Fields!Cantidad.Value</Value>
                               <Style>
+                                <FontSize>8pt</FontSize>
                                 <Format>'$'#,0.00;('$'#,0.00)</Format>
                               </Style>
                             </TextRun>
@@ -1599,6 +1657,7 @@
                             <TextRun>
                               <Value>=Fields!Subtotal1.Value</Value>
                               <Style>
+                                <FontSize>8pt</FontSize>
                                 <Format>'$'#,0.00;('$'#,0.00)</Format>
                               </Style>
                             </TextRun>
@@ -1634,6 +1693,7 @@
                             <TextRun>
                               <Value>=Fields!DescuentoImporte.Value</Value>
                               <Style>
+                                <FontSize>8pt</FontSize>
                                 <Format>'$'#,0.00;('$'#,0.00)</Format>
                               </Style>
                             </TextRun>
@@ -1669,6 +1729,7 @@
                             <TextRun>
                               <Value>=Fields!ImpuestoImporte.Value</Value>
                               <Style>
+                                <FontSize>8pt</FontSize>
                                 <Format>'$'#,0.00;('$'#,0.00)</Format>
                               </Style>
                             </TextRun>
@@ -1704,6 +1765,7 @@
                             <TextRun>
                               <Value>=Fields!IEPSPartida.Value</Value>
                               <Style>
+                                <FontSize>8pt</FontSize>
                                 <Format>'$'#,0.00;('$'#,0.00)</Format>
                                 <rd:FormatSymbolCulture>es-MX</rd:FormatSymbolCulture>
                               </Style>
@@ -1740,6 +1802,7 @@
                             <TextRun>
                               <Value>=Fields!Total1.Value</Value>
                               <Style>
+                                <FontSize>8pt</FontSize>
                                 <Format>'$'#,0.00;('$'#,0.00)</Format>
                               </Style>
                             </TextRun>
@@ -1832,9 +1895,10 @@
           </TablixMembers>
         </TablixRowHierarchy>
         <DataSetName>DataSet2</DataSetName>
-        <Top>1.04cm</Top>
+        <Top>1.01354cm</Top>
+        <Left>0.07938cm</Left>
         <Height>3cm</Height>
-        <Width>31.97732cm</Width>
+        <Width>27.36065cm</Width>
         <Style>
           <Border>
             <Style>None</Style>
@@ -1845,7 +1909,7 @@
     <Height>2in</Height>
     <Style />
   </Body>
-  <Width>12.63018in</Width>
+  <Width>10.84893in</Width>
   <Page>
     <PageHeader>
       <Height>4.49923cm</Height>
@@ -1873,7 +1937,7 @@
             </Paragraph>
           </Paragraphs>
           <rd:DefaultName>Textbox1</rd:DefaultName>
-          <Left>9.54536cm</Left>
+          <Left>7.64036cm</Left>
           <Height>0.65292cm</Height>
           <Width>13.38872cm</Width>
           <Style>
@@ -1932,7 +1996,7 @@
           </Paragraphs>
           <rd:DefaultName>Textbox1</rd:DefaultName>
           <Top>0.82931cm</Top>
-          <Left>12.59735cm</Left>
+          <Left>10.69235cm</Left>
           <Height>0.65292cm</Height>
           <Width>7.46205cm</Width>
           <ZIndex>2</ZIndex>
@@ -2034,9 +2098,9 @@
           </Paragraphs>
           <rd:DefaultName>Textbox7</rd:DefaultName>
           <Top>1.55278cm</Top>
-          <Left>9.54536cm</Left>
+          <Left>6.6614cm</Left>
           <Height>1.46939cm</Height>
-          <Width>13.38872cm</Width>
+          <Width>16.27268cm</Width>
           <ZIndex>3</ZIndex>
           <Style>
             <Border>
@@ -2070,7 +2134,7 @@
           </Paragraphs>
           <rd:DefaultName>Textbox1</rd:DefaultName>
           <Top>3.21131cm</Top>
-          <Left>12.21105cm</Left>
+          <Left>10.30605cm</Left>
           <Height>0.65292cm</Height>
           <Width>8.14997cm</Width>
           <ZIndex>4</ZIndex>
@@ -2379,6 +2443,7 @@
       </rd:DataSetInfo>
     </DataSet>
   </DataSets>
+  <Language>es-MX</Language>
   <rd:ReportUnitType>Cm</rd:ReportUnitType>
   <rd:ReportID>ae4e7ee4-b1c7-4a62-b366-d015855b8bb5</rd:ReportID>
 </Report>
