@@ -586,7 +586,7 @@ namespace PV
 
         private void txtFolio_TextChanged(object sender, EventArgs e)
         {
-            if (!string.IsNullOrEmpty(txtFolio.Text) && txtFolio.Text != DBAnticipo.Folio.ToString())
+            if (!string.IsNullOrEmpty(txtFolio.Text) )
             {
                 button3.Enabled = true;
             }

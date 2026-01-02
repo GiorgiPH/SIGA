@@ -1802,7 +1802,7 @@ namespace PV
             txtnombre.Text = Nombre;
             textBox1.Text = Cons;
 
-            c.ConsultarInfoPoliza(Cons, Clave, Nombre, txtCargo1, txtCargo2, txtCargo3, txtCargo4, txtCargo5, txtCargo7, txtCargo8, cmbcargo1, cmbcargo2, cmbcargo3, cmbcargo4, cmbcargo5, cmbcargo7, cmbcargo8, txtAbono1, txtAbono2, txtAbono3, txtAbono4, cmbabono1, cmbabono2, cmbabono3, cmbabono4, textBox10, cmbTpoliza, txtDpoliza, rdtNotas);
+           // c.ConsultarInfoPoliza(Cons, Clave, Nombre, txtCargo1, txtCargo2, txtCargo3, txtCargo4, txtCargo5, txtCargo7, txtCargo8, cmbcargo1, cmbcargo2, cmbcargo3, cmbcargo4, cmbcargo5, cmbcargo7, cmbcargo8, txtAbono1, txtAbono2, txtAbono3, txtAbono4, cmbabono1, cmbabono2, cmbabono3, cmbabono4, textBox10, cmbTpoliza, txtDpoliza, rdtNotas);
             groupBox1.Visible = false;
         }
 

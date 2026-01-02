@@ -51,10 +51,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestCertificateThumbprint>D99C5D8158CB9DF3081431838B2C16FD3BC358B4</ManifestCertificateThumbprint>
+    <ManifestCertificateThumbprint>47C578648D66809E2E55745B6F6CC773F0FBDBA9</ManifestCertificateThumbprint>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestKeyFile>Sistema Integral de Gestion Administrativa_TemporaryKey.pfx</ManifestKeyFile>
+    <ManifestKeyFile>Sistema Integral de Gestion Administrativa_1_TemporaryKey.pfx</ManifestKeyFile>
   </PropertyGroup>
   <PropertyGroup>
     <GenerateManifests>true</GenerateManifests>
@@ -66,8 +66,12 @@
     <Reference Include="Guna.Charts.WinForms, Version=1.1.0.0, Culture=neutral, PublicKeyToken=8b9d14aa5142e261, processorArchitecture=MSIL">
       <HintPath>..\packages\Guna.Charts.WinForms.1.1.0\lib\net48\Guna.Charts.WinForms.dll</HintPath>
     </Reference>
-    <Reference Include="Guna.UI2, Version=2.0.4.6, Culture=neutral, PublicKeyToken=8b9d14aa5142e261, processorArchitecture=MSIL">
-      <HintPath>..\packages\Guna.UI2.WinForms.2.0.4.6\lib\net48\Guna.UI2.dll</HintPath>
+    <Reference Include="Guna.UI2, Version=2.0.4.7, Culture=neutral, PublicKeyToken=8b9d14aa5142e261, processorArchitecture=MSIL">
+      <HintPath>..\packages\Guna.UI2.WinForms.2.0.4.7\lib\net48\Guna.UI2.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Office.Interop.Excel, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Office.Interop.Excel.15.0.4795.1001\lib\net20\Microsoft.Office.Interop.Excel.dll</HintPath>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
     </Reference>
     <Reference Include="Microsoft.ReportViewer.Common, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.ReportingServices.ReportViewerControl.Winforms.150.900.148\lib\net40\Microsoft.ReportViewer.Common.dll</HintPath>
@@ -453,6 +457,17 @@
     <Compile Include="DefinePoliza.Designer.cs">
       <DependentUpon>DefinePoliza.cs</DependentUpon>
     </Compile>
+    <Compile Include="DefinePolizas.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DefinePolizas.Designer.cs">
+      <DependentUpon>DefinePolizas.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DTSPolizaCompra1.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DTSPolizaCompra1.xsd</DependentUpon>
+    </Compile>
     <Compile Include="DTSReporteDiarioGastos.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -529,6 +544,12 @@
     </Compile>
     <Compile Include="OrdenPedidoCliente.Designer.cs">
       <DependentUpon>OrdenPedidoCliente.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PolizaCompras1.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PolizaCompras1.Designer.cs">
+      <DependentUpon>PolizaCompras1.cs</DependentUpon>
     </Compile>
     <Compile Include="Properties\Moneda.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
@@ -1930,6 +1951,9 @@
     <EmbeddedResource Include="DefinePoliza.resx">
       <DependentUpon>DefinePoliza.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="DefinePolizas.resx">
+      <DependentUpon>DefinePolizas.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="GENERARPOLIZAS.resx">
       <DependentUpon>GENERARPOLIZAS.cs</DependentUpon>
     </EmbeddedResource>
@@ -1953,6 +1977,10 @@
     </EmbeddedResource>
     <EmbeddedResource Include="OrdenPedidoCliente.resx">
       <DependentUpon>OrdenPedidoCliente.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PolizaCompra1.rdlc" />
+    <EmbeddedResource Include="PolizaCompras1.resx">
+      <DependentUpon>PolizaCompras1.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="PolizaComprasDetalle.rdlc" />
     <EmbeddedResource Include="PolizaComprasDetalle1.rdlc" />
@@ -3212,6 +3240,17 @@
     <None Include="ControlCondominiosDataSet9.xss">
       <DependentUpon>ControlCondominiosDataSet9.xsd</DependentUpon>
     </None>
+    <None Include="DTSPolizaCompra1.xsc">
+      <DependentUpon>DTSPolizaCompra1.xsd</DependentUpon>
+    </None>
+    <None Include="DTSPolizaCompra1.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>DTSPolizaCompra1.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="DTSPolizaCompra1.xss">
+      <DependentUpon>DTSPolizaCompra1.xsd</DependentUpon>
+    </None>
     <None Include="DTSReporteDiarioGastos.xsc">
       <DependentUpon>DTSReporteDiarioGastos.xsd</DependentUpon>
     </None>
@@ -3266,6 +3305,7 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <None Include="Sistema Integral de Gestion Administrativa_1_TemporaryKey.pfx" />
     <None Include="Sistema Integral de Gestion Administrativa_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>

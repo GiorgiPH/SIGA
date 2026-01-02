@@ -5,6 +5,7 @@ using System.Windows.Forms;
 using Condominios.Clases.RegistrarIngresos;
 using PuntoVentas;
 using Condominios;
+using System.Data;
 
 namespace PV
 {
@@ -19,11 +20,40 @@ namespace PV
         {
             InitializeComponent();
         }
+        private void LLenarEgresos()
+        {
+            // Obtén todos los egresos
+            DataTable dtOriginal = c.ObtenerEgresos(txtMatricula.Text);
+
+            // Limpia las filas existentes
+            dgvPagosPendientes.Rows.Clear();
+
+            // Llena el DataGridView con los datos
+            foreach (DataRow row in dtOriginal.Rows)
+            {
+                int idx = dgvPagosPendientes.Rows.Add();
+                DataGridViewRow dgRow = dgvPagosPendientes.Rows[idx];
+
+                //dgRow.Cells["Seleccionar"].Value = false;
+                dgRow.Cells["Tipo"].Value = row["Tipo"];
+                dgRow.Cells["FolioDocumento"].Value = row["Folio"];
+                dgRow.Cells["Documento"].Value = row["ClaveDocumento"];
+                dgRow.Cells["Concepto"].Value = row["Nombre"];
+                dgRow.Cells["Fecha"].Value = Convert.ToDateTime(row["Fecha"]).ToString("yyyy/MM/dd");
+                dgRow.Cells["Importe"].Value = row["Total"];
+                dgRow.Cells["SaldoActual"].Value = row["Saldo"];
+                dgRow.Cells["Recargos"].Value = row["Recargo"];
+                dgRow.Cells["Descuento"].Value = row["DescuentoPago"];
+                dgRow.Cells["Saldo"].Value = row["Saldo"];
+
+                
+            }
+        }
 
         private void RegistroEgreso_Load(object sender, EventArgs e)
         {
-            matricula = string.Empty;
-            nombre = string.Empty;
+           // matricula = string.Empty;
+           // nombre = string.Empty;
             dtpFecha.Text = DateTime.Today.ToString("yyyy-MM-dd");
             txtCaja.Text = "1";
 
@@ -53,13 +83,15 @@ namespace PV
         {
             txtMatricula.Text = matricula;
             txtAlumno.Text = nombre;
+            
         }
 
         private void txtMatricula_TextChanged(object sender, EventArgs e)
         {
+            
             if (txtMatricula.Text != string.Empty)
             {
-                c.CargarReciboProveedor(dgvPagosPendientes, txtMatricula.Text);
+                LLenarEgresos();
             }
         }
 
@@ -115,7 +147,7 @@ namespace PV
                 matricula = string.Empty;
                 nombre = string.Empty;
                 Limpiar();
-                c.CargarReciboProveedor(dgvPagosPendientes, txtMatricula.Text);
+                LLenarEgresos();
             }
         }
 
@@ -235,7 +267,7 @@ namespace PV
             matricula = string.Empty;
             nombre = string.Empty;
             Limpiar();
-            c.CargarReciboProveedor(dgvPagosPendientes, txtMatricula.Text);
+            LLenarEgresos();
         }
 
         private void dgvPagosPendientes_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -519,7 +551,7 @@ namespace PV
                 PagosEgresos cobro = new PagosEgresos( txtMatricula.Text, txtAlumno.Text);
                 cobro.ShowDialog();
                 Limpiar();
-                c.CargarReciboProveedor(dgvPagosPendientes, txtMatricula.Text);
+                LLenarEgresos();
             }
             else
             {

@@ -226,6 +226,9 @@ namespace PV
             this.guna2HtmlLabel66 = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.guna2ToggleSwitch37 = new Guna.UI2.WinForms.Guna2ToggleSwitch();
             this.guna2Button9 = new Guna.UI2.WinForms.Guna2Button();
+            this.tgRegistrarCobranza = new Guna.UI2.WinForms.Guna2ToggleSwitch();
+            this.guna2HtmlLabel67 = new Guna.UI2.WinForms.Guna2HtmlLabel();
+            this.guna2HtmlLabel68 = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.guna2GradientPanel1.SuspendLayout();
             this.guna2TabControl1.SuspendLayout();
             this.PARAMETROS.SuspendLayout();
@@ -1820,11 +1823,14 @@ namespace PV
             this.VENTAS.Controls.Add(this.guna2HtmlLabel6);
             this.VENTAS.Controls.Add(this.guna2HtmlLabel9);
             this.VENTAS.Controls.Add(this.guna2ToggleSwitch2);
+            this.VENTAS.Controls.Add(this.guna2HtmlLabel68);
             this.VENTAS.Controls.Add(this.guna2HtmlLabel10);
             this.VENTAS.Controls.Add(this.guna2HtmlLabel13);
             this.VENTAS.Controls.Add(this.guna2ToggleSwitch3);
+            this.VENTAS.Controls.Add(this.guna2HtmlLabel67);
             this.VENTAS.Controls.Add(this.guna2HtmlLabel15);
             this.VENTAS.Controls.Add(this.guna2HtmlLabel17);
+            this.VENTAS.Controls.Add(this.tgRegistrarCobranza);
             this.VENTAS.Controls.Add(this.guna2HtmlLabel19);
             this.VENTAS.Controls.Add(this.guna2ToggleSwitch4);
             this.VENTAS.Controls.Add(this.guna2ToggleSwitch5);
@@ -1849,7 +1855,7 @@ namespace PV
             // 
             this.guna2HtmlLabel5.BackColor = System.Drawing.Color.Transparent;
             this.guna2HtmlLabel5.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.guna2HtmlLabel5.Location = new System.Drawing.Point(23, 241);
+            this.guna2HtmlLabel5.Location = new System.Drawing.Point(23, 272);
             this.guna2HtmlLabel5.Name = "guna2HtmlLabel5";
             this.guna2HtmlLabel5.Size = new System.Drawing.Size(70, 23);
             this.guna2HtmlLabel5.TabIndex = 281;
@@ -1870,7 +1876,7 @@ namespace PV
             this.guna2HtmlLabel6.BackColor = System.Drawing.Color.Transparent;
             this.guna2HtmlLabel6.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.guna2HtmlLabel6.ForeColor = System.Drawing.Color.Black;
-            this.guna2HtmlLabel6.Location = new System.Drawing.Point(22, 211);
+            this.guna2HtmlLabel6.Location = new System.Drawing.Point(22, 242);
             this.guna2HtmlLabel6.Name = "guna2HtmlLabel6";
             this.guna2HtmlLabel6.Size = new System.Drawing.Size(133, 23);
             this.guna2HtmlLabel6.TabIndex = 279;
@@ -1879,7 +1885,7 @@ namespace PV
             // guna2HtmlLabel9
             // 
             this.guna2HtmlLabel9.BackColor = System.Drawing.Color.Transparent;
-            this.guna2HtmlLabel9.Location = new System.Drawing.Point(285, 247);
+            this.guna2HtmlLabel9.Location = new System.Drawing.Point(285, 278);
             this.guna2HtmlLabel9.Name = "guna2HtmlLabel9";
             this.guna2HtmlLabel9.Size = new System.Drawing.Size(33, 15);
             this.guna2HtmlLabel9.TabIndex = 278;
@@ -1891,7 +1897,7 @@ namespace PV
             this.guna2ToggleSwitch2.CheckedState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.guna2ToggleSwitch2.CheckedState.InnerBorderColor = System.Drawing.Color.White;
             this.guna2ToggleSwitch2.CheckedState.InnerColor = System.Drawing.Color.White;
-            this.guna2ToggleSwitch2.Location = new System.Drawing.Point(194, 244);
+            this.guna2ToggleSwitch2.Location = new System.Drawing.Point(194, 275);
             this.guna2ToggleSwitch2.Name = "guna2ToggleSwitch2";
             this.guna2ToggleSwitch2.Size = new System.Drawing.Size(61, 22);
             this.guna2ToggleSwitch2.TabIndex = 277;
@@ -1904,7 +1910,7 @@ namespace PV
             // 
             this.guna2HtmlLabel10.BackColor = System.Drawing.Color.Transparent;
             this.guna2HtmlLabel10.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.guna2HtmlLabel10.Location = new System.Drawing.Point(22, 174);
+            this.guna2HtmlLabel10.Location = new System.Drawing.Point(22, 205);
             this.guna2HtmlLabel10.Name = "guna2HtmlLabel10";
             this.guna2HtmlLabel10.Size = new System.Drawing.Size(38, 23);
             this.guna2HtmlLabel10.TabIndex = 276;
@@ -1913,7 +1919,7 @@ namespace PV
             // guna2HtmlLabel13
             // 
             this.guna2HtmlLabel13.BackColor = System.Drawing.Color.Transparent;
-            this.guna2HtmlLabel13.Location = new System.Drawing.Point(285, 216);
+            this.guna2HtmlLabel13.Location = new System.Drawing.Point(285, 247);
             this.guna2HtmlLabel13.Name = "guna2HtmlLabel13";
             this.guna2HtmlLabel13.Size = new System.Drawing.Size(33, 15);
             this.guna2HtmlLabel13.TabIndex = 275;
@@ -1925,7 +1931,7 @@ namespace PV
             this.guna2ToggleSwitch3.CheckedState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.guna2ToggleSwitch3.CheckedState.InnerBorderColor = System.Drawing.Color.White;
             this.guna2ToggleSwitch3.CheckedState.InnerColor = System.Drawing.Color.White;
-            this.guna2ToggleSwitch3.Location = new System.Drawing.Point(194, 213);
+            this.guna2ToggleSwitch3.Location = new System.Drawing.Point(194, 244);
             this.guna2ToggleSwitch3.Name = "guna2ToggleSwitch3";
             this.guna2ToggleSwitch3.Size = new System.Drawing.Size(61, 22);
             this.guna2ToggleSwitch3.TabIndex = 274;
@@ -1947,7 +1953,7 @@ namespace PV
             // guna2HtmlLabel17
             // 
             this.guna2HtmlLabel17.BackColor = System.Drawing.Color.Transparent;
-            this.guna2HtmlLabel17.Location = new System.Drawing.Point(287, 181);
+            this.guna2HtmlLabel17.Location = new System.Drawing.Point(287, 212);
             this.guna2HtmlLabel17.Name = "guna2HtmlLabel17";
             this.guna2HtmlLabel17.Size = new System.Drawing.Size(33, 15);
             this.guna2HtmlLabel17.TabIndex = 272;
@@ -1968,7 +1974,7 @@ namespace PV
             this.guna2ToggleSwitch4.CheckedState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.guna2ToggleSwitch4.CheckedState.InnerBorderColor = System.Drawing.Color.White;
             this.guna2ToggleSwitch4.CheckedState.InnerColor = System.Drawing.Color.White;
-            this.guna2ToggleSwitch4.Location = new System.Drawing.Point(195, 178);
+            this.guna2ToggleSwitch4.Location = new System.Drawing.Point(195, 209);
             this.guna2ToggleSwitch4.Name = "guna2ToggleSwitch4";
             this.guna2ToggleSwitch4.Size = new System.Drawing.Size(61, 22);
             this.guna2ToggleSwitch4.TabIndex = 270;
@@ -2320,6 +2326,7 @@ namespace PV
             this.guna2ToggleSwitch35.UncheckedState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(137)))), ((int)(((byte)(149)))));
             this.guna2ToggleSwitch35.UncheckedState.InnerBorderColor = System.Drawing.Color.White;
             this.guna2ToggleSwitch35.UncheckedState.InnerColor = System.Drawing.Color.White;
+            this.guna2ToggleSwitch35.CheckedChanged += new System.EventHandler(this.guna2ToggleSwitch35_CheckedChanged);
             // 
             // PRESUPUESTO
             // 
@@ -2706,6 +2713,40 @@ namespace PV
             this.guna2Button9.TextOffset = new System.Drawing.Point(23, 0);
             this.guna2Button9.Click += new System.EventHandler(this.guna2Button9_Click);
             // 
+            // tgRegistrarCobranza
+            // 
+            this.tgRegistrarCobranza.CheckedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.tgRegistrarCobranza.CheckedState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.tgRegistrarCobranza.CheckedState.InnerBorderColor = System.Drawing.Color.White;
+            this.tgRegistrarCobranza.CheckedState.InnerColor = System.Drawing.Color.White;
+            this.tgRegistrarCobranza.Location = new System.Drawing.Point(195, 177);
+            this.tgRegistrarCobranza.Name = "tgRegistrarCobranza";
+            this.tgRegistrarCobranza.Size = new System.Drawing.Size(61, 22);
+            this.tgRegistrarCobranza.TabIndex = 270;
+            this.tgRegistrarCobranza.UncheckedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(137)))), ((int)(((byte)(149)))));
+            this.tgRegistrarCobranza.UncheckedState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(137)))), ((int)(((byte)(149)))));
+            this.tgRegistrarCobranza.UncheckedState.InnerBorderColor = System.Drawing.Color.White;
+            this.tgRegistrarCobranza.UncheckedState.InnerColor = System.Drawing.Color.White;
+            // 
+            // guna2HtmlLabel67
+            // 
+            this.guna2HtmlLabel67.BackColor = System.Drawing.Color.Transparent;
+            this.guna2HtmlLabel67.Location = new System.Drawing.Point(287, 180);
+            this.guna2HtmlLabel67.Name = "guna2HtmlLabel67";
+            this.guna2HtmlLabel67.Size = new System.Drawing.Size(33, 15);
+            this.guna2HtmlLabel67.TabIndex = 272;
+            this.guna2HtmlLabel67.Text = "Activo";
+            // 
+            // guna2HtmlLabel68
+            // 
+            this.guna2HtmlLabel68.BackColor = System.Drawing.Color.Transparent;
+            this.guna2HtmlLabel68.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.guna2HtmlLabel68.Location = new System.Drawing.Point(22, 173);
+            this.guna2HtmlLabel68.Name = "guna2HtmlLabel68";
+            this.guna2HtmlLabel68.Size = new System.Drawing.Size(147, 23);
+            this.guna2HtmlLabel68.TabIndex = 276;
+            this.guna2HtmlLabel68.Text = "Registrar Cobranza";
+            // 
             // UsuarioPermisos
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -2949,5 +2990,8 @@ namespace PV
         private Guna.UI2.WinForms.Guna2HtmlLabel guna2HtmlLabel61;
         private Guna.UI2.WinForms.Guna2ToggleSwitch guna2ToggleSwitch15;
         private Guna.UI2.WinForms.Guna2ToggleSwitch guna2ToggleSwitch16;
+        private Guna.UI2.WinForms.Guna2HtmlLabel guna2HtmlLabel68;
+        private Guna.UI2.WinForms.Guna2HtmlLabel guna2HtmlLabel67;
+        private Guna.UI2.WinForms.Guna2ToggleSwitch tgRegistrarCobranza;
     }
 }

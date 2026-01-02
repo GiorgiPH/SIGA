@@ -43,12 +43,12 @@ namespace PV
             }
             else if (Articulo == string.Empty && Categoria != 0)
             {
-                //MessageBox.Show("2");
+                
                 this.ProductosServiciosTableAdapter.FillBy3(this.ControlCondominiosDataSet32.ProductosServicios, Categoria);
             }
             else if (Articulo != string.Empty && Articulo != "Todos" && Categoria != 0)
             {
-                //MessageBox.Show("3");
+                
                 this.ProductosServiciosTableAdapter.FillBy4(this.ControlCondominiosDataSet32.ProductosServicios, Articulo, Categoria);
             }
            

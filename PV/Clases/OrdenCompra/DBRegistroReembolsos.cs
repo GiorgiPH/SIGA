@@ -9,6 +9,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Guna.UI2.WinForms;
+using Condominios;
+using ControlAcademico;
 
 namespace PV.Clases.OrdenCompra
 {
@@ -27,8 +29,8 @@ namespace PV.Clases.OrdenCompra
     public static string Correo = string.Empty;
     public static string Contraseña = string.Empty;
     public static string Servidor = string.Empty;
-
-    public static string ObtenerCn()
+    public static List<string> datosCombo = new List<string>();
+        public static string ObtenerCn()
     {
         return Settings.Default.ControlCondominiosConnectionString;
     }
@@ -176,7 +178,7 @@ namespace PV.Clases.OrdenCompra
 
         }
         //_______________________________________________________________________________________________________________________________------
-        public void InsertarRegistroGasto(TextBox txtFolio, string ClaveDocumento, string Estatus, string Fecha, string ClavePropietario, string Divisa, string TipoCambio, string Notas, string Elaborado, string RecepcionProducto, string Consecutivo, string Referencia, string Condominio, string DiasVence, string FechaVence, string centrocosto, int semana, string anio, string proveedorAlterno,string proyecto)
+        public void InsertarRegistroGasto(TextBox txtFolio, string ClaveDocumento, string Estatus, string Fecha, string ClavePropietario, string Divisa, string TipoCambio, string Notas, string Elaborado, string RecepcionProducto, string Consecutivo, string Referencia, string Condominio, string DiasVence, string FechaVence, string centrocosto, int semana, string anio, string proveedorAlterno,string proyecto,string totalRetenciones)
         {
             try
             {
@@ -191,9 +193,9 @@ namespace PV.Clases.OrdenCompra
                 string orden = string.IsNullOrEmpty(RecepcionProducto) ? "0" : RecepcionProducto;
 
                 string query = @"INSERT INTO RegistroReembolso 
-                        (Folio, ClaveDocumento, Estatus, Fecha, ClaveProveedor, Divisa, TipoCambio, Notas, Elaborado, FolioOrden, Consecutivo, Referencia, Condominio, DiasVence, FechaVence, CentroCostos, Semana, Anio, ProveedorAlterno,Proyecto)
+                        (Folio, ClaveDocumento, Estatus, Fecha, ClaveProveedor, Divisa, TipoCambio, Notas, Elaborado, FolioOrden, Consecutivo, Referencia, Condominio, DiasVence, FechaVence, CentroCostos, Semana, Anio, ProveedorAlterno,Proyecto,TotalRetenciones)
                         VALUES 
-                        (@Folio, @ClaveDocumento, @Estatus, @Fecha, @ClaveProveedor, @Divisa, @TipoCambio, @Notas, @Elaborado, @FolioOrden, @Consecutivo, @Referencia, @Condominio, @DiasVence, @FechaVence, @CentroCostos, @Semana, @Anio, @ProveedorAlterno,@proyecto)";
+                        (@Folio, @ClaveDocumento, @Estatus, @Fecha, @ClaveProveedor, @Divisa, @TipoCambio, @Notas, @Elaborado, @FolioOrden, @Consecutivo, @Referencia, @Condominio, @DiasVence, @FechaVence, @CentroCostos, @Semana, @Anio, @ProveedorAlterno,@proyecto,@TotalRetenciones)";
 
                 using (SqlCommand cmdInsert = new SqlCommand(query, cn))
                 {
@@ -217,7 +219,7 @@ namespace PV.Clases.OrdenCompra
                     cmdInsert.Parameters.AddWithValue("@Anio", anio);
                     cmdInsert.Parameters.AddWithValue("@ProveedorAlterno", proveedorAlterno);
                     cmdInsert.Parameters.AddWithValue("@proyecto", proyecto);
-
+                    cmdInsert.Parameters.AddWithValue("@TotalRetenciones", totalRetenciones);
                     cmdInsert.ExecuteNonQuery();
                 }
             }
@@ -485,7 +487,7 @@ namespace PV.Clases.OrdenCompra
       string Folio, string Partida, string ClaveRecibo, string Concepto2, string Cantidad,
       string Unidad, string Divisa, string TipoCambio, decimal Subtotal, decimal Descuento,
       decimal Total, decimal Impuesto, string archivo, string proveedorAlterno, string centroCostosAlterno, string DescuentoImporte, string ImpuestoImporte,
-      string proyecto,string Fechacompra,string formadepago, string referencia, string IEPS)
+      string proyecto,string Fechacompra,string formadepago, string referencia, string IEPS, string Retencion,string precio)
         {
             try
             {
@@ -505,7 +507,7 @@ namespace PV.Clases.OrdenCompra
                 Unidad = @Unidad, Divisa = @Divisa, TipoCambio = @TipoCambio, Subtotal = @Subtotal,
                 Descuento = @Descuento, Total = @Total, Impuesto = @Impuesto, Archivo = @Archivo,
                 ProveedorAlterno = @ProveedorAlterno, CentroCostosAlterno = @CentroCostosAlterno, DescuentoImporte=@DescuentoImporte, ImpuestoImporte=@ImpuestoImporte,
-proyecto=@proyecto,Fechacompra=@Fechacompra,formadepago=@formadepago,referencia=@referencia, IEPS = @IEPS
+proyecto=@proyecto,Fechacompra=@Fechacompra,formadepago=@formadepago,referencia=@referencia, IEPS = @IEPS,Retencion=@Retencion,precio=@precio 
                 WHERE FolioGasto = @Folio AND Partida = @Partida";
 
                     cmd = new SqlCommand(updateQuery, cn);
@@ -516,12 +518,12 @@ proyecto=@proyecto,Fechacompra=@Fechacompra,formadepago=@formadepago,referencia=
                     string insertQuery = @"INSERT INTO PartidaRegistroReembolso
                 (FolioGasto, Partida, ClaveProducto, Concepto2, Cantidad, Unidad, Divisa, TipoCambio, 
                 Subtotal, Descuento, Total, Impuesto, Archivo, ProveedorAlterno, CentroCostosAlterno, DescuentoImporte, ImpuestoImporte,
-proyecto,Fechacompra,formadepago,referencia, IEPS)
+proyecto,Fechacompra,formadepago,referencia, IEPS,Retencion,precio)
                 
 VALUES 
                 (@Folio, @Partida, @ClaveRecibo, @Concepto2, @Cantidad, @Unidad, @Divisa, @TipoCambio, 
                 @Subtotal, @Descuento, @Total, @Impuesto, @Archivo, @ProveedorAlterno, @CentroCostosAlterno,@DescuentoImporte, @ImpuestoImporte,
-                @proyecto,@Fechacompra,@formadepago,@referencia, @IEPS)";
+                @proyecto,@Fechacompra,@formadepago,@referencia, @IEPS,@Retencion,@precio)";
 
                     cmd = new SqlCommand(insertQuery, cn);
                 }
@@ -550,7 +552,8 @@ VALUES
 cmd.Parameters.AddWithValue("@formadepago", string.IsNullOrWhiteSpace(formadepago) ? DBNull.Value : (object)formadepago);
                 cmd.Parameters.AddWithValue("@referencia", referencia);
                 cmd.Parameters.AddWithValue("@IEPS", IEPS);
-
+                cmd.Parameters.AddWithValue("@Retencion", Retencion);
+                cmd.Parameters.AddWithValue("@precio", precio);
                 cmd.ExecuteNonQuery();
             }
             catch (Exception ex)
@@ -584,7 +587,8 @@ cmd.Parameters.AddWithValue("@formadepago", string.IsNullOrWhiteSpace(formadepag
                           ISNULL(SUM(IEPS), 0) AS IEPS, 
                           ISNULL(SUM(Subtotal), 0) AS Subtotal, 
                           ISNULL(SUM(Total), 0) AS Total, 
-                          COUNT(*) AS TotalPartidas 
+                          COUNT(*) AS TotalPartidas,
+                          ISNULL(SUM(Retencion), 0) AS Retencion
                        FROM PartidaRegistroReembolso 
                        WHERE FolioGasto = @Folio", cn);
 
@@ -599,8 +603,10 @@ cmd.Parameters.AddWithValue("@formadepago", string.IsNullOrWhiteSpace(formadepag
                     string Impuesto = dr["Impuesto"].ToString();
                     string IEPS = dr["IEPS"].ToString();
                     string TotalPartidas = dr["TotalPartidas"].ToString();
+                    string TotalRetenciones = dr["Retencion"].ToString();
+
                     dr.Close();
-                    cmd = new SqlCommand("Update RegistroReembolso set TotalPartidas='" + TotalPartidas + "', Subtotal='" + Subtotal + "', Descuento='" + Descuentos + "',  Cargo='" + Impuesto + "', IEPS = '"+IEPS+"', Total='" + Total + "', Saldo='" + Total + "' where Folio='" + txtFolio + "'", cn);
+                    cmd = new SqlCommand("Update RegistroReembolso set TotalPartidas='" + TotalPartidas + "', Subtotal='" + Subtotal + "', Descuento='" + Descuentos + "',  Cargo='" + Impuesto + "', IEPS = '"+IEPS+"', Total='" + Total + "', Saldo='" + Total + "', TotalRetenciones='" + TotalRetenciones + "' where Folio='" + txtFolio + "'", cn);
                     cmd.ExecuteNonQuery();
                 }
             }
@@ -638,12 +644,12 @@ cmd.Parameters.AddWithValue("@formadepago", string.IsNullOrWhiteSpace(formadepag
             }
         }
         //_______________________________________________________________________________________________________________
-        public void ReciboSaldosPartidasGasto(string txtFolio, Guna.UI2.WinForms.Guna2TextBox txtSubtoral, Guna.UI2.WinForms.Guna2TextBox txtDescuento, Guna.UI2.WinForms.Guna2TextBox txtTotal, Guna2TextBox txtImpuesto, Guna2TextBox txtPartidas)
+        public void ReciboSaldosPartidasGasto(string txtFolio, Guna.UI2.WinForms.Guna2TextBox txtSubtoral, Guna.UI2.WinForms.Guna2TextBox txtDescuento, Guna.UI2.WinForms.Guna2TextBox txtTotal, Guna2TextBox txtImpuesto, Guna2TextBox txtIEPS, Guna2TextBox txtRetencion, Guna2TextBox txtPartidas)
         {
             try
             {
 
-                cmd = new SqlCommand("select sum(Subtotal) as Subtotal, sum(DescuentoImporte) as Descuento,sum(ImpuestoImporte) as Impuesto, sum(Total) as Total, count(*) as Partidas from PartidaRegistroReembolso where FolioGasto='" + txtFolio + "'", cn);
+                cmd = new SqlCommand("select sum(Subtotal) as Subtotal, sum(DescuentoImporte) as Descuento,sum(ImpuestoImporte) as Impuesto, sum(Total) as Total, sum(IEPS) as IEPS, sum(retencion) as retencion, count(*) as Partidas from PartidaRegistroReembolso where FolioGasto='" + txtFolio + "'", cn);
                 dr = cmd.ExecuteReader();
 
                 if (dr.Read())
@@ -652,6 +658,9 @@ cmd.Parameters.AddWithValue("@formadepago", string.IsNullOrWhiteSpace(formadepag
                     txtDescuento.Text = dr["Descuento"].ToString();
                     txtTotal.Text = dr["Total"].ToString();
                     txtImpuesto.Text = dr["Impuesto"].ToString();
+                    txtIEPS.Text = dr["IEPS"].ToString();
+                    txtRetencion.Text = dr["retencion"].ToString();
+
                     txtPartidas.Text = dr["Partidas"].ToString();
 
                 }
@@ -676,11 +685,38 @@ cmd.Parameters.AddWithValue("@formadepago", string.IsNullOrWhiteSpace(formadepag
             }
             dr.Close();
         }
+        public DataTable ObtenerProductosGastoPorOrden(string folioOrden)
+        {
+            DataTable dt = new DataTable();
+            try
+            {
+                string query = @"SELECT P.ClaveProducto AS ClaveServicio, P.Descripcion
+                         FROM PartidaOrden AS PA
+                         INNER JOIN Servicios AS P ON PA.ClaveProducto = P.ClaveProducto
+                         WHERE PA.FolioOrden = @FolioOrden
+                         AND PA.CantidadRecibida > 0
+                         AND P.Estatus = 'Activo'";
+
+                using (SqlCommand cmd = new SqlCommand(query, cn))
+                {
+                    cmd.Parameters.AddWithValue("@FolioOrden", folioOrden);
+                    using (SqlDataAdapter da = new SqlDataAdapter(cmd))
+                    {
+                        da.Fill(dt);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al obtener productos por orden: " + ex.Message);
+            }
+            return dt;
+        }
 
         //___________________________________________________________________________________________
         public void SeleccionarProductoGasto(ComboBox cb)
         {
-
+            
             cb.Items.Clear();
             cmd = new SqlCommand("Select Descripcion from Servicios where Estatus='Activo'", cn);
             dr = cmd.ExecuteReader();
@@ -689,8 +725,146 @@ cmd.Parameters.AddWithValue("@formadepago", string.IsNullOrWhiteSpace(formadepag
                 cb.Items.Add(dr[0].ToString());
             }
             dr.Close();
+
+       
         }
+        public DataTable ObtenerProductosGasto()
+        {
+            DataTable dt = new DataTable();
+
+            try
+            {
+                using (SqlCommand cmd = new SqlCommand("SELECT * FROM Servicios WHERE Estatus = 'Activo'", cn))
+                {
+                    using (SqlDataAdapter da = new SqlDataAdapter(cmd))
+                    {
+                        da.Fill(dt);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                // Manejo de errores, puedes lanzar o registrar el error
+                throw new Exception("Error al obtener productos de gasto: " + ex.Message);
+            }
+
+            return dt;
+        }
+
         //_______________________________________________________
+        public void ObtenerPartidasReembolso(string folio, DataGridView dgv)
+        {
+            try
+            {
+                /*
+                SqlDataAdapter da = new SqlDataAdapter(
+                    @"SELECT PO.*,
+                     PS.Descripcion,
+                     CG.Clave,
+                     CG.Clase,
+                     CG.Tipo,
+                     CGG.Cargo as CargoConcepto,
+                     CGG.Descuento as DescuentoConcepto,
+                     PO.Cantidad,  
+                     PO.precio,    
+                     CGG.Descuento 
+              FROM PartidaRegistroReembolso AS PO
+              Left Join ConceptoGlobalesGasto as CGG On PO.FolioGasto=CGG.Folio and PO.Partida=CGG.Partida
+              LEFT JOIN ConceptosGlobales as CG On CG.Clave=CGG.ClaveConceptoG
+              JOIN servicios AS PS ON PO.ClaveProducto = PS.ClaveServicio
+              WHERE PO.FolioGasto = @Folio
+              ORDER BY Partida ASC", cn);
+
+                da.SelectCommand.Parameters.AddWithValue("@Folio", folio);
+
+                da.Fill(dt);
+                return dt;*/
+
+                dgv.Rows.Clear();
+                //da = new SqlDataAdapter("select * from PartidaRecepcion where FolioRecepcion='" + Folio + "' order by Partida asc", cn);
+                da = new SqlDataAdapter("SELECT PO.*,PS.Descripcion,CG.Clave,CG.Clase,CG.Tipo,CGG.Cargo as CargoConcepto,CGG.Descuento as DescuentoConcepto,PO.Cantidad,  PO.precio,    CGG.Descuento FROM PartidaRegistroReembolso AS PO Left Join ConceptoGlobalesGasto as CGG On PO.FolioGasto=CGG.Folio and PO.Partida=CGG.Partida LEFT JOIN ConceptosGlobales as CG On CG.Clave=CGG.ClaveConceptoG JOIN servicios AS PS ON PO.ClaveProducto = PS.ClaveServicio WHERE PO.FolioGasto = '"+folio+"' ORDER BY Partida ASC", cn);
+                dt = new DataTable();
+                da.Fill(dt);
+                foreach (DataRow item in dt.Rows)
+                {
+                    int n = dgv.Rows.Add();
+                    dgv.Rows[n].Cells[0].Value = item["FolioGasto"].ToString();
+                    dgv.Rows[n].Cells[1].Value = item["Partida"].ToString();
+                    dgv.Rows[n].Cells[2].Value = item["ClaveProducto"].ToString();
+                    dgv.Rows[n].Cells[3].Value = item["Concepto2"].ToString();
+
+                    // Numeric fields: use .Field<T?>() and handle potential nulls
+                    dgv.Rows[n].Cells[4].Value = item.Field<int?>("Cantidad")?.ToString() ?? "0"; // int
+                    dgv.Rows[n].Cells[5].Value = item["Unidad"].ToString();
+                    dgv.Rows[n].Cells[6].Value = item["Divisa"].ToString();
+                    dgv.Rows[n].Cells[7].Value = item.Field<decimal?>("TipoCambio")?.ToString("N2") ?? "0.00"; // decimal
+                    dgv.Rows[n].Cells[8].Value = item.Field<decimal?>("Subtotal")?.ToString("N2") ?? "0.00"; // decimal
+
+                    // IMPORTANT: You have two 'Descuento' fields in your SQL: PO.Descuento and CGG.Descuento as DescuentoConcepto.
+                    // Ensure you're mapping the correct one here based on your intent.
+                    // I'm using the original 'Descuento' from PO.* for cell 9.
+                    dgv.Rows[n].Cells[9].Value = item.Field<decimal?>("Descuento")?.ToString("N2") ?? "0.00"; // decimal
+                    dgv.Rows[n].Cells[10].Value = item.Field<decimal?>("Total")?.ToString("N2") ?? "0.00"; // decimal
+                    dgv.Rows[n].Cells[11].Value = item.Field<decimal?>("Impuesto")?.ToString("N2") ?? "0.00"; // decimal
+                    dgv.Rows[n].Cells[12].Value = item["Extension"].ToString();
+                    dgv.Rows[n].Cells[13].Value = item["Archivo"].ToString();
+                    dgv.Rows[n].Cells[14].Value = item.Field<int?>("CentroCostosAlt")?.ToString() ?? "0"; // int
+                    dgv.Rows[n].Cells[15].Value = item.Field<int?>("ProveedorAlterno")?.ToString() ?? "0"; // int
+                    dgv.Rows[n].Cells[16].Value = item.Field<int?>("CentroCostosAlterno")?.ToString() ?? "0"; // int
+                    dgv.Rows[n].Cells[17].Value = item.Field<decimal?>("ImpuestoImporte")?.ToString("N2") ?? "0.00"; // decimal
+                    dgv.Rows[n].Cells[18].Value = item.Field<decimal?>("DescuentoImporte")?.ToString("N2") ?? "0.00"; // decimal
+                    dgv.Rows[n].Cells[19].Value = item["proyecto"].ToString();
+                    dgv.Rows[n].Cells[20].Value = item["Fechacompra"].ToString(); // Consider parsing to DateTime and formatting
+                    dgv.Rows[n].Cells[21].Value = item["formadepago"].ToString();
+                    dgv.Rows[n].Cells[22].Value = item["referencia"].ToString();
+                    dgv.Rows[n].Cells[23].Value = item.Field<decimal?>("IEPS")?.ToString("N2") ?? "0.00"; // decimal
+                    dgv.Rows[n].Cells[24].Value = item.Field<decimal?>("Retencion")?.ToString("N2") ?? "0.00"; // decimal
+                    dgv.Rows[n].Cells[25].Value = item.Field<decimal?>("precio")?.ToString("N2") ?? "0.00"; // decimal (PO.precio)
+                }
+            }
+            catch (Exception ex)
+            {
+                // For better debugging, throw the original exception or log it fully
+                throw new Exception("Error al obtener partidas de reembolso", ex);
+            }
+        }
+
+
+
+        public void ObtenerPartidasReembolso2(string folio, DataGridView dgv)
+        {
+            try
+            {
+
+
+                dgv.Rows.Clear();
+                //da = new SqlDataAdapter("select * from PartidaRecepcion where FolioRecepcion='" + Folio + "' order by Partida asc", cn);
+                //
+                //da = new SqlDataAdapter("SELECT PO.FolioGasto, CG.Clase, '' AS ImpuestoPorcentaje, SUM(CASE WHEN CG.Clase = 'Impuesto' AND CGG.ClaveConceptoG = 'IVA16' THEN PO.Precio * PO.Cantidad - PO.DescuentoImporte WHEN CG.Clase = 'Impuesto' AND CGG.ClaveConceptoG = 'IVAE' THEN PO.Precio * PO.Cantidad - PO.DescuentoImporte WHEN CG.Clase = 'Descuento' THEN PO.Precio * PO.Cantidad - PO.DescuentoImporte ELSE 0 END) AS Subtotal, SUM(CASE WHEN CG.Clase = 'Impuesto' AND CGG.ClaveConceptoG = 'IVA16' THEN PO.ImpuestoImporte WHEN CG.Clase = 'Impuesto' AND CGG.ClaveConceptoG = 'IVAE' THEN PO.ImpuestoImporte ELSE 0 END) AS importeImpuesto, SUM(PO.Retencion) AS Retencion, CGG.ClaveConceptoG FROM PartidaRegistroReembolso AS PO LEFT JOIN ConceptoGlobalesGasto AS CGG ON PO.FolioGasto = CGG.Folio AND PO.Partida = CGG.Partida LEFT JOIN ConceptosGlobales AS CG ON CG.Clave = CGG.ClaveConceptoG JOIN servicios AS PS ON PO.ClaveProducto = PS.ClaveServicio WHERE PO.FolioGasto = '"+folio+"' AND ((CG.Clase = 'Impuesto' AND CGG.ClaveConceptoG = cg.Clave) OR (CG.Clase = 'Impuesto' AND CGG.ClaveConceptoG = cg.Clave) OR (CG.Clase = 'Descuento' AND PO.Retencion > 0 AND CGG.ClaveConceptoG = cg.Clave)) GROUP BY PO.FolioGasto, CG.Clase, CGG.ClaveConceptoG ORDER BY FolioGasto, Clase, CGG.ClaveConceptoG", cn);
+                //                da = new SqlDataAdapter("SELECT PO.FolioGasto, CG.Clase AS ClaseConceptoAgrupada, SUM(PO.Subtotal) AS SubtotalCalculado, SUM(PO.ImpuestoImporte) AS ImporteImpuesto, 0.00 AS ImporteRetencion, CG.Clave AS Tipo FROM PartidaRegistroReembolso AS PO LEFT JOIN ConceptoGlobalesGasto AS CGG ON PO.FolioGasto = CGG.Folio AND PO.Partida = CGG.Partida LEFT JOIN ConceptosGlobales AS CG ON CG.Clave = CGG.ClaveConceptoG WHERE PO.FolioGasto = '"+folio+"' AND CG.Clave = 'IVA16' GROUP BY PO.FolioGasto, CG.Clase, CG.Clave HAVING SUM(PO.ImpuestoImporte) > 0 UNION ALL SELECT PO.FolioGasto, cg.Clase AS ClaseConceptoAgrupada, SUM(PO.Subtotal - PO.DescuentoImporte) AS SubtotalCalculado, SUM(PO.IEPS) AS ImporteImpuesto, 0.00 AS ImporteRetencion, CG.Clave AS Tipo FROM PartidaRegistroReembolso AS PO LEFT JOIN ConceptoGlobalesGasto AS CGG ON PO.FolioGasto = CGG.Folio AND PO.Partida = CGG.Partida LEFT JOIN ConceptosGlobales AS CG ON CG.Clave = CGG.ClaveConceptoG WHERE PO.FolioGasto = '"+folio+"' AND PO.IEPS > 0 GROUP BY PO.FolioGasto, CG.Clase, CG.Clave HAVING SUM(PO.IEPS) > 0 UNION ALL SELECT PO.FolioGasto, CG.Clase AS ClaseConceptoAgrupada, SUM(PO.Subtotal - PO.DescuentoImporte) AS SubtotalCalculado, SUM(PO.ImpuestoImporte) AS ImporteImpuesto, 0.00 AS ImporteRetencion, CG.Clave AS Tipo FROM PartidaRegistroReembolso AS PO LEFT JOIN ConceptoGlobalesGasto AS CGG ON PO.FolioGasto = CGG.Folio AND PO.Partida = CGG.Partida LEFT JOIN ConceptosGlobales AS CG ON CG.Clave = CGG.ClaveConceptoG WHERE PO.FolioGasto = '"+folio+"' AND CG.Clave = 'IVA8' GROUP BY PO.FolioGasto, CG.Clase, CG.Clave HAVING SUM(PO.ImpuestoImporte) > 0 UNION ALL SELECT PO.FolioGasto, CG.Clase AS ClaseConceptoAgrupada, SUM(PO.Subtotal - PO.DescuentoImporte) AS SubtotalCalculado, 0.00 AS ImporteImpuesto, SUM(PO.Retencion) AS ImporteRetencion, CG.Clave AS Tipo FROM PartidaRegistroReembolso AS PO INNER JOIN ConceptoGlobalesGasto AS CGG ON PO.FolioGasto = CGG.Folio AND PO.Partida = CGG.Partida INNER JOIN ConceptosGlobales AS CG ON CG.Clave = CGG.ClaveConceptoG WHERE PO.FolioGasto = '"+folio+"' AND CG.Clase = 'Descuento' AND CG.Clave LIKE 'R%' AND PO.Retencion > 0 GROUP BY PO.FolioGasto, CG.Clase, CG.Clave HAVING SUM(PO.Retencion) > 0 ORDER BY FolioGasto, ClaseConceptoAgrupada, Tipo;", cn);
+                da = new SqlDataAdapter("SELECT PO.FolioGasto, CG.Clase AS ClaseConceptoAgrupada, SUM(PO.Subtotal) AS SubtotalCalculado, SUM(PO.ImpuestoImporte) AS ImporteImpuesto, 0.00 AS ImporteRetencion, CG.Clave AS Tipo FROM PartidaRegistroReembolso AS PO LEFT JOIN ConceptoGlobalesGasto AS CGG ON PO.FolioGasto = CGG.Folio AND PO.Partida = CGG.Partida LEFT JOIN ConceptosGlobales AS CG ON CG.Clave = CGG.ClaveConceptoG WHERE PO.FolioGasto = '"+folio+"' AND CG.Clave = 'IVA16' GROUP BY PO.FolioGasto, CG.Clase, CG.Clave HAVING SUM(PO.ImpuestoImporte) > 0 UNION ALL SELECT PO.FolioGasto, cg.Clase AS ClaseConceptoAgrupada, SUM(PO.Subtotal - PO.DescuentoImporte) AS SubtotalCalculado, SUM(PO.IEPS) AS ImporteImpuesto, 0.00 AS ImporteRetencion, CG.Clave AS Tipo FROM PartidaRegistroReembolso AS PO, ConceptosGlobales AS CG WHERE PO.FolioGasto = '"+folio+"' AND PO.IEPS > 0 AND CG.Clave = 'IEPS' GROUP BY PO.FolioGasto, CG.Clase, CG.Clave HAVING SUM(PO.IEPS) > 0 UNION ALL SELECT PO.FolioGasto, CG.Clase AS ClaseConceptoAgrupada, SUM(PO.Subtotal - PO.DescuentoImporte) AS SubtotalCalculado, SUM(PO.ImpuestoImporte) AS ImporteImpuesto, 0.00 AS ImporteRetencion, CG.Clave AS Tipo FROM PartidaRegistroReembolso AS PO LEFT JOIN ConceptoGlobalesGasto AS CGG ON PO.FolioGasto = CGG.Folio AND PO.Partida = CGG.Partida LEFT JOIN ConceptosGlobales AS CG ON CG.Clave = CGG.ClaveConceptoG WHERE PO.FolioGasto = '181' AND CG.Clave = 'IVA8' GROUP BY PO.FolioGasto, CG.Clase, CG.Clave HAVING SUM(PO.ImpuestoImporte) > 0 UNION ALL SELECT PO.FolioGasto, CG.Clase AS ClaseConceptoAgrupada, SUM(PO.Subtotal - PO.DescuentoImporte) AS SubtotalCalculado, 0.00 AS ImporteImpuesto, SUM(PO.Retencion) AS ImporteRetencion, CG.Clave AS Tipo FROM PartidaRegistroReembolso AS PO INNER JOIN ConceptoGlobalesGasto AS CGG ON PO.FolioGasto = CGG.Folio AND PO.Partida = CGG.Partida INNER JOIN ConceptosGlobales AS CG ON CG.Clave = CGG.ClaveConceptoG WHERE PO.FolioGasto = '"+folio+"' AND CG.Clase = 'Descuento' AND CG.Clave LIKE 'R%' AND PO.Retencion > 0 GROUP BY PO.FolioGasto, CG.Clase, CG.Clave HAVING SUM(PO.Retencion) > 0 UNION ALL SELECT PO.FolioGasto, CG.Clase AS ClaseConceptoAgrupada, SUM(PO.Subtotal) AS SubtotalCalculado, SUM(PO.ImpuestoImporte) AS ImporteImpuesto, 0.00 AS ImporteRetencion, CG.Clave AS Tipo FROM PartidaRegistroReembolso AS PO LEFT JOIN ConceptoGlobalesGasto AS CGG ON PO.FolioGasto = CGG.Folio AND PO.Partida = CGG.Partida LEFT JOIN ConceptosGlobales AS CG ON CG.Clave = CGG.ClaveConceptoG WHERE PO.FolioGasto = '"+folio+"' AND CG.Clave not in ('IEPS','IVA8','IVA16') GROUP BY PO.FolioGasto, CG.Clase, CG.Clave HAVING SUM(PO.ImpuestoImporte) = 0 ORDER BY FolioGasto, ClaseConceptoAgrupada, Tipo;", cn);
+                
+                dt = new DataTable();
+                
+                da.Fill(dt);
+                foreach (DataRow item in dt.Rows)
+                {
+                    int n = dgv.Rows.Add();
+                    dgv.Rows[n].Cells[0].Value = item["FolioGasto"].ToString();
+                    dgv.Rows[n].Cells[1].Value = item["ClaseConceptoAgrupada"].ToString();
+                    dgv.Rows[n].Cells[2].Value = item["SubtotalCalculado"].ToString();
+                    dgv.Rows[n].Cells[3].Value = item["ImporteImpuesto"].ToString();
+                    dgv.Rows[n].Cells[4].Value = item["ImporteRetencion"].ToString(); // int
+                    dgv.Rows[n].Cells[5].Value = item["Tipo"].ToString();            
+                }
+            }
+            catch (Exception ex)
+            {
+                // For better debugging, throw the original exception or log it fully
+                throw new Exception("Error al obtener partidas de reembolso", ex);
+            }
+        }
+
         public void CargarRecibosPartidasGasto(DataGridView dgv, string Folio)
         {
             try
@@ -713,6 +887,7 @@ cmd.Parameters.AddWithValue("@formadepago", string.IsNullOrWhiteSpace(formadepag
 
                     dgv.Rows[n].Cells[6].Value = item["DescuentoImporte"].ToString();
                     dgv.Rows[n].Cells[7].Value = item["Ieps"].ToString();
+                    dgv.Rows[n].Cells[8].Value = item["Retencion"].ToString();
 
 
                 }
@@ -722,32 +897,37 @@ cmd.Parameters.AddWithValue("@formadepago", string.IsNullOrWhiteSpace(formadepag
                 MessageBox.Show(ex.ToString());
             }
         }
-        public DataTable ObtenerPartidasReembolso(string folio)
-        {
-            try
+        /*    public DataTable ObtenerPartidasReembolso(string folio)
             {
-                SqlDataAdapter da = new SqlDataAdapter(
-                    @"SELECT PO.*, PS.Descripcion, CG.Clave, CG.Clase,CG.Tipo, CGG.Cargo as CargoConcepto, CGG.Descuento as DescuentoConcepto
-                      FROM PartidaRegistroReembolso AS PO 
-					  Left Join ConceptoGlobalesGasto as CGG On PO.FolioGasto=CGG.Folio and PO.Partida=CGG.Partida
-					  LEFT JOIN ConceptosGlobales as CG On CG.Clave=CGG.ClaveConceptoG
-                      JOIN servicios AS PS ON PO.ClaveProducto = PS.ClaveServicio 
-                      WHERE PO.FolioGasto = @Folio 
-                      ORDER BY Partida ASC", cn);
+                try
+                {
+                    SqlDataAdapter da = new SqlDataAdapter(
+                        @"SELECT PO.*, PS.Descripcion, CG.Clave, CG.Clase,CG.Tipo, CGG.Cargo as CargoConcepto, CGG.Descuento as DescuentoConcepto
+                       PO.Cantidad,
+                        PS.Precio,
+                        CGG.Descuento
+                        FROM PartidaRegistroReembolso AS PO 
+                          Left Join ConceptoGlobalesGasto as CGG On PO.FolioGasto=CGG.Folio and PO.Partida=CGG.Partida
+                          LEFT JOIN ConceptosGlobales as CG On CG.Clave=CGG.ClaveConceptoG
+                          JOIN servicios AS PS ON PO.ClaveProducto = PS.ClaveServicio 
+                          WHERE PO.FolioGasto = @Folio 
+                          ORDER BY Partida ASC", cn);
 
-                da.SelectCommand.Parameters.AddWithValue("@Folio", folio);
+                    da.SelectCommand.Parameters.AddWithValue("@Folio", folio);
 
-                DataTable dt = new DataTable();
-                da.Fill(dt);
-                return dt;
+                    DataTable dt = new DataTable();
+                    da.Fill(dt);
+                    return dt;
+                }
+                catch (Exception ex)
+                {
+                    // Puedes manejar mejor el error o lanzarlo para la capa superior
+                    throw new Exception("Error al obtener partidas de reembolso", ex);
+                }
             }
-            catch (Exception ex)
-            {
-                // Puedes manejar mejor el error o lanzarlo para la capa superior
-                throw new Exception("Error al obtener partidas de reembolso", ex);
-            }
-        }
+        */
 
+      
         //___________________________________________________________________________
         public string EliminarPartidaRegistroGasto(string Folio, string Partida)
         {
@@ -776,6 +956,37 @@ cmd.Parameters.AddWithValue("@formadepago", string.IsNullOrWhiteSpace(formadepag
 
                 }
                 string queryUpdate = "UPDATE PartidaRegistroReembolso SET Partida = Partida - 1 WHERE Partida > @NumeroOrdenCompra and FolioGasto=@Folio";
+
+                using (SqlConnection connection = new SqlConnection(ObtenerCn()))
+                {
+                    using (SqlCommand command = new SqlCommand(queryUpdate, connection))
+                    {
+                        command.Parameters.AddWithValue("@NumeroOrdenCompra", Partida);
+                        command.Parameters.AddWithValue("@Folio", Folio);
+                        connection.Open();
+                        command.ExecuteNonQuery();
+                    }
+                }
+                using (SqlConnection cn = new SqlConnection(ObtenerCn()))
+                {
+                    cn.Open();
+                    using (SqlCommand cmd = new SqlCommand("Delete from ConceptoGlobalesGasto where Folio=@Folio and Partida=@Partida", cn))
+                    {
+                        cmd.Parameters.AddWithValue("@Folio", Folio);
+                        cmd.Parameters.AddWithValue("@Partida", Partida);
+                        int filasAfectadas = cmd.ExecuteNonQuery();
+
+                        if (filasAfectadas > 0)
+                        {
+                            mensaje = "Eliminación exitosa";
+                        }
+                        else
+                        {
+                            mensaje = "No se encontró ninguna fila para eliminar";
+                        }
+                    }
+                }
+                queryUpdate = "UPDATE ConceptoGlobalesGasto SET Partida = Partida - 1 WHERE Partida > @NumeroOrdenCompra and Folio=@Folio";
 
                 using (SqlConnection connection = new SqlConnection(ObtenerCn()))
                 {
@@ -923,7 +1134,7 @@ cmd.Parameters.AddWithValue("@formadepago", string.IsNullOrWhiteSpace(formadepag
             return resultado;
         }
         //______________________________________________________________________________________________________-
-        public void ConsultaGastos(string Folio, TextBox Documento, ComboBox Estatus, Guna.UI2.WinForms.Guna2TextBox Fecha, Guna.UI2.WinForms.Guna2TextBox Divisa, Guna.UI2.WinForms.Guna2TextBox TipoCambio, Guna.UI2.WinForms.Guna2TextBox Subtotal, Guna.UI2.WinForms.Guna2TextBox Descuentos, Guna.UI2.WinForms.Guna2TextBox Cargo, Guna.UI2.WinForms.Guna2TextBox Total, Guna.UI2.WinForms.Guna2TextBox Partidas, Guna.UI2.WinForms.Guna2TextBox Notas, Guna.UI2.WinForms.Guna2TextBox Elaborado, TextBox txtFolio, TextBox txtReciboCol, Guna.UI2.WinForms.Guna2TextBox txtconsecutivo, Guna.UI2.WinForms.Guna2TextBox txtReferencia, Guna.UI2.WinForms.Guna2TextBox txtSaldo, Guna.UI2.WinForms.Guna2TextBox condominio, Guna.UI2.WinForms.Guna2TextBox DiasVence, Guna.UI2.WinForms.Guna2TextBox FechaVence, Guna.UI2.WinForms.Guna2TextBox Archivo, ComboBox CentroCosto, ComboBox cmbSemana, DateTimePicker dtpAnio, ComboBox pro,ComboBox proyecto)
+        public void ConsultaGastos(string Folio, TextBox Documento, ComboBox Estatus, Guna.UI2.WinForms.Guna2TextBox Fecha, Guna.UI2.WinForms.Guna2TextBox Divisa, Guna.UI2.WinForms.Guna2TextBox TipoCambio, Guna.UI2.WinForms.Guna2TextBox Subtotal, Guna.UI2.WinForms.Guna2TextBox Descuentos, Guna.UI2.WinForms.Guna2TextBox Cargo, Guna.UI2.WinForms.Guna2TextBox Total, Guna.UI2.WinForms.Guna2TextBox Partidas, Guna.UI2.WinForms.Guna2TextBox Notas, Guna.UI2.WinForms.Guna2TextBox Elaborado, TextBox txtFolio, TextBox txtReciboCol, Guna.UI2.WinForms.Guna2TextBox txtconsecutivo, Guna.UI2.WinForms.Guna2TextBox txtReferencia, Guna.UI2.WinForms.Guna2TextBox txtSaldo, Guna.UI2.WinForms.Guna2TextBox condominio, Guna.UI2.WinForms.Guna2TextBox DiasVence, Guna.UI2.WinForms.Guna2TextBox FechaVence, Guna.UI2.WinForms.Guna2TextBox Archivo, ComboBox CentroCosto, ComboBox cmbSemana, DateTimePicker dtpAnio, ComboBox pro,ComboBox proyecto, Guna.UI2.WinForms.Guna2TextBox Tretenciones )
         {
         try{
                 cmd = new SqlCommand("Select * from RegistroReembolso where Folio='" + Folio + "'", cn);
@@ -969,6 +1180,7 @@ cmd.Parameters.AddWithValue("@formadepago", string.IsNullOrWhiteSpace(formadepag
                     {
                         cmbSemana.SelectedIndex = -1; // o lo que tú quieras como fallback
                     }
+                    Tretenciones.Text = dr["TotalRetenciones"].ToString();
                 }
                 dr.Close();
            }
@@ -1291,7 +1503,10 @@ cmd.Parameters.AddWithValue("@formadepago", string.IsNullOrWhiteSpace(formadepag
             Guna.UI2.WinForms.Guna2ComboBox cmdproyectoalterno,
             DateTimePicker dtfecha,
             Guna.UI2.WinForms.Guna2ComboBox cmbformapago,
-            Guna2ComboBox cmbreferencia)
+            Guna2ComboBox cmbreferencia, 
+            Guna.UI2.WinForms.Guna2TextBox retencion,
+            Guna.UI2.WinForms.Guna2TextBox IEPS
+            )
         {
             try
             {
@@ -1300,7 +1515,7 @@ cmd.Parameters.AddWithValue("@formadepago", string.IsNullOrWhiteSpace(formadepag
                    P.TipoCambio, (P.Subtotal+P.DescuentoImporte) as Subtotal, P.Descuento, P.Total, P.Impuesto, 
                    P.Archivo, P.ProveedorAlterno, P.CentroCostosAlterno,
                    P.DescuentoImporte, P.ImpuestoImporte, C.Descripcion,
-                   P.proyecto,P.Fechacompra,P.formadepago,P.referencia
+                   P.proyecto,P.Fechacompra,P.formadepago,P.referencia,P.Retencion,P.IEPS
                    FROM PartidaRegistroReembolso AS P
                     INNER JOIN Servicios AS C ON P.ClaveProducto = C.ClaveServicio
             WHERE P.FolioGasto = @Folio AND P.Partida = @Partida";
@@ -1360,6 +1575,8 @@ cmd.Parameters.AddWithValue("@formadepago", string.IsNullOrWhiteSpace(formadepag
                             //}
                             cmbformapago.SelectedValue = dr["formadepago"].ToString();
                             cmbreferencia.Items.Add(dr["referencia"].ToString());
+                            retencion.Text = dr["Retencion"].ToString();
+                            IEPS.Text = dr["IEPS"].ToString();
                         }
                     }
                 }

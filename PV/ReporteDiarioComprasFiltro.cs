@@ -35,7 +35,30 @@ namespace PV
             {
                 pnAnioSemana.Visible = true;
                 pnCentroCostos.Visible = true;
+
             }
+            else if (tipo == "Diario Compras")
+            {
+                pnCentroCostos.Visible = false;
+
+            }
+            else if (tipo == "Diario Egresos")
+            {
+                pnCentroCostos.Visible = false;
+                pnAnioSemana.Visible = false;
+                pnTipoDocumento.Visible = false;
+                
+
+            }
+            else if (tipo == "Saldos Proveedor")
+            {
+                pnCentroCostos.Visible = false;
+                pnAnioSemana.Visible = false;
+                pnTipoDocumento.Visible = false;
+
+
+            }
+            
         }
 
 
@@ -199,42 +222,12 @@ namespace PV
 
         private void dtFecha1_ValueChanged(object sender, EventArgs e)
         {
-            if (cbFechas.Checked == true)
-            {
-                dtFecha1.Enabled = true;
-                dtFecha2.Enabled = true;
-                fecha = "Si";
-                fecha1 = dtFecha1.Text;
-                fecha2 = dtFecha2.Text;
-            }
-            else
-            {
-                dtFecha1.Enabled = false;
-                dtFecha2.Enabled = false;
-                fecha = string.Empty;
-                fecha1 = string.Empty;
-                fecha2 = string.Empty;
-            }
+           
         }
 
         private void dtFecha2_ValueChanged(object sender, EventArgs e)
         {
-            if (cbFechas.Checked == true)
-            {
-                dtFecha1.Enabled = true;
-                dtFecha2.Enabled = true;
-                fecha = "Si";
-                fecha1 = dtFecha1.Text;
-                fecha2 = dtFecha2.Text;
-            }
-            else
-            {
-                dtFecha1.Enabled = false;
-                dtFecha2.Enabled = false;
-                fecha = string.Empty;
-                fecha1 = string.Empty;
-                fecha2 = string.Empty;
-            }
+           
         }
 
         private void cmbPropietario1_SelectedIndexChanged(object sender, EventArgs e)
@@ -256,15 +249,30 @@ namespace PV
         {
             if(tipo=="Diario Gastos")
             {
-                ReporteDiarioGastos r = new ReporteDiarioGastos(cmbPropietario1?.SelectedValue?.ToString(), cmbTipo?.SelectedValue?.ToString(), fecha == "Si" ? fecha1 : "", fecha == "Si" ? fecha2 : "");
+                ReporteDiarioGastos r = new ReporteDiarioGastos(cmbPropietario1?.SelectedValue?.ToString(), cmbTipo?.SelectedValue?.ToString(), fecha == "Si" ? dtFecha1.Value.ToString("yyyy-MM-dd") : "", fecha == "Si" ? dtFecha2.Value.ToString("yyyy-MM-dd") : "");
                 r.ShowDialog();
             }
             else if (tipo == "Diario Reembolsos")
             {
-                ReporteDiarioReembolsos reporteDiarioCompras = new ReporteDiarioReembolsos(cmbPropietario1?.SelectedValue?.ToString(), cmbTipo?.SelectedValue?.ToString(), cmbCentroCostos?.SelectedValue?.ToString(), dtpAnio.Text, cmbSemana?.SelectedValue?.ToString(), fecha == "Si" ? fecha1 : "", fecha == "Si" ? fecha2 : "");
+                ReporteDiarioReembolsos reporteDiarioCompras = new ReporteDiarioReembolsos(cmbPropietario1?.SelectedValue?.ToString(), cmbTipo?.SelectedValue?.ToString(), cmbCentroCostos?.SelectedValue?.ToString(), dtpAnio.Text, cmbSemana?.SelectedValue?.ToString(), fecha == "Si" ? dtFecha1.Value.ToString("yyyy-MM-dd") : "", fecha == "Si" ? dtFecha2.Value.ToString("yyyy-MM-dd") : "");
                 reporteDiarioCompras.ShowDialog();
             }
-               
+            else if (tipo == "Diario Compras")
+            {
+                ReporteDiarioCompras reporteDiarioCompras = new ReporteDiarioCompras(cmbPropietario1?.SelectedValue?.ToString(), cmbTipo?.SelectedValue?.ToString(), fecha == "Si" ? dtFecha1.Value.ToString("yyyy-MM-dd") : "", fecha == "Si" ? dtFecha2.Value.ToString("yyyy-MM-dd") : "");
+                reporteDiarioCompras.ShowDialog();
+            }
+            else if (tipo == "Diario Egresos")
+            {
+                ReporteEgresos reporteDiarioCompras = new ReporteEgresos(cmbPropietario1?.SelectedValue?.ToString(), cmbTipo?.SelectedValue?.ToString(), fecha == "Si" ? dtFecha1.Value.ToString("yyyy-MM-dd") : "", fecha == "Si" ? dtFecha2.Value.ToString("yyyy-MM-dd") : "", "");
+                reporteDiarioCompras.ShowDialog();
+            }
+            else if (tipo == "Saldos Proveedor")
+            {
+                ReporteSaldosProveedores reporteDiarioCompras = new ReporteSaldosProveedores(cmbPropietario1?.SelectedValue?.ToString(), cmbTipo?.SelectedValue?.ToString(), fecha == "Si" ? dtFecha1.Value.ToString("yyyy-MM-dd") : "", fecha == "Si" ? dtFecha2.Value.ToString("yyyy-MM-dd") : "", "");
+                reporteDiarioCompras.ShowDialog();
+            }
+
         }
 
         private void guna2ToggleSwitch1_CheckedChanged(object sender, EventArgs e)

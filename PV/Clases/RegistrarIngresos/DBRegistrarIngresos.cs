@@ -185,16 +185,11 @@ namespace Condominios.Clases.RegistrarIngresos
         }
         //____________________________________________________________________
         //----------------------------------------------------------
-        public void CargarReciboProveedor(DataGridView dgv, string Matricula)
+        public DataTable ObtenerEgresos(string matricula)
         {
+            DataTable dtEgresos = new DataTable();
             try
             {
-                NumberFormatInfo formato = new CultureInfo("US-AR").NumberFormat;
-                formato.CurrencyGroupSeparator = ",";
-                formato.NumberDecimalSeparator = ".";
-                dgv.Rows.Clear();
-
-                // Corrected SQL query with explicit column selection for all tables
                 string sql = @"
             (SELECT 
                 'P' as Tipo, 
@@ -212,9 +207,9 @@ namespace Condominios.Clases.RegistrarIngresos
                 R.TotalPartidas, 
                 R.Notas, 
                 R.Elaborado, 
-                R.Recargo, 
-                R.DescuentoPago, 
-                R.Saldo, 
+                isnull(R.Recargo, 0.00) as Recargo, 
+                isnull(R.DescuentoPago, 0.00) as DescuentoPago, 
+                isnull(R.Saldo,0.00) as Saldo, 
                 R.FolioOrden, 
                 R.Consecutivo, 
                 R.Almacen, 
@@ -235,6 +230,7 @@ namespace Condominios.Clases.RegistrarIngresos
             WHERE 
                 R.ClaveProveedor = @Matricula AND 
                 Saldo != 0 AND 
+                R.Estatus = 'Bloqueado' AND
                 R.ClaveDocumento = D.Clave)
 
             UNION 
@@ -255,9 +251,9 @@ namespace Condominios.Clases.RegistrarIngresos
                 R.TotalPartidas, 
                 R.Notas, 
                 R.Elaborado, 
-                R.Recargo, 
-                R.DescuentoPago, 
-                R.Saldo, 
+                isnull(R.Recargo, 0.00) as Recargo, 
+                isnull(R.DescuentoPago, 0.00) as DescuentoPago, 
+                isnull(R.Saldo,0.00) as Saldo, 
                 R.FolioOrden, 
                 R.Consecutivo, 
                 R.Almacen, 
@@ -278,6 +274,51 @@ namespace Condominios.Clases.RegistrarIngresos
             WHERE 
                 R.ClaveProveedor = @Matricula AND 
                 Saldo != 0 AND 
+                R.Estatus = 'Bloqueado' AND
+                R.ClaveDocumento = D.Clave)
+
+            UNION 
+
+            (SELECT 
+                'RR' as Tipo, 
+                R.Folio, 
+                R.ClaveDocumento, 
+                R.Estatus, 
+                R.Fecha, 
+                R.ClaveProveedor, 
+                R.Divisa, 
+                R.TipoCambio, 
+                R.Subtotal, 
+                R.Descuento, 
+                R.Cargo, 
+                R.Total, 
+                R.TotalPartidas, 
+                R.Notas, 
+                R.Elaborado, 
+                isnull(R.Recargo, 0.00) as Recargo, 
+                isnull(R.DescuentoPago, 0.00) as DescuentoPago, 
+                isnull(R.Saldo,0.00) as Saldo,  
+                R.FolioOrden, 
+                R.Consecutivo, 
+                R.Almacen, 
+                R.Referencia, 
+                R.Condominio, 
+                R.Extension, 
+                R.Archivo, 
+                R.DiasVence, 
+                R.FechaVence,
+                NULL as CentroCostos,
+                NULL as Semana,
+                NULL as Anio,
+                NULL as ProveedorAlterno,
+                D.Nombre 
+            FROM 
+                RegistroReembolso as R, 
+                Documento as D 
+            WHERE 
+                R.ClaveProveedor = @Matricula AND 
+                Saldo != 0 AND 
+                R.Estatus = 'Bloqueado' AND
                 R.ClaveDocumento = D.Clave)
 
             UNION 
@@ -298,9 +339,9 @@ namespace Condominios.Clases.RegistrarIngresos
                 R.TotalPartidas, 
                 R.Notas, 
                 R.Elaborado, 
-                R.Recargo, 
-                R.DescuentoPago, 
-                R.Saldo, 
+                isnull(R.Recargo, 0.00) as Recargo, 
+                isnull(R.DescuentoPago, 0.00) as DescuentoPago, 
+                isnull(R.Saldo,0.00) as Saldo,  
                 R.FolioOrden, 
                 R.Consecutivo, 
                 R.Almacen, 
@@ -321,36 +362,25 @@ namespace Condominios.Clases.RegistrarIngresos
             WHERE 
                 R.ClaveProveedor = @Matricula AND 
                 Saldo != 0 AND 
+                R.Estatus = 'Bloqueado' AND
                 R.ClaveDocumento = D.Clave)";
 
-                // Use parameterized query to prevent SQL injection
-                SqlCommand cmd = new SqlCommand(sql, cn);
-                cmd.Parameters.AddWithValue("@Matricula", Matricula);
-
-                da = new SqlDataAdapter(cmd);
-                dt = new DataTable();
-                da.Fill(dt);
-
-                foreach (DataRow item in dt.Rows)
+                using (SqlCommand cmd = new SqlCommand(sql, cn))
                 {
-                    int n = dgv.Rows.Add();
-                    dgv.Rows[n].Cells[1].Value = item["Tipo"].ToString();
-                    dgv.Rows[n].Cells[2].Value = item["Folio"].ToString();
-                    dgv.Rows[n].Cells[3].Value = item["ClaveDocumento"].ToString();
-                    dgv.Rows[n].Cells[4].Value = item["Nombre"].ToString();
-                    dgv.Rows[n].Cells[5].Value = Convert.ToDateTime(item["Fecha"]).ToString("yyyy/MM/dd");
-                    dgv.Rows[n].Cells[6].Value = Convert.ToDouble(item["Total"]).ToString("N", formato);
-                    dgv.Rows[n].Cells[7].Value = Convert.ToDouble(item["Saldo"]).ToString("N", formato);
-                    dgv.Rows[n].Cells[8].Value = Convert.ToDouble(0.00).ToString("N", formato);
-                    dgv.Rows[n].Cells[9].Value = Convert.ToDouble(0.00).ToString("N", formato);
-                    dgv.Rows[n].Cells[10].Value = Convert.ToDouble(0.00).ToString("N", formato);
+                    cmd.Parameters.AddWithValue("@Matricula", matricula);
+                    using (SqlDataAdapter da = new SqlDataAdapter(cmd))
+                    {
+                        da.Fill(dtEgresos);
+                    }
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error al cargar Conceptos: " + ex.Message);
+                MessageBox.Show("Error al obtener egresos: " + ex.Message);
             }
+            return dtEgresos;
         }
+
         //_________________________________________________________________________________
         public void ActualizarRecibo2(string Folio, decimal Recargos, decimal Descuento, decimal Saldo)
         {
@@ -386,7 +416,11 @@ namespace Condominios.Clases.RegistrarIngresos
                     cmd = new SqlCommand("Update NotasGasto set Recargo=" + Recargos + ", DescuentoPago=" + Descuento + ", Saldo=" + Saldo + " where Folio='" + Folio + "'", cn);
                     cmd.ExecuteNonQuery();
                 }
-                
+                else if (Tipo == "RR")
+                {
+                    cmd = new SqlCommand("Update RegistroReembolso set Recargo=" + Recargos + ", DescuentoPago=" + Descuento + ", Saldo=" + Saldo + " where Folio='" + Folio + "'", cn);
+                    cmd.ExecuteNonQuery();
+                }
 
             }
             catch (Exception ex)
@@ -508,65 +542,7 @@ namespace Condominios.Clases.RegistrarIngresos
             }
         }
         //____________________________________________________________________________________________________
-        public void CargarEgreso2(DataGridView dgv, string Matricula, ArrayList ListaConcep, ArrayList ListaConcep2, ArrayList ListaConcep3)
-        {
-            try
-            {
-                NumberFormatInfo formato = new CultureInfo("US-AR").NumberFormat;
-
-                formato.CurrencyGroupSeparator = ",";
-                formato.NumberDecimalSeparator = ".";
-
-                string Concepto = string.Empty;
-                string Documento = string.Empty;
-                string Tipo = string.Empty;
-
-                dgv.Rows.Clear();
-
-                foreach (object item2 in ListaConcep)
-                {
-                    Concepto = item2.ToString();
-
-                    foreach (object item3 in ListaConcep2)
-                    {
-                        Documento = item3.ToString();
-
-                        foreach (object item4 in ListaConcep3)
-                        {
-                            Tipo = item4.ToString();
-
-                            da = new SqlDataAdapter("(select 'P' as Tipo, R.*, D.Nombre from RecepcionProducto as R, Documento as D where ClaveProveedor='" + Matricula + "'  and Saldo!=0 and R.Folio='" + Concepto + "' and R.ClaveDocumento='" + Documento + "' and R.ClaveDocumento=D.Clave and 'P'='"+Tipo+"') union (select 'G' as Tipo, R.*, D.Nombre from RegistroGastos as R, Documento as D where ClaveProveedor='" + Matricula + "'  and Saldo!=0 and R.Folio='" + Concepto + "' and R.ClaveDocumento='" + Documento + "' and R.ClaveDocumento=D.Clave and 'G'='" + Tipo + "') union (select 'NCG' as Tipo, R.*,'' as DiasVence, '' as FechaVence, D.Nombre from NotasGasto as R, Documento as D where ClaveProveedor='" + Matricula + "'  and Saldo!=0 and R.Folio='" + Concepto + "' and R.ClaveDocumento='" + Documento + "' and R.ClaveDocumento=D.Clave and 'NCG'='" + Tipo + "')", cn);
-                            dt = new DataTable();
-                            da.Fill(dt);
-
-                            foreach (DataRow item in dt.Rows)
-                            {
-                                int n = dgv.Rows.Add();
-                                dgv.Rows[n].Cells[1].Value = item["Tipo"].ToString();
-                                dgv.Rows[n].Cells[2].Value = item["Folio"].ToString();
-                                dgv.Rows[n].Cells[3].Value = item["ClaveDocumento"].ToString();
-                                dgv.Rows[n].Cells[4].Value = item["Nombre"].ToString();
-                                dgv.Rows[n].Cells[5].Value = Convert.ToDecimal(item["Recargo"]).ToString("N", formato);
-                                dgv.Rows[n].Cells[6].Value = Convert.ToDecimal(item["DescuentoPago"]).ToString("N", formato);
-                                dgv.Rows[n].Cells[7].Value = Convert.ToDecimal(item["Saldo"]).ToString("N", formato);
-                                dgv.Rows[n].Cells[9].Value = Convert.ToDecimal(0.00).ToString("N", formato);
-                                dgv.Rows[n].Cells[10].Value = Convert.ToDecimal(0.00).ToString("N", formato);
-                                break;
-                            }
-                            break;
-                        }
-                        break;
-                    }
-                    ListaConcep3.RemoveAt(0);
-                    ListaConcep2.RemoveAt(0);
-                    
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Error al cargar Conceptos1" + ex.ToString());
-            }
-        }
+       
         //____________________________________________________________________________________________________
         public void CargarPagosEgreso2(DataGridView dgv, string Matricula)
         {

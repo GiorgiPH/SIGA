@@ -4215,6 +4215,7 @@ namespace PV.Clases.OrdenCompra
                 INSERT (ClaveConceptoG, Folio, Subtotal, Descuento, Cargo, Total, IncluyeIva)
                 VALUES (@ClaveConceptoG, @Folio, @Subtotal, @Descuento, @Cargo, @Total, @IncluyeIva);";
 
+
                 using (SqlCommand cmd = new SqlCommand(query, cn))
                 {
                     cmd.Parameters.AddWithValue("@ClaveConceptoG", ClaveConceptoG);
@@ -4244,6 +4245,68 @@ namespace PV.Clases.OrdenCompra
                // throw new Exception("Error al insertar o actualizar ConceptoGlobalesGasto", ex);
             }
         }
+        public void InsertarOActualizarConceptoGlobalFolio(string ClaveConceptoG, string Folio, decimal Importe, string clase)
+        {
+            try
+            {
+                string selectQuery = @"
+            SELECT Id FROM ConceptosGlobalesFolio
+            WHERE FolioGasto = @FolioGasto AND ClaveConceptoG = @ClaveConceptoG;
+        ";
+
+                int? idExistente = null;
+                using (SqlCommand selectCmd = new SqlCommand(selectQuery, cn))
+                {
+                    selectCmd.Parameters.AddWithValue("@FolioGasto", Folio);
+                    selectCmd.Parameters.AddWithValue("@ClaveConceptoG", ClaveConceptoG);
+                    object result = selectCmd.ExecuteScalar();
+                    if (result != null)
+                        idExistente = Convert.ToInt32(result);
+                }
+
+                if (idExistente.HasValue)
+                {
+                    // Actualizar porque ya existe el mismo concepto para ese folio
+                    string updateQuery = @"
+                UPDATE ConceptosGlobalesFolio
+                SET Importe = @Importe,
+                    Clase = @Clase
+                WHERE Id = @Id;
+            ";
+
+                    using (SqlCommand updateCmd = new SqlCommand(updateQuery, cn))
+                    {
+                        updateCmd.Parameters.AddWithValue("@Importe", Importe);
+                        updateCmd.Parameters.AddWithValue("@Clase", clase);
+                        updateCmd.Parameters.AddWithValue("@Id", idExistente.Value);
+                        updateCmd.ExecuteNonQuery();
+                    }
+                }
+                else
+                {
+                    // Insertar nuevo
+                    string insertQuery = @"
+                INSERT INTO ConceptosGlobalesFolio (ClaveConceptoG, FolioGasto, Importe, Clase)
+                VALUES (@ClaveConceptoG, @FolioGasto, @Importe, @Clase);
+            ";
+
+                    using (SqlCommand insertCmd = new SqlCommand(insertQuery, cn))
+                    {
+                        insertCmd.Parameters.AddWithValue("@ClaveConceptoG", ClaveConceptoG);
+                        insertCmd.Parameters.AddWithValue("@FolioGasto", Folio);
+                        insertCmd.Parameters.AddWithValue("@Importe", Importe);
+                        insertCmd.Parameters.AddWithValue("@Clase", clase);
+                        insertCmd.ExecuteNonQuery();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("ERROR al guardar concepto global del folio: " + ex.Message);
+            }
+        }
+
+
 
         //______________
         //___________________________________________________________________________________________
@@ -4273,7 +4336,7 @@ namespace PV.Clases.OrdenCompra
                 MessageBox.Show("ERROR" + ex.ToString());
             }
         }
-        public void ActualizarPartidaReciboConceptoGlobalGasto(int txtFolio, decimal Porcentaje, string txtClase)
+        public void ActualizarPartidaReciboConceptoGlobalGasto(string txtFolio, decimal Porcentaje, string txtClase)
         {
             try
             {

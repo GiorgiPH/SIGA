@@ -5,6 +5,7 @@ using PuntoVentas;
 using PV;
 using PuntoVentas.Clases.Login;
 using Guna.UI2.WinForms;
+using System.Data;
 
 namespace Condominios
 {
@@ -21,7 +22,29 @@ namespace Condominios
             T.SetToolTip(button8, "Consultar Concepto");
             T.SetToolTip(button9, "Imprimir");
         }
+        private void LlenarComboProveedores()
+        {
+            try
+            {
+                DataTable menus = c.CargarConceptosImpuesto();
 
+                // Evitar eventos mientras actualizas la fuente de datos
+
+                // Configurar estilo y autocompletado
+                cmbDependeDe.DropDownStyle = ComboBoxStyle.DropDown; // Cambiar a DropDown
+                cmbDependeDe.DataSource = menus;
+                cmbDependeDe.DisplayMember = "Nombre"; // Campo visible
+                cmbDependeDe.ValueMember = "Clave";   // Campo interno
+                cmbDependeDe.SelectedIndex = -1;     // Ningún elemento seleccionado al inicio
+
+
+                // Reanudar eventos
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
         private void button4_Click(object sender, EventArgs e)
         {
             if (txtClave.Text == string.Empty)
@@ -60,11 +83,11 @@ namespace Condominios
             {
                 if (txtPorcentaje.Visible == true)
                 {
-                    MessageBox.Show(c.RegistrConcepto(txtClave.Text, txtNombre.Text, cmbClase.Text, cmbTipo.Text, cmbRelativo.Text, txtCuenta.Text, Convert.ToDecimal(txtPorcentaje.Text), Convert.ToInt16(tgIva.Checked)));
+                    MessageBox.Show(c.RegistrConcepto(txtClave.Text, txtNombre.Text, cmbClase.Text, cmbTipo.Text, cmbRelativo.Text, txtCuenta.Text, Convert.ToDecimal(txtPorcentaje.Text), Convert.ToInt16(tgIva.Checked), cmbDependeDe?.SelectedValue?.ToString()));
                 }
                 else
                 {
-                    MessageBox.Show(c.RegistrConcepto(txtClave.Text, txtNombre.Text, cmbClase.Text, cmbTipo.Text, cmbRelativo.Text, txtCuenta.Text, Convert.ToDecimal(txtImporte.Text), Convert.ToInt16(tgIva.Checked)));
+                    MessageBox.Show(c.RegistrConcepto(txtClave.Text, txtNombre.Text, cmbClase.Text, cmbTipo.Text, cmbRelativo.Text, txtCuenta.Text, Convert.ToDecimal(txtImporte.Text), Convert.ToInt16(tgIva.Checked), cmbDependeDe?.SelectedValue?.ToString()));
                 }
                 Limpiar();
                 c.CargarConceptos(dataGridView1);
@@ -74,6 +97,7 @@ namespace Condominios
         private void ConceptosGlobales_Load(object sender, EventArgs e)
         {
             c.CargarConceptos(dataGridView1);
+            LlenarComboProveedores();
         }
 
         private void button5_Click(object sender, EventArgs e)
@@ -96,6 +120,7 @@ namespace Condominios
             groupBox1.Enabled = false;
             PanelUsuario.Visible = false;
             tgIva.Checked = false;
+            cmbDependeDe.SelectedIndex = -1;
         }
 
         private void dataGridView1_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
@@ -104,18 +129,18 @@ namespace Condominios
             {
                 string Clave = dataGridView1.Rows[e.RowIndex].Cells["Clave"].Value.ToString();
                 string Nombre = dataGridView1.Rows[e.RowIndex].Cells["Documento"].Value.ToString();
-                c.ConsultConceptoSeleccionado(Clave, Nombre, cmbClase, cmbTipo, cmbRelativo, txtCuenta, txtImporte, tgIva);
+                c.ConsultConceptoSeleccionado(Clave, Nombre, cmbClase, cmbTipo, cmbRelativo, txtCuenta, txtImporte, tgIva, cmbDependeDe);
                 if (cmbTipo.Text == "Porcentaje")
                 {
                     txtPorcentaje.Clear();
                     txtImporte.Clear();
-                    c.ConsultConceptoSeleccionado(Clave, Nombre, cmbClase, cmbTipo, cmbRelativo, txtCuenta, txtPorcentaje, tgIva);
+                    c.ConsultConceptoSeleccionado(Clave, Nombre, cmbClase, cmbTipo, cmbRelativo, txtCuenta, txtPorcentaje, tgIva, cmbDependeDe);
                 }
                 else
                 {
                     txtPorcentaje.Clear();
                     txtImporte.Clear();
-                    c.ConsultConceptoSeleccionado(Clave, Nombre, cmbClase, cmbTipo, cmbRelativo, txtCuenta, txtImporte, tgIva);
+                    c.ConsultConceptoSeleccionado(Clave, Nombre, cmbClase, cmbTipo, cmbRelativo, txtCuenta, txtImporte, tgIva, cmbDependeDe);
                 }
                 txtClave.Text = Clave;
                 txtNombre.Text = Nombre;

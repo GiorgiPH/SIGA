@@ -109,6 +109,7 @@
             this.cmbTipo.Name = "cmbTipo";
             this.cmbTipo.Size = new System.Drawing.Size(297, 21);
             this.cmbTipo.TabIndex = 108;
+            this.cmbTipo.Visible = false;
             this.cmbTipo.SelectedIndexChanged += new System.EventHandler(this.cmbTipo_SelectedIndexChanged);
             // 
             // label2
@@ -120,6 +121,7 @@
             this.label2.Size = new System.Drawing.Size(117, 13);
             this.label2.TabIndex = 107;
             this.label2.Text = "Cuentas Bancarias:";
+            this.label2.Visible = false;
             // 
             // cbFechas
             // 
@@ -129,6 +131,7 @@
             this.cbFechas.Size = new System.Drawing.Size(15, 14);
             this.cbFechas.TabIndex = 106;
             this.cbFechas.UseVisualStyleBackColor = true;
+            this.cbFechas.Visible = false;
             this.cbFechas.CheckedChanged += new System.EventHandler(this.cbFechas_CheckedChanged);
             // 
             // dtFecha2
@@ -140,6 +143,7 @@
             this.dtFecha2.Name = "dtFecha2";
             this.dtFecha2.Size = new System.Drawing.Size(116, 20);
             this.dtFecha2.TabIndex = 105;
+            this.dtFecha2.Visible = false;
             this.dtFecha2.ValueChanged += new System.EventHandler(this.dtFecha2_ValueChanged);
             // 
             // label4
@@ -151,6 +155,7 @@
             this.label4.Size = new System.Drawing.Size(18, 13);
             this.label4.TabIndex = 104;
             this.label4.Text = "Al";
+            this.label4.Visible = false;
             // 
             // dtFecha1
             // 
@@ -161,6 +166,7 @@
             this.dtFecha1.Name = "dtFecha1";
             this.dtFecha1.Size = new System.Drawing.Size(106, 20);
             this.dtFecha1.TabIndex = 103;
+            this.dtFecha1.Visible = false;
             this.dtFecha1.ValueChanged += new System.EventHandler(this.dtFecha1_ValueChanged);
             // 
             // label3
@@ -172,6 +178,7 @@
             this.label3.Size = new System.Drawing.Size(46, 13);
             this.label3.TabIndex = 102;
             this.label3.Text = "Fecha:";
+            this.label3.Visible = false;
             // 
             // cmbPropietario1
             // 
@@ -181,6 +188,7 @@
             this.cmbPropietario1.Name = "cmbPropietario1";
             this.cmbPropietario1.Size = new System.Drawing.Size(297, 21);
             this.cmbPropietario1.TabIndex = 101;
+            this.cmbPropietario1.Visible = false;
             this.cmbPropietario1.SelectedIndexChanged += new System.EventHandler(this.cmbPropietario1_SelectedIndexChanged);
             // 
             // label1
@@ -192,6 +200,7 @@
             this.label1.Size = new System.Drawing.Size(72, 13);
             this.label1.TabIndex = 100;
             this.label1.Text = "Propietario:";
+            this.label1.Visible = false;
             // 
             // panel2
             // 

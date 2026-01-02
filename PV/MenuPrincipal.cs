@@ -1451,7 +1451,7 @@ namespace PuntoVentas
                 btnTesoreria1.Location = new Point(9, 301);
                 btnTesoreria2.Location = new Point(165, 301);
 
-                btnPresupuesto1.Location = new Point(9, 353);
+                btnPresupuesto1.Location = new Point(9, 400);
                 btnPresupuesto2.Location = new Point(165, 353);
 
                 btnUtilerias1.Location = new Point(9, 353);
@@ -1496,10 +1496,10 @@ namespace PuntoVentas
 
                 /*Coloca en la posición final los botones cuando esta desplegado el inventario*/
 
-                btnPresupuesto1.Location = new Point(9, 590);
-                btnPresupuesto2.Location = new Point(165, 590);
-                btnUtilerias1.Location = new Point(9, 590);
-                btnUtilerias2.Location = new Point(165, 590);
+                btnPresupuesto1.Location = new Point(9, 760);
+                btnPresupuesto2.Location = new Point(165, 760);
+                btnUtilerias1.Location = new Point(9, 760);
+                btnUtilerias2.Location = new Point(165, 760);
             }
         }
 
@@ -2133,7 +2133,7 @@ namespace PuntoVentas
             SubGrupoReportesCompras.Visible = false;
             SubGrupoReportesProveedores.Visible = false;
 
-            ReporteDiarioComprasFiltro reporteDiarioCompras = new ReporteDiarioComprasFiltro();
+            ReporteDiarioComprasFiltro reporteDiarioCompras = new ReporteDiarioComprasFiltro("Diario Compras");
             reporteDiarioCompras.ShowDialog();
         }
 
@@ -2371,7 +2371,8 @@ namespace PuntoVentas
 
         private void guna2GradientButton6_Click_2(object sender, EventArgs e)
         {
-
+            Requisicion2 Rembolso = new Requisicion2();
+            Rembolso.ShowDialog();
         }
 
         private void guna2GradientButton57_Click(object sender, EventArgs e)
@@ -2388,6 +2389,66 @@ namespace PuntoVentas
 
             ReporteDiarioComprasFiltro reporteDiarioNotasCargo = new ReporteDiarioComprasFiltro("Diario Reembolsos");
             reporteDiarioNotasCargo.ShowDialog();
+        }
+
+        private void guna2GradientButton16_Click(object sender, EventArgs e)
+        {
+
+
+            pnReportesEgresos.Visible = true;
+            pnReportesEgresos.Location = new Point(1, 630);
+
+
+        }
+
+        private void btnCompras1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void guna2GradientButton62_Click(object sender, EventArgs e)
+        {
+            ReporteDiarioComprasFiltro reporteDiarioNotasCargo = new ReporteDiarioComprasFiltro("Diario Egresos");
+            reporteDiarioNotasCargo.ShowDialog();
+        }
+
+        private void guna2GradientButton61_Click(object sender, EventArgs e)
+        {
+            ReporteDiarioComprasFiltro reporteDiarioNotasCargo = new ReporteDiarioComprasFiltro("Saldos Proveedor");
+            reporteDiarioNotasCargo.ShowDialog();
+        }
+
+        private void guna2GradientButton60_Click(object sender, EventArgs e)
+        {
+            ReporteEstadoCuentaProveedor reporteDiarioNotasCargo = new ReporteEstadoCuentaProveedor();
+            reporteDiarioNotasCargo.ShowDialog();
+        }
+
+        private void guna2GradientButton73_Click(object sender, EventArgs e)
+        {
+            DefinePolizas DP = new DefinePolizas("Definiciones Compras");
+            DefinePolizas.TipopolizaCompras = "Compras";
+        }
+
+        private void guna2GradientButton10_Click_1(object sender, EventArgs e)
+        {
+            GENERARPOLIZAS GP = new GENERARPOLIZAS("Polizas Compras");
+            GENERARPOLIZAS.TipopolizaCompras = "Egresos";
+            GP.ShowDialog();
+        }
+
+        private void guna2GradientButton73_Click_1(object sender, EventArgs e)
+        {
+            DefinePolizas DP = new DefinePolizas("Definiciones Compras");
+            DefinePolizas.TipopolizaCompras = "Compras";
+            DP.ShowDialog();
+        }
+
+        private void guna2GradientButton66_Click(object sender, EventArgs e)
+        {
+            GENERARPOLIZAS GP = new GENERARPOLIZAS("Polizas Compras");
+            GENERARPOLIZAS.TipopolizaCompras = "Egresos";
+            GP.ShowDialog();
         }
     }
 }

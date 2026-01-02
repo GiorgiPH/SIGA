@@ -120,6 +120,7 @@
             this.cmbPropietario1.Name = "cmbPropietario1";
             this.cmbPropietario1.Size = new System.Drawing.Size(297, 21);
             this.cmbPropietario1.TabIndex = 84;
+            this.cmbPropietario1.Visible = false;
             this.cmbPropietario1.SelectedIndexChanged += new System.EventHandler(this.cmbPropietario1_SelectedIndexChanged);
             // 
             // label1
@@ -131,6 +132,7 @@
             this.label1.Size = new System.Drawing.Size(69, 13);
             this.label1.TabIndex = 83;
             this.label1.Text = "Proveedor:";
+            this.label1.Visible = false;
             // 
             // panel2
             // 

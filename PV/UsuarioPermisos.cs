@@ -739,6 +739,11 @@ namespace PV
         {
 
         }
+
+        private void guna2ToggleSwitch35_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }
 

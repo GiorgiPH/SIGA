@@ -51,6 +51,7 @@
             this.label5 = new System.Windows.Forms.Label();
             this.guna2GradientPanel1 = new Guna.UI2.WinForms.Guna2GradientPanel();
             this.txtIncluyeIva = new System.Windows.Forms.TextBox();
+            this.txtNivel = new System.Windows.Forms.TextBox();
             this.txtPorcentaje = new System.Windows.Forms.TextBox();
             this.guna2HtmlLabel1 = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.cmbConcepto = new Guna.UI2.WinForms.Guna2ComboBox();
@@ -59,17 +60,28 @@
             this.txtSubtotal = new Guna.UI2.WinForms.Guna2TextBox();
             this.txtDivisa = new Guna.UI2.WinForms.Guna2TextBox();
             this.txtTipoCambio = new Guna.UI2.WinForms.Guna2TextBox();
-            this.txtDescuento = new Guna.UI2.WinForms.Guna2TextBox();
             this.txtTotal = new Guna.UI2.WinForms.Guna2TextBox();
             this.txtImpuesto = new Guna.UI2.WinForms.Guna2TextBox();
             this.guna2Panel1 = new Guna.UI2.WinForms.Guna2Panel();
+            this.dataGridView2 = new System.Windows.Forms.DataGridView();
+            this.txtRetencion = new System.Windows.Forms.TextBox();
+            this.txtDescuento1 = new Guna.UI2.WinForms.Guna2TextBox();
             this.guna2Button8 = new Guna.UI2.WinForms.Guna2Button();
             this.guna2Button1 = new Guna.UI2.WinForms.Guna2Button();
             this.guna2Button3 = new Guna.UI2.WinForms.Guna2Button();
             this.guna2Button9 = new Guna.UI2.WinForms.Guna2Button();
             this.guna2Separator1 = new Guna.UI2.WinForms.Guna2Separator();
+            this.controlCondominiosDataSet151 = new PV.ControlCondominiosDataSet15();
+            this.FolioGasto1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ClaseConceptoAgrupada = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.SubtotalCalculado = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ImpuestoImporte = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ImporteRetencion = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Tipo = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.guna2GradientPanel1.SuspendLayout();
             this.guna2Panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.controlCondominiosDataSet151)).BeginInit();
             this.SuspendLayout();
             // 
             // txtBeca
@@ -161,7 +173,7 @@
             // 
             this.label19.AutoSize = true;
             this.label19.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label19.Location = new System.Drawing.Point(194, 274);
+            this.label19.Location = new System.Drawing.Point(194, 238);
             this.label19.Name = "label19";
             this.label19.Size = new System.Drawing.Size(15, 15);
             this.label19.TabIndex = 77;
@@ -172,7 +184,7 @@
             // 
             this.label20.AutoSize = true;
             this.label20.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label20.Location = new System.Drawing.Point(112, 274);
+            this.label20.Location = new System.Drawing.Point(112, 238);
             this.label20.Name = "label20";
             this.label20.Size = new System.Drawing.Size(70, 15);
             this.label20.TabIndex = 76;
@@ -273,6 +285,7 @@
             // 
             this.guna2GradientPanel1.BorderRadius = 80;
             this.guna2GradientPanel1.Controls.Add(this.txtIncluyeIva);
+            this.guna2GradientPanel1.Controls.Add(this.txtNivel);
             this.guna2GradientPanel1.Controls.Add(this.txtPorcentaje);
             this.guna2GradientPanel1.Controls.Add(this.guna2HtmlLabel1);
             this.guna2GradientPanel1.CustomizableEdges.BottomRight = false;
@@ -284,17 +297,26 @@
             this.guna2GradientPanel1.GradientMode = System.Drawing.Drawing2D.LinearGradientMode.Vertical;
             this.guna2GradientPanel1.Location = new System.Drawing.Point(0, 0);
             this.guna2GradientPanel1.Name = "guna2GradientPanel1";
-            this.guna2GradientPanel1.Size = new System.Drawing.Size(724, 75);
+            this.guna2GradientPanel1.Size = new System.Drawing.Size(700, 75);
             this.guna2GradientPanel1.TabIndex = 126;
             // 
             // txtIncluyeIva
             // 
-            this.txtIncluyeIva.Location = new System.Drawing.Point(317, 27);
+            this.txtIncluyeIva.Location = new System.Drawing.Point(305, 50);
             this.txtIncluyeIva.Name = "txtIncluyeIva";
             this.txtIncluyeIva.Size = new System.Drawing.Size(90, 20);
             this.txtIncluyeIva.TabIndex = 351;
             this.txtIncluyeIva.TabStop = false;
             this.txtIncluyeIva.Visible = false;
+            // 
+            // txtNivel
+            // 
+            this.txtNivel.Location = new System.Drawing.Point(506, 50);
+            this.txtNivel.Name = "txtNivel";
+            this.txtNivel.Size = new System.Drawing.Size(90, 20);
+            this.txtNivel.TabIndex = 350;
+            this.txtNivel.TabStop = false;
+            this.txtNivel.Visible = false;
             // 
             // txtPorcentaje
             // 
@@ -304,6 +326,7 @@
             this.txtPorcentaje.TabIndex = 350;
             this.txtPorcentaje.TabStop = false;
             this.txtPorcentaje.Visible = false;
+            this.txtPorcentaje.TextChanged += new System.EventHandler(this.txtPorcentaje_TextChanged);
             // 
             // guna2HtmlLabel1
             // 
@@ -324,6 +347,7 @@
             this.cmbConcepto.BorderRadius = 12;
             this.cmbConcepto.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
             this.cmbConcepto.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbConcepto.Enabled = false;
             this.cmbConcepto.FocusedColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.cmbConcepto.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.cmbConcepto.Font = new System.Drawing.Font("Segoe UI", 10F);
@@ -357,7 +381,6 @@
             this.txtclase.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.txtclase.Location = new System.Drawing.Point(188, 54);
             this.txtclase.Name = "txtclase";
-            this.txtclase.PasswordChar = '\0';
             this.txtclase.PlaceholderText = "";
             this.txtclase.SelectedText = "";
             this.txtclase.Size = new System.Drawing.Size(140, 25);
@@ -381,7 +404,6 @@
             this.txtTipo.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.txtTipo.Location = new System.Drawing.Point(400, 53);
             this.txtTipo.Name = "txtTipo";
-            this.txtTipo.PasswordChar = '\0';
             this.txtTipo.PlaceholderText = "";
             this.txtTipo.SelectedText = "";
             this.txtTipo.Size = new System.Drawing.Size(150, 25);
@@ -405,7 +427,6 @@
             this.txtSubtotal.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.txtSubtotal.Location = new System.Drawing.Point(189, 91);
             this.txtSubtotal.Name = "txtSubtotal";
-            this.txtSubtotal.PasswordChar = '\0';
             this.txtSubtotal.PlaceholderText = "";
             this.txtSubtotal.SelectedText = "";
             this.txtSubtotal.Size = new System.Drawing.Size(134, 25);
@@ -430,7 +451,6 @@
             this.txtDivisa.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.txtDivisa.Location = new System.Drawing.Point(394, 92);
             this.txtDivisa.Name = "txtDivisa";
-            this.txtDivisa.PasswordChar = '\0';
             this.txtDivisa.PlaceholderText = "";
             this.txtDivisa.SelectedText = "";
             this.txtDivisa.Size = new System.Drawing.Size(74, 25);
@@ -454,36 +474,10 @@
             this.txtTipoCambio.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.txtTipoCambio.Location = new System.Drawing.Point(586, 92);
             this.txtTipoCambio.Name = "txtTipoCambio";
-            this.txtTipoCambio.PasswordChar = '\0';
             this.txtTipoCambio.PlaceholderText = "";
             this.txtTipoCambio.SelectedText = "";
             this.txtTipoCambio.Size = new System.Drawing.Size(74, 25);
             this.txtTipoCambio.TabIndex = 345;
-            // 
-            // txtDescuento
-            // 
-            this.txtDescuento.AutoRoundedCorners = true;
-            this.txtDescuento.BorderColor = System.Drawing.Color.Gray;
-            this.txtDescuento.BorderRadius = 11;
-            this.txtDescuento.Cursor = System.Windows.Forms.Cursors.IBeam;
-            this.txtDescuento.DefaultText = "0.00";
-            this.txtDescuento.DisabledState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(208)))), ((int)(((byte)(208)))));
-            this.txtDescuento.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(226)))), ((int)(((byte)(226)))));
-            this.txtDescuento.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
-            this.txtDescuento.DisabledState.PlaceholderForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
-            this.txtDescuento.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.txtDescuento.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.txtDescuento.ForeColor = System.Drawing.Color.Black;
-            this.txtDescuento.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.txtDescuento.Location = new System.Drawing.Point(189, 136);
-            this.txtDescuento.Name = "txtDescuento";
-            this.txtDescuento.PasswordChar = '\0';
-            this.txtDescuento.PlaceholderText = "";
-            this.txtDescuento.SelectedText = "";
-            this.txtDescuento.Size = new System.Drawing.Size(134, 25);
-            this.txtDescuento.TabIndex = 346;
-            this.txtDescuento.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.txtDescuento.TextChanged += new System.EventHandler(this.txtDescuento_TextChanged_1);
             // 
             // txtTotal
             // 
@@ -503,7 +497,6 @@
             this.txtTotal.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.txtTotal.Location = new System.Drawing.Point(188, 180);
             this.txtTotal.Name = "txtTotal";
-            this.txtTotal.PasswordChar = '\0';
             this.txtTotal.PlaceholderText = "";
             this.txtTotal.SelectedText = "";
             this.txtTotal.Size = new System.Drawing.Size(135, 25);
@@ -525,9 +518,8 @@
             this.txtImpuesto.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.txtImpuesto.ForeColor = System.Drawing.Color.Black;
             this.txtImpuesto.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.txtImpuesto.Location = new System.Drawing.Point(215, 266);
+            this.txtImpuesto.Location = new System.Drawing.Point(215, 230);
             this.txtImpuesto.Name = "txtImpuesto";
-            this.txtImpuesto.PasswordChar = '\0';
             this.txtImpuesto.PlaceholderText = "";
             this.txtImpuesto.SelectedText = "";
             this.txtImpuesto.Size = new System.Drawing.Size(134, 25);
@@ -542,13 +534,15 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.guna2Panel1.BackColor = System.Drawing.Color.Transparent;
             this.guna2Panel1.BorderRadius = 20;
+            this.guna2Panel1.Controls.Add(this.dataGridView2);
+            this.guna2Panel1.Controls.Add(this.txtRetencion);
+            this.guna2Panel1.Controls.Add(this.txtDescuento1);
             this.guna2Panel1.Controls.Add(this.guna2Button8);
             this.guna2Panel1.Controls.Add(this.guna2Button1);
             this.guna2Panel1.Controls.Add(this.txtImpuesto);
             this.guna2Panel1.Controls.Add(this.guna2Button3);
             this.guna2Panel1.Controls.Add(this.txtTotal);
             this.guna2Panel1.Controls.Add(this.guna2Button9);
-            this.guna2Panel1.Controls.Add(this.txtDescuento);
             this.guna2Panel1.Controls.Add(this.guna2Separator1);
             this.guna2Panel1.Controls.Add(this.txtTipoCambio);
             this.guna2Panel1.Controls.Add(this.cmbConcepto);
@@ -576,8 +570,57 @@
             this.guna2Panel1.FillColor = System.Drawing.Color.White;
             this.guna2Panel1.Location = new System.Drawing.Point(16, 81);
             this.guna2Panel1.Name = "guna2Panel1";
-            this.guna2Panel1.Size = new System.Drawing.Size(696, 294);
+            this.guna2Panel1.Size = new System.Drawing.Size(672, 291);
             this.guna2Panel1.TabIndex = 349;
+            // 
+            // dataGridView2
+            // 
+            this.dataGridView2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView2.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.FolioGasto1,
+            this.ClaseConceptoAgrupada,
+            this.SubtotalCalculado,
+            this.ImpuestoImporte,
+            this.ImporteRetencion,
+            this.Tipo});
+            this.dataGridView2.Location = new System.Drawing.Point(384, 127);
+            this.dataGridView2.Name = "dataGridView2";
+            this.dataGridView2.Size = new System.Drawing.Size(119, 85);
+            this.dataGridView2.TabIndex = 353;
+            this.dataGridView2.Visible = false;
+            // 
+            // txtRetencion
+            // 
+            this.txtRetencion.Enabled = false;
+            this.txtRetencion.Location = new System.Drawing.Point(394, 144);
+            this.txtRetencion.Name = "txtRetencion";
+            this.txtRetencion.Size = new System.Drawing.Size(70, 20);
+            this.txtRetencion.TabIndex = 352;
+            this.txtRetencion.Visible = false;
+            // 
+            // txtDescuento1
+            // 
+            this.txtDescuento1.AutoRoundedCorners = true;
+            this.txtDescuento1.BorderColor = System.Drawing.Color.Gray;
+            this.txtDescuento1.BorderRadius = 11;
+            this.txtDescuento1.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.txtDescuento1.DefaultText = "0.00";
+            this.txtDescuento1.DisabledState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(208)))), ((int)(((byte)(208)))));
+            this.txtDescuento1.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(226)))), ((int)(((byte)(226)))));
+            this.txtDescuento1.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
+            this.txtDescuento1.DisabledState.PlaceholderForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
+            this.txtDescuento1.Enabled = false;
+            this.txtDescuento1.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.txtDescuento1.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.txtDescuento1.ForeColor = System.Drawing.Color.Black;
+            this.txtDescuento1.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.txtDescuento1.Location = new System.Drawing.Point(189, 139);
+            this.txtDescuento1.Name = "txtDescuento1";
+            this.txtDescuento1.PlaceholderText = "";
+            this.txtDescuento1.SelectedText = "";
+            this.txtDescuento1.Size = new System.Drawing.Size(134, 25);
+            this.txtDescuento1.TabIndex = 351;
+            this.txtDescuento1.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // guna2Button8
             // 
@@ -596,7 +639,7 @@
             this.guna2Button8.Image = ((System.Drawing.Image)(resources.GetObject("guna2Button8.Image")));
             this.guna2Button8.ImageAlign = System.Windows.Forms.HorizontalAlignment.Left;
             this.guna2Button8.ImageSize = new System.Drawing.Size(35, 35);
-            this.guna2Button8.Location = new System.Drawing.Point(537, 225);
+            this.guna2Button8.Location = new System.Drawing.Point(537, 222);
             this.guna2Button8.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.guna2Button8.Name = "guna2Button8";
             this.guna2Button8.Size = new System.Drawing.Size(128, 46);
@@ -622,7 +665,7 @@
             this.guna2Button1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(19)))), ((int)(((byte)(35)))), ((int)(((byte)(95)))));
             this.guna2Button1.Image = global::PV.Properties.Resources.cancelar;
             this.guna2Button1.ImageAlign = System.Windows.Forms.HorizontalAlignment.Left;
-            this.guna2Button1.Location = new System.Drawing.Point(30, 225);
+            this.guna2Button1.Location = new System.Drawing.Point(30, 222);
             this.guna2Button1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.guna2Button1.Name = "guna2Button1";
             this.guna2Button1.Size = new System.Drawing.Size(128, 46);
@@ -649,7 +692,7 @@
             this.guna2Button3.Image = ((System.Drawing.Image)(resources.GetObject("guna2Button3.Image")));
             this.guna2Button3.ImageAlign = System.Windows.Forms.HorizontalAlignment.Left;
             this.guna2Button3.ImageSize = new System.Drawing.Size(48, 48);
-            this.guna2Button3.Location = new System.Drawing.Point(395, 225);
+            this.guna2Button3.Location = new System.Drawing.Point(395, 222);
             this.guna2Button3.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.guna2Button3.Name = "guna2Button3";
             this.guna2Button3.Size = new System.Drawing.Size(128, 46);
@@ -675,7 +718,7 @@
             this.guna2Button9.Image = ((System.Drawing.Image)(resources.GetObject("guna2Button9.Image")));
             this.guna2Button9.ImageAlign = System.Windows.Forms.HorizontalAlignment.Left;
             this.guna2Button9.ImageSize = new System.Drawing.Size(48, 48);
-            this.guna2Button9.Location = new System.Drawing.Point(829, 243);
+            this.guna2Button9.Location = new System.Drawing.Point(829, 240);
             this.guna2Button9.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.guna2Button9.Name = "guna2Button9";
             this.guna2Button9.Size = new System.Drawing.Size(128, 46);
@@ -694,12 +737,47 @@
             this.guna2Separator1.Size = new System.Drawing.Size(283, 10);
             this.guna2Separator1.TabIndex = 253;
             // 
+            // controlCondominiosDataSet151
+            // 
+            this.controlCondominiosDataSet151.DataSetName = "ControlCondominiosDataSet15";
+            this.controlCondominiosDataSet151.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
+            // 
+            // FolioGasto1
+            // 
+            this.FolioGasto1.HeaderText = "FolioGasto";
+            this.FolioGasto1.Name = "FolioGasto1";
+            // 
+            // ClaseConceptoAgrupada
+            // 
+            this.ClaseConceptoAgrupada.HeaderText = "ClaseConceptoAgrupada";
+            this.ClaseConceptoAgrupada.Name = "ClaseConceptoAgrupada";
+            // 
+            // SubtotalCalculado
+            // 
+            this.SubtotalCalculado.HeaderText = "SubtotalCalculado";
+            this.SubtotalCalculado.Name = "SubtotalCalculado";
+            // 
+            // ImpuestoImporte
+            // 
+            this.ImpuestoImporte.HeaderText = "ImpuestoImporte";
+            this.ImpuestoImporte.Name = "ImpuestoImporte";
+            // 
+            // ImporteRetencion
+            // 
+            this.ImporteRetencion.HeaderText = "ImporteRetencion";
+            this.ImporteRetencion.Name = "ImporteRetencion";
+            // 
+            // Tipo
+            // 
+            this.Tipo.HeaderText = "Tipo";
+            this.Tipo.Name = "Tipo";
+            // 
             // ConceptosGlobalesPartidaGastos
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(237)))), ((int)(((byte)(237)))), ((int)(((byte)(237)))));
-            this.ClientSize = new System.Drawing.Size(724, 387);
+            this.ClientSize = new System.Drawing.Size(700, 384);
             this.ControlBox = false;
             this.Controls.Add(this.guna2Panel1);
             this.Controls.Add(this.txtBeca);
@@ -716,6 +794,8 @@
             this.guna2GradientPanel1.PerformLayout();
             this.guna2Panel1.ResumeLayout(false);
             this.guna2Panel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.controlCondominiosDataSet151)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -750,7 +830,6 @@
         private Guna.UI2.WinForms.Guna2TextBox txtSubtotal;
         private Guna.UI2.WinForms.Guna2TextBox txtDivisa;
         private Guna.UI2.WinForms.Guna2TextBox txtTipoCambio;
-        private Guna.UI2.WinForms.Guna2TextBox txtDescuento;
         private Guna.UI2.WinForms.Guna2TextBox txtTotal;
         private Guna.UI2.WinForms.Guna2TextBox txtImpuesto;
         private Guna.UI2.WinForms.Guna2Panel guna2Panel1;
@@ -761,5 +840,16 @@
         private Guna.UI2.WinForms.Guna2Button guna2Button8;
         private System.Windows.Forms.TextBox txtPorcentaje;
         private System.Windows.Forms.TextBox txtIncluyeIva;
+        private System.Windows.Forms.TextBox txtNivel;
+        private Guna.UI2.WinForms.Guna2TextBox txtDescuento1;
+        private System.Windows.Forms.TextBox txtRetencion;
+        private System.Windows.Forms.DataGridView dataGridView2;
+        private ControlCondominiosDataSet15 controlCondominiosDataSet151;
+        private System.Windows.Forms.DataGridViewTextBoxColumn FolioGasto1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ClaseConceptoAgrupada;
+        private System.Windows.Forms.DataGridViewTextBoxColumn SubtotalCalculado;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ImpuestoImporte;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ImporteRetencion;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Tipo;
     }
 }

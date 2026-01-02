@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Data;
 using System.Windows.Forms;
+using PV.Clases.Proveedores;
 using PV.Clases.ReporteCompras;
 
 namespace PV
@@ -7,6 +9,7 @@ namespace PV
     public partial class ReporteEstadoCuentaProveedor : Form
     {
         DBReporteCompras c = new DBReporteCompras();
+        DBProveedores p = new DBProveedores();
         string provedor = string.Empty;
 
         public ReporteEstadoCuentaProveedor()
@@ -16,16 +19,44 @@ namespace PV
 
         private void ReporteEstadoCuentaProveedor_Load(object sender, EventArgs e)
         {
-            c.SeleccionarProveedor2(cmbPropietario1);
-            cmbPropietario1.SelectedIndex = 0;
-            provedor = cmbPropietario1.Text;
+            LlenarComboProveedores();
+
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
             this.Close();
         }
+        private void LlenarComboProveedores()
+        {
+            try
+            {
+                DataTable menus = p.ConsultarProveedores();
+                // Crear fila "TODOS"
+                DataRow filaTodos = menus.NewRow();
+                filaTodos["IdProveedor"] = "0"; // Asegúrate de que la columna "Clave" exista
+                filaTodos["RazonSocial"] = "TODOS"; // Asegúrate de que la columna "Clave" exista
 
+                menus.Rows.InsertAt(filaTodos, 0); // Insertar al principio
+                // Evitar eventos mientras actualizas la fuente de datos
+
+                // Configurar estilo y autocompletado
+                cmbPropietario1.DropDownStyle = ComboBoxStyle.DropDown; // Cambiar a DropDown
+                cmbPropietario1.DataSource = menus;
+                cmbPropietario1.DisplayMember = "RazonSocial"; // Campo visible
+                cmbPropietario1.ValueMember = "IdProveedor";   // Campo interno
+                cmbPropietario1.SelectedIndex = -1;     // Ningún elemento seleccionado al inicio
+
+                //cmbCentroCostos.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
+                //cmbCentroCostos.AutoCompleteSource = AutoCompleteSource.ListItems;
+
+                // Reanudar eventos
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
         private void cmbPropietario1_SelectedIndexChanged(object sender, EventArgs e)
         {
             provedor = cmbPropietario1.Text;
@@ -73,7 +104,7 @@ namespace PV
                         Anticipo = "No";
                     }
 
-                    EstadoCuentaProveedor reporteDiarioOrdenesCompra = new EstadoCuentaProveedor(provedor, cmbPagos.Text, cmbSaldos.Text, fecha, "1990/01/01", dtFecha2.Text, firma, Anticipo);
+                    EstadoCuentaProveedor reporteDiarioOrdenesCompra = new EstadoCuentaProveedor(cmbPropietario1?.SelectedValue?.ToString(), cmbPagos.Text, cmbSaldos.Text, fecha, "1990/01/01", dtFecha2.Text, firma, Anticipo);
                     reporteDiarioOrdenesCompra.ShowDialog();
                 }
             }
@@ -178,7 +209,7 @@ namespace PV
                         Anticipo = "No";
                     }
 
-                    EstadoCuentaProveedor reporteDiarioOrdenesCompra = new EstadoCuentaProveedor(provedor, cmbPagos.Text, cmbSaldos.Text, fecha, "1990/01/01", dtFecha2.Text, firma, Anticipo);
+                    EstadoCuentaProveedor reporteDiarioOrdenesCompra = new EstadoCuentaProveedor(cmbPropietario1?.SelectedValue?.ToString(), cmbPagos.Text, cmbSaldos.Text, fecha, "1990/01/01", dtFecha2.Text, firma, Anticipo);
                     reporteDiarioOrdenesCompra.ShowDialog();
                 }
             }

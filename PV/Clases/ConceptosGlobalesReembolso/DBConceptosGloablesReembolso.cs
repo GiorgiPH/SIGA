@@ -19,17 +19,38 @@ namespace PV.Clases.ConceptosGlobalesReembolso
         {
             try
             {
-                string query = @"SELECT g.ClaveConceptoG, c.Nombre, c.Tipo, g.Descuento, g.Cargo, c.clase FROM ConceptoGlobalesGasto g " +
-                   "JOIN ConceptosGlobales c ON g.ClaveConceptoG = c.Clave WHERE g.Folio = @folio and g.Partida=@Partida";
+                string query = @"SELECT g.ClaveConceptoG, c.Nombre, c.Tipo, g.Descuento, g.Cargo, c.clase, cg.Clave as clavebase, cg.Clase as clasebase, cg.Importe as importebase FROM ConceptoGlobalesGasto g  " +
+                   "JOIN ConceptosGlobales c ON g.ClaveConceptoG = c.Clave Left Join ConceptosGlobales as cg ON cg.Clave=c.DependeDe WHERE g.Folio = @folio and g.Partida=@Partida";
                 if (!string.IsNullOrEmpty(clase))
                 {
                     query += " and c.clase='" + clase + "'";
                 }
                 SqlDataAdapter da = new SqlDataAdapter(query
                     , ObtenerCn());
-
                 da.SelectCommand.Parameters.AddWithValue("@Folio", folio);
                 da.SelectCommand.Parameters.AddWithValue("@Partida", partida);
+                DataTable dt = new DataTable();
+                da.Fill(dt);
+                return dt;
+            }
+            catch (Exception ex)
+            {
+                // Puedes manejar mejor el error o lanzarlo para la capa superior
+                throw new Exception("Error al obtener partidas de reembolso", ex);
+            }
+        }
+        public DataTable CargarConceptosGlobalesExistentes(string folio)
+        {
+            try
+            {
+                string query = @"SELECT g.ClaveConceptoG, c.Nombre, c.Tipo, g.descuento, g.cargo, c.clase, g.partida, R.Subtotal FROM ConceptoGlobalesGasto g  " +
+                   " JOIN ConceptosGlobales c ON g.ClaveConceptoG = c.Clave" +
+                   " JOIN PartidaRegistroReembolso as R ON R.FolioGasto=g.Folio and R.Partida = g.partida WHERE g.Folio = @Folio order by g.partida";
+                
+                SqlDataAdapter da = new SqlDataAdapter(query
+                    , ObtenerCn());
+
+                da.SelectCommand.Parameters.AddWithValue("@Folio", folio);
                 DataTable dt = new DataTable();
                 da.Fill(dt);
                 return dt;

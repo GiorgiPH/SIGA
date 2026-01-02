@@ -134,7 +134,7 @@ namespace PV
 
         private void button1_Click(object sender, EventArgs e)
         {
-            ReporteSaldosProveedores reporteSaldoPropietario = new ReporteSaldosProveedores(propietario1, propietario2, fecha, fecha1, fecha2, divisa, TipoCambio);
+            ReporteSaldosProveedores reporteSaldoPropietario = new ReporteSaldosProveedores(propietario1, propietario2, fecha1, fecha2, "");
             reporteSaldoPropietario.ShowDialog();
         }
 

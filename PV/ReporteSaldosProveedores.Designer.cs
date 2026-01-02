@@ -29,7 +29,6 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            Microsoft.Reporting.WinForms.ReportDataSource reportDataSource1 = new Microsoft.Reporting.WinForms.ReportDataSource();
             this.ProveedorBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.ControlCondominiosDataSet56 = new PV.ControlCondominiosDataSet56();
             this.reportViewer1 = new Microsoft.Reporting.WinForms.ReportViewer();
@@ -63,9 +62,6 @@
             this.reportViewer1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            reportDataSource1.Name = "DataSet1";
-            reportDataSource1.Value = this.ProveedorBindingSource;
-            this.reportViewer1.LocalReport.DataSources.Add(reportDataSource1);
             this.reportViewer1.LocalReport.ReportEmbeddedResource = "PV.ReporteSaldosProveedores.rdlc";
             this.reportViewer1.Location = new System.Drawing.Point(1, 49);
             this.reportViewer1.Name = "reportViewer1";
@@ -81,6 +77,7 @@
             this.cbFechas.Size = new System.Drawing.Size(15, 14);
             this.cbFechas.TabIndex = 68;
             this.cbFechas.UseVisualStyleBackColor = true;
+            this.cbFechas.Visible = false;
             this.cbFechas.CheckedChanged += new System.EventHandler(this.cbFechas_CheckedChanged);
             // 
             // dtFecha2
@@ -92,6 +89,7 @@
             this.dtFecha2.Name = "dtFecha2";
             this.dtFecha2.Size = new System.Drawing.Size(118, 20);
             this.dtFecha2.TabIndex = 67;
+            this.dtFecha2.Visible = false;
             this.dtFecha2.ValueChanged += new System.EventHandler(this.dtFecha2_ValueChanged);
             this.dtFecha2.Leave += new System.EventHandler(this.dtFecha2_Leave);
             // 
@@ -104,6 +102,7 @@
             this.label4.Size = new System.Drawing.Size(18, 13);
             this.label4.TabIndex = 66;
             this.label4.Text = "Al";
+            this.label4.Visible = false;
             // 
             // dtFecha1
             // 
@@ -114,6 +113,7 @@
             this.dtFecha1.Name = "dtFecha1";
             this.dtFecha1.Size = new System.Drawing.Size(118, 20);
             this.dtFecha1.TabIndex = 65;
+            this.dtFecha1.Visible = false;
             this.dtFecha1.ValueChanged += new System.EventHandler(this.dtFecha1_ValueChanged);
             // 
             // label3
@@ -125,6 +125,7 @@
             this.label3.Size = new System.Drawing.Size(46, 13);
             this.label3.TabIndex = 64;
             this.label3.Text = "Fecha:";
+            this.label3.Visible = false;
             // 
             // label2
             // 
@@ -135,6 +136,7 @@
             this.label2.Size = new System.Drawing.Size(18, 13);
             this.label2.TabIndex = 63;
             this.label2.Text = "Al";
+            this.label2.Visible = false;
             // 
             // cmbpropietario2
             // 
@@ -144,6 +146,7 @@
             this.cmbpropietario2.Name = "cmbpropietario2";
             this.cmbpropietario2.Size = new System.Drawing.Size(239, 21);
             this.cmbpropietario2.TabIndex = 62;
+            this.cmbpropietario2.Visible = false;
             this.cmbpropietario2.SelectedIndexChanged += new System.EventHandler(this.cmbpropietario2_SelectedIndexChanged);
             // 
             // cmbPropietario1
@@ -154,6 +157,7 @@
             this.cmbPropietario1.Name = "cmbPropietario1";
             this.cmbPropietario1.Size = new System.Drawing.Size(227, 21);
             this.cmbPropietario1.TabIndex = 61;
+            this.cmbPropietario1.Visible = false;
             this.cmbPropietario1.SelectedIndexChanged += new System.EventHandler(this.cmbPropietario1_SelectedIndexChanged);
             // 
             // label1
@@ -165,6 +169,7 @@
             this.label1.Size = new System.Drawing.Size(78, 13);
             this.label1.TabIndex = 60;
             this.label1.Text = "Propietarios:";
+            this.label1.Visible = false;
             // 
             // panel2
             // 

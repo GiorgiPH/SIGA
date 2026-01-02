@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using System.Data;
 using System.Globalization;
 using System.Windows.Forms;
 using Condominios.Clases.RegistrarIngresos;
@@ -22,14 +23,41 @@ namespace PV
             Lista2 = ListaConcep2;
             Lista3 = ListaConcep3;
         }
+        private void LlenarEgresosSeleccionados()
+        {
+            DataTable dtOriginal = c.ObtenerEgresos(txtMatricula.Text);
 
+            dgvPagosPendientes.Rows.Clear();
+
+            foreach (DataRow egreso in dtOriginal.Rows)
+            {
+                // Solo agrega los egresos seleccionados
+                if (Lista.Contains(egreso["Folio"].ToString()) &&
+                    Lista2.Contains(egreso["ClaveDocumento"].ToString()) &&
+                    Lista3.Contains(egreso["Tipo"].ToString()))
+                {
+                    int idx = dgvPagosPendientes.Rows.Add();
+                    DataGridViewRow row = dgvPagosPendientes.Rows[idx];
+
+                    row.Cells["Tipo"].Value = egreso["Tipo"];
+                    row.Cells["FolioDocumento"].Value = egreso["Folio"];
+                    row.Cells["Documento"].Value = egreso["ClaveDocumento"];
+                    row.Cells["Concepto"].Value = egreso["Nombre"];
+                    row.Cells["Recargos"].Value = egreso["Recargo"];
+                    row.Cells["Descuento"].Value = egreso["DescuentoPago"];
+                    row.Cells["Saldo"].Value = egreso["Saldo"];
+                    row.Cells["Importe"].Value = egreso["Total"];
+                    row.Cells["Abono"].Value = 0.00M;
+                    //row.Cells["FormaPago"].Value = "";
+                }
+            }
+        }
         private void RegistrarCobroEgreso_Load(object sender, EventArgs e)
         {
             // TODO: esta línea de código carga datos en la tabla 'controlCondominiosDataSet29.FormasPago' Puede moverla o quitarla según sea necesario.
             this.formasPagoTableAdapter.Fill(this.controlCondominiosDataSet29.FormasPago);
             this.formasPagoTableAdapter.Fill(this.controlCondominiosDataSet29.FormasPago);
-
-            c.CargarEgreso2(dgvPagosPendientes, txtMatricula.Text, Lista, Lista2, Lista3);
+            LlenarEgresosSeleccionados();
             c.SeleccionarCuentaBancaria(cmbCuentaBancaria);
         }
 

@@ -185,7 +185,6 @@
             this.txtFolio.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.txtFolio.Location = new System.Drawing.Point(156, 19);
             this.txtFolio.Name = "txtFolio";
-            this.txtFolio.PasswordChar = '\0';
             this.txtFolio.PlaceholderText = "";
             this.txtFolio.SelectedText = "";
             this.txtFolio.Size = new System.Drawing.Size(87, 23);
@@ -259,7 +258,6 @@
             this.txtImporteMXN.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.txtImporteMXN.Location = new System.Drawing.Point(156, 293);
             this.txtImporteMXN.Name = "txtImporteMXN";
-            this.txtImporteMXN.PasswordChar = '\0';
             this.txtImporteMXN.PlaceholderText = "";
             this.txtImporteMXN.SelectedText = "";
             this.txtImporteMXN.Size = new System.Drawing.Size(103, 23);
@@ -295,7 +293,6 @@
             this.txtSaldo.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.txtSaldo.Location = new System.Drawing.Point(338, 260);
             this.txtSaldo.Name = "txtSaldo";
-            this.txtSaldo.PasswordChar = '\0';
             this.txtSaldo.PlaceholderText = "";
             this.txtSaldo.SelectedText = "";
             this.txtSaldo.Size = new System.Drawing.Size(103, 23);
@@ -331,7 +328,6 @@
             this.txtimporte.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.txtimporte.Location = new System.Drawing.Point(157, 260);
             this.txtimporte.Name = "txtimporte";
-            this.txtimporte.PasswordChar = '\0';
             this.txtimporte.PlaceholderText = "";
             this.txtimporte.SelectedText = "";
             this.txtimporte.Size = new System.Drawing.Size(103, 23);
@@ -470,7 +466,6 @@
             this.txtNumOperacion.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.txtNumOperacion.Location = new System.Drawing.Point(157, 189);
             this.txtNumOperacion.Name = "txtNumOperacion";
-            this.txtNumOperacion.PasswordChar = '\0';
             this.txtNumOperacion.PlaceholderText = "";
             this.txtNumOperacion.SelectedText = "";
             this.txtNumOperacion.Size = new System.Drawing.Size(349, 23);
@@ -503,7 +498,6 @@
             this.txtReferencia.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.txtReferencia.Location = new System.Drawing.Point(157, 118);
             this.txtReferencia.Name = "txtReferencia";
-            this.txtReferencia.PasswordChar = '\0';
             this.txtReferencia.PlaceholderText = "";
             this.txtReferencia.SelectedText = "";
             this.txtReferencia.Size = new System.Drawing.Size(349, 23);
@@ -527,7 +521,6 @@
             this.txtTipoCambio.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.txtTipoCambio.Location = new System.Drawing.Point(419, 223);
             this.txtTipoCambio.Name = "txtTipoCambio";
-            this.txtTipoCambio.PasswordChar = '\0';
             this.txtTipoCambio.PlaceholderText = "";
             this.txtTipoCambio.SelectedText = "";
             this.txtTipoCambio.Size = new System.Drawing.Size(87, 23);
@@ -551,7 +544,6 @@
             this.txtConcepto.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.txtConcepto.Location = new System.Drawing.Point(156, 85);
             this.txtConcepto.Name = "txtConcepto";
-            this.txtConcepto.PasswordChar = '\0';
             this.txtConcepto.PlaceholderText = "";
             this.txtConcepto.SelectedText = "";
             this.txtConcepto.Size = new System.Drawing.Size(350, 23);
@@ -613,7 +605,6 @@
             this.txtAlumno.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.txtAlumno.Location = new System.Drawing.Point(153, 86);
             this.txtAlumno.Name = "txtAlumno";
-            this.txtAlumno.PasswordChar = '\0';
             this.txtAlumno.PlaceholderText = "";
             this.txtAlumno.SelectedText = "";
             this.txtAlumno.Size = new System.Drawing.Size(342, 23);
@@ -637,7 +628,6 @@
             this.txtMatricula.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.txtMatricula.Location = new System.Drawing.Point(20, 86);
             this.txtMatricula.Name = "txtMatricula";
-            this.txtMatricula.PasswordChar = '\0';
             this.txtMatricula.PlaceholderText = "";
             this.txtMatricula.SelectedText = "";
             this.txtMatricula.Size = new System.Drawing.Size(87, 23);
@@ -662,7 +652,6 @@
             this.txtCaja.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.txtCaja.Location = new System.Drawing.Point(20, 34);
             this.txtCaja.Name = "txtCaja";
-            this.txtCaja.PasswordChar = '\0';
             this.txtCaja.PlaceholderText = "";
             this.txtCaja.SelectedText = "";
             this.txtCaja.Size = new System.Drawing.Size(87, 23);
@@ -766,7 +755,7 @@
             this.button6.Name = "button6";
             this.button6.Size = new System.Drawing.Size(128, 46);
             this.button6.TabIndex = 18;
-            this.button6.Text = "Eliminar";
+            this.button6.Text = "Limpiar";
             this.button6.TextOffset = new System.Drawing.Point(23, 0);
             this.button6.Click += new System.EventHandler(this.button6_Click);
             // 
@@ -1088,7 +1077,6 @@
             this.txtFiltro.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.txtFiltro.Location = new System.Drawing.Point(94, 12);
             this.txtFiltro.Name = "txtFiltro";
-            this.txtFiltro.PasswordChar = '\0';
             this.txtFiltro.PlaceholderText = "";
             this.txtFiltro.SelectedText = "";
             this.txtFiltro.Size = new System.Drawing.Size(192, 23);

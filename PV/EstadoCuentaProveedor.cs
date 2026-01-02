@@ -11,6 +11,7 @@ using System.Windows.Forms;
 using PuntoVentas.Clases.Login;
 using System.Globalization;
 using PV.Clases.ReporteCompras;
+using PV.Clases.CuentasBancarias;
 
 namespace PV
 {
@@ -47,7 +48,13 @@ namespace PV
         {
             c.SeleccionarProveedor2(cmbPropietario1);
             //cmbPropietario1.SelectedIndex=0;
-            cmbPropietario1.Text = provedor;
+            //cmbPropietario1.Text = provedor;
+
+            int? claveProveedor = (string.IsNullOrWhiteSpace(provedor) || provedor == "0") ? (int?)null : Convert.ToInt32(provedor);
+            DateTime? fechaInicio = Fecha=="No" ? (DateTime?)null : Convert.ToDateTime(Fecha1);
+            DateTime? fechaFin = Fecha == "No" ? (DateTime?)null : Convert.ToDateTime(Fecha2);
+            string claveDocumento =  null;
+            int? cuentaBancaria = (int?)null ;
 
             NumberFormatInfo formato = new CultureInfo("US-AR").NumberFormat;
 
@@ -73,8 +80,15 @@ namespace PV
             //this.reportViewer1.LocalReport.SetParameters(parameters);
 
             // TODO: esta línea de código carga datos en la tabla 'ControlCondominiosDataSet38.Egreso' Puede moverla o quitarla según sea necesario.
-            this.EgresoTableAdapter.FillBy(this.ControlCondominiosDataSet38.Egreso, cmbPropietario1.Text);
-            // TODO: esta línea de código carga datos en la tabla 'ControlCondominiosDataSet31.DatosEmpresa' Puede moverla o quitarla según sea necesario.
+            this.EgresoTableAdapter.Fill(
+                            this.ControlCondominiosDataSet38.Egreso,
+                            claveProveedor,
+                            fechaInicio,
+                            fechaFin,
+                            claveDocumento,
+                            cuentaBancaria
+
+                        );            // TODO: esta línea de código carga datos en la tabla 'ControlCondominiosDataSet31.DatosEmpresa' Puede moverla o quitarla según sea necesario.
             this.DatosEmpresaTableAdapter.Fill(this.ControlCondominiosDataSet31.DatosEmpresa);
             // TODO: esta línea de código carga datos en la tabla 'ControlCondominiosDataSet40.Proveedor' Puede moverla o quitarla según sea necesario.
             this.ProveedorTableAdapter.Fill(this.ControlCondominiosDataSet40.Proveedor, cmbPropietario1.Text);

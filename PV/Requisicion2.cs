@@ -110,6 +110,7 @@ namespace PV
             c.CargarRequisicion(dataGridView1);
             c.SeleccionarConceptoDocumentoRequisicion(cmbDocumento);
             c.CargarRequisicion(dataGridView1);
+            c.SeleccionarProducto2(cmbConcepto);
             cmbEstatus.SelectedIndex = 0;
             txtFecha.Text = DateTime.Today.ToString("yyyy/MM/dd");
             txtElaborado.Text = DBLogin.usuario;
@@ -314,9 +315,7 @@ namespace PV
                     ReciboCol = txtReciboCol.Text;
                 }
 
-                // Guna.UI2.WinForms.Guna2TabControl
-                // PartidaRequisicion partidas = new PartidaRequisicion(txtFolio.Text, txtCentroCosto.Text, txtDepartamento.Text);
-                // partidas.ShowDialog();
+      
 
             }
             
@@ -348,12 +347,12 @@ namespace PV
             else if (cmbEstatus.Text == "Abierto" && txtPartidas.Text == "0")
             {
                 c.eliminarRequisicion(txtFolio.Text);
-                Limpiar();
+                LimpiarEncabezado();
                 txtDiasVence.Focus();
             }
             else
             {
-                Limpiar();
+                LimpiarEncabezado();
                 txtDiasVence.Focus();
             }
            
@@ -376,38 +375,15 @@ namespace PV
             {
                 cmbEstatus.Text = "Cancelado";
                 c.ActualizarRequisicionEstatus(txtFolio.Text, cmbEstatus.Text, txtCentroCosto.Text);
-                Limpiar();
+                LimpiarEncabezado();
+                Limpiardetalle();
                 MessageBox.Show("Orden de Compra Cancelado");
             }
 
         }
 
 
-        void Limpiar()
-        {
-            txtFolio.Clear();
-            cmbEstatus.Text = "Abierto";
-            txtDiasVence.Text = "0";
-            txtTotalConceptos.Text = "0";
-            txtFechaVence.Clear();
-            txtCentroCosto.Clear();
-            txtPartidas.Text = "0";
-            txtNotas.Clear();
-            txtDepartamento.Clear();
-            txtConsecutivo.Clear();
-            cmbDocumento.Text = null;
-            cmbDocumento.Enabled = false;
-            txtDiasVence.Enabled = false;
-            button1.BackColor = Color.Gainsboro;
-            txtNotas.Enabled = false;
-          //  groupBox2.Enabled = false;
-            cmbCentroCosto.Text = null;
-            cmbDepartamento.Text = null;
-            cmbCentroCosto.Enabled = false;
-            cmbDepartamento.Enabled = false;
-            c.SeleccionarCentroCosto(cmbCentroCosto);
-            c.SeleccionarCentroCostoDepartamento(cmbDepartamento, cmbCentroCosto.Text);
-        }
+       
 
         private void guna2Button7_Click(object sender, EventArgs e)
         {
@@ -685,9 +661,9 @@ namespace PV
 
         private void guna2Button9_Click(object sender, EventArgs e)
         {
-         //  Limpiar();
+            cmbEstatus.Text = "Bloqueado";
+            c.ActualizarRequisicionEstatus(txtFolio.Text, cmbEstatus.Text, txtCentroCosto.Text);
             LimpiarEncabezado();
-            Limpiar();
             Limpiardetalle();
             guna2TabControl1.Enabled = false;
             guna2TabControl1.SelectedIndex = 0;
@@ -751,28 +727,23 @@ namespace PV
             {
                 string Folio = dataGridView1.Rows[e.RowIndex].Cells["Folio"].Value.ToString();
                 txtFolio.Text = "X";
+                LimpiarEncabezado();
                 c.ConsultaRequisicion(Folio, txtClave, cmbEstatus, txtFecha, txtDiasVence, txtFechaVence, txtCentroCosto, txtDepartamento, txtPartidas, txtNotas, txtElaborado, txtFolio, txtConsecutivo);
-                cmbDocumento.Enabled = false;
-                txtDiasVence.Enabled = false;
-                txtNotas.Enabled = false;
-                //c.ConsultaAbono(txtFolio.Text, txtAbono, txtFechaAbono);
-               // panel2.Visible = false;
+
 
                 string[] valores = c.InformacionDocumento2(txtClave.Text);
                 txtDocumento.Text = valores[0];
                 txtClave.Text = valores[1];
 
                 cmbDocumento.Text = txtClave.Text + " - " + txtDocumento.Text;
-                cmbDocumento.Enabled = true;
                 c.SeleccionarCentroCosto2(cmbCentroCosto, txtCentroCosto.Text);
                 c.SeleccionarCentroCostoDepartamento2(cmbDepartamento, txtDepartamento.Text);
-
-                cmbCentroCosto.SelectedIndex = 0;
-                cmbDepartamento.SelectedIndex = 0;
                 c.CargarRequisicionPartidas(guna2DataGridView1, txtFolio.Text);
-                //groupBox2.Enabled = true;
                 guna2TabControl1.Enabled = true;
                 guna2GradientPanel2.Visible = false;
+                bool isAbierto = cmbEstatus.Text.ToLower() == "abierto";
+
+                SetHeaderControlsEnabled(isAbierto);
             }
             else
             {
@@ -793,25 +764,17 @@ namespace PV
             {
 
 
-                string Partida = guna2DataGridView1.Rows[e.RowIndex].Cells["Partida"].Value.ToString();
-                c.ConsultaPartidaRequisicion(txtFolio.Text, Partida, txtClaveConcepto, txtConcepto3, txtConcepto2, txtCantidad, txtUnidad, txtExistencia);
+                txtPartida.Text = guna2DataGridView1.Rows[e.RowIndex].Cells["Partida"].Value.ToString();
+                Limpiardetalle();
+                c.ConsultaPartidaRequisicion(txtFolio.Text, txtPartida.Text, txtClaveConcepto, txtConcepto3, txtConcepto2, txtCantidad, txtUnidad, txtExistencia);
 
-                txtPartida.Text = Partida;
                 PanelPartidasRequisicion.Visible = true;
                 PanelPartidasRequisicion.BringToFront();
                 guna2Button11.Visible = true;
                 cmbConcepto.Items.Clear();
-                //cmbConcepto.Text = txtConcepto3.Text;
                 cmbConcepto.Items.Add(txtConcepto3.Text);
-                cmbConcepto.SelectedIndex = 0;
-                txtPartida.Enabled = false;
-                cmbConcepto.Enabled = false;
-                txtClaveConcepto.Enabled = false;
-                txtConcepto2.Enabled = false;
-                txtUnidad.Enabled = false;
-                txtExistencia.Enabled = false;
-                txtDepartamento2.Enabled = false;
-                txtSubDepartamento.Enabled = false;
+                
+               
                 if (Tipo == "Nuevo")
                 {
                     guna2Button7.Visible = false;
@@ -819,7 +782,9 @@ namespace PV
                     guna2Button5.Visible = true;
                     guna2Button5.Enabled = true;
                 }
-             
+                bool isAbierto = cmbEstatus.Text.ToLower() == "abierto";
+
+                SetDetailControlsEnabled(isAbierto);
             }
             else
             {
@@ -837,15 +802,12 @@ namespace PV
         void LimpiarEncabezado()
         {
             txtFolio.Clear();
-txtCentroCosto.Clear();
+            txtCentroCosto.Clear();
             txtDepartamento.Clear();
             txtReciboCol.Clear();
-         //   txtDocumentoInsc.Text = null;
             txtReciboInsc.Clear();
             txtDocumentoCol.Clear();
-          //  cmbDocumento.Items.Clear();
             cmbDocumento.Text = null;
-          //  cmbDocumento.Enabled = false;
             txtDocumento.Clear();
             txtClave.Clear();
             cmbEstatus.Text = null;
@@ -853,18 +815,16 @@ txtCentroCosto.Clear();
             txtFecha.Clear();
             txtDiasVence.Clear();
             txtFechaVence.Clear();
-            cmbCentroCosto.Text = null;
-            cmbDepartamento.Text = null;
             txtNotas.Clear();
             txtPartidas.Clear();
             txtTotalConceptos.Clear();
             txtElaborado.Clear();
-            cmbEstatus.Text = "Abierto";
             txtDiasVence.Text = "0";
             txtTotalConceptos.Text = "0";
             txtPartidas.Text = "0";
-            c.SeleccionarCentroCosto(cmbCentroCosto);
-            c.SeleccionarCentroCostoDepartamento(cmbDepartamento, cmbCentroCosto.Text);
+            cmbEstatus.Text = "Abierto";
+            cmbCentroCosto.SelectedIndex = -1;
+            cmbDepartamento.SelectedIndex = -1;
         }
 
         void Limpiardetalle() 
@@ -876,7 +836,7 @@ txtCentroCosto.Clear();
             txtConcepto3.Clear();
             txtClave2.Clear();
             txtPartida.Clear();
-            cmbConcepto.Text = null;
+            cmbConcepto.SelectedIndex=-1;
             txtConcepto3.Clear();
             txtClaveConcepto.Clear();
             txtConcepto2.Clear();
@@ -1153,6 +1113,22 @@ txtCentroCosto.Clear();
 
             }
         }
+        private void SetHeaderControlsEnabled(bool enabled)
+        {
+            cmbDocumento.Enabled = enabled;
+            txtDiasVence.Enabled = enabled;
+            cmbCentroCosto.Enabled = enabled;
+            cmbDepartamento.Enabled = enabled;
+            txtNotas.Enabled = enabled;
+        }
+
+        // Helper methods for enabling/disabling detail controls
+        private void SetDetailControlsEnabled(bool enabled)
+        {
+            cmbConcepto.Enabled = enabled;
+            txtCantidad.Enabled = enabled;
+        }
+
     }
 }
 

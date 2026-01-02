@@ -1,0 +1,3 @@
+
+
+alter table PartidaRegistroReembolso add 	Retencion [decimal](18, 2) 

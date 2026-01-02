@@ -132,21 +132,21 @@ namespace PuntoVentas
                // MessageBox.Show("1");
                 foreach (DataGridViewRow row in dataGridView1.Rows)
                 {
-                 //   MessageBox.Show("2");
+                 
                     if (row.Cells["ClaveFamilia"].Value != null && row.Cells["Nombre"].Value != null)
                     {
                         ListaConcept.Add(row.Cells["ClaveFamilia"].Value.ToString());
                         ListaConcept2.Add(row.Cells["Nombre"].Value.ToString());
                         ListaConcept3.Add(row.Cells["Vincular"].Value.ToString());
-                   //     MessageBox.Show("3");
+                   
                     }
 
                 }
-                //MessageBox.Show("4");
+                
                 MessageBox.Show(c.RegistroCategoriasFamilias(txtClaveCategoria.Text, txtNombre.Text, ListaConcept, ListaConcept2, ListaConcept3));
-                //MessageBox.Show("5");
+                
                 Limpiar();
-                //GenerarNoCategoria();
+                
                 c.CargarCategorias(dataGridView2);
             }
             else

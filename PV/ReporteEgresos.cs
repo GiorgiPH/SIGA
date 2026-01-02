@@ -7,20 +7,21 @@ namespace PV
     public partial class ReporteEgresos : Form
     {
         DBReporteCompras c = new DBReporteCompras();
-        string provedor = string.Empty;
-        string cuentaBancaria = string.Empty;
-        string fecha = string.Empty;
-        string fecha1 = string.Empty;
-        string fecha2 = string.Empty;
+        string IdProveedor = string.Empty;
+        string FechaInicio = string.Empty;
+        string FechaFin = string.Empty;
+        string Documento = string.Empty;
+        string CuentaBancaria = string.Empty;
 
-        public ReporteEgresos(string Proveedor, string Tipo, string Fecha, string Fecha1, string Fecha2)
+
+        public ReporteEgresos(string idProveedor, string documento, string fechaInicio, string fechaFin, string cuentaBancaria)
         {
             InitializeComponent();
-            provedor = Proveedor;
-            cuentaBancaria = Tipo;
-            fecha = Fecha;
-            fecha1 = Fecha1;
-            fecha2 = Fecha2;
+            IdProveedor = idProveedor;
+            FechaInicio = fechaInicio;
+            FechaFin = fechaFin;
+            Documento = documento;
+            CuentaBancaria = cuentaBancaria;
         }
 
         private void ReporteEgresos_Load(object sender, EventArgs e)
@@ -31,266 +32,56 @@ namespace PV
             //cmbTipo.SelectedIndex = 0;
             this.DatosEmpresaTableAdapter.Fill(this.ControlCondominiosDataSet31.DatosEmpresa);
 
-            cmbPropietario1.Text = provedor;
-            cmbTipo.Text = cuentaBancaria;
-            if (fecha == "Si")
-            {
-                cbFechas.Checked = true;
-                dtFecha1.Text = fecha1;
-                dtFecha2.Text = fecha2;
-            }
+          
 
-            if (cmbPropietario1.Text == "TODOS" && cmbTipo.Text == "TODOS" && cbFechas.Checked == false)
-            {
-                this.EgresoTableAdapter.Fill(this.ControlCondominiosDataSet38.Egreso);
-            }
-            else if (cmbPropietario1.Text != "TODOS" && cmbTipo.Text == "TODOS" && cbFechas.Checked == false)
-            {
-                this.EgresoTableAdapter.FillBy(this.ControlCondominiosDataSet38.Egreso, cmbPropietario1.Text);
-            }
-            else if (cmbPropietario1.Text != "TODOS" && cmbTipo.Text != "TODOS" && cbFechas.Checked == false)
-            {
-                this.EgresoTableAdapter.FillBy1(this.ControlCondominiosDataSet38.Egreso, cmbPropietario1.Text, cmbTipo.Text);
-            }
-            else if (cmbPropietario1.Text != "TODOS" && cmbTipo.Text != "TODOS" && cbFechas.Checked == true)
-            {
-                this.EgresoTableAdapter.FillBy2(this.ControlCondominiosDataSet38.Egreso, cmbPropietario1.Text, cmbTipo.Text, dtFecha1.Text, dtFecha2.Text);
-            }
-            else if (cmbPropietario1.Text == "TODOS" && cmbTipo.Text != "TODOS" && cbFechas.Checked == false)
-            {
-                this.EgresoTableAdapter.FillBy3(this.ControlCondominiosDataSet38.Egreso, cmbTipo.Text);
-            }
-            else if (cmbPropietario1.Text != "TODOS" && cmbTipo.Text == "TODOS" && cbFechas.Checked == true)
-            {
-                this.EgresoTableAdapter.FillBy4(this.ControlCondominiosDataSet38.Egreso, cmbPropietario1.Text, dtFecha1.Text, dtFecha2.Text);
-            }
-            else if (cmbPropietario1.Text == "TODOS" && cmbTipo.Text != "TODOS" && cbFechas.Checked == true)
-            {
-                this.EgresoTableAdapter.FillBy5(this.ControlCondominiosDataSet38.Egreso, cmbTipo.Text, dtFecha1.Text, dtFecha2.Text);
-            }
-            else if (cmbPropietario1.Text == "TODOS" && cmbTipo.Text == "TODOS" && cbFechas.Checked == true)
-            {
-                this.EgresoTableAdapter.FillBy6(this.ControlCondominiosDataSet38.Egreso, dtFecha1.Text, dtFecha2.Text);
-            }
+            int? claveProveedor = (string.IsNullOrWhiteSpace(IdProveedor) || IdProveedor == "0") ? (int?)null : Convert.ToInt32(IdProveedor);
+            DateTime? fechaInicio = string.IsNullOrWhiteSpace(FechaInicio) ? (DateTime?)null : Convert.ToDateTime(FechaInicio);
+            DateTime? fechaFin = string.IsNullOrWhiteSpace(FechaFin) ? (DateTime?)null : Convert.ToDateTime(FechaFin);
+            string claveDocumento = string.IsNullOrWhiteSpace(Documento) ? null : Documento;
+            int? cuentaBancaria = (string.IsNullOrWhiteSpace(CuentaBancaria) || CuentaBancaria == "0") ? (int?)null : Convert.ToInt32(CuentaBancaria);
+
+            this.ControlCondominiosDataSet38.EnforceConstraints = false;
+
+            this.EgresoTableAdapter.Fill(
+                this.ControlCondominiosDataSet38.Egreso,
+                claveProveedor,
+                fechaInicio,
+                fechaFin,
+                claveDocumento,
+                cuentaBancaria
+
+            );
 
             this.reportViewer1.RefreshReport();
         }
 
         private void cmbPropietario1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (cmbPropietario1.Text == "TODOS" && cmbTipo.Text == "TODOS" && cbFechas.Checked == false)
-            {
-                this.EgresoTableAdapter.Fill(this.ControlCondominiosDataSet38.Egreso);
-            }
-            else if (cmbPropietario1.Text != "TODOS" && cmbTipo.Text == "TODOS" && cbFechas.Checked == false)
-            {
-                this.EgresoTableAdapter.FillBy(this.ControlCondominiosDataSet38.Egreso, cmbPropietario1.Text);
-            }
-            else if (cmbPropietario1.Text != "TODOS" && cmbTipo.Text != "TODOS" && cbFechas.Checked == false)
-            {
-                this.EgresoTableAdapter.FillBy1(this.ControlCondominiosDataSet38.Egreso, cmbPropietario1.Text, cmbTipo.Text);
-            }
-            else if (cmbPropietario1.Text != "TODOS" && cmbTipo.Text != "TODOS" && cbFechas.Checked == true)
-            {
-                this.EgresoTableAdapter.FillBy2(this.ControlCondominiosDataSet38.Egreso, cmbPropietario1.Text, cmbTipo.Text, dtFecha1.Text, dtFecha2.Text);
-            }
-            else if (cmbPropietario1.Text == "TODOS" && cmbTipo.Text != "TODOS" && cbFechas.Checked == false)
-            {
-                this.EgresoTableAdapter.FillBy3(this.ControlCondominiosDataSet38.Egreso, cmbTipo.Text);
-            }
-            else if (cmbPropietario1.Text != "TODOS" && cmbTipo.Text == "TODOS" && cbFechas.Checked == true)
-            {
-                this.EgresoTableAdapter.FillBy4(this.ControlCondominiosDataSet38.Egreso, cmbPropietario1.Text, dtFecha1.Text, dtFecha2.Text);
-            }
-            else if (cmbPropietario1.Text == "TODOS" && cmbTipo.Text != "TODOS" && cbFechas.Checked == true)
-            {
-                this.EgresoTableAdapter.FillBy5(this.ControlCondominiosDataSet38.Egreso, cmbTipo.Text, dtFecha1.Text, dtFecha2.Text);
-            }
-            else if (cmbPropietario1.Text == "TODOS" && cmbTipo.Text == "TODOS" && cbFechas.Checked == true)
-            {
-                this.EgresoTableAdapter.FillBy6(this.ControlCondominiosDataSet38.Egreso, dtFecha1.Text, dtFecha2.Text);
-            }
+            
             this.reportViewer1.RefreshReport();
         }
 
         private void cmbTipo_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (cmbPropietario1.Text == "TODOS" && cmbTipo.Text == "TODOS" && cbFechas.Checked == false)
-            {
-                this.EgresoTableAdapter.Fill(this.ControlCondominiosDataSet38.Egreso);
-            }
-            else if (cmbPropietario1.Text != "TODOS" && cmbTipo.Text == "TODOS" && cbFechas.Checked == false)
-            {
-                this.EgresoTableAdapter.FillBy(this.ControlCondominiosDataSet38.Egreso, cmbPropietario1.Text);
-            }
-            else if (cmbPropietario1.Text != "TODOS" && cmbTipo.Text != "TODOS" && cbFechas.Checked == false)
-            {
-                this.EgresoTableAdapter.FillBy1(this.ControlCondominiosDataSet38.Egreso, cmbPropietario1.Text, cmbTipo.Text);
-            }
-            else if (cmbPropietario1.Text != "TODOS" && cmbTipo.Text != "TODOS" && cbFechas.Checked == true)
-            {
-                this.EgresoTableAdapter.FillBy2(this.ControlCondominiosDataSet38.Egreso, cmbPropietario1.Text, cmbTipo.Text, dtFecha1.Text, dtFecha2.Text);
-            }
-            else if (cmbPropietario1.Text == "TODOS" && cmbTipo.Text != "TODOS" && cbFechas.Checked == false)
-            {
-                this.EgresoTableAdapter.FillBy3(this.ControlCondominiosDataSet38.Egreso, cmbTipo.Text);
-            }
-            else if (cmbPropietario1.Text != "TODOS" && cmbTipo.Text == "TODOS" && cbFechas.Checked == true)
-            {
-                this.EgresoTableAdapter.FillBy4(this.ControlCondominiosDataSet38.Egreso, cmbPropietario1.Text, dtFecha1.Text, dtFecha2.Text);
-            }
-            else if (cmbPropietario1.Text == "TODOS" && cmbTipo.Text != "TODOS" && cbFechas.Checked == true)
-            {
-                this.EgresoTableAdapter.FillBy5(this.ControlCondominiosDataSet38.Egreso, cmbTipo.Text, dtFecha1.Text, dtFecha2.Text);
-            }
-            else if (cmbPropietario1.Text == "TODOS" && cmbTipo.Text == "TODOS" && cbFechas.Checked == true)
-            {
-                this.EgresoTableAdapter.FillBy6(this.ControlCondominiosDataSet38.Egreso, dtFecha1.Text, dtFecha2.Text);
-            }
+           
             this.reportViewer1.RefreshReport();
         }
 
         private void cbFechas_CheckedChanged(object sender, EventArgs e)
         {
-            if (cbFechas.Checked == true)
-            {
-                dtFecha1.Enabled = true;
-                dtFecha2.Enabled = true;
-            }
-            else
-            {
-                dtFecha1.Enabled = false;
-                dtFecha2.Enabled = false;
-            }
-
-            if (cmbPropietario1.Text == "TODOS" && cmbTipo.Text == "TODOS" && cbFechas.Checked == false)
-            {
-                this.EgresoTableAdapter.Fill(this.ControlCondominiosDataSet38.Egreso);
-            }
-            else if (cmbPropietario1.Text != "TODOS" && cmbTipo.Text == "TODOS" && cbFechas.Checked == false)
-            {
-                this.EgresoTableAdapter.FillBy(this.ControlCondominiosDataSet38.Egreso, cmbPropietario1.Text);
-            }
-            else if (cmbPropietario1.Text != "TODOS" && cmbTipo.Text != "TODOS" && cbFechas.Checked == false)
-            {
-                this.EgresoTableAdapter.FillBy1(this.ControlCondominiosDataSet38.Egreso, cmbPropietario1.Text, cmbTipo.Text);
-            }
-            else if (cmbPropietario1.Text != "TODOS" && cmbTipo.Text != "TODOS" && cbFechas.Checked == true)
-            {
-                this.EgresoTableAdapter.FillBy2(this.ControlCondominiosDataSet38.Egreso, cmbPropietario1.Text, cmbTipo.Text, dtFecha1.Text, dtFecha2.Text);
-            }
-            else if (cmbPropietario1.Text == "TODOS" && cmbTipo.Text != "TODOS" && cbFechas.Checked == false)
-            {
-                this.EgresoTableAdapter.FillBy3(this.ControlCondominiosDataSet38.Egreso, cmbTipo.Text);
-            }
-            else if (cmbPropietario1.Text != "TODOS" && cmbTipo.Text == "TODOS" && cbFechas.Checked == true)
-            {
-                this.EgresoTableAdapter.FillBy4(this.ControlCondominiosDataSet38.Egreso, cmbPropietario1.Text, dtFecha1.Text, dtFecha2.Text);
-            }
-            else if (cmbPropietario1.Text == "TODOS" && cmbTipo.Text != "TODOS" && cbFechas.Checked == true)
-            {
-                this.EgresoTableAdapter.FillBy5(this.ControlCondominiosDataSet38.Egreso, cmbTipo.Text, dtFecha1.Text, dtFecha2.Text);
-            }
-            else if (cmbPropietario1.Text == "TODOS" && cmbTipo.Text == "TODOS" && cbFechas.Checked == true)
-            {
-                this.EgresoTableAdapter.FillBy6(this.ControlCondominiosDataSet38.Egreso, dtFecha1.Text, dtFecha2.Text);
-            }
+           
             this.reportViewer1.RefreshReport();
         }
 
         private void dtFecha1_ValueChanged(object sender, EventArgs e)
         {
-            if (cbFechas.Checked == true)
-            {
-                dtFecha1.Enabled = true;
-                dtFecha2.Enabled = true;
-            }
-            else
-            {
-                dtFecha1.Enabled = false;
-                dtFecha2.Enabled = false;
-            }
-
-            if (cmbPropietario1.Text == "TODOS" && cmbTipo.Text == "TODOS" && cbFechas.Checked == false)
-            {
-                this.EgresoTableAdapter.Fill(this.ControlCondominiosDataSet38.Egreso);
-            }
-            else if (cmbPropietario1.Text != "TODOS" && cmbTipo.Text == "TODOS" && cbFechas.Checked == false)
-            {
-                this.EgresoTableAdapter.FillBy(this.ControlCondominiosDataSet38.Egreso, cmbPropietario1.Text);
-            }
-            else if (cmbPropietario1.Text != "TODOS" && cmbTipo.Text != "TODOS" && cbFechas.Checked == false)
-            {
-                this.EgresoTableAdapter.FillBy1(this.ControlCondominiosDataSet38.Egreso, cmbPropietario1.Text, cmbTipo.Text);
-            }
-            else if (cmbPropietario1.Text != "TODOS" && cmbTipo.Text != "TODOS" && cbFechas.Checked == true)
-            {
-                this.EgresoTableAdapter.FillBy2(this.ControlCondominiosDataSet38.Egreso, cmbPropietario1.Text, cmbTipo.Text, dtFecha1.Text, dtFecha2.Text);
-            }
-            else if (cmbPropietario1.Text == "TODOS" && cmbTipo.Text != "TODOS" && cbFechas.Checked == false)
-            {
-                this.EgresoTableAdapter.FillBy3(this.ControlCondominiosDataSet38.Egreso, cmbTipo.Text);
-            }
-            else if (cmbPropietario1.Text != "TODOS" && cmbTipo.Text == "TODOS" && cbFechas.Checked == true)
-            {
-                this.EgresoTableAdapter.FillBy4(this.ControlCondominiosDataSet38.Egreso, cmbPropietario1.Text, dtFecha1.Text, dtFecha2.Text);
-            }
-            else if (cmbPropietario1.Text == "TODOS" && cmbTipo.Text != "TODOS" && cbFechas.Checked == true)
-            {
-                this.EgresoTableAdapter.FillBy5(this.ControlCondominiosDataSet38.Egreso, cmbTipo.Text, dtFecha1.Text, dtFecha2.Text);
-            }
-            else if (cmbPropietario1.Text == "TODOS" && cmbTipo.Text == "TODOS" && cbFechas.Checked == true)
-            {
-                this.EgresoTableAdapter.FillBy6(this.ControlCondominiosDataSet38.Egreso, dtFecha1.Text, dtFecha2.Text);
-            }
+            
             this.reportViewer1.RefreshReport();
         }
 
         private void dtFecha2_ValueChanged(object sender, EventArgs e)
         {
-            if (cbFechas.Checked == true)
-            {
-                dtFecha1.Enabled = true;
-                dtFecha2.Enabled = true;
-            }
-            else
-            {
-                dtFecha1.Enabled = false;
-                dtFecha2.Enabled = false;
-            }
-
-            if (cmbPropietario1.Text == "TODOS" && cmbTipo.Text == "TODOS" && cbFechas.Checked == false)
-            {
-                this.EgresoTableAdapter.Fill(this.ControlCondominiosDataSet38.Egreso);
-            }
-            else if (cmbPropietario1.Text != "TODOS" && cmbTipo.Text == "TODOS" && cbFechas.Checked == false)
-            {
-                this.EgresoTableAdapter.FillBy(this.ControlCondominiosDataSet38.Egreso, cmbPropietario1.Text);
-            }
-            else if (cmbPropietario1.Text != "TODOS" && cmbTipo.Text != "TODOS" && cbFechas.Checked == false)
-            {
-                this.EgresoTableAdapter.FillBy1(this.ControlCondominiosDataSet38.Egreso, cmbPropietario1.Text, cmbTipo.Text);
-            }
-            else if (cmbPropietario1.Text != "TODOS" && cmbTipo.Text != "TODOS" && cbFechas.Checked == true)
-            {
-                this.EgresoTableAdapter.FillBy2(this.ControlCondominiosDataSet38.Egreso, cmbPropietario1.Text, cmbTipo.Text, dtFecha1.Text, dtFecha2.Text);
-            }
-            else if (cmbPropietario1.Text == "TODOS" && cmbTipo.Text != "TODOS" && cbFechas.Checked == false)
-            {
-                this.EgresoTableAdapter.FillBy3(this.ControlCondominiosDataSet38.Egreso, cmbTipo.Text);
-            }
-            else if (cmbPropietario1.Text != "TODOS" && cmbTipo.Text == "TODOS" && cbFechas.Checked == true)
-            {
-                this.EgresoTableAdapter.FillBy4(this.ControlCondominiosDataSet38.Egreso, cmbPropietario1.Text, dtFecha1.Text, dtFecha2.Text);
-            }
-            else if (cmbPropietario1.Text == "TODOS" && cmbTipo.Text != "TODOS" && cbFechas.Checked == true)
-            {
-                this.EgresoTableAdapter.FillBy5(this.ControlCondominiosDataSet38.Egreso, cmbTipo.Text, dtFecha1.Text, dtFecha2.Text);
-            }
-            else if (cmbPropietario1.Text == "TODOS" && cmbTipo.Text == "TODOS" && cbFechas.Checked == true)
-            {
-                this.EgresoTableAdapter.FillBy6(this.ControlCondominiosDataSet38.Egreso, dtFecha1.Text, dtFecha2.Text);
-            }
+           
             this.reportViewer1.RefreshReport();
         }
     }
