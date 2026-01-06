@@ -36,10 +36,10 @@ namespace PV
         {
             if (ParamSwitch.Checked == true)
             {
-                ParamSwitch1.Checked = true;
-                ParamSwitch2.Checked = true;
+                ParamDatosEmpresa.Checked = true;
+                ParamUsuarios.Checked = true;
            
-                if (ParamSwitch1.Checked == true)
+                if (ParamDatosEmpresa.Checked == true)
                 {
                     lblParam2.Text = "Activo";
                 }
@@ -47,7 +47,7 @@ namespace PV
                 {
                     lblParam2.Text = "Inactivo";
                 }
-                if (ParamSwitch2.Checked == true)
+                if (ParamUsuarios.Checked == true)
                 {
                     lblParam1.Text = "Activo";
                 }
@@ -58,15 +58,15 @@ namespace PV
             }
             else
             {
-                ParamSwitch1.Checked = false;
-                ParamSwitch2.Checked = false;
+                ParamDatosEmpresa.Checked = false;
+                ParamUsuarios.Checked = false;
             }      
 
         }
 
         private void ParamSwitch1_CheckedChanged(object sender, EventArgs e)
         {
-            if (ParamSwitch1.Checked == true)
+            if (ParamDatosEmpresa.Checked == true)
             {
                 lblParam1.Text = "Activo";
             }
@@ -79,7 +79,7 @@ namespace PV
 
         private void ParamSwitch2_CheckedChanged(object sender, EventArgs e)
         {
-            if (ParamSwitch2.Checked == true)
+            if (ParamUsuarios.Checked == true)
             {
                 lblParam2.Text = "Activo";
             }
@@ -103,24 +103,24 @@ namespace PV
         {
             if (CatSwitch1.Checked == true)
             {
-                CatSwitch2.Checked = true;
-                CatSwitch3.Checked = true;
-                CatSwitch4.Checked = true;
-                CatSwitch5.Checked = true;
-                CatSwitch6.Checked = true;
-                CatSwitch7.Checked = true;
-                CatSwitch8.Checked = true;
-                CatSwitch9.Checked = true;
-                CatSwitch10.Checked = true;
-                CatSwitch11.Checked = true;
-                CatSwitch12.Checked = true;
-                CatSwitch13.Checked = true;
-                CatSwitch14.Checked = true;
-                CatSwitch15.Checked = true;
+                CatDivisas.Checked = true;
+                CatAlmacenes.Checked = true;
+                CatCategoriasyFamilias.Checked = true;
+                CatProductos.Checked = true;
+                CatServicios.Checked = true;
+                CatCentroCostos.Checked = true;
+                CatDocumentos.Checked = true;
+                CatConceptosGlobales.Checked = true;
+                CatFormasPago.Checked = true;
+                CatEmpleados.Checked = true;
+                CatTipoZonas.Checked = true;
+                CatClientes.Checked = true;
+                CatProveedores.Checked = true;
+                CatCuentasBancarias.Checked = true;
 
 
 
-                if (CatSwitch2.Checked == true)
+                if (CatDivisas.Checked == true)
                 {
                     lblcat1.Text = "Activo";
                 }
@@ -128,7 +128,7 @@ namespace PV
                 {
                     lblcat1.Text = "Inactivo";
                 }
-                if (CatSwitch3.Checked == true)
+                if (CatAlmacenes.Checked == true)
                 {
                     lblcat2.Text = "Activo";
                 }
@@ -136,7 +136,7 @@ namespace PV
                 {
                     lblcat2.Text = "Inactivo";
                 }
-                if (CatSwitch4.Checked == true)
+                if (CatCategoriasyFamilias.Checked == true)
                 {
                     lblcat3.Text = "Activo";
                 }
@@ -144,7 +144,7 @@ namespace PV
                 {
                     lblcat3.Text = "Inactivo";
                 }
-                if (CatSwitch5.Checked == true)
+                if (CatProductos.Checked == true)
                 {
                     lblcat4.Text = "Activo";
                 }
@@ -152,7 +152,7 @@ namespace PV
                 {
                     lblcat4.Text = "Inactivo";
                 }
-                if (CatSwitch6.Checked == true)
+                if (CatServicios.Checked == true)
                 {
                     lblcat5.Text = "Activo";
                 }
@@ -160,7 +160,7 @@ namespace PV
                 {
                     lblcat5.Text = "Inactivo";
                 }
-                if (CatSwitch7.Checked == true)
+                if (CatCentroCostos.Checked == true)
                 {
                     lblcat6.Text = "Activo";
                 }
@@ -168,7 +168,7 @@ namespace PV
                 {
                     lblcat6.Text = "Inactivo";
                 }
-                if (CatSwitch8.Checked == true)
+                if (CatDocumentos.Checked == true)
                 {
                     lblcat7.Text = "Activo";
                 }
@@ -176,7 +176,7 @@ namespace PV
                 {
                     lblcat7.Text = "Inactivo";
                 }
-                if (CatSwitch9.Checked == true)
+                if (CatConceptosGlobales.Checked == true)
                 {
                     lblcat8.Text = "Activo";
                 }
@@ -184,7 +184,7 @@ namespace PV
                 {
                     lblcat8.Text = "Inactivo";
                 }
-                if (CatSwitch10.Checked == true)
+                if (CatFormasPago.Checked == true)
                 {
                     lblcat9.Text = "Activo";
                 }
@@ -192,7 +192,7 @@ namespace PV
                 {
                     lblcat9.Text = "Inactivo";
                 }
-                if (CatSwitch11.Checked == true)
+                if (CatEmpleados.Checked == true)
                 {
                     lblcat10.Text = "Activo";
                 }
@@ -200,7 +200,7 @@ namespace PV
                 {
                     lblcat10.Text = "Inactivo";
                 }
-                if (CatSwitch12.Checked == true)
+                if (CatTipoZonas.Checked == true)
                 {
                     lblcat11.Text = "Activo";
                 }
@@ -208,7 +208,7 @@ namespace PV
                 {
                     lblcat11.Text = "Inactivo";
                 }
-                if (CatSwitch13.Checked == true)
+                if (CatClientes.Checked == true)
                 {
                     lblcat12.Text = "Activo";
                 }
@@ -216,7 +216,7 @@ namespace PV
                 {
                     lblcat12.Text = "Inactivo";
                 }
-                if (CatSwitch14.Checked == true)
+                if (CatProveedores.Checked == true)
                 {
                     lblcat13.Text = "Activo";
                 }
@@ -224,7 +224,7 @@ namespace PV
                 {
                     lblcat13.Text = "Inactivo";
                 }
-                if (CatSwitch15.Checked == true)
+                if (CatCuentasBancarias.Checked == true)
                 {
                     lblcat14.Text = "Activo";
                 }
@@ -251,26 +251,26 @@ namespace PV
                     lblcat13.Text = "Inactivo";
                     lblcat14.Text = "Inactivo";
 
-                CatSwitch2.Checked = false;
-                CatSwitch3.Checked = false;
-                CatSwitch4.Checked = false;
-                CatSwitch5.Checked = false;
-                CatSwitch6.Checked = false;
-                CatSwitch7.Checked = false;
-                CatSwitch8.Checked = false;
-                CatSwitch9.Checked = false;
-                CatSwitch10.Checked = false;
-                CatSwitch11.Checked = false;
-                CatSwitch12.Checked = false;
-                CatSwitch13.Checked = false;
-                CatSwitch14.Checked = false;
-                CatSwitch15.Checked = false;
+                CatDivisas.Checked = false;
+                CatAlmacenes.Checked = false;
+                CatCategoriasyFamilias.Checked = false;
+                CatProductos.Checked = false;
+                CatServicios.Checked = false;
+                CatCentroCostos.Checked = false;
+                CatDocumentos.Checked = false;
+                CatConceptosGlobales.Checked = false;
+                CatFormasPago.Checked = false;
+                CatEmpleados.Checked = false;
+                CatTipoZonas.Checked = false;
+                CatClientes.Checked = false;
+                CatProveedores.Checked = false;
+                CatCuentasBancarias.Checked = false;
             }
         }
 
         private void CatSwitch2_CheckedChanged(object sender, EventArgs e)
         {
-            if (CatSwitch2.Checked == true)
+            if (CatDivisas.Checked == true)
             {
                 lblcat1.Text = "Activo";
             }
@@ -282,7 +282,7 @@ namespace PV
 
         private void CatSwitch3_CheckedChanged(object sender, EventArgs e)
         {
-            if (CatSwitch3.Checked == true)
+            if (CatAlmacenes.Checked == true)
             {
                 lblcat2.Text = "Activo";
             }
@@ -294,7 +294,7 @@ namespace PV
 
         private void CatSwitch4_CheckedChanged(object sender, EventArgs e)
         {
-            if (CatSwitch4.Checked == true)
+            if (CatCategoriasyFamilias.Checked == true)
             {
                 lblcat3.Text = "Activo";
             }
@@ -306,7 +306,7 @@ namespace PV
 
         private void CatSwitch5_CheckedChanged(object sender, EventArgs e)
         {
-            if (CatSwitch5.Checked == true)
+            if (CatProductos.Checked == true)
             {
                 lblcat4.Text = "Activo";
             }
@@ -318,7 +318,7 @@ namespace PV
 
         private void CatSwitch6_CheckedChanged(object sender, EventArgs e)
         {
-            if (CatSwitch6.Checked == true)
+            if (CatServicios.Checked == true)
             {
                 lblcat5.Text = "Activo";
             }
@@ -330,7 +330,7 @@ namespace PV
 
         private void CatSwitch7_CheckedChanged(object sender, EventArgs e)
         {
-            if (CatSwitch7.Checked == true)
+            if (CatCentroCostos.Checked == true)
             {
                 lblcat6.Text = "Activo";
             }
@@ -342,7 +342,7 @@ namespace PV
 
         private void CatSwitch8_CheckedChanged(object sender, EventArgs e)
         {
-            if (CatSwitch8.Checked == true)
+            if (CatDocumentos.Checked == true)
             {
                 lblcat7.Text = "Activo";
             }
@@ -354,7 +354,7 @@ namespace PV
 
         private void CatSwitch9_CheckedChanged(object sender, EventArgs e)
         {
-            if (CatSwitch9.Checked == true)
+            if (CatConceptosGlobales.Checked == true)
             {
                 lblcat8.Text = "Activo";
             }
@@ -366,7 +366,7 @@ namespace PV
 
         private void CatSwitch10_CheckedChanged(object sender, EventArgs e)
         {
-            if (CatSwitch10.Checked == true)
+            if (CatFormasPago.Checked == true)
             {
                 lblcat9.Text = "Activo";
             }
@@ -378,7 +378,7 @@ namespace PV
 
         private void CatSwitch11_CheckedChanged(object sender, EventArgs e)
         {
-            if (CatSwitch11.Checked == true)
+            if (CatEmpleados.Checked == true)
             {
                 lblcat10.Text = "Activo";
             }
@@ -390,7 +390,7 @@ namespace PV
 
         private void CatSwitch12_CheckedChanged(object sender, EventArgs e)
         {
-            if (CatSwitch12.Checked == true)
+            if (CatTipoZonas.Checked == true)
             {
                 lblcat11.Text = "Activo";
             }
@@ -402,7 +402,7 @@ namespace PV
 
         private void CatSwitch13_CheckedChanged(object sender, EventArgs e)
         {
-            if (CatSwitch13.Checked == true)
+            if (CatClientes.Checked == true)
             {
                 lblcat12.Text = "Activo";
             }
@@ -414,7 +414,7 @@ namespace PV
 
         private void CatSwitch14_CheckedChanged(object sender, EventArgs e)
         {
-            if (CatSwitch14.Checked == true)
+            if (CatProveedores.Checked == true)
             {
                 lblcat13.Text = "Activo";
             }
@@ -426,7 +426,7 @@ namespace PV
 
         private void CatSwitch15_CheckedChanged(object sender, EventArgs e)
         {
-            if (CatSwitch15.Checked == true)
+            if (CatCuentasBancarias.Checked == true)
             {
                 lblcat14.Text = "Activo";
             }
@@ -442,12 +442,12 @@ namespace PV
             {
 
                 InvSwitch2.Checked = true;
-                InvSwitch3.Checked = true;
-                InvSwitch4.Checked = true;
-                InvSwitch5.Checked = true;
-                InvSwitch6.Checked = true;
-                InvSwitch7.Checked = true;
-                InvSwitch8.Checked = true;
+                InvTiposMovimientos.Checked = true;
+                InvRegistrarEntradas.Checked = true;
+                InvRegistrarSalidas.Checked = true;
+                InvRegistrarTraspasos.Checked = true;
+                InvConsultarInventarios.Checked = true;
+                InvReportes.Checked = true;
 
                 lblInv1.Text = "Activo";
                 lblInv2.Text = "Activo";
@@ -460,12 +460,12 @@ namespace PV
             else
             {
                 InvSwitch2.Checked = false;
-                InvSwitch3.Checked = false;
-                InvSwitch4.Checked = false;
-                InvSwitch5.Checked = false;
-                InvSwitch6.Checked = false;
-                InvSwitch7.Checked = false;
-                InvSwitch8.Checked = false;
+                InvTiposMovimientos.Checked = false;
+                InvRegistrarEntradas.Checked = false;
+                InvRegistrarSalidas.Checked = false;
+                InvRegistrarTraspasos.Checked = false;
+                InvConsultarInventarios.Checked = false;
+                InvReportes.Checked = false;
 
                 lblInv1.Text = "Inactivo";
                 lblInv2.Text = "Inactivo";
@@ -483,14 +483,14 @@ namespace PV
         {
             if (CompSwitch1.Checked == true)
             {
-                CompSwitch2.Checked = true;
-                CompSwitch3.Checked = true;
-                CompSwitch4.Checked = true;
-                CompSwitch5.Checked = true;
-                CompSwitch6.Checked = true;
-                CompSwitch7.Checked = true;
-                CompSwitch8.Checked = true;
-                CompSwitch9.Checked = true;
+                CompRequisiciones.Checked = true;
+                CompCotizaciones.Checked = true;
+                CompPedidosProveedores.Checked = true;
+                CompCompras.Checked = true;
+                CompNotasCRyCA.Checked = true;
+                CompReportes.Checked = true;
+                CompDefinePoliza.Checked = true;
+                CompGeneraPoliza.Checked = true;
                 lblComp1.Text = "Activo";
                 lblComp2.Text = "Activo";
                 lblComp3.Text = "Activo";
@@ -501,14 +501,14 @@ namespace PV
             }
             else
             {
-                CompSwitch2.Checked = false;
-                CompSwitch3.Checked = false;
-                CompSwitch4.Checked = false;
-                CompSwitch5.Checked = false;
-                CompSwitch6.Checked = false;
-                CompSwitch7.Checked = false;
-                CompSwitch8.Checked = false;
-                CompSwitch9.Checked = false;
+                CompRequisiciones.Checked = false;
+                CompCotizaciones.Checked = false;
+                CompPedidosProveedores.Checked = false;
+                CompCompras.Checked = false;
+                CompNotasCRyCA.Checked = false;
+                CompReportes.Checked = false;
+                CompDefinePoliza.Checked = false;
+                CompGeneraPoliza.Checked = false;
                 lblComp1.Text = "Inactivo";
                 lblComp2.Text = "Inactivo";
                 lblComp3.Text = "Inactivo";
@@ -525,12 +525,12 @@ namespace PV
             {
 
                 //InvSwitch2.Checked = true;
-                InvSwitch3.Checked = true;
-                InvSwitch4.Checked = true;
-                InvSwitch5.Checked = true;
-                InvSwitch6.Checked = true;
-                InvSwitch7.Checked = true;
-                InvSwitch8.Checked = true;
+                InvTiposMovimientos.Checked = true;
+                InvRegistrarEntradas.Checked = true;
+                InvRegistrarSalidas.Checked = true;
+                InvRegistrarTraspasos.Checked = true;
+                InvConsultarInventarios.Checked = true;
+                InvReportes.Checked = true;
 
                 lblInv1.Text = "Activo";
                 lblInv2.Text = "Activo";
@@ -543,12 +543,12 @@ namespace PV
             else
             {
                 //InvSwitch2.Checked = false;
-                InvSwitch3.Checked = false;
-                InvSwitch4.Checked = false;
-                InvSwitch5.Checked = false;
-                InvSwitch6.Checked = false;
-                InvSwitch7.Checked = false;
-                InvSwitch8.Checked = false;
+                InvTiposMovimientos.Checked = false;
+                InvRegistrarEntradas.Checked = false;
+                InvRegistrarSalidas.Checked = false;
+                InvRegistrarTraspasos.Checked = false;
+                InvConsultarInventarios.Checked = false;
+                InvReportes.Checked = false;
 
                 lblInv1.Text = "Inactivo";
                 lblInv2.Text = "Inactivo";
@@ -562,7 +562,7 @@ namespace PV
 
         private void InvSwitch3_CheckedChanged(object sender, EventArgs e)
         {
-            if (InvSwitch3.Checked == true)
+            if (InvTiposMovimientos.Checked == true)
             {
                 lblInv2.Text = "Activo";
             }
@@ -574,7 +574,7 @@ namespace PV
 
         private void InvSwitch4_CheckedChanged(object sender, EventArgs e)
         {
-            if (InvSwitch4.Checked == true)
+            if (InvRegistrarEntradas.Checked == true)
             {
                 lblInv3.Text = "Activo";
             }
@@ -586,7 +586,7 @@ namespace PV
 
         private void InvSwitch5_CheckedChanged(object sender, EventArgs e)
         {
-            if (InvSwitch5.Checked == true)
+            if (InvRegistrarSalidas.Checked == true)
             {
                 lblInv4.Text = "Activo";
             }
@@ -598,7 +598,7 @@ namespace PV
 
         private void InvSwitch6_CheckedChanged(object sender, EventArgs e)
         {
-            if (InvSwitch6.Checked == true)
+            if (InvRegistrarTraspasos.Checked == true)
             {
                 lblInv5.Text = "Activo";
             }
@@ -611,7 +611,7 @@ namespace PV
 
         private void InvSwitch7_CheckedChanged(object sender, EventArgs e)
         {
-            if (InvSwitch7.Checked == true)
+            if (InvConsultarInventarios.Checked == true)
             {
                 lblInv6.Text = "Activo";
             }
@@ -624,7 +624,7 @@ namespace PV
         private void InvSwitch8_CheckedChanged(object sender, EventArgs e)
         {
 
-            if (InvSwitch8.Checked == true)
+            if (InvReportes.Checked == true)
             {
                 lblInv7.Text = "Activo";
             }
@@ -636,7 +636,7 @@ namespace PV
 
         private void CompSwitch2_CheckedChanged(object sender, EventArgs e)
         {
-            if (CompSwitch2.Checked == true)
+            if (CompRequisiciones.Checked == true)
             {
                 lblComp1.Text = "Activo";
             }
@@ -648,7 +648,7 @@ namespace PV
 
         private void CompSwitch3_CheckedChanged(object sender, EventArgs e)
         {
-            if (CompSwitch3.Checked == true)
+            if (CompCotizaciones.Checked == true)
             {
                 lblComp2.Text = "Activo";
             }
@@ -660,7 +660,7 @@ namespace PV
 
         private void CompSwitch4_CheckedChanged(object sender, EventArgs e)
         {
-            if (CompSwitch4.Checked == true)
+            if (CompPedidosProveedores.Checked == true)
             {
                 lblComp3.Text = "Activo";
             }
@@ -672,7 +672,7 @@ namespace PV
 
         private void CompSwitch5_CheckedChanged(object sender, EventArgs e)
         {
-            if (CompSwitch5.Checked == true)
+            if (CompCompras.Checked == true)
             {
                 lblComp4.Text = "Activo";
             }
@@ -684,7 +684,7 @@ namespace PV
 
         private void CompSwitch6_CheckedChanged(object sender, EventArgs e)
         {
-            if (CompSwitch6.Checked == true)
+            if (CompNotasCRyCA.Checked == true)
             {
                 lblComp5.Text = "Activo";
             }
@@ -696,7 +696,7 @@ namespace PV
 
         private void CompSwitch7_CheckedChanged(object sender, EventArgs e)
         {
-            if (CompSwitch7.Checked == true)
+            if (CompReportes.Checked == true)
             {
                 lblComp6.Text = "Activo";
             }
@@ -708,7 +708,7 @@ namespace PV
 
         private void CompSwitch8_CheckedChanged(object sender, EventArgs e)
         {
-            if (CompSwitch8.Checked == true)
+            if (CompDefinePoliza.Checked == true)
             {
                 lblComp7.Text = "Activo";
             }
@@ -720,7 +720,7 @@ namespace PV
 
         private void CompSwitch9_CheckedChanged(object sender, EventArgs e)
         {
-            if (CompSwitch9.Checked == true)
+            if (CompGeneraPoliza.Checked == true)
             {
                 lblComp8.Text = "Activo";
             }
