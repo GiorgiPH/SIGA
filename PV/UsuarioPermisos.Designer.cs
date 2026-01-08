@@ -29,7 +29,6 @@ namespace PV
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UsuarioPermisos));
             this.guna2GradientPanel1 = new Guna.UI2.WinForms.Guna2GradientPanel();
             this.guna2CircleButton1 = new Guna.UI2.WinForms.Guna2CircleButton();
             this.guna2HtmlLabel1 = new Guna.UI2.WinForms.Guna2HtmlLabel();
@@ -51,7 +50,7 @@ namespace PV
             this.groupBox5 = new System.Windows.Forms.GroupBox();
             this.groupBox6 = new System.Windows.Forms.GroupBox();
             this.guna2HtmlLabel11 = new Guna.UI2.WinForms.Guna2HtmlLabel();
-            this.CatSwitch1 = new Guna.UI2.WinForms.Guna2ToggleSwitch();
+            this.CatSwitch = new Guna.UI2.WinForms.Guna2ToggleSwitch();
             this.label1 = new System.Windows.Forms.Label();
             this.guna2HtmlLabel18 = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.lblcat14 = new Guna.UI2.WinForms.Guna2HtmlLabel();
@@ -101,7 +100,7 @@ namespace PV
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.guna2HtmlLabel32 = new Guna.UI2.WinForms.Guna2HtmlLabel();
-            this.InvSwitch1 = new Guna.UI2.WinForms.Guna2ToggleSwitch();
+            this.InvSwitch = new Guna.UI2.WinForms.Guna2ToggleSwitch();
             this.label2 = new System.Windows.Forms.Label();
             this.guna2HtmlLabel48 = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.lblInv7 = new Guna.UI2.WinForms.Guna2HtmlLabel();
@@ -119,10 +118,7 @@ namespace PV
             this.InvRegistrarEntradas = new Guna.UI2.WinForms.Guna2ToggleSwitch();
             this.guna2HtmlLabel57 = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.lblInv2 = new Guna.UI2.WinForms.Guna2HtmlLabel();
-            this.lblInv1 = new Guna.UI2.WinForms.Guna2HtmlLabel();
-            this.guna2HtmlLabel60 = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.InvTiposMovimientos = new Guna.UI2.WinForms.Guna2ToggleSwitch();
-            this.InvSwitch2 = new Guna.UI2.WinForms.Guna2ToggleSwitch();
             this.COMPRAS = new System.Windows.Forms.TabPage();
             this.guna2Separator4 = new Guna.UI2.WinForms.Guna2Separator();
             this.groupBox7 = new System.Windows.Forms.GroupBox();
@@ -131,7 +127,7 @@ namespace PV
             this.CompGeneraPoliza = new Guna.UI2.WinForms.Guna2ToggleSwitch();
             this.guna2HtmlLabel62 = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.guna2HtmlLabel34 = new Guna.UI2.WinForms.Guna2HtmlLabel();
-            this.CompSwitch1 = new Guna.UI2.WinForms.Guna2ToggleSwitch();
+            this.CompSwitch = new Guna.UI2.WinForms.Guna2ToggleSwitch();
             this.label3 = new System.Windows.Forms.Label();
             this.guna2HtmlLabel35 = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.lblComp7 = new Guna.UI2.WinForms.Guna2HtmlLabel();
@@ -179,25 +175,25 @@ namespace PV
             this.groupBox9 = new System.Windows.Forms.GroupBox();
             this.groupBox10 = new System.Windows.Forms.GroupBox();
             this.guna2HtmlLabel63 = new Guna.UI2.WinForms.Guna2HtmlLabel();
-            this.venSwitch = new Guna.UI2.WinForms.Guna2ToggleSwitch();
+            this.VenSwitch = new Guna.UI2.WinForms.Guna2ToggleSwitch();
             this.TESORERIA = new System.Windows.Forms.TabPage();
             this.guna2Separator6 = new Guna.UI2.WinForms.Guna2Separator();
             this.groupBox11 = new System.Windows.Forms.GroupBox();
             this.groupBox12 = new System.Windows.Forms.GroupBox();
             this.guna2HtmlLabel64 = new Guna.UI2.WinForms.Guna2HtmlLabel();
-            this.guna2ToggleSwitch35 = new Guna.UI2.WinForms.Guna2ToggleSwitch();
+            this.TesSwitch = new Guna.UI2.WinForms.Guna2ToggleSwitch();
             this.PRESUPUESTO = new System.Windows.Forms.TabPage();
             this.guna2Separator7 = new Guna.UI2.WinForms.Guna2Separator();
             this.groupBox13 = new System.Windows.Forms.GroupBox();
             this.groupBox14 = new System.Windows.Forms.GroupBox();
             this.guna2HtmlLabel65 = new Guna.UI2.WinForms.Guna2HtmlLabel();
-            this.guna2ToggleSwitch36 = new Guna.UI2.WinForms.Guna2ToggleSwitch();
+            this.PreSwitch = new Guna.UI2.WinForms.Guna2ToggleSwitch();
             this.UTILERIAS = new System.Windows.Forms.TabPage();
             this.guna2Separator8 = new Guna.UI2.WinForms.Guna2Separator();
             this.groupBox15 = new System.Windows.Forms.GroupBox();
             this.groupBox16 = new System.Windows.Forms.GroupBox();
             this.guna2HtmlLabel66 = new Guna.UI2.WinForms.Guna2HtmlLabel();
-            this.guna2ToggleSwitch37 = new Guna.UI2.WinForms.Guna2ToggleSwitch();
+            this.UtiSwitch = new Guna.UI2.WinForms.Guna2ToggleSwitch();
             this.guna2Button9 = new Guna.UI2.WinForms.Guna2Button();
             this.guna2GradientPanel1.SuspendLayout();
             this.guna2TabControl1.SuspendLayout();
@@ -381,7 +377,6 @@ namespace PV
             this.ParamSwitch.UncheckedState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(137)))), ((int)(((byte)(149)))));
             this.ParamSwitch.UncheckedState.InnerBorderColor = System.Drawing.Color.White;
             this.ParamSwitch.UncheckedState.InnerColor = System.Drawing.Color.White;
-            this.ParamSwitch.CheckedChanged += new System.EventHandler(this.ParamSwitch_CheckedChanged);
             // 
             // guna2HtmlLabel3
             // 
@@ -436,7 +431,6 @@ namespace PV
             this.ParamUsuarios.UncheckedState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(137)))), ((int)(((byte)(149)))));
             this.ParamUsuarios.UncheckedState.InnerBorderColor = System.Drawing.Color.White;
             this.ParamUsuarios.UncheckedState.InnerColor = System.Drawing.Color.White;
-            this.ParamUsuarios.CheckedChanged += new System.EventHandler(this.ParamSwitch2_CheckedChanged);
             // 
             // ParamDatosEmpresa
             // 
@@ -452,14 +446,13 @@ namespace PV
             this.ParamDatosEmpresa.UncheckedState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(137)))), ((int)(((byte)(149)))));
             this.ParamDatosEmpresa.UncheckedState.InnerBorderColor = System.Drawing.Color.White;
             this.ParamDatosEmpresa.UncheckedState.InnerColor = System.Drawing.Color.White;
-            this.ParamDatosEmpresa.CheckedChanged += new System.EventHandler(this.ParamSwitch1_CheckedChanged);
             // 
             // CATALOGOS
             // 
             this.CATALOGOS.Controls.Add(this.guna2Separator2);
             this.CATALOGOS.Controls.Add(this.groupBox5);
             this.CATALOGOS.Controls.Add(this.guna2HtmlLabel11);
-            this.CATALOGOS.Controls.Add(this.CatSwitch1);
+            this.CATALOGOS.Controls.Add(this.CatSwitch);
             this.CATALOGOS.Controls.Add(this.label1);
             this.CATALOGOS.Controls.Add(this.guna2HtmlLabel18);
             this.CATALOGOS.Controls.Add(this.lblcat14);
@@ -550,21 +543,21 @@ namespace PV
             this.guna2HtmlLabel11.TabIndex = 51;
             this.guna2HtmlLabel11.Text = "Todos";
             // 
-            // CatSwitch1
+            // CatSwitch
             // 
-            this.CatSwitch1.CheckedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.CatSwitch1.CheckedState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.CatSwitch1.CheckedState.InnerBorderColor = System.Drawing.Color.White;
-            this.CatSwitch1.CheckedState.InnerColor = System.Drawing.Color.White;
-            this.CatSwitch1.Location = new System.Drawing.Point(141, 6);
-            this.CatSwitch1.Name = "CatSwitch1";
-            this.CatSwitch1.Size = new System.Drawing.Size(61, 22);
-            this.CatSwitch1.TabIndex = 50;
-            this.CatSwitch1.UncheckedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(137)))), ((int)(((byte)(149)))));
-            this.CatSwitch1.UncheckedState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(137)))), ((int)(((byte)(149)))));
-            this.CatSwitch1.UncheckedState.InnerBorderColor = System.Drawing.Color.White;
-            this.CatSwitch1.UncheckedState.InnerColor = System.Drawing.Color.White;
-            this.CatSwitch1.CheckedChanged += new System.EventHandler(this.CatSwitch1_CheckedChanged);
+            this.CatSwitch.CheckedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.CatSwitch.CheckedState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.CatSwitch.CheckedState.InnerBorderColor = System.Drawing.Color.White;
+            this.CatSwitch.CheckedState.InnerColor = System.Drawing.Color.White;
+            this.CatSwitch.Location = new System.Drawing.Point(141, 6);
+            this.CatSwitch.Name = "CatSwitch";
+            this.CatSwitch.Size = new System.Drawing.Size(61, 22);
+            this.CatSwitch.TabIndex = 50;
+            this.CatSwitch.UncheckedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(137)))), ((int)(((byte)(149)))));
+            this.CatSwitch.UncheckedState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(137)))), ((int)(((byte)(149)))));
+            this.CatSwitch.UncheckedState.InnerBorderColor = System.Drawing.Color.White;
+            this.CatSwitch.UncheckedState.InnerColor = System.Drawing.Color.White;
+            this.CatSwitch.CheckedChanged += new System.EventHandler(this.CatSwitch_CheckedChanged);
             // 
             // label1
             // 
@@ -609,7 +602,6 @@ namespace PV
             this.CatCuentasBancarias.UncheckedState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(137)))), ((int)(((byte)(149)))));
             this.CatCuentasBancarias.UncheckedState.InnerBorderColor = System.Drawing.Color.White;
             this.CatCuentasBancarias.UncheckedState.InnerColor = System.Drawing.Color.White;
-            this.CatCuentasBancarias.CheckedChanged += new System.EventHandler(this.CatSwitch15_CheckedChanged);
             // 
             // guna2HtmlLabel20
             // 
@@ -644,7 +636,6 @@ namespace PV
             this.CatProveedores.UncheckedState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(137)))), ((int)(((byte)(149)))));
             this.CatProveedores.UncheckedState.InnerBorderColor = System.Drawing.Color.White;
             this.CatProveedores.UncheckedState.InnerColor = System.Drawing.Color.White;
-            this.CatProveedores.CheckedChanged += new System.EventHandler(this.CatSwitch14_CheckedChanged);
             // 
             // guna2HtmlLabel22
             // 
@@ -679,7 +670,6 @@ namespace PV
             this.CatClientes.UncheckedState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(137)))), ((int)(((byte)(149)))));
             this.CatClientes.UncheckedState.InnerBorderColor = System.Drawing.Color.White;
             this.CatClientes.UncheckedState.InnerColor = System.Drawing.Color.White;
-            this.CatClientes.CheckedChanged += new System.EventHandler(this.CatSwitch13_CheckedChanged);
             // 
             // guna2HtmlLabel24
             // 
@@ -733,7 +723,6 @@ namespace PV
             this.CatTipoZonas.UncheckedState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(137)))), ((int)(((byte)(149)))));
             this.CatTipoZonas.UncheckedState.InnerBorderColor = System.Drawing.Color.White;
             this.CatTipoZonas.UncheckedState.InnerColor = System.Drawing.Color.White;
-            this.CatTipoZonas.CheckedChanged += new System.EventHandler(this.CatSwitch12_CheckedChanged);
             // 
             // CatEmpleados
             // 
@@ -749,7 +738,6 @@ namespace PV
             this.CatEmpleados.UncheckedState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(137)))), ((int)(((byte)(149)))));
             this.CatEmpleados.UncheckedState.InnerBorderColor = System.Drawing.Color.White;
             this.CatEmpleados.UncheckedState.InnerColor = System.Drawing.Color.White;
-            this.CatEmpleados.CheckedChanged += new System.EventHandler(this.CatSwitch11_CheckedChanged);
             // 
             // guna2HtmlLabel28
             // 
@@ -803,7 +791,6 @@ namespace PV
             this.CatFormasPago.UncheckedState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(137)))), ((int)(((byte)(149)))));
             this.CatFormasPago.UncheckedState.InnerBorderColor = System.Drawing.Color.White;
             this.CatFormasPago.UncheckedState.InnerColor = System.Drawing.Color.White;
-            this.CatFormasPago.CheckedChanged += new System.EventHandler(this.CatSwitch10_CheckedChanged);
             // 
             // CatConceptosGlobales
             // 
@@ -819,7 +806,6 @@ namespace PV
             this.CatConceptosGlobales.UncheckedState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(137)))), ((int)(((byte)(149)))));
             this.CatConceptosGlobales.UncheckedState.InnerBorderColor = System.Drawing.Color.White;
             this.CatConceptosGlobales.UncheckedState.InnerColor = System.Drawing.Color.White;
-            this.CatConceptosGlobales.CheckedChanged += new System.EventHandler(this.CatSwitch9_CheckedChanged);
             // 
             // guna2HtmlLabel16
             // 
@@ -854,7 +840,6 @@ namespace PV
             this.CatDocumentos.UncheckedState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(137)))), ((int)(((byte)(149)))));
             this.CatDocumentos.UncheckedState.InnerBorderColor = System.Drawing.Color.White;
             this.CatDocumentos.UncheckedState.InnerColor = System.Drawing.Color.White;
-            this.CatDocumentos.CheckedChanged += new System.EventHandler(this.CatSwitch8_CheckedChanged);
             // 
             // guna2HtmlLabel14
             // 
@@ -889,7 +874,6 @@ namespace PV
             this.CatCentroCostos.UncheckedState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(137)))), ((int)(((byte)(149)))));
             this.CatCentroCostos.UncheckedState.InnerBorderColor = System.Drawing.Color.White;
             this.CatCentroCostos.UncheckedState.InnerColor = System.Drawing.Color.White;
-            this.CatCentroCostos.CheckedChanged += new System.EventHandler(this.CatSwitch7_CheckedChanged);
             // 
             // guna2HtmlLabel12
             // 
@@ -924,7 +908,6 @@ namespace PV
             this.CatServicios.UncheckedState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(137)))), ((int)(((byte)(149)))));
             this.CatServicios.UncheckedState.InnerBorderColor = System.Drawing.Color.White;
             this.CatServicios.UncheckedState.InnerColor = System.Drawing.Color.White;
-            this.CatServicios.CheckedChanged += new System.EventHandler(this.CatSwitch6_CheckedChanged);
             // 
             // guna2HtmlLabel8
             // 
@@ -969,7 +952,6 @@ namespace PV
             this.CatProductos.UncheckedState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(137)))), ((int)(((byte)(149)))));
             this.CatProductos.UncheckedState.InnerBorderColor = System.Drawing.Color.White;
             this.CatProductos.UncheckedState.InnerColor = System.Drawing.Color.White;
-            this.CatProductos.CheckedChanged += new System.EventHandler(this.CatSwitch5_CheckedChanged);
             // 
             // CatCategoriasyFamilias
             // 
@@ -985,7 +967,6 @@ namespace PV
             this.CatCategoriasyFamilias.UncheckedState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(137)))), ((int)(((byte)(149)))));
             this.CatCategoriasyFamilias.UncheckedState.InnerBorderColor = System.Drawing.Color.White;
             this.CatCategoriasyFamilias.UncheckedState.InnerColor = System.Drawing.Color.White;
-            this.CatCategoriasyFamilias.CheckedChanged += new System.EventHandler(this.CatSwitch4_CheckedChanged);
             // 
             // guna2HtmlLabel4
             // 
@@ -1039,7 +1020,6 @@ namespace PV
             this.CatAlmacenes.UncheckedState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(137)))), ((int)(((byte)(149)))));
             this.CatAlmacenes.UncheckedState.InnerBorderColor = System.Drawing.Color.White;
             this.CatAlmacenes.UncheckedState.InnerColor = System.Drawing.Color.White;
-            this.CatAlmacenes.CheckedChanged += new System.EventHandler(this.CatSwitch3_CheckedChanged);
             // 
             // CatDivisas
             // 
@@ -1055,7 +1035,6 @@ namespace PV
             this.CatDivisas.UncheckedState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(137)))), ((int)(((byte)(149)))));
             this.CatDivisas.UncheckedState.InnerBorderColor = System.Drawing.Color.White;
             this.CatDivisas.UncheckedState.InnerColor = System.Drawing.Color.White;
-            this.CatDivisas.CheckedChanged += new System.EventHandler(this.CatSwitch2_CheckedChanged);
             // 
             // INVENTARIOS
             // 
@@ -1063,7 +1042,7 @@ namespace PV
             this.INVENTARIOS.Controls.Add(this.guna2Separator3);
             this.INVENTARIOS.Controls.Add(this.groupBox3);
             this.INVENTARIOS.Controls.Add(this.guna2HtmlLabel32);
-            this.INVENTARIOS.Controls.Add(this.InvSwitch1);
+            this.INVENTARIOS.Controls.Add(this.InvSwitch);
             this.INVENTARIOS.Controls.Add(this.label2);
             this.INVENTARIOS.Controls.Add(this.guna2HtmlLabel48);
             this.INVENTARIOS.Controls.Add(this.lblInv7);
@@ -1081,10 +1060,7 @@ namespace PV
             this.INVENTARIOS.Controls.Add(this.InvRegistrarEntradas);
             this.INVENTARIOS.Controls.Add(this.guna2HtmlLabel57);
             this.INVENTARIOS.Controls.Add(this.lblInv2);
-            this.INVENTARIOS.Controls.Add(this.lblInv1);
-            this.INVENTARIOS.Controls.Add(this.guna2HtmlLabel60);
             this.INVENTARIOS.Controls.Add(this.InvTiposMovimientos);
-            this.INVENTARIOS.Controls.Add(this.InvSwitch2);
             this.INVENTARIOS.Location = new System.Drawing.Point(144, 4);
             this.INVENTARIOS.Name = "INVENTARIOS";
             this.INVENTARIOS.Size = new System.Drawing.Size(714, 396);
@@ -1151,21 +1127,20 @@ namespace PV
             this.guna2HtmlLabel32.TabIndex = 95;
             this.guna2HtmlLabel32.Text = "Todos";
             // 
-            // InvSwitch1
+            // InvSwitch
             // 
-            this.InvSwitch1.CheckedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.InvSwitch1.CheckedState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.InvSwitch1.CheckedState.InnerBorderColor = System.Drawing.Color.White;
-            this.InvSwitch1.CheckedState.InnerColor = System.Drawing.Color.White;
-            this.InvSwitch1.Location = new System.Drawing.Point(149, 7);
-            this.InvSwitch1.Name = "InvSwitch1";
-            this.InvSwitch1.Size = new System.Drawing.Size(61, 22);
-            this.InvSwitch1.TabIndex = 94;
-            this.InvSwitch1.UncheckedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(137)))), ((int)(((byte)(149)))));
-            this.InvSwitch1.UncheckedState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(137)))), ((int)(((byte)(149)))));
-            this.InvSwitch1.UncheckedState.InnerBorderColor = System.Drawing.Color.White;
-            this.InvSwitch1.UncheckedState.InnerColor = System.Drawing.Color.White;
-            this.InvSwitch1.CheckedChanged += new System.EventHandler(this.InvSwitch1_CheckedChanged);
+            this.InvSwitch.CheckedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.InvSwitch.CheckedState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.InvSwitch.CheckedState.InnerBorderColor = System.Drawing.Color.White;
+            this.InvSwitch.CheckedState.InnerColor = System.Drawing.Color.White;
+            this.InvSwitch.Location = new System.Drawing.Point(149, 7);
+            this.InvSwitch.Name = "InvSwitch";
+            this.InvSwitch.Size = new System.Drawing.Size(61, 22);
+            this.InvSwitch.TabIndex = 94;
+            this.InvSwitch.UncheckedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(137)))), ((int)(((byte)(149)))));
+            this.InvSwitch.UncheckedState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(137)))), ((int)(((byte)(149)))));
+            this.InvSwitch.UncheckedState.InnerBorderColor = System.Drawing.Color.White;
+            this.InvSwitch.UncheckedState.InnerColor = System.Drawing.Color.White;
             // 
             // label2
             // 
@@ -1210,7 +1185,6 @@ namespace PV
             this.InvReportes.UncheckedState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(137)))), ((int)(((byte)(149)))));
             this.InvReportes.UncheckedState.InnerBorderColor = System.Drawing.Color.White;
             this.InvReportes.UncheckedState.InnerColor = System.Drawing.Color.White;
-            this.InvReportes.CheckedChanged += new System.EventHandler(this.InvSwitch8_CheckedChanged);
             // 
             // guna2HtmlLabel50
             // 
@@ -1245,7 +1219,6 @@ namespace PV
             this.InvConsultarInventarios.UncheckedState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(137)))), ((int)(((byte)(149)))));
             this.InvConsultarInventarios.UncheckedState.InnerBorderColor = System.Drawing.Color.White;
             this.InvConsultarInventarios.UncheckedState.InnerColor = System.Drawing.Color.White;
-            this.InvConsultarInventarios.CheckedChanged += new System.EventHandler(this.InvSwitch7_CheckedChanged);
             // 
             // guna2HtmlLabel52
             // 
@@ -1280,7 +1253,6 @@ namespace PV
             this.InvRegistrarTraspasos.UncheckedState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(137)))), ((int)(((byte)(149)))));
             this.InvRegistrarTraspasos.UncheckedState.InnerBorderColor = System.Drawing.Color.White;
             this.InvRegistrarTraspasos.UncheckedState.InnerColor = System.Drawing.Color.White;
-            this.InvRegistrarTraspasos.CheckedChanged += new System.EventHandler(this.InvSwitch6_CheckedChanged);
             // 
             // guna2HtmlLabel54
             // 
@@ -1324,7 +1296,6 @@ namespace PV
             this.InvRegistrarSalidas.UncheckedState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(137)))), ((int)(((byte)(149)))));
             this.InvRegistrarSalidas.UncheckedState.InnerBorderColor = System.Drawing.Color.White;
             this.InvRegistrarSalidas.UncheckedState.InnerColor = System.Drawing.Color.White;
-            this.InvRegistrarSalidas.CheckedChanged += new System.EventHandler(this.InvSwitch5_CheckedChanged);
             // 
             // InvRegistrarEntradas
             // 
@@ -1340,7 +1311,6 @@ namespace PV
             this.InvRegistrarEntradas.UncheckedState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(137)))), ((int)(((byte)(149)))));
             this.InvRegistrarEntradas.UncheckedState.InnerBorderColor = System.Drawing.Color.White;
             this.InvRegistrarEntradas.UncheckedState.InnerColor = System.Drawing.Color.White;
-            this.InvRegistrarEntradas.CheckedChanged += new System.EventHandler(this.InvSwitch4_CheckedChanged);
             // 
             // guna2HtmlLabel57
             // 
@@ -1361,25 +1331,6 @@ namespace PV
             this.lblInv2.TabIndex = 56;
             this.lblInv2.Text = "Activo";
             // 
-            // lblInv1
-            // 
-            this.lblInv1.BackColor = System.Drawing.Color.Transparent;
-            this.lblInv1.Location = new System.Drawing.Point(254, 74);
-            this.lblInv1.Name = "lblInv1";
-            this.lblInv1.Size = new System.Drawing.Size(33, 15);
-            this.lblInv1.TabIndex = 55;
-            this.lblInv1.Text = "Activo";
-            // 
-            // guna2HtmlLabel60
-            // 
-            this.guna2HtmlLabel60.BackColor = System.Drawing.Color.Transparent;
-            this.guna2HtmlLabel60.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.guna2HtmlLabel60.Location = new System.Drawing.Point(17, 65);
-            this.guna2HtmlLabel60.Name = "guna2HtmlLabel60";
-            this.guna2HtmlLabel60.Size = new System.Drawing.Size(104, 23);
-            this.guna2HtmlLabel60.TabIndex = 54;
-            this.guna2HtmlLabel60.Text = "Movimientos";
-            // 
             // InvTiposMovimientos
             // 
             this.InvTiposMovimientos.CheckedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
@@ -1394,23 +1345,6 @@ namespace PV
             this.InvTiposMovimientos.UncheckedState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(137)))), ((int)(((byte)(149)))));
             this.InvTiposMovimientos.UncheckedState.InnerBorderColor = System.Drawing.Color.White;
             this.InvTiposMovimientos.UncheckedState.InnerColor = System.Drawing.Color.White;
-            this.InvTiposMovimientos.CheckedChanged += new System.EventHandler(this.InvSwitch3_CheckedChanged);
-            // 
-            // InvSwitch2
-            // 
-            this.InvSwitch2.CheckedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.InvSwitch2.CheckedState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.InvSwitch2.CheckedState.InnerBorderColor = System.Drawing.Color.White;
-            this.InvSwitch2.CheckedState.InnerColor = System.Drawing.Color.White;
-            this.InvSwitch2.Location = new System.Drawing.Point(162, 71);
-            this.InvSwitch2.Name = "InvSwitch2";
-            this.InvSwitch2.Size = new System.Drawing.Size(61, 22);
-            this.InvSwitch2.TabIndex = 52;
-            this.InvSwitch2.UncheckedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(137)))), ((int)(((byte)(149)))));
-            this.InvSwitch2.UncheckedState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(137)))), ((int)(((byte)(149)))));
-            this.InvSwitch2.UncheckedState.InnerBorderColor = System.Drawing.Color.White;
-            this.InvSwitch2.UncheckedState.InnerColor = System.Drawing.Color.White;
-            this.InvSwitch2.CheckedChanged += new System.EventHandler(this.InvSwitch2_CheckedChanged);
             // 
             // COMPRAS
             // 
@@ -1420,7 +1354,7 @@ namespace PV
             this.COMPRAS.Controls.Add(this.CompGeneraPoliza);
             this.COMPRAS.Controls.Add(this.guna2HtmlLabel62);
             this.COMPRAS.Controls.Add(this.guna2HtmlLabel34);
-            this.COMPRAS.Controls.Add(this.CompSwitch1);
+            this.COMPRAS.Controls.Add(this.CompSwitch);
             this.COMPRAS.Controls.Add(this.label3);
             this.COMPRAS.Controls.Add(this.guna2HtmlLabel35);
             this.COMPRAS.Controls.Add(this.lblComp7);
@@ -1494,7 +1428,7 @@ namespace PV
             this.CompGeneraPoliza.CheckedState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.CompGeneraPoliza.CheckedState.InnerBorderColor = System.Drawing.Color.White;
             this.CompGeneraPoliza.CheckedState.InnerColor = System.Drawing.Color.White;
-            this.CompGeneraPoliza.Location = new System.Drawing.Point(192, 311);
+            this.CompGeneraPoliza.Location = new System.Drawing.Point(183, 314);
             this.CompGeneraPoliza.Name = "CompGeneraPoliza";
             this.CompGeneraPoliza.Size = new System.Drawing.Size(61, 22);
             this.CompGeneraPoliza.TabIndex = 120;
@@ -1502,7 +1436,6 @@ namespace PV
             this.CompGeneraPoliza.UncheckedState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(137)))), ((int)(((byte)(149)))));
             this.CompGeneraPoliza.UncheckedState.InnerBorderColor = System.Drawing.Color.White;
             this.CompGeneraPoliza.UncheckedState.InnerColor = System.Drawing.Color.White;
-            this.CompGeneraPoliza.CheckedChanged += new System.EventHandler(this.CompSwitch9_CheckedChanged);
             // 
             // guna2HtmlLabel62
             // 
@@ -1525,21 +1458,20 @@ namespace PV
             this.guna2HtmlLabel34.TabIndex = 118;
             this.guna2HtmlLabel34.Text = "Todos";
             // 
-            // CompSwitch1
+            // CompSwitch
             // 
-            this.CompSwitch1.CheckedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.CompSwitch1.CheckedState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.CompSwitch1.CheckedState.InnerBorderColor = System.Drawing.Color.White;
-            this.CompSwitch1.CheckedState.InnerColor = System.Drawing.Color.White;
-            this.CompSwitch1.Location = new System.Drawing.Point(155, 8);
-            this.CompSwitch1.Name = "CompSwitch1";
-            this.CompSwitch1.Size = new System.Drawing.Size(61, 22);
-            this.CompSwitch1.TabIndex = 117;
-            this.CompSwitch1.UncheckedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(137)))), ((int)(((byte)(149)))));
-            this.CompSwitch1.UncheckedState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(137)))), ((int)(((byte)(149)))));
-            this.CompSwitch1.UncheckedState.InnerBorderColor = System.Drawing.Color.White;
-            this.CompSwitch1.UncheckedState.InnerColor = System.Drawing.Color.White;
-            this.CompSwitch1.CheckedChanged += new System.EventHandler(this.CompSwitch1_CheckedChanged);
+            this.CompSwitch.CheckedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.CompSwitch.CheckedState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.CompSwitch.CheckedState.InnerBorderColor = System.Drawing.Color.White;
+            this.CompSwitch.CheckedState.InnerColor = System.Drawing.Color.White;
+            this.CompSwitch.Location = new System.Drawing.Point(155, 8);
+            this.CompSwitch.Name = "CompSwitch";
+            this.CompSwitch.Size = new System.Drawing.Size(61, 22);
+            this.CompSwitch.TabIndex = 117;
+            this.CompSwitch.UncheckedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(137)))), ((int)(((byte)(149)))));
+            this.CompSwitch.UncheckedState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(137)))), ((int)(((byte)(149)))));
+            this.CompSwitch.UncheckedState.InnerBorderColor = System.Drawing.Color.White;
+            this.CompSwitch.UncheckedState.InnerColor = System.Drawing.Color.White;
             // 
             // label3
             // 
@@ -1584,7 +1516,6 @@ namespace PV
             this.CompDefinePoliza.UncheckedState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(137)))), ((int)(((byte)(149)))));
             this.CompDefinePoliza.UncheckedState.InnerBorderColor = System.Drawing.Color.White;
             this.CompDefinePoliza.UncheckedState.InnerColor = System.Drawing.Color.White;
-            this.CompDefinePoliza.CheckedChanged += new System.EventHandler(this.CompSwitch8_CheckedChanged);
             // 
             // guna2HtmlLabel37
             // 
@@ -1619,7 +1550,6 @@ namespace PV
             this.CompReportes.UncheckedState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(137)))), ((int)(((byte)(149)))));
             this.CompReportes.UncheckedState.InnerBorderColor = System.Drawing.Color.White;
             this.CompReportes.UncheckedState.InnerColor = System.Drawing.Color.White;
-            this.CompReportes.CheckedChanged += new System.EventHandler(this.CompSwitch7_CheckedChanged);
             // 
             // guna2HtmlLabel39
             // 
@@ -1654,7 +1584,6 @@ namespace PV
             this.CompNotasCRyCA.UncheckedState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(137)))), ((int)(((byte)(149)))));
             this.CompNotasCRyCA.UncheckedState.InnerBorderColor = System.Drawing.Color.White;
             this.CompNotasCRyCA.UncheckedState.InnerColor = System.Drawing.Color.White;
-            this.CompNotasCRyCA.CheckedChanged += new System.EventHandler(this.CompSwitch6_CheckedChanged);
             // 
             // guna2HtmlLabel41
             // 
@@ -1698,7 +1627,6 @@ namespace PV
             this.CompCompras.UncheckedState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(137)))), ((int)(((byte)(149)))));
             this.CompCompras.UncheckedState.InnerBorderColor = System.Drawing.Color.White;
             this.CompCompras.UncheckedState.InnerColor = System.Drawing.Color.White;
-            this.CompCompras.CheckedChanged += new System.EventHandler(this.CompSwitch5_CheckedChanged);
             // 
             // CompPedidosProveedores
             // 
@@ -1714,7 +1642,6 @@ namespace PV
             this.CompPedidosProveedores.UncheckedState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(137)))), ((int)(((byte)(149)))));
             this.CompPedidosProveedores.UncheckedState.InnerBorderColor = System.Drawing.Color.White;
             this.CompPedidosProveedores.UncheckedState.InnerColor = System.Drawing.Color.White;
-            this.CompPedidosProveedores.CheckedChanged += new System.EventHandler(this.CompSwitch4_CheckedChanged);
             // 
             // guna2HtmlLabel44
             // 
@@ -1768,7 +1695,6 @@ namespace PV
             this.CompCotizaciones.UncheckedState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(137)))), ((int)(((byte)(149)))));
             this.CompCotizaciones.UncheckedState.InnerBorderColor = System.Drawing.Color.White;
             this.CompCotizaciones.UncheckedState.InnerColor = System.Drawing.Color.White;
-            this.CompCotizaciones.CheckedChanged += new System.EventHandler(this.CompSwitch3_CheckedChanged);
             // 
             // CompRequisiciones
             // 
@@ -1784,7 +1710,6 @@ namespace PV
             this.CompRequisiciones.UncheckedState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(137)))), ((int)(((byte)(149)))));
             this.CompRequisiciones.UncheckedState.InnerBorderColor = System.Drawing.Color.White;
             this.CompRequisiciones.UncheckedState.InnerColor = System.Drawing.Color.White;
-            this.CompRequisiciones.CheckedChanged += new System.EventHandler(this.CompSwitch2_CheckedChanged);
             // 
             // VENTAS
             // 
@@ -1812,7 +1737,7 @@ namespace PV
             this.VENTAS.Controls.Add(this.guna2Separator5);
             this.VENTAS.Controls.Add(this.groupBox9);
             this.VENTAS.Controls.Add(this.guna2HtmlLabel63);
-            this.VENTAS.Controls.Add(this.venSwitch);
+            this.VENTAS.Controls.Add(this.VenSwitch);
             this.VENTAS.Location = new System.Drawing.Point(144, 4);
             this.VENTAS.Name = "VENTAS";
             this.VENTAS.Size = new System.Drawing.Size(714, 396);
@@ -2100,27 +2025,27 @@ namespace PV
             this.guna2HtmlLabel63.TabIndex = 120;
             this.guna2HtmlLabel63.Text = "Todos";
             // 
-            // venSwitch
+            // VenSwitch
             // 
-            this.venSwitch.CheckedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.venSwitch.CheckedState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.venSwitch.CheckedState.InnerBorderColor = System.Drawing.Color.White;
-            this.venSwitch.CheckedState.InnerColor = System.Drawing.Color.White;
-            this.venSwitch.Location = new System.Drawing.Point(96, 9);
-            this.venSwitch.Name = "venSwitch";
-            this.venSwitch.Size = new System.Drawing.Size(61, 22);
-            this.venSwitch.TabIndex = 119;
-            this.venSwitch.UncheckedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(137)))), ((int)(((byte)(149)))));
-            this.venSwitch.UncheckedState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(137)))), ((int)(((byte)(149)))));
-            this.venSwitch.UncheckedState.InnerBorderColor = System.Drawing.Color.White;
-            this.venSwitch.UncheckedState.InnerColor = System.Drawing.Color.White;
+            this.VenSwitch.CheckedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.VenSwitch.CheckedState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.VenSwitch.CheckedState.InnerBorderColor = System.Drawing.Color.White;
+            this.VenSwitch.CheckedState.InnerColor = System.Drawing.Color.White;
+            this.VenSwitch.Location = new System.Drawing.Point(96, 9);
+            this.VenSwitch.Name = "VenSwitch";
+            this.VenSwitch.Size = new System.Drawing.Size(61, 22);
+            this.VenSwitch.TabIndex = 119;
+            this.VenSwitch.UncheckedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(137)))), ((int)(((byte)(149)))));
+            this.VenSwitch.UncheckedState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(137)))), ((int)(((byte)(149)))));
+            this.VenSwitch.UncheckedState.InnerBorderColor = System.Drawing.Color.White;
+            this.VenSwitch.UncheckedState.InnerColor = System.Drawing.Color.White;
             // 
             // TESORERIA
             // 
             this.TESORERIA.Controls.Add(this.guna2Separator6);
             this.TESORERIA.Controls.Add(this.groupBox11);
             this.TESORERIA.Controls.Add(this.guna2HtmlLabel64);
-            this.TESORERIA.Controls.Add(this.guna2ToggleSwitch35);
+            this.TESORERIA.Controls.Add(this.TesSwitch);
             this.TESORERIA.Location = new System.Drawing.Point(144, 4);
             this.TESORERIA.Name = "TESORERIA";
             this.TESORERIA.Size = new System.Drawing.Size(714, 396);
@@ -2168,28 +2093,28 @@ namespace PV
             this.guna2HtmlLabel64.TabIndex = 122;
             this.guna2HtmlLabel64.Text = "Todos";
             // 
-            // guna2ToggleSwitch35
+            // TesSwitch
             // 
-            this.guna2ToggleSwitch35.CheckedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.guna2ToggleSwitch35.CheckedState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.guna2ToggleSwitch35.CheckedState.InnerBorderColor = System.Drawing.Color.White;
-            this.guna2ToggleSwitch35.CheckedState.InnerColor = System.Drawing.Color.White;
-            this.guna2ToggleSwitch35.Location = new System.Drawing.Point(89, 10);
-            this.guna2ToggleSwitch35.Name = "guna2ToggleSwitch35";
-            this.guna2ToggleSwitch35.Size = new System.Drawing.Size(61, 22);
-            this.guna2ToggleSwitch35.TabIndex = 121;
-            this.guna2ToggleSwitch35.UncheckedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(137)))), ((int)(((byte)(149)))));
-            this.guna2ToggleSwitch35.UncheckedState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(137)))), ((int)(((byte)(149)))));
-            this.guna2ToggleSwitch35.UncheckedState.InnerBorderColor = System.Drawing.Color.White;
-            this.guna2ToggleSwitch35.UncheckedState.InnerColor = System.Drawing.Color.White;
-            this.guna2ToggleSwitch35.CheckedChanged += new System.EventHandler(this.guna2ToggleSwitch35_CheckedChanged);
+            this.TesSwitch.CheckedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.TesSwitch.CheckedState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.TesSwitch.CheckedState.InnerBorderColor = System.Drawing.Color.White;
+            this.TesSwitch.CheckedState.InnerColor = System.Drawing.Color.White;
+            this.TesSwitch.Location = new System.Drawing.Point(89, 10);
+            this.TesSwitch.Name = "TesSwitch";
+            this.TesSwitch.Size = new System.Drawing.Size(61, 22);
+            this.TesSwitch.TabIndex = 121;
+            this.TesSwitch.UncheckedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(137)))), ((int)(((byte)(149)))));
+            this.TesSwitch.UncheckedState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(137)))), ((int)(((byte)(149)))));
+            this.TesSwitch.UncheckedState.InnerBorderColor = System.Drawing.Color.White;
+            this.TesSwitch.UncheckedState.InnerColor = System.Drawing.Color.White;
+            this.TesSwitch.CheckedChanged += new System.EventHandler(this.guna2ToggleSwitch35_CheckedChanged);
             // 
             // PRESUPUESTO
             // 
             this.PRESUPUESTO.Controls.Add(this.guna2Separator7);
             this.PRESUPUESTO.Controls.Add(this.groupBox13);
             this.PRESUPUESTO.Controls.Add(this.guna2HtmlLabel65);
-            this.PRESUPUESTO.Controls.Add(this.guna2ToggleSwitch36);
+            this.PRESUPUESTO.Controls.Add(this.PreSwitch);
             this.PRESUPUESTO.Location = new System.Drawing.Point(144, 4);
             this.PRESUPUESTO.Name = "PRESUPUESTO";
             this.PRESUPUESTO.Size = new System.Drawing.Size(714, 396);
@@ -2237,27 +2162,27 @@ namespace PV
             this.guna2HtmlLabel65.TabIndex = 124;
             this.guna2HtmlLabel65.Text = "Todos";
             // 
-            // guna2ToggleSwitch36
+            // PreSwitch
             // 
-            this.guna2ToggleSwitch36.CheckedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.guna2ToggleSwitch36.CheckedState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.guna2ToggleSwitch36.CheckedState.InnerBorderColor = System.Drawing.Color.White;
-            this.guna2ToggleSwitch36.CheckedState.InnerColor = System.Drawing.Color.White;
-            this.guna2ToggleSwitch36.Location = new System.Drawing.Point(91, 7);
-            this.guna2ToggleSwitch36.Name = "guna2ToggleSwitch36";
-            this.guna2ToggleSwitch36.Size = new System.Drawing.Size(61, 22);
-            this.guna2ToggleSwitch36.TabIndex = 123;
-            this.guna2ToggleSwitch36.UncheckedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(137)))), ((int)(((byte)(149)))));
-            this.guna2ToggleSwitch36.UncheckedState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(137)))), ((int)(((byte)(149)))));
-            this.guna2ToggleSwitch36.UncheckedState.InnerBorderColor = System.Drawing.Color.White;
-            this.guna2ToggleSwitch36.UncheckedState.InnerColor = System.Drawing.Color.White;
+            this.PreSwitch.CheckedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.PreSwitch.CheckedState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.PreSwitch.CheckedState.InnerBorderColor = System.Drawing.Color.White;
+            this.PreSwitch.CheckedState.InnerColor = System.Drawing.Color.White;
+            this.PreSwitch.Location = new System.Drawing.Point(91, 7);
+            this.PreSwitch.Name = "PreSwitch";
+            this.PreSwitch.Size = new System.Drawing.Size(61, 22);
+            this.PreSwitch.TabIndex = 123;
+            this.PreSwitch.UncheckedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(137)))), ((int)(((byte)(149)))));
+            this.PreSwitch.UncheckedState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(137)))), ((int)(((byte)(149)))));
+            this.PreSwitch.UncheckedState.InnerBorderColor = System.Drawing.Color.White;
+            this.PreSwitch.UncheckedState.InnerColor = System.Drawing.Color.White;
             // 
             // UTILERIAS
             // 
             this.UTILERIAS.Controls.Add(this.guna2Separator8);
             this.UTILERIAS.Controls.Add(this.groupBox15);
             this.UTILERIAS.Controls.Add(this.guna2HtmlLabel66);
-            this.UTILERIAS.Controls.Add(this.guna2ToggleSwitch37);
+            this.UTILERIAS.Controls.Add(this.UtiSwitch);
             this.UTILERIAS.Location = new System.Drawing.Point(144, 4);
             this.UTILERIAS.Name = "UTILERIAS";
             this.UTILERIAS.Size = new System.Drawing.Size(714, 396);
@@ -2305,20 +2230,20 @@ namespace PV
             this.guna2HtmlLabel66.TabIndex = 124;
             this.guna2HtmlLabel66.Text = "Todos";
             // 
-            // guna2ToggleSwitch37
+            // UtiSwitch
             // 
-            this.guna2ToggleSwitch37.CheckedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.guna2ToggleSwitch37.CheckedState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.guna2ToggleSwitch37.CheckedState.InnerBorderColor = System.Drawing.Color.White;
-            this.guna2ToggleSwitch37.CheckedState.InnerColor = System.Drawing.Color.White;
-            this.guna2ToggleSwitch37.Location = new System.Drawing.Point(84, 8);
-            this.guna2ToggleSwitch37.Name = "guna2ToggleSwitch37";
-            this.guna2ToggleSwitch37.Size = new System.Drawing.Size(61, 22);
-            this.guna2ToggleSwitch37.TabIndex = 123;
-            this.guna2ToggleSwitch37.UncheckedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(137)))), ((int)(((byte)(149)))));
-            this.guna2ToggleSwitch37.UncheckedState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(137)))), ((int)(((byte)(149)))));
-            this.guna2ToggleSwitch37.UncheckedState.InnerBorderColor = System.Drawing.Color.White;
-            this.guna2ToggleSwitch37.UncheckedState.InnerColor = System.Drawing.Color.White;
+            this.UtiSwitch.CheckedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.UtiSwitch.CheckedState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.UtiSwitch.CheckedState.InnerBorderColor = System.Drawing.Color.White;
+            this.UtiSwitch.CheckedState.InnerColor = System.Drawing.Color.White;
+            this.UtiSwitch.Location = new System.Drawing.Point(84, 8);
+            this.UtiSwitch.Name = "UtiSwitch";
+            this.UtiSwitch.Size = new System.Drawing.Size(61, 22);
+            this.UtiSwitch.TabIndex = 123;
+            this.UtiSwitch.UncheckedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(137)))), ((int)(((byte)(149)))));
+            this.UtiSwitch.UncheckedState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(137)))), ((int)(((byte)(149)))));
+            this.UtiSwitch.UncheckedState.InnerBorderColor = System.Drawing.Color.White;
+            this.UtiSwitch.UncheckedState.InnerColor = System.Drawing.Color.White;
             // 
             // guna2Button9
             // 
@@ -2334,7 +2259,6 @@ namespace PV
             this.guna2Button9.FillColor = System.Drawing.Color.Transparent;
             this.guna2Button9.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.guna2Button9.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(19)))), ((int)(((byte)(35)))), ((int)(((byte)(95)))));
-            this.guna2Button9.Image = ((System.Drawing.Image)(resources.GetObject("guna2Button9.Image")));
             this.guna2Button9.ImageAlign = System.Windows.Forms.HorizontalAlignment.Left;
             this.guna2Button9.ImageSize = new System.Drawing.Size(48, 48);
             this.guna2Button9.Location = new System.Drawing.Point(742, 517);
@@ -2359,6 +2283,7 @@ namespace PV
             this.Name = "UsuarioPermisos";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "UsuarioPermisos";
+            this.Load += new System.EventHandler(this.UsuarioPermisos_Load);
             this.guna2GradientPanel1.ResumeLayout(false);
             this.guna2GradientPanel1.PerformLayout();
             this.guna2TabControl1.ResumeLayout(false);
@@ -2456,9 +2381,9 @@ namespace PV
         private Guna.UI2.WinForms.Guna2ToggleSwitch ParamSwitch;
         private System.Windows.Forms.Label label1;
         private Guna.UI2.WinForms.Guna2HtmlLabel guna2HtmlLabel11;
-        private Guna.UI2.WinForms.Guna2ToggleSwitch CatSwitch1;
+        private Guna.UI2.WinForms.Guna2ToggleSwitch CatSwitch;
         private Guna.UI2.WinForms.Guna2HtmlLabel guna2HtmlLabel32;
-        private Guna.UI2.WinForms.Guna2ToggleSwitch InvSwitch1;
+        private Guna.UI2.WinForms.Guna2ToggleSwitch InvSwitch;
         private System.Windows.Forms.Label label2;
         private Guna.UI2.WinForms.Guna2HtmlLabel guna2HtmlLabel48;
         private Guna.UI2.WinForms.Guna2HtmlLabel lblInv7;
@@ -2476,15 +2401,12 @@ namespace PV
         private Guna.UI2.WinForms.Guna2ToggleSwitch InvRegistrarEntradas;
         private Guna.UI2.WinForms.Guna2HtmlLabel guna2HtmlLabel57;
         private Guna.UI2.WinForms.Guna2HtmlLabel lblInv2;
-        private Guna.UI2.WinForms.Guna2HtmlLabel lblInv1;
-        private Guna.UI2.WinForms.Guna2HtmlLabel guna2HtmlLabel60;
         private Guna.UI2.WinForms.Guna2ToggleSwitch InvTiposMovimientos;
-        private Guna.UI2.WinForms.Guna2ToggleSwitch InvSwitch2;
         private Guna.UI2.WinForms.Guna2HtmlLabel lblComp8;
         private Guna.UI2.WinForms.Guna2ToggleSwitch CompGeneraPoliza;
         private Guna.UI2.WinForms.Guna2HtmlLabel guna2HtmlLabel62;
         private Guna.UI2.WinForms.Guna2HtmlLabel guna2HtmlLabel34;
-        private Guna.UI2.WinForms.Guna2ToggleSwitch CompSwitch1;
+        private Guna.UI2.WinForms.Guna2ToggleSwitch CompSwitch;
         private System.Windows.Forms.Label label3;
         private Guna.UI2.WinForms.Guna2HtmlLabel guna2HtmlLabel35;
         private Guna.UI2.WinForms.Guna2HtmlLabel lblComp7;
@@ -2507,13 +2429,13 @@ namespace PV
         private Guna.UI2.WinForms.Guna2ToggleSwitch CompCotizaciones;
         private Guna.UI2.WinForms.Guna2ToggleSwitch CompRequisiciones;
         private Guna.UI2.WinForms.Guna2HtmlLabel guna2HtmlLabel63;
-        private Guna.UI2.WinForms.Guna2ToggleSwitch venSwitch;
+        private Guna.UI2.WinForms.Guna2ToggleSwitch VenSwitch;
         private Guna.UI2.WinForms.Guna2HtmlLabel guna2HtmlLabel64;
-        private Guna.UI2.WinForms.Guna2ToggleSwitch guna2ToggleSwitch35;
+        private Guna.UI2.WinForms.Guna2ToggleSwitch TesSwitch;
         private Guna.UI2.WinForms.Guna2HtmlLabel guna2HtmlLabel65;
-        private Guna.UI2.WinForms.Guna2ToggleSwitch guna2ToggleSwitch36;
+        private Guna.UI2.WinForms.Guna2ToggleSwitch PreSwitch;
         private Guna.UI2.WinForms.Guna2HtmlLabel guna2HtmlLabel66;
-        private Guna.UI2.WinForms.Guna2ToggleSwitch guna2ToggleSwitch37;
+        private Guna.UI2.WinForms.Guna2ToggleSwitch UtiSwitch;
         private Guna.UI2.WinForms.Guna2Button guna2Button9;
         private System.Windows.Forms.GroupBox groupBox5;
         private System.Windows.Forms.GroupBox groupBox6;

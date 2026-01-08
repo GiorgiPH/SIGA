@@ -241,8 +241,12 @@ namespace PuntoVentas
 
         private void guna2Button7_Click(object sender, EventArgs e)
         {
-            UsuarioPermisos UP = new UsuarioPermisos();
-            UP.ShowDialog();
+            
+
+                UsuarioPermisos usuarioPermisos = new UsuarioPermisos(txtUsuario.Text);
+                usuarioPermisos.ShowDialog();
+            
+            
         }
     }
 }

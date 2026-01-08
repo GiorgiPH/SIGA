@@ -427,7 +427,7 @@ namespace PV
             txtConcepto.Enabled = false;
             txtCantidad.Enabled = false;
             txtPrecio.Enabled = false;
-            guna2Button6.Enabled = false;
+            btnAgregarPartida.Enabled = false;
 
         }
 
@@ -459,7 +459,7 @@ namespace PV
 
         }
 
-        private void guna2Button8_Click(object sender, EventArgs e)
+        private void btnSiguientePartida_Click(object sender, EventArgs e)
         {
             if (txtCantidad.Text == string.Empty || txtCantidad.Text == "0")
             {
@@ -517,7 +517,7 @@ namespace PV
 
         }
 
-        private void guna2Button12_Click(object sender, EventArgs e)
+        private void btnConfirmarPartida_Click(object sender, EventArgs e)
         {
             if (txtCantidad.Text == string.Empty || txtCantidad.Text == "0")
             {
@@ -582,15 +582,15 @@ namespace PV
                 c.CargarPartida(guna2DataGridView1, TipoM, Descripcion, txtFolioRegistrar.Text);
                 LimpiarDetalle();
 
-                guna2Button9.Visible = true;
-                guna2Button9.Enabled = true;
+                btnTerminarDocumento.Visible = true;
+                btnTerminarDocumento.Enabled = true;
                 //  Partida1 = Convert.ToInt32(txtNoPartida.Text);
 
             //    MessageBox.Show(""+Partida1);
             }
         }
 
-        private void guna2Button10_Click(object sender, EventArgs e)
+        private void btnCerrarPartida_Click(object sender, EventArgs e)
         {
 
            /* if (Partida1 > 1)
@@ -644,7 +644,7 @@ namespace PV
 
         }
 
-        private void guna2Button6_Click(object sender, EventArgs e)
+        private void btnAgregarPartida_Click(object sender, EventArgs e)
         {
             guna2Button11.Visible = false;
             LimpiarDetalle();
@@ -662,10 +662,10 @@ namespace PV
                 txtNoPartida.Text = Partida1.ToString();
                 //MessageBox.Show("b:"+Partida1);
             }
-            guna2Button10.Enabled = true;
-            guna2Button12.Enabled = true;
-            guna2Button8.Enabled = true;
-            guna2Button7.Enabled = false;
+            btnCerrarPartida.Enabled = true;
+            btnConfirmarPartida.Enabled = true;
+            btnSiguientePartida.Enabled = true;
+            btnEliminarPartida.Enabled = false;
             c.SeleccionarProducto(cmbProducto);
 
             
@@ -812,16 +812,16 @@ namespace PV
                 cmbProducto.SelectedIndex = 0;
             }
             txtCantidad.Text = cantidad;
-            guna2Button10.Enabled = false;
-            guna2Button12.Enabled = false;
-            guna2Button8.Enabled = false;
-            guna2Button7.Enabled = true;
+            btnCerrarPartida.Enabled = false;
+            btnConfirmarPartida.Enabled = false;
+            btnSiguientePartida.Enabled = false;
+            btnEliminarPartida.Enabled = true;
             txtAlias.Enabled = false;
             cmbDivisa1.Enabled = false;
         }
 
 
-        private void guna2Button9_Click(object sender, EventArgs e)
+        private void btnTerminarDocumento_Click(object sender, EventArgs e)
         {
             //MessageBox.Show("P:" + Partida1);
             txtTotalPartidas.Text = Partida1.ToString();
@@ -837,13 +837,13 @@ namespace PV
             Limpiar();
             LimpiarDetalle();
           
-            guna2Button9.Enabled = false;
+            btnTerminarDocumento.Enabled = false;
             guna2DataGridView1.Rows.Clear();
 
 
         }
 
-        private void guna2Button7_Click(object sender, EventArgs e)
+        private void btnEliminarPartida_Click(object sender, EventArgs e)
         {
             c1.Eliminarpartida(txtFolioRegistrar.Text, txtTipoDocumento.Text, cmbDescripcion.Text, txtNoPartida.Text);
             MessageBox.Show("Partida Eliminada");

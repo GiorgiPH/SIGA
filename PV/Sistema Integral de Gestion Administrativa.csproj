@@ -339,7 +339,9 @@
     <Compile Include="Clases\Servicios\DBServicios.cs" />
     <Compile Include="Clases\TipoMovimiento\DBTipoMovimiento.cs" />
     <Compile Include="Clases\TiposZonas\DBTiposZonas.cs" />
+    <Compile Include="Clases\Usuarios\DBPermisos.cs" />
     <Compile Include="Clases\Usuarios\DBUsuarios.cs" />
+    <Compile Include="Clases\Usuarios\PermisosManager.cs" />
     <Compile Include="Clases\Utilerias.cs" />
     <Compile Include="Clientes.cs">
       <SubType>Form</SubType>

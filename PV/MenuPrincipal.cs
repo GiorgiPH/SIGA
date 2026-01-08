@@ -8,6 +8,8 @@ using PuntoVentas;
 using MEDCON;
 using PV.Clases.Respaldo;
 using System.Drawing;
+using System.Collections.Generic;
+using PuntoVentas.Clases.Usuarios;
 
 namespace PuntoVentas
 {
@@ -15,9 +17,12 @@ namespace PuntoVentas
     {
         DBLogin c = new DBLogin();
         DBRespaldo R = new DBRespaldo();
+        DBPermisos p = new DBPermisos();
         public static int Opcion = 0;
         public static int Avisos = 0;
         static string Seleccion = string.Empty;
+        private Dictionary<string, string> _permisos;
+
         public MenuPrincipal()
         {
             InitializeComponent();
@@ -47,6 +52,72 @@ namespace PuntoVentas
         {
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             c.empresa();
+            _permisos = p.CargarPermisosUsuario(DBLogin.usuario);
+            AplicarPermisosMenu();
+        }
+
+        private void AplicarPermisosMenu()
+        {
+            foreach (var permiso in _permisos)
+            {
+                bool habilitado = permiso.Value.ToLower() == "activo";
+
+                switch (permiso.Key)
+                {
+                    case "MOD_PARAMETROS":
+                        BtnParametros1.Enabled = habilitado;
+                        BtnParametros2.Enabled = habilitado;
+                        break;
+
+                    case "MOD_CATALOGOS":
+                        btncatalogos1.Enabled = habilitado;
+                        btncatalogos2.Enabled = habilitado;
+                        break;
+
+                    case "MOD_INVENTARIOS":
+                        btnInventario.Enabled = habilitado;
+                        BtnInventario1.Enabled = habilitado;
+                        break;
+
+                    case "MOD_COMPRAS":
+                        btnCompras1.Enabled = habilitado;
+                        btnCompras2.Enabled = habilitado;
+                        break;
+
+                    case "MOD_VENTAS":
+                        btnventas1.Enabled = habilitado;
+                        btnventas2.Enabled = habilitado;
+                        break;
+
+                    // 🔽 NUEVOS PERMISOS DE VENTAS 🔽
+
+                    case "VRegistrarCobranza":
+                        btnRegistrarINgresos.Enabled = habilitado;
+                        break;
+
+                    case "VPedidosClientes":
+                        btnPedidos.Enabled = habilitado;
+                        break;
+
+                    case "VRemisiones":
+                        btnRemisiones.Enabled = habilitado;
+                        break;
+
+
+                    case "VReportes":
+                        btnReporteAnticipos.Enabled = habilitado;
+                        btnReporteIngresos.Enabled = habilitado;
+
+                        btnReporteUtilidadPedido.Enabled = habilitado;
+
+                        btnReporteUtilidadProducto.Enabled = habilitado;
+                        btnReporteRemisiones.Enabled = habilitado;
+
+
+
+                        break;
+                }
+            }
         }
 
         private void button1_Click(object sender, EventArgs e)
