@@ -7,7 +7,6 @@ using PV.Clases.Almacenes;
 using PV.Clases.Clientes;
 using PV.Clases.OrdenCompra;
 using PV.Clases.PedidoCliente;
-using SqlServerTypes;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -336,6 +335,11 @@ namespace PV
             {
                 if (tipo == "Remision")
                 {
+                    if (!ValidarExistencias())
+                    {
+                        return;
+                    }
+
                     o.InsertarPartidaRemision(TxtFolio2.Text, txtPartida.Text, txtConcepto2.Text, txtConcepto2.Text, txtCantidad.Text, txtUnidad.Text, txtDivisa1.Text, txtTipoCambio1.Text, Convert.ToDecimal(txtImporte1.Text), Convert.ToDecimal(txtDescuento1.Text), Convert.ToDecimal(txtTotal1.Text), Convert.ToDecimal(txtPrecio.Text), Convert.ToDecimal(txtImpuesto1.Text));
                     o.ActualizarTotalesRemision(TxtFolio2.Text, txtPartida.Text);
                     if (!string.IsNullOrEmpty(txtFolioPedido.Text))
@@ -370,6 +374,48 @@ namespace PV
             }
 
         }
+        private bool ValidarExistencias()
+        {
+            decimal existencias;
+            decimal cantidad;
+
+            if (!decimal.TryParse(lblExistencias.Text, out existencias))
+            {
+                MessageBox.Show(
+                    "No fue posible obtener las existencias del producto seleccionado.",
+                    "Error",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
+
+                return false;
+            }
+
+            if (!decimal.TryParse(txtCantidad.Text, out cantidad))
+            {
+                MessageBox.Show(
+                    "La cantidad capturada no es válida.",
+                    "Error",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
+
+                txtCantidad.Focus();
+                return false;
+            }
+
+            if (cantidad > existencias)
+            {
+                MessageBox.Show(
+                    "No hay suficiente inventario del producto seleccionado.",
+                    "Inventario insuficiente",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Warning);
+
+                txtCantidad.Focus();
+                return false;
+            }
+
+            return true;
+        }
         private void btnSiguiente_Click(object sender, EventArgs e)
         {
             if (cmbConcepto.Text == string.Empty)
@@ -394,6 +440,11 @@ namespace PV
             {
                 if (tipo == "Remision")
                 {
+                    if (!ValidarExistencias())
+                    {
+                        return;
+                    }
+
                     o.InsertarPartidaRemision(TxtFolio2.Text, txtPartida.Text, txtConcepto2.Text, txtConcepto2.Text, txtCantidad.Text, txtUnidad.Text, txtDivisa1.Text, txtTipoCambio1.Text, Convert.ToDecimal(txtImporte1.Text), Convert.ToDecimal(txtDescuento1.Text), Convert.ToDecimal(txtTotal1.Text), Convert.ToDecimal(txtPrecio.Text), Convert.ToDecimal(txtImpuesto1.Text));
                     o.ActualizarTotalesRemision(TxtFolio2.Text, txtPartida.Text);
 
@@ -2021,16 +2072,34 @@ namespace PV
 
                 if (tipo == "Remision")
                 {
-                    tipo = "Remisión";
+                    tipo = "Remisión Vitalvet";
                     
                     ReporteRemision r = new ReporteRemision(txtFolio.Text, txtMatricular.Text);
                     string carpeta = Utilerias.SavePDF(r.reportViewer1, "Remision", txtDocumento.Text, txtConsecutivo.Text);
                     bool enviado = CorreosMasivos.EnviarCorreos(
-                                tipo,
-                                "",
-                                Utilerias.ConvertirReportViewerAPdf(r.reportViewer1),
-                                "Remision-" + txtConsecutivo.Text + ".pdf",
-                                valores[5]);
+                     tipo,
+                     @"<html>
+                        <body style='font-family: Arial, sans-serif; font-size: 14px; color: #333;'>
+                            <p>Estimado Socio Comercial,</p>
+
+                            <p>
+                                Enviamos la remisión de su pedido confirmado.<br/>
+                                Su factura se emitirá a la brevedad y será enviada a su correo registrado.
+                            </p>
+
+                            <p>
+                                Si tiene alguna duda o requiere realizar algún ajuste, no dude en contactar a su vendedor,
+                                quien estará encantado en asistirle.
+                            </p>
+
+                            <p>
+                                Reciban un cordial saludo y que tengan un excelente día.
+                            </p>
+                        </body>
+                      </html>",
+                     Utilerias.ConvertirReportViewerAPdf(r.reportViewer1),
+                     "Remision-" + txtConsecutivo.Text + ".pdf",
+                     valores[5]);
                     if (enviado)
                     {
                         MessageBox.Show("Correo enviado exitosamente");
@@ -2078,6 +2147,11 @@ namespace PV
                 if(!string.IsNullOrEmpty(txtPartidas.Text) && txtPartidas.Text!="0")
                 guna2Button9.Visible = true;
             }
+        }
+
+        private void PanelPartidasRequisicion_Paint(object sender, PaintEventArgs e)
+        {
+
         }
     }
 

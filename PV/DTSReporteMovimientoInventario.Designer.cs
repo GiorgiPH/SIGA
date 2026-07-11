@@ -20,17 +20,17 @@ namespace PV {
     [global::System.ComponentModel.DesignerCategoryAttribute("code")]
     [global::System.ComponentModel.ToolboxItem(true)]
     [global::System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedDataSetSchema")]
-    [global::System.Xml.Serialization.XmlRootAttribute("ControlCondominiosDataSet32")]
+    [global::System.Xml.Serialization.XmlRootAttribute("DTSReporteMovimientoInventario")]
     [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.DataSet")]
-    public partial class ControlCondominiosDataSet32 : global::System.Data.DataSet {
+    public partial class DTSReporteMovimientoInventario : global::System.Data.DataSet {
         
-        private ProductosServiciosDataTable tableProductosServicios;
+        private sp_ReporteMovimientoInventarioDataTable tablesp_ReporteMovimientoInventario;
         
         private global::System.Data.SchemaSerializationMode _schemaSerializationMode = global::System.Data.SchemaSerializationMode.IncludeSchema;
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
-        public ControlCondominiosDataSet32() {
+        public DTSReporteMovimientoInventario() {
             this.BeginInit();
             this.InitClass();
             global::System.ComponentModel.CollectionChangeEventHandler schemaChangedHandler = new global::System.ComponentModel.CollectionChangeEventHandler(this.SchemaChanged);
@@ -41,7 +41,7 @@ namespace PV {
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
-        protected ControlCondominiosDataSet32(global::System.Runtime.Serialization.SerializationInfo info, global::System.Runtime.Serialization.StreamingContext context) : 
+        protected DTSReporteMovimientoInventario(global::System.Runtime.Serialization.SerializationInfo info, global::System.Runtime.Serialization.StreamingContext context) : 
                 base(info, context, false) {
             if ((this.IsBinarySerialized(info, context) == true)) {
                 this.InitVars(false);
@@ -54,8 +54,8 @@ namespace PV {
             if ((this.DetermineSchemaSerializationMode(info, context) == global::System.Data.SchemaSerializationMode.IncludeSchema)) {
                 global::System.Data.DataSet ds = new global::System.Data.DataSet();
                 ds.ReadXmlSchema(new global::System.Xml.XmlTextReader(new global::System.IO.StringReader(strSchema)));
-                if ((ds.Tables["ProductosServicios"] != null)) {
-                    base.Tables.Add(new ProductosServiciosDataTable(ds.Tables["ProductosServicios"]));
+                if ((ds.Tables["sp_ReporteMovimientoInventario"] != null)) {
+                    base.Tables.Add(new sp_ReporteMovimientoInventarioDataTable(ds.Tables["sp_ReporteMovimientoInventario"]));
                 }
                 this.DataSetName = ds.DataSetName;
                 this.Prefix = ds.Prefix;
@@ -79,9 +79,9 @@ namespace PV {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
         [global::System.ComponentModel.Browsable(false)]
         [global::System.ComponentModel.DesignerSerializationVisibility(global::System.ComponentModel.DesignerSerializationVisibility.Content)]
-        public ProductosServiciosDataTable ProductosServicios {
+        public sp_ReporteMovimientoInventarioDataTable sp_ReporteMovimientoInventario {
             get {
-                return this.tableProductosServicios;
+                return this.tablesp_ReporteMovimientoInventario;
             }
         }
         
@@ -127,7 +127,7 @@ namespace PV {
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
         public override global::System.Data.DataSet Clone() {
-            ControlCondominiosDataSet32 cln = ((ControlCondominiosDataSet32)(base.Clone()));
+            DTSReporteMovimientoInventario cln = ((DTSReporteMovimientoInventario)(base.Clone()));
             cln.InitVars();
             cln.SchemaSerializationMode = this.SchemaSerializationMode;
             return cln;
@@ -152,8 +152,8 @@ namespace PV {
                 this.Reset();
                 global::System.Data.DataSet ds = new global::System.Data.DataSet();
                 ds.ReadXml(reader);
-                if ((ds.Tables["ProductosServicios"] != null)) {
-                    base.Tables.Add(new ProductosServiciosDataTable(ds.Tables["ProductosServicios"]));
+                if ((ds.Tables["sp_ReporteMovimientoInventario"] != null)) {
+                    base.Tables.Add(new sp_ReporteMovimientoInventarioDataTable(ds.Tables["sp_ReporteMovimientoInventario"]));
                 }
                 this.DataSetName = ds.DataSetName;
                 this.Prefix = ds.Prefix;
@@ -188,10 +188,10 @@ namespace PV {
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
         internal void InitVars(bool initTable) {
-            this.tableProductosServicios = ((ProductosServiciosDataTable)(base.Tables["ProductosServicios"]));
+            this.tablesp_ReporteMovimientoInventario = ((sp_ReporteMovimientoInventarioDataTable)(base.Tables["sp_ReporteMovimientoInventario"]));
             if ((initTable == true)) {
-                if ((this.tableProductosServicios != null)) {
-                    this.tableProductosServicios.InitVars();
+                if ((this.tablesp_ReporteMovimientoInventario != null)) {
+                    this.tablesp_ReporteMovimientoInventario.InitVars();
                 }
             }
         }
@@ -199,18 +199,18 @@ namespace PV {
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
         private void InitClass() {
-            this.DataSetName = "ControlCondominiosDataSet32";
+            this.DataSetName = "DTSReporteMovimientoInventario";
             this.Prefix = "";
-            this.Namespace = "http://tempuri.org/ControlCondominiosDataSet32.xsd";
-            this.EnforceConstraints = false;
+            this.Namespace = "http://tempuri.org/DTSReporteMovimientoInventario.xsd";
+            this.EnforceConstraints = true;
             this.SchemaSerializationMode = global::System.Data.SchemaSerializationMode.IncludeSchema;
-            this.tableProductosServicios = new ProductosServiciosDataTable();
-            base.Tables.Add(this.tableProductosServicios);
+            this.tablesp_ReporteMovimientoInventario = new sp_ReporteMovimientoInventarioDataTable();
+            base.Tables.Add(this.tablesp_ReporteMovimientoInventario);
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
-        private bool ShouldSerializeProductosServicios() {
+        private bool ShouldSerializesp_ReporteMovimientoInventario() {
             return false;
         }
         
@@ -225,7 +225,7 @@ namespace PV {
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
         public static global::System.Xml.Schema.XmlSchemaComplexType GetTypedDataSetSchema(global::System.Xml.Schema.XmlSchemaSet xs) {
-            ControlCondominiosDataSet32 ds = new ControlCondominiosDataSet32();
+            DTSReporteMovimientoInventario ds = new DTSReporteMovimientoInventario();
             global::System.Xml.Schema.XmlSchemaComplexType type = new global::System.Xml.Schema.XmlSchemaComplexType();
             global::System.Xml.Schema.XmlSchemaSequence sequence = new global::System.Xml.Schema.XmlSchemaSequence();
             global::System.Xml.Schema.XmlSchemaAny any = new global::System.Xml.Schema.XmlSchemaAny();
@@ -270,22 +270,72 @@ namespace PV {
         }
         
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
-        public delegate void ProductosServiciosRowChangeEventHandler(object sender, ProductosServiciosRowChangeEvent e);
+        public delegate void sp_ReporteMovimientoInventarioRowChangeEventHandler(object sender, sp_ReporteMovimientoInventarioRowChangeEvent e);
         
         /// <summary>
         ///Represents the strongly named DataTable class.
         ///</summary>
         [global::System.Serializable()]
         [global::System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedTableSchema")]
-        public partial class ProductosServiciosDataTable : global::System.Data.TypedTableBase<ProductosServiciosRow> {
+        public partial class sp_ReporteMovimientoInventarioDataTable : global::System.Data.TypedTableBase<sp_ReporteMovimientoInventarioRow> {
+            
+            private global::System.Data.DataColumn columnFolio;
+            
+            private global::System.Data.DataColumn columnTipoDocumento;
+            
+            private global::System.Data.DataColumn columnDocumento;
+            
+            private global::System.Data.DataColumn columnFecha;
+            
+            private global::System.Data.DataColumn columnEstatus;
+            
+            private global::System.Data.DataColumn columnReferencias;
+            
+            private global::System.Data.DataColumn columnAlmacen;
+            
+            private global::System.Data.DataColumn columnTotalPartidas;
+            
+            private global::System.Data.DataColumn columnDivisa;
+            
+            private global::System.Data.DataColumn columnTipoCambio;
+            
+            private global::System.Data.DataColumn columnSubtotal;
+            
+            private global::System.Data.DataColumn columnDescuento;
+            
+            private global::System.Data.DataColumn columnImpuestos;
+            
+            private global::System.Data.DataColumn columnTotal;
+            
+            private global::System.Data.DataColumn columnNotas;
+            
+            private global::System.Data.DataColumn columnElaborado;
+            
+            private global::System.Data.DataColumn columnNoPartida;
             
             private global::System.Data.DataColumn columnClaveProducto;
             
             private global::System.Data.DataColumn columnAlias;
             
-            private global::System.Data.DataColumn columnDescripcion;
+            private global::System.Data.DataColumn columnDescripcionProducto;
             
-            private global::System.Data.DataColumn columnEstatus;
+            private global::System.Data.DataColumn columnCantidad;
+            
+            private global::System.Data.DataColumn columnUnidad;
+            
+            private global::System.Data.DataColumn columnPrecio;
+            
+            private global::System.Data.DataColumn columnSubtotalPartida;
+            
+            private global::System.Data.DataColumn columnDescuentoPartida;
+            
+            private global::System.Data.DataColumn columnIVA;
+            
+            private global::System.Data.DataColumn columnIEPS;
+            
+            private global::System.Data.DataColumn columnTotalPartida;
+            
+            private global::System.Data.DataColumn columnConcepto;
             
             private global::System.Data.DataColumn columnMarca;
             
@@ -293,68 +343,26 @@ namespace PV {
             
             private global::System.Data.DataColumn columnPresentacion;
             
-            private global::System.Data.DataColumn columnInventariable;
-            
-            private global::System.Data.DataColumn columnCaducidad;
-            
             private global::System.Data.DataColumn columnCategoria;
             
             private global::System.Data.DataColumn columnFamilia;
             
-            private global::System.Data.DataColumn columnProveedor;
-            
-            private global::System.Data.DataColumn columnExMinimo;
-            
-            private global::System.Data.DataColumn columnExMaximo;
-            
-            private global::System.Data.DataColumn columnExActual;
-            
-            private global::System.Data.DataColumn columnUbicacion;
-            
-            private global::System.Data.DataColumn columnTipoCosteo;
-            
             private global::System.Data.DataColumn columnCostoUnitario;
-            
-            private global::System.Data.DataColumn columnDivisa;
-            
-            private global::System.Data.DataColumn columnDescuentoPorc;
-            
-            private global::System.Data.DataColumn columnDescuentoCant;
-            
-            private global::System.Data.DataColumn columnImpuestoPorc;
-            
-            private global::System.Data.DataColumn columnImpuestoCant;
             
             private global::System.Data.DataColumn columnPrecioVenta;
             
-            private global::System.Data.DataColumn columnFoto;
+            private global::System.Data.DataColumn columnDescuentoPartida1;
             
-            private global::System.Data.DataColumn columnConceptoGlobales;
+            private global::System.Data.DataColumn columnIVA1;
             
-            private global::System.Data.DataColumn columnExistenciaActual;
+            private global::System.Data.DataColumn columnIEPS1;
             
-            private global::System.Data.DataColumn columnDescuentoPorc1;
-            
-            private global::System.Data.DataColumn columnImpuestoPorc1;
-            
-            private global::System.Data.DataColumn columnMedidaSAT;
-            
-            private global::System.Data.DataColumn columnSATImpuestos;
-            
-            private global::System.Data.DataColumn columnCuentaContable;
-            
-            private global::System.Data.DataColumn columnPedidosProveedor;
-            
-            private global::System.Data.DataColumn columnPedidosCliente;
-            
-            private global::System.Data.DataColumn columnNombre;
-            
-            private global::System.Data.DataColumn columnNombre1;
+            private global::System.Data.DataColumn columnDescripcionMovimiento;
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
-            public ProductosServiciosDataTable() {
-                this.TableName = "ProductosServicios";
+            public sp_ReporteMovimientoInventarioDataTable() {
+                this.TableName = "sp_ReporteMovimientoInventario";
                 this.BeginInit();
                 this.InitClass();
                 this.EndInit();
@@ -362,7 +370,7 @@ namespace PV {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
-            internal ProductosServiciosDataTable(global::System.Data.DataTable table) {
+            internal sp_ReporteMovimientoInventarioDataTable(global::System.Data.DataTable table) {
                 this.TableName = table.TableName;
                 if ((table.CaseSensitive != table.DataSet.CaseSensitive)) {
                     this.CaseSensitive = table.CaseSensitive;
@@ -379,9 +387,145 @@ namespace PV {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
-            protected ProductosServiciosDataTable(global::System.Runtime.Serialization.SerializationInfo info, global::System.Runtime.Serialization.StreamingContext context) : 
+            protected sp_ReporteMovimientoInventarioDataTable(global::System.Runtime.Serialization.SerializationInfo info, global::System.Runtime.Serialization.StreamingContext context) : 
                     base(info, context) {
                 this.InitVars();
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+            public global::System.Data.DataColumn FolioColumn {
+                get {
+                    return this.columnFolio;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+            public global::System.Data.DataColumn TipoDocumentoColumn {
+                get {
+                    return this.columnTipoDocumento;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+            public global::System.Data.DataColumn DocumentoColumn {
+                get {
+                    return this.columnDocumento;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+            public global::System.Data.DataColumn FechaColumn {
+                get {
+                    return this.columnFecha;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+            public global::System.Data.DataColumn EstatusColumn {
+                get {
+                    return this.columnEstatus;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+            public global::System.Data.DataColumn ReferenciasColumn {
+                get {
+                    return this.columnReferencias;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+            public global::System.Data.DataColumn AlmacenColumn {
+                get {
+                    return this.columnAlmacen;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+            public global::System.Data.DataColumn TotalPartidasColumn {
+                get {
+                    return this.columnTotalPartidas;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+            public global::System.Data.DataColumn DivisaColumn {
+                get {
+                    return this.columnDivisa;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+            public global::System.Data.DataColumn TipoCambioColumn {
+                get {
+                    return this.columnTipoCambio;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+            public global::System.Data.DataColumn SubtotalColumn {
+                get {
+                    return this.columnSubtotal;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+            public global::System.Data.DataColumn DescuentoColumn {
+                get {
+                    return this.columnDescuento;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+            public global::System.Data.DataColumn ImpuestosColumn {
+                get {
+                    return this.columnImpuestos;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+            public global::System.Data.DataColumn TotalColumn {
+                get {
+                    return this.columnTotal;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+            public global::System.Data.DataColumn NotasColumn {
+                get {
+                    return this.columnNotas;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+            public global::System.Data.DataColumn ElaboradoColumn {
+                get {
+                    return this.columnElaborado;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+            public global::System.Data.DataColumn NoPartidaColumn {
+                get {
+                    return this.columnNoPartida;
+                }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -402,17 +546,81 @@ namespace PV {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
-            public global::System.Data.DataColumn DescripcionColumn {
+            public global::System.Data.DataColumn DescripcionProductoColumn {
                 get {
-                    return this.columnDescripcion;
+                    return this.columnDescripcionProducto;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
-            public global::System.Data.DataColumn EstatusColumn {
+            public global::System.Data.DataColumn CantidadColumn {
                 get {
-                    return this.columnEstatus;
+                    return this.columnCantidad;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+            public global::System.Data.DataColumn UnidadColumn {
+                get {
+                    return this.columnUnidad;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+            public global::System.Data.DataColumn PrecioColumn {
+                get {
+                    return this.columnPrecio;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+            public global::System.Data.DataColumn SubtotalPartidaColumn {
+                get {
+                    return this.columnSubtotalPartida;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+            public global::System.Data.DataColumn DescuentoPartidaColumn {
+                get {
+                    return this.columnDescuentoPartida;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+            public global::System.Data.DataColumn IVAColumn {
+                get {
+                    return this.columnIVA;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+            public global::System.Data.DataColumn IEPSColumn {
+                get {
+                    return this.columnIEPS;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+            public global::System.Data.DataColumn TotalPartidaColumn {
+                get {
+                    return this.columnTotalPartida;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+            public global::System.Data.DataColumn ConceptoColumn {
+                get {
+                    return this.columnConcepto;
                 }
             }
             
@@ -442,22 +650,6 @@ namespace PV {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
-            public global::System.Data.DataColumn InventariableColumn {
-                get {
-                    return this.columnInventariable;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
-            public global::System.Data.DataColumn CaducidadColumn {
-                get {
-                    return this.columnCaducidad;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
             public global::System.Data.DataColumn CategoriaColumn {
                 get {
                     return this.columnCategoria;
@@ -474,97 +666,9 @@ namespace PV {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
-            public global::System.Data.DataColumn ProveedorColumn {
-                get {
-                    return this.columnProveedor;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
-            public global::System.Data.DataColumn ExMinimoColumn {
-                get {
-                    return this.columnExMinimo;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
-            public global::System.Data.DataColumn ExMaximoColumn {
-                get {
-                    return this.columnExMaximo;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
-            public global::System.Data.DataColumn ExActualColumn {
-                get {
-                    return this.columnExActual;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
-            public global::System.Data.DataColumn UbicacionColumn {
-                get {
-                    return this.columnUbicacion;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
-            public global::System.Data.DataColumn TipoCosteoColumn {
-                get {
-                    return this.columnTipoCosteo;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
             public global::System.Data.DataColumn CostoUnitarioColumn {
                 get {
                     return this.columnCostoUnitario;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
-            public global::System.Data.DataColumn DivisaColumn {
-                get {
-                    return this.columnDivisa;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
-            public global::System.Data.DataColumn DescuentoPorcColumn {
-                get {
-                    return this.columnDescuentoPorc;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
-            public global::System.Data.DataColumn DescuentoCantColumn {
-                get {
-                    return this.columnDescuentoCant;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
-            public global::System.Data.DataColumn ImpuestoPorcColumn {
-                get {
-                    return this.columnImpuestoPorc;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
-            public global::System.Data.DataColumn ImpuestoCantColumn {
-                get {
-                    return this.columnImpuestoCant;
                 }
             }
             
@@ -578,97 +682,33 @@ namespace PV {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
-            public global::System.Data.DataColumn FotoColumn {
+            public global::System.Data.DataColumn DescuentoPartida1Column {
                 get {
-                    return this.columnFoto;
+                    return this.columnDescuentoPartida1;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
-            public global::System.Data.DataColumn ConceptoGlobalesColumn {
+            public global::System.Data.DataColumn IVA1Column {
                 get {
-                    return this.columnConceptoGlobales;
+                    return this.columnIVA1;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
-            public global::System.Data.DataColumn ExistenciaActualColumn {
+            public global::System.Data.DataColumn IEPS1Column {
                 get {
-                    return this.columnExistenciaActual;
+                    return this.columnIEPS1;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
-            public global::System.Data.DataColumn DescuentoPorc1Column {
+            public global::System.Data.DataColumn DescripcionMovimientoColumn {
                 get {
-                    return this.columnDescuentoPorc1;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
-            public global::System.Data.DataColumn ImpuestoPorc1Column {
-                get {
-                    return this.columnImpuestoPorc1;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
-            public global::System.Data.DataColumn MedidaSATColumn {
-                get {
-                    return this.columnMedidaSAT;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
-            public global::System.Data.DataColumn SATImpuestosColumn {
-                get {
-                    return this.columnSATImpuestos;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
-            public global::System.Data.DataColumn CuentaContableColumn {
-                get {
-                    return this.columnCuentaContable;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
-            public global::System.Data.DataColumn PedidosProveedorColumn {
-                get {
-                    return this.columnPedidosProveedor;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
-            public global::System.Data.DataColumn PedidosClienteColumn {
-                get {
-                    return this.columnPedidosCliente;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
-            public global::System.Data.DataColumn NombreColumn {
-                get {
-                    return this.columnNombre;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
-            public global::System.Data.DataColumn Nombre1Column {
-                get {
-                    return this.columnNombre1;
+                    return this.columnDescripcionMovimiento;
                 }
             }
             
@@ -683,123 +723,131 @@ namespace PV {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
-            public ProductosServiciosRow this[int index] {
+            public sp_ReporteMovimientoInventarioRow this[int index] {
                 get {
-                    return ((ProductosServiciosRow)(this.Rows[index]));
+                    return ((sp_ReporteMovimientoInventarioRow)(this.Rows[index]));
                 }
             }
             
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
-            public event ProductosServiciosRowChangeEventHandler ProductosServiciosRowChanging;
+            public event sp_ReporteMovimientoInventarioRowChangeEventHandler sp_ReporteMovimientoInventarioRowChanging;
             
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
-            public event ProductosServiciosRowChangeEventHandler ProductosServiciosRowChanged;
+            public event sp_ReporteMovimientoInventarioRowChangeEventHandler sp_ReporteMovimientoInventarioRowChanged;
             
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
-            public event ProductosServiciosRowChangeEventHandler ProductosServiciosRowDeleting;
+            public event sp_ReporteMovimientoInventarioRowChangeEventHandler sp_ReporteMovimientoInventarioRowDeleting;
             
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
-            public event ProductosServiciosRowChangeEventHandler ProductosServiciosRowDeleted;
+            public event sp_ReporteMovimientoInventarioRowChangeEventHandler sp_ReporteMovimientoInventarioRowDeleted;
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
-            public void AddProductosServiciosRow(ProductosServiciosRow row) {
+            public void Addsp_ReporteMovimientoInventarioRow(sp_ReporteMovimientoInventarioRow row) {
                 this.Rows.Add(row);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
-            public ProductosServiciosRow AddProductosServiciosRow(
-                        int ClaveProducto, 
-                        string Alias, 
-                        string Descripcion, 
+            public sp_ReporteMovimientoInventarioRow Addsp_ReporteMovimientoInventarioRow(
+                        int Folio, 
+                        string TipoDocumento, 
+                        string Documento, 
+                        System.DateTime Fecha, 
                         string Estatus, 
+                        string Referencias, 
+                        string Almacen, 
+                        int TotalPartidas, 
+                        string Divisa, 
+                        decimal TipoCambio, 
+                        decimal Subtotal, 
+                        decimal Descuento, 
+                        decimal Impuestos, 
+                        decimal Total, 
+                        string Notas, 
+                        string Elaborado, 
+                        int NoPartida, 
+                        string ClaveProducto, 
+                        string Alias, 
+                        string DescripcionProducto, 
+                        int Cantidad, 
+                        string Unidad, 
+                        decimal Precio, 
+                        decimal SubtotalPartida, 
+                        string DescuentoPartida, 
+                        string IVA, 
+                        string IEPS, 
+                        decimal TotalPartida, 
+                        string Concepto, 
                         string Marca, 
                         string UnidadMedida, 
                         string Presentacion, 
-                        string Inventariable, 
-                        string Caducidad, 
                         int Categoria, 
                         string Familia, 
-                        string Proveedor, 
-                        int ExMinimo, 
-                        int ExMaximo, 
-                        int ExActual, 
-                        string Ubicacion, 
-                        string TipoCosteo, 
                         decimal CostoUnitario, 
-                        string Divisa, 
-                        string DescuentoPorc, 
-                        decimal DescuentoCant, 
-                        string ImpuestoPorc, 
-                        decimal ImpuestoCant, 
                         decimal PrecioVenta, 
-                        byte[] Foto, 
-                        string ConceptoGlobales, 
-                        decimal ExistenciaActual, 
-                        decimal DescuentoPorc1, 
-                        decimal ImpuestoPorc1, 
-                        string MedidaSAT, 
-                        string SATImpuestos, 
-                        string CuentaContable, 
-                        decimal PedidosProveedor, 
-                        decimal PedidosCliente, 
-                        string Nombre, 
-                        string Nombre1) {
-                ProductosServiciosRow rowProductosServiciosRow = ((ProductosServiciosRow)(this.NewRow()));
+                        decimal DescuentoPartida1, 
+                        decimal IVA1, 
+                        decimal IEPS1, 
+                        string DescripcionMovimiento) {
+                sp_ReporteMovimientoInventarioRow rowsp_ReporteMovimientoInventarioRow = ((sp_ReporteMovimientoInventarioRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
+                        Folio,
+                        TipoDocumento,
+                        Documento,
+                        Fecha,
+                        Estatus,
+                        Referencias,
+                        Almacen,
+                        TotalPartidas,
+                        Divisa,
+                        TipoCambio,
+                        Subtotal,
+                        Descuento,
+                        Impuestos,
+                        Total,
+                        Notas,
+                        Elaborado,
+                        NoPartida,
                         ClaveProducto,
                         Alias,
-                        Descripcion,
-                        Estatus,
+                        DescripcionProducto,
+                        Cantidad,
+                        Unidad,
+                        Precio,
+                        SubtotalPartida,
+                        DescuentoPartida,
+                        IVA,
+                        IEPS,
+                        TotalPartida,
+                        Concepto,
                         Marca,
                         UnidadMedida,
                         Presentacion,
-                        Inventariable,
-                        Caducidad,
                         Categoria,
                         Familia,
-                        Proveedor,
-                        ExMinimo,
-                        ExMaximo,
-                        ExActual,
-                        Ubicacion,
-                        TipoCosteo,
                         CostoUnitario,
-                        Divisa,
-                        DescuentoPorc,
-                        DescuentoCant,
-                        ImpuestoPorc,
-                        ImpuestoCant,
                         PrecioVenta,
-                        Foto,
-                        ConceptoGlobales,
-                        ExistenciaActual,
-                        DescuentoPorc1,
-                        ImpuestoPorc1,
-                        MedidaSAT,
-                        SATImpuestos,
-                        CuentaContable,
-                        PedidosProveedor,
-                        PedidosCliente,
-                        Nombre,
-                        Nombre1};
-                rowProductosServiciosRow.ItemArray = columnValuesArray;
-                this.Rows.Add(rowProductosServiciosRow);
-                return rowProductosServiciosRow;
+                        DescuentoPartida1,
+                        IVA1,
+                        IEPS1,
+                        DescripcionMovimiento};
+                rowsp_ReporteMovimientoInventarioRow.ItemArray = columnValuesArray;
+                this.Rows.Add(rowsp_ReporteMovimientoInventarioRow);
+                return rowsp_ReporteMovimientoInventarioRow;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
-            public ProductosServiciosRow FindByClaveProducto(int ClaveProducto) {
-                return ((ProductosServiciosRow)(this.Rows.Find(new object[] {
-                            ClaveProducto})));
+            public sp_ReporteMovimientoInventarioRow FindByFolio(int Folio) {
+                return ((sp_ReporteMovimientoInventarioRow)(this.Rows.Find(new object[] {
+                            Folio})));
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
             public override global::System.Data.DataTable Clone() {
-                ProductosServiciosDataTable cln = ((ProductosServiciosDataTable)(base.Clone()));
+                sp_ReporteMovimientoInventarioDataTable cln = ((sp_ReporteMovimientoInventarioDataTable)(base.Clone()));
                 cln.InitVars();
                 return cln;
             }
@@ -807,178 +855,197 @@ namespace PV {
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
             protected override global::System.Data.DataTable CreateInstance() {
-                return new ProductosServiciosDataTable();
+                return new sp_ReporteMovimientoInventarioDataTable();
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
             internal void InitVars() {
+                this.columnFolio = base.Columns["Folio"];
+                this.columnTipoDocumento = base.Columns["TipoDocumento"];
+                this.columnDocumento = base.Columns["Documento"];
+                this.columnFecha = base.Columns["Fecha"];
+                this.columnEstatus = base.Columns["Estatus"];
+                this.columnReferencias = base.Columns["Referencias"];
+                this.columnAlmacen = base.Columns["Almacen"];
+                this.columnTotalPartidas = base.Columns["TotalPartidas"];
+                this.columnDivisa = base.Columns["Divisa"];
+                this.columnTipoCambio = base.Columns["TipoCambio"];
+                this.columnSubtotal = base.Columns["Subtotal"];
+                this.columnDescuento = base.Columns["Descuento"];
+                this.columnImpuestos = base.Columns["Impuestos"];
+                this.columnTotal = base.Columns["Total"];
+                this.columnNotas = base.Columns["Notas"];
+                this.columnElaborado = base.Columns["Elaborado"];
+                this.columnNoPartida = base.Columns["NoPartida"];
                 this.columnClaveProducto = base.Columns["ClaveProducto"];
                 this.columnAlias = base.Columns["Alias"];
-                this.columnDescripcion = base.Columns["Descripcion"];
-                this.columnEstatus = base.Columns["Estatus"];
+                this.columnDescripcionProducto = base.Columns["DescripcionProducto"];
+                this.columnCantidad = base.Columns["Cantidad"];
+                this.columnUnidad = base.Columns["Unidad"];
+                this.columnPrecio = base.Columns["Precio"];
+                this.columnSubtotalPartida = base.Columns["SubtotalPartida"];
+                this.columnDescuentoPartida = base.Columns["DescuentoPartida"];
+                this.columnIVA = base.Columns["IVA"];
+                this.columnIEPS = base.Columns["IEPS"];
+                this.columnTotalPartida = base.Columns["TotalPartida"];
+                this.columnConcepto = base.Columns["Concepto"];
                 this.columnMarca = base.Columns["Marca"];
                 this.columnUnidadMedida = base.Columns["UnidadMedida"];
                 this.columnPresentacion = base.Columns["Presentacion"];
-                this.columnInventariable = base.Columns["Inventariable"];
-                this.columnCaducidad = base.Columns["Caducidad"];
                 this.columnCategoria = base.Columns["Categoria"];
                 this.columnFamilia = base.Columns["Familia"];
-                this.columnProveedor = base.Columns["Proveedor"];
-                this.columnExMinimo = base.Columns["ExMinimo"];
-                this.columnExMaximo = base.Columns["ExMaximo"];
-                this.columnExActual = base.Columns["ExActual"];
-                this.columnUbicacion = base.Columns["Ubicacion"];
-                this.columnTipoCosteo = base.Columns["TipoCosteo"];
                 this.columnCostoUnitario = base.Columns["CostoUnitario"];
-                this.columnDivisa = base.Columns["Divisa"];
-                this.columnDescuentoPorc = base.Columns["DescuentoPorc"];
-                this.columnDescuentoCant = base.Columns["DescuentoCant"];
-                this.columnImpuestoPorc = base.Columns["ImpuestoPorc"];
-                this.columnImpuestoCant = base.Columns["ImpuestoCant"];
                 this.columnPrecioVenta = base.Columns["PrecioVenta"];
-                this.columnFoto = base.Columns["Foto"];
-                this.columnConceptoGlobales = base.Columns["ConceptoGlobales"];
-                this.columnExistenciaActual = base.Columns["ExistenciaActual"];
-                this.columnDescuentoPorc1 = base.Columns["DescuentoPorc1"];
-                this.columnImpuestoPorc1 = base.Columns["ImpuestoPorc1"];
-                this.columnMedidaSAT = base.Columns["MedidaSAT"];
-                this.columnSATImpuestos = base.Columns["SATImpuestos"];
-                this.columnCuentaContable = base.Columns["CuentaContable"];
-                this.columnPedidosProveedor = base.Columns["PedidosProveedor"];
-                this.columnPedidosCliente = base.Columns["PedidosCliente"];
-                this.columnNombre = base.Columns["Nombre"];
-                this.columnNombre1 = base.Columns["Nombre1"];
+                this.columnDescuentoPartida1 = base.Columns["DescuentoPartida1"];
+                this.columnIVA1 = base.Columns["IVA1"];
+                this.columnIEPS1 = base.Columns["IEPS1"];
+                this.columnDescripcionMovimiento = base.Columns["DescripcionMovimiento"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
             private void InitClass() {
-                this.columnClaveProducto = new global::System.Data.DataColumn("ClaveProducto", typeof(int), null, global::System.Data.MappingType.Element);
+                this.columnFolio = new global::System.Data.DataColumn("Folio", typeof(int), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnFolio);
+                this.columnTipoDocumento = new global::System.Data.DataColumn("TipoDocumento", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnTipoDocumento);
+                this.columnDocumento = new global::System.Data.DataColumn("Documento", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnDocumento);
+                this.columnFecha = new global::System.Data.DataColumn("Fecha", typeof(global::System.DateTime), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnFecha);
+                this.columnEstatus = new global::System.Data.DataColumn("Estatus", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnEstatus);
+                this.columnReferencias = new global::System.Data.DataColumn("Referencias", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnReferencias);
+                this.columnAlmacen = new global::System.Data.DataColumn("Almacen", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnAlmacen);
+                this.columnTotalPartidas = new global::System.Data.DataColumn("TotalPartidas", typeof(int), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnTotalPartidas);
+                this.columnDivisa = new global::System.Data.DataColumn("Divisa", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnDivisa);
+                this.columnTipoCambio = new global::System.Data.DataColumn("TipoCambio", typeof(decimal), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnTipoCambio);
+                this.columnSubtotal = new global::System.Data.DataColumn("Subtotal", typeof(decimal), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnSubtotal);
+                this.columnDescuento = new global::System.Data.DataColumn("Descuento", typeof(decimal), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnDescuento);
+                this.columnImpuestos = new global::System.Data.DataColumn("Impuestos", typeof(decimal), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnImpuestos);
+                this.columnTotal = new global::System.Data.DataColumn("Total", typeof(decimal), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnTotal);
+                this.columnNotas = new global::System.Data.DataColumn("Notas", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnNotas);
+                this.columnElaborado = new global::System.Data.DataColumn("Elaborado", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnElaborado);
+                this.columnNoPartida = new global::System.Data.DataColumn("NoPartida", typeof(int), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnNoPartida);
+                this.columnClaveProducto = new global::System.Data.DataColumn("ClaveProducto", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnClaveProducto);
                 this.columnAlias = new global::System.Data.DataColumn("Alias", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnAlias);
-                this.columnDescripcion = new global::System.Data.DataColumn("Descripcion", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnDescripcion);
-                this.columnEstatus = new global::System.Data.DataColumn("Estatus", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnEstatus);
+                this.columnDescripcionProducto = new global::System.Data.DataColumn("DescripcionProducto", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnDescripcionProducto);
+                this.columnCantidad = new global::System.Data.DataColumn("Cantidad", typeof(int), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnCantidad);
+                this.columnUnidad = new global::System.Data.DataColumn("Unidad", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnUnidad);
+                this.columnPrecio = new global::System.Data.DataColumn("Precio", typeof(decimal), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnPrecio);
+                this.columnSubtotalPartida = new global::System.Data.DataColumn("SubtotalPartida", typeof(decimal), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnSubtotalPartida);
+                this.columnDescuentoPartida = new global::System.Data.DataColumn("DescuentoPartida", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnDescuentoPartida);
+                this.columnIVA = new global::System.Data.DataColumn("IVA", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnIVA);
+                this.columnIEPS = new global::System.Data.DataColumn("IEPS", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnIEPS);
+                this.columnTotalPartida = new global::System.Data.DataColumn("TotalPartida", typeof(decimal), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnTotalPartida);
+                this.columnConcepto = new global::System.Data.DataColumn("Concepto", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnConcepto);
                 this.columnMarca = new global::System.Data.DataColumn("Marca", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnMarca);
                 this.columnUnidadMedida = new global::System.Data.DataColumn("UnidadMedida", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnUnidadMedida);
                 this.columnPresentacion = new global::System.Data.DataColumn("Presentacion", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnPresentacion);
-                this.columnInventariable = new global::System.Data.DataColumn("Inventariable", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnInventariable);
-                this.columnCaducidad = new global::System.Data.DataColumn("Caducidad", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnCaducidad);
                 this.columnCategoria = new global::System.Data.DataColumn("Categoria", typeof(int), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnCategoria);
                 this.columnFamilia = new global::System.Data.DataColumn("Familia", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnFamilia);
-                this.columnProveedor = new global::System.Data.DataColumn("Proveedor", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnProveedor);
-                this.columnExMinimo = new global::System.Data.DataColumn("ExMinimo", typeof(int), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnExMinimo);
-                this.columnExMaximo = new global::System.Data.DataColumn("ExMaximo", typeof(int), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnExMaximo);
-                this.columnExActual = new global::System.Data.DataColumn("ExActual", typeof(int), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnExActual);
-                this.columnUbicacion = new global::System.Data.DataColumn("Ubicacion", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnUbicacion);
-                this.columnTipoCosteo = new global::System.Data.DataColumn("TipoCosteo", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnTipoCosteo);
                 this.columnCostoUnitario = new global::System.Data.DataColumn("CostoUnitario", typeof(decimal), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnCostoUnitario);
-                this.columnDivisa = new global::System.Data.DataColumn("Divisa", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnDivisa);
-                this.columnDescuentoPorc = new global::System.Data.DataColumn("DescuentoPorc", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnDescuentoPorc);
-                this.columnDescuentoCant = new global::System.Data.DataColumn("DescuentoCant", typeof(decimal), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnDescuentoCant);
-                this.columnImpuestoPorc = new global::System.Data.DataColumn("ImpuestoPorc", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnImpuestoPorc);
-                this.columnImpuestoCant = new global::System.Data.DataColumn("ImpuestoCant", typeof(decimal), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnImpuestoCant);
                 this.columnPrecioVenta = new global::System.Data.DataColumn("PrecioVenta", typeof(decimal), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnPrecioVenta);
-                this.columnFoto = new global::System.Data.DataColumn("Foto", typeof(byte[]), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnFoto);
-                this.columnConceptoGlobales = new global::System.Data.DataColumn("ConceptoGlobales", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnConceptoGlobales);
-                this.columnExistenciaActual = new global::System.Data.DataColumn("ExistenciaActual", typeof(decimal), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnExistenciaActual);
-                this.columnDescuentoPorc1 = new global::System.Data.DataColumn("DescuentoPorc1", typeof(decimal), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnDescuentoPorc1);
-                this.columnImpuestoPorc1 = new global::System.Data.DataColumn("ImpuestoPorc1", typeof(decimal), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnImpuestoPorc1);
-                this.columnMedidaSAT = new global::System.Data.DataColumn("MedidaSAT", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnMedidaSAT);
-                this.columnSATImpuestos = new global::System.Data.DataColumn("SATImpuestos", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnSATImpuestos);
-                this.columnCuentaContable = new global::System.Data.DataColumn("CuentaContable", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnCuentaContable);
-                this.columnPedidosProveedor = new global::System.Data.DataColumn("PedidosProveedor", typeof(decimal), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnPedidosProveedor);
-                this.columnPedidosCliente = new global::System.Data.DataColumn("PedidosCliente", typeof(decimal), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnPedidosCliente);
-                this.columnNombre = new global::System.Data.DataColumn("Nombre", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnNombre);
-                this.columnNombre1 = new global::System.Data.DataColumn("Nombre1", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnNombre1);
+                this.columnDescuentoPartida1 = new global::System.Data.DataColumn("DescuentoPartida1", typeof(decimal), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnDescuentoPartida1);
+                this.columnIVA1 = new global::System.Data.DataColumn("IVA1", typeof(decimal), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnIVA1);
+                this.columnIEPS1 = new global::System.Data.DataColumn("IEPS1", typeof(decimal), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnIEPS1);
+                this.columnDescripcionMovimiento = new global::System.Data.DataColumn("DescripcionMovimiento", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnDescripcionMovimiento);
                 this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint1", new global::System.Data.DataColumn[] {
-                                this.columnClaveProducto}, true));
-                this.columnClaveProducto.AllowDBNull = false;
-                this.columnClaveProducto.Unique = true;
+                                this.columnFolio}, true));
+                this.columnFolio.AllowDBNull = false;
+                this.columnFolio.Unique = true;
+                this.columnTipoDocumento.MaxLength = 5;
+                this.columnDocumento.MaxLength = 10;
+                this.columnEstatus.MaxLength = 20;
+                this.columnReferencias.MaxLength = 100;
+                this.columnAlmacen.MaxLength = 5;
+                this.columnDivisa.MaxLength = 10;
+                this.columnNotas.MaxLength = 200;
+                this.columnElaborado.MaxLength = 100;
+                this.columnClaveProducto.MaxLength = 50;
                 this.columnAlias.MaxLength = 100;
-                this.columnDescripcion.MaxLength = 100;
-                this.columnEstatus.MaxLength = 50;
+                this.columnDescripcionProducto.MaxLength = 100;
+                this.columnUnidad.MaxLength = 50;
+                this.columnSubtotalPartida.ReadOnly = true;
+                this.columnDescuentoPartida.ReadOnly = true;
+                this.columnDescuentoPartida.MaxLength = 20;
+                this.columnIVA.MaxLength = 20;
+                this.columnIEPS.MaxLength = 20;
+                this.columnConcepto.MaxLength = 100;
                 this.columnMarca.MaxLength = 100;
                 this.columnUnidadMedida.MaxLength = 100;
                 this.columnPresentacion.MaxLength = 100;
-                this.columnInventariable.MaxLength = 5;
-                this.columnCaducidad.MaxLength = 20;
                 this.columnFamilia.MaxLength = 100;
-                this.columnProveedor.MaxLength = 100;
-                this.columnUbicacion.MaxLength = 100;
-                this.columnTipoCosteo.MaxLength = 100;
-                this.columnDivisa.MaxLength = 20;
-                this.columnDescuentoPorc.MaxLength = 10;
-                this.columnImpuestoPorc.MaxLength = 10;
-                this.columnConceptoGlobales.MaxLength = 10;
-                this.columnDescuentoPorc1.Caption = "DescuentoPorc";
-                this.columnImpuestoPorc1.Caption = "ImpuestoPorc";
-                this.columnMedidaSAT.MaxLength = 100;
-                this.columnSATImpuestos.MaxLength = 100;
-                this.columnCuentaContable.MaxLength = 100;
-                this.columnNombre.MaxLength = 100;
-                this.columnNombre1.MaxLength = 100;
+                this.columnDescuentoPartida1.ReadOnly = true;
+                this.columnDescuentoPartida1.Caption = "DescuentoPartida";
+                this.columnIVA1.ReadOnly = true;
+                this.columnIVA1.Caption = "IVA";
+                this.columnIEPS1.ReadOnly = true;
+                this.columnIEPS1.Caption = "IEPS";
+                this.columnDescripcionMovimiento.ReadOnly = true;
+                this.columnDescripcionMovimiento.MaxLength = 8;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
-            public ProductosServiciosRow NewProductosServiciosRow() {
-                return ((ProductosServiciosRow)(this.NewRow()));
+            public sp_ReporteMovimientoInventarioRow Newsp_ReporteMovimientoInventarioRow() {
+                return ((sp_ReporteMovimientoInventarioRow)(this.NewRow()));
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
             protected override global::System.Data.DataRow NewRowFromBuilder(global::System.Data.DataRowBuilder builder) {
-                return new ProductosServiciosRow(builder);
+                return new sp_ReporteMovimientoInventarioRow(builder);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
             protected override global::System.Type GetRowType() {
-                return typeof(ProductosServiciosRow);
+                return typeof(sp_ReporteMovimientoInventarioRow);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
             protected override void OnRowChanged(global::System.Data.DataRowChangeEventArgs e) {
                 base.OnRowChanged(e);
-                if ((this.ProductosServiciosRowChanged != null)) {
-                    this.ProductosServiciosRowChanged(this, new ProductosServiciosRowChangeEvent(((ProductosServiciosRow)(e.Row)), e.Action));
+                if ((this.sp_ReporteMovimientoInventarioRowChanged != null)) {
+                    this.sp_ReporteMovimientoInventarioRowChanged(this, new sp_ReporteMovimientoInventarioRowChangeEvent(((sp_ReporteMovimientoInventarioRow)(e.Row)), e.Action));
                 }
             }
             
@@ -986,8 +1053,8 @@ namespace PV {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
             protected override void OnRowChanging(global::System.Data.DataRowChangeEventArgs e) {
                 base.OnRowChanging(e);
-                if ((this.ProductosServiciosRowChanging != null)) {
-                    this.ProductosServiciosRowChanging(this, new ProductosServiciosRowChangeEvent(((ProductosServiciosRow)(e.Row)), e.Action));
+                if ((this.sp_ReporteMovimientoInventarioRowChanging != null)) {
+                    this.sp_ReporteMovimientoInventarioRowChanging(this, new sp_ReporteMovimientoInventarioRowChangeEvent(((sp_ReporteMovimientoInventarioRow)(e.Row)), e.Action));
                 }
             }
             
@@ -995,8 +1062,8 @@ namespace PV {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
             protected override void OnRowDeleted(global::System.Data.DataRowChangeEventArgs e) {
                 base.OnRowDeleted(e);
-                if ((this.ProductosServiciosRowDeleted != null)) {
-                    this.ProductosServiciosRowDeleted(this, new ProductosServiciosRowChangeEvent(((ProductosServiciosRow)(e.Row)), e.Action));
+                if ((this.sp_ReporteMovimientoInventarioRowDeleted != null)) {
+                    this.sp_ReporteMovimientoInventarioRowDeleted(this, new sp_ReporteMovimientoInventarioRowChangeEvent(((sp_ReporteMovimientoInventarioRow)(e.Row)), e.Action));
                 }
             }
             
@@ -1004,14 +1071,14 @@ namespace PV {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
             protected override void OnRowDeleting(global::System.Data.DataRowChangeEventArgs e) {
                 base.OnRowDeleting(e);
-                if ((this.ProductosServiciosRowDeleting != null)) {
-                    this.ProductosServiciosRowDeleting(this, new ProductosServiciosRowChangeEvent(((ProductosServiciosRow)(e.Row)), e.Action));
+                if ((this.sp_ReporteMovimientoInventarioRowDeleting != null)) {
+                    this.sp_ReporteMovimientoInventarioRowDeleting(this, new sp_ReporteMovimientoInventarioRowChangeEvent(((sp_ReporteMovimientoInventarioRow)(e.Row)), e.Action));
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
-            public void RemoveProductosServiciosRow(ProductosServiciosRow row) {
+            public void Removesp_ReporteMovimientoInventarioRow(sp_ReporteMovimientoInventarioRow row) {
                 this.Rows.Remove(row);
             }
             
@@ -1020,7 +1087,7 @@ namespace PV {
             public static global::System.Xml.Schema.XmlSchemaComplexType GetTypedTableSchema(global::System.Xml.Schema.XmlSchemaSet xs) {
                 global::System.Xml.Schema.XmlSchemaComplexType type = new global::System.Xml.Schema.XmlSchemaComplexType();
                 global::System.Xml.Schema.XmlSchemaSequence sequence = new global::System.Xml.Schema.XmlSchemaSequence();
-                ControlCondominiosDataSet32 ds = new ControlCondominiosDataSet32();
+                DTSReporteMovimientoInventario ds = new DTSReporteMovimientoInventario();
                 global::System.Xml.Schema.XmlSchemaAny any1 = new global::System.Xml.Schema.XmlSchemaAny();
                 any1.Namespace = "http://www.w3.org/2001/XMLSchema";
                 any1.MinOccurs = new decimal(0);
@@ -1038,7 +1105,7 @@ namespace PV {
                 type.Attributes.Add(attribute1);
                 global::System.Xml.Schema.XmlSchemaAttribute attribute2 = new global::System.Xml.Schema.XmlSchemaAttribute();
                 attribute2.Name = "tableTypeName";
-                attribute2.FixedValue = "ProductosServiciosDataTable";
+                attribute2.FixedValue = "sp_ReporteMovimientoInventarioDataTable";
                 type.Attributes.Add(attribute2);
                 type.Particle = sequence;
                 global::System.Xml.Schema.XmlSchema dsSchema = ds.GetSchemaSerializable();
@@ -1082,57 +1149,76 @@ namespace PV {
         /// <summary>
         ///Represents strongly named DataRow class.
         ///</summary>
-        public partial class ProductosServiciosRow : global::System.Data.DataRow {
+        public partial class sp_ReporteMovimientoInventarioRow : global::System.Data.DataRow {
             
-            private ProductosServiciosDataTable tableProductosServicios;
+            private sp_ReporteMovimientoInventarioDataTable tablesp_ReporteMovimientoInventario;
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
-            internal ProductosServiciosRow(global::System.Data.DataRowBuilder rb) : 
+            internal sp_ReporteMovimientoInventarioRow(global::System.Data.DataRowBuilder rb) : 
                     base(rb) {
-                this.tableProductosServicios = ((ProductosServiciosDataTable)(this.Table));
+                this.tablesp_ReporteMovimientoInventario = ((sp_ReporteMovimientoInventarioDataTable)(this.Table));
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
-            public int ClaveProducto {
+            public int Folio {
                 get {
-                    return ((int)(this[this.tableProductosServicios.ClaveProductoColumn]));
+                    return ((int)(this[this.tablesp_ReporteMovimientoInventario.FolioColumn]));
                 }
                 set {
-                    this[this.tableProductosServicios.ClaveProductoColumn] = value;
+                    this[this.tablesp_ReporteMovimientoInventario.FolioColumn] = value;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
-            public string Alias {
-                get {
-                    try {
-                        return ((string)(this[this.tableProductosServicios.AliasColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("El valor de la columna \'Alias\' de la tabla \'ProductosServicios\' es DBNull.", e);
-                    }
-                }
-                set {
-                    this[this.tableProductosServicios.AliasColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
-            public string Descripcion {
+            public string TipoDocumento {
                 get {
                     try {
-                        return ((string)(this[this.tableProductosServicios.DescripcionColumn]));
+                        return ((string)(this[this.tablesp_ReporteMovimientoInventario.TipoDocumentoColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("El valor de la columna \'Descripcion\' de la tabla \'ProductosServicios\' es DBNull.", e);
+                        throw new global::System.Data.StrongTypingException("El valor de la columna \'TipoDocumento\' de la tabla \'sp_ReporteMovimientoInventari" +
+                                "o\' es DBNull.", e);
                     }
                 }
                 set {
-                    this[this.tableProductosServicios.DescripcionColumn] = value;
+                    this[this.tablesp_ReporteMovimientoInventario.TipoDocumentoColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+            public string Documento {
+                get {
+                    try {
+                        return ((string)(this[this.tablesp_ReporteMovimientoInventario.DocumentoColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("El valor de la columna \'Documento\' de la tabla \'sp_ReporteMovimientoInventario\' e" +
+                                "s DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tablesp_ReporteMovimientoInventario.DocumentoColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+            public System.DateTime Fecha {
+                get {
+                    try {
+                        return ((global::System.DateTime)(this[this.tablesp_ReporteMovimientoInventario.FechaColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("El valor de la columna \'Fecha\' de la tabla \'sp_ReporteMovimientoInventario\' es DB" +
+                                "Null.", e);
+                    }
+                }
+                set {
+                    this[this.tablesp_ReporteMovimientoInventario.FechaColumn] = value;
                 }
             }
             
@@ -1141,242 +1227,66 @@ namespace PV {
             public string Estatus {
                 get {
                     try {
-                        return ((string)(this[this.tableProductosServicios.EstatusColumn]));
+                        return ((string)(this[this.tablesp_ReporteMovimientoInventario.EstatusColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("El valor de la columna \'Estatus\' de la tabla \'ProductosServicios\' es DBNull.", e);
+                        throw new global::System.Data.StrongTypingException("El valor de la columna \'Estatus\' de la tabla \'sp_ReporteMovimientoInventario\' es " +
+                                "DBNull.", e);
                     }
                 }
                 set {
-                    this[this.tableProductosServicios.EstatusColumn] = value;
+                    this[this.tablesp_ReporteMovimientoInventario.EstatusColumn] = value;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
-            public string Marca {
+            public string Referencias {
                 get {
                     try {
-                        return ((string)(this[this.tableProductosServicios.MarcaColumn]));
+                        return ((string)(this[this.tablesp_ReporteMovimientoInventario.ReferenciasColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("El valor de la columna \'Marca\' de la tabla \'ProductosServicios\' es DBNull.", e);
+                        throw new global::System.Data.StrongTypingException("El valor de la columna \'Referencias\' de la tabla \'sp_ReporteMovimientoInventario\'" +
+                                " es DBNull.", e);
                     }
                 }
                 set {
-                    this[this.tableProductosServicios.MarcaColumn] = value;
+                    this[this.tablesp_ReporteMovimientoInventario.ReferenciasColumn] = value;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
-            public string UnidadMedida {
+            public string Almacen {
                 get {
                     try {
-                        return ((string)(this[this.tableProductosServicios.UnidadMedidaColumn]));
+                        return ((string)(this[this.tablesp_ReporteMovimientoInventario.AlmacenColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("El valor de la columna \'UnidadMedida\' de la tabla \'ProductosServicios\' es DBNull." +
-                                "", e);
+                        throw new global::System.Data.StrongTypingException("El valor de la columna \'Almacen\' de la tabla \'sp_ReporteMovimientoInventario\' es " +
+                                "DBNull.", e);
                     }
                 }
                 set {
-                    this[this.tableProductosServicios.UnidadMedidaColumn] = value;
+                    this[this.tablesp_ReporteMovimientoInventario.AlmacenColumn] = value;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
-            public string Presentacion {
+            public int TotalPartidas {
                 get {
                     try {
-                        return ((string)(this[this.tableProductosServicios.PresentacionColumn]));
+                        return ((int)(this[this.tablesp_ReporteMovimientoInventario.TotalPartidasColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("El valor de la columna \'Presentacion\' de la tabla \'ProductosServicios\' es DBNull." +
-                                "", e);
+                        throw new global::System.Data.StrongTypingException("El valor de la columna \'TotalPartidas\' de la tabla \'sp_ReporteMovimientoInventari" +
+                                "o\' es DBNull.", e);
                     }
                 }
                 set {
-                    this[this.tableProductosServicios.PresentacionColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
-            public string Inventariable {
-                get {
-                    try {
-                        return ((string)(this[this.tableProductosServicios.InventariableColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("El valor de la columna \'Inventariable\' de la tabla \'ProductosServicios\' es DBNull" +
-                                ".", e);
-                    }
-                }
-                set {
-                    this[this.tableProductosServicios.InventariableColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
-            public string Caducidad {
-                get {
-                    try {
-                        return ((string)(this[this.tableProductosServicios.CaducidadColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("El valor de la columna \'Caducidad\' de la tabla \'ProductosServicios\' es DBNull.", e);
-                    }
-                }
-                set {
-                    this[this.tableProductosServicios.CaducidadColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
-            public int Categoria {
-                get {
-                    try {
-                        return ((int)(this[this.tableProductosServicios.CategoriaColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("El valor de la columna \'Categoria\' de la tabla \'ProductosServicios\' es DBNull.", e);
-                    }
-                }
-                set {
-                    this[this.tableProductosServicios.CategoriaColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
-            public string Familia {
-                get {
-                    try {
-                        return ((string)(this[this.tableProductosServicios.FamiliaColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("El valor de la columna \'Familia\' de la tabla \'ProductosServicios\' es DBNull.", e);
-                    }
-                }
-                set {
-                    this[this.tableProductosServicios.FamiliaColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
-            public string Proveedor {
-                get {
-                    try {
-                        return ((string)(this[this.tableProductosServicios.ProveedorColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("El valor de la columna \'Proveedor\' de la tabla \'ProductosServicios\' es DBNull.", e);
-                    }
-                }
-                set {
-                    this[this.tableProductosServicios.ProveedorColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
-            public int ExMinimo {
-                get {
-                    try {
-                        return ((int)(this[this.tableProductosServicios.ExMinimoColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("El valor de la columna \'ExMinimo\' de la tabla \'ProductosServicios\' es DBNull.", e);
-                    }
-                }
-                set {
-                    this[this.tableProductosServicios.ExMinimoColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
-            public int ExMaximo {
-                get {
-                    try {
-                        return ((int)(this[this.tableProductosServicios.ExMaximoColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("El valor de la columna \'ExMaximo\' de la tabla \'ProductosServicios\' es DBNull.", e);
-                    }
-                }
-                set {
-                    this[this.tableProductosServicios.ExMaximoColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
-            public int ExActual {
-                get {
-                    try {
-                        return ((int)(this[this.tableProductosServicios.ExActualColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("El valor de la columna \'ExActual\' de la tabla \'ProductosServicios\' es DBNull.", e);
-                    }
-                }
-                set {
-                    this[this.tableProductosServicios.ExActualColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
-            public string Ubicacion {
-                get {
-                    try {
-                        return ((string)(this[this.tableProductosServicios.UbicacionColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("El valor de la columna \'Ubicacion\' de la tabla \'ProductosServicios\' es DBNull.", e);
-                    }
-                }
-                set {
-                    this[this.tableProductosServicios.UbicacionColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
-            public string TipoCosteo {
-                get {
-                    try {
-                        return ((string)(this[this.tableProductosServicios.TipoCosteoColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("El valor de la columna \'TipoCosteo\' de la tabla \'ProductosServicios\' es DBNull.", e);
-                    }
-                }
-                set {
-                    this[this.tableProductosServicios.TipoCosteoColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
-            public decimal CostoUnitario {
-                get {
-                    try {
-                        return ((decimal)(this[this.tableProductosServicios.CostoUnitarioColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("El valor de la columna \'CostoUnitario\' de la tabla \'ProductosServicios\' es DBNull" +
-                                ".", e);
-                    }
-                }
-                set {
-                    this[this.tableProductosServicios.CostoUnitarioColumn] = value;
+                    this[this.tablesp_ReporteMovimientoInventario.TotalPartidasColumn] = value;
                 }
             }
             
@@ -1385,82 +1295,457 @@ namespace PV {
             public string Divisa {
                 get {
                     try {
-                        return ((string)(this[this.tableProductosServicios.DivisaColumn]));
+                        return ((string)(this[this.tablesp_ReporteMovimientoInventario.DivisaColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("El valor de la columna \'Divisa\' de la tabla \'ProductosServicios\' es DBNull.", e);
+                        throw new global::System.Data.StrongTypingException("El valor de la columna \'Divisa\' de la tabla \'sp_ReporteMovimientoInventario\' es D" +
+                                "BNull.", e);
                     }
                 }
                 set {
-                    this[this.tableProductosServicios.DivisaColumn] = value;
+                    this[this.tablesp_ReporteMovimientoInventario.DivisaColumn] = value;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
-            public string DescuentoPorc {
+            public decimal TipoCambio {
                 get {
                     try {
-                        return ((string)(this[this.tableProductosServicios.DescuentoPorcColumn]));
+                        return ((decimal)(this[this.tablesp_ReporteMovimientoInventario.TipoCambioColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("El valor de la columna \'DescuentoPorc\' de la tabla \'ProductosServicios\' es DBNull" +
-                                ".", e);
+                        throw new global::System.Data.StrongTypingException("El valor de la columna \'TipoCambio\' de la tabla \'sp_ReporteMovimientoInventario\' " +
+                                "es DBNull.", e);
                     }
                 }
                 set {
-                    this[this.tableProductosServicios.DescuentoPorcColumn] = value;
+                    this[this.tablesp_ReporteMovimientoInventario.TipoCambioColumn] = value;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
-            public decimal DescuentoCant {
+            public decimal Subtotal {
                 get {
                     try {
-                        return ((decimal)(this[this.tableProductosServicios.DescuentoCantColumn]));
+                        return ((decimal)(this[this.tablesp_ReporteMovimientoInventario.SubtotalColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("El valor de la columna \'DescuentoCant\' de la tabla \'ProductosServicios\' es DBNull" +
-                                ".", e);
+                        throw new global::System.Data.StrongTypingException("El valor de la columna \'Subtotal\' de la tabla \'sp_ReporteMovimientoInventario\' es" +
+                                " DBNull.", e);
                     }
                 }
                 set {
-                    this[this.tableProductosServicios.DescuentoCantColumn] = value;
+                    this[this.tablesp_ReporteMovimientoInventario.SubtotalColumn] = value;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
-            public string ImpuestoPorc {
+            public decimal Descuento {
                 get {
                     try {
-                        return ((string)(this[this.tableProductosServicios.ImpuestoPorcColumn]));
+                        return ((decimal)(this[this.tablesp_ReporteMovimientoInventario.DescuentoColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("El valor de la columna \'ImpuestoPorc\' de la tabla \'ProductosServicios\' es DBNull." +
-                                "", e);
+                        throw new global::System.Data.StrongTypingException("El valor de la columna \'Descuento\' de la tabla \'sp_ReporteMovimientoInventario\' e" +
+                                "s DBNull.", e);
                     }
                 }
                 set {
-                    this[this.tableProductosServicios.ImpuestoPorcColumn] = value;
+                    this[this.tablesp_ReporteMovimientoInventario.DescuentoColumn] = value;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
-            public decimal ImpuestoCant {
+            public decimal Impuestos {
                 get {
                     try {
-                        return ((decimal)(this[this.tableProductosServicios.ImpuestoCantColumn]));
+                        return ((decimal)(this[this.tablesp_ReporteMovimientoInventario.ImpuestosColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("El valor de la columna \'ImpuestoCant\' de la tabla \'ProductosServicios\' es DBNull." +
-                                "", e);
+                        throw new global::System.Data.StrongTypingException("El valor de la columna \'Impuestos\' de la tabla \'sp_ReporteMovimientoInventario\' e" +
+                                "s DBNull.", e);
                     }
                 }
                 set {
-                    this[this.tableProductosServicios.ImpuestoCantColumn] = value;
+                    this[this.tablesp_ReporteMovimientoInventario.ImpuestosColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+            public decimal Total {
+                get {
+                    try {
+                        return ((decimal)(this[this.tablesp_ReporteMovimientoInventario.TotalColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("El valor de la columna \'Total\' de la tabla \'sp_ReporteMovimientoInventario\' es DB" +
+                                "Null.", e);
+                    }
+                }
+                set {
+                    this[this.tablesp_ReporteMovimientoInventario.TotalColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+            public string Notas {
+                get {
+                    try {
+                        return ((string)(this[this.tablesp_ReporteMovimientoInventario.NotasColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("El valor de la columna \'Notas\' de la tabla \'sp_ReporteMovimientoInventario\' es DB" +
+                                "Null.", e);
+                    }
+                }
+                set {
+                    this[this.tablesp_ReporteMovimientoInventario.NotasColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+            public string Elaborado {
+                get {
+                    try {
+                        return ((string)(this[this.tablesp_ReporteMovimientoInventario.ElaboradoColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("El valor de la columna \'Elaborado\' de la tabla \'sp_ReporteMovimientoInventario\' e" +
+                                "s DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tablesp_ReporteMovimientoInventario.ElaboradoColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+            public int NoPartida {
+                get {
+                    try {
+                        return ((int)(this[this.tablesp_ReporteMovimientoInventario.NoPartidaColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("El valor de la columna \'NoPartida\' de la tabla \'sp_ReporteMovimientoInventario\' e" +
+                                "s DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tablesp_ReporteMovimientoInventario.NoPartidaColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+            public string ClaveProducto {
+                get {
+                    try {
+                        return ((string)(this[this.tablesp_ReporteMovimientoInventario.ClaveProductoColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("El valor de la columna \'ClaveProducto\' de la tabla \'sp_ReporteMovimientoInventari" +
+                                "o\' es DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tablesp_ReporteMovimientoInventario.ClaveProductoColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+            public string Alias {
+                get {
+                    try {
+                        return ((string)(this[this.tablesp_ReporteMovimientoInventario.AliasColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("El valor de la columna \'Alias\' de la tabla \'sp_ReporteMovimientoInventario\' es DB" +
+                                "Null.", e);
+                    }
+                }
+                set {
+                    this[this.tablesp_ReporteMovimientoInventario.AliasColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+            public string DescripcionProducto {
+                get {
+                    try {
+                        return ((string)(this[this.tablesp_ReporteMovimientoInventario.DescripcionProductoColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("El valor de la columna \'DescripcionProducto\' de la tabla \'sp_ReporteMovimientoInv" +
+                                "entario\' es DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tablesp_ReporteMovimientoInventario.DescripcionProductoColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+            public int Cantidad {
+                get {
+                    try {
+                        return ((int)(this[this.tablesp_ReporteMovimientoInventario.CantidadColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("El valor de la columna \'Cantidad\' de la tabla \'sp_ReporteMovimientoInventario\' es" +
+                                " DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tablesp_ReporteMovimientoInventario.CantidadColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+            public string Unidad {
+                get {
+                    try {
+                        return ((string)(this[this.tablesp_ReporteMovimientoInventario.UnidadColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("El valor de la columna \'Unidad\' de la tabla \'sp_ReporteMovimientoInventario\' es D" +
+                                "BNull.", e);
+                    }
+                }
+                set {
+                    this[this.tablesp_ReporteMovimientoInventario.UnidadColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+            public decimal Precio {
+                get {
+                    try {
+                        return ((decimal)(this[this.tablesp_ReporteMovimientoInventario.PrecioColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("El valor de la columna \'Precio\' de la tabla \'sp_ReporteMovimientoInventario\' es D" +
+                                "BNull.", e);
+                    }
+                }
+                set {
+                    this[this.tablesp_ReporteMovimientoInventario.PrecioColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+            public decimal SubtotalPartida {
+                get {
+                    try {
+                        return ((decimal)(this[this.tablesp_ReporteMovimientoInventario.SubtotalPartidaColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("El valor de la columna \'SubtotalPartida\' de la tabla \'sp_ReporteMovimientoInventa" +
+                                "rio\' es DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tablesp_ReporteMovimientoInventario.SubtotalPartidaColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+            public string DescuentoPartida {
+                get {
+                    try {
+                        return ((string)(this[this.tablesp_ReporteMovimientoInventario.DescuentoPartidaColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("El valor de la columna \'DescuentoPartida\' de la tabla \'sp_ReporteMovimientoInvent" +
+                                "ario\' es DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tablesp_ReporteMovimientoInventario.DescuentoPartidaColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+            public string IVA {
+                get {
+                    try {
+                        return ((string)(this[this.tablesp_ReporteMovimientoInventario.IVAColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("El valor de la columna \'IVA\' de la tabla \'sp_ReporteMovimientoInventario\' es DBNu" +
+                                "ll.", e);
+                    }
+                }
+                set {
+                    this[this.tablesp_ReporteMovimientoInventario.IVAColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+            public string IEPS {
+                get {
+                    try {
+                        return ((string)(this[this.tablesp_ReporteMovimientoInventario.IEPSColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("El valor de la columna \'IEPS\' de la tabla \'sp_ReporteMovimientoInventario\' es DBN" +
+                                "ull.", e);
+                    }
+                }
+                set {
+                    this[this.tablesp_ReporteMovimientoInventario.IEPSColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+            public decimal TotalPartida {
+                get {
+                    try {
+                        return ((decimal)(this[this.tablesp_ReporteMovimientoInventario.TotalPartidaColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("El valor de la columna \'TotalPartida\' de la tabla \'sp_ReporteMovimientoInventario" +
+                                "\' es DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tablesp_ReporteMovimientoInventario.TotalPartidaColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+            public string Concepto {
+                get {
+                    try {
+                        return ((string)(this[this.tablesp_ReporteMovimientoInventario.ConceptoColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("El valor de la columna \'Concepto\' de la tabla \'sp_ReporteMovimientoInventario\' es" +
+                                " DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tablesp_ReporteMovimientoInventario.ConceptoColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+            public string Marca {
+                get {
+                    try {
+                        return ((string)(this[this.tablesp_ReporteMovimientoInventario.MarcaColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("El valor de la columna \'Marca\' de la tabla \'sp_ReporteMovimientoInventario\' es DB" +
+                                "Null.", e);
+                    }
+                }
+                set {
+                    this[this.tablesp_ReporteMovimientoInventario.MarcaColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+            public string UnidadMedida {
+                get {
+                    try {
+                        return ((string)(this[this.tablesp_ReporteMovimientoInventario.UnidadMedidaColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("El valor de la columna \'UnidadMedida\' de la tabla \'sp_ReporteMovimientoInventario" +
+                                "\' es DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tablesp_ReporteMovimientoInventario.UnidadMedidaColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+            public string Presentacion {
+                get {
+                    try {
+                        return ((string)(this[this.tablesp_ReporteMovimientoInventario.PresentacionColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("El valor de la columna \'Presentacion\' de la tabla \'sp_ReporteMovimientoInventario" +
+                                "\' es DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tablesp_ReporteMovimientoInventario.PresentacionColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+            public int Categoria {
+                get {
+                    try {
+                        return ((int)(this[this.tablesp_ReporteMovimientoInventario.CategoriaColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("El valor de la columna \'Categoria\' de la tabla \'sp_ReporteMovimientoInventario\' e" +
+                                "s DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tablesp_ReporteMovimientoInventario.CategoriaColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+            public string Familia {
+                get {
+                    try {
+                        return ((string)(this[this.tablesp_ReporteMovimientoInventario.FamiliaColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("El valor de la columna \'Familia\' de la tabla \'sp_ReporteMovimientoInventario\' es " +
+                                "DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tablesp_ReporteMovimientoInventario.FamiliaColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+            public decimal CostoUnitario {
+                get {
+                    try {
+                        return ((decimal)(this[this.tablesp_ReporteMovimientoInventario.CostoUnitarioColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("El valor de la columna \'CostoUnitario\' de la tabla \'sp_ReporteMovimientoInventari" +
+                                "o\' es DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tablesp_ReporteMovimientoInventario.CostoUnitarioColumn] = value;
                 }
             }
             
@@ -1469,635 +1754,552 @@ namespace PV {
             public decimal PrecioVenta {
                 get {
                     try {
-                        return ((decimal)(this[this.tableProductosServicios.PrecioVentaColumn]));
+                        return ((decimal)(this[this.tablesp_ReporteMovimientoInventario.PrecioVentaColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("El valor de la columna \'PrecioVenta\' de la tabla \'ProductosServicios\' es DBNull.", e);
+                        throw new global::System.Data.StrongTypingException("El valor de la columna \'PrecioVenta\' de la tabla \'sp_ReporteMovimientoInventario\'" +
+                                " es DBNull.", e);
                     }
                 }
                 set {
-                    this[this.tableProductosServicios.PrecioVentaColumn] = value;
+                    this[this.tablesp_ReporteMovimientoInventario.PrecioVentaColumn] = value;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
-            public byte[] Foto {
+            public decimal DescuentoPartida1 {
                 get {
                     try {
-                        return ((byte[])(this[this.tableProductosServicios.FotoColumn]));
+                        return ((decimal)(this[this.tablesp_ReporteMovimientoInventario.DescuentoPartida1Column]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("El valor de la columna \'Foto\' de la tabla \'ProductosServicios\' es DBNull.", e);
+                        throw new global::System.Data.StrongTypingException("El valor de la columna \'DescuentoPartida1\' de la tabla \'sp_ReporteMovimientoInven" +
+                                "tario\' es DBNull.", e);
                     }
                 }
                 set {
-                    this[this.tableProductosServicios.FotoColumn] = value;
+                    this[this.tablesp_ReporteMovimientoInventario.DescuentoPartida1Column] = value;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
-            public string ConceptoGlobales {
+            public decimal IVA1 {
                 get {
                     try {
-                        return ((string)(this[this.tableProductosServicios.ConceptoGlobalesColumn]));
+                        return ((decimal)(this[this.tablesp_ReporteMovimientoInventario.IVA1Column]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("El valor de la columna \'ConceptoGlobales\' de la tabla \'ProductosServicios\' es DBN" +
+                        throw new global::System.Data.StrongTypingException("El valor de la columna \'IVA1\' de la tabla \'sp_ReporteMovimientoInventario\' es DBN" +
                                 "ull.", e);
                     }
                 }
                 set {
-                    this[this.tableProductosServicios.ConceptoGlobalesColumn] = value;
+                    this[this.tablesp_ReporteMovimientoInventario.IVA1Column] = value;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
-            public decimal ExistenciaActual {
+            public decimal IEPS1 {
                 get {
                     try {
-                        return ((decimal)(this[this.tableProductosServicios.ExistenciaActualColumn]));
+                        return ((decimal)(this[this.tablesp_ReporteMovimientoInventario.IEPS1Column]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("El valor de la columna \'ExistenciaActual\' de la tabla \'ProductosServicios\' es DBN" +
-                                "ull.", e);
+                        throw new global::System.Data.StrongTypingException("El valor de la columna \'IEPS1\' de la tabla \'sp_ReporteMovimientoInventario\' es DB" +
+                                "Null.", e);
                     }
                 }
                 set {
-                    this[this.tableProductosServicios.ExistenciaActualColumn] = value;
+                    this[this.tablesp_ReporteMovimientoInventario.IEPS1Column] = value;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
-            public decimal DescuentoPorc1 {
+            public string DescripcionMovimiento {
                 get {
                     try {
-                        return ((decimal)(this[this.tableProductosServicios.DescuentoPorc1Column]));
+                        return ((string)(this[this.tablesp_ReporteMovimientoInventario.DescripcionMovimientoColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("El valor de la columna \'DescuentoPorc1\' de la tabla \'ProductosServicios\' es DBNul" +
-                                "l.", e);
+                        throw new global::System.Data.StrongTypingException("El valor de la columna \'DescripcionMovimiento\' de la tabla \'sp_ReporteMovimientoI" +
+                                "nventario\' es DBNull.", e);
                     }
                 }
                 set {
-                    this[this.tableProductosServicios.DescuentoPorc1Column] = value;
+                    this[this.tablesp_ReporteMovimientoInventario.DescripcionMovimientoColumn] = value;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
-            public decimal ImpuestoPorc1 {
-                get {
-                    try {
-                        return ((decimal)(this[this.tableProductosServicios.ImpuestoPorc1Column]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("El valor de la columna \'ImpuestoPorc1\' de la tabla \'ProductosServicios\' es DBNull" +
-                                ".", e);
-                    }
-                }
-                set {
-                    this[this.tableProductosServicios.ImpuestoPorc1Column] = value;
-                }
+            public bool IsTipoDocumentoNull() {
+                return this.IsNull(this.tablesp_ReporteMovimientoInventario.TipoDocumentoColumn);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
-            public string MedidaSAT {
-                get {
-                    try {
-                        return ((string)(this[this.tableProductosServicios.MedidaSATColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("El valor de la columna \'MedidaSAT\' de la tabla \'ProductosServicios\' es DBNull.", e);
-                    }
-                }
-                set {
-                    this[this.tableProductosServicios.MedidaSATColumn] = value;
-                }
+            public void SetTipoDocumentoNull() {
+                this[this.tablesp_ReporteMovimientoInventario.TipoDocumentoColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
-            public string SATImpuestos {
-                get {
-                    try {
-                        return ((string)(this[this.tableProductosServicios.SATImpuestosColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("El valor de la columna \'SATImpuestos\' de la tabla \'ProductosServicios\' es DBNull." +
-                                "", e);
-                    }
-                }
-                set {
-                    this[this.tableProductosServicios.SATImpuestosColumn] = value;
-                }
+            public bool IsDocumentoNull() {
+                return this.IsNull(this.tablesp_ReporteMovimientoInventario.DocumentoColumn);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
-            public string CuentaContable {
-                get {
-                    try {
-                        return ((string)(this[this.tableProductosServicios.CuentaContableColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("El valor de la columna \'CuentaContable\' de la tabla \'ProductosServicios\' es DBNul" +
-                                "l.", e);
-                    }
-                }
-                set {
-                    this[this.tableProductosServicios.CuentaContableColumn] = value;
-                }
+            public void SetDocumentoNull() {
+                this[this.tablesp_ReporteMovimientoInventario.DocumentoColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
-            public decimal PedidosProveedor {
-                get {
-                    try {
-                        return ((decimal)(this[this.tableProductosServicios.PedidosProveedorColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("El valor de la columna \'PedidosProveedor\' de la tabla \'ProductosServicios\' es DBN" +
-                                "ull.", e);
-                    }
-                }
-                set {
-                    this[this.tableProductosServicios.PedidosProveedorColumn] = value;
-                }
+            public bool IsFechaNull() {
+                return this.IsNull(this.tablesp_ReporteMovimientoInventario.FechaColumn);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
-            public decimal PedidosCliente {
-                get {
-                    try {
-                        return ((decimal)(this[this.tableProductosServicios.PedidosClienteColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("El valor de la columna \'PedidosCliente\' de la tabla \'ProductosServicios\' es DBNul" +
-                                "l.", e);
-                    }
-                }
-                set {
-                    this[this.tableProductosServicios.PedidosClienteColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
-            public string Nombre {
-                get {
-                    try {
-                        return ((string)(this[this.tableProductosServicios.NombreColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("El valor de la columna \'Nombre\' de la tabla \'ProductosServicios\' es DBNull.", e);
-                    }
-                }
-                set {
-                    this[this.tableProductosServicios.NombreColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
-            public string Nombre1 {
-                get {
-                    try {
-                        return ((string)(this[this.tableProductosServicios.Nombre1Column]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("El valor de la columna \'Nombre1\' de la tabla \'ProductosServicios\' es DBNull.", e);
-                    }
-                }
-                set {
-                    this[this.tableProductosServicios.Nombre1Column] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
-            public bool IsAliasNull() {
-                return this.IsNull(this.tableProductosServicios.AliasColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
-            public void SetAliasNull() {
-                this[this.tableProductosServicios.AliasColumn] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
-            public bool IsDescripcionNull() {
-                return this.IsNull(this.tableProductosServicios.DescripcionColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
-            public void SetDescripcionNull() {
-                this[this.tableProductosServicios.DescripcionColumn] = global::System.Convert.DBNull;
+            public void SetFechaNull() {
+                this[this.tablesp_ReporteMovimientoInventario.FechaColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
             public bool IsEstatusNull() {
-                return this.IsNull(this.tableProductosServicios.EstatusColumn);
+                return this.IsNull(this.tablesp_ReporteMovimientoInventario.EstatusColumn);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
             public void SetEstatusNull() {
-                this[this.tableProductosServicios.EstatusColumn] = global::System.Convert.DBNull;
+                this[this.tablesp_ReporteMovimientoInventario.EstatusColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
-            public bool IsMarcaNull() {
-                return this.IsNull(this.tableProductosServicios.MarcaColumn);
+            public bool IsReferenciasNull() {
+                return this.IsNull(this.tablesp_ReporteMovimientoInventario.ReferenciasColumn);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
-            public void SetMarcaNull() {
-                this[this.tableProductosServicios.MarcaColumn] = global::System.Convert.DBNull;
+            public void SetReferenciasNull() {
+                this[this.tablesp_ReporteMovimientoInventario.ReferenciasColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
-            public bool IsUnidadMedidaNull() {
-                return this.IsNull(this.tableProductosServicios.UnidadMedidaColumn);
+            public bool IsAlmacenNull() {
+                return this.IsNull(this.tablesp_ReporteMovimientoInventario.AlmacenColumn);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
-            public void SetUnidadMedidaNull() {
-                this[this.tableProductosServicios.UnidadMedidaColumn] = global::System.Convert.DBNull;
+            public void SetAlmacenNull() {
+                this[this.tablesp_ReporteMovimientoInventario.AlmacenColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
-            public bool IsPresentacionNull() {
-                return this.IsNull(this.tableProductosServicios.PresentacionColumn);
+            public bool IsTotalPartidasNull() {
+                return this.IsNull(this.tablesp_ReporteMovimientoInventario.TotalPartidasColumn);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
-            public void SetPresentacionNull() {
-                this[this.tableProductosServicios.PresentacionColumn] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
-            public bool IsInventariableNull() {
-                return this.IsNull(this.tableProductosServicios.InventariableColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
-            public void SetInventariableNull() {
-                this[this.tableProductosServicios.InventariableColumn] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
-            public bool IsCaducidadNull() {
-                return this.IsNull(this.tableProductosServicios.CaducidadColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
-            public void SetCaducidadNull() {
-                this[this.tableProductosServicios.CaducidadColumn] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
-            public bool IsCategoriaNull() {
-                return this.IsNull(this.tableProductosServicios.CategoriaColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
-            public void SetCategoriaNull() {
-                this[this.tableProductosServicios.CategoriaColumn] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
-            public bool IsFamiliaNull() {
-                return this.IsNull(this.tableProductosServicios.FamiliaColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
-            public void SetFamiliaNull() {
-                this[this.tableProductosServicios.FamiliaColumn] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
-            public bool IsProveedorNull() {
-                return this.IsNull(this.tableProductosServicios.ProveedorColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
-            public void SetProveedorNull() {
-                this[this.tableProductosServicios.ProveedorColumn] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
-            public bool IsExMinimoNull() {
-                return this.IsNull(this.tableProductosServicios.ExMinimoColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
-            public void SetExMinimoNull() {
-                this[this.tableProductosServicios.ExMinimoColumn] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
-            public bool IsExMaximoNull() {
-                return this.IsNull(this.tableProductosServicios.ExMaximoColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
-            public void SetExMaximoNull() {
-                this[this.tableProductosServicios.ExMaximoColumn] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
-            public bool IsExActualNull() {
-                return this.IsNull(this.tableProductosServicios.ExActualColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
-            public void SetExActualNull() {
-                this[this.tableProductosServicios.ExActualColumn] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
-            public bool IsUbicacionNull() {
-                return this.IsNull(this.tableProductosServicios.UbicacionColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
-            public void SetUbicacionNull() {
-                this[this.tableProductosServicios.UbicacionColumn] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
-            public bool IsTipoCosteoNull() {
-                return this.IsNull(this.tableProductosServicios.TipoCosteoColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
-            public void SetTipoCosteoNull() {
-                this[this.tableProductosServicios.TipoCosteoColumn] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
-            public bool IsCostoUnitarioNull() {
-                return this.IsNull(this.tableProductosServicios.CostoUnitarioColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
-            public void SetCostoUnitarioNull() {
-                this[this.tableProductosServicios.CostoUnitarioColumn] = global::System.Convert.DBNull;
+            public void SetTotalPartidasNull() {
+                this[this.tablesp_ReporteMovimientoInventario.TotalPartidasColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
             public bool IsDivisaNull() {
-                return this.IsNull(this.tableProductosServicios.DivisaColumn);
+                return this.IsNull(this.tablesp_ReporteMovimientoInventario.DivisaColumn);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
             public void SetDivisaNull() {
-                this[this.tableProductosServicios.DivisaColumn] = global::System.Convert.DBNull;
+                this[this.tablesp_ReporteMovimientoInventario.DivisaColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
-            public bool IsDescuentoPorcNull() {
-                return this.IsNull(this.tableProductosServicios.DescuentoPorcColumn);
+            public bool IsTipoCambioNull() {
+                return this.IsNull(this.tablesp_ReporteMovimientoInventario.TipoCambioColumn);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
-            public void SetDescuentoPorcNull() {
-                this[this.tableProductosServicios.DescuentoPorcColumn] = global::System.Convert.DBNull;
+            public void SetTipoCambioNull() {
+                this[this.tablesp_ReporteMovimientoInventario.TipoCambioColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
-            public bool IsDescuentoCantNull() {
-                return this.IsNull(this.tableProductosServicios.DescuentoCantColumn);
+            public bool IsSubtotalNull() {
+                return this.IsNull(this.tablesp_ReporteMovimientoInventario.SubtotalColumn);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
-            public void SetDescuentoCantNull() {
-                this[this.tableProductosServicios.DescuentoCantColumn] = global::System.Convert.DBNull;
+            public void SetSubtotalNull() {
+                this[this.tablesp_ReporteMovimientoInventario.SubtotalColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
-            public bool IsImpuestoPorcNull() {
-                return this.IsNull(this.tableProductosServicios.ImpuestoPorcColumn);
+            public bool IsDescuentoNull() {
+                return this.IsNull(this.tablesp_ReporteMovimientoInventario.DescuentoColumn);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
-            public void SetImpuestoPorcNull() {
-                this[this.tableProductosServicios.ImpuestoPorcColumn] = global::System.Convert.DBNull;
+            public void SetDescuentoNull() {
+                this[this.tablesp_ReporteMovimientoInventario.DescuentoColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
-            public bool IsImpuestoCantNull() {
-                return this.IsNull(this.tableProductosServicios.ImpuestoCantColumn);
+            public bool IsImpuestosNull() {
+                return this.IsNull(this.tablesp_ReporteMovimientoInventario.ImpuestosColumn);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
-            public void SetImpuestoCantNull() {
-                this[this.tableProductosServicios.ImpuestoCantColumn] = global::System.Convert.DBNull;
+            public void SetImpuestosNull() {
+                this[this.tablesp_ReporteMovimientoInventario.ImpuestosColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+            public bool IsTotalNull() {
+                return this.IsNull(this.tablesp_ReporteMovimientoInventario.TotalColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+            public void SetTotalNull() {
+                this[this.tablesp_ReporteMovimientoInventario.TotalColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+            public bool IsNotasNull() {
+                return this.IsNull(this.tablesp_ReporteMovimientoInventario.NotasColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+            public void SetNotasNull() {
+                this[this.tablesp_ReporteMovimientoInventario.NotasColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+            public bool IsElaboradoNull() {
+                return this.IsNull(this.tablesp_ReporteMovimientoInventario.ElaboradoColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+            public void SetElaboradoNull() {
+                this[this.tablesp_ReporteMovimientoInventario.ElaboradoColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+            public bool IsNoPartidaNull() {
+                return this.IsNull(this.tablesp_ReporteMovimientoInventario.NoPartidaColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+            public void SetNoPartidaNull() {
+                this[this.tablesp_ReporteMovimientoInventario.NoPartidaColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+            public bool IsClaveProductoNull() {
+                return this.IsNull(this.tablesp_ReporteMovimientoInventario.ClaveProductoColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+            public void SetClaveProductoNull() {
+                this[this.tablesp_ReporteMovimientoInventario.ClaveProductoColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+            public bool IsAliasNull() {
+                return this.IsNull(this.tablesp_ReporteMovimientoInventario.AliasColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+            public void SetAliasNull() {
+                this[this.tablesp_ReporteMovimientoInventario.AliasColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+            public bool IsDescripcionProductoNull() {
+                return this.IsNull(this.tablesp_ReporteMovimientoInventario.DescripcionProductoColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+            public void SetDescripcionProductoNull() {
+                this[this.tablesp_ReporteMovimientoInventario.DescripcionProductoColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+            public bool IsCantidadNull() {
+                return this.IsNull(this.tablesp_ReporteMovimientoInventario.CantidadColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+            public void SetCantidadNull() {
+                this[this.tablesp_ReporteMovimientoInventario.CantidadColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+            public bool IsUnidadNull() {
+                return this.IsNull(this.tablesp_ReporteMovimientoInventario.UnidadColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+            public void SetUnidadNull() {
+                this[this.tablesp_ReporteMovimientoInventario.UnidadColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+            public bool IsPrecioNull() {
+                return this.IsNull(this.tablesp_ReporteMovimientoInventario.PrecioColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+            public void SetPrecioNull() {
+                this[this.tablesp_ReporteMovimientoInventario.PrecioColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+            public bool IsSubtotalPartidaNull() {
+                return this.IsNull(this.tablesp_ReporteMovimientoInventario.SubtotalPartidaColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+            public void SetSubtotalPartidaNull() {
+                this[this.tablesp_ReporteMovimientoInventario.SubtotalPartidaColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+            public bool IsDescuentoPartidaNull() {
+                return this.IsNull(this.tablesp_ReporteMovimientoInventario.DescuentoPartidaColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+            public void SetDescuentoPartidaNull() {
+                this[this.tablesp_ReporteMovimientoInventario.DescuentoPartidaColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+            public bool IsIVANull() {
+                return this.IsNull(this.tablesp_ReporteMovimientoInventario.IVAColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+            public void SetIVANull() {
+                this[this.tablesp_ReporteMovimientoInventario.IVAColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+            public bool IsIEPSNull() {
+                return this.IsNull(this.tablesp_ReporteMovimientoInventario.IEPSColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+            public void SetIEPSNull() {
+                this[this.tablesp_ReporteMovimientoInventario.IEPSColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+            public bool IsTotalPartidaNull() {
+                return this.IsNull(this.tablesp_ReporteMovimientoInventario.TotalPartidaColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+            public void SetTotalPartidaNull() {
+                this[this.tablesp_ReporteMovimientoInventario.TotalPartidaColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+            public bool IsConceptoNull() {
+                return this.IsNull(this.tablesp_ReporteMovimientoInventario.ConceptoColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+            public void SetConceptoNull() {
+                this[this.tablesp_ReporteMovimientoInventario.ConceptoColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+            public bool IsMarcaNull() {
+                return this.IsNull(this.tablesp_ReporteMovimientoInventario.MarcaColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+            public void SetMarcaNull() {
+                this[this.tablesp_ReporteMovimientoInventario.MarcaColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+            public bool IsUnidadMedidaNull() {
+                return this.IsNull(this.tablesp_ReporteMovimientoInventario.UnidadMedidaColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+            public void SetUnidadMedidaNull() {
+                this[this.tablesp_ReporteMovimientoInventario.UnidadMedidaColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+            public bool IsPresentacionNull() {
+                return this.IsNull(this.tablesp_ReporteMovimientoInventario.PresentacionColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+            public void SetPresentacionNull() {
+                this[this.tablesp_ReporteMovimientoInventario.PresentacionColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+            public bool IsCategoriaNull() {
+                return this.IsNull(this.tablesp_ReporteMovimientoInventario.CategoriaColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+            public void SetCategoriaNull() {
+                this[this.tablesp_ReporteMovimientoInventario.CategoriaColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+            public bool IsFamiliaNull() {
+                return this.IsNull(this.tablesp_ReporteMovimientoInventario.FamiliaColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+            public void SetFamiliaNull() {
+                this[this.tablesp_ReporteMovimientoInventario.FamiliaColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+            public bool IsCostoUnitarioNull() {
+                return this.IsNull(this.tablesp_ReporteMovimientoInventario.CostoUnitarioColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+            public void SetCostoUnitarioNull() {
+                this[this.tablesp_ReporteMovimientoInventario.CostoUnitarioColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
             public bool IsPrecioVentaNull() {
-                return this.IsNull(this.tableProductosServicios.PrecioVentaColumn);
+                return this.IsNull(this.tablesp_ReporteMovimientoInventario.PrecioVentaColumn);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
             public void SetPrecioVentaNull() {
-                this[this.tableProductosServicios.PrecioVentaColumn] = global::System.Convert.DBNull;
+                this[this.tablesp_ReporteMovimientoInventario.PrecioVentaColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
-            public bool IsFotoNull() {
-                return this.IsNull(this.tableProductosServicios.FotoColumn);
+            public bool IsDescuentoPartida1Null() {
+                return this.IsNull(this.tablesp_ReporteMovimientoInventario.DescuentoPartida1Column);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
-            public void SetFotoNull() {
-                this[this.tableProductosServicios.FotoColumn] = global::System.Convert.DBNull;
+            public void SetDescuentoPartida1Null() {
+                this[this.tablesp_ReporteMovimientoInventario.DescuentoPartida1Column] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
-            public bool IsConceptoGlobalesNull() {
-                return this.IsNull(this.tableProductosServicios.ConceptoGlobalesColumn);
+            public bool IsIVA1Null() {
+                return this.IsNull(this.tablesp_ReporteMovimientoInventario.IVA1Column);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
-            public void SetConceptoGlobalesNull() {
-                this[this.tableProductosServicios.ConceptoGlobalesColumn] = global::System.Convert.DBNull;
+            public void SetIVA1Null() {
+                this[this.tablesp_ReporteMovimientoInventario.IVA1Column] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
-            public bool IsExistenciaActualNull() {
-                return this.IsNull(this.tableProductosServicios.ExistenciaActualColumn);
+            public bool IsIEPS1Null() {
+                return this.IsNull(this.tablesp_ReporteMovimientoInventario.IEPS1Column);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
-            public void SetExistenciaActualNull() {
-                this[this.tableProductosServicios.ExistenciaActualColumn] = global::System.Convert.DBNull;
+            public void SetIEPS1Null() {
+                this[this.tablesp_ReporteMovimientoInventario.IEPS1Column] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
-            public bool IsDescuentoPorc1Null() {
-                return this.IsNull(this.tableProductosServicios.DescuentoPorc1Column);
+            public bool IsDescripcionMovimientoNull() {
+                return this.IsNull(this.tablesp_ReporteMovimientoInventario.DescripcionMovimientoColumn);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
-            public void SetDescuentoPorc1Null() {
-                this[this.tableProductosServicios.DescuentoPorc1Column] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
-            public bool IsImpuestoPorc1Null() {
-                return this.IsNull(this.tableProductosServicios.ImpuestoPorc1Column);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
-            public void SetImpuestoPorc1Null() {
-                this[this.tableProductosServicios.ImpuestoPorc1Column] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
-            public bool IsMedidaSATNull() {
-                return this.IsNull(this.tableProductosServicios.MedidaSATColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
-            public void SetMedidaSATNull() {
-                this[this.tableProductosServicios.MedidaSATColumn] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
-            public bool IsSATImpuestosNull() {
-                return this.IsNull(this.tableProductosServicios.SATImpuestosColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
-            public void SetSATImpuestosNull() {
-                this[this.tableProductosServicios.SATImpuestosColumn] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
-            public bool IsCuentaContableNull() {
-                return this.IsNull(this.tableProductosServicios.CuentaContableColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
-            public void SetCuentaContableNull() {
-                this[this.tableProductosServicios.CuentaContableColumn] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
-            public bool IsPedidosProveedorNull() {
-                return this.IsNull(this.tableProductosServicios.PedidosProveedorColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
-            public void SetPedidosProveedorNull() {
-                this[this.tableProductosServicios.PedidosProveedorColumn] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
-            public bool IsPedidosClienteNull() {
-                return this.IsNull(this.tableProductosServicios.PedidosClienteColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
-            public void SetPedidosClienteNull() {
-                this[this.tableProductosServicios.PedidosClienteColumn] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
-            public bool IsNombreNull() {
-                return this.IsNull(this.tableProductosServicios.NombreColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
-            public void SetNombreNull() {
-                this[this.tableProductosServicios.NombreColumn] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
-            public bool IsNombre1Null() {
-                return this.IsNull(this.tableProductosServicios.Nombre1Column);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
-            public void SetNombre1Null() {
-                this[this.tableProductosServicios.Nombre1Column] = global::System.Convert.DBNull;
+            public void SetDescripcionMovimientoNull() {
+                this[this.tablesp_ReporteMovimientoInventario.DescripcionMovimientoColumn] = global::System.Convert.DBNull;
             }
         }
         
@@ -2105,22 +2307,22 @@ namespace PV {
         ///Row event argument class
         ///</summary>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
-        public class ProductosServiciosRowChangeEvent : global::System.EventArgs {
+        public class sp_ReporteMovimientoInventarioRowChangeEvent : global::System.EventArgs {
             
-            private ProductosServiciosRow eventRow;
+            private sp_ReporteMovimientoInventarioRow eventRow;
             
             private global::System.Data.DataRowAction eventAction;
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
-            public ProductosServiciosRowChangeEvent(ProductosServiciosRow row, global::System.Data.DataRowAction action) {
+            public sp_ReporteMovimientoInventarioRowChangeEvent(sp_ReporteMovimientoInventarioRow row, global::System.Data.DataRowAction action) {
                 this.eventRow = row;
                 this.eventAction = action;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
-            public ProductosServiciosRow Row {
+            public sp_ReporteMovimientoInventarioRow Row {
                 get {
                     return this.eventRow;
                 }
@@ -2136,7 +2338,7 @@ namespace PV {
         }
     }
 }
-namespace PV.ControlCondominiosDataSet32TableAdapters {
+namespace PV.DTSReporteMovimientoInventarioTableAdapters {
     
     
     /// <summary>
@@ -2148,7 +2350,7 @@ namespace PV.ControlCondominiosDataSet32TableAdapters {
     [global::System.ComponentModel.DesignerAttribute("Microsoft.VSDesigner.DataSource.Design.TableAdapterDesigner, Microsoft.VSDesigner" +
         ", Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a")]
     [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-    public partial class ProductosServiciosTableAdapter : global::System.ComponentModel.Component {
+    public partial class sp_ReporteMovimientoInventarioTableAdapter : global::System.ComponentModel.Component {
         
         private global::System.Data.SqlClient.SqlDataAdapter _adapter;
         
@@ -2162,7 +2364,7 @@ namespace PV.ControlCondominiosDataSet32TableAdapters {
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
-        public ProductosServiciosTableAdapter() {
+        public sp_ReporteMovimientoInventarioTableAdapter() {
             this.ClearBeforeFill = true;
         }
         
@@ -2259,41 +2461,44 @@ namespace PV.ControlCondominiosDataSet32TableAdapters {
             this._adapter = new global::System.Data.SqlClient.SqlDataAdapter();
             global::System.Data.Common.DataTableMapping tableMapping = new global::System.Data.Common.DataTableMapping();
             tableMapping.SourceTable = "Table";
-            tableMapping.DataSetTable = "ProductosServicios";
+            tableMapping.DataSetTable = "sp_ReporteMovimientoInventario";
+            tableMapping.ColumnMappings.Add("Folio", "Folio");
+            tableMapping.ColumnMappings.Add("TipoDocumento", "TipoDocumento");
+            tableMapping.ColumnMappings.Add("Documento", "Documento");
+            tableMapping.ColumnMappings.Add("Fecha", "Fecha");
+            tableMapping.ColumnMappings.Add("Estatus", "Estatus");
+            tableMapping.ColumnMappings.Add("Referencias", "Referencias");
+            tableMapping.ColumnMappings.Add("Almacen", "Almacen");
+            tableMapping.ColumnMappings.Add("TotalPartidas", "TotalPartidas");
+            tableMapping.ColumnMappings.Add("Divisa", "Divisa");
+            tableMapping.ColumnMappings.Add("TipoCambio", "TipoCambio");
+            tableMapping.ColumnMappings.Add("Subtotal", "Subtotal");
+            tableMapping.ColumnMappings.Add("Descuento", "Descuento");
+            tableMapping.ColumnMappings.Add("Impuestos", "Impuestos");
+            tableMapping.ColumnMappings.Add("Total", "Total");
+            tableMapping.ColumnMappings.Add("Notas", "Notas");
+            tableMapping.ColumnMappings.Add("Elaborado", "Elaborado");
+            tableMapping.ColumnMappings.Add("NoPartida", "NoPartida");
             tableMapping.ColumnMappings.Add("ClaveProducto", "ClaveProducto");
             tableMapping.ColumnMappings.Add("Alias", "Alias");
-            tableMapping.ColumnMappings.Add("Descripcion", "Descripcion");
-            tableMapping.ColumnMappings.Add("Estatus", "Estatus");
+            tableMapping.ColumnMappings.Add("DescripcionProducto", "DescripcionProducto");
+            tableMapping.ColumnMappings.Add("Cantidad", "Cantidad");
+            tableMapping.ColumnMappings.Add("Unidad", "Unidad");
+            tableMapping.ColumnMappings.Add("Precio", "Precio");
+            tableMapping.ColumnMappings.Add("SubtotalPartida", "SubtotalPartida");
+            tableMapping.ColumnMappings.Add("TotalPartida", "TotalPartida");
+            tableMapping.ColumnMappings.Add("Concepto", "Concepto");
             tableMapping.ColumnMappings.Add("Marca", "Marca");
             tableMapping.ColumnMappings.Add("UnidadMedida", "UnidadMedida");
             tableMapping.ColumnMappings.Add("Presentacion", "Presentacion");
-            tableMapping.ColumnMappings.Add("Inventariable", "Inventariable");
-            tableMapping.ColumnMappings.Add("Caducidad", "Caducidad");
             tableMapping.ColumnMappings.Add("Categoria", "Categoria");
             tableMapping.ColumnMappings.Add("Familia", "Familia");
-            tableMapping.ColumnMappings.Add("Proveedor", "Proveedor");
-            tableMapping.ColumnMappings.Add("ExMinimo", "ExMinimo");
-            tableMapping.ColumnMappings.Add("ExMaximo", "ExMaximo");
-            tableMapping.ColumnMappings.Add("ExActual", "ExActual");
-            tableMapping.ColumnMappings.Add("Ubicacion", "Ubicacion");
-            tableMapping.ColumnMappings.Add("TipoCosteo", "TipoCosteo");
             tableMapping.ColumnMappings.Add("CostoUnitario", "CostoUnitario");
-            tableMapping.ColumnMappings.Add("Divisa", "Divisa");
-            tableMapping.ColumnMappings.Add("DescuentoCant", "DescuentoCant");
-            tableMapping.ColumnMappings.Add("ImpuestoCant", "ImpuestoCant");
             tableMapping.ColumnMappings.Add("PrecioVenta", "PrecioVenta");
-            tableMapping.ColumnMappings.Add("Foto", "Foto");
-            tableMapping.ColumnMappings.Add("ConceptoGlobales", "ConceptoGlobales");
-            tableMapping.ColumnMappings.Add("ExistenciaActual", "ExistenciaActual");
-            tableMapping.ColumnMappings.Add("DescuentoPorc", "DescuentoPorc1");
-            tableMapping.ColumnMappings.Add("ImpuestoPorc", "ImpuestoPorc1");
-            tableMapping.ColumnMappings.Add("MedidaSAT", "MedidaSAT");
-            tableMapping.ColumnMappings.Add("SATImpuestos", "SATImpuestos");
-            tableMapping.ColumnMappings.Add("CuentaContable", "CuentaContable");
-            tableMapping.ColumnMappings.Add("PedidosProveedor", "PedidosProveedor");
-            tableMapping.ColumnMappings.Add("PedidosCliente", "PedidosCliente");
-            tableMapping.ColumnMappings.Add("Nombre", "Nombre");
-            tableMapping.ColumnMappings.Add("Nombre1", "Nombre1");
+            tableMapping.ColumnMappings.Add("DescuentoPartida", "DescuentoPartida1");
+            tableMapping.ColumnMappings.Add("IVA", "IVA1");
+            tableMapping.ColumnMappings.Add("IEPS", "IEPS1");
+            tableMapping.ColumnMappings.Add("DescripcionMovimiento", "DescripcionMovimiento");
             this._adapter.TableMappings.Add(tableMapping);
         }
         
@@ -2307,91 +2512,34 @@ namespace PV.ControlCondominiosDataSet32TableAdapters {
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
         private void InitCommandCollection() {
-            this._commandCollection = new global::System.Data.SqlClient.SqlCommand[4];
+            this._commandCollection = new global::System.Data.SqlClient.SqlCommand[1];
             this._commandCollection[0] = new global::System.Data.SqlClient.SqlCommand();
             this._commandCollection[0].Connection = this.Connection;
-            this._commandCollection[0].CommandText = @"SELECT
-    P.*,
-    AP.ExistenciaActual,
-C.Nombre, F.Nombre
-FROM ProductosServicios AS P
-INNER JOIN AlmacenProducto AS AP
-    ON P.ClaveProducto = AP.ClaveProducto
-INNER JOIN Almacenes AS A
-    ON AP.ClaveAlmacen = A.Clave
-LEFT JOIN Categorias AS C
-    ON C.ClaveCategoria = P.Categoria
-LEFT JOIN Familias AS F
-    ON F.ClaveFamilia = P.Familia
-   AND F.ClaveCategoria = C.ClaveCategoria;";
-            this._commandCollection[0].CommandType = global::System.Data.CommandType.Text;
-            this._commandCollection[1] = new global::System.Data.SqlClient.SqlCommand();
-            this._commandCollection[1].Connection = this.Connection;
-            this._commandCollection[1].CommandText = @"SELECT
-    P.*,
-    AP.ExistenciaActual,
-C.Nombre, F.Nombre
-FROM ProductosServicios AS P
-INNER JOIN AlmacenProducto AS AP
-    ON P.ClaveProducto = AP.ClaveProducto
-INNER JOIN Almacenes AS A
-    ON AP.ClaveAlmacen = A.Clave
-LEFT JOIN Categorias AS C
-    ON C.ClaveCategoria = P.Categoria
-LEFT JOIN Familias AS F
-    ON F.ClaveFamilia = P.Familia
-   AND F.ClaveCategoria = C.ClaveCategoria
-WHERE (CONVERT(VARCHAR, A.Clave) + ' - ' + A.Nombre) = @Descripcion;";
-            this._commandCollection[1].CommandType = global::System.Data.CommandType.Text;
-            this._commandCollection[1].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Descripcion", global::System.Data.SqlDbType.VarChar, 1024, global::System.Data.ParameterDirection.Input, 0, 0, "", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._commandCollection[2] = new global::System.Data.SqlClient.SqlCommand();
-            this._commandCollection[2].Connection = this.Connection;
-            this._commandCollection[2].CommandText = @"SELECT
-    P.*,
-    AP.ExistenciaActual,
-C.Nombre, F.Nombre
-FROM ProductosServicios AS P
-INNER JOIN AlmacenProducto AS AP
-    ON P.ClaveProducto = AP.ClaveProducto
-INNER JOIN Almacenes AS A
-    ON AP.ClaveAlmacen = A.Clave
-LEFT JOIN Categorias AS C
-    ON C.ClaveCategoria = P.Categoria
-LEFT JOIN Familias AS F
-    ON F.ClaveFamilia = P.Familia
-   AND F.ClaveCategoria = C.ClaveCategoria
-WHERE P.Categoria = @Categoria;";
-            this._commandCollection[2].CommandType = global::System.Data.CommandType.Text;
-            this._commandCollection[2].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Categoria", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.Input, 0, 0, "Categoria", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._commandCollection[3] = new global::System.Data.SqlClient.SqlCommand();
-            this._commandCollection[3].Connection = this.Connection;
-            this._commandCollection[3].CommandText = @"SELECT
-    P.*,
-    AP.ExistenciaActual,
-C.Nombre, F.Nombre
-FROM ProductosServicios AS P
-INNER JOIN AlmacenProducto AS AP
-    ON P.ClaveProducto = AP.ClaveProducto
-INNER JOIN Almacenes AS A
-    ON AP.ClaveAlmacen = A.Clave
-LEFT JOIN Categorias AS C
-    ON C.ClaveCategoria = P.Categoria
-LEFT JOIN Familias AS F
-    ON F.ClaveFamilia = P.Familia
-   AND F.ClaveCategoria = C.ClaveCategoria
-WHERE (CONVERT(VARCHAR, A.Clave) + ' - ' + A.Nombre) = @Descripcion
-  AND P.Categoria = @Categoria;";
-            this._commandCollection[3].CommandType = global::System.Data.CommandType.Text;
-            this._commandCollection[3].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Descripcion", global::System.Data.SqlDbType.VarChar, 1024, global::System.Data.ParameterDirection.Input, 0, 0, "", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._commandCollection[3].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Categoria", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.Input, 0, 0, "Categoria", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._commandCollection[0].CommandText = "dbo.sp_ReporteMovimientoInventario";
+            this._commandCollection[0].CommandType = global::System.Data.CommandType.StoredProcedure;
+            this._commandCollection[0].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@RETURN_VALUE", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.ReturnValue, 10, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._commandCollection[0].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Folio", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.Input, 10, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._commandCollection[0].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@TipoDocumento", global::System.Data.SqlDbType.VarChar, 5, global::System.Data.ParameterDirection.Input, 0, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Fill, true)]
-        public virtual int Fill(ControlCondominiosDataSet32.ProductosServiciosDataTable dataTable) {
+        public virtual int Fill(DTSReporteMovimientoInventario.sp_ReporteMovimientoInventarioDataTable dataTable, global::System.Nullable<int> Folio, string TipoDocumento) {
             this.Adapter.SelectCommand = this.CommandCollection[0];
+            if ((Folio.HasValue == true)) {
+                this.Adapter.SelectCommand.Parameters[1].Value = ((int)(Folio.Value));
+            }
+            else {
+                this.Adapter.SelectCommand.Parameters[1].Value = global::System.DBNull.Value;
+            }
+            if ((TipoDocumento == null)) {
+                this.Adapter.SelectCommand.Parameters[2].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.SelectCommand.Parameters[2].Value = ((string)(TipoDocumento));
+            }
             if ((this.ClearBeforeFill == true)) {
                 dataTable.Clear();
             }
@@ -2403,129 +2551,21 @@ WHERE (CONVERT(VARCHAR, A.Clave) + ' - ' + A.Nombre) = @Descripcion
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Select, true)]
-        public virtual ControlCondominiosDataSet32.ProductosServiciosDataTable GetData() {
+        public virtual DTSReporteMovimientoInventario.sp_ReporteMovimientoInventarioDataTable GetData(global::System.Nullable<int> Folio, string TipoDocumento) {
             this.Adapter.SelectCommand = this.CommandCollection[0];
-            ControlCondominiosDataSet32.ProductosServiciosDataTable dataTable = new ControlCondominiosDataSet32.ProductosServiciosDataTable();
-            this.Adapter.Fill(dataTable);
-            return dataTable;
-        }
-        
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
-        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Fill, false)]
-        public virtual int FillBy2(ControlCondominiosDataSet32.ProductosServiciosDataTable dataTable, string Descripcion) {
-            this.Adapter.SelectCommand = this.CommandCollection[1];
-            if ((Descripcion == null)) {
-                throw new global::System.ArgumentNullException("Descripcion");
-            }
-            else {
-                this.Adapter.SelectCommand.Parameters[0].Value = ((string)(Descripcion));
-            }
-            if ((this.ClearBeforeFill == true)) {
-                dataTable.Clear();
-            }
-            int returnValue = this.Adapter.Fill(dataTable);
-            return returnValue;
-        }
-        
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
-        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Select, false)]
-        public virtual ControlCondominiosDataSet32.ProductosServiciosDataTable GetDataBy2(string Descripcion) {
-            this.Adapter.SelectCommand = this.CommandCollection[1];
-            if ((Descripcion == null)) {
-                throw new global::System.ArgumentNullException("Descripcion");
-            }
-            else {
-                this.Adapter.SelectCommand.Parameters[0].Value = ((string)(Descripcion));
-            }
-            ControlCondominiosDataSet32.ProductosServiciosDataTable dataTable = new ControlCondominiosDataSet32.ProductosServiciosDataTable();
-            this.Adapter.Fill(dataTable);
-            return dataTable;
-        }
-        
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
-        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Fill, false)]
-        public virtual int FillBy3(ControlCondominiosDataSet32.ProductosServiciosDataTable dataTable, global::System.Nullable<int> Categoria) {
-            this.Adapter.SelectCommand = this.CommandCollection[2];
-            if ((Categoria.HasValue == true)) {
-                this.Adapter.SelectCommand.Parameters[0].Value = ((int)(Categoria.Value));
-            }
-            else {
-                this.Adapter.SelectCommand.Parameters[0].Value = global::System.DBNull.Value;
-            }
-            if ((this.ClearBeforeFill == true)) {
-                dataTable.Clear();
-            }
-            int returnValue = this.Adapter.Fill(dataTable);
-            return returnValue;
-        }
-        
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
-        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Select, false)]
-        public virtual ControlCondominiosDataSet32.ProductosServiciosDataTable GetDataBy3(global::System.Nullable<int> Categoria) {
-            this.Adapter.SelectCommand = this.CommandCollection[2];
-            if ((Categoria.HasValue == true)) {
-                this.Adapter.SelectCommand.Parameters[0].Value = ((int)(Categoria.Value));
-            }
-            else {
-                this.Adapter.SelectCommand.Parameters[0].Value = global::System.DBNull.Value;
-            }
-            ControlCondominiosDataSet32.ProductosServiciosDataTable dataTable = new ControlCondominiosDataSet32.ProductosServiciosDataTable();
-            this.Adapter.Fill(dataTable);
-            return dataTable;
-        }
-        
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
-        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Fill, false)]
-        public virtual int FillBy4(ControlCondominiosDataSet32.ProductosServiciosDataTable dataTable, string Descripcion, global::System.Nullable<int> Categoria) {
-            this.Adapter.SelectCommand = this.CommandCollection[3];
-            if ((Descripcion == null)) {
-                throw new global::System.ArgumentNullException("Descripcion");
-            }
-            else {
-                this.Adapter.SelectCommand.Parameters[0].Value = ((string)(Descripcion));
-            }
-            if ((Categoria.HasValue == true)) {
-                this.Adapter.SelectCommand.Parameters[1].Value = ((int)(Categoria.Value));
+            if ((Folio.HasValue == true)) {
+                this.Adapter.SelectCommand.Parameters[1].Value = ((int)(Folio.Value));
             }
             else {
                 this.Adapter.SelectCommand.Parameters[1].Value = global::System.DBNull.Value;
             }
-            if ((this.ClearBeforeFill == true)) {
-                dataTable.Clear();
-            }
-            int returnValue = this.Adapter.Fill(dataTable);
-            return returnValue;
-        }
-        
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
-        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Select, false)]
-        public virtual ControlCondominiosDataSet32.ProductosServiciosDataTable GetDataBy4(string Descripcion, global::System.Nullable<int> Categoria) {
-            this.Adapter.SelectCommand = this.CommandCollection[3];
-            if ((Descripcion == null)) {
-                throw new global::System.ArgumentNullException("Descripcion");
+            if ((TipoDocumento == null)) {
+                this.Adapter.SelectCommand.Parameters[2].Value = global::System.DBNull.Value;
             }
             else {
-                this.Adapter.SelectCommand.Parameters[0].Value = ((string)(Descripcion));
+                this.Adapter.SelectCommand.Parameters[2].Value = ((string)(TipoDocumento));
             }
-            if ((Categoria.HasValue == true)) {
-                this.Adapter.SelectCommand.Parameters[1].Value = ((int)(Categoria.Value));
-            }
-            else {
-                this.Adapter.SelectCommand.Parameters[1].Value = global::System.DBNull.Value;
-            }
-            ControlCondominiosDataSet32.ProductosServiciosDataTable dataTable = new ControlCondominiosDataSet32.ProductosServiciosDataTable();
+            DTSReporteMovimientoInventario.sp_ReporteMovimientoInventarioDataTable dataTable = new DTSReporteMovimientoInventario.sp_ReporteMovimientoInventarioDataTable();
             this.Adapter.Fill(dataTable);
             return dataTable;
         }
@@ -2599,7 +2639,7 @@ WHERE (CONVERT(VARCHAR, A.Clave) + ' - ' + A.Nombre) = @Descripcion
         ///</summary>
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
-        private int UpdateUpdatedRows(ControlCondominiosDataSet32 dataSet, global::System.Collections.Generic.List<global::System.Data.DataRow> allChangedRows, global::System.Collections.Generic.List<global::System.Data.DataRow> allAddedRows) {
+        private int UpdateUpdatedRows(DTSReporteMovimientoInventario dataSet, global::System.Collections.Generic.List<global::System.Data.DataRow> allChangedRows, global::System.Collections.Generic.List<global::System.Data.DataRow> allAddedRows) {
             int result = 0;
             return result;
         }
@@ -2609,7 +2649,7 @@ WHERE (CONVERT(VARCHAR, A.Clave) + ' - ' + A.Nombre) = @Descripcion
         ///</summary>
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
-        private int UpdateInsertedRows(ControlCondominiosDataSet32 dataSet, global::System.Collections.Generic.List<global::System.Data.DataRow> allAddedRows) {
+        private int UpdateInsertedRows(DTSReporteMovimientoInventario dataSet, global::System.Collections.Generic.List<global::System.Data.DataRow> allAddedRows) {
             int result = 0;
             return result;
         }
@@ -2619,7 +2659,7 @@ WHERE (CONVERT(VARCHAR, A.Clave) + ' - ' + A.Nombre) = @Descripcion
         ///</summary>
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
-        private int UpdateDeletedRows(ControlCondominiosDataSet32 dataSet, global::System.Collections.Generic.List<global::System.Data.DataRow> allChangedRows) {
+        private int UpdateDeletedRows(DTSReporteMovimientoInventario dataSet, global::System.Collections.Generic.List<global::System.Data.DataRow> allChangedRows) {
             int result = 0;
             return result;
         }
@@ -2653,7 +2693,7 @@ WHERE (CONVERT(VARCHAR, A.Clave) + ' - ' + A.Nombre) = @Descripcion
         ///</summary>
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
-        public virtual int UpdateAll(ControlCondominiosDataSet32 dataSet) {
+        public virtual int UpdateAll(DTSReporteMovimientoInventario dataSet) {
             if ((dataSet == null)) {
                 throw new global::System.ArgumentNullException("dataSet");
             }

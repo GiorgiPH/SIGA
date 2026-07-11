@@ -40,16 +40,16 @@ namespace PV
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle16 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle17 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle18 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle19 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle20 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle11 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle12 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle13 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle14 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle15 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle16 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle17 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle18 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle19 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle20 = new System.Windows.Forms.DataGridViewCellStyle();
             this.guna2GradientPanel1 = new Guna.UI2.WinForms.Guna2GradientPanel();
             this.guna2Button14 = new Guna.UI2.WinForms.Guna2Button();
             this.txtCostoUnitario = new System.Windows.Forms.TextBox();
@@ -240,20 +240,20 @@ namespace PV
             this.txtFiltroNombre = new Guna.UI2.WinForms.Guna2TextBox();
             this.guna2Button10 = new Guna.UI2.WinForms.Guna2Button();
             this.guna2TabControl2 = new Guna.UI2.WinForms.Guna2TabControl();
-            this.tabPage4 = new System.Windows.Forms.TabPage();
-            this.DataGridView2 = new Guna.UI2.WinForms.Guna2DataGridView();
-            this.Fecha2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Proveedor2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Documento2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Consecutivo2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Folio2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.dataGridView1 = new Guna.UI2.WinForms.Guna2DataGridView();
-            this.Fecha = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Alumno = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Documento = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Consecutivo = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Folio = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Consecutivo = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Documento = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Alumno = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Fecha = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.tabPage4 = new System.Windows.Forms.TabPage();
+            this.DataGridView2 = new Guna.UI2.WinForms.Guna2DataGridView();
+            this.Folio2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Consecutivo2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Documento2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Proveedor2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Fecha2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.guna2GradientPanel2 = new Guna.UI2.WinForms.Guna2GradientPanel();
             this.guna2GradientPanel1.SuspendLayout();
             this.guna2Panel1.SuspendLayout();
@@ -274,10 +274,10 @@ namespace PV
             ((System.ComponentModel.ISupportInitialize)(this.guna2PictureBox1)).BeginInit();
             this.guna2GradientPanel4.SuspendLayout();
             this.guna2TabControl2.SuspendLayout();
-            this.tabPage4.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.DataGridView2)).BeginInit();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            this.tabPage4.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.DataGridView2)).BeginInit();
             this.guna2GradientPanel2.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -672,7 +672,6 @@ namespace PV
             this.txtFiltro1.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.txtFiltro1.Location = new System.Drawing.Point(102, 55);
             this.txtFiltro1.Name = "txtFiltro1";
-            this.txtFiltro1.PasswordChar = '\0';
             this.txtFiltro1.PlaceholderText = "";
             this.txtFiltro1.SelectedText = "";
             this.txtFiltro1.Size = new System.Drawing.Size(202, 25);
@@ -759,7 +758,6 @@ namespace PV
             this.txtFechaAuto.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.txtFechaAuto.Location = new System.Drawing.Point(526, 385);
             this.txtFechaAuto.Name = "txtFechaAuto";
-            this.txtFechaAuto.PasswordChar = '\0';
             this.txtFechaAuto.PlaceholderText = "";
             this.txtFechaAuto.SelectedText = "";
             this.txtFechaAuto.Size = new System.Drawing.Size(150, 25);
@@ -793,7 +791,6 @@ namespace PV
             this.txtAutoriza.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.txtAutoriza.Location = new System.Drawing.Point(140, 385);
             this.txtAutoriza.Name = "txtAutoriza";
-            this.txtAutoriza.PasswordChar = '\0';
             this.txtAutoriza.PlaceholderText = "";
             this.txtAutoriza.SelectedText = "";
             this.txtAutoriza.Size = new System.Drawing.Size(322, 25);
@@ -867,7 +864,6 @@ namespace PV
             this.txtDivisa.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.txtDivisa.Location = new System.Drawing.Point(582, 174);
             this.txtDivisa.Name = "txtDivisa";
-            this.txtDivisa.PasswordChar = '\0';
             this.txtDivisa.PlaceholderText = "";
             this.txtDivisa.SelectedText = "";
             this.txtDivisa.Size = new System.Drawing.Size(119, 25);
@@ -891,7 +887,6 @@ namespace PV
             this.txtTipoCambio.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.txtTipoCambio.Location = new System.Drawing.Point(820, 174);
             this.txtTipoCambio.Name = "txtTipoCambio";
-            this.txtTipoCambio.PasswordChar = '\0';
             this.txtTipoCambio.PlaceholderText = "";
             this.txtTipoCambio.SelectedText = "";
             this.txtTipoCambio.Size = new System.Drawing.Size(119, 25);
@@ -915,7 +910,6 @@ namespace PV
             this.txtTotal.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.txtTotal.Location = new System.Drawing.Point(371, 223);
             this.txtTotal.Name = "txtTotal";
-            this.txtTotal.PasswordChar = '\0';
             this.txtTotal.PlaceholderText = "";
             this.txtTotal.SelectedText = "";
             this.txtTotal.Size = new System.Drawing.Size(119, 25);
@@ -941,7 +935,6 @@ namespace PV
             this.txtDescuento.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.txtDescuento.Location = new System.Drawing.Point(371, 174);
             this.txtDescuento.Name = "txtDescuento";
-            this.txtDescuento.PasswordChar = '\0';
             this.txtDescuento.PlaceholderText = "";
             this.txtDescuento.SelectedText = "";
             this.txtDescuento.Size = new System.Drawing.Size(119, 25);
@@ -967,7 +960,6 @@ namespace PV
             this.txtRecargo.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.txtRecargo.Location = new System.Drawing.Point(140, 223);
             this.txtRecargo.Name = "txtRecargo";
-            this.txtRecargo.PasswordChar = '\0';
             this.txtRecargo.PlaceholderText = "";
             this.txtRecargo.SelectedText = "";
             this.txtRecargo.Size = new System.Drawing.Size(119, 25);
@@ -993,7 +985,6 @@ namespace PV
             this.txtSubtotal.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.txtSubtotal.Location = new System.Drawing.Point(140, 174);
             this.txtSubtotal.Name = "txtSubtotal";
-            this.txtSubtotal.PasswordChar = '\0';
             this.txtSubtotal.PlaceholderText = "";
             this.txtSubtotal.SelectedText = "";
             this.txtSubtotal.Size = new System.Drawing.Size(119, 25);
@@ -1139,7 +1130,6 @@ namespace PV
             this.d.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.d.Location = new System.Drawing.Point(726, 128);
             this.d.Name = "d";
-            this.d.PasswordChar = '\0';
             this.d.PlaceholderText = "";
             this.d.SelectedText = "";
             this.d.Size = new System.Drawing.Size(156, 25);
@@ -1164,7 +1154,6 @@ namespace PV
             this.txtNombreAlumnno.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.txtNombreAlumnno.Location = new System.Drawing.Point(215, 128);
             this.txtNombreAlumnno.Name = "txtNombreAlumnno";
-            this.txtNombreAlumnno.PasswordChar = '\0';
             this.txtNombreAlumnno.PlaceholderText = "";
             this.txtNombreAlumnno.SelectedText = "";
             this.txtNombreAlumnno.Size = new System.Drawing.Size(317, 25);
@@ -1189,7 +1178,6 @@ namespace PV
             this.txtMatricular.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.txtMatricular.Location = new System.Drawing.Point(140, 128);
             this.txtMatricular.Name = "txtMatricular";
-            this.txtMatricular.PasswordChar = '\0';
             this.txtMatricular.PlaceholderText = "";
             this.txtMatricular.SelectedText = "";
             this.txtMatricular.Size = new System.Drawing.Size(59, 25);
@@ -1339,7 +1327,6 @@ namespace PV
             this.txtNotas.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.txtNotas.Location = new System.Drawing.Point(140, 267);
             this.txtNotas.Name = "txtNotas";
-            this.txtNotas.PasswordChar = '\0';
             this.txtNotas.PlaceholderText = "";
             this.txtNotas.SelectedText = "";
             this.txtNotas.Size = new System.Drawing.Size(536, 47);
@@ -1363,7 +1350,6 @@ namespace PV
             this.txtElaborado.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.txtElaborado.Location = new System.Drawing.Point(140, 338);
             this.txtElaborado.Name = "txtElaborado";
-            this.txtElaborado.PasswordChar = '\0';
             this.txtElaborado.PlaceholderText = "";
             this.txtElaborado.SelectedText = "";
             this.txtElaborado.Size = new System.Drawing.Size(322, 25);
@@ -1387,7 +1373,6 @@ namespace PV
             this.txtPartidas.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.txtPartidas.Location = new System.Drawing.Point(820, 264);
             this.txtPartidas.Name = "txtPartidas";
-            this.txtPartidas.PasswordChar = '\0';
             this.txtPartidas.PlaceholderText = "";
             this.txtPartidas.SelectedText = "";
             this.txtPartidas.Size = new System.Drawing.Size(119, 25);
@@ -1412,7 +1397,6 @@ namespace PV
             this.txtTotalConceptos.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.txtTotalConceptos.Location = new System.Drawing.Point(820, 293);
             this.txtTotalConceptos.Name = "txtTotalConceptos";
-            this.txtTotalConceptos.PasswordChar = '\0';
             this.txtTotalConceptos.PlaceholderText = "";
             this.txtTotalConceptos.SelectedText = "";
             this.txtTotalConceptos.Size = new System.Drawing.Size(119, 25);
@@ -1438,7 +1422,6 @@ namespace PV
             this.txtFechaVence.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.txtFechaVence.Location = new System.Drawing.Point(814, 72);
             this.txtFechaVence.Name = "txtFechaVence";
-            this.txtFechaVence.PasswordChar = '\0';
             this.txtFechaVence.PlaceholderText = "";
             this.txtFechaVence.SelectedText = "";
             this.txtFechaVence.Size = new System.Drawing.Size(119, 25);
@@ -1462,7 +1445,6 @@ namespace PV
             this.txtDiasVence.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.txtDiasVence.Location = new System.Drawing.Point(582, 72);
             this.txtDiasVence.Name = "txtDiasVence";
-            this.txtDiasVence.PasswordChar = '\0';
             this.txtDiasVence.PlaceholderText = "";
             this.txtDiasVence.SelectedText = "";
             this.txtDiasVence.Size = new System.Drawing.Size(119, 25);
@@ -1487,7 +1469,6 @@ namespace PV
             this.txtConsecutivo.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.txtConsecutivo.Location = new System.Drawing.Point(140, 72);
             this.txtConsecutivo.Name = "txtConsecutivo";
-            this.txtConsecutivo.PasswordChar = '\0';
             this.txtConsecutivo.PlaceholderText = "";
             this.txtConsecutivo.SelectedText = "";
             this.txtConsecutivo.Size = new System.Drawing.Size(119, 25);
@@ -1825,6 +1806,7 @@ namespace PV
             this.PanelPartidasRequisicion.Size = new System.Drawing.Size(785, 485);
             this.PanelPartidasRequisicion.TabIndex = 101;
             this.PanelPartidasRequisicion.Visible = false;
+            this.PanelPartidasRequisicion.Paint += new System.Windows.Forms.PaintEventHandler(this.PanelPartidasRequisicion_Paint);
             // 
             // guna2Button7
             // 
@@ -2004,7 +1986,6 @@ namespace PV
             this.txtEntregado.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.txtEntregado.Location = new System.Drawing.Point(581, 277);
             this.txtEntregado.Name = "txtEntregado";
-            this.txtEntregado.PasswordChar = '\0';
             this.txtEntregado.PlaceholderText = "";
             this.txtEntregado.SelectedText = "";
             this.txtEntregado.Size = new System.Drawing.Size(119, 25);
@@ -2168,7 +2149,6 @@ namespace PV
             this.txtImpuestoR.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.txtImpuestoR.Location = new System.Drawing.Point(582, 319);
             this.txtImpuestoR.Name = "txtImpuestoR";
-            this.txtImpuestoR.PasswordChar = '\0';
             this.txtImpuestoR.PlaceholderText = "";
             this.txtImpuestoR.SelectedText = "";
             this.txtImpuestoR.Size = new System.Drawing.Size(119, 25);
@@ -2194,7 +2174,6 @@ namespace PV
             this.txtDescuentoR.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.txtDescuentoR.Location = new System.Drawing.Point(330, 320);
             this.txtDescuentoR.Name = "txtDescuentoR";
-            this.txtDescuentoR.PasswordChar = '\0';
             this.txtDescuentoR.PlaceholderText = "";
             this.txtDescuentoR.SelectedText = "";
             this.txtDescuentoR.Size = new System.Drawing.Size(119, 25);
@@ -2221,7 +2200,6 @@ namespace PV
             this.txtTotalR.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.txtTotalR.Location = new System.Drawing.Point(118, 358);
             this.txtTotalR.Name = "txtTotalR";
-            this.txtTotalR.PasswordChar = '\0';
             this.txtTotalR.PlaceholderText = "";
             this.txtTotalR.SelectedText = "";
             this.txtTotalR.Size = new System.Drawing.Size(119, 25);
@@ -2248,7 +2226,6 @@ namespace PV
             this.txtSubtotalR.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.txtSubtotalR.Location = new System.Drawing.Point(118, 320);
             this.txtSubtotalR.Name = "txtSubtotalR";
-            this.txtSubtotalR.PasswordChar = '\0';
             this.txtSubtotalR.PlaceholderText = "";
             this.txtSubtotalR.SelectedText = "";
             this.txtSubtotalR.Size = new System.Drawing.Size(119, 25);
@@ -2315,7 +2292,6 @@ namespace PV
             this.txtTotal1.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.txtTotal1.Location = new System.Drawing.Point(576, 234);
             this.txtTotal1.Name = "txtTotal1";
-            this.txtTotal1.PasswordChar = '\0';
             this.txtTotal1.PlaceholderText = "";
             this.txtTotal1.SelectedText = "";
             this.txtTotal1.Size = new System.Drawing.Size(119, 25);
@@ -2343,7 +2319,6 @@ namespace PV
             this.txtTipoCambio1.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.txtTipoCambio1.Location = new System.Drawing.Point(593, 163);
             this.txtTipoCambio1.Name = "txtTipoCambio1";
-            this.txtTipoCambio1.PasswordChar = '\0';
             this.txtTipoCambio1.PlaceholderText = "";
             this.txtTipoCambio1.SelectedText = "";
             this.txtTipoCambio1.Size = new System.Drawing.Size(102, 25);
@@ -2370,7 +2345,6 @@ namespace PV
             this.txtDescuentoIm.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.txtDescuentoIm.Location = new System.Drawing.Point(402, 201);
             this.txtDescuentoIm.Name = "txtDescuentoIm";
-            this.txtDescuentoIm.PasswordChar = '\0';
             this.txtDescuentoIm.PlaceholderText = "";
             this.txtDescuentoIm.SelectedText = "";
             this.txtDescuentoIm.Size = new System.Drawing.Size(100, 25);
@@ -2397,7 +2371,6 @@ namespace PV
             this.txtImpuestoIm.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.txtImpuestoIm.Location = new System.Drawing.Point(190, 234);
             this.txtImpuestoIm.Name = "txtImpuestoIm";
-            this.txtImpuestoIm.PasswordChar = '\0';
             this.txtImpuestoIm.PlaceholderText = "";
             this.txtImpuestoIm.SelectedText = "";
             this.txtImpuestoIm.Size = new System.Drawing.Size(100, 25);
@@ -2424,7 +2397,6 @@ namespace PV
             this.txtSubtotal1.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.txtSubtotal1.Location = new System.Drawing.Point(579, 201);
             this.txtSubtotal1.Name = "txtSubtotal1";
-            this.txtSubtotal1.PasswordChar = '\0';
             this.txtSubtotal1.PlaceholderText = "";
             this.txtSubtotal1.SelectedText = "";
             this.txtSubtotal1.Size = new System.Drawing.Size(119, 25);
@@ -2452,7 +2424,6 @@ namespace PV
             this.txtDescuento1.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.txtDescuento1.Location = new System.Drawing.Point(331, 201);
             this.txtDescuento1.Name = "txtDescuento1";
-            this.txtDescuento1.PasswordChar = '\0';
             this.txtDescuento1.PlaceholderText = "";
             this.txtDescuento1.SelectedText = "";
             this.txtDescuento1.Size = new System.Drawing.Size(64, 25);
@@ -2480,7 +2451,6 @@ namespace PV
             this.txtDivisa1.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.txtDivisa1.Location = new System.Drawing.Point(345, 163);
             this.txtDivisa1.Name = "txtDivisa1";
-            this.txtDivisa1.PasswordChar = '\0';
             this.txtDivisa1.PlaceholderText = "";
             this.txtDivisa1.SelectedText = "";
             this.txtDivisa1.Size = new System.Drawing.Size(119, 25);
@@ -2504,7 +2474,6 @@ namespace PV
             this.txtImpuesto1.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.txtImpuesto1.Location = new System.Drawing.Point(118, 234);
             this.txtImpuesto1.Name = "txtImpuesto1";
-            this.txtImpuesto1.PasswordChar = '\0';
             this.txtImpuesto1.PlaceholderText = "";
             this.txtImpuesto1.SelectedText = "";
             this.txtImpuesto1.Size = new System.Drawing.Size(64, 25);
@@ -2532,7 +2501,6 @@ namespace PV
             this.txtImporte1.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.txtImporte1.Location = new System.Drawing.Point(118, 201);
             this.txtImporte1.Name = "txtImporte1";
-            this.txtImporte1.PasswordChar = '\0';
             this.txtImporte1.PlaceholderText = "";
             this.txtImporte1.SelectedText = "";
             this.txtImporte1.Size = new System.Drawing.Size(105, 25);
@@ -2721,7 +2689,6 @@ namespace PV
             this.txtPrecio.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.txtPrecio.Location = new System.Drawing.Point(118, 163);
             this.txtPrecio.Name = "txtPrecio";
-            this.txtPrecio.PasswordChar = '\0';
             this.txtPrecio.PlaceholderText = "";
             this.txtPrecio.SelectedText = "";
             this.txtPrecio.Size = new System.Drawing.Size(105, 25);
@@ -2748,7 +2715,6 @@ namespace PV
             this.txtCantidad.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.txtCantidad.Location = new System.Drawing.Point(118, 122);
             this.txtCantidad.Name = "txtCantidad";
-            this.txtCantidad.PasswordChar = '\0';
             this.txtCantidad.PlaceholderText = "";
             this.txtCantidad.SelectedText = "";
             this.txtCantidad.Size = new System.Drawing.Size(105, 25);
@@ -2774,7 +2740,6 @@ namespace PV
             this.txtUnidad.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.txtUnidad.Location = new System.Drawing.Point(345, 123);
             this.txtUnidad.Name = "txtUnidad";
-            this.txtUnidad.PasswordChar = '\0';
             this.txtUnidad.PlaceholderText = "";
             this.txtUnidad.SelectedText = "";
             this.txtUnidad.Size = new System.Drawing.Size(350, 25);
@@ -2797,7 +2762,6 @@ namespace PV
             this.txtConcepto2.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.txtConcepto2.Location = new System.Drawing.Point(118, 78);
             this.txtConcepto2.Name = "txtConcepto2";
-            this.txtConcepto2.PasswordChar = '\0';
             this.txtConcepto2.PlaceholderText = "";
             this.txtConcepto2.SelectedText = "";
             this.txtConcepto2.Size = new System.Drawing.Size(654, 25);
@@ -2821,7 +2785,6 @@ namespace PV
             this.txtPartida.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.txtPartida.Location = new System.Drawing.Point(118, 13);
             this.txtPartida.Name = "txtPartida";
-            this.txtPartida.PasswordChar = '\0';
             this.txtPartida.PlaceholderText = "";
             this.txtPartida.SelectedText = "";
             this.txtPartida.Size = new System.Drawing.Size(119, 25);
@@ -3463,7 +3426,6 @@ namespace PV
             this.txtFiltro.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.txtFiltro.Location = new System.Drawing.Point(123, 62);
             this.txtFiltro.Name = "txtFiltro";
-            this.txtFiltro.PasswordChar = '\0';
             this.txtFiltro.PlaceholderText = "";
             this.txtFiltro.SelectedText = "";
             this.txtFiltro.Size = new System.Drawing.Size(249, 25);
@@ -3488,7 +3450,6 @@ namespace PV
             this.txtFiltroDocumento.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.txtFiltroDocumento.Location = new System.Drawing.Point(120, 115);
             this.txtFiltroDocumento.Name = "txtFiltroDocumento";
-            this.txtFiltroDocumento.PasswordChar = '\0';
             this.txtFiltroDocumento.PlaceholderText = "";
             this.txtFiltroDocumento.SelectedText = "";
             this.txtFiltroDocumento.Size = new System.Drawing.Size(253, 25);
@@ -3513,7 +3474,6 @@ namespace PV
             this.txtFiltroNombre.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.txtFiltroNombre.Location = new System.Drawing.Point(123, 167);
             this.txtFiltroNombre.Name = "txtFiltroNombre";
-            this.txtFiltroNombre.PasswordChar = '\0';
             this.txtFiltroNombre.PlaceholderText = "";
             this.txtFiltroNombre.SelectedText = "";
             this.txtFiltroNombre.Size = new System.Drawing.Size(250, 25);
@@ -3564,128 +3524,6 @@ namespace PV
             this.guna2TabControl2.TabIndex = 241;
             this.guna2TabControl2.TabMenuBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(42)))), ((int)(((byte)(57)))));
             this.guna2TabControl2.TabMenuOrientation = Guna.UI2.WinForms.TabMenuOrientation.HorizontalTop;
-            // 
-            // tabPage4
-            // 
-            this.tabPage4.Controls.Add(this.DataGridView2);
-            this.tabPage4.Location = new System.Drawing.Point(4, 24);
-            this.tabPage4.Name = "tabPage4";
-            this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage4.Size = new System.Drawing.Size(359, 272);
-            this.tabPage4.TabIndex = 1;
-            this.tabPage4.Text = "Autorizados";
-            this.tabPage4.UseVisualStyleBackColor = true;
-            // 
-            // DataGridView2
-            // 
-            this.DataGridView2.AllowUserToAddRows = false;
-            this.DataGridView2.AllowUserToDeleteRows = false;
-            dataGridViewCellStyle16.BackColor = System.Drawing.Color.White;
-            this.DataGridView2.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle16;
-            this.DataGridView2.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            dataGridViewCellStyle17.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle17.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(19)))), ((int)(((byte)(35)))), ((int)(((byte)(95)))));
-            dataGridViewCellStyle17.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle17.ForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle17.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle17.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle17.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.DataGridView2.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle17;
-            this.DataGridView2.ColumnHeadersHeight = 19;
-            this.DataGridView2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.EnableResizing;
-            this.DataGridView2.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.Folio2,
-            this.Consecutivo2,
-            this.Documento2,
-            this.Proveedor2,
-            this.Fecha2});
-            dataGridViewCellStyle18.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle18.BackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle18.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle18.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle18.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(99)))), ((int)(((byte)(114)))), ((int)(((byte)(169)))));
-            dataGridViewCellStyle18.SelectionForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle18.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.DataGridView2.DefaultCellStyle = dataGridViewCellStyle18;
-            this.DataGridView2.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(229)))), ((int)(((byte)(255)))));
-            this.DataGridView2.Location = new System.Drawing.Point(1, 4);
-            this.DataGridView2.Name = "DataGridView2";
-            this.DataGridView2.ReadOnly = true;
-            dataGridViewCellStyle19.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle19.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle19.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle19.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle19.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle19.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle19.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.DataGridView2.RowHeadersDefaultCellStyle = dataGridViewCellStyle19;
-            this.DataGridView2.RowHeadersVisible = false;
-            this.DataGridView2.RowHeadersWidth = 82;
-            dataGridViewCellStyle20.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle20.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            dataGridViewCellStyle20.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle20.ForeColor = System.Drawing.Color.Black;
-            this.DataGridView2.RowsDefaultCellStyle = dataGridViewCellStyle20;
-            this.DataGridView2.Size = new System.Drawing.Size(355, 263);
-            this.DataGridView2.TabIndex = 168;
-            this.DataGridView2.ThemeStyle.AlternatingRowsStyle.BackColor = System.Drawing.Color.White;
-            this.DataGridView2.ThemeStyle.AlternatingRowsStyle.Font = null;
-            this.DataGridView2.ThemeStyle.AlternatingRowsStyle.ForeColor = System.Drawing.Color.Empty;
-            this.DataGridView2.ThemeStyle.AlternatingRowsStyle.SelectionBackColor = System.Drawing.Color.Empty;
-            this.DataGridView2.ThemeStyle.AlternatingRowsStyle.SelectionForeColor = System.Drawing.Color.Empty;
-            this.DataGridView2.ThemeStyle.BackColor = System.Drawing.Color.White;
-            this.DataGridView2.ThemeStyle.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(229)))), ((int)(((byte)(255)))));
-            this.DataGridView2.ThemeStyle.HeaderStyle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(88)))), ((int)(((byte)(255)))));
-            this.DataGridView2.ThemeStyle.HeaderStyle.BorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
-            this.DataGridView2.ThemeStyle.HeaderStyle.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.DataGridView2.ThemeStyle.HeaderStyle.ForeColor = System.Drawing.Color.White;
-            this.DataGridView2.ThemeStyle.HeaderStyle.HeaightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.EnableResizing;
-            this.DataGridView2.ThemeStyle.HeaderStyle.Height = 19;
-            this.DataGridView2.ThemeStyle.ReadOnly = true;
-            this.DataGridView2.ThemeStyle.RowsStyle.BackColor = System.Drawing.Color.White;
-            this.DataGridView2.ThemeStyle.RowsStyle.BorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal;
-            this.DataGridView2.ThemeStyle.RowsStyle.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.DataGridView2.ThemeStyle.RowsStyle.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(71)))), ((int)(((byte)(69)))), ((int)(((byte)(94)))));
-            this.DataGridView2.ThemeStyle.RowsStyle.Height = 22;
-            this.DataGridView2.ThemeStyle.RowsStyle.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(229)))), ((int)(((byte)(255)))));
-            this.DataGridView2.ThemeStyle.RowsStyle.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(71)))), ((int)(((byte)(69)))), ((int)(((byte)(94)))));
-            this.DataGridView2.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DataGridView2_CellDoubleClick);
-            // 
-            // Fecha2
-            // 
-            this.Fecha2.HeaderText = "Fecha";
-            this.Fecha2.MinimumWidth = 10;
-            this.Fecha2.Name = "Fecha2";
-            this.Fecha2.ReadOnly = true;
-            // 
-            // Proveedor2
-            // 
-            this.Proveedor2.HeaderText = "Proveedor";
-            this.Proveedor2.MinimumWidth = 10;
-            this.Proveedor2.Name = "Proveedor2";
-            this.Proveedor2.ReadOnly = true;
-            // 
-            // Documento2
-            // 
-            this.Documento2.HeaderText = "Documento";
-            this.Documento2.MinimumWidth = 10;
-            this.Documento2.Name = "Documento2";
-            this.Documento2.ReadOnly = true;
-            // 
-            // Consecutivo2
-            // 
-            this.Consecutivo2.HeaderText = "Folio";
-            this.Consecutivo2.MinimumWidth = 10;
-            this.Consecutivo2.Name = "Consecutivo2";
-            this.Consecutivo2.ReadOnly = true;
-            // 
-            // Folio2
-            // 
-            this.Folio2.HeaderText = "Folio";
-            this.Folio2.MinimumWidth = 10;
-            this.Folio2.Name = "Folio2";
-            this.Folio2.ReadOnly = true;
-            this.Folio2.Visible = false;
             // 
             // tabPage1
             // 
@@ -3773,26 +3611,13 @@ namespace PV
             this.dataGridView1.ThemeStyle.RowsStyle.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(71)))), ((int)(((byte)(69)))), ((int)(((byte)(94)))));
             this.dataGridView1.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellDoubleClick);
             // 
-            // Fecha
+            // Folio
             // 
-            this.Fecha.HeaderText = "Fecha";
-            this.Fecha.MinimumWidth = 10;
-            this.Fecha.Name = "Fecha";
-            this.Fecha.ReadOnly = true;
-            // 
-            // Alumno
-            // 
-            this.Alumno.HeaderText = "Proveedor";
-            this.Alumno.MinimumWidth = 10;
-            this.Alumno.Name = "Alumno";
-            this.Alumno.ReadOnly = true;
-            // 
-            // Documento
-            // 
-            this.Documento.HeaderText = "Documento";
-            this.Documento.MinimumWidth = 10;
-            this.Documento.Name = "Documento";
-            this.Documento.ReadOnly = true;
+            this.Folio.HeaderText = "Folio";
+            this.Folio.MinimumWidth = 10;
+            this.Folio.Name = "Folio";
+            this.Folio.ReadOnly = true;
+            this.Folio.Visible = false;
             // 
             // Consecutivo
             // 
@@ -3801,13 +3626,148 @@ namespace PV
             this.Consecutivo.Name = "Consecutivo";
             this.Consecutivo.ReadOnly = true;
             // 
-            // Folio
+            // Documento
             // 
-            this.Folio.HeaderText = "Folio";
-            this.Folio.MinimumWidth = 10;
-            this.Folio.Name = "Folio";
-            this.Folio.ReadOnly = true;
-            this.Folio.Visible = false;
+            this.Documento.HeaderText = "Documento";
+            this.Documento.MinimumWidth = 10;
+            this.Documento.Name = "Documento";
+            this.Documento.ReadOnly = true;
+            // 
+            // Alumno
+            // 
+            this.Alumno.HeaderText = "Proveedor";
+            this.Alumno.MinimumWidth = 10;
+            this.Alumno.Name = "Alumno";
+            this.Alumno.ReadOnly = true;
+            // 
+            // Fecha
+            // 
+            this.Fecha.HeaderText = "Fecha";
+            this.Fecha.MinimumWidth = 10;
+            this.Fecha.Name = "Fecha";
+            this.Fecha.ReadOnly = true;
+            // 
+            // tabPage4
+            // 
+            this.tabPage4.Controls.Add(this.DataGridView2);
+            this.tabPage4.Location = new System.Drawing.Point(4, 24);
+            this.tabPage4.Name = "tabPage4";
+            this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage4.Size = new System.Drawing.Size(359, 272);
+            this.tabPage4.TabIndex = 1;
+            this.tabPage4.Text = "Autorizados";
+            this.tabPage4.UseVisualStyleBackColor = true;
+            // 
+            // DataGridView2
+            // 
+            this.DataGridView2.AllowUserToAddRows = false;
+            this.DataGridView2.AllowUserToDeleteRows = false;
+            dataGridViewCellStyle16.BackColor = System.Drawing.Color.White;
+            this.DataGridView2.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle16;
+            this.DataGridView2.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            dataGridViewCellStyle17.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle17.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(19)))), ((int)(((byte)(35)))), ((int)(((byte)(95)))));
+            dataGridViewCellStyle17.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle17.ForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle17.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle17.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle17.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.DataGridView2.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle17;
+            this.DataGridView2.ColumnHeadersHeight = 19;
+            this.DataGridView2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.EnableResizing;
+            this.DataGridView2.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.Folio2,
+            this.Consecutivo2,
+            this.Documento2,
+            this.Proveedor2,
+            this.Fecha2});
+            dataGridViewCellStyle18.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle18.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle18.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle18.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle18.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(99)))), ((int)(((byte)(114)))), ((int)(((byte)(169)))));
+            dataGridViewCellStyle18.SelectionForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle18.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.DataGridView2.DefaultCellStyle = dataGridViewCellStyle18;
+            this.DataGridView2.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(229)))), ((int)(((byte)(255)))));
+            this.DataGridView2.Location = new System.Drawing.Point(1, 4);
+            this.DataGridView2.Name = "DataGridView2";
+            this.DataGridView2.ReadOnly = true;
+            dataGridViewCellStyle19.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle19.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle19.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle19.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle19.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle19.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle19.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.DataGridView2.RowHeadersDefaultCellStyle = dataGridViewCellStyle19;
+            this.DataGridView2.RowHeadersVisible = false;
+            this.DataGridView2.RowHeadersWidth = 82;
+            dataGridViewCellStyle20.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle20.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            dataGridViewCellStyle20.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle20.ForeColor = System.Drawing.Color.Black;
+            this.DataGridView2.RowsDefaultCellStyle = dataGridViewCellStyle20;
+            this.DataGridView2.Size = new System.Drawing.Size(355, 263);
+            this.DataGridView2.TabIndex = 168;
+            this.DataGridView2.ThemeStyle.AlternatingRowsStyle.BackColor = System.Drawing.Color.White;
+            this.DataGridView2.ThemeStyle.AlternatingRowsStyle.Font = null;
+            this.DataGridView2.ThemeStyle.AlternatingRowsStyle.ForeColor = System.Drawing.Color.Empty;
+            this.DataGridView2.ThemeStyle.AlternatingRowsStyle.SelectionBackColor = System.Drawing.Color.Empty;
+            this.DataGridView2.ThemeStyle.AlternatingRowsStyle.SelectionForeColor = System.Drawing.Color.Empty;
+            this.DataGridView2.ThemeStyle.BackColor = System.Drawing.Color.White;
+            this.DataGridView2.ThemeStyle.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(229)))), ((int)(((byte)(255)))));
+            this.DataGridView2.ThemeStyle.HeaderStyle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(88)))), ((int)(((byte)(255)))));
+            this.DataGridView2.ThemeStyle.HeaderStyle.BorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
+            this.DataGridView2.ThemeStyle.HeaderStyle.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.DataGridView2.ThemeStyle.HeaderStyle.ForeColor = System.Drawing.Color.White;
+            this.DataGridView2.ThemeStyle.HeaderStyle.HeaightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.EnableResizing;
+            this.DataGridView2.ThemeStyle.HeaderStyle.Height = 19;
+            this.DataGridView2.ThemeStyle.ReadOnly = true;
+            this.DataGridView2.ThemeStyle.RowsStyle.BackColor = System.Drawing.Color.White;
+            this.DataGridView2.ThemeStyle.RowsStyle.BorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal;
+            this.DataGridView2.ThemeStyle.RowsStyle.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.DataGridView2.ThemeStyle.RowsStyle.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(71)))), ((int)(((byte)(69)))), ((int)(((byte)(94)))));
+            this.DataGridView2.ThemeStyle.RowsStyle.Height = 22;
+            this.DataGridView2.ThemeStyle.RowsStyle.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(229)))), ((int)(((byte)(255)))));
+            this.DataGridView2.ThemeStyle.RowsStyle.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(71)))), ((int)(((byte)(69)))), ((int)(((byte)(94)))));
+            this.DataGridView2.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DataGridView2_CellDoubleClick);
+            // 
+            // Folio2
+            // 
+            this.Folio2.HeaderText = "Folio";
+            this.Folio2.MinimumWidth = 10;
+            this.Folio2.Name = "Folio2";
+            this.Folio2.ReadOnly = true;
+            this.Folio2.Visible = false;
+            // 
+            // Consecutivo2
+            // 
+            this.Consecutivo2.HeaderText = "Folio";
+            this.Consecutivo2.MinimumWidth = 10;
+            this.Consecutivo2.Name = "Consecutivo2";
+            this.Consecutivo2.ReadOnly = true;
+            // 
+            // Documento2
+            // 
+            this.Documento2.HeaderText = "Documento";
+            this.Documento2.MinimumWidth = 10;
+            this.Documento2.Name = "Documento2";
+            this.Documento2.ReadOnly = true;
+            // 
+            // Proveedor2
+            // 
+            this.Proveedor2.HeaderText = "Proveedor";
+            this.Proveedor2.MinimumWidth = 10;
+            this.Proveedor2.Name = "Proveedor2";
+            this.Proveedor2.ReadOnly = true;
+            // 
+            // Fecha2
+            // 
+            this.Fecha2.HeaderText = "Fecha";
+            this.Fecha2.MinimumWidth = 10;
+            this.Fecha2.Name = "Fecha2";
+            this.Fecha2.ReadOnly = true;
             // 
             // guna2GradientPanel2
             // 
@@ -3878,10 +3838,10 @@ namespace PV
             ((System.ComponentModel.ISupportInitialize)(this.guna2PictureBox1)).EndInit();
             this.guna2GradientPanel4.ResumeLayout(false);
             this.guna2TabControl2.ResumeLayout(false);
-            this.tabPage4.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.DataGridView2)).EndInit();
             this.tabPage1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            this.tabPage4.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.DataGridView2)).EndInit();
             this.guna2GradientPanel2.ResumeLayout(false);
             this.guna2GradientPanel2.PerformLayout();
             this.ResumeLayout(false);

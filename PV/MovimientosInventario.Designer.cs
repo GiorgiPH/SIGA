@@ -47,6 +47,7 @@
             this.label8 = new System.Windows.Forms.Label();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.label19 = new System.Windows.Forms.Label();
+            this.txtTotal = new Guna.UI2.WinForms.Guna2TextBox();
             this.label20 = new System.Windows.Forms.Label();
             this.guna2GradientPanel1 = new Guna.UI2.WinForms.Guna2GradientPanel();
             this.guna2CircleButton1 = new Guna.UI2.WinForms.Guna2CircleButton();
@@ -54,9 +55,9 @@
             this.guna2Separator1 = new Guna.UI2.WinForms.Guna2Separator();
             this.txtDescripcion = new Guna.UI2.WinForms.Guna2TextBox();
             this.guna2Panel2 = new Guna.UI2.WinForms.Guna2Panel();
+            this.cmbDivisa = new Guna.UI2.WinForms.Guna2ComboBox();
             this.txtConcepto = new Guna.UI2.WinForms.Guna2TextBox();
             this.cmbProducto = new Guna.UI2.WinForms.Guna2ComboBox();
-            this.txtTotal = new Guna.UI2.WinForms.Guna2TextBox();
             this.txtTipoCambio = new Guna.UI2.WinForms.Guna2TextBox();
             this.txtPrecio = new Guna.UI2.WinForms.Guna2TextBox();
             this.txtCantidad = new Guna.UI2.WinForms.Guna2TextBox();
@@ -77,7 +78,6 @@
             this.guna2Button3 = new Guna.UI2.WinForms.Guna2Button();
             this.guna2Button2 = new Guna.UI2.WinForms.Guna2Button();
             this.guna2Button4 = new Guna.UI2.WinForms.Guna2Button();
-            this.cmbDivisa = new Guna.UI2.WinForms.Guna2ComboBox();
             this.groupBox4.SuspendLayout();
             this.guna2GradientPanel1.SuspendLayout();
             this.guna2Panel2.SuspendLayout();
@@ -135,7 +135,7 @@
             this.label15.AutoSize = true;
             this.label15.BackColor = System.Drawing.Color.White;
             this.label15.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label15.Location = new System.Drawing.Point(845, 138);
+            this.label15.Location = new System.Drawing.Point(958, 143);
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(95, 30);
             this.label15.TabIndex = 73;
@@ -222,7 +222,7 @@
             this.label7.AutoSize = true;
             this.label7.BackColor = System.Drawing.Color.White;
             this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.Location = new System.Drawing.Point(722, 148);
+            this.label7.Location = new System.Drawing.Point(840, 151);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(95, 15);
             this.label7.TabIndex = 0;
@@ -282,6 +282,28 @@
             this.label19.Size = new System.Drawing.Size(73, 15);
             this.label19.TabIndex = 0;
             this.label19.Text = "IMPORTE:";
+            // 
+            // txtTotal
+            // 
+            this.txtTotal.AutoRoundedCorners = true;
+            this.txtTotal.BorderColor = System.Drawing.Color.Gray;
+            this.txtTotal.BorderRadius = 11;
+            this.txtTotal.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.txtTotal.DefaultText = "";
+            this.txtTotal.DisabledState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(208)))), ((int)(((byte)(208)))));
+            this.txtTotal.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(226)))), ((int)(((byte)(226)))));
+            this.txtTotal.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
+            this.txtTotal.DisabledState.PlaceholderForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
+            this.txtTotal.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.txtTotal.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.txtTotal.ForeColor = System.Drawing.Color.Black;
+            this.txtTotal.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.txtTotal.Location = new System.Drawing.Point(84, 19);
+            this.txtTotal.Name = "txtTotal";
+            this.txtTotal.PlaceholderText = "";
+            this.txtTotal.SelectedText = "";
+            this.txtTotal.Size = new System.Drawing.Size(160, 25);
+            this.txtTotal.TabIndex = 177;
             // 
             // label20
             // 
@@ -370,7 +392,6 @@
             this.txtDescripcion.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.txtDescripcion.Location = new System.Drawing.Point(493, 20);
             this.txtDescripcion.Name = "txtDescripcion";
-            this.txtDescripcion.PasswordChar = '\0';
             this.txtDescripcion.PlaceholderText = "";
             this.txtDescripcion.SelectedText = "";
             this.txtDescripcion.Size = new System.Drawing.Size(245, 25);
@@ -427,6 +448,28 @@
             this.guna2Panel2.TabIndex = 163;
             this.guna2Panel2.Paint += new System.Windows.Forms.PaintEventHandler(this.guna2Panel2_Paint);
             // 
+            // cmbDivisa
+            // 
+            this.cmbDivisa.AutoRoundedCorners = true;
+            this.cmbDivisa.BackColor = System.Drawing.Color.Transparent;
+            this.cmbDivisa.BorderColor = System.Drawing.Color.Gray;
+            this.cmbDivisa.BorderRadius = 12;
+            this.cmbDivisa.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
+            this.cmbDivisa.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbDivisa.FocusedColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.cmbDivisa.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.cmbDivisa.Font = new System.Drawing.Font("Segoe UI", 10F);
+            this.cmbDivisa.ForeColor = System.Drawing.Color.Black;
+            this.cmbDivisa.IntegralHeight = false;
+            this.cmbDivisa.ItemHeight = 20;
+            this.cmbDivisa.Items.AddRange(new object[] {
+            "Activo",
+            "Inactivo"});
+            this.cmbDivisa.Location = new System.Drawing.Point(465, 341);
+            this.cmbDivisa.Name = "cmbDivisa";
+            this.cmbDivisa.Size = new System.Drawing.Size(85, 26);
+            this.cmbDivisa.TabIndex = 234;
+            // 
             // txtConcepto
             // 
             this.txtConcepto.AutoRoundedCorners = true;
@@ -444,7 +487,6 @@
             this.txtConcepto.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.txtConcepto.Location = new System.Drawing.Point(141, 209);
             this.txtConcepto.Name = "txtConcepto";
-            this.txtConcepto.PasswordChar = '\0';
             this.txtConcepto.PlaceholderText = "";
             this.txtConcepto.SelectedText = "";
             this.txtConcepto.Size = new System.Drawing.Size(576, 25);
@@ -469,31 +511,8 @@
             "Inactivo"});
             this.cmbProducto.Location = new System.Drawing.Point(141, 176);
             this.cmbProducto.Name = "cmbProducto";
-            this.cmbProducto.Size = new System.Drawing.Size(578, 26);
+            this.cmbProducto.Size = new System.Drawing.Size(696, 26);
             this.cmbProducto.TabIndex = 232;
-            // 
-            // txtTotal
-            // 
-            this.txtTotal.AutoRoundedCorners = true;
-            this.txtTotal.BorderColor = System.Drawing.Color.Gray;
-            this.txtTotal.BorderRadius = 11;
-            this.txtTotal.Cursor = System.Windows.Forms.Cursors.IBeam;
-            this.txtTotal.DefaultText = "";
-            this.txtTotal.DisabledState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(208)))), ((int)(((byte)(208)))));
-            this.txtTotal.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(226)))), ((int)(((byte)(226)))));
-            this.txtTotal.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
-            this.txtTotal.DisabledState.PlaceholderForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
-            this.txtTotal.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.txtTotal.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.txtTotal.ForeColor = System.Drawing.Color.Black;
-            this.txtTotal.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.txtTotal.Location = new System.Drawing.Point(84, 19);
-            this.txtTotal.Name = "txtTotal";
-            this.txtTotal.PasswordChar = '\0';
-            this.txtTotal.PlaceholderText = "";
-            this.txtTotal.SelectedText = "";
-            this.txtTotal.Size = new System.Drawing.Size(160, 25);
-            this.txtTotal.TabIndex = 177;
             // 
             // txtTipoCambio
             // 
@@ -512,7 +531,6 @@
             this.txtTipoCambio.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.txtTipoCambio.Location = new System.Drawing.Point(702, 338);
             this.txtTipoCambio.Name = "txtTipoCambio";
-            this.txtTipoCambio.PasswordChar = '\0';
             this.txtTipoCambio.PlaceholderText = "";
             this.txtTipoCambio.SelectedText = "";
             this.txtTipoCambio.Size = new System.Drawing.Size(127, 25);
@@ -535,7 +553,6 @@
             this.txtPrecio.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.txtPrecio.Location = new System.Drawing.Point(141, 397);
             this.txtPrecio.Name = "txtPrecio";
-            this.txtPrecio.PasswordChar = '\0';
             this.txtPrecio.PlaceholderText = "";
             this.txtPrecio.SelectedText = "";
             this.txtPrecio.Size = new System.Drawing.Size(151, 25);
@@ -558,7 +575,6 @@
             this.txtCantidad.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.txtCantidad.Location = new System.Drawing.Point(141, 341);
             this.txtCantidad.Name = "txtCantidad";
-            this.txtCantidad.PasswordChar = '\0';
             this.txtCantidad.PlaceholderText = "";
             this.txtCantidad.SelectedText = "";
             this.txtCantidad.Size = new System.Drawing.Size(151, 25);
@@ -581,7 +597,6 @@
             this.txtTipoCosteo.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.txtTipoCosteo.Location = new System.Drawing.Point(829, 251);
             this.txtTipoCosteo.Name = "txtTipoCosteo";
-            this.txtTipoCosteo.PasswordChar = '\0';
             this.txtTipoCosteo.PlaceholderText = "";
             this.txtTipoCosteo.SelectedText = "";
             this.txtTipoCosteo.Size = new System.Drawing.Size(140, 25);
@@ -604,7 +619,6 @@
             this.txtUnidad.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.txtUnidad.Location = new System.Drawing.Point(565, 257);
             this.txtUnidad.Name = "txtUnidad";
-            this.txtUnidad.PasswordChar = '\0';
             this.txtUnidad.PlaceholderText = "";
             this.txtUnidad.SelectedText = "";
             this.txtUnidad.Size = new System.Drawing.Size(151, 25);
@@ -627,7 +641,6 @@
             this.txtAlias.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.txtAlias.Location = new System.Drawing.Point(141, 256);
             this.txtAlias.Name = "txtAlias";
-            this.txtAlias.PasswordChar = '\0';
             this.txtAlias.PlaceholderText = "";
             this.txtAlias.SelectedText = "";
             this.txtAlias.Size = new System.Drawing.Size(243, 25);
@@ -648,9 +661,8 @@
             this.txtExAlmacen.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.txtExAlmacen.ForeColor = System.Drawing.Color.Black;
             this.txtExAlmacen.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.txtExAlmacen.Location = new System.Drawing.Point(839, 174);
+            this.txtExAlmacen.Location = new System.Drawing.Point(957, 177);
             this.txtExAlmacen.Name = "txtExAlmacen";
-            this.txtExAlmacen.PasswordChar = '\0';
             this.txtExAlmacen.PlaceholderText = "";
             this.txtExAlmacen.SelectedText = "";
             this.txtExAlmacen.Size = new System.Drawing.Size(92, 25);
@@ -671,9 +683,8 @@
             this.txtExistencias.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.txtExistencias.ForeColor = System.Drawing.Color.Black;
             this.txtExistencias.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.txtExistencias.Location = new System.Drawing.Point(725, 176);
+            this.txtExistencias.Location = new System.Drawing.Point(843, 177);
             this.txtExistencias.Name = "txtExistencias";
-            this.txtExistencias.PasswordChar = '\0';
             this.txtExistencias.PlaceholderText = "";
             this.txtExistencias.SelectedText = "";
             this.txtExistencias.Size = new System.Drawing.Size(92, 25);
@@ -696,7 +707,6 @@
             this.txtNoPartida.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.txtNoPartida.Location = new System.Drawing.Point(141, 143);
             this.txtNoPartida.Name = "txtNoPartida";
-            this.txtNoPartida.PasswordChar = '\0';
             this.txtNoPartida.PlaceholderText = "";
             this.txtNoPartida.SelectedText = "";
             this.txtNoPartida.Size = new System.Drawing.Size(92, 25);
@@ -739,7 +749,6 @@
             this.txtUltimoFolio.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.txtUltimoFolio.Location = new System.Drawing.Point(888, 24);
             this.txtUltimoFolio.Name = "txtUltimoFolio";
-            this.txtUltimoFolio.PasswordChar = '\0';
             this.txtUltimoFolio.PlaceholderText = "";
             this.txtUltimoFolio.SelectedText = "";
             this.txtUltimoFolio.Size = new System.Drawing.Size(72, 25);
@@ -762,7 +771,6 @@
             this.cmbDescripcion.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.cmbDescripcion.Location = new System.Drawing.Point(415, 20);
             this.cmbDescripcion.Name = "cmbDescripcion";
-            this.cmbDescripcion.PasswordChar = '\0';
             this.cmbDescripcion.PlaceholderText = "";
             this.cmbDescripcion.SelectedText = "";
             this.cmbDescripcion.Size = new System.Drawing.Size(72, 25);
@@ -785,7 +793,6 @@
             this.txtTipoDocumento.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.txtTipoDocumento.Location = new System.Drawing.Point(141, 24);
             this.txtTipoDocumento.Name = "txtTipoDocumento";
-            this.txtTipoDocumento.PasswordChar = '\0';
             this.txtTipoDocumento.PlaceholderText = "";
             this.txtTipoDocumento.SelectedText = "";
             this.txtTipoDocumento.Size = new System.Drawing.Size(92, 25);
@@ -913,28 +920,6 @@
             this.guna2Button4.Text = "Ver Partidas";
             this.guna2Button4.TextOffset = new System.Drawing.Point(23, 0);
             this.guna2Button4.Click += new System.EventHandler(this.button2_Click);
-            // 
-            // cmbDivisa
-            // 
-            this.cmbDivisa.AutoRoundedCorners = true;
-            this.cmbDivisa.BackColor = System.Drawing.Color.Transparent;
-            this.cmbDivisa.BorderColor = System.Drawing.Color.Gray;
-            this.cmbDivisa.BorderRadius = 12;
-            this.cmbDivisa.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
-            this.cmbDivisa.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbDivisa.FocusedColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.cmbDivisa.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.cmbDivisa.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.cmbDivisa.ForeColor = System.Drawing.Color.Black;
-            this.cmbDivisa.IntegralHeight = false;
-            this.cmbDivisa.ItemHeight = 20;
-            this.cmbDivisa.Items.AddRange(new object[] {
-            "Activo",
-            "Inactivo"});
-            this.cmbDivisa.Location = new System.Drawing.Point(465, 341);
-            this.cmbDivisa.Name = "cmbDivisa";
-            this.cmbDivisa.Size = new System.Drawing.Size(85, 26);
-            this.cmbDivisa.TabIndex = 234;
             // 
             // MovimientosInventario
             // 

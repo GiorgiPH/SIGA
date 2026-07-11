@@ -1,5 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\Microsoft.SqlServer.Types.170.1000.7\build\net472\Microsoft.SqlServer.Types.props" Condition="Exists('..\packages\Microsoft.SqlServer.Types.170.1000.7\build\net472\Microsoft.SqlServer.Types.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -30,6 +31,8 @@
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
     <BootstrapperEnabled>true</BootstrapperEnabled>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -51,10 +54,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestCertificateThumbprint>47C578648D66809E2E55745B6F6CC773F0FBDBA9</ManifestCertificateThumbprint>
+    <ManifestCertificateThumbprint>0F027DD79C59BAA29D4961DC7C94E095F517F8E1</ManifestCertificateThumbprint>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestKeyFile>Sistema Integral de Gestion Administrativa_1_TemporaryKey.pfx</ManifestKeyFile>
+    <ManifestKeyFile>Sistema Integral de Gestion Administrativa_2_TemporaryKey.pfx</ManifestKeyFile>
   </PropertyGroup>
   <PropertyGroup>
     <GenerateManifests>true</GenerateManifests>
@@ -88,8 +91,11 @@
     <Reference Include="Microsoft.ReportViewer.WinForms, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.ReportingServices.ReportViewerControl.Winforms.150.900.148\lib\net40\Microsoft.ReportViewer.WinForms.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.SqlServer.Types, Version=14.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.SqlServer.Types.14.0.314.76\lib\net40\Microsoft.SqlServer.Types.dll</HintPath>
+    <Reference Include="Microsoft.SqlServer.Server, Version=1.0.0.0, Culture=neutral, PublicKeyToken=23ec7fc2d6eaa4a5, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.SqlServer.Server.1.0.0\lib\net46\Microsoft.SqlServer.Server.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.SqlServer.Types, Version=17.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.SqlServer.Types.170.1000.7\lib\net472\Microsoft.SqlServer.Types.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -488,6 +494,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>DTSReporteDiarioReembolsos.xsd</DependentUpon>
     </Compile>
+    <Compile Include="DTSReporteMovimientoInventario.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DTSReporteMovimientoInventario.xsd</DependentUpon>
+    </Compile>
     <Compile Include="DTSReporteOrdenesPedidoUtilidad.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -612,6 +623,12 @@
     </Compile>
     <Compile Include="ReporteDiarioReembolsos.Designer.cs">
       <DependentUpon>ReporteDiarioReembolsos.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ReporteMovimientoInventario.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ReporteMovimientoInventario.Designer.cs">
+      <DependentUpon>ReporteMovimientoInventario.cs</DependentUpon>
     </Compile>
     <Compile Include="ReporteOrdenPedidoCliente.cs">
       <SubType>Form</SubType>
@@ -1790,7 +1807,6 @@
     <Compile Include="ResguardoActivoFijo.Designer.cs">
       <DependentUpon>ResguardoActivoFijo.cs</DependentUpon>
     </Compile>
-    <Compile Include="SqlServerTypes\Loader.cs" />
     <Compile Include="TipoMovimientos.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -2017,6 +2033,10 @@
     <EmbeddedResource Include="ReporteDiarioReembolsos.rdlc" />
     <EmbeddedResource Include="ReporteDiarioReembolsos.resx">
       <DependentUpon>ReporteDiarioReembolsos.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ReporteMovimientoInventario.rdlc" />
+    <EmbeddedResource Include="ReporteMovimientoInventario.resx">
+      <DependentUpon>ReporteMovimientoInventario.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ReporteOrdenPedidoCliente.rdlc" />
     <EmbeddedResource Include="ReporteOrdenPedidoCliente.resx">
@@ -3286,6 +3306,17 @@
     <None Include="DTSReporteDiarioReembolsos.xss">
       <DependentUpon>DTSReporteDiarioReembolsos.xsd</DependentUpon>
     </None>
+    <None Include="DTSReporteMovimientoInventario.xsc">
+      <DependentUpon>DTSReporteMovimientoInventario.xsd</DependentUpon>
+    </None>
+    <None Include="DTSReporteMovimientoInventario.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>DTSReporteMovimientoInventario.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="DTSReporteMovimientoInventario.xss">
+      <DependentUpon>DTSReporteMovimientoInventario.xsd</DependentUpon>
+    </None>
     <None Include="DTSReporteOrdenesPedidoUtilidad.xsc">
       <DependentUpon>DTSReporteOrdenesPedidoUtilidad.xsd</DependentUpon>
     </None>
@@ -3308,6 +3339,7 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
     <None Include="Sistema Integral de Gestion Administrativa_1_TemporaryKey.pfx" />
+    <None Include="Sistema Integral de Gestion Administrativa_2_TemporaryKey.pfx" />
     <None Include="Sistema Integral de Gestion Administrativa_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
@@ -3389,19 +3421,6 @@
     <None Include="Resources\CUENTAS BANCARIAS.png" />
     <None Include="Resources\logo proyecto.png" />
     <None Include="Resources\logo proyecto2.png" />
-    <Content Include="SqlServerTypes\readme.htm" />
-    <Content Include="SqlServerTypes\x64\msvcr120.dll">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="SqlServerTypes\x64\SqlServerSpatial140.dll">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="SqlServerTypes\x86\msvcr120.dll">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="SqlServerTypes\x86\SqlServerSpatial140.dll">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.6.1">
@@ -3415,6 +3434,23 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="Resources\siga_logo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\sigalite_logo_blanco.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\sigalite_logo_blanco1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\siga_logo_blanco.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>Este proyecto hace referencia a los paquetes NuGet que faltan en este equipo. Use la restauración de paquetes NuGet para descargarlos. Para obtener más información, consulte http://go.microsoft.com/fwlink/?LinkID=322105. El archivo que falta es {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\Microsoft.SqlServer.Types.170.1000.7\build\net472\Microsoft.SqlServer.Types.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.SqlServer.Types.170.1000.7\build\net472\Microsoft.SqlServer.Types.props'))" />
+  </Target>
 </Project>

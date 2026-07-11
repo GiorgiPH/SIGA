@@ -117,29 +117,22 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="txtContraseña.IconLeft" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6
-        JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAB3RJTUUH5gkSBQMhmkYuLAAAAR5JREFU
-        SEu9lrFOAkEURamwwoJWqPgBtcaPIMSvwPh3UNEDjWhHjX+gtnjMmDeTt3cxMzuJnGSSzd7zLrub3Qm9
-        XgbgCngGtsCXrXD8BPTV7wRwA7zyN/vg6FwRduWx/AjMgYGtGXCw7KXqTuyxxPLhmXwIvJuz0DwLsLPh
-        uWYR4NGcjWZZgE8bHmgWAa7N+dAsiw2i55VSr0XpYKnXonSw1PsFuAfegO842IEwE17rO+1NZD6qUvba
-        mwBOaldw0t6EmrVob0JFYQmMbK009GhvQkVh5Lyxhp5mq0NFYeK8iYaeZqtDRWHtvLWGnmarQ0Wlq9dC
-        RaWr10LFM0yBBz2paG9CxVq0N3GJL/nf96Kwm4YfqdlNw92Hfxm3vvMHaDPkC0e5+woAAAAASUVORK5C
-        YII=
-</value>
-  </data>
-  <data name="txtUsuario.IconLeft" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6
-        JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAB3RJTUUH5gkSBQIPX4sSogAAASRJREFU
-        SEvl1D1KA0EchvFgDqGxUPEWAStFBEsPICIGPYSVnsOAtZ2CFnZaaqN4C79ABL/9ycgIyd+4STY24gMD
-        uzvv+8wwu2yl8i/AODaxl8cGxmKuFFjGo+88YCnm+wLzeIvmFtLcXOz1DC6isQPnsdcTmIymAiZivyuo
-        R0sB9djvStpVtBRQ7ovCWTR14CT2egazeI/GFp4xFXt9gUXcRzPusBDzPYMaVjCEYaxjB7v5eiTPpUwt
-        9gvJR3OTd3qEGVRb5qv52XHOXKf7dssPZPlTy1F8cYvTPNJ1JP1OpqOvDYziKjb74LLwuLAdGyVoRu8n
-        +aW+xnQJXtJHEf1pgbWYHIDV6E8LNGNqALaiPy1wEFMDsB/9aYEGDn9pNKL/7/IBuSEYOcMiyWsAAAAA
-        SUVORK5CYII=
-</value>
-  </data>
+  <metadata name="datosEmpresaBindingSource.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>233, 17</value>
+  </metadata>
+  <metadata name="spReporteMovimientoInventarioBindingSource.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>869, 17</value>
+  </metadata>
+  <metadata name="dTSReporteMovimientoInventario.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>636, 17</value>
+  </metadata>
+  <metadata name="controlCondominiosDataSet31.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>17, 17</value>
+  </metadata>
+  <metadata name="datosEmpresaTableAdapter.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>438, 17</value>
+  </metadata>
+  <metadata name="sp_ReporteMovimientoInventarioTableAdapter.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>1171, 17</value>
+  </metadata>
 </root>

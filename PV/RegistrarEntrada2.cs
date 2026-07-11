@@ -492,22 +492,11 @@ namespace PV
                     }
                 }
 
-                c1.RegistroPartida(txtFolioRegistrar.Text, txtTipoDocumento.Text, cmbDescripcion.Text, txtNoPartida.Text, clave, txtCantidad.Text, txtUnidad.Text, Convert.ToDecimal(txtPrecio.Text), cmbDivisa1.Text, txtTipoCambio1.Text, Convert.ToDecimal(txtTotal1.Text), txtConcepto.Text);
+                // Registrar partida sin procesar inventarios (documento está en estado "Abierto")
+                c1.RegistroPartida(txtFolioP.Text, txtTipoDocumento.Text, cmbDescripcion.Text, txtNoPartida.Text, clave, txtCantidad.Text, txtUnidad.Text, Convert.ToDecimal(txtPrecio.Text), cmbDivisa1.Text, txtTipoCambio1.Text, Convert.ToDecimal(txtTotal1.Text), txtConcepto.Text);
                 Total = Total + (Convert.ToDouble(txtTotal1.Text));
 
-                if (Documento == "E")
-                {
-                    c1.RegistroProducto(clave, txtCantidad.Text, Almacen, Costeo, Convert.ToDecimal(txtPrecio.Text), txtTipoCosteo.Text);
-                }
-                else if (Documento == "S")
-                {
-                    c1.RegistroProductoSalidas(clave, txtCantidad.Text, Almacen);
-                }
-                else if (Documento == "T")
-                {
-                    c1.RegistroProductoSalidas(clave, txtCantidad.Text, Almacen);
-                    c1.RegistroProducto(clave, txtCantidad.Text, AlmacenSalida, Costeo, Convert.ToDecimal(txtPrecio.Text), txtTipoCosteo.Text);
-                }
+                // NO procesar inventarios aquí - se hará cuando se termine el documento
 
                 LimpiarDetalle();
 
@@ -550,44 +539,24 @@ namespace PV
                     }
                 }
 
-                c1.RegistroPartida(txtFolioRegistrar.Text, Documento, cmbDescripcion.Text, txtNoPartida.Text, clave, txtCantidad.Text, txtUnidad.Text, Convert.ToDecimal(txtPrecio.Text), cmbDivisa1.Text, txtTipoCambio1.Text, Convert.ToDecimal(txtTotal1.Text), txtConcepto.Text);
+                // Registrar partida sin procesar inventarios (documento está en estado "Abierto")
+                c1.RegistroPartida(txtFolioP.Text, Documento, cmbDescripcion.Text, txtNoPartida.Text, clave, txtCantidad.Text, txtUnidad.Text, Convert.ToDecimal(txtPrecio.Text), cmbDivisa1.Text, txtTipoCambio1.Text, Convert.ToDecimal(txtTotal1.Text), txtConcepto.Text);
                 Subtotal = Subtotal + Convert.ToDouble(txtTotal1 .Text);
                 Total = Total + (Convert.ToDouble(txtTotal1.Text));
 
-                if (Documento == "E")
-                {
-                    c1.RegistroProducto(clave, txtCantidad.Text, Almacen, Costeo, Convert.ToDecimal(txtPrecio.Text), txtTipoCosteo.Text);
-                }
-                else if (Documento == "S")
-                {
-                    c1.RegistroProductoSalidas(clave, txtCantidad.Text, Almacen);
-                }
-                else if (Documento == "T")
-                {
-                    c1.RegistroProductoSalidas(clave, txtCantidad.Text, Almacen);
-                    c1.RegistroProducto(clave, txtCantidad.Text, Almacen, Costeo, Convert.ToDecimal(txtPrecio.Text), txtTipoCosteo.Text);
-                }
-
-
-           
-               // RegistrarEntrada.Bloqueo = 1;
-                // this.Close();
+                // NO procesar inventarios aquí - se hará cuando se termine el documento
 
                 PanelPartidasRequisicion.Visible = false;
-                 
-            string  TipoM = Documento;
-                Descripcion = cmbDescripcion.Text;
-           string     Folio1 = txtFolioRegistrar.Text;
 
-                c.CargarPartida(guna2DataGridView1, TipoM, Descripcion, txtFolioRegistrar.Text);
-                LimpiarDetalle();
+                 Descripcion = cmbDescripcion.Text;
+          
 
-                btnTerminarDocumento.Visible = true;
-                btnTerminarDocumento.Enabled = true;
-                //  Partida1 = Convert.ToInt32(txtNoPartida.Text);
+                 c.CargarPartida(guna2DataGridView1, Documento, Descripcion, txtFolioP.Text);
+                 LimpiarDetalle();
 
-            //    MessageBox.Show(""+Partida1);
-            }
+                 btnTerminarDocumento.Visible = true;
+                 btnTerminarDocumento.Enabled = true;
+             }
         }
 
         private void btnCerrarPartida_Click(object sender, EventArgs e)
@@ -791,7 +760,7 @@ namespace PV
             string cantidad = string.Empty;
             string total = string.Empty;
 
-            c1.ConsultarPartida(txtFolioRegistrar.Text, txtTipoDocumento.Text, cmbDescripcion.Text, NoPartida, txtclave, txtCantidad, txtUnidad, txtPrecio, lblDivisa1, txtTipoCambio1, txtTotal1, txtConcepto);
+            c1.ConsultarPartida(txtFolioP.Text, txtTipoDocumento.Text, cmbDescripcion.Text, NoPartida, txtclave, txtCantidad, txtUnidad, txtPrecio, lblDivisa1, txtTipoCambio1, txtTotal1, txtConcepto);
             cantidad = txtCantidad.Text;
             cmbDivisa1.Items.Add(lblDivisa1.Text);
             PanelPartidasRequisicion.Visible = true;
@@ -828,7 +797,7 @@ namespace PV
             BLoqueo();
 
             guna2TabControl1.SelectedIndex = 0;
-           
+
             txtTipoDocumento1.Text = "";
             cmbDescripcion1.Text = "";
             txtDescripcion1.Text = "";
@@ -836,7 +805,7 @@ namespace PV
 
             Limpiar();
             LimpiarDetalle();
-          
+
             btnTerminarDocumento.Enabled = false;
             guna2DataGridView1.Rows.Clear();
 
@@ -845,14 +814,14 @@ namespace PV
 
         private void btnEliminarPartida_Click(object sender, EventArgs e)
         {
-            c1.Eliminarpartida(txtFolioRegistrar.Text, txtTipoDocumento.Text, cmbDescripcion.Text, txtNoPartida.Text);
+            c1.Eliminarpartida(txtFolioP.Text, txtTipoDocumento.Text, cmbDescripcion.Text, txtNoPartida.Text);
             MessageBox.Show("Partida Eliminada");
             PanelPartidasRequisicion.Visible = false;
             
             string TipoM = txtTipoDocumento.Text;
             Descripcion = cmbDescripcion.Text;
             string Folio1 = txtUltimoFolio.Text;
-            c.CargarPartida(guna2DataGridView1, TipoM, Descripcion, txtFolioRegistrar.Text);
+            c.CargarPartida(guna2DataGridView1, TipoM, Descripcion, txtFolioP.Text);
             LimpiarDetalle();
         }
 
@@ -870,6 +839,14 @@ namespace PV
 
                     txtTotal.Text = Total.ToString();
                     c.ActualizarMovimiento(txtFolioP.Text, txtTipoDocumento.Text, cmbDescripcion.Text, txtTotalPartidas.Text, txtTotal.Text);
+
+                    // Registrar inventarios solo si el documento está en estado "Abierto"
+                    if (cmbEstatus.Text == "Activo")
+                    {
+                        c1.RegistrarInventarioDelDocumento(txtFolioP.Text, txtTipoDocumento.Text, cmbDescripcion.Text, txtAlmacen.Text, txtAlmacenSalida.Text, txtCosteo.Text, txtTipoCosteo.Text);
+                        MessageBox.Show("Inventarios registrados correctamente.");
+                    }
+
                     Limpiar();
 
                     if (Documento == "E")
@@ -1255,6 +1232,12 @@ namespace PV
 
                 this.toolStripButton3.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
                 toolStripButton3.Size = new Size(23, 79);
+                if (cmbEstatus.Text != "Bloqueado")
+                {
+                    MessageBox.Show("El movimiento no esta bloqueado"); return;
+                }
+                ReporteMovimientoInventario r = new ReporteMovimientoInventario(txtFolioP.Text, txtTipoDocumento.Text);
+                r.ShowDialog();
 
             }
             else if (e.ClickedItem.Text == "CATALOGO PRODUCTOS")

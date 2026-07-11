@@ -248,19 +248,20 @@ namespace PuntoVentas
 
         private void button1_Click(object sender, EventArgs e)
         {
-            OpenFileDialog Abrir = new OpenFileDialog();
+            OpenFileDialog abrir = new OpenFileDialog();
 
-            Abrir.Filter = "Archivos JPEG(* .JPEG) |*.jpg";
-            Abrir.InitialDirectory = "C:/";
+            abrir.Filter = "Archivos de imagen (*.png;*.jpg;*.jpeg)|*.png;*.jpg;*.jpeg|Todos los archivos (*.*)|*.*";
+            abrir.InitialDirectory = @"C:\";
 
-            if (Abrir.ShowDialog() == DialogResult.OK)
+            if (abrir.ShowDialog() == DialogResult.OK)
             {
-                string Dir = Abrir.FileName;
-                Bitmap foto = new Bitmap(Dir);
-
-                Foto.Image = (Image)foto;
+                using (Bitmap bmp = new Bitmap(abrir.FileName))
+                {
+                    Foto.Image = new Bitmap(bmp);
+                }
             }
         }
+       
 
         private void button3_Click(object sender, EventArgs e)
         {
@@ -276,7 +277,6 @@ namespace PuntoVentas
             txtMarca.Clear(); 
             txtUnidadMedida.Clear(); 
             txtPresentacion.Clear();
-            tgInventariable.Checked = false;
             txtCaducidad.Clear();
             cmbCategorias.Text = null;
             txtProveedor.Clear(); 
@@ -304,6 +304,8 @@ namespace PuntoVentas
             txtPedidosProveedor.Text = "0.00";
             txtPedidosCliente.Text = "0.00";
             txtDisponibilidad.Text = "0.00";
+            tgInventariable.Checked = false;
+
         }
         private void button5_Click(object sender, EventArgs e)
         {

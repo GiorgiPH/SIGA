@@ -52,96 +52,13 @@
             this.miniToolStrip = new System.Windows.Forms.ToolStrip();
             this.guna2Panel1 = new Guna.UI2.WinForms.Guna2Panel();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
-            this.btnParametros = new System.Windows.Forms.ToolStripDropDownButton();
-            this.toolStripMenuItem4 = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem5 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
-            this.btnCatalogos = new System.Windows.Forms.ToolStripDropDownButton();
-            this.divisasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.almacenesToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.categoriasYFamiliasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.productosYServiciosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.serviciosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.centrosDeCostosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.documentosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.conceptosGlobalesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.formasDePagoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.empleadosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.tiposYZonasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.clientesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.proveedoresToolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
-            this.cuentasBancariasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.sATToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripDropDownButton4 = new System.Windows.Forms.ToolStripSeparator();
-            this.btnInventarios = new System.Windows.Forms.ToolStripDropDownButton();
-            this.movimientosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.tipoMovimientosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.registrarEntradasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.registrarSalidaToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.registrarTraspasosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.consultaInventariosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem6 = new System.Windows.Forms.ToolStripMenuItem();
-            this.reporteKardexToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.reporteExistenciasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.reporteCostoPorProductosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.inventariosFisicosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.explosionDeMaterialesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.reportesToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
-            this.btnCompras = new System.Windows.Forms.ToolStripDropDownButton();
-            this.requisicionesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.cotizacionesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.pedidosProveedoresToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.comprasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.notasDeCrYCaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.reportesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.reporteDiarioDeRequisicionesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.reporteDiarioDeOrdenesDeCompraToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.reporteDiarioDeComprasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.reporteDiarioNotasDeCargoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.reporteDeEgresosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.reporteSaldoDeComprasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.anticiposToolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
-            this.anticiposToolStripMenuItem4 = new System.Windows.Forms.ToolStripMenuItem();
-            this.anticiposAplicadosToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.proveedoresToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.estadoDeCuentaProveedoresToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.saldosProveedoresToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.detallesDeSaldosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.DefinepolizaStripMenuItem7 = new System.Windows.Forms.ToolStripMenuItem();
-            this.GenerePolizaStripMenuItem7 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
-            this.btnVentas = new System.Windows.Forms.ToolStripDropDownButton();
-            this.cotizacionesToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.pedidosDeClientesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.remisionesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.cFDIToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.notasDeCrYCaToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.reportesToolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator7 = new System.Windows.Forms.ToolStripSeparator();
-            this.btnTesoreria = new System.Windows.Forms.ToolStripDropDownButton();
-            this.bancosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.btnIngresos = new System.Windows.Forms.ToolStripMenuItem();
-            this.egresosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.reportesToolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator8 = new System.Windows.Forms.ToolStripSeparator();
-            this.btnPresupuesto = new System.Windows.Forms.ToolStripDropDownButton();
-            this.base0ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.historicoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.registrarPresupuestosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.ingresosToolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
-            this.egresosToolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
-            this.crearPresupuestosHistoricosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.ingreosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.egresosToolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
-            this.cerrarPresupuestoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.reportesToolStripMenuItem8 = new System.Windows.Forms.ToolStripMenuItem();
-            this.periodicoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
-            this.btnUtilerias = new System.Windows.Forms.ToolStripDropDownButton();
-            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
             this.guna2Panel3 = new Guna.UI2.WinForms.Guna2Panel();
             this.guna2HtmlLabel3 = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.guna2HtmlLabel2 = new Guna.UI2.WinForms.Guna2HtmlLabel();
@@ -152,26 +69,7 @@
             this.lblUsuario = new System.Windows.Forms.Label();
             this.lblTipoUsuario = new System.Windows.Forms.Label();
             this.guna2Separator1 = new Guna.UI2.WinForms.Guna2Separator();
-            this.guna2PictureBox1 = new Guna.UI2.WinForms.Guna2PictureBox();
             this.guna2Panel2 = new Guna.UI2.WinForms.Guna2Panel();
-            this.guna2VScrollBar1 = new Guna.UI2.WinForms.Guna2VScrollBar();
-            this.guna2Panel5 = new Guna.UI2.WinForms.Guna2Panel();
-            this.btnUtilerias2 = new Guna.UI2.WinForms.Guna2GradientButton();
-            this.BtnParametros2 = new Guna.UI2.WinForms.Guna2GradientButton();
-            this.btncatalogos2 = new Guna.UI2.WinForms.Guna2GradientButton();
-            this.btnUtilerias1 = new Guna.UI2.WinForms.Guna2GradientButton();
-            this.btncatalogos1 = new Guna.UI2.WinForms.Guna2GradientButton();
-            this.BtnParametros1 = new Guna.UI2.WinForms.Guna2GradientButton();
-            this.btnPresupuesto2 = new Guna.UI2.WinForms.Guna2GradientButton();
-            this.btnInventario = new Guna.UI2.WinForms.Guna2GradientButton();
-            this.btnPresupuesto1 = new Guna.UI2.WinForms.Guna2GradientButton();
-            this.BtnInventario1 = new Guna.UI2.WinForms.Guna2GradientButton();
-            this.btnTesoreria2 = new Guna.UI2.WinForms.Guna2GradientButton();
-            this.btnCompras1 = new Guna.UI2.WinForms.Guna2GradientButton();
-            this.btnCompras2 = new Guna.UI2.WinForms.Guna2GradientButton();
-            this.btnTesoreria1 = new Guna.UI2.WinForms.Guna2GradientButton();
-            this.btnventas1 = new Guna.UI2.WinForms.Guna2GradientButton();
-            this.btnventas2 = new Guna.UI2.WinForms.Guna2GradientButton();
             this.pnReportesEgresos = new Guna.UI2.WinForms.Guna2GroupBox();
             this.guna2GradientButton60 = new Guna.UI2.WinForms.Guna2GradientButton();
             this.guna2GradientButton61 = new Guna.UI2.WinForms.Guna2GradientButton();
@@ -267,11 +165,114 @@
             this.BtnInventariosfisicos = new Guna.UI2.WinForms.Guna2GradientButton();
             this.BtnMovimientos = new Guna.UI2.WinForms.Guna2GradientButton();
             this.GruopParametros = new Guna.UI2.WinForms.Guna2GroupBox();
+            this.GroupCatalogo = new Guna.UI2.WinForms.Guna2GroupBox();
+            this.guna2VScrollBar1 = new Guna.UI2.WinForms.Guna2VScrollBar();
+            this.guna2Panel5 = new Guna.UI2.WinForms.Guna2Panel();
+            this.guna2HtmlLabel1 = new Guna.UI2.WinForms.Guna2HtmlLabel();
+            this.btnUtilerias2 = new Guna.UI2.WinForms.Guna2GradientButton();
+            this.BtnParametros2 = new Guna.UI2.WinForms.Guna2GradientButton();
+            this.btncatalogos2 = new Guna.UI2.WinForms.Guna2GradientButton();
+            this.btnUtilerias1 = new Guna.UI2.WinForms.Guna2GradientButton();
+            this.btncatalogos1 = new Guna.UI2.WinForms.Guna2GradientButton();
+            this.BtnParametros1 = new Guna.UI2.WinForms.Guna2GradientButton();
+            this.btnPresupuesto2 = new Guna.UI2.WinForms.Guna2GradientButton();
+            this.btnInventario = new Guna.UI2.WinForms.Guna2GradientButton();
+            this.btnPresupuesto1 = new Guna.UI2.WinForms.Guna2GradientButton();
+            this.BtnInventario1 = new Guna.UI2.WinForms.Guna2GradientButton();
+            this.btnTesoreria2 = new Guna.UI2.WinForms.Guna2GradientButton();
+            this.btnCompras1 = new Guna.UI2.WinForms.Guna2GradientButton();
+            this.btnCompras2 = new Guna.UI2.WinForms.Guna2GradientButton();
+            this.btnTesoreria1 = new Guna.UI2.WinForms.Guna2GradientButton();
+            this.btnventas1 = new Guna.UI2.WinForms.Guna2GradientButton();
+            this.btnventas2 = new Guna.UI2.WinForms.Guna2GradientButton();
+            this.guna2PictureBox1 = new Guna.UI2.WinForms.Guna2PictureBox();
             this.BtnUsuarios = new Guna.UI2.WinForms.Guna2GradientButton();
             this.btnDatosMmpresa = new Guna.UI2.WinForms.Guna2GradientButton();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.GroupCatalogo = new Guna.UI2.WinForms.Guna2GroupBox();
+            this.btnParametros = new System.Windows.Forms.ToolStripDropDownButton();
+            this.toolStripMenuItem4 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem5 = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnCatalogos = new System.Windows.Forms.ToolStripDropDownButton();
+            this.divisasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.almacenesToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.categoriasYFamiliasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.productosYServiciosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.serviciosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.centrosDeCostosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.documentosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.conceptosGlobalesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.formasDePagoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.empleadosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.tiposYZonasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.clientesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.proveedoresToolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
+            this.cuentasBancariasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.sATToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnInventarios = new System.Windows.Forms.ToolStripDropDownButton();
+            this.movimientosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.tipoMovimientosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.registrarEntradasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.registrarSalidaToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.registrarTraspasosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.consultaInventariosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem6 = new System.Windows.Forms.ToolStripMenuItem();
+            this.reporteKardexToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.reporteExistenciasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.reporteCostoPorProductosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.inventariosFisicosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.explosionDeMaterialesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.reportesToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnCompras = new System.Windows.Forms.ToolStripDropDownButton();
+            this.requisicionesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.cotizacionesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.pedidosProveedoresToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.comprasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.notasDeCrYCaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.reportesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.reporteDiarioDeRequisicionesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.reporteDiarioDeOrdenesDeCompraToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.reporteDiarioDeComprasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.reporteDiarioNotasDeCargoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.reporteDeEgresosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.reporteSaldoDeComprasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.anticiposToolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
+            this.anticiposToolStripMenuItem4 = new System.Windows.Forms.ToolStripMenuItem();
+            this.anticiposAplicadosToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.proveedoresToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.estadoDeCuentaProveedoresToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.saldosProveedoresToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.detallesDeSaldosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.DefinepolizaStripMenuItem7 = new System.Windows.Forms.ToolStripMenuItem();
+            this.GenerePolizaStripMenuItem7 = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnVentas = new System.Windows.Forms.ToolStripDropDownButton();
+            this.cotizacionesToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.pedidosDeClientesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.remisionesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.cFDIToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.notasDeCrYCaToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.reportesToolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnTesoreria = new System.Windows.Forms.ToolStripDropDownButton();
+            this.bancosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnIngresos = new System.Windows.Forms.ToolStripMenuItem();
+            this.egresosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.reportesToolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnPresupuesto = new System.Windows.Forms.ToolStripDropDownButton();
+            this.base0ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.historicoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.registrarPresupuestosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.ingresosToolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
+            this.egresosToolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
+            this.crearPresupuestosHistoricosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.ingreosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.egresosToolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
+            this.cerrarPresupuestoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.reportesToolStripMenuItem8 = new System.Windows.Forms.ToolStripMenuItem();
+            this.periodicoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnUtilerias = new System.Windows.Forms.ToolStripDropDownButton();
+            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
             this.BtnCuentasBancarias = new Guna.UI2.WinForms.Guna2GradientButton();
             this.btnDivisas = new Guna.UI2.WinForms.Guna2GradientButton();
             this.btnAlmacen = new Guna.UI2.WinForms.Guna2GradientButton();
@@ -288,14 +289,11 @@
             this.BtnFormaPago = new Guna.UI2.WinForms.Guna2GradientButton();
             this.guna2Button2 = new Guna.UI2.WinForms.Guna2Button();
             this.guna2Button1 = new Guna.UI2.WinForms.Guna2Button();
-            this.guna2HtmlLabel1 = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.guna2Panel1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             this.guna2Panel3.SuspendLayout();
             this.guna2Panel4.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.guna2PictureBox1)).BeginInit();
             this.guna2Panel2.SuspendLayout();
-            this.guna2Panel5.SuspendLayout();
             this.pnReportesEgresos.SuspendLayout();
             this.GrupoCompras.SuspendLayout();
             this.GrupoTesoreria.SuspendLayout();
@@ -315,9 +313,11 @@
             this.GrpoMovimientos.SuspendLayout();
             this.Grupoinventarios.SuspendLayout();
             this.GruopParametros.SuspendLayout();
+            this.GroupCatalogo.SuspendLayout();
+            this.guna2Panel5.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.guna2PictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
-            this.GroupCatalogo.SuspendLayout();
             this.SuspendLayout();
             // 
             // administracionDeGruposToolStripMenuItem
@@ -495,753 +495,40 @@
             this.toolStrip1.TabIndex = 1;
             this.toolStrip1.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.toolStrip1_ItemClicked);
             // 
-            // btnParametros
-            // 
-            this.btnParametros.AutoSize = false;
-            this.btnParametros.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripMenuItem4,
-            this.toolStripMenuItem5});
-            this.btnParametros.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnParametros.ForeColor = System.Drawing.Color.White;
-            this.btnParametros.Image = ((System.Drawing.Image)(resources.GetObject("btnParametros.Image")));
-            this.btnParametros.ImageTransparentColor = System.Drawing.Color.MediumBlue;
-            this.btnParametros.Name = "btnParametros";
-            this.btnParametros.Size = new System.Drawing.Size(225, 36);
-            this.btnParametros.Text = "PARAMETROS";
-            // 
-            // toolStripMenuItem4
-            // 
-            this.toolStripMenuItem4.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-            this.toolStripMenuItem4.AutoSize = false;
-            this.toolStripMenuItem4.MergeIndex = 0;
-            this.toolStripMenuItem4.Name = "toolStripMenuItem4";
-            this.toolStripMenuItem4.Overflow = System.Windows.Forms.ToolStripItemOverflow.AsNeeded;
-            this.toolStripMenuItem4.Size = new System.Drawing.Size(225, 24);
-            this.toolStripMenuItem4.Text = "Datos Empresa";
-            this.toolStripMenuItem4.Click += new System.EventHandler(this.toolStripMenuItem4_Click);
-            // 
-            // toolStripMenuItem5
-            // 
-            this.toolStripMenuItem5.AutoSize = false;
-            this.toolStripMenuItem5.Name = "toolStripMenuItem5";
-            this.toolStripMenuItem5.Overflow = System.Windows.Forms.ToolStripItemOverflow.AsNeeded;
-            this.toolStripMenuItem5.Size = new System.Drawing.Size(225, 24);
-            this.toolStripMenuItem5.Text = "Usuarios";
-            this.toolStripMenuItem5.Click += new System.EventHandler(this.toolStripMenuItem5_Click);
-            // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
             this.toolStripSeparator1.Size = new System.Drawing.Size(6, 23);
-            // 
-            // btnCatalogos
-            // 
-            this.btnCatalogos.AutoSize = false;
-            this.btnCatalogos.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.divisasToolStripMenuItem,
-            this.almacenesToolStripMenuItem1,
-            this.categoriasYFamiliasToolStripMenuItem,
-            this.productosYServiciosToolStripMenuItem,
-            this.serviciosToolStripMenuItem,
-            this.centrosDeCostosToolStripMenuItem,
-            this.documentosToolStripMenuItem,
-            this.conceptosGlobalesToolStripMenuItem,
-            this.formasDePagoToolStripMenuItem,
-            this.empleadosToolStripMenuItem,
-            this.tiposYZonasToolStripMenuItem,
-            this.clientesToolStripMenuItem,
-            this.proveedoresToolStripMenuItem2,
-            this.cuentasBancariasToolStripMenuItem,
-            this.sATToolStripMenuItem});
-            this.btnCatalogos.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnCatalogos.ForeColor = System.Drawing.Color.White;
-            this.btnCatalogos.Image = ((System.Drawing.Image)(resources.GetObject("btnCatalogos.Image")));
-            this.btnCatalogos.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.btnCatalogos.Name = "btnCatalogos";
-            this.btnCatalogos.Size = new System.Drawing.Size(225, 36);
-            this.btnCatalogos.Text = "CATALOGOS";
-            this.btnCatalogos.Click += new System.EventHandler(this.btnCatalogos_Click);
-            // 
-            // divisasToolStripMenuItem
-            // 
-            this.divisasToolStripMenuItem.Name = "divisasToolStripMenuItem";
-            this.divisasToolStripMenuItem.Size = new System.Drawing.Size(225, 24);
-            this.divisasToolStripMenuItem.Text = "Divisas";
-            this.divisasToolStripMenuItem.Click += new System.EventHandler(this.divisasToolStripMenuItem_Click);
-            // 
-            // almacenesToolStripMenuItem1
-            // 
-            this.almacenesToolStripMenuItem1.Name = "almacenesToolStripMenuItem1";
-            this.almacenesToolStripMenuItem1.Size = new System.Drawing.Size(225, 24);
-            this.almacenesToolStripMenuItem1.Text = "Almacenes";
-            this.almacenesToolStripMenuItem1.Click += new System.EventHandler(this.almacenesToolStripMenuItem_Click);
-            // 
-            // categoriasYFamiliasToolStripMenuItem
-            // 
-            this.categoriasYFamiliasToolStripMenuItem.Name = "categoriasYFamiliasToolStripMenuItem";
-            this.categoriasYFamiliasToolStripMenuItem.Size = new System.Drawing.Size(225, 24);
-            this.categoriasYFamiliasToolStripMenuItem.Text = "Categorias y Familias";
-            this.categoriasYFamiliasToolStripMenuItem.Click += new System.EventHandler(this.categoriasYFamiliasToolStripMenuItem_Click);
-            // 
-            // productosYServiciosToolStripMenuItem
-            // 
-            this.productosYServiciosToolStripMenuItem.Name = "productosYServiciosToolStripMenuItem";
-            this.productosYServiciosToolStripMenuItem.Size = new System.Drawing.Size(225, 24);
-            this.productosYServiciosToolStripMenuItem.Text = "Productos";
-            this.productosYServiciosToolStripMenuItem.Click += new System.EventHandler(this.productosYServiciosToolStripMenuItem_Click);
-            // 
-            // serviciosToolStripMenuItem
-            // 
-            this.serviciosToolStripMenuItem.Name = "serviciosToolStripMenuItem";
-            this.serviciosToolStripMenuItem.Size = new System.Drawing.Size(225, 24);
-            this.serviciosToolStripMenuItem.Text = "Servicios";
-            this.serviciosToolStripMenuItem.Click += new System.EventHandler(this.serviciosToolStripMenuItem_Click);
-            // 
-            // centrosDeCostosToolStripMenuItem
-            // 
-            this.centrosDeCostosToolStripMenuItem.Name = "centrosDeCostosToolStripMenuItem";
-            this.centrosDeCostosToolStripMenuItem.Size = new System.Drawing.Size(225, 24);
-            this.centrosDeCostosToolStripMenuItem.Text = "Centros de Costos";
-            this.centrosDeCostosToolStripMenuItem.Click += new System.EventHandler(this.centrosDeCostosToolStripMenuItem_Click);
-            // 
-            // documentosToolStripMenuItem
-            // 
-            this.documentosToolStripMenuItem.Name = "documentosToolStripMenuItem";
-            this.documentosToolStripMenuItem.Size = new System.Drawing.Size(225, 24);
-            this.documentosToolStripMenuItem.Text = "Documentos";
-            this.documentosToolStripMenuItem.Click += new System.EventHandler(this.documentosToolStripMenuItem_Click);
-            // 
-            // conceptosGlobalesToolStripMenuItem
-            // 
-            this.conceptosGlobalesToolStripMenuItem.Name = "conceptosGlobalesToolStripMenuItem";
-            this.conceptosGlobalesToolStripMenuItem.Size = new System.Drawing.Size(225, 24);
-            this.conceptosGlobalesToolStripMenuItem.Text = "Conceptos Globales";
-            this.conceptosGlobalesToolStripMenuItem.Click += new System.EventHandler(this.conceptosGlobalesToolStripMenuItem_Click);
-            // 
-            // formasDePagoToolStripMenuItem
-            // 
-            this.formasDePagoToolStripMenuItem.Name = "formasDePagoToolStripMenuItem";
-            this.formasDePagoToolStripMenuItem.Size = new System.Drawing.Size(225, 24);
-            this.formasDePagoToolStripMenuItem.Text = "Formas de Pago";
-            this.formasDePagoToolStripMenuItem.Click += new System.EventHandler(this.formasDePagoToolStripMenuItem_Click);
-            // 
-            // empleadosToolStripMenuItem
-            // 
-            this.empleadosToolStripMenuItem.Name = "empleadosToolStripMenuItem";
-            this.empleadosToolStripMenuItem.Size = new System.Drawing.Size(225, 24);
-            this.empleadosToolStripMenuItem.Text = "Empleados";
-            this.empleadosToolStripMenuItem.Click += new System.EventHandler(this.empleadosToolStripMenuItem_Click);
-            // 
-            // tiposYZonasToolStripMenuItem
-            // 
-            this.tiposYZonasToolStripMenuItem.Name = "tiposYZonasToolStripMenuItem";
-            this.tiposYZonasToolStripMenuItem.Size = new System.Drawing.Size(225, 24);
-            this.tiposYZonasToolStripMenuItem.Text = "Tipos y Zonas";
-            this.tiposYZonasToolStripMenuItem.Click += new System.EventHandler(this.tiposYZonasToolStripMenuItem_Click);
-            // 
-            // clientesToolStripMenuItem
-            // 
-            this.clientesToolStripMenuItem.Name = "clientesToolStripMenuItem";
-            this.clientesToolStripMenuItem.Size = new System.Drawing.Size(225, 24);
-            this.clientesToolStripMenuItem.Text = "Clientes";
-            this.clientesToolStripMenuItem.Click += new System.EventHandler(this.clientesToolStripMenuItem_Click);
-            // 
-            // proveedoresToolStripMenuItem2
-            // 
-            this.proveedoresToolStripMenuItem2.Name = "proveedoresToolStripMenuItem2";
-            this.proveedoresToolStripMenuItem2.Size = new System.Drawing.Size(225, 24);
-            this.proveedoresToolStripMenuItem2.Text = "Proveedores";
-            this.proveedoresToolStripMenuItem2.Click += new System.EventHandler(this.proveedoresToolStripMenuItem_Click);
-            // 
-            // cuentasBancariasToolStripMenuItem
-            // 
-            this.cuentasBancariasToolStripMenuItem.Name = "cuentasBancariasToolStripMenuItem";
-            this.cuentasBancariasToolStripMenuItem.Size = new System.Drawing.Size(225, 24);
-            this.cuentasBancariasToolStripMenuItem.Text = "Cuentas Bancarias";
-            this.cuentasBancariasToolStripMenuItem.Click += new System.EventHandler(this.cuentasBancariasToolStripMenuItem_Click);
-            // 
-            // sATToolStripMenuItem
-            // 
-            this.sATToolStripMenuItem.Enabled = false;
-            this.sATToolStripMenuItem.Name = "sATToolStripMenuItem";
-            this.sATToolStripMenuItem.Size = new System.Drawing.Size(225, 24);
-            this.sATToolStripMenuItem.Text = "SAT";
             // 
             // toolStripDropDownButton4
             // 
             this.toolStripDropDownButton4.Name = "toolStripDropDownButton4";
             this.toolStripDropDownButton4.Size = new System.Drawing.Size(6, 23);
             // 
-            // btnInventarios
-            // 
-            this.btnInventarios.AutoSize = false;
-            this.btnInventarios.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.movimientosToolStripMenuItem,
-            this.inventariosFisicosToolStripMenuItem,
-            this.explosionDeMaterialesToolStripMenuItem,
-            this.reportesToolStripMenuItem1});
-            this.btnInventarios.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnInventarios.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.btnInventarios.Image = ((System.Drawing.Image)(resources.GetObject("btnInventarios.Image")));
-            this.btnInventarios.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.btnInventarios.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btnInventarios.Name = "btnInventarios";
-            this.btnInventarios.Size = new System.Drawing.Size(225, 36);
-            this.btnInventarios.Text = "INVENTARIOS";
-            // 
-            // movimientosToolStripMenuItem
-            // 
-            this.movimientosToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.tipoMovimientosToolStripMenuItem,
-            this.registrarEntradasToolStripMenuItem,
-            this.registrarSalidaToolStripMenuItem1,
-            this.registrarTraspasosToolStripMenuItem,
-            this.consultaInventariosToolStripMenuItem,
-            this.toolStripMenuItem6});
-            this.movimientosToolStripMenuItem.Name = "movimientosToolStripMenuItem";
-            this.movimientosToolStripMenuItem.Size = new System.Drawing.Size(243, 24);
-            this.movimientosToolStripMenuItem.Text = "Movimientos";
-            // 
-            // tipoMovimientosToolStripMenuItem
-            // 
-            this.tipoMovimientosToolStripMenuItem.Name = "tipoMovimientosToolStripMenuItem";
-            this.tipoMovimientosToolStripMenuItem.Size = new System.Drawing.Size(222, 24);
-            this.tipoMovimientosToolStripMenuItem.Text = "Tipo Movimientos";
-            this.tipoMovimientosToolStripMenuItem.Click += new System.EventHandler(this.tipoMovimientosToolStripMenuItem_Click);
-            // 
-            // registrarEntradasToolStripMenuItem
-            // 
-            this.registrarEntradasToolStripMenuItem.Name = "registrarEntradasToolStripMenuItem";
-            this.registrarEntradasToolStripMenuItem.Size = new System.Drawing.Size(222, 24);
-            this.registrarEntradasToolStripMenuItem.Text = "Registrar Entradas";
-            this.registrarEntradasToolStripMenuItem.Click += new System.EventHandler(this.registrarEntradasToolStripMenuItem_Click);
-            // 
-            // registrarSalidaToolStripMenuItem1
-            // 
-            this.registrarSalidaToolStripMenuItem1.Name = "registrarSalidaToolStripMenuItem1";
-            this.registrarSalidaToolStripMenuItem1.Size = new System.Drawing.Size(222, 24);
-            this.registrarSalidaToolStripMenuItem1.Text = "Registrar Salida";
-            this.registrarSalidaToolStripMenuItem1.Click += new System.EventHandler(this.registrarSalidaToolStripMenuItem1_Click);
-            // 
-            // registrarTraspasosToolStripMenuItem
-            // 
-            this.registrarTraspasosToolStripMenuItem.Name = "registrarTraspasosToolStripMenuItem";
-            this.registrarTraspasosToolStripMenuItem.Size = new System.Drawing.Size(222, 24);
-            this.registrarTraspasosToolStripMenuItem.Text = "Registrar Traspasos";
-            this.registrarTraspasosToolStripMenuItem.Click += new System.EventHandler(this.registrarTraspasosToolStripMenuItem_Click_1);
-            // 
-            // consultaInventariosToolStripMenuItem
-            // 
-            this.consultaInventariosToolStripMenuItem.Name = "consultaInventariosToolStripMenuItem";
-            this.consultaInventariosToolStripMenuItem.Size = new System.Drawing.Size(222, 24);
-            this.consultaInventariosToolStripMenuItem.Text = "Consulta Inventarios";
-            this.consultaInventariosToolStripMenuItem.Click += new System.EventHandler(this.consultaInventariosToolStripMenuItem_Click);
-            // 
-            // toolStripMenuItem6
-            // 
-            this.toolStripMenuItem6.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.reporteKardexToolStripMenuItem,
-            this.reporteExistenciasToolStripMenuItem,
-            this.reporteCostoPorProductosToolStripMenuItem});
-            this.toolStripMenuItem6.Name = "toolStripMenuItem6";
-            this.toolStripMenuItem6.Size = new System.Drawing.Size(222, 24);
-            this.toolStripMenuItem6.Text = "Reportes";
-            this.toolStripMenuItem6.Click += new System.EventHandler(this.toolStripMenuItem6_Click);
-            // 
-            // reporteKardexToolStripMenuItem
-            // 
-            this.reporteKardexToolStripMenuItem.Name = "reporteKardexToolStripMenuItem";
-            this.reporteKardexToolStripMenuItem.Size = new System.Drawing.Size(307, 24);
-            this.reporteKardexToolStripMenuItem.Text = "Reporte Kardex";
-            this.reporteKardexToolStripMenuItem.Visible = false;
-            this.reporteKardexToolStripMenuItem.Click += new System.EventHandler(this.reporteKardexToolStripMenuItem_Click);
-            // 
-            // reporteExistenciasToolStripMenuItem
-            // 
-            this.reporteExistenciasToolStripMenuItem.Name = "reporteExistenciasToolStripMenuItem";
-            this.reporteExistenciasToolStripMenuItem.Size = new System.Drawing.Size(307, 24);
-            this.reporteExistenciasToolStripMenuItem.Text = "Reporte Existencias por Almacen";
-            this.reporteExistenciasToolStripMenuItem.Click += new System.EventHandler(this.reporteExistenciasToolStripMenuItem_Click);
-            // 
-            // reporteCostoPorProductosToolStripMenuItem
-            // 
-            this.reporteCostoPorProductosToolStripMenuItem.Name = "reporteCostoPorProductosToolStripMenuItem";
-            this.reporteCostoPorProductosToolStripMenuItem.Size = new System.Drawing.Size(307, 24);
-            this.reporteCostoPorProductosToolStripMenuItem.Text = "Reporte Costo por Productos";
-            this.reporteCostoPorProductosToolStripMenuItem.Click += new System.EventHandler(this.reporteCostoPorProductosToolStripMenuItem_Click_1);
-            // 
-            // inventariosFisicosToolStripMenuItem
-            // 
-            this.inventariosFisicosToolStripMenuItem.Enabled = false;
-            this.inventariosFisicosToolStripMenuItem.Name = "inventariosFisicosToolStripMenuItem";
-            this.inventariosFisicosToolStripMenuItem.Size = new System.Drawing.Size(243, 24);
-            this.inventariosFisicosToolStripMenuItem.Text = "Inventarios Fisicos";
-            // 
-            // explosionDeMaterialesToolStripMenuItem
-            // 
-            this.explosionDeMaterialesToolStripMenuItem.Enabled = false;
-            this.explosionDeMaterialesToolStripMenuItem.Name = "explosionDeMaterialesToolStripMenuItem";
-            this.explosionDeMaterialesToolStripMenuItem.Size = new System.Drawing.Size(243, 24);
-            this.explosionDeMaterialesToolStripMenuItem.Text = "Explosion de Materiales";
-            // 
-            // reportesToolStripMenuItem1
-            // 
-            this.reportesToolStripMenuItem1.Enabled = false;
-            this.reportesToolStripMenuItem1.Name = "reportesToolStripMenuItem1";
-            this.reportesToolStripMenuItem1.Size = new System.Drawing.Size(243, 24);
-            this.reportesToolStripMenuItem1.Text = "Reportes";
-            // 
             // toolStripSeparator3
             // 
             this.toolStripSeparator3.Name = "toolStripSeparator3";
             this.toolStripSeparator3.Size = new System.Drawing.Size(6, 23);
-            // 
-            // btnCompras
-            // 
-            this.btnCompras.AutoSize = false;
-            this.btnCompras.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.requisicionesToolStripMenuItem,
-            this.cotizacionesToolStripMenuItem,
-            this.pedidosProveedoresToolStripMenuItem,
-            this.comprasToolStripMenuItem,
-            this.notasDeCrYCaToolStripMenuItem,
-            this.reportesToolStripMenuItem,
-            this.DefinepolizaStripMenuItem7,
-            this.GenerePolizaStripMenuItem7});
-            this.btnCompras.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnCompras.ForeColor = System.Drawing.Color.White;
-            this.btnCompras.Image = ((System.Drawing.Image)(resources.GetObject("btnCompras.Image")));
-            this.btnCompras.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.btnCompras.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btnCompras.Name = "btnCompras";
-            this.btnCompras.Size = new System.Drawing.Size(225, 36);
-            this.btnCompras.Text = "COMPRAS";
-            // 
-            // requisicionesToolStripMenuItem
-            // 
-            this.requisicionesToolStripMenuItem.Name = "requisicionesToolStripMenuItem";
-            this.requisicionesToolStripMenuItem.Size = new System.Drawing.Size(224, 24);
-            this.requisicionesToolStripMenuItem.Text = "Requisiciones";
-            this.requisicionesToolStripMenuItem.Click += new System.EventHandler(this.requisicionesToolStripMenuItem_Click_1);
-            // 
-            // cotizacionesToolStripMenuItem
-            // 
-            this.cotizacionesToolStripMenuItem.Enabled = false;
-            this.cotizacionesToolStripMenuItem.Name = "cotizacionesToolStripMenuItem";
-            this.cotizacionesToolStripMenuItem.Size = new System.Drawing.Size(224, 24);
-            this.cotizacionesToolStripMenuItem.Text = "Cotizaciones";
-            // 
-            // pedidosProveedoresToolStripMenuItem
-            // 
-            this.pedidosProveedoresToolStripMenuItem.Name = "pedidosProveedoresToolStripMenuItem";
-            this.pedidosProveedoresToolStripMenuItem.Size = new System.Drawing.Size(224, 24);
-            this.pedidosProveedoresToolStripMenuItem.Text = "Pedidos Proveedores";
-            this.pedidosProveedoresToolStripMenuItem.Click += new System.EventHandler(this.pedidosProveedoresToolStripMenuItem_Click);
-            // 
-            // comprasToolStripMenuItem
-            // 
-            this.comprasToolStripMenuItem.Name = "comprasToolStripMenuItem";
-            this.comprasToolStripMenuItem.Size = new System.Drawing.Size(224, 24);
-            this.comprasToolStripMenuItem.Text = "Compras";
-            this.comprasToolStripMenuItem.Click += new System.EventHandler(this.comprasToolStripMenuItem_Click);
-            // 
-            // notasDeCrYCaToolStripMenuItem
-            // 
-            this.notasDeCrYCaToolStripMenuItem.Name = "notasDeCrYCaToolStripMenuItem";
-            this.notasDeCrYCaToolStripMenuItem.Size = new System.Drawing.Size(224, 24);
-            this.notasDeCrYCaToolStripMenuItem.Text = "Notas de Cr y Ca";
-            this.notasDeCrYCaToolStripMenuItem.Click += new System.EventHandler(this.notasDeCrYCaToolStripMenuItem_Click);
-            // 
-            // reportesToolStripMenuItem
-            // 
-            this.reportesToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.reporteDiarioDeRequisicionesToolStripMenuItem,
-            this.reporteDiarioDeOrdenesDeCompraToolStripMenuItem,
-            this.reporteDiarioDeComprasToolStripMenuItem,
-            this.reporteDiarioNotasDeCargoToolStripMenuItem,
-            this.reporteDeEgresosToolStripMenuItem,
-            this.reporteSaldoDeComprasToolStripMenuItem,
-            this.anticiposToolStripMenuItem3,
-            this.proveedoresToolStripMenuItem1});
-            this.reportesToolStripMenuItem.Name = "reportesToolStripMenuItem";
-            this.reportesToolStripMenuItem.Size = new System.Drawing.Size(224, 24);
-            this.reportesToolStripMenuItem.Text = "Reportes";
-            // 
-            // reporteDiarioDeRequisicionesToolStripMenuItem
-            // 
-            this.reporteDiarioDeRequisicionesToolStripMenuItem.Name = "reporteDiarioDeRequisicionesToolStripMenuItem";
-            this.reporteDiarioDeRequisicionesToolStripMenuItem.Size = new System.Drawing.Size(283, 24);
-            this.reporteDiarioDeRequisicionesToolStripMenuItem.Text = "Diario de Requisiciones";
-            this.reporteDiarioDeRequisicionesToolStripMenuItem.Click += new System.EventHandler(this.reporteDiarioDeRequisicionesToolStripMenuItem_Click);
-            // 
-            // reporteDiarioDeOrdenesDeCompraToolStripMenuItem
-            // 
-            this.reporteDiarioDeOrdenesDeCompraToolStripMenuItem.Name = "reporteDiarioDeOrdenesDeCompraToolStripMenuItem";
-            this.reporteDiarioDeOrdenesDeCompraToolStripMenuItem.Size = new System.Drawing.Size(283, 24);
-            this.reporteDiarioDeOrdenesDeCompraToolStripMenuItem.Text = "Diario de Ordenes de Compra";
-            this.reporteDiarioDeOrdenesDeCompraToolStripMenuItem.Click += new System.EventHandler(this.reporteDiarioDeOrdenesDeCompraToolStripMenuItem_Click);
-            // 
-            // reporteDiarioDeComprasToolStripMenuItem
-            // 
-            this.reporteDiarioDeComprasToolStripMenuItem.Name = "reporteDiarioDeComprasToolStripMenuItem";
-            this.reporteDiarioDeComprasToolStripMenuItem.Size = new System.Drawing.Size(283, 24);
-            this.reporteDiarioDeComprasToolStripMenuItem.Text = "Diario de Compras";
-            this.reporteDiarioDeComprasToolStripMenuItem.Click += new System.EventHandler(this.reporteDiarioDeComprasToolStripMenuItem_Click);
-            // 
-            // reporteDiarioNotasDeCargoToolStripMenuItem
-            // 
-            this.reporteDiarioNotasDeCargoToolStripMenuItem.Name = "reporteDiarioNotasDeCargoToolStripMenuItem";
-            this.reporteDiarioNotasDeCargoToolStripMenuItem.Size = new System.Drawing.Size(283, 24);
-            this.reporteDiarioNotasDeCargoToolStripMenuItem.Text = "Diario de Notas de Cargo";
-            this.reporteDiarioNotasDeCargoToolStripMenuItem.Click += new System.EventHandler(this.reporteDiarioNotasDeCargoToolStripMenuItem_Click);
-            // 
-            // reporteDeEgresosToolStripMenuItem
-            // 
-            this.reporteDeEgresosToolStripMenuItem.Name = "reporteDeEgresosToolStripMenuItem";
-            this.reporteDeEgresosToolStripMenuItem.Size = new System.Drawing.Size(283, 24);
-            this.reporteDeEgresosToolStripMenuItem.Text = "Egresos";
-            this.reporteDeEgresosToolStripMenuItem.Click += new System.EventHandler(this.reporteDeEgresosToolStripMenuItem_Click);
-            // 
-            // reporteSaldoDeComprasToolStripMenuItem
-            // 
-            this.reporteSaldoDeComprasToolStripMenuItem.Name = "reporteSaldoDeComprasToolStripMenuItem";
-            this.reporteSaldoDeComprasToolStripMenuItem.Size = new System.Drawing.Size(283, 24);
-            this.reporteSaldoDeComprasToolStripMenuItem.Text = "Saldo de Compras";
-            this.reporteSaldoDeComprasToolStripMenuItem.Click += new System.EventHandler(this.reporteSaldoDeComprasToolStripMenuItem_Click);
-            // 
-            // anticiposToolStripMenuItem3
-            // 
-            this.anticiposToolStripMenuItem3.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.anticiposToolStripMenuItem4,
-            this.anticiposAplicadosToolStripMenuItem1});
-            this.anticiposToolStripMenuItem3.Name = "anticiposToolStripMenuItem3";
-            this.anticiposToolStripMenuItem3.Size = new System.Drawing.Size(283, 24);
-            this.anticiposToolStripMenuItem3.Text = "Anticipos";
-            this.anticiposToolStripMenuItem3.Click += new System.EventHandler(this.anticiposToolStripMenuItem3_Click_1);
-            // 
-            // anticiposToolStripMenuItem4
-            // 
-            this.anticiposToolStripMenuItem4.Name = "anticiposToolStripMenuItem4";
-            this.anticiposToolStripMenuItem4.Size = new System.Drawing.Size(216, 24);
-            this.anticiposToolStripMenuItem4.Text = "Anticipos";
-            this.anticiposToolStripMenuItem4.Click += new System.EventHandler(this.anticiposToolStripMenuItem4_Click);
-            // 
-            // anticiposAplicadosToolStripMenuItem1
-            // 
-            this.anticiposAplicadosToolStripMenuItem1.Name = "anticiposAplicadosToolStripMenuItem1";
-            this.anticiposAplicadosToolStripMenuItem1.Size = new System.Drawing.Size(216, 24);
-            this.anticiposAplicadosToolStripMenuItem1.Text = "Anticipos Aplicados";
-            this.anticiposAplicadosToolStripMenuItem1.Click += new System.EventHandler(this.anticiposAplicadosToolStripMenuItem1_Click_2);
-            // 
-            // proveedoresToolStripMenuItem1
-            // 
-            this.proveedoresToolStripMenuItem1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.estadoDeCuentaProveedoresToolStripMenuItem,
-            this.saldosProveedoresToolStripMenuItem,
-            this.detallesDeSaldosToolStripMenuItem});
-            this.proveedoresToolStripMenuItem1.Name = "proveedoresToolStripMenuItem1";
-            this.proveedoresToolStripMenuItem1.Size = new System.Drawing.Size(283, 24);
-            this.proveedoresToolStripMenuItem1.Text = "Proveedores";
-            // 
-            // estadoDeCuentaProveedoresToolStripMenuItem
-            // 
-            this.estadoDeCuentaProveedoresToolStripMenuItem.Name = "estadoDeCuentaProveedoresToolStripMenuItem";
-            this.estadoDeCuentaProveedoresToolStripMenuItem.Size = new System.Drawing.Size(290, 24);
-            this.estadoDeCuentaProveedoresToolStripMenuItem.Text = "Estado de Cuenta Proveedores";
-            this.estadoDeCuentaProveedoresToolStripMenuItem.Click += new System.EventHandler(this.estadoDeCuentaProveedoresToolStripMenuItem_Click);
-            // 
-            // saldosProveedoresToolStripMenuItem
-            // 
-            this.saldosProveedoresToolStripMenuItem.Enabled = false;
-            this.saldosProveedoresToolStripMenuItem.Name = "saldosProveedoresToolStripMenuItem";
-            this.saldosProveedoresToolStripMenuItem.Size = new System.Drawing.Size(290, 24);
-            this.saldosProveedoresToolStripMenuItem.Text = "Saldos Proveedores";
-            this.saldosProveedoresToolStripMenuItem.Click += new System.EventHandler(this.saldosProveedoresToolStripMenuItem_Click);
-            // 
-            // detallesDeSaldosToolStripMenuItem
-            // 
-            this.detallesDeSaldosToolStripMenuItem.Enabled = false;
-            this.detallesDeSaldosToolStripMenuItem.Name = "detallesDeSaldosToolStripMenuItem";
-            this.detallesDeSaldosToolStripMenuItem.Size = new System.Drawing.Size(290, 24);
-            this.detallesDeSaldosToolStripMenuItem.Text = "Detalles de Saldos";
-            this.detallesDeSaldosToolStripMenuItem.Click += new System.EventHandler(this.detallesDeSaldosToolStripMenuItem_Click);
-            // 
-            // DefinepolizaStripMenuItem7
-            // 
-            this.DefinepolizaStripMenuItem7.Name = "DefinepolizaStripMenuItem7";
-            this.DefinepolizaStripMenuItem7.Size = new System.Drawing.Size(224, 24);
-            this.DefinepolizaStripMenuItem7.Text = "Define Poliza";
-            this.DefinepolizaStripMenuItem7.Click += new System.EventHandler(this.DefinepolizaStripMenuItem7_Click);
-            // 
-            // GenerePolizaStripMenuItem7
-            // 
-            this.GenerePolizaStripMenuItem7.Name = "GenerePolizaStripMenuItem7";
-            this.GenerePolizaStripMenuItem7.Size = new System.Drawing.Size(224, 24);
-            this.GenerePolizaStripMenuItem7.Text = "Genere Poliza";
-            this.GenerePolizaStripMenuItem7.Click += new System.EventHandler(this.GenerePolizaStripMenuItem7_Click);
             // 
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
             this.toolStripSeparator2.Size = new System.Drawing.Size(6, 23);
             // 
-            // btnVentas
-            // 
-            this.btnVentas.AutoSize = false;
-            this.btnVentas.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.cotizacionesToolStripMenuItem1,
-            this.pedidosDeClientesToolStripMenuItem,
-            this.remisionesToolStripMenuItem,
-            this.cFDIToolStripMenuItem,
-            this.notasDeCrYCaToolStripMenuItem1,
-            this.reportesToolStripMenuItem2});
-            this.btnVentas.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnVentas.ForeColor = System.Drawing.Color.White;
-            this.btnVentas.Image = ((System.Drawing.Image)(resources.GetObject("btnVentas.Image")));
-            this.btnVentas.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.btnVentas.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btnVentas.Name = "btnVentas";
-            this.btnVentas.Size = new System.Drawing.Size(225, 36);
-            this.btnVentas.Text = "VENTAS";
-            // 
-            // cotizacionesToolStripMenuItem1
-            // 
-            this.cotizacionesToolStripMenuItem1.Enabled = false;
-            this.cotizacionesToolStripMenuItem1.Name = "cotizacionesToolStripMenuItem1";
-            this.cotizacionesToolStripMenuItem1.Size = new System.Drawing.Size(213, 24);
-            this.cotizacionesToolStripMenuItem1.Text = "Cotizaciones";
-            // 
-            // pedidosDeClientesToolStripMenuItem
-            // 
-            this.pedidosDeClientesToolStripMenuItem.Enabled = false;
-            this.pedidosDeClientesToolStripMenuItem.Name = "pedidosDeClientesToolStripMenuItem";
-            this.pedidosDeClientesToolStripMenuItem.Size = new System.Drawing.Size(213, 24);
-            this.pedidosDeClientesToolStripMenuItem.Text = "Pedidos de Clientes";
-            // 
-            // remisionesToolStripMenuItem
-            // 
-            this.remisionesToolStripMenuItem.Enabled = false;
-            this.remisionesToolStripMenuItem.Name = "remisionesToolStripMenuItem";
-            this.remisionesToolStripMenuItem.Size = new System.Drawing.Size(213, 24);
-            this.remisionesToolStripMenuItem.Text = "Remisiones";
-            // 
-            // cFDIToolStripMenuItem
-            // 
-            this.cFDIToolStripMenuItem.Enabled = false;
-            this.cFDIToolStripMenuItem.Name = "cFDIToolStripMenuItem";
-            this.cFDIToolStripMenuItem.Size = new System.Drawing.Size(213, 24);
-            this.cFDIToolStripMenuItem.Text = "CFDI";
-            // 
-            // notasDeCrYCaToolStripMenuItem1
-            // 
-            this.notasDeCrYCaToolStripMenuItem1.Enabled = false;
-            this.notasDeCrYCaToolStripMenuItem1.Name = "notasDeCrYCaToolStripMenuItem1";
-            this.notasDeCrYCaToolStripMenuItem1.Size = new System.Drawing.Size(213, 24);
-            this.notasDeCrYCaToolStripMenuItem1.Text = "Notas de Cr y Ca";
-            // 
-            // reportesToolStripMenuItem2
-            // 
-            this.reportesToolStripMenuItem2.Enabled = false;
-            this.reportesToolStripMenuItem2.Name = "reportesToolStripMenuItem2";
-            this.reportesToolStripMenuItem2.Size = new System.Drawing.Size(213, 24);
-            this.reportesToolStripMenuItem2.Text = "Reportes";
-            // 
             // toolStripSeparator7
             // 
             this.toolStripSeparator7.Name = "toolStripSeparator7";
             this.toolStripSeparator7.Size = new System.Drawing.Size(6, 23);
-            // 
-            // btnTesoreria
-            // 
-            this.btnTesoreria.AutoSize = false;
-            this.btnTesoreria.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.bancosToolStripMenuItem,
-            this.btnIngresos,
-            this.egresosToolStripMenuItem,
-            this.reportesToolStripMenuItem3});
-            this.btnTesoreria.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnTesoreria.ForeColor = System.Drawing.Color.White;
-            this.btnTesoreria.Image = ((System.Drawing.Image)(resources.GetObject("btnTesoreria.Image")));
-            this.btnTesoreria.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.btnTesoreria.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btnTesoreria.Name = "btnTesoreria";
-            this.btnTesoreria.Size = new System.Drawing.Size(225, 36);
-            this.btnTesoreria.Text = "TESORERIA";
-            // 
-            // bancosToolStripMenuItem
-            // 
-            this.bancosToolStripMenuItem.Enabled = false;
-            this.bancosToolStripMenuItem.Name = "bancosToolStripMenuItem";
-            this.bancosToolStripMenuItem.Size = new System.Drawing.Size(141, 24);
-            this.bancosToolStripMenuItem.Text = "Bancos";
-            // 
-            // btnIngresos
-            // 
-            this.btnIngresos.Enabled = false;
-            this.btnIngresos.Name = "btnIngresos";
-            this.btnIngresos.Size = new System.Drawing.Size(141, 24);
-            this.btnIngresos.Text = "Ingresos";
-            // 
-            // egresosToolStripMenuItem
-            // 
-            this.egresosToolStripMenuItem.Enabled = false;
-            this.egresosToolStripMenuItem.Name = "egresosToolStripMenuItem";
-            this.egresosToolStripMenuItem.Size = new System.Drawing.Size(141, 24);
-            this.egresosToolStripMenuItem.Text = "Egresos";
-            // 
-            // reportesToolStripMenuItem3
-            // 
-            this.reportesToolStripMenuItem3.Enabled = false;
-            this.reportesToolStripMenuItem3.Name = "reportesToolStripMenuItem3";
-            this.reportesToolStripMenuItem3.Size = new System.Drawing.Size(141, 24);
-            this.reportesToolStripMenuItem3.Text = "Reportes";
             // 
             // toolStripSeparator8
             // 
             this.toolStripSeparator8.Name = "toolStripSeparator8";
             this.toolStripSeparator8.Size = new System.Drawing.Size(6, 23);
             // 
-            // btnPresupuesto
-            // 
-            this.btnPresupuesto.AutoSize = false;
-            this.btnPresupuesto.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.base0ToolStripMenuItem,
-            this.historicoToolStripMenuItem,
-            this.registrarPresupuestosToolStripMenuItem,
-            this.crearPresupuestosHistoricosToolStripMenuItem,
-            this.cerrarPresupuestoToolStripMenuItem,
-            this.reportesToolStripMenuItem8});
-            this.btnPresupuesto.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnPresupuesto.ForeColor = System.Drawing.Color.White;
-            this.btnPresupuesto.Image = ((System.Drawing.Image)(resources.GetObject("btnPresupuesto.Image")));
-            this.btnPresupuesto.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.btnPresupuesto.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btnPresupuesto.Name = "btnPresupuesto";
-            this.btnPresupuesto.Size = new System.Drawing.Size(225, 36);
-            this.btnPresupuesto.Text = "PRESUPUESTO";
-            // 
-            // base0ToolStripMenuItem
-            // 
-            this.base0ToolStripMenuItem.Name = "base0ToolStripMenuItem";
-            this.base0ToolStripMenuItem.Size = new System.Drawing.Size(240, 24);
-            this.base0ToolStripMenuItem.Text = "Periodos";
-            this.base0ToolStripMenuItem.Click += new System.EventHandler(this.base0ToolStripMenuItem_Click);
-            // 
-            // historicoToolStripMenuItem
-            // 
-            this.historicoToolStripMenuItem.Name = "historicoToolStripMenuItem";
-            this.historicoToolStripMenuItem.Size = new System.Drawing.Size(240, 24);
-            this.historicoToolStripMenuItem.Text = "Conceptos";
-            this.historicoToolStripMenuItem.Click += new System.EventHandler(this.historicoToolStripMenuItem_Click);
-            // 
-            // registrarPresupuestosToolStripMenuItem
-            // 
-            this.registrarPresupuestosToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.ingresosToolStripMenuItem2,
-            this.egresosToolStripMenuItem2});
-            this.registrarPresupuestosToolStripMenuItem.Name = "registrarPresupuestosToolStripMenuItem";
-            this.registrarPresupuestosToolStripMenuItem.Size = new System.Drawing.Size(240, 24);
-            this.registrarPresupuestosToolStripMenuItem.Text = "Registrar Presupuestos";
-            // 
-            // ingresosToolStripMenuItem2
-            // 
-            this.ingresosToolStripMenuItem2.Name = "ingresosToolStripMenuItem2";
-            this.ingresosToolStripMenuItem2.Size = new System.Drawing.Size(138, 24);
-            this.ingresosToolStripMenuItem2.Text = "Ingresos";
-            this.ingresosToolStripMenuItem2.Click += new System.EventHandler(this.ingresosToolStripMenuItem2_Click);
-            // 
-            // egresosToolStripMenuItem2
-            // 
-            this.egresosToolStripMenuItem2.Name = "egresosToolStripMenuItem2";
-            this.egresosToolStripMenuItem2.Size = new System.Drawing.Size(138, 24);
-            this.egresosToolStripMenuItem2.Text = "Egresos";
-            this.egresosToolStripMenuItem2.Click += new System.EventHandler(this.egresosToolStripMenuItem2_Click);
-            // 
-            // crearPresupuestosHistoricosToolStripMenuItem
-            // 
-            this.crearPresupuestosHistoricosToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.ingreosToolStripMenuItem,
-            this.egresosToolStripMenuItem3});
-            this.crearPresupuestosHistoricosToolStripMenuItem.Name = "crearPresupuestosHistoricosToolStripMenuItem";
-            this.crearPresupuestosHistoricosToolStripMenuItem.Size = new System.Drawing.Size(240, 24);
-            this.crearPresupuestosHistoricosToolStripMenuItem.Text = "Crear Presupuestos";
-            // 
-            // ingreosToolStripMenuItem
-            // 
-            this.ingreosToolStripMenuItem.Name = "ingreosToolStripMenuItem";
-            this.ingreosToolStripMenuItem.Size = new System.Drawing.Size(132, 24);
-            this.ingreosToolStripMenuItem.Text = "Ingreos";
-            this.ingreosToolStripMenuItem.Click += new System.EventHandler(this.ingreosToolStripMenuItem_Click);
-            // 
-            // egresosToolStripMenuItem3
-            // 
-            this.egresosToolStripMenuItem3.Name = "egresosToolStripMenuItem3";
-            this.egresosToolStripMenuItem3.Size = new System.Drawing.Size(132, 24);
-            this.egresosToolStripMenuItem3.Text = "Egresos";
-            this.egresosToolStripMenuItem3.Click += new System.EventHandler(this.egresosToolStripMenuItem3_Click);
-            // 
-            // cerrarPresupuestoToolStripMenuItem
-            // 
-            this.cerrarPresupuestoToolStripMenuItem.Name = "cerrarPresupuestoToolStripMenuItem";
-            this.cerrarPresupuestoToolStripMenuItem.Size = new System.Drawing.Size(240, 24);
-            this.cerrarPresupuestoToolStripMenuItem.Text = "Cerrar Presupuesto";
-            this.cerrarPresupuestoToolStripMenuItem.Click += new System.EventHandler(this.cerrarPresupuestoToolStripMenuItem_Click);
-            // 
-            // reportesToolStripMenuItem8
-            // 
-            this.reportesToolStripMenuItem8.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.periodicoToolStripMenuItem});
-            this.reportesToolStripMenuItem8.Name = "reportesToolStripMenuItem8";
-            this.reportesToolStripMenuItem8.Size = new System.Drawing.Size(240, 24);
-            this.reportesToolStripMenuItem8.Text = "Reportes";
-            // 
-            // periodicoToolStripMenuItem
-            // 
-            this.periodicoToolStripMenuItem.Name = "periodicoToolStripMenuItem";
-            this.periodicoToolStripMenuItem.Size = new System.Drawing.Size(184, 24);
-            this.periodicoToolStripMenuItem.Text = "Global Ejercicio";
-            // 
             // toolStripSeparator4
             // 
             this.toolStripSeparator4.Name = "toolStripSeparator4";
             this.toolStripSeparator4.Size = new System.Drawing.Size(6, 23);
-            // 
-            // btnUtilerias
-            // 
-            this.btnUtilerias.AutoSize = false;
-            this.btnUtilerias.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripMenuItem1,
-            this.toolStripMenuItem2,
-            this.toolStripMenuItem3});
-            this.btnUtilerias.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnUtilerias.ForeColor = System.Drawing.Color.White;
-            this.btnUtilerias.Image = ((System.Drawing.Image)(resources.GetObject("btnUtilerias.Image")));
-            this.btnUtilerias.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.btnUtilerias.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btnUtilerias.Name = "btnUtilerias";
-            this.btnUtilerias.Size = new System.Drawing.Size(225, 36);
-            this.btnUtilerias.Text = "UTILERIAS";
-            // 
-            // toolStripMenuItem1
-            // 
-            this.toolStripMenuItem1.Enabled = false;
-            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(197, 24);
-            this.toolStripMenuItem1.Text = "Contabilidad";
-            // 
-            // toolStripMenuItem2
-            // 
-            this.toolStripMenuItem2.Enabled = false;
-            this.toolStripMenuItem2.Name = "toolStripMenuItem2";
-            this.toolStripMenuItem2.Size = new System.Drawing.Size(197, 24);
-            this.toolStripMenuItem2.Text = "ODBC";
-            // 
-            // toolStripMenuItem3
-            // 
-            this.toolStripMenuItem3.Enabled = false;
-            this.toolStripMenuItem3.Name = "toolStripMenuItem3";
-            this.toolStripMenuItem3.Size = new System.Drawing.Size(197, 24);
-            this.toolStripMenuItem3.Text = "Corre electrónico";
             // 
             // guna2Panel3
             // 
@@ -1254,7 +541,7 @@
             this.guna2Panel3.Dock = System.Windows.Forms.DockStyle.Top;
             this.guna2Panel3.Location = new System.Drawing.Point(0, 0);
             this.guna2Panel3.Name = "guna2Panel3";
-            this.guna2Panel3.Size = new System.Drawing.Size(1370, 33);
+            this.guna2Panel3.Size = new System.Drawing.Size(1433, 33);
             this.guna2Panel3.TabIndex = 43;
             // 
             // guna2HtmlLabel3
@@ -1262,7 +549,7 @@
             this.guna2HtmlLabel3.BackColor = System.Drawing.Color.Transparent;
             this.guna2HtmlLabel3.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.guna2HtmlLabel3.ForeColor = System.Drawing.Color.White;
-            this.guna2HtmlLabel3.Location = new System.Drawing.Point(53, 9);
+            this.guna2HtmlLabel3.Location = new System.Drawing.Point(93, 8);
             this.guna2HtmlLabel3.Name = "guna2HtmlLabel3";
             this.guna2HtmlLabel3.Size = new System.Drawing.Size(27, 17);
             this.guna2HtmlLabel3.TabIndex = 40;
@@ -1272,11 +559,11 @@
             // 
             this.guna2HtmlLabel2.BackColor = System.Drawing.Color.Transparent;
             this.guna2HtmlLabel2.ForeColor = System.Drawing.Color.White;
-            this.guna2HtmlLabel2.Location = new System.Drawing.Point(19, 11);
+            this.guna2HtmlLabel2.Location = new System.Drawing.Point(19, 5);
             this.guna2HtmlLabel2.Name = "guna2HtmlLabel2";
-            this.guna2HtmlLabel2.Size = new System.Drawing.Size(28, 15);
+            this.guna2HtmlLabel2.Size = new System.Drawing.Size(48, 15);
             this.guna2HtmlLabel2.TabIndex = 39;
-            this.guna2HtmlLabel2.Text = "SIGA";
+            this.guna2HtmlLabel2.Text = "SIGA Lite";
             // 
             // guna2ControlBox3
             // 
@@ -1284,7 +571,7 @@
             this.guna2ControlBox3.ControlBoxType = Guna.UI2.WinForms.Enums.ControlBoxType.MinimizeBox;
             this.guna2ControlBox3.FillColor = System.Drawing.Color.Transparent;
             this.guna2ControlBox3.IconColor = System.Drawing.Color.White;
-            this.guna2ControlBox3.Location = new System.Drawing.Point(1235, 3);
+            this.guna2ControlBox3.Location = new System.Drawing.Point(1298, 3);
             this.guna2ControlBox3.Name = "guna2ControlBox3";
             this.guna2ControlBox3.Size = new System.Drawing.Size(45, 29);
             this.guna2ControlBox3.TabIndex = 2;
@@ -1295,7 +582,7 @@
             this.guna2ControlBox2.ControlBoxType = Guna.UI2.WinForms.Enums.ControlBoxType.MaximizeBox;
             this.guna2ControlBox2.FillColor = System.Drawing.Color.Transparent;
             this.guna2ControlBox2.IconColor = System.Drawing.Color.White;
-            this.guna2ControlBox2.Location = new System.Drawing.Point(1280, 3);
+            this.guna2ControlBox2.Location = new System.Drawing.Point(1343, 3);
             this.guna2ControlBox2.Name = "guna2ControlBox2";
             this.guna2ControlBox2.Size = new System.Drawing.Size(45, 29);
             this.guna2ControlBox2.TabIndex = 1;
@@ -1306,7 +593,7 @@
             this.guna2ControlBox1.BackColor = System.Drawing.Color.Red;
             this.guna2ControlBox1.FillColor = System.Drawing.Color.Transparent;
             this.guna2ControlBox1.IconColor = System.Drawing.Color.White;
-            this.guna2ControlBox1.Location = new System.Drawing.Point(1325, 3);
+            this.guna2ControlBox1.Location = new System.Drawing.Point(1388, 3);
             this.guna2ControlBox1.Name = "guna2ControlBox1";
             this.guna2ControlBox1.PressedColor = System.Drawing.Color.White;
             this.guna2ControlBox1.Size = new System.Drawing.Size(45, 29);
@@ -1356,17 +643,6 @@
             this.guna2Separator1.Size = new System.Drawing.Size(223, 19);
             this.guna2Separator1.TabIndex = 45;
             // 
-            // guna2PictureBox1
-            // 
-            this.guna2PictureBox1.Image = global::PV.Properties.Resources.usuario_de_perfil1;
-            this.guna2PictureBox1.ImageRotate = 0F;
-            this.guna2PictureBox1.Location = new System.Drawing.Point(84, 3);
-            this.guna2PictureBox1.Name = "guna2PictureBox1";
-            this.guna2PictureBox1.Size = new System.Drawing.Size(80, 80);
-            this.guna2PictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.guna2PictureBox1.TabIndex = 44;
-            this.guna2PictureBox1.TabStop = false;
-            // 
             // guna2Panel2
             // 
             this.guna2Panel2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -1374,7 +650,6 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.guna2Panel2.BackColor = System.Drawing.Color.Transparent;
             this.guna2Panel2.BorderRadius = 20;
-            this.guna2Panel2.Controls.Add(this.guna2VScrollBar1);
             this.guna2Panel2.Controls.Add(this.pnReportesEgresos);
             this.guna2Panel2.Controls.Add(this.GrupoCompras);
             this.guna2Panel2.Controls.Add(this.GrupoTesoreria);
@@ -1403,408 +678,9 @@
             this.guna2Panel2.FillColor = System.Drawing.Color.White;
             this.guna2Panel2.Location = new System.Drawing.Point(227, 56);
             this.guna2Panel2.Name = "guna2Panel2";
-            this.guna2Panel2.Size = new System.Drawing.Size(1249, 719);
+            this.guna2Panel2.Size = new System.Drawing.Size(1195, 748);
             this.guna2Panel2.TabIndex = 40;
             this.guna2Panel2.Paint += new System.Windows.Forms.PaintEventHandler(this.guna2Panel2_Paint);
-            // 
-            // guna2VScrollBar1
-            // 
-            this.guna2VScrollBar1.BindingContainer = this.guna2Panel5;
-            this.guna2VScrollBar1.InUpdate = false;
-            this.guna2VScrollBar1.LargeChange = 10;
-            this.guna2VScrollBar1.Location = new System.Drawing.Point(193, 147);
-            this.guna2VScrollBar1.Name = "guna2VScrollBar1";
-            this.guna2VScrollBar1.ScrollbarSize = 34;
-            this.guna2VScrollBar1.Size = new System.Drawing.Size(34, 455);
-            this.guna2VScrollBar1.TabIndex = 59;
-            // 
-            // guna2Panel5
-            // 
-            this.guna2Panel5.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left)));
-            this.guna2Panel5.AutoScroll = true;
-            this.guna2Panel5.BackColor = System.Drawing.Color.Transparent;
-            this.guna2Panel5.Controls.Add(this.btnUtilerias2);
-            this.guna2Panel5.Controls.Add(this.BtnParametros2);
-            this.guna2Panel5.Controls.Add(this.btncatalogos2);
-            this.guna2Panel5.Controls.Add(this.btnUtilerias1);
-            this.guna2Panel5.Controls.Add(this.btncatalogos1);
-            this.guna2Panel5.Controls.Add(this.BtnParametros1);
-            this.guna2Panel5.Controls.Add(this.btnPresupuesto2);
-            this.guna2Panel5.Controls.Add(this.btnInventario);
-            this.guna2Panel5.Controls.Add(this.btnPresupuesto1);
-            this.guna2Panel5.Controls.Add(this.BtnInventario1);
-            this.guna2Panel5.Controls.Add(this.btnTesoreria2);
-            this.guna2Panel5.Controls.Add(this.btnCompras1);
-            this.guna2Panel5.Controls.Add(this.btnCompras2);
-            this.guna2Panel5.Controls.Add(this.btnTesoreria1);
-            this.guna2Panel5.Controls.Add(this.btnventas1);
-            this.guna2Panel5.Controls.Add(this.btnventas2);
-            this.guna2Panel5.Location = new System.Drawing.Point(0, 242);
-            this.guna2Panel5.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.guna2Panel5.Name = "guna2Panel5";
-            this.guna2Panel5.Size = new System.Drawing.Size(227, 455);
-            this.guna2Panel5.TabIndex = 40;
-            this.guna2Panel5.Paint += new System.Windows.Forms.PaintEventHandler(this.guna2Panel5_Paint);
-            // 
-            // btnUtilerias2
-            // 
-            this.btnUtilerias2.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.btnUtilerias2.BorderColor = System.Drawing.Color.White;
-            this.btnUtilerias2.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
-            this.btnUtilerias2.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
-            this.btnUtilerias2.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.btnUtilerias2.DisabledState.FillColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.btnUtilerias2.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.btnUtilerias2.FillColor = System.Drawing.Color.DodgerBlue;
-            this.btnUtilerias2.FillColor2 = System.Drawing.Color.DodgerBlue;
-            this.btnUtilerias2.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.btnUtilerias2.ForeColor = System.Drawing.Color.White;
-            this.btnUtilerias2.Image = global::PV.Properties.Resources.Flecha_abajo_blanco;
-            this.btnUtilerias2.ImageAlign = System.Windows.Forms.HorizontalAlignment.Left;
-            this.btnUtilerias2.Location = new System.Drawing.Point(165, 334);
-            this.btnUtilerias2.Name = "btnUtilerias2";
-            this.btnUtilerias2.Size = new System.Drawing.Size(40, 45);
-            this.btnUtilerias2.TabIndex = 58;
-            this.btnUtilerias2.Visible = false;
-            this.btnUtilerias2.Click += new System.EventHandler(this.btnUtilerias2_Click);
-            // 
-            // BtnParametros2
-            // 
-            this.BtnParametros2.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.BtnParametros2.BorderColor = System.Drawing.Color.White;
-            this.BtnParametros2.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
-            this.BtnParametros2.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
-            this.BtnParametros2.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.BtnParametros2.DisabledState.FillColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.BtnParametros2.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.BtnParametros2.FillColor = System.Drawing.Color.DodgerBlue;
-            this.BtnParametros2.FillColor2 = System.Drawing.Color.DodgerBlue;
-            this.BtnParametros2.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.BtnParametros2.ForeColor = System.Drawing.Color.White;
-            this.BtnParametros2.Image = global::PV.Properties.Resources.Flecha_abajo_blanco;
-            this.BtnParametros2.ImageAlign = System.Windows.Forms.HorizontalAlignment.Left;
-            this.BtnParametros2.Location = new System.Drawing.Point(165, 4);
-            this.BtnParametros2.Name = "BtnParametros2";
-            this.BtnParametros2.Size = new System.Drawing.Size(40, 45);
-            this.BtnParametros2.TabIndex = 46;
-            this.BtnParametros2.Click += new System.EventHandler(this.guna2GradientButton4_Click_1);
-            // 
-            // btncatalogos2
-            // 
-            this.btncatalogos2.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.btncatalogos2.BorderColor = System.Drawing.Color.White;
-            this.btncatalogos2.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
-            this.btncatalogos2.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
-            this.btncatalogos2.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.btncatalogos2.DisabledState.FillColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.btncatalogos2.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.btncatalogos2.FillColor = System.Drawing.Color.DodgerBlue;
-            this.btncatalogos2.FillColor2 = System.Drawing.Color.DodgerBlue;
-            this.btncatalogos2.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.btncatalogos2.ForeColor = System.Drawing.Color.White;
-            this.btncatalogos2.Image = global::PV.Properties.Resources.Flecha_abajo_blanco;
-            this.btncatalogos2.ImageAlign = System.Windows.Forms.HorizontalAlignment.Left;
-            this.btncatalogos2.Location = new System.Drawing.Point(165, 59);
-            this.btncatalogos2.Name = "btncatalogos2";
-            this.btncatalogos2.Size = new System.Drawing.Size(40, 45);
-            this.btncatalogos2.TabIndex = 45;
-            this.btncatalogos2.Click += new System.EventHandler(this.guna2GradientButton6_Click);
-            // 
-            // btnUtilerias1
-            // 
-            this.btnUtilerias1.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.btnUtilerias1.BorderColor = System.Drawing.Color.White;
-            this.btnUtilerias1.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
-            this.btnUtilerias1.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
-            this.btnUtilerias1.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.btnUtilerias1.DisabledState.FillColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.btnUtilerias1.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.btnUtilerias1.FillColor = System.Drawing.Color.DodgerBlue;
-            this.btnUtilerias1.FillColor2 = System.Drawing.Color.DodgerBlue;
-            this.btnUtilerias1.Font = new System.Drawing.Font("Segoe UI Black", 10F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))));
-            this.btnUtilerias1.ForeColor = System.Drawing.Color.White;
-            this.btnUtilerias1.Image = global::PV.Properties.Resources.renovacion;
-            this.btnUtilerias1.ImageAlign = System.Windows.Forms.HorizontalAlignment.Left;
-            this.btnUtilerias1.ImageSize = new System.Drawing.Size(24, 24);
-            this.btnUtilerias1.Location = new System.Drawing.Point(9, 334);
-            this.btnUtilerias1.Name = "btnUtilerias1";
-            this.btnUtilerias1.Size = new System.Drawing.Size(155, 45);
-            this.btnUtilerias1.TabIndex = 57;
-            this.btnUtilerias1.Text = "UTILERIAS";
-            this.btnUtilerias1.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
-            this.btnUtilerias1.Visible = false;
-            // 
-            // btncatalogos1
-            // 
-            this.btncatalogos1.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.btncatalogos1.BorderColor = System.Drawing.Color.White;
-            this.btncatalogos1.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
-            this.btncatalogos1.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
-            this.btncatalogos1.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.btncatalogos1.DisabledState.FillColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.btncatalogos1.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.btncatalogos1.FillColor = System.Drawing.Color.DodgerBlue;
-            this.btncatalogos1.FillColor2 = System.Drawing.Color.DodgerBlue;
-            this.btncatalogos1.Font = new System.Drawing.Font("Segoe UI Black", 10F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))));
-            this.btncatalogos1.ForeColor = System.Drawing.Color.White;
-            this.btncatalogos1.Image = global::PV.Properties.Resources.folder;
-            this.btncatalogos1.ImageAlign = System.Windows.Forms.HorizontalAlignment.Left;
-            this.btncatalogos1.ImageSize = new System.Drawing.Size(24, 24);
-            this.btncatalogos1.Location = new System.Drawing.Point(9, 59);
-            this.btncatalogos1.Name = "btncatalogos1";
-            this.btncatalogos1.Size = new System.Drawing.Size(155, 45);
-            this.btncatalogos1.TabIndex = 4;
-            this.btncatalogos1.Text = "CATALOGOS";
-            this.btncatalogos1.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
-            // 
-            // BtnParametros1
-            // 
-            this.BtnParametros1.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.BtnParametros1.BorderColor = System.Drawing.Color.White;
-            this.BtnParametros1.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
-            this.BtnParametros1.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
-            this.BtnParametros1.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.BtnParametros1.DisabledState.FillColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.BtnParametros1.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.BtnParametros1.FillColor = System.Drawing.Color.DodgerBlue;
-            this.BtnParametros1.FillColor2 = System.Drawing.Color.DodgerBlue;
-            this.BtnParametros1.Font = new System.Drawing.Font("Segoe UI Black", 10F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))));
-            this.BtnParametros1.ForeColor = System.Drawing.Color.White;
-            this.BtnParametros1.Image = global::PV.Properties.Resources.filtrar;
-            this.BtnParametros1.ImageAlign = System.Windows.Forms.HorizontalAlignment.Left;
-            this.BtnParametros1.ImageSize = new System.Drawing.Size(24, 24);
-            this.BtnParametros1.Location = new System.Drawing.Point(9, 4);
-            this.BtnParametros1.Name = "BtnParametros1";
-            this.BtnParametros1.Size = new System.Drawing.Size(155, 45);
-            this.BtnParametros1.TabIndex = 0;
-            this.BtnParametros1.Text = "PARAMETROS";
-            this.BtnParametros1.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
-            // 
-            // btnPresupuesto2
-            // 
-            this.btnPresupuesto2.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.btnPresupuesto2.BorderColor = System.Drawing.Color.White;
-            this.btnPresupuesto2.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
-            this.btnPresupuesto2.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
-            this.btnPresupuesto2.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.btnPresupuesto2.DisabledState.FillColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.btnPresupuesto2.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.btnPresupuesto2.FillColor = System.Drawing.Color.DodgerBlue;
-            this.btnPresupuesto2.FillColor2 = System.Drawing.Color.DodgerBlue;
-            this.btnPresupuesto2.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.btnPresupuesto2.ForeColor = System.Drawing.Color.White;
-            this.btnPresupuesto2.Image = global::PV.Properties.Resources.Flecha_abajo_blanco;
-            this.btnPresupuesto2.ImageAlign = System.Windows.Forms.HorizontalAlignment.Left;
-            this.btnPresupuesto2.Location = new System.Drawing.Point(165, 387);
-            this.btnPresupuesto2.Name = "btnPresupuesto2";
-            this.btnPresupuesto2.Size = new System.Drawing.Size(40, 45);
-            this.btnPresupuesto2.TabIndex = 56;
-            this.btnPresupuesto2.Visible = false;
-            this.btnPresupuesto2.Click += new System.EventHandler(this.btnPresupuesto2_Click);
-            // 
-            // btnInventario
-            // 
-            this.btnInventario.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.btnInventario.BorderColor = System.Drawing.Color.White;
-            this.btnInventario.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
-            this.btnInventario.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
-            this.btnInventario.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.btnInventario.DisabledState.FillColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.btnInventario.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.btnInventario.FillColor = System.Drawing.Color.DodgerBlue;
-            this.btnInventario.FillColor2 = System.Drawing.Color.DodgerBlue;
-            this.btnInventario.Font = new System.Drawing.Font("Segoe UI Black", 10F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))));
-            this.btnInventario.ForeColor = System.Drawing.Color.White;
-            this.btnInventario.Image = global::PV.Properties.Resources.lista_de_verificacion;
-            this.btnInventario.ImageAlign = System.Windows.Forms.HorizontalAlignment.Left;
-            this.btnInventario.ImageSize = new System.Drawing.Size(24, 24);
-            this.btnInventario.Location = new System.Drawing.Point(9, 114);
-            this.btnInventario.Name = "btnInventario";
-            this.btnInventario.Size = new System.Drawing.Size(155, 45);
-            this.btnInventario.TabIndex = 47;
-            this.btnInventario.Text = "INVENTARIOS";
-            this.btnInventario.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
-            // 
-            // btnPresupuesto1
-            // 
-            this.btnPresupuesto1.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.btnPresupuesto1.BorderColor = System.Drawing.Color.White;
-            this.btnPresupuesto1.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
-            this.btnPresupuesto1.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
-            this.btnPresupuesto1.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.btnPresupuesto1.DisabledState.FillColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.btnPresupuesto1.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.btnPresupuesto1.FillColor = System.Drawing.Color.DodgerBlue;
-            this.btnPresupuesto1.FillColor2 = System.Drawing.Color.DodgerBlue;
-            this.btnPresupuesto1.Font = new System.Drawing.Font("Segoe UI Black", 10F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))));
-            this.btnPresupuesto1.ForeColor = System.Drawing.Color.White;
-            this.btnPresupuesto1.Image = global::PV.Properties.Resources.presupuesto;
-            this.btnPresupuesto1.ImageAlign = System.Windows.Forms.HorizontalAlignment.Left;
-            this.btnPresupuesto1.ImageSize = new System.Drawing.Size(24, 24);
-            this.btnPresupuesto1.Location = new System.Drawing.Point(9, 387);
-            this.btnPresupuesto1.Name = "btnPresupuesto1";
-            this.btnPresupuesto1.Size = new System.Drawing.Size(155, 45);
-            this.btnPresupuesto1.TabIndex = 55;
-            this.btnPresupuesto1.Text = "PRESUPUESTO";
-            this.btnPresupuesto1.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
-            this.btnPresupuesto1.Visible = false;
-            // 
-            // BtnInventario1
-            // 
-            this.BtnInventario1.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.BtnInventario1.BorderColor = System.Drawing.Color.White;
-            this.BtnInventario1.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
-            this.BtnInventario1.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
-            this.BtnInventario1.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.BtnInventario1.DisabledState.FillColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.BtnInventario1.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.BtnInventario1.FillColor = System.Drawing.Color.DodgerBlue;
-            this.BtnInventario1.FillColor2 = System.Drawing.Color.DodgerBlue;
-            this.BtnInventario1.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.BtnInventario1.ForeColor = System.Drawing.Color.White;
-            this.BtnInventario1.Image = global::PV.Properties.Resources.Flecha_abajo_blanco;
-            this.BtnInventario1.ImageAlign = System.Windows.Forms.HorizontalAlignment.Left;
-            this.BtnInventario1.Location = new System.Drawing.Point(165, 114);
-            this.BtnInventario1.Name = "BtnInventario1";
-            this.BtnInventario1.Size = new System.Drawing.Size(40, 45);
-            this.BtnInventario1.TabIndex = 48;
-            this.BtnInventario1.Click += new System.EventHandler(this.guna2GradientButton21_Click);
-            // 
-            // btnTesoreria2
-            // 
-            this.btnTesoreria2.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.btnTesoreria2.BorderColor = System.Drawing.Color.White;
-            this.btnTesoreria2.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
-            this.btnTesoreria2.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
-            this.btnTesoreria2.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.btnTesoreria2.DisabledState.FillColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.btnTesoreria2.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.btnTesoreria2.FillColor = System.Drawing.Color.DodgerBlue;
-            this.btnTesoreria2.FillColor2 = System.Drawing.Color.DodgerBlue;
-            this.btnTesoreria2.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.btnTesoreria2.ForeColor = System.Drawing.Color.White;
-            this.btnTesoreria2.Image = global::PV.Properties.Resources.Flecha_abajo_blanco;
-            this.btnTesoreria2.ImageAlign = System.Windows.Forms.HorizontalAlignment.Left;
-            this.btnTesoreria2.Location = new System.Drawing.Point(165, 279);
-            this.btnTesoreria2.Name = "btnTesoreria2";
-            this.btnTesoreria2.Size = new System.Drawing.Size(40, 45);
-            this.btnTesoreria2.TabIndex = 54;
-            this.btnTesoreria2.Visible = false;
-            this.btnTesoreria2.Click += new System.EventHandler(this.btnTesoreria2_Click);
-            // 
-            // btnCompras1
-            // 
-            this.btnCompras1.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.btnCompras1.BorderColor = System.Drawing.Color.White;
-            this.btnCompras1.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
-            this.btnCompras1.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
-            this.btnCompras1.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.btnCompras1.DisabledState.FillColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.btnCompras1.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.btnCompras1.FillColor = System.Drawing.Color.DodgerBlue;
-            this.btnCompras1.FillColor2 = System.Drawing.Color.DodgerBlue;
-            this.btnCompras1.Font = new System.Drawing.Font("Segoe UI Black", 10F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))));
-            this.btnCompras1.ForeColor = System.Drawing.Color.White;
-            this.btnCompras1.Image = global::PV.Properties.Resources.carrito_de_compras;
-            this.btnCompras1.ImageAlign = System.Windows.Forms.HorizontalAlignment.Left;
-            this.btnCompras1.ImageSize = new System.Drawing.Size(24, 24);
-            this.btnCompras1.Location = new System.Drawing.Point(9, 169);
-            this.btnCompras1.Name = "btnCompras1";
-            this.btnCompras1.Size = new System.Drawing.Size(155, 45);
-            this.btnCompras1.TabIndex = 49;
-            this.btnCompras1.Text = "COMPRAS";
-            this.btnCompras1.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
-            this.btnCompras1.Click += new System.EventHandler(this.btnCompras1_Click);
-            // 
-            // btnCompras2
-            // 
-            this.btnCompras2.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.btnCompras2.BorderColor = System.Drawing.Color.White;
-            this.btnCompras2.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
-            this.btnCompras2.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
-            this.btnCompras2.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.btnCompras2.DisabledState.FillColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.btnCompras2.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.btnCompras2.FillColor = System.Drawing.Color.DodgerBlue;
-            this.btnCompras2.FillColor2 = System.Drawing.Color.DodgerBlue;
-            this.btnCompras2.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.btnCompras2.ForeColor = System.Drawing.Color.White;
-            this.btnCompras2.Image = global::PV.Properties.Resources.Flecha_abajo_blanco;
-            this.btnCompras2.ImageAlign = System.Windows.Forms.HorizontalAlignment.Left;
-            this.btnCompras2.Location = new System.Drawing.Point(165, 169);
-            this.btnCompras2.Name = "btnCompras2";
-            this.btnCompras2.Size = new System.Drawing.Size(40, 45);
-            this.btnCompras2.TabIndex = 50;
-            this.btnCompras2.Click += new System.EventHandler(this.btnCompras2_Click);
-            // 
-            // btnTesoreria1
-            // 
-            this.btnTesoreria1.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.btnTesoreria1.BorderColor = System.Drawing.Color.White;
-            this.btnTesoreria1.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
-            this.btnTesoreria1.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
-            this.btnTesoreria1.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.btnTesoreria1.DisabledState.FillColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.btnTesoreria1.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.btnTesoreria1.FillColor = System.Drawing.Color.DodgerBlue;
-            this.btnTesoreria1.FillColor2 = System.Drawing.Color.DodgerBlue;
-            this.btnTesoreria1.Font = new System.Drawing.Font("Segoe UI Black", 10F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))));
-            this.btnTesoreria1.ForeColor = System.Drawing.Color.White;
-            this.btnTesoreria1.Image = global::PV.Properties.Resources.banco;
-            this.btnTesoreria1.ImageAlign = System.Windows.Forms.HorizontalAlignment.Left;
-            this.btnTesoreria1.ImageSize = new System.Drawing.Size(24, 24);
-            this.btnTesoreria1.Location = new System.Drawing.Point(9, 279);
-            this.btnTesoreria1.Name = "btnTesoreria1";
-            this.btnTesoreria1.Size = new System.Drawing.Size(155, 45);
-            this.btnTesoreria1.TabIndex = 53;
-            this.btnTesoreria1.Text = "TESORERIA";
-            this.btnTesoreria1.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
-            this.btnTesoreria1.Visible = false;
-            // 
-            // btnventas1
-            // 
-            this.btnventas1.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.btnventas1.BorderColor = System.Drawing.Color.White;
-            this.btnventas1.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
-            this.btnventas1.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
-            this.btnventas1.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.btnventas1.DisabledState.FillColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.btnventas1.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.btnventas1.FillColor = System.Drawing.Color.DodgerBlue;
-            this.btnventas1.FillColor2 = System.Drawing.Color.DodgerBlue;
-            this.btnventas1.Font = new System.Drawing.Font("Segoe UI Black", 10F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))));
-            this.btnventas1.ForeColor = System.Drawing.Color.White;
-            this.btnventas1.Image = global::PV.Properties.Resources.grafico_de_barras;
-            this.btnventas1.ImageAlign = System.Windows.Forms.HorizontalAlignment.Left;
-            this.btnventas1.ImageSize = new System.Drawing.Size(24, 24);
-            this.btnventas1.Location = new System.Drawing.Point(9, 224);
-            this.btnventas1.Name = "btnventas1";
-            this.btnventas1.Size = new System.Drawing.Size(155, 45);
-            this.btnventas1.TabIndex = 51;
-            this.btnventas1.Text = "VENTAS";
-            this.btnventas1.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
-            // 
-            // btnventas2
-            // 
-            this.btnventas2.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.btnventas2.BorderColor = System.Drawing.Color.White;
-            this.btnventas2.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
-            this.btnventas2.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
-            this.btnventas2.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.btnventas2.DisabledState.FillColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.btnventas2.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.btnventas2.FillColor = System.Drawing.Color.DodgerBlue;
-            this.btnventas2.FillColor2 = System.Drawing.Color.DodgerBlue;
-            this.btnventas2.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.btnventas2.ForeColor = System.Drawing.Color.White;
-            this.btnventas2.Image = global::PV.Properties.Resources.Flecha_abajo_blanco;
-            this.btnventas2.ImageAlign = System.Windows.Forms.HorizontalAlignment.Left;
-            this.btnventas2.Location = new System.Drawing.Point(165, 224);
-            this.btnventas2.Name = "btnventas2";
-            this.btnventas2.Size = new System.Drawing.Size(40, 45);
-            this.btnventas2.TabIndex = 52;
-            this.btnventas2.Click += new System.EventHandler(this.btnventas2_Click);
             // 
             // pnReportesEgresos
             // 
@@ -3692,7 +2568,7 @@
             this.btnRegistrarTrasnpasos.Name = "btnRegistrarTrasnpasos";
             this.btnRegistrarTrasnpasos.Size = new System.Drawing.Size(180, 45);
             this.btnRegistrarTrasnpasos.TabIndex = 6;
-            this.btnRegistrarTrasnpasos.Text = "Registrar Trasnpasos";
+            this.btnRegistrarTrasnpasos.Text = "Registrar Traspasos";
             this.btnRegistrarTrasnpasos.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
             this.btnRegistrarTrasnpasos.Click += new System.EventHandler(this.btnRegistrarTrasnpasos_Click);
             // 
@@ -3893,6 +2769,456 @@
             this.GruopParametros.TabIndex = 46;
             this.GruopParametros.Visible = false;
             // 
+            // GroupCatalogo
+            // 
+            this.GroupCatalogo.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.GroupCatalogo.BorderColor = System.Drawing.Color.White;
+            this.GroupCatalogo.BorderThickness = 0;
+            this.GroupCatalogo.Controls.Add(this.BtnCuentasBancarias);
+            this.GroupCatalogo.Controls.Add(this.btnDivisas);
+            this.GroupCatalogo.Controls.Add(this.btnAlmacen);
+            this.GroupCatalogo.Controls.Add(this.BtnProveedores);
+            this.GroupCatalogo.Controls.Add(this.BtnCategorias);
+            this.GroupCatalogo.Controls.Add(this.BtnProductos);
+            this.GroupCatalogo.Controls.Add(this.BtnClientes);
+            this.GroupCatalogo.Controls.Add(this.BtnServicios);
+            this.GroupCatalogo.Controls.Add(this.BtnCentroCosto);
+            this.GroupCatalogo.Controls.Add(this.BtnTiposZonas);
+            this.GroupCatalogo.Controls.Add(this.BtnDocumentos);
+            this.GroupCatalogo.Controls.Add(this.BtnConceptosGlobales);
+            this.GroupCatalogo.Controls.Add(this.BtnEmpleados);
+            this.GroupCatalogo.Controls.Add(this.BtnFormaPago);
+            this.GroupCatalogo.CustomBorderColor = System.Drawing.Color.Transparent;
+            this.GroupCatalogo.FillColor = System.Drawing.Color.DodgerBlue;
+            this.GroupCatalogo.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.GroupCatalogo.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(19)))), ((int)(((byte)(35)))), ((int)(((byte)(95)))));
+            this.GroupCatalogo.Location = new System.Drawing.Point(6, 78);
+            this.GroupCatalogo.Name = "GroupCatalogo";
+            this.GroupCatalogo.Size = new System.Drawing.Size(195, 671);
+            this.GroupCatalogo.TabIndex = 60;
+            this.GroupCatalogo.Visible = false;
+            this.GroupCatalogo.Click += new System.EventHandler(this.GroupCatalogo_Click);
+            // 
+            // guna2VScrollBar1
+            // 
+            this.guna2VScrollBar1.BindingContainer = this.guna2Panel5;
+            this.guna2VScrollBar1.InUpdate = false;
+            this.guna2VScrollBar1.LargeChange = 10;
+            this.guna2VScrollBar1.Location = new System.Drawing.Point(209, 242);
+            this.guna2VScrollBar1.Name = "guna2VScrollBar1";
+            this.guna2VScrollBar1.ScrollbarSize = 18;
+            this.guna2VScrollBar1.Size = new System.Drawing.Size(18, 529);
+            this.guna2VScrollBar1.TabIndex = 59;
+            // 
+            // guna2Panel5
+            // 
+            this.guna2Panel5.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
+            this.guna2Panel5.AutoScroll = true;
+            this.guna2Panel5.BackColor = System.Drawing.Color.Transparent;
+            this.guna2Panel5.Controls.Add(this.btnUtilerias2);
+            this.guna2Panel5.Controls.Add(this.BtnParametros2);
+            this.guna2Panel5.Controls.Add(this.btncatalogos2);
+            this.guna2Panel5.Controls.Add(this.btnUtilerias1);
+            this.guna2Panel5.Controls.Add(this.btncatalogos1);
+            this.guna2Panel5.Controls.Add(this.BtnParametros1);
+            this.guna2Panel5.Controls.Add(this.btnPresupuesto2);
+            this.guna2Panel5.Controls.Add(this.btnInventario);
+            this.guna2Panel5.Controls.Add(this.btnPresupuesto1);
+            this.guna2Panel5.Controls.Add(this.BtnInventario1);
+            this.guna2Panel5.Controls.Add(this.btnTesoreria2);
+            this.guna2Panel5.Controls.Add(this.btnCompras1);
+            this.guna2Panel5.Controls.Add(this.btnCompras2);
+            this.guna2Panel5.Controls.Add(this.btnTesoreria1);
+            this.guna2Panel5.Controls.Add(this.btnventas1);
+            this.guna2Panel5.Controls.Add(this.btnventas2);
+            this.guna2Panel5.Location = new System.Drawing.Point(0, 242);
+            this.guna2Panel5.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.guna2Panel5.Name = "guna2Panel5";
+            this.guna2Panel5.Size = new System.Drawing.Size(227, 529);
+            this.guna2Panel5.TabIndex = 40;
+            this.guna2Panel5.Paint += new System.Windows.Forms.PaintEventHandler(this.guna2Panel5_Paint);
+            // 
+            // guna2HtmlLabel1
+            // 
+            this.guna2HtmlLabel1.BackColor = System.Drawing.Color.Transparent;
+            this.guna2HtmlLabel1.Font = new System.Drawing.Font("Segoe UI Black", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.guna2HtmlLabel1.Location = new System.Drawing.Point(17, 61);
+            this.guna2HtmlLabel1.Name = "guna2HtmlLabel1";
+            this.guna2HtmlLabel1.Size = new System.Drawing.Size(407, 34);
+            this.guna2HtmlLabel1.TabIndex = 4;
+            this.guna2HtmlLabel1.Text = "Sistema de Gestión Administrativa";
+            // 
+            // btnUtilerias2
+            // 
+            this.btnUtilerias2.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.btnUtilerias2.BorderColor = System.Drawing.Color.White;
+            this.btnUtilerias2.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.btnUtilerias2.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.btnUtilerias2.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.btnUtilerias2.DisabledState.FillColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.btnUtilerias2.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.btnUtilerias2.FillColor = System.Drawing.Color.DodgerBlue;
+            this.btnUtilerias2.FillColor2 = System.Drawing.Color.DodgerBlue;
+            this.btnUtilerias2.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.btnUtilerias2.ForeColor = System.Drawing.Color.White;
+            this.btnUtilerias2.Image = global::PV.Properties.Resources.Flecha_abajo_blanco;
+            this.btnUtilerias2.ImageAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.btnUtilerias2.Location = new System.Drawing.Point(165, 334);
+            this.btnUtilerias2.Name = "btnUtilerias2";
+            this.btnUtilerias2.Size = new System.Drawing.Size(40, 45);
+            this.btnUtilerias2.TabIndex = 58;
+            this.btnUtilerias2.Visible = false;
+            this.btnUtilerias2.Click += new System.EventHandler(this.btnUtilerias2_Click);
+            // 
+            // BtnParametros2
+            // 
+            this.BtnParametros2.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.BtnParametros2.BorderColor = System.Drawing.Color.White;
+            this.BtnParametros2.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.BtnParametros2.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.BtnParametros2.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.BtnParametros2.DisabledState.FillColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.BtnParametros2.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.BtnParametros2.FillColor = System.Drawing.Color.DodgerBlue;
+            this.BtnParametros2.FillColor2 = System.Drawing.Color.DodgerBlue;
+            this.BtnParametros2.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.BtnParametros2.ForeColor = System.Drawing.Color.White;
+            this.BtnParametros2.Image = global::PV.Properties.Resources.Flecha_abajo_blanco;
+            this.BtnParametros2.ImageAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.BtnParametros2.Location = new System.Drawing.Point(165, 4);
+            this.BtnParametros2.Name = "BtnParametros2";
+            this.BtnParametros2.Size = new System.Drawing.Size(40, 45);
+            this.BtnParametros2.TabIndex = 46;
+            this.BtnParametros2.Click += new System.EventHandler(this.guna2GradientButton4_Click_1);
+            // 
+            // btncatalogos2
+            // 
+            this.btncatalogos2.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.btncatalogos2.BorderColor = System.Drawing.Color.White;
+            this.btncatalogos2.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.btncatalogos2.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.btncatalogos2.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.btncatalogos2.DisabledState.FillColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.btncatalogos2.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.btncatalogos2.FillColor = System.Drawing.Color.DodgerBlue;
+            this.btncatalogos2.FillColor2 = System.Drawing.Color.DodgerBlue;
+            this.btncatalogos2.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.btncatalogos2.ForeColor = System.Drawing.Color.White;
+            this.btncatalogos2.Image = global::PV.Properties.Resources.Flecha_abajo_blanco;
+            this.btncatalogos2.ImageAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.btncatalogos2.Location = new System.Drawing.Point(165, 59);
+            this.btncatalogos2.Name = "btncatalogos2";
+            this.btncatalogos2.Size = new System.Drawing.Size(40, 45);
+            this.btncatalogos2.TabIndex = 45;
+            this.btncatalogos2.Click += new System.EventHandler(this.guna2GradientButton6_Click);
+            // 
+            // btnUtilerias1
+            // 
+            this.btnUtilerias1.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.btnUtilerias1.BorderColor = System.Drawing.Color.White;
+            this.btnUtilerias1.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.btnUtilerias1.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.btnUtilerias1.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.btnUtilerias1.DisabledState.FillColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.btnUtilerias1.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.btnUtilerias1.FillColor = System.Drawing.Color.DodgerBlue;
+            this.btnUtilerias1.FillColor2 = System.Drawing.Color.DodgerBlue;
+            this.btnUtilerias1.Font = new System.Drawing.Font("Segoe UI Black", 10F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))));
+            this.btnUtilerias1.ForeColor = System.Drawing.Color.White;
+            this.btnUtilerias1.Image = global::PV.Properties.Resources.renovacion;
+            this.btnUtilerias1.ImageAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.btnUtilerias1.ImageSize = new System.Drawing.Size(24, 24);
+            this.btnUtilerias1.Location = new System.Drawing.Point(9, 334);
+            this.btnUtilerias1.Name = "btnUtilerias1";
+            this.btnUtilerias1.Size = new System.Drawing.Size(155, 45);
+            this.btnUtilerias1.TabIndex = 57;
+            this.btnUtilerias1.Text = "UTILERIAS";
+            this.btnUtilerias1.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.btnUtilerias1.Visible = false;
+            // 
+            // btncatalogos1
+            // 
+            this.btncatalogos1.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.btncatalogos1.BorderColor = System.Drawing.Color.White;
+            this.btncatalogos1.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.btncatalogos1.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.btncatalogos1.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.btncatalogos1.DisabledState.FillColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.btncatalogos1.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.btncatalogos1.FillColor = System.Drawing.Color.DodgerBlue;
+            this.btncatalogos1.FillColor2 = System.Drawing.Color.DodgerBlue;
+            this.btncatalogos1.Font = new System.Drawing.Font("Segoe UI Black", 10F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))));
+            this.btncatalogos1.ForeColor = System.Drawing.Color.White;
+            this.btncatalogos1.Image = global::PV.Properties.Resources.folder;
+            this.btncatalogos1.ImageAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.btncatalogos1.ImageSize = new System.Drawing.Size(24, 24);
+            this.btncatalogos1.Location = new System.Drawing.Point(9, 59);
+            this.btncatalogos1.Name = "btncatalogos1";
+            this.btncatalogos1.Size = new System.Drawing.Size(155, 45);
+            this.btncatalogos1.TabIndex = 4;
+            this.btncatalogos1.Text = "CATALOGOS";
+            this.btncatalogos1.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            // 
+            // BtnParametros1
+            // 
+            this.BtnParametros1.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.BtnParametros1.BorderColor = System.Drawing.Color.White;
+            this.BtnParametros1.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.BtnParametros1.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.BtnParametros1.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.BtnParametros1.DisabledState.FillColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.BtnParametros1.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.BtnParametros1.FillColor = System.Drawing.Color.DodgerBlue;
+            this.BtnParametros1.FillColor2 = System.Drawing.Color.DodgerBlue;
+            this.BtnParametros1.Font = new System.Drawing.Font("Segoe UI Black", 10F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))));
+            this.BtnParametros1.ForeColor = System.Drawing.Color.White;
+            this.BtnParametros1.Image = global::PV.Properties.Resources.filtrar;
+            this.BtnParametros1.ImageAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.BtnParametros1.ImageSize = new System.Drawing.Size(24, 24);
+            this.BtnParametros1.Location = new System.Drawing.Point(9, 4);
+            this.BtnParametros1.Name = "BtnParametros1";
+            this.BtnParametros1.Size = new System.Drawing.Size(155, 45);
+            this.BtnParametros1.TabIndex = 0;
+            this.BtnParametros1.Text = "PARAMETROS";
+            this.BtnParametros1.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            // 
+            // btnPresupuesto2
+            // 
+            this.btnPresupuesto2.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.btnPresupuesto2.BorderColor = System.Drawing.Color.White;
+            this.btnPresupuesto2.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.btnPresupuesto2.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.btnPresupuesto2.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.btnPresupuesto2.DisabledState.FillColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.btnPresupuesto2.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.btnPresupuesto2.FillColor = System.Drawing.Color.DodgerBlue;
+            this.btnPresupuesto2.FillColor2 = System.Drawing.Color.DodgerBlue;
+            this.btnPresupuesto2.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.btnPresupuesto2.ForeColor = System.Drawing.Color.White;
+            this.btnPresupuesto2.Image = global::PV.Properties.Resources.Flecha_abajo_blanco;
+            this.btnPresupuesto2.ImageAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.btnPresupuesto2.Location = new System.Drawing.Point(165, 387);
+            this.btnPresupuesto2.Name = "btnPresupuesto2";
+            this.btnPresupuesto2.Size = new System.Drawing.Size(40, 45);
+            this.btnPresupuesto2.TabIndex = 56;
+            this.btnPresupuesto2.Visible = false;
+            this.btnPresupuesto2.Click += new System.EventHandler(this.btnPresupuesto2_Click);
+            // 
+            // btnInventario
+            // 
+            this.btnInventario.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.btnInventario.BorderColor = System.Drawing.Color.White;
+            this.btnInventario.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.btnInventario.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.btnInventario.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.btnInventario.DisabledState.FillColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.btnInventario.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.btnInventario.FillColor = System.Drawing.Color.DodgerBlue;
+            this.btnInventario.FillColor2 = System.Drawing.Color.DodgerBlue;
+            this.btnInventario.Font = new System.Drawing.Font("Segoe UI Black", 10F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))));
+            this.btnInventario.ForeColor = System.Drawing.Color.White;
+            this.btnInventario.Image = global::PV.Properties.Resources.lista_de_verificacion;
+            this.btnInventario.ImageAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.btnInventario.ImageSize = new System.Drawing.Size(24, 24);
+            this.btnInventario.Location = new System.Drawing.Point(9, 114);
+            this.btnInventario.Name = "btnInventario";
+            this.btnInventario.Size = new System.Drawing.Size(155, 45);
+            this.btnInventario.TabIndex = 47;
+            this.btnInventario.Text = "INVENTARIOS";
+            this.btnInventario.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            // 
+            // btnPresupuesto1
+            // 
+            this.btnPresupuesto1.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.btnPresupuesto1.BorderColor = System.Drawing.Color.White;
+            this.btnPresupuesto1.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.btnPresupuesto1.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.btnPresupuesto1.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.btnPresupuesto1.DisabledState.FillColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.btnPresupuesto1.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.btnPresupuesto1.FillColor = System.Drawing.Color.DodgerBlue;
+            this.btnPresupuesto1.FillColor2 = System.Drawing.Color.DodgerBlue;
+            this.btnPresupuesto1.Font = new System.Drawing.Font("Segoe UI Black", 10F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))));
+            this.btnPresupuesto1.ForeColor = System.Drawing.Color.White;
+            this.btnPresupuesto1.Image = global::PV.Properties.Resources.presupuesto;
+            this.btnPresupuesto1.ImageAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.btnPresupuesto1.ImageSize = new System.Drawing.Size(24, 24);
+            this.btnPresupuesto1.Location = new System.Drawing.Point(9, 387);
+            this.btnPresupuesto1.Name = "btnPresupuesto1";
+            this.btnPresupuesto1.Size = new System.Drawing.Size(155, 45);
+            this.btnPresupuesto1.TabIndex = 55;
+            this.btnPresupuesto1.Text = "PRESUPUESTO";
+            this.btnPresupuesto1.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.btnPresupuesto1.Visible = false;
+            // 
+            // BtnInventario1
+            // 
+            this.BtnInventario1.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.BtnInventario1.BorderColor = System.Drawing.Color.White;
+            this.BtnInventario1.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.BtnInventario1.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.BtnInventario1.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.BtnInventario1.DisabledState.FillColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.BtnInventario1.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.BtnInventario1.FillColor = System.Drawing.Color.DodgerBlue;
+            this.BtnInventario1.FillColor2 = System.Drawing.Color.DodgerBlue;
+            this.BtnInventario1.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.BtnInventario1.ForeColor = System.Drawing.Color.White;
+            this.BtnInventario1.Image = global::PV.Properties.Resources.Flecha_abajo_blanco;
+            this.BtnInventario1.ImageAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.BtnInventario1.Location = new System.Drawing.Point(165, 114);
+            this.BtnInventario1.Name = "BtnInventario1";
+            this.BtnInventario1.Size = new System.Drawing.Size(40, 45);
+            this.BtnInventario1.TabIndex = 48;
+            this.BtnInventario1.Click += new System.EventHandler(this.guna2GradientButton21_Click);
+            // 
+            // btnTesoreria2
+            // 
+            this.btnTesoreria2.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.btnTesoreria2.BorderColor = System.Drawing.Color.White;
+            this.btnTesoreria2.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.btnTesoreria2.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.btnTesoreria2.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.btnTesoreria2.DisabledState.FillColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.btnTesoreria2.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.btnTesoreria2.FillColor = System.Drawing.Color.DodgerBlue;
+            this.btnTesoreria2.FillColor2 = System.Drawing.Color.DodgerBlue;
+            this.btnTesoreria2.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.btnTesoreria2.ForeColor = System.Drawing.Color.White;
+            this.btnTesoreria2.Image = global::PV.Properties.Resources.Flecha_abajo_blanco;
+            this.btnTesoreria2.ImageAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.btnTesoreria2.Location = new System.Drawing.Point(165, 279);
+            this.btnTesoreria2.Name = "btnTesoreria2";
+            this.btnTesoreria2.Size = new System.Drawing.Size(40, 45);
+            this.btnTesoreria2.TabIndex = 54;
+            this.btnTesoreria2.Visible = false;
+            this.btnTesoreria2.Click += new System.EventHandler(this.btnTesoreria2_Click);
+            // 
+            // btnCompras1
+            // 
+            this.btnCompras1.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.btnCompras1.BorderColor = System.Drawing.Color.White;
+            this.btnCompras1.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.btnCompras1.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.btnCompras1.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.btnCompras1.DisabledState.FillColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.btnCompras1.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.btnCompras1.FillColor = System.Drawing.Color.DodgerBlue;
+            this.btnCompras1.FillColor2 = System.Drawing.Color.DodgerBlue;
+            this.btnCompras1.Font = new System.Drawing.Font("Segoe UI Black", 10F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))));
+            this.btnCompras1.ForeColor = System.Drawing.Color.White;
+            this.btnCompras1.Image = global::PV.Properties.Resources.carrito_de_compras;
+            this.btnCompras1.ImageAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.btnCompras1.ImageSize = new System.Drawing.Size(24, 24);
+            this.btnCompras1.Location = new System.Drawing.Point(9, 169);
+            this.btnCompras1.Name = "btnCompras1";
+            this.btnCompras1.Size = new System.Drawing.Size(155, 45);
+            this.btnCompras1.TabIndex = 49;
+            this.btnCompras1.Text = "COMPRAS";
+            this.btnCompras1.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.btnCompras1.Click += new System.EventHandler(this.btnCompras1_Click);
+            // 
+            // btnCompras2
+            // 
+            this.btnCompras2.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.btnCompras2.BorderColor = System.Drawing.Color.White;
+            this.btnCompras2.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.btnCompras2.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.btnCompras2.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.btnCompras2.DisabledState.FillColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.btnCompras2.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.btnCompras2.FillColor = System.Drawing.Color.DodgerBlue;
+            this.btnCompras2.FillColor2 = System.Drawing.Color.DodgerBlue;
+            this.btnCompras2.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.btnCompras2.ForeColor = System.Drawing.Color.White;
+            this.btnCompras2.Image = global::PV.Properties.Resources.Flecha_abajo_blanco;
+            this.btnCompras2.ImageAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.btnCompras2.Location = new System.Drawing.Point(165, 169);
+            this.btnCompras2.Name = "btnCompras2";
+            this.btnCompras2.Size = new System.Drawing.Size(40, 45);
+            this.btnCompras2.TabIndex = 50;
+            this.btnCompras2.Click += new System.EventHandler(this.btnCompras2_Click);
+            // 
+            // btnTesoreria1
+            // 
+            this.btnTesoreria1.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.btnTesoreria1.BorderColor = System.Drawing.Color.White;
+            this.btnTesoreria1.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.btnTesoreria1.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.btnTesoreria1.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.btnTesoreria1.DisabledState.FillColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.btnTesoreria1.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.btnTesoreria1.FillColor = System.Drawing.Color.DodgerBlue;
+            this.btnTesoreria1.FillColor2 = System.Drawing.Color.DodgerBlue;
+            this.btnTesoreria1.Font = new System.Drawing.Font("Segoe UI Black", 10F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))));
+            this.btnTesoreria1.ForeColor = System.Drawing.Color.White;
+            this.btnTesoreria1.Image = global::PV.Properties.Resources.banco;
+            this.btnTesoreria1.ImageAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.btnTesoreria1.ImageSize = new System.Drawing.Size(24, 24);
+            this.btnTesoreria1.Location = new System.Drawing.Point(9, 279);
+            this.btnTesoreria1.Name = "btnTesoreria1";
+            this.btnTesoreria1.Size = new System.Drawing.Size(155, 45);
+            this.btnTesoreria1.TabIndex = 53;
+            this.btnTesoreria1.Text = "TESORERIA";
+            this.btnTesoreria1.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.btnTesoreria1.Visible = false;
+            // 
+            // btnventas1
+            // 
+            this.btnventas1.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.btnventas1.BorderColor = System.Drawing.Color.White;
+            this.btnventas1.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.btnventas1.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.btnventas1.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.btnventas1.DisabledState.FillColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.btnventas1.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.btnventas1.FillColor = System.Drawing.Color.DodgerBlue;
+            this.btnventas1.FillColor2 = System.Drawing.Color.DodgerBlue;
+            this.btnventas1.Font = new System.Drawing.Font("Segoe UI Black", 10F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))));
+            this.btnventas1.ForeColor = System.Drawing.Color.White;
+            this.btnventas1.Image = global::PV.Properties.Resources.grafico_de_barras;
+            this.btnventas1.ImageAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.btnventas1.ImageSize = new System.Drawing.Size(24, 24);
+            this.btnventas1.Location = new System.Drawing.Point(9, 224);
+            this.btnventas1.Name = "btnventas1";
+            this.btnventas1.Size = new System.Drawing.Size(155, 45);
+            this.btnventas1.TabIndex = 51;
+            this.btnventas1.Text = "VENTAS";
+            this.btnventas1.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            // 
+            // btnventas2
+            // 
+            this.btnventas2.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.btnventas2.BorderColor = System.Drawing.Color.White;
+            this.btnventas2.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.btnventas2.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.btnventas2.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.btnventas2.DisabledState.FillColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.btnventas2.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.btnventas2.FillColor = System.Drawing.Color.DodgerBlue;
+            this.btnventas2.FillColor2 = System.Drawing.Color.DodgerBlue;
+            this.btnventas2.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.btnventas2.ForeColor = System.Drawing.Color.White;
+            this.btnventas2.Image = global::PV.Properties.Resources.Flecha_abajo_blanco;
+            this.btnventas2.ImageAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.btnventas2.Location = new System.Drawing.Point(165, 224);
+            this.btnventas2.Name = "btnventas2";
+            this.btnventas2.Size = new System.Drawing.Size(40, 45);
+            this.btnventas2.TabIndex = 52;
+            this.btnventas2.Click += new System.EventHandler(this.btnventas2_Click);
+            // 
+            // guna2PictureBox1
+            // 
+            this.guna2PictureBox1.Image = global::PV.Properties.Resources.usuario_de_perfil1;
+            this.guna2PictureBox1.ImageRotate = 0F;
+            this.guna2PictureBox1.Location = new System.Drawing.Point(84, 3);
+            this.guna2PictureBox1.Name = "guna2PictureBox1";
+            this.guna2PictureBox1.Size = new System.Drawing.Size(80, 80);
+            this.guna2PictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.guna2PictureBox1.TabIndex = 44;
+            this.guna2PictureBox1.TabStop = false;
+            // 
             // BtnUsuarios
             // 
             this.BtnUsuarios.BackColor = System.Drawing.Color.DodgerBlue;
@@ -3953,7 +3279,7 @@
             // 
             // pictureBox2
             // 
-            this.pictureBox2.Image = global::PV.Properties.Resources.logosiga_Mesa_de_trabajo_1_copia;
+            this.pictureBox2.Image = global::PV.Properties.Resources.siga_logo;
             this.pictureBox2.Location = new System.Drawing.Point(9, 15);
             this.pictureBox2.Name = "pictureBox2";
             this.pictureBox2.Size = new System.Drawing.Size(142, 65);
@@ -3965,42 +3291,725 @@
             // 
             this.pictureBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.pictureBox1.Image = global::PV.Properties.Resources.Logo_PTIA;
-            this.pictureBox1.Location = new System.Drawing.Point(1126, 627);
+            this.pictureBox1.Location = new System.Drawing.Point(1079, 658);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(114, 89);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox1.TabIndex = 43;
             this.pictureBox1.TabStop = false;
             // 
-            // GroupCatalogo
+            // btnParametros
             // 
-            this.GroupCatalogo.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.GroupCatalogo.BorderColor = System.Drawing.Color.White;
-            this.GroupCatalogo.BorderThickness = 0;
-            this.GroupCatalogo.Controls.Add(this.BtnCuentasBancarias);
-            this.GroupCatalogo.Controls.Add(this.btnDivisas);
-            this.GroupCatalogo.Controls.Add(this.btnAlmacen);
-            this.GroupCatalogo.Controls.Add(this.BtnProveedores);
-            this.GroupCatalogo.Controls.Add(this.BtnCategorias);
-            this.GroupCatalogo.Controls.Add(this.BtnProductos);
-            this.GroupCatalogo.Controls.Add(this.BtnClientes);
-            this.GroupCatalogo.Controls.Add(this.BtnServicios);
-            this.GroupCatalogo.Controls.Add(this.BtnCentroCosto);
-            this.GroupCatalogo.Controls.Add(this.BtnTiposZonas);
-            this.GroupCatalogo.Controls.Add(this.BtnDocumentos);
-            this.GroupCatalogo.Controls.Add(this.BtnConceptosGlobales);
-            this.GroupCatalogo.Controls.Add(this.BtnEmpleados);
-            this.GroupCatalogo.Controls.Add(this.BtnFormaPago);
-            this.GroupCatalogo.CustomBorderColor = System.Drawing.Color.Transparent;
-            this.GroupCatalogo.FillColor = System.Drawing.Color.DodgerBlue;
-            this.GroupCatalogo.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.GroupCatalogo.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(19)))), ((int)(((byte)(35)))), ((int)(((byte)(95)))));
-            this.GroupCatalogo.Location = new System.Drawing.Point(6, 78);
-            this.GroupCatalogo.Name = "GroupCatalogo";
-            this.GroupCatalogo.Size = new System.Drawing.Size(195, 671);
-            this.GroupCatalogo.TabIndex = 60;
-            this.GroupCatalogo.Visible = false;
-            this.GroupCatalogo.Click += new System.EventHandler(this.GroupCatalogo_Click);
+            this.btnParametros.AutoSize = false;
+            this.btnParametros.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripMenuItem4,
+            this.toolStripMenuItem5});
+            this.btnParametros.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnParametros.ForeColor = System.Drawing.Color.White;
+            this.btnParametros.Image = ((System.Drawing.Image)(resources.GetObject("btnParametros.Image")));
+            this.btnParametros.ImageTransparentColor = System.Drawing.Color.MediumBlue;
+            this.btnParametros.Name = "btnParametros";
+            this.btnParametros.Size = new System.Drawing.Size(225, 36);
+            this.btnParametros.Text = "PARAMETROS";
+            // 
+            // toolStripMenuItem4
+            // 
+            this.toolStripMenuItem4.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.toolStripMenuItem4.AutoSize = false;
+            this.toolStripMenuItem4.MergeIndex = 0;
+            this.toolStripMenuItem4.Name = "toolStripMenuItem4";
+            this.toolStripMenuItem4.Overflow = System.Windows.Forms.ToolStripItemOverflow.AsNeeded;
+            this.toolStripMenuItem4.Size = new System.Drawing.Size(225, 24);
+            this.toolStripMenuItem4.Text = "Datos Empresa";
+            this.toolStripMenuItem4.Click += new System.EventHandler(this.toolStripMenuItem4_Click);
+            // 
+            // toolStripMenuItem5
+            // 
+            this.toolStripMenuItem5.AutoSize = false;
+            this.toolStripMenuItem5.Name = "toolStripMenuItem5";
+            this.toolStripMenuItem5.Overflow = System.Windows.Forms.ToolStripItemOverflow.AsNeeded;
+            this.toolStripMenuItem5.Size = new System.Drawing.Size(225, 24);
+            this.toolStripMenuItem5.Text = "Usuarios";
+            this.toolStripMenuItem5.Click += new System.EventHandler(this.toolStripMenuItem5_Click);
+            // 
+            // btnCatalogos
+            // 
+            this.btnCatalogos.AutoSize = false;
+            this.btnCatalogos.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.divisasToolStripMenuItem,
+            this.almacenesToolStripMenuItem1,
+            this.categoriasYFamiliasToolStripMenuItem,
+            this.productosYServiciosToolStripMenuItem,
+            this.serviciosToolStripMenuItem,
+            this.centrosDeCostosToolStripMenuItem,
+            this.documentosToolStripMenuItem,
+            this.conceptosGlobalesToolStripMenuItem,
+            this.formasDePagoToolStripMenuItem,
+            this.empleadosToolStripMenuItem,
+            this.tiposYZonasToolStripMenuItem,
+            this.clientesToolStripMenuItem,
+            this.proveedoresToolStripMenuItem2,
+            this.cuentasBancariasToolStripMenuItem,
+            this.sATToolStripMenuItem});
+            this.btnCatalogos.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnCatalogos.ForeColor = System.Drawing.Color.White;
+            this.btnCatalogos.Image = ((System.Drawing.Image)(resources.GetObject("btnCatalogos.Image")));
+            this.btnCatalogos.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.btnCatalogos.Name = "btnCatalogos";
+            this.btnCatalogos.Size = new System.Drawing.Size(225, 36);
+            this.btnCatalogos.Text = "CATALOGOS";
+            this.btnCatalogos.Click += new System.EventHandler(this.btnCatalogos_Click);
+            // 
+            // divisasToolStripMenuItem
+            // 
+            this.divisasToolStripMenuItem.Name = "divisasToolStripMenuItem";
+            this.divisasToolStripMenuItem.Size = new System.Drawing.Size(225, 24);
+            this.divisasToolStripMenuItem.Text = "Divisas";
+            this.divisasToolStripMenuItem.Click += new System.EventHandler(this.divisasToolStripMenuItem_Click);
+            // 
+            // almacenesToolStripMenuItem1
+            // 
+            this.almacenesToolStripMenuItem1.Name = "almacenesToolStripMenuItem1";
+            this.almacenesToolStripMenuItem1.Size = new System.Drawing.Size(225, 24);
+            this.almacenesToolStripMenuItem1.Text = "Almacenes";
+            this.almacenesToolStripMenuItem1.Click += new System.EventHandler(this.almacenesToolStripMenuItem_Click);
+            // 
+            // categoriasYFamiliasToolStripMenuItem
+            // 
+            this.categoriasYFamiliasToolStripMenuItem.Name = "categoriasYFamiliasToolStripMenuItem";
+            this.categoriasYFamiliasToolStripMenuItem.Size = new System.Drawing.Size(225, 24);
+            this.categoriasYFamiliasToolStripMenuItem.Text = "Categorias y Familias";
+            this.categoriasYFamiliasToolStripMenuItem.Click += new System.EventHandler(this.categoriasYFamiliasToolStripMenuItem_Click);
+            // 
+            // productosYServiciosToolStripMenuItem
+            // 
+            this.productosYServiciosToolStripMenuItem.Name = "productosYServiciosToolStripMenuItem";
+            this.productosYServiciosToolStripMenuItem.Size = new System.Drawing.Size(225, 24);
+            this.productosYServiciosToolStripMenuItem.Text = "Productos";
+            this.productosYServiciosToolStripMenuItem.Click += new System.EventHandler(this.productosYServiciosToolStripMenuItem_Click);
+            // 
+            // serviciosToolStripMenuItem
+            // 
+            this.serviciosToolStripMenuItem.Name = "serviciosToolStripMenuItem";
+            this.serviciosToolStripMenuItem.Size = new System.Drawing.Size(225, 24);
+            this.serviciosToolStripMenuItem.Text = "Servicios";
+            this.serviciosToolStripMenuItem.Click += new System.EventHandler(this.serviciosToolStripMenuItem_Click);
+            // 
+            // centrosDeCostosToolStripMenuItem
+            // 
+            this.centrosDeCostosToolStripMenuItem.Name = "centrosDeCostosToolStripMenuItem";
+            this.centrosDeCostosToolStripMenuItem.Size = new System.Drawing.Size(225, 24);
+            this.centrosDeCostosToolStripMenuItem.Text = "Centros de Costos";
+            this.centrosDeCostosToolStripMenuItem.Click += new System.EventHandler(this.centrosDeCostosToolStripMenuItem_Click);
+            // 
+            // documentosToolStripMenuItem
+            // 
+            this.documentosToolStripMenuItem.Name = "documentosToolStripMenuItem";
+            this.documentosToolStripMenuItem.Size = new System.Drawing.Size(225, 24);
+            this.documentosToolStripMenuItem.Text = "Documentos";
+            this.documentosToolStripMenuItem.Click += new System.EventHandler(this.documentosToolStripMenuItem_Click);
+            // 
+            // conceptosGlobalesToolStripMenuItem
+            // 
+            this.conceptosGlobalesToolStripMenuItem.Name = "conceptosGlobalesToolStripMenuItem";
+            this.conceptosGlobalesToolStripMenuItem.Size = new System.Drawing.Size(225, 24);
+            this.conceptosGlobalesToolStripMenuItem.Text = "Conceptos Globales";
+            this.conceptosGlobalesToolStripMenuItem.Click += new System.EventHandler(this.conceptosGlobalesToolStripMenuItem_Click);
+            // 
+            // formasDePagoToolStripMenuItem
+            // 
+            this.formasDePagoToolStripMenuItem.Name = "formasDePagoToolStripMenuItem";
+            this.formasDePagoToolStripMenuItem.Size = new System.Drawing.Size(225, 24);
+            this.formasDePagoToolStripMenuItem.Text = "Formas de Pago";
+            this.formasDePagoToolStripMenuItem.Click += new System.EventHandler(this.formasDePagoToolStripMenuItem_Click);
+            // 
+            // empleadosToolStripMenuItem
+            // 
+            this.empleadosToolStripMenuItem.Name = "empleadosToolStripMenuItem";
+            this.empleadosToolStripMenuItem.Size = new System.Drawing.Size(225, 24);
+            this.empleadosToolStripMenuItem.Text = "Empleados";
+            this.empleadosToolStripMenuItem.Click += new System.EventHandler(this.empleadosToolStripMenuItem_Click);
+            // 
+            // tiposYZonasToolStripMenuItem
+            // 
+            this.tiposYZonasToolStripMenuItem.Name = "tiposYZonasToolStripMenuItem";
+            this.tiposYZonasToolStripMenuItem.Size = new System.Drawing.Size(225, 24);
+            this.tiposYZonasToolStripMenuItem.Text = "Tipos y Zonas";
+            this.tiposYZonasToolStripMenuItem.Click += new System.EventHandler(this.tiposYZonasToolStripMenuItem_Click);
+            // 
+            // clientesToolStripMenuItem
+            // 
+            this.clientesToolStripMenuItem.Name = "clientesToolStripMenuItem";
+            this.clientesToolStripMenuItem.Size = new System.Drawing.Size(225, 24);
+            this.clientesToolStripMenuItem.Text = "Clientes";
+            this.clientesToolStripMenuItem.Click += new System.EventHandler(this.clientesToolStripMenuItem_Click);
+            // 
+            // proveedoresToolStripMenuItem2
+            // 
+            this.proveedoresToolStripMenuItem2.Name = "proveedoresToolStripMenuItem2";
+            this.proveedoresToolStripMenuItem2.Size = new System.Drawing.Size(225, 24);
+            this.proveedoresToolStripMenuItem2.Text = "Proveedores";
+            this.proveedoresToolStripMenuItem2.Click += new System.EventHandler(this.proveedoresToolStripMenuItem_Click);
+            // 
+            // cuentasBancariasToolStripMenuItem
+            // 
+            this.cuentasBancariasToolStripMenuItem.Name = "cuentasBancariasToolStripMenuItem";
+            this.cuentasBancariasToolStripMenuItem.Size = new System.Drawing.Size(225, 24);
+            this.cuentasBancariasToolStripMenuItem.Text = "Cuentas Bancarias";
+            this.cuentasBancariasToolStripMenuItem.Click += new System.EventHandler(this.cuentasBancariasToolStripMenuItem_Click);
+            // 
+            // sATToolStripMenuItem
+            // 
+            this.sATToolStripMenuItem.Enabled = false;
+            this.sATToolStripMenuItem.Name = "sATToolStripMenuItem";
+            this.sATToolStripMenuItem.Size = new System.Drawing.Size(225, 24);
+            this.sATToolStripMenuItem.Text = "SAT";
+            // 
+            // btnInventarios
+            // 
+            this.btnInventarios.AutoSize = false;
+            this.btnInventarios.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.movimientosToolStripMenuItem,
+            this.inventariosFisicosToolStripMenuItem,
+            this.explosionDeMaterialesToolStripMenuItem,
+            this.reportesToolStripMenuItem1});
+            this.btnInventarios.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnInventarios.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.btnInventarios.Image = ((System.Drawing.Image)(resources.GetObject("btnInventarios.Image")));
+            this.btnInventarios.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.btnInventarios.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnInventarios.Name = "btnInventarios";
+            this.btnInventarios.Size = new System.Drawing.Size(225, 36);
+            this.btnInventarios.Text = "INVENTARIOS";
+            // 
+            // movimientosToolStripMenuItem
+            // 
+            this.movimientosToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tipoMovimientosToolStripMenuItem,
+            this.registrarEntradasToolStripMenuItem,
+            this.registrarSalidaToolStripMenuItem1,
+            this.registrarTraspasosToolStripMenuItem,
+            this.consultaInventariosToolStripMenuItem,
+            this.toolStripMenuItem6});
+            this.movimientosToolStripMenuItem.Name = "movimientosToolStripMenuItem";
+            this.movimientosToolStripMenuItem.Size = new System.Drawing.Size(243, 24);
+            this.movimientosToolStripMenuItem.Text = "Movimientos";
+            // 
+            // tipoMovimientosToolStripMenuItem
+            // 
+            this.tipoMovimientosToolStripMenuItem.Name = "tipoMovimientosToolStripMenuItem";
+            this.tipoMovimientosToolStripMenuItem.Size = new System.Drawing.Size(222, 24);
+            this.tipoMovimientosToolStripMenuItem.Text = "Tipo Movimientos";
+            this.tipoMovimientosToolStripMenuItem.Click += new System.EventHandler(this.tipoMovimientosToolStripMenuItem_Click);
+            // 
+            // registrarEntradasToolStripMenuItem
+            // 
+            this.registrarEntradasToolStripMenuItem.Name = "registrarEntradasToolStripMenuItem";
+            this.registrarEntradasToolStripMenuItem.Size = new System.Drawing.Size(222, 24);
+            this.registrarEntradasToolStripMenuItem.Text = "Registrar Entradas";
+            this.registrarEntradasToolStripMenuItem.Click += new System.EventHandler(this.registrarEntradasToolStripMenuItem_Click);
+            // 
+            // registrarSalidaToolStripMenuItem1
+            // 
+            this.registrarSalidaToolStripMenuItem1.Name = "registrarSalidaToolStripMenuItem1";
+            this.registrarSalidaToolStripMenuItem1.Size = new System.Drawing.Size(222, 24);
+            this.registrarSalidaToolStripMenuItem1.Text = "Registrar Salida";
+            this.registrarSalidaToolStripMenuItem1.Click += new System.EventHandler(this.registrarSalidaToolStripMenuItem1_Click);
+            // 
+            // registrarTraspasosToolStripMenuItem
+            // 
+            this.registrarTraspasosToolStripMenuItem.Name = "registrarTraspasosToolStripMenuItem";
+            this.registrarTraspasosToolStripMenuItem.Size = new System.Drawing.Size(222, 24);
+            this.registrarTraspasosToolStripMenuItem.Text = "Registrar Traspasos";
+            this.registrarTraspasosToolStripMenuItem.Click += new System.EventHandler(this.registrarTraspasosToolStripMenuItem_Click_1);
+            // 
+            // consultaInventariosToolStripMenuItem
+            // 
+            this.consultaInventariosToolStripMenuItem.Name = "consultaInventariosToolStripMenuItem";
+            this.consultaInventariosToolStripMenuItem.Size = new System.Drawing.Size(222, 24);
+            this.consultaInventariosToolStripMenuItem.Text = "Consulta Inventarios";
+            this.consultaInventariosToolStripMenuItem.Click += new System.EventHandler(this.consultaInventariosToolStripMenuItem_Click);
+            // 
+            // toolStripMenuItem6
+            // 
+            this.toolStripMenuItem6.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.reporteKardexToolStripMenuItem,
+            this.reporteExistenciasToolStripMenuItem,
+            this.reporteCostoPorProductosToolStripMenuItem});
+            this.toolStripMenuItem6.Name = "toolStripMenuItem6";
+            this.toolStripMenuItem6.Size = new System.Drawing.Size(222, 24);
+            this.toolStripMenuItem6.Text = "Reportes";
+            this.toolStripMenuItem6.Click += new System.EventHandler(this.toolStripMenuItem6_Click);
+            // 
+            // reporteKardexToolStripMenuItem
+            // 
+            this.reporteKardexToolStripMenuItem.Name = "reporteKardexToolStripMenuItem";
+            this.reporteKardexToolStripMenuItem.Size = new System.Drawing.Size(307, 24);
+            this.reporteKardexToolStripMenuItem.Text = "Reporte Kardex";
+            this.reporteKardexToolStripMenuItem.Visible = false;
+            this.reporteKardexToolStripMenuItem.Click += new System.EventHandler(this.reporteKardexToolStripMenuItem_Click);
+            // 
+            // reporteExistenciasToolStripMenuItem
+            // 
+            this.reporteExistenciasToolStripMenuItem.Name = "reporteExistenciasToolStripMenuItem";
+            this.reporteExistenciasToolStripMenuItem.Size = new System.Drawing.Size(307, 24);
+            this.reporteExistenciasToolStripMenuItem.Text = "Reporte Existencias por Almacen";
+            this.reporteExistenciasToolStripMenuItem.Click += new System.EventHandler(this.reporteExistenciasToolStripMenuItem_Click);
+            // 
+            // reporteCostoPorProductosToolStripMenuItem
+            // 
+            this.reporteCostoPorProductosToolStripMenuItem.Name = "reporteCostoPorProductosToolStripMenuItem";
+            this.reporteCostoPorProductosToolStripMenuItem.Size = new System.Drawing.Size(307, 24);
+            this.reporteCostoPorProductosToolStripMenuItem.Text = "Reporte Costo por Productos";
+            this.reporteCostoPorProductosToolStripMenuItem.Click += new System.EventHandler(this.reporteCostoPorProductosToolStripMenuItem_Click_1);
+            // 
+            // inventariosFisicosToolStripMenuItem
+            // 
+            this.inventariosFisicosToolStripMenuItem.Enabled = false;
+            this.inventariosFisicosToolStripMenuItem.Name = "inventariosFisicosToolStripMenuItem";
+            this.inventariosFisicosToolStripMenuItem.Size = new System.Drawing.Size(243, 24);
+            this.inventariosFisicosToolStripMenuItem.Text = "Inventarios Fisicos";
+            // 
+            // explosionDeMaterialesToolStripMenuItem
+            // 
+            this.explosionDeMaterialesToolStripMenuItem.Enabled = false;
+            this.explosionDeMaterialesToolStripMenuItem.Name = "explosionDeMaterialesToolStripMenuItem";
+            this.explosionDeMaterialesToolStripMenuItem.Size = new System.Drawing.Size(243, 24);
+            this.explosionDeMaterialesToolStripMenuItem.Text = "Explosion de Materiales";
+            // 
+            // reportesToolStripMenuItem1
+            // 
+            this.reportesToolStripMenuItem1.Enabled = false;
+            this.reportesToolStripMenuItem1.Name = "reportesToolStripMenuItem1";
+            this.reportesToolStripMenuItem1.Size = new System.Drawing.Size(243, 24);
+            this.reportesToolStripMenuItem1.Text = "Reportes";
+            // 
+            // btnCompras
+            // 
+            this.btnCompras.AutoSize = false;
+            this.btnCompras.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.requisicionesToolStripMenuItem,
+            this.cotizacionesToolStripMenuItem,
+            this.pedidosProveedoresToolStripMenuItem,
+            this.comprasToolStripMenuItem,
+            this.notasDeCrYCaToolStripMenuItem,
+            this.reportesToolStripMenuItem,
+            this.DefinepolizaStripMenuItem7,
+            this.GenerePolizaStripMenuItem7});
+            this.btnCompras.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnCompras.ForeColor = System.Drawing.Color.White;
+            this.btnCompras.Image = ((System.Drawing.Image)(resources.GetObject("btnCompras.Image")));
+            this.btnCompras.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.btnCompras.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnCompras.Name = "btnCompras";
+            this.btnCompras.Size = new System.Drawing.Size(225, 36);
+            this.btnCompras.Text = "COMPRAS";
+            // 
+            // requisicionesToolStripMenuItem
+            // 
+            this.requisicionesToolStripMenuItem.Name = "requisicionesToolStripMenuItem";
+            this.requisicionesToolStripMenuItem.Size = new System.Drawing.Size(224, 24);
+            this.requisicionesToolStripMenuItem.Text = "Requisiciones";
+            this.requisicionesToolStripMenuItem.Click += new System.EventHandler(this.requisicionesToolStripMenuItem_Click_1);
+            // 
+            // cotizacionesToolStripMenuItem
+            // 
+            this.cotizacionesToolStripMenuItem.Enabled = false;
+            this.cotizacionesToolStripMenuItem.Name = "cotizacionesToolStripMenuItem";
+            this.cotizacionesToolStripMenuItem.Size = new System.Drawing.Size(224, 24);
+            this.cotizacionesToolStripMenuItem.Text = "Cotizaciones";
+            // 
+            // pedidosProveedoresToolStripMenuItem
+            // 
+            this.pedidosProveedoresToolStripMenuItem.Name = "pedidosProveedoresToolStripMenuItem";
+            this.pedidosProveedoresToolStripMenuItem.Size = new System.Drawing.Size(224, 24);
+            this.pedidosProveedoresToolStripMenuItem.Text = "Pedidos Proveedores";
+            this.pedidosProveedoresToolStripMenuItem.Click += new System.EventHandler(this.pedidosProveedoresToolStripMenuItem_Click);
+            // 
+            // comprasToolStripMenuItem
+            // 
+            this.comprasToolStripMenuItem.Name = "comprasToolStripMenuItem";
+            this.comprasToolStripMenuItem.Size = new System.Drawing.Size(224, 24);
+            this.comprasToolStripMenuItem.Text = "Compras";
+            this.comprasToolStripMenuItem.Click += new System.EventHandler(this.comprasToolStripMenuItem_Click);
+            // 
+            // notasDeCrYCaToolStripMenuItem
+            // 
+            this.notasDeCrYCaToolStripMenuItem.Name = "notasDeCrYCaToolStripMenuItem";
+            this.notasDeCrYCaToolStripMenuItem.Size = new System.Drawing.Size(224, 24);
+            this.notasDeCrYCaToolStripMenuItem.Text = "Notas de Cr y Ca";
+            this.notasDeCrYCaToolStripMenuItem.Click += new System.EventHandler(this.notasDeCrYCaToolStripMenuItem_Click);
+            // 
+            // reportesToolStripMenuItem
+            // 
+            this.reportesToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.reporteDiarioDeRequisicionesToolStripMenuItem,
+            this.reporteDiarioDeOrdenesDeCompraToolStripMenuItem,
+            this.reporteDiarioDeComprasToolStripMenuItem,
+            this.reporteDiarioNotasDeCargoToolStripMenuItem,
+            this.reporteDeEgresosToolStripMenuItem,
+            this.reporteSaldoDeComprasToolStripMenuItem,
+            this.anticiposToolStripMenuItem3,
+            this.proveedoresToolStripMenuItem1});
+            this.reportesToolStripMenuItem.Name = "reportesToolStripMenuItem";
+            this.reportesToolStripMenuItem.Size = new System.Drawing.Size(224, 24);
+            this.reportesToolStripMenuItem.Text = "Reportes";
+            // 
+            // reporteDiarioDeRequisicionesToolStripMenuItem
+            // 
+            this.reporteDiarioDeRequisicionesToolStripMenuItem.Name = "reporteDiarioDeRequisicionesToolStripMenuItem";
+            this.reporteDiarioDeRequisicionesToolStripMenuItem.Size = new System.Drawing.Size(283, 24);
+            this.reporteDiarioDeRequisicionesToolStripMenuItem.Text = "Diario de Requisiciones";
+            this.reporteDiarioDeRequisicionesToolStripMenuItem.Click += new System.EventHandler(this.reporteDiarioDeRequisicionesToolStripMenuItem_Click);
+            // 
+            // reporteDiarioDeOrdenesDeCompraToolStripMenuItem
+            // 
+            this.reporteDiarioDeOrdenesDeCompraToolStripMenuItem.Name = "reporteDiarioDeOrdenesDeCompraToolStripMenuItem";
+            this.reporteDiarioDeOrdenesDeCompraToolStripMenuItem.Size = new System.Drawing.Size(283, 24);
+            this.reporteDiarioDeOrdenesDeCompraToolStripMenuItem.Text = "Diario de Ordenes de Compra";
+            this.reporteDiarioDeOrdenesDeCompraToolStripMenuItem.Click += new System.EventHandler(this.reporteDiarioDeOrdenesDeCompraToolStripMenuItem_Click);
+            // 
+            // reporteDiarioDeComprasToolStripMenuItem
+            // 
+            this.reporteDiarioDeComprasToolStripMenuItem.Name = "reporteDiarioDeComprasToolStripMenuItem";
+            this.reporteDiarioDeComprasToolStripMenuItem.Size = new System.Drawing.Size(283, 24);
+            this.reporteDiarioDeComprasToolStripMenuItem.Text = "Diario de Compras";
+            this.reporteDiarioDeComprasToolStripMenuItem.Click += new System.EventHandler(this.reporteDiarioDeComprasToolStripMenuItem_Click);
+            // 
+            // reporteDiarioNotasDeCargoToolStripMenuItem
+            // 
+            this.reporteDiarioNotasDeCargoToolStripMenuItem.Name = "reporteDiarioNotasDeCargoToolStripMenuItem";
+            this.reporteDiarioNotasDeCargoToolStripMenuItem.Size = new System.Drawing.Size(283, 24);
+            this.reporteDiarioNotasDeCargoToolStripMenuItem.Text = "Diario de Notas de Cargo";
+            this.reporteDiarioNotasDeCargoToolStripMenuItem.Click += new System.EventHandler(this.reporteDiarioNotasDeCargoToolStripMenuItem_Click);
+            // 
+            // reporteDeEgresosToolStripMenuItem
+            // 
+            this.reporteDeEgresosToolStripMenuItem.Name = "reporteDeEgresosToolStripMenuItem";
+            this.reporteDeEgresosToolStripMenuItem.Size = new System.Drawing.Size(283, 24);
+            this.reporteDeEgresosToolStripMenuItem.Text = "Egresos";
+            this.reporteDeEgresosToolStripMenuItem.Click += new System.EventHandler(this.reporteDeEgresosToolStripMenuItem_Click);
+            // 
+            // reporteSaldoDeComprasToolStripMenuItem
+            // 
+            this.reporteSaldoDeComprasToolStripMenuItem.Name = "reporteSaldoDeComprasToolStripMenuItem";
+            this.reporteSaldoDeComprasToolStripMenuItem.Size = new System.Drawing.Size(283, 24);
+            this.reporteSaldoDeComprasToolStripMenuItem.Text = "Saldo de Compras";
+            this.reporteSaldoDeComprasToolStripMenuItem.Click += new System.EventHandler(this.reporteSaldoDeComprasToolStripMenuItem_Click);
+            // 
+            // anticiposToolStripMenuItem3
+            // 
+            this.anticiposToolStripMenuItem3.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.anticiposToolStripMenuItem4,
+            this.anticiposAplicadosToolStripMenuItem1});
+            this.anticiposToolStripMenuItem3.Name = "anticiposToolStripMenuItem3";
+            this.anticiposToolStripMenuItem3.Size = new System.Drawing.Size(283, 24);
+            this.anticiposToolStripMenuItem3.Text = "Anticipos";
+            this.anticiposToolStripMenuItem3.Click += new System.EventHandler(this.anticiposToolStripMenuItem3_Click_1);
+            // 
+            // anticiposToolStripMenuItem4
+            // 
+            this.anticiposToolStripMenuItem4.Name = "anticiposToolStripMenuItem4";
+            this.anticiposToolStripMenuItem4.Size = new System.Drawing.Size(216, 24);
+            this.anticiposToolStripMenuItem4.Text = "Anticipos";
+            this.anticiposToolStripMenuItem4.Click += new System.EventHandler(this.anticiposToolStripMenuItem4_Click);
+            // 
+            // anticiposAplicadosToolStripMenuItem1
+            // 
+            this.anticiposAplicadosToolStripMenuItem1.Name = "anticiposAplicadosToolStripMenuItem1";
+            this.anticiposAplicadosToolStripMenuItem1.Size = new System.Drawing.Size(216, 24);
+            this.anticiposAplicadosToolStripMenuItem1.Text = "Anticipos Aplicados";
+            this.anticiposAplicadosToolStripMenuItem1.Click += new System.EventHandler(this.anticiposAplicadosToolStripMenuItem1_Click_2);
+            // 
+            // proveedoresToolStripMenuItem1
+            // 
+            this.proveedoresToolStripMenuItem1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.estadoDeCuentaProveedoresToolStripMenuItem,
+            this.saldosProveedoresToolStripMenuItem,
+            this.detallesDeSaldosToolStripMenuItem});
+            this.proveedoresToolStripMenuItem1.Name = "proveedoresToolStripMenuItem1";
+            this.proveedoresToolStripMenuItem1.Size = new System.Drawing.Size(283, 24);
+            this.proveedoresToolStripMenuItem1.Text = "Proveedores";
+            // 
+            // estadoDeCuentaProveedoresToolStripMenuItem
+            // 
+            this.estadoDeCuentaProveedoresToolStripMenuItem.Name = "estadoDeCuentaProveedoresToolStripMenuItem";
+            this.estadoDeCuentaProveedoresToolStripMenuItem.Size = new System.Drawing.Size(290, 24);
+            this.estadoDeCuentaProveedoresToolStripMenuItem.Text = "Estado de Cuenta Proveedores";
+            this.estadoDeCuentaProveedoresToolStripMenuItem.Click += new System.EventHandler(this.estadoDeCuentaProveedoresToolStripMenuItem_Click);
+            // 
+            // saldosProveedoresToolStripMenuItem
+            // 
+            this.saldosProveedoresToolStripMenuItem.Enabled = false;
+            this.saldosProveedoresToolStripMenuItem.Name = "saldosProveedoresToolStripMenuItem";
+            this.saldosProveedoresToolStripMenuItem.Size = new System.Drawing.Size(290, 24);
+            this.saldosProveedoresToolStripMenuItem.Text = "Saldos Proveedores";
+            this.saldosProveedoresToolStripMenuItem.Click += new System.EventHandler(this.saldosProveedoresToolStripMenuItem_Click);
+            // 
+            // detallesDeSaldosToolStripMenuItem
+            // 
+            this.detallesDeSaldosToolStripMenuItem.Enabled = false;
+            this.detallesDeSaldosToolStripMenuItem.Name = "detallesDeSaldosToolStripMenuItem";
+            this.detallesDeSaldosToolStripMenuItem.Size = new System.Drawing.Size(290, 24);
+            this.detallesDeSaldosToolStripMenuItem.Text = "Detalles de Saldos";
+            this.detallesDeSaldosToolStripMenuItem.Click += new System.EventHandler(this.detallesDeSaldosToolStripMenuItem_Click);
+            // 
+            // DefinepolizaStripMenuItem7
+            // 
+            this.DefinepolizaStripMenuItem7.Name = "DefinepolizaStripMenuItem7";
+            this.DefinepolizaStripMenuItem7.Size = new System.Drawing.Size(224, 24);
+            this.DefinepolizaStripMenuItem7.Text = "Define Poliza";
+            this.DefinepolizaStripMenuItem7.Click += new System.EventHandler(this.DefinepolizaStripMenuItem7_Click);
+            // 
+            // GenerePolizaStripMenuItem7
+            // 
+            this.GenerePolizaStripMenuItem7.Name = "GenerePolizaStripMenuItem7";
+            this.GenerePolizaStripMenuItem7.Size = new System.Drawing.Size(224, 24);
+            this.GenerePolizaStripMenuItem7.Text = "Genere Poliza";
+            this.GenerePolizaStripMenuItem7.Click += new System.EventHandler(this.GenerePolizaStripMenuItem7_Click);
+            // 
+            // btnVentas
+            // 
+            this.btnVentas.AutoSize = false;
+            this.btnVentas.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.cotizacionesToolStripMenuItem1,
+            this.pedidosDeClientesToolStripMenuItem,
+            this.remisionesToolStripMenuItem,
+            this.cFDIToolStripMenuItem,
+            this.notasDeCrYCaToolStripMenuItem1,
+            this.reportesToolStripMenuItem2});
+            this.btnVentas.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnVentas.ForeColor = System.Drawing.Color.White;
+            this.btnVentas.Image = ((System.Drawing.Image)(resources.GetObject("btnVentas.Image")));
+            this.btnVentas.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.btnVentas.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnVentas.Name = "btnVentas";
+            this.btnVentas.Size = new System.Drawing.Size(225, 36);
+            this.btnVentas.Text = "VENTAS";
+            // 
+            // cotizacionesToolStripMenuItem1
+            // 
+            this.cotizacionesToolStripMenuItem1.Enabled = false;
+            this.cotizacionesToolStripMenuItem1.Name = "cotizacionesToolStripMenuItem1";
+            this.cotizacionesToolStripMenuItem1.Size = new System.Drawing.Size(213, 24);
+            this.cotizacionesToolStripMenuItem1.Text = "Cotizaciones";
+            // 
+            // pedidosDeClientesToolStripMenuItem
+            // 
+            this.pedidosDeClientesToolStripMenuItem.Enabled = false;
+            this.pedidosDeClientesToolStripMenuItem.Name = "pedidosDeClientesToolStripMenuItem";
+            this.pedidosDeClientesToolStripMenuItem.Size = new System.Drawing.Size(213, 24);
+            this.pedidosDeClientesToolStripMenuItem.Text = "Pedidos de Clientes";
+            // 
+            // remisionesToolStripMenuItem
+            // 
+            this.remisionesToolStripMenuItem.Enabled = false;
+            this.remisionesToolStripMenuItem.Name = "remisionesToolStripMenuItem";
+            this.remisionesToolStripMenuItem.Size = new System.Drawing.Size(213, 24);
+            this.remisionesToolStripMenuItem.Text = "Remisiones";
+            // 
+            // cFDIToolStripMenuItem
+            // 
+            this.cFDIToolStripMenuItem.Enabled = false;
+            this.cFDIToolStripMenuItem.Name = "cFDIToolStripMenuItem";
+            this.cFDIToolStripMenuItem.Size = new System.Drawing.Size(213, 24);
+            this.cFDIToolStripMenuItem.Text = "CFDI";
+            // 
+            // notasDeCrYCaToolStripMenuItem1
+            // 
+            this.notasDeCrYCaToolStripMenuItem1.Enabled = false;
+            this.notasDeCrYCaToolStripMenuItem1.Name = "notasDeCrYCaToolStripMenuItem1";
+            this.notasDeCrYCaToolStripMenuItem1.Size = new System.Drawing.Size(213, 24);
+            this.notasDeCrYCaToolStripMenuItem1.Text = "Notas de Cr y Ca";
+            // 
+            // reportesToolStripMenuItem2
+            // 
+            this.reportesToolStripMenuItem2.Enabled = false;
+            this.reportesToolStripMenuItem2.Name = "reportesToolStripMenuItem2";
+            this.reportesToolStripMenuItem2.Size = new System.Drawing.Size(213, 24);
+            this.reportesToolStripMenuItem2.Text = "Reportes";
+            // 
+            // btnTesoreria
+            // 
+            this.btnTesoreria.AutoSize = false;
+            this.btnTesoreria.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.bancosToolStripMenuItem,
+            this.btnIngresos,
+            this.egresosToolStripMenuItem,
+            this.reportesToolStripMenuItem3});
+            this.btnTesoreria.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnTesoreria.ForeColor = System.Drawing.Color.White;
+            this.btnTesoreria.Image = ((System.Drawing.Image)(resources.GetObject("btnTesoreria.Image")));
+            this.btnTesoreria.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.btnTesoreria.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnTesoreria.Name = "btnTesoreria";
+            this.btnTesoreria.Size = new System.Drawing.Size(225, 36);
+            this.btnTesoreria.Text = "TESORERIA";
+            // 
+            // bancosToolStripMenuItem
+            // 
+            this.bancosToolStripMenuItem.Enabled = false;
+            this.bancosToolStripMenuItem.Name = "bancosToolStripMenuItem";
+            this.bancosToolStripMenuItem.Size = new System.Drawing.Size(141, 24);
+            this.bancosToolStripMenuItem.Text = "Bancos";
+            // 
+            // btnIngresos
+            // 
+            this.btnIngresos.Enabled = false;
+            this.btnIngresos.Name = "btnIngresos";
+            this.btnIngresos.Size = new System.Drawing.Size(141, 24);
+            this.btnIngresos.Text = "Ingresos";
+            // 
+            // egresosToolStripMenuItem
+            // 
+            this.egresosToolStripMenuItem.Enabled = false;
+            this.egresosToolStripMenuItem.Name = "egresosToolStripMenuItem";
+            this.egresosToolStripMenuItem.Size = new System.Drawing.Size(141, 24);
+            this.egresosToolStripMenuItem.Text = "Egresos";
+            // 
+            // reportesToolStripMenuItem3
+            // 
+            this.reportesToolStripMenuItem3.Enabled = false;
+            this.reportesToolStripMenuItem3.Name = "reportesToolStripMenuItem3";
+            this.reportesToolStripMenuItem3.Size = new System.Drawing.Size(141, 24);
+            this.reportesToolStripMenuItem3.Text = "Reportes";
+            // 
+            // btnPresupuesto
+            // 
+            this.btnPresupuesto.AutoSize = false;
+            this.btnPresupuesto.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.base0ToolStripMenuItem,
+            this.historicoToolStripMenuItem,
+            this.registrarPresupuestosToolStripMenuItem,
+            this.crearPresupuestosHistoricosToolStripMenuItem,
+            this.cerrarPresupuestoToolStripMenuItem,
+            this.reportesToolStripMenuItem8});
+            this.btnPresupuesto.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnPresupuesto.ForeColor = System.Drawing.Color.White;
+            this.btnPresupuesto.Image = ((System.Drawing.Image)(resources.GetObject("btnPresupuesto.Image")));
+            this.btnPresupuesto.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.btnPresupuesto.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnPresupuesto.Name = "btnPresupuesto";
+            this.btnPresupuesto.Size = new System.Drawing.Size(225, 36);
+            this.btnPresupuesto.Text = "PRESUPUESTO";
+            // 
+            // base0ToolStripMenuItem
+            // 
+            this.base0ToolStripMenuItem.Name = "base0ToolStripMenuItem";
+            this.base0ToolStripMenuItem.Size = new System.Drawing.Size(240, 24);
+            this.base0ToolStripMenuItem.Text = "Periodos";
+            this.base0ToolStripMenuItem.Click += new System.EventHandler(this.base0ToolStripMenuItem_Click);
+            // 
+            // historicoToolStripMenuItem
+            // 
+            this.historicoToolStripMenuItem.Name = "historicoToolStripMenuItem";
+            this.historicoToolStripMenuItem.Size = new System.Drawing.Size(240, 24);
+            this.historicoToolStripMenuItem.Text = "Conceptos";
+            this.historicoToolStripMenuItem.Click += new System.EventHandler(this.historicoToolStripMenuItem_Click);
+            // 
+            // registrarPresupuestosToolStripMenuItem
+            // 
+            this.registrarPresupuestosToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.ingresosToolStripMenuItem2,
+            this.egresosToolStripMenuItem2});
+            this.registrarPresupuestosToolStripMenuItem.Name = "registrarPresupuestosToolStripMenuItem";
+            this.registrarPresupuestosToolStripMenuItem.Size = new System.Drawing.Size(240, 24);
+            this.registrarPresupuestosToolStripMenuItem.Text = "Registrar Presupuestos";
+            // 
+            // ingresosToolStripMenuItem2
+            // 
+            this.ingresosToolStripMenuItem2.Name = "ingresosToolStripMenuItem2";
+            this.ingresosToolStripMenuItem2.Size = new System.Drawing.Size(138, 24);
+            this.ingresosToolStripMenuItem2.Text = "Ingresos";
+            this.ingresosToolStripMenuItem2.Click += new System.EventHandler(this.ingresosToolStripMenuItem2_Click);
+            // 
+            // egresosToolStripMenuItem2
+            // 
+            this.egresosToolStripMenuItem2.Name = "egresosToolStripMenuItem2";
+            this.egresosToolStripMenuItem2.Size = new System.Drawing.Size(138, 24);
+            this.egresosToolStripMenuItem2.Text = "Egresos";
+            this.egresosToolStripMenuItem2.Click += new System.EventHandler(this.egresosToolStripMenuItem2_Click);
+            // 
+            // crearPresupuestosHistoricosToolStripMenuItem
+            // 
+            this.crearPresupuestosHistoricosToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.ingreosToolStripMenuItem,
+            this.egresosToolStripMenuItem3});
+            this.crearPresupuestosHistoricosToolStripMenuItem.Name = "crearPresupuestosHistoricosToolStripMenuItem";
+            this.crearPresupuestosHistoricosToolStripMenuItem.Size = new System.Drawing.Size(240, 24);
+            this.crearPresupuestosHistoricosToolStripMenuItem.Text = "Crear Presupuestos";
+            // 
+            // ingreosToolStripMenuItem
+            // 
+            this.ingreosToolStripMenuItem.Name = "ingreosToolStripMenuItem";
+            this.ingreosToolStripMenuItem.Size = new System.Drawing.Size(132, 24);
+            this.ingreosToolStripMenuItem.Text = "Ingreos";
+            this.ingreosToolStripMenuItem.Click += new System.EventHandler(this.ingreosToolStripMenuItem_Click);
+            // 
+            // egresosToolStripMenuItem3
+            // 
+            this.egresosToolStripMenuItem3.Name = "egresosToolStripMenuItem3";
+            this.egresosToolStripMenuItem3.Size = new System.Drawing.Size(132, 24);
+            this.egresosToolStripMenuItem3.Text = "Egresos";
+            this.egresosToolStripMenuItem3.Click += new System.EventHandler(this.egresosToolStripMenuItem3_Click);
+            // 
+            // cerrarPresupuestoToolStripMenuItem
+            // 
+            this.cerrarPresupuestoToolStripMenuItem.Name = "cerrarPresupuestoToolStripMenuItem";
+            this.cerrarPresupuestoToolStripMenuItem.Size = new System.Drawing.Size(240, 24);
+            this.cerrarPresupuestoToolStripMenuItem.Text = "Cerrar Presupuesto";
+            this.cerrarPresupuestoToolStripMenuItem.Click += new System.EventHandler(this.cerrarPresupuestoToolStripMenuItem_Click);
+            // 
+            // reportesToolStripMenuItem8
+            // 
+            this.reportesToolStripMenuItem8.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.periodicoToolStripMenuItem});
+            this.reportesToolStripMenuItem8.Name = "reportesToolStripMenuItem8";
+            this.reportesToolStripMenuItem8.Size = new System.Drawing.Size(240, 24);
+            this.reportesToolStripMenuItem8.Text = "Reportes";
+            // 
+            // periodicoToolStripMenuItem
+            // 
+            this.periodicoToolStripMenuItem.Name = "periodicoToolStripMenuItem";
+            this.periodicoToolStripMenuItem.Size = new System.Drawing.Size(184, 24);
+            this.periodicoToolStripMenuItem.Text = "Global Ejercicio";
+            // 
+            // btnUtilerias
+            // 
+            this.btnUtilerias.AutoSize = false;
+            this.btnUtilerias.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripMenuItem1,
+            this.toolStripMenuItem2,
+            this.toolStripMenuItem3});
+            this.btnUtilerias.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnUtilerias.ForeColor = System.Drawing.Color.White;
+            this.btnUtilerias.Image = ((System.Drawing.Image)(resources.GetObject("btnUtilerias.Image")));
+            this.btnUtilerias.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.btnUtilerias.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnUtilerias.Name = "btnUtilerias";
+            this.btnUtilerias.Size = new System.Drawing.Size(225, 36);
+            this.btnUtilerias.Text = "UTILERIAS";
+            // 
+            // toolStripMenuItem1
+            // 
+            this.toolStripMenuItem1.Enabled = false;
+            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(197, 24);
+            this.toolStripMenuItem1.Text = "Contabilidad";
+            // 
+            // toolStripMenuItem2
+            // 
+            this.toolStripMenuItem2.Enabled = false;
+            this.toolStripMenuItem2.Name = "toolStripMenuItem2";
+            this.toolStripMenuItem2.Size = new System.Drawing.Size(197, 24);
+            this.toolStripMenuItem2.Text = "ODBC";
+            // 
+            // toolStripMenuItem3
+            // 
+            this.toolStripMenuItem3.Enabled = false;
+            this.toolStripMenuItem3.Name = "toolStripMenuItem3";
+            this.toolStripMenuItem3.Size = new System.Drawing.Size(197, 24);
+            this.toolStripMenuItem3.Text = "Corre electrónico";
             // 
             // BtnCuentasBancarias
             // 
@@ -4378,7 +4387,7 @@
             this.guna2Button2.Image = ((System.Drawing.Image)(resources.GetObject("guna2Button2.Image")));
             this.guna2Button2.ImageAlign = System.Windows.Forms.HorizontalAlignment.Left;
             this.guna2Button2.ImageSize = new System.Drawing.Size(35, 35);
-            this.guna2Button2.Location = new System.Drawing.Point(151, 662);
+            this.guna2Button2.Location = new System.Drawing.Point(147, 681);
             this.guna2Button2.Name = "guna2Button2";
             this.guna2Button2.Size = new System.Drawing.Size(161, 44);
             this.guna2Button2.TabIndex = 42;
@@ -4399,29 +4408,20 @@
             this.guna2Button1.Image = ((System.Drawing.Image)(resources.GetObject("guna2Button1.Image")));
             this.guna2Button1.ImageAlign = System.Windows.Forms.HorizontalAlignment.Left;
             this.guna2Button1.ImageSize = new System.Drawing.Size(35, 35);
-            this.guna2Button1.Location = new System.Drawing.Point(17, 660);
+            this.guna2Button1.Location = new System.Drawing.Point(13, 680);
             this.guna2Button1.Name = "guna2Button1";
             this.guna2Button1.Size = new System.Drawing.Size(128, 46);
             this.guna2Button1.TabIndex = 41;
             this.guna2Button1.Text = "Instructivo";
             this.guna2Button1.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
-            // guna2HtmlLabel1
-            // 
-            this.guna2HtmlLabel1.BackColor = System.Drawing.Color.Transparent;
-            this.guna2HtmlLabel1.Font = new System.Drawing.Font("Segoe UI Black", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.guna2HtmlLabel1.Location = new System.Drawing.Point(17, 61);
-            this.guna2HtmlLabel1.Name = "guna2HtmlLabel1";
-            this.guna2HtmlLabel1.Size = new System.Drawing.Size(407, 34);
-            this.guna2HtmlLabel1.TabIndex = 4;
-            this.guna2HtmlLabel1.Text = "Sistema de Gestión Administrativa";
-            // 
             // MenuPrincipal
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.DodgerBlue;
-            this.ClientSize = new System.Drawing.Size(1370, 749);
+            this.ClientSize = new System.Drawing.Size(1433, 823);
+            this.Controls.Add(this.guna2VScrollBar1);
             this.Controls.Add(this.guna2Panel5);
             this.Controls.Add(this.guna2Panel4);
             this.Controls.Add(this.guna2Panel2);
@@ -4442,9 +4442,7 @@
             this.guna2Panel3.ResumeLayout(false);
             this.guna2Panel3.PerformLayout();
             this.guna2Panel4.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.guna2PictureBox1)).EndInit();
             this.guna2Panel2.ResumeLayout(false);
-            this.guna2Panel5.ResumeLayout(false);
             this.pnReportesEgresos.ResumeLayout(false);
             this.GrupoCompras.ResumeLayout(false);
             this.GrupoTesoreria.ResumeLayout(false);
@@ -4464,9 +4462,11 @@
             this.GrpoMovimientos.ResumeLayout(false);
             this.Grupoinventarios.ResumeLayout(false);
             this.GruopParametros.ResumeLayout(false);
+            this.GroupCatalogo.ResumeLayout(false);
+            this.guna2Panel5.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.guna2PictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
-            this.GroupCatalogo.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -4674,29 +4674,12 @@
         private Guna.UI2.WinForms.Guna2GradientButton guna2GradientButton34;
         private Guna.UI2.WinForms.Guna2GradientButton guna2GradientButton26;
         private Guna.UI2.WinForms.Guna2GradientButton guna2GradientButton32;
-        private Guna.UI2.WinForms.Guna2GroupBox subgrupoPresupuesto3;
-        private Guna.UI2.WinForms.Guna2GradientButton guna2GradientButton48;
         private Guna.UI2.WinForms.Guna2GroupBox subgrupoPresupuesto;
         private Guna.UI2.WinForms.Guna2GradientButton guna2GradientButton45;
         private Guna.UI2.WinForms.Guna2GradientButton guna2GradientButton46;
         private Guna.UI2.WinForms.Guna2GroupBox subgrupoPresupuesto1;
         private Guna.UI2.WinForms.Guna2GradientButton guna2GradientButton44;
         private Guna.UI2.WinForms.Guna2GradientButton guna2GradientButton47;
-        private Guna.UI2.WinForms.Guna2GroupBox GroupCatalogo;
-        private Guna.UI2.WinForms.Guna2GradientButton BtnCuentasBancarias;
-        private Guna.UI2.WinForms.Guna2GradientButton btnDivisas;
-        private Guna.UI2.WinForms.Guna2GradientButton btnAlmacen;
-        private Guna.UI2.WinForms.Guna2GradientButton BtnProveedores;
-        private Guna.UI2.WinForms.Guna2GradientButton BtnCategorias;
-        private Guna.UI2.WinForms.Guna2GradientButton BtnProductos;
-        private Guna.UI2.WinForms.Guna2GradientButton BtnClientes;
-        private Guna.UI2.WinForms.Guna2GradientButton BtnServicios;
-        private Guna.UI2.WinForms.Guna2GradientButton BtnCentroCosto;
-        private Guna.UI2.WinForms.Guna2GradientButton BtnTiposZonas;
-        private Guna.UI2.WinForms.Guna2GradientButton BtnDocumentos;
-        private Guna.UI2.WinForms.Guna2GradientButton BtnConceptosGlobales;
-        private Guna.UI2.WinForms.Guna2GradientButton BtnEmpleados;
-        private Guna.UI2.WinForms.Guna2GradientButton BtnFormaPago;
         private Guna.UI2.WinForms.Guna2VScrollBar guna2VScrollBar1;
         private Guna.UI2.WinForms.Guna2GradientButton guna2GradientButton50;
         private Guna.UI2.WinForms.Guna2GradientButton guna2GradientButton51;
@@ -4733,5 +4716,22 @@
         private Guna.UI2.WinForms.Guna2GradientButton guna2GradientButton17;
         private Guna.UI2.WinForms.Guna2GradientButton guna2GradientButton18;
         private Guna.UI2.WinForms.Guna2GradientButton guna2GradientButton19;
+        private Guna.UI2.WinForms.Guna2GroupBox subgrupoPresupuesto3;
+        private Guna.UI2.WinForms.Guna2GradientButton guna2GradientButton48;
+        private Guna.UI2.WinForms.Guna2GroupBox GroupCatalogo;
+        private Guna.UI2.WinForms.Guna2GradientButton BtnCuentasBancarias;
+        private Guna.UI2.WinForms.Guna2GradientButton btnDivisas;
+        private Guna.UI2.WinForms.Guna2GradientButton btnAlmacen;
+        private Guna.UI2.WinForms.Guna2GradientButton BtnProveedores;
+        private Guna.UI2.WinForms.Guna2GradientButton BtnCategorias;
+        private Guna.UI2.WinForms.Guna2GradientButton BtnProductos;
+        private Guna.UI2.WinForms.Guna2GradientButton BtnClientes;
+        private Guna.UI2.WinForms.Guna2GradientButton BtnServicios;
+        private Guna.UI2.WinForms.Guna2GradientButton BtnCentroCosto;
+        private Guna.UI2.WinForms.Guna2GradientButton BtnTiposZonas;
+        private Guna.UI2.WinForms.Guna2GradientButton BtnDocumentos;
+        private Guna.UI2.WinForms.Guna2GradientButton BtnConceptosGlobales;
+        private Guna.UI2.WinForms.Guna2GradientButton BtnEmpleados;
+        private Guna.UI2.WinForms.Guna2GradientButton BtnFormaPago;
     }
 }

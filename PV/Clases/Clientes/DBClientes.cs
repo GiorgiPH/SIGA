@@ -321,7 +321,7 @@ namespace PV.Clases.Clientes
                     Celular.Text = dr["Celular"].ToString();
                     Correo.Text = dr["Correo"].ToString();
                     txtCorreo2.Text = dr["Correo2"].ToString();
-                    txtCorreo2.Text = dr["Correo3"].ToString();
+                    txtCorreo3.Text = dr["Correo3"].ToString();
 
                     Exportacion.Text = dr["Exportacion"].ToString();
                     Estatus.Text = dr["Estatus"].ToString();

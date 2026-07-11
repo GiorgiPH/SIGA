@@ -1,9 +1,12 @@
-﻿using System;
+﻿using Guna.UI2.WinForms;
+using PV.Properties;
+using System;
 using System.Data;
 using System.Data.SqlClient;
+using System.Drawing;
+using System.Drawing.Imaging;
+using System.IO;
 using System.Windows.Forms;
-using Guna.UI2.WinForms;
-using PV.Properties;
 
 namespace PuntoVentas.Clases.ProductosServicios
 {
@@ -74,96 +77,207 @@ namespace PuntoVentas.Clases.ProductosServicios
         }
         //_________________________________________________________________________________________________________________________--
         // registrar producto 
-        public string RegistroProducto(string txtClaveProducto, string txtAlias, string txtDescripcion, string cmbEstatus, string txtMarca, string txtUnidadMedida, string txtPresentacion, Guna2ToggleSwitch tgInventariable, string txtCaducidad, string txtCategoria, string txtFamilia, string txtProveedor, string txtExMinimo, string txtExMaximo, string txtExActual, string txtUbicacion, string cmbTipoCosteo, string txtCostoUnitario, string cmbDivisa, string txtDescuentoPorc, string txtDescuentoCant, string txtImpuestoPorc, string txtImpuestoCant, string txtPrecioVenta, PictureBox Foto, string Concepto)
+        public string RegistroProducto(
+      string txtClaveProducto,
+      string txtAlias,
+      string txtDescripcion,
+      string cmbEstatus,
+      string txtMarca,
+      string txtUnidadMedida,
+      string txtPresentacion,
+      Guna2ToggleSwitch tgInventariable,
+      string txtCaducidad,
+      string txtCategoria,
+      string txtFamilia,
+      string txtProveedor,
+      string txtExMinimo,
+      string txtExMaximo,
+      string txtExActual,
+      string txtUbicacion,
+      string cmbTipoCosteo,
+      string txtCostoUnitario,
+      string cmbDivisa,
+      string txtDescuentoPorc,
+      string txtDescuentoCant,
+      string txtImpuestoPorc,
+      string txtImpuestoCant,
+      string txtPrecioVenta,
+      PictureBox Foto,
+      string Concepto)
         {
-            string mensaje = "";
-            int contador = 0;
-
             try
             {
-                cmd = new SqlCommand("select * from ProductosServicios where ClaveProducto='" + txtClaveProducto + "'", cn);
-                dr = cmd.ExecuteReader();
+                string inventariable = tgInventariable.Checked ? "Si" : "No";
 
-                while (dr.Read())
+                byte[] fotoBytes = null;
+
+                if (Foto != null && Foto.Image != null)
                 {
-                    contador++;
-                }
-                dr.Close();
-
-                if (contador <= 0)
-                {
-                    string Inventariable = string.Empty;
-
-                    if (tgInventariable.Checked == true)
+                    using (Bitmap bmp = new Bitmap(Foto.Image))
                     {
-                        Inventariable = "Si";
+                        using (MemoryStream ms = new MemoryStream())
+                        {
+                            bmp.Save(ms, ImageFormat.Jpeg);
+                            fotoBytes = ms.ToArray();
+                        }
                     }
+                }
+
+                bool existe;
+
+                using (SqlCommand cmdExiste = new SqlCommand(
+                    "SELECT COUNT(1) FROM ProductosServicios WHERE ClaveProducto=@ClaveProducto", cn))
+                {
+                    cmdExiste.Parameters.AddWithValue("@ClaveProducto", txtClaveProducto);
+                    existe = Convert.ToInt32(cmdExiste.ExecuteScalar()) > 0;
+                }
+
+                if (existe)
+                {
+                    if (MessageBox.Show("¿Desea actualizar el registro actual?",
+                        "Datos de la Tienda",
+                        MessageBoxButtons.YesNo,
+                        MessageBoxIcon.Question) != DialogResult.Yes)
+                    {
+                        return "";
+                    }
+                }
+
+                string sql = existe
+                    ? @"UPDATE ProductosServicios SET
+                    Alias=@Alias,
+                    Descripcion=@Descripcion,
+                    Estatus=@Estatus,
+                    Marca=@Marca,
+                    UnidadMedida=@UnidadMedida,
+                    Presentacion=@Presentacion,
+                    Inventariable=@Inventariable,
+                    Caducidad=@Caducidad,
+                    Categoria=@Categoria,
+                    Familia=@Familia,
+                    Proveedor=@Proveedor,
+                    ExMinimo=@ExMinimo,
+                    ExMaximo=@ExMaximo,
+                    ExActual=@ExActual,
+                    Ubicacion=@Ubicacion,
+                    TipoCosteo=@TipoCosteo,
+                    CostoUnitario=@CostoUnitario,
+                    Divisa=@Divisa,
+                    DescuentoPorc=@DescuentoPorc,
+                    DescuentoCant=@DescuentoCant,
+                    ImpuestoPorc=@ImpuestoPorc,
+                    ImpuestoCant=@ImpuestoCant,
+                    PrecioVenta=@PrecioVenta,
+                    Foto=@Foto,
+                    ConceptoGlobales=@Concepto
+              WHERE ClaveProducto=@ClaveProducto"
+                    : @"INSERT INTO ProductosServicios
+                (
+                    ClaveProducto,
+                    Alias,
+                    Descripcion,
+                    Estatus,
+                    Marca,
+                    UnidadMedida,
+                    Presentacion,
+                    Inventariable,
+                    Caducidad,
+                    Categoria,
+                    Familia,
+                    Proveedor,
+                    ExMinimo,
+                    ExMaximo,
+                    ExActual,
+                    Ubicacion,
+                    TipoCosteo,
+                    CostoUnitario,
+                    Divisa,
+                    DescuentoPorc,
+                    DescuentoCant,
+                    ImpuestoPorc,
+                    ImpuestoCant,
+                    PrecioVenta,
+                    Foto,
+                    ConceptoGlobales
+                )
+                VALUES
+                (
+                    @ClaveProducto,
+                    @Alias,
+                    @Descripcion,
+                    @Estatus,
+                    @Marca,
+                    @UnidadMedida,
+                    @Presentacion,
+                    @Inventariable,
+                    @Caducidad,
+                    @Categoria,
+                    @Familia,
+                    @Proveedor,
+                    @ExMinimo,
+                    @ExMaximo,
+                    @ExActual,
+                    @Ubicacion,
+                    @TipoCosteo,
+                    @CostoUnitario,
+                    @Divisa,
+                    @DescuentoPorc,
+                    @DescuentoCant,
+                    @ImpuestoPorc,
+                    @ImpuestoCant,
+                    @PrecioVenta,
+                    @Foto,
+                    @Concepto)";
+
+                using (SqlCommand cmd = new SqlCommand(sql, cn))
+                {
+                    cmd.Parameters.AddWithValue("@ClaveProducto", txtClaveProducto);
+                    cmd.Parameters.AddWithValue("@Alias", txtAlias);
+                    cmd.Parameters.AddWithValue("@Descripcion", txtDescripcion);
+                    cmd.Parameters.AddWithValue("@Estatus", cmbEstatus);
+                    cmd.Parameters.AddWithValue("@Marca", txtMarca);
+                    cmd.Parameters.AddWithValue("@UnidadMedida", txtUnidadMedida);
+                    cmd.Parameters.AddWithValue("@Presentacion", txtPresentacion);
+                    cmd.Parameters.AddWithValue("@Inventariable", inventariable);
+                    cmd.Parameters.AddWithValue("@Caducidad", txtCaducidad);
+                    cmd.Parameters.AddWithValue("@Categoria", txtCategoria);
+                    cmd.Parameters.AddWithValue("@Familia", txtFamilia);
+                    cmd.Parameters.AddWithValue("@Proveedor", txtProveedor);
+                    cmd.Parameters.AddWithValue("@ExMinimo", txtExMinimo);
+                    cmd.Parameters.AddWithValue("@ExMaximo", txtExMaximo);
+                    cmd.Parameters.AddWithValue("@ExActual", txtExActual);
+                    cmd.Parameters.AddWithValue("@Ubicacion", txtUbicacion);
+                    cmd.Parameters.AddWithValue("@TipoCosteo", cmbTipoCosteo);
+                    cmd.Parameters.AddWithValue("@CostoUnitario", txtCostoUnitario);
+                    cmd.Parameters.AddWithValue("@Divisa", cmbDivisa);
+                    cmd.Parameters.AddWithValue("@DescuentoPorc", txtDescuentoPorc);
+                    cmd.Parameters.AddWithValue("@DescuentoCant", txtDescuentoCant);
+                    cmd.Parameters.AddWithValue("@ImpuestoPorc", txtImpuestoPorc);
+                    cmd.Parameters.AddWithValue("@ImpuestoCant", txtImpuestoCant);
+                    cmd.Parameters.AddWithValue("@PrecioVenta", txtPrecioVenta);
+                    cmd.Parameters.AddWithValue("@Concepto", Concepto);
+
+                    SqlParameter foto = cmd.Parameters.Add("@Foto", SqlDbType.VarBinary);
+
+                    if (fotoBytes == null)
+                        foto.Value = DBNull.Value;
                     else
-                    {
-                        Inventariable = "No";
-                    }
+                        foto.Value = fotoBytes;
 
-                    if (Foto.Image == null)
-                    {
-                        cmd = new SqlCommand("Insert into ProductosServicios (ClaveProducto, Alias, Descripcion, Estatus, Marca, UnidadMedida, Presentacion, Inventariable, Caducidad, Categoria, Familia, Proveedor, ExMinimo, ExMaximo, ExActual, Ubicacion, TipoCosteo, CostoUnitario, Divisa, DescuentoPorc, DescuentoCant, ImpuestoPorc, ImpuestoCant, PrecioVenta, ConceptoGlobales) values ('" + txtClaveProducto + "', '" + txtAlias + "',  '" + txtDescripcion + "',  '" + cmbEstatus + "', '" + txtMarca + "',  '" + txtUnidadMedida + "',  '" + txtPresentacion + "', '" + Inventariable + "',  '" + txtCaducidad + "',  '" + txtCategoria + "','" + txtFamilia + "', '" + txtProveedor + "',  '" + txtExMinimo + "',  '" + txtExMaximo + "', '" + txtExActual + "',  '" + txtUbicacion + "',  '" + cmbTipoCosteo + "', '" + txtCostoUnitario + "',  '" + cmbDivisa + "',  '" + txtDescuentoPorc + "', '" + txtDescuentoCant + "',  '" + txtImpuestoPorc + "',  '" + txtImpuestoCant + "', '" + txtPrecioVenta + "', '" + Concepto + "')", cn);
-                        cmd.ExecuteNonQuery();
-                        mensaje = "Registro guardado.";
-                    }
-                    else
-                    {
-                        cmd = new SqlCommand("Insert into ProductosServicios (ClaveProducto, Alias, Descripcion, Estatus, Marca, UnidadMedida, Presentacion, Inventariable, Caducidad, Categoria, Familia, Proveedor, ExMinimo, ExMaximo, ExActual, Ubicacion, TipoCosteo, CostoUnitario, Divisa, DescuentoPorc, DescuentoCant, ImpuestoPorc, ImpuestoCant, PrecioVenta, Foto, ConceptoGlobales) values ('" + txtClaveProducto + "', '" + txtAlias + "',  '" + txtDescripcion + "',  '" + cmbEstatus + "', '" + txtMarca + "',  '" + txtUnidadMedida + "',  '" + txtPresentacion + "', '" + Inventariable + "',  '" + txtCaducidad + "',  '" + txtCategoria + "','" + txtFamilia + "', '" + txtProveedor + "',  '" + txtExMinimo + "',  '" + txtExMaximo + "', '" + txtExActual + "',  '" + txtUbicacion + "',  '" + cmbTipoCosteo + "', '" + txtCostoUnitario + "',  '" + cmbDivisa + "',  '" + txtDescuentoPorc + "', '" + txtDescuentoCant + "',  '" + txtImpuestoPorc + "',  '" + txtImpuestoCant + "', '" + txtPrecioVenta + "', @Foto, '" + Concepto + "')", cn);
-                        cmd.Parameters.Add("@Foto", SqlDbType.Image);
-                        System.IO.MemoryStream ms = new System.IO.MemoryStream();
-                        Foto.Image.Save(ms, System.Drawing.Imaging.ImageFormat.Jpeg);
-                        cmd.Parameters["@Foto"].Value = ms.GetBuffer();
-                        cmd.ExecuteNonQuery();
-
-                        mensaje = "Registro guardado.";
-                    }
-
+                    cmd.ExecuteNonQuery();
                 }
 
-                else if (contador > 0)
-                {
-                    if (MessageBox.Show("¿Desea actualizar el registro actual?", "Datos de la Tienda", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
-                    {
-                        string Inventariable = string.Empty;
-
-                        if (tgInventariable.Checked == true)
-                        {
-                            Inventariable = "Si";
-                        }
-                        else
-                        {
-                            Inventariable = "No";
-                        }
-
-                        if (Foto.Image == null)
-                        {
-                            cmd = new SqlCommand("Update ProductosServicios set Alias='" + txtAlias + "', Descripcion='" + txtDescripcion + "', Estatus='" + cmbEstatus + "', Marca='" + txtMarca + "', UnidadMedida='" + txtUnidadMedida + "', Presentacion='" + txtPresentacion + "', Inventariable='" + Inventariable + "', Caducidad='" + txtCaducidad + "', Categoria= '" + txtCategoria + "', Familia= '" + txtFamilia + "', Proveedor='" + txtProveedor + "', ExMinimo='" + txtExMinimo + "', ExMaximo='" + txtExMaximo + "', ExActual='" + txtExActual + "', Ubicacion='" + txtUbicacion + "', TipoCosteo='" + cmbTipoCosteo + "', CostoUnitario='" + txtCostoUnitario + "', Divisa='" + cmbDivisa + "', DescuentoPorc='" + txtDescuentoPorc + "', DescuentoCant='" + txtDescuentoCant + "', ImpuestoPorc='" + txtImpuestoPorc + "', ImpuestoCant='" + txtImpuestoCant + "', PrecioVenta='" + txtPrecioVenta + "', ConceptoGlobales='" + Concepto + "' where ClaveProducto= '" + txtClaveProducto + "'", cn);
-                            cmd.ExecuteNonQuery();
-                        }
-                        else
-                        {
-                            cmd = new SqlCommand("Update ProductosServicios set Alias='" + txtAlias + "', Descripcion='" + txtDescripcion + "', Estatus='" + cmbEstatus + "', Marca='" + txtMarca + "', UnidadMedida='" + txtUnidadMedida + "', Presentacion='" + txtPresentacion + "', Inventariable='" + Inventariable + "', Caducidad='" + txtCaducidad + "', Categoria= '" + txtCategoria + "', Familia= '" + txtFamilia + "', Proveedor='" + txtProveedor + "', ExMinimo='" + txtExMinimo + "', ExMaximo='" + txtExMaximo + "', ExActual='" + txtExActual + "', Ubicacion='" + txtUbicacion + "', TipoCosteo='" + cmbTipoCosteo + "', CostoUnitario='" + txtCostoUnitario + "', Divisa='" + cmbDivisa + "', DescuentoPorc='" + txtDescuentoPorc + "', DescuentoCant='" + txtDescuentoCant + "', ImpuestoPorc='" + txtImpuestoPorc + "', ImpuestoCant='" + txtImpuestoCant + "', PrecioVenta='" + txtPrecioVenta + "', Foto=@Foto, ConceptoGlobales='" + Concepto + "' where ClaveProducto= '" + txtClaveProducto + "'", cn);
-                            cmd.Parameters.Add("@Foto", SqlDbType.Image);
-                            System.IO.MemoryStream ms = new System.IO.MemoryStream();
-                            Foto.Image.Save(ms, System.Drawing.Imaging.ImageFormat.Jpeg);
-                            cmd.Parameters["@Foto"].Value = ms.GetBuffer();
-                            cmd.ExecuteNonQuery();
-                        }
-
-                        mensaje = "Registro modificado.";
-
-                    }
-                }
+                return existe ? "Registro modificado." : "Registro guardado.";
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error." + ex.ToString());
-            }
-            return mensaje;
+                MessageBox.Show("Error: " + ex.Message,
+                    "Error",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
 
+                return "";
+            }
         }
         public string RegistroPedidosProveedor(string txtClaveProducto, string Pedido)
         {

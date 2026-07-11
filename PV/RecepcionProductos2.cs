@@ -15,7 +15,6 @@ using System.Diagnostics;
 using PV.Clases.Almacenes;
 using PV.Clases.Inventario;
 using PV.Clases;
-using SqlServerTypes;
 
 namespace PV
 {

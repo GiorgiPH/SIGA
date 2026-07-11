@@ -413,17 +413,14 @@ namespace PuntoVentas
 
         private void guna2Button13_Click(object sender, EventArgs e)
         {
-            OpenFileDialog Abrir = new OpenFileDialog();
+            OpenFileDialog abrir = new OpenFileDialog();
 
-            Abrir.Filter = "Archivos JPEG(* .JPEG) |*.jpg";
-            Abrir.InitialDirectory = "C:/";
+            abrir.Filter = "Archivos de imagen (*.png;*.jpg;*.jpeg)|*.png;*.jpg;*.jpeg|Todos los archivos (*.*)|*.*";
+            abrir.InitialDirectory = @"C:\";
 
-            if (Abrir.ShowDialog() == DialogResult.OK)
+            if (abrir.ShowDialog() == DialogResult.OK)
             {
-                string Dir = Abrir.FileName;
-                Bitmap foto = new Bitmap(Dir);
-
-                Foto.Image = (Image)foto;
+                Foto.Image = Image.FromFile(abrir.FileName);
             }
         }
 

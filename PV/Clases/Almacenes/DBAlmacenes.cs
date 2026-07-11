@@ -191,15 +191,33 @@ namespace PV.Clases.Almacenes
         }
         public void SeleccionarAlmacen(ComboBox cb)
         {
-            cb.Items.Clear();
-            cmd = new SqlCommand("select (convert(varchar, Clave) + ' - ' + Nombre) as Nombre from Almacenes", cn);
-            dr = cmd.ExecuteReader();
-            while (dr.Read())
+            cb.BeginUpdate();
+
+            try
             {
-                cb.Items.Add(dr[0].ToString());
+                cb.Items.Clear();
+
+                const string query = @"
+            SELECT CONVERT(varchar(10), Clave) + ' - ' + Nombre AS Nombre
+            FROM Almacenes
+            ORDER BY Nombre";
+
+                using (SqlCommand cmd = new SqlCommand(query, cn))
+                {
+                    using (SqlDataReader dr = cmd.ExecuteReader())
+                    {
+                        while (dr.Read())
+                        {
+                            cb.Items.Add(dr["Nombre"].ToString());
+                        }
+                    }
+                }
             }
-            dr.Close();
+            finally
+            {
+                cb.EndUpdate();
+            }
         }
-        
+
     }
 }

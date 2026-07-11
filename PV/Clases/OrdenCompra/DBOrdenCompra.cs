@@ -2098,39 +2098,71 @@ namespace PV.Clases.OrdenCompra
             }
         }
         //____________________________________________________________________________________________
-        public void ActualizarTotalesRemision(string txtFolio, string txtPartida)
+        public void ActualizarTotalesRemision(string folio, string partida)
         {
             try
             {
-                cmd = new SqlCommand("select sum(Descuento) as Descuento, sum(Subtotal) as Subtotal, sum(Total) as Total from PartidaRemision where FolioRemision='" + txtFolio + "'", cn);
-                dr = cmd.ExecuteReader();
+                const string queryTotales = @"
+            SELECT
+                ISNULL(SUM(Descuento), 0) AS Descuento,
+                ISNULL(SUM(Subtotal), 0) AS Subtotal,
+                ISNULL(SUM(Total), 0) AS Total,
+                ISNULL(SUM((CONVERT(decimal(18,2), Impuesto) / 100) * (Subtotal - Descuento)), 0) AS Impuesto
+            FROM PartidaRemision
+            WHERE FolioRemision = @Folio";
 
-                if (dr.Read())
+                decimal subtotal = 0;
+                decimal descuento = 0;
+                decimal total = 0;
+                decimal impuesto = 0;
+
+                using (SqlCommand cmd = new SqlCommand(queryTotales, cn))
                 {
-                    string Subtotal = dr["Subtotal"].ToString();
-                    string Descuentos = dr["Descuento"].ToString();
-                    string Total = dr["Total"].ToString();
-                    string Impuesto = string.Empty;
-                    dr.Close();
+                    cmd.Parameters.AddWithValue("@Folio", folio);
 
-                    cmd = new SqlCommand("select sum((Convert(decimal, Impuesto) / 100) * (Subtotal-Descuento)) as Impuesto from PartidaRemision where FolioRemision='" + txtFolio + "'", cn);
-                    dr = cmd.ExecuteReader();
-
-                    if (dr.Read())
+                    using (SqlDataReader dr = cmd.ExecuteReader())
                     {
-                        Impuesto = dr["Impuesto"].ToString();
-
+                        if (dr.Read())
+                        {
+                            subtotal = Convert.ToDecimal(dr["Subtotal"]);
+                            descuento = Convert.ToDecimal(dr["Descuento"]);
+                            total = Convert.ToDecimal(dr["Total"]);
+                            impuesto = Convert.ToDecimal(dr["Impuesto"]);
+                        }
                     }
-                    dr.Close();
-
-                    cmd = new SqlCommand("Update Remision set TotalPartidas='" + txtPartida + "', Subtotal='" + Subtotal + "', Descuento='" + Descuentos + "', Cargo='" + Impuesto + "', Total='" + Total + "', Saldo='" + Total + "' where Folio='" + txtFolio + "'", cn);
-                    cmd.ExecuteNonQuery();
                 }
 
+                const string queryUpdate = @"
+            UPDATE Remision
+            SET
+                TotalPartidas = @TotalPartidas,
+                Subtotal = @Subtotal,
+                Descuento = @Descuento,
+                Cargo = @Cargo,
+                Total = @Total,
+                Saldo = @Saldo
+            WHERE Folio = @Folio";
+
+                using (SqlCommand cmd = new SqlCommand(queryUpdate, cn))
+                {
+                    cmd.Parameters.AddWithValue("@TotalPartidas", partida);
+                    cmd.Parameters.AddWithValue("@Subtotal", subtotal);
+                    cmd.Parameters.AddWithValue("@Descuento", descuento);
+                    cmd.Parameters.AddWithValue("@Cargo", impuesto);
+                    cmd.Parameters.AddWithValue("@Total", total);
+                    cmd.Parameters.AddWithValue("@Saldo", total);
+                    cmd.Parameters.AddWithValue("@Folio", folio);
+
+                    cmd.ExecuteNonQuery();
+                }
             }
             catch (Exception ex)
             {
-                MessageBox.Show("ERROR" + ex.ToString());
+                MessageBox.Show(
+                    $"Error al actualizar los totales de la remisión.\n\n{ex.Message}",
+                    "Error",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
             }
         }
         //____________________________________________________________________________________________
@@ -3665,15 +3697,35 @@ namespace PV.Clases.OrdenCompra
         //_______________________________________________________________________________________________
         public void SeleccionarConceptoGlobalesRecibo(ComboBox cb)
         {
-            cb.Items.Clear();
-            cmd = new SqlCommand("Select (Clave + ' - ' + Nombre) as Clave from ConceptosGlobales", cn);
-            dr = cmd.ExecuteReader();
-            while (dr.Read())
+            cb.BeginUpdate();
+
+            try
             {
-                cb.Items.Add(dr[0].ToString());
-                cb.SelectedIndex = 0;
+                cb.Items.Clear();
+
+                const string query = @"
+            SELECT Clave + ' - ' + Nombre AS Concepto
+            FROM ConceptosGlobales
+            ORDER BY Nombre";
+
+                using (SqlCommand cmd = new SqlCommand(query, cn))
+                using (SqlDataReader dr = cmd.ExecuteReader())
+                {
+                    while (dr.Read())
+                    {
+                        cb.Items.Add(dr["Concepto"].ToString());
+                    }
+                }
+
+                if (cb.Items.Count > 0)
+                {
+                    cb.SelectedIndex = 0;
+                }
             }
-            dr.Close();
+            finally
+            {
+                cb.EndUpdate();
+            }
         }
         //_______________________________________________________________________________________________
         public void SeleccionarConceptoGlobalesReciboreembolso(ComboBox cb, string importe)
@@ -3700,27 +3752,41 @@ namespace PV.Clases.OrdenCompra
             dr.Close();
         }
         //_____________________________________________________________________________________________________
-        public string[] InformacionReciboConceptoGlobal(string Recibo)
+        public string[] InformacionReciboConceptoGlobal(string concepto)
         {
-            dr.Close();
-            cmd = new SqlCommand("Select * from ConceptosGlobales where (Clave + ' - ' + Nombre)= '" + Recibo + "'", cn);
-            dr = cmd.ExecuteReader();
-            string[] resultado = null;
-            while (dr.Read())
+            const string query = @"
+        SELECT
+            Clave,
+            Nombre,
+            Clase,
+            Tipo,
+            Importe,
+            IncluyeIva
+        FROM ConceptosGlobales
+        WHERE Clave + ' - ' + Nombre = @Concepto";
+
+            using (SqlCommand cmd = new SqlCommand(query, cn))
             {
-                string[] valores =
+                cmd.Parameters.Add("@Concepto", SqlDbType.VarChar, 110).Value = concepto;
+
+                using (SqlDataReader dr = cmd.ExecuteReader())
                 {
-                    dr[0].ToString(),
-                    dr[1].ToString(),
-                     dr[2].ToString(),
-                      dr[3].ToString(),
-                       dr[6].ToString(),
-                       dr[7].ToString(),
-                };
-                resultado = valores;
+                    if (dr.Read())
+                    {
+                        return new string[]
+                        {
+                    dr["Clave"].ToString(),
+                    dr["Nombre"].ToString(),
+                    dr["Clase"].ToString(),
+                    dr["Tipo"].ToString(),
+                    dr["Importe"].ToString(),
+                    dr["IncluyeIva"].ToString()
+                        };
+                    }
+                }
             }
-            dr.Close();
-            return resultado;
+
+            return null;
         }
         //___________________________________________________________________________________________
         public void InsertarReciboConceptoGlobal3(string ClaveConceptoG, string Folio)

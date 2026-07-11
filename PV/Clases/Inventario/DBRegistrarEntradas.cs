@@ -13,12 +13,6 @@ namespace PV.Clases.Inventario
 {
     class DBRegistrarEntradas
     {
-        SqlConnection cn;
-        SqlCommand cmd;
-        SqlDataReader dr;
-        SqlDataAdapter da;
-        DataTable dt;
-
         public static int Folio = 0;
         public static int Eliminado = 0;
 
@@ -29,197 +23,250 @@ namespace PV.Clases.Inventario
 
         public DBRegistrarEntradas()
         {
-            try
-            {
-                cn = new SqlConnection(ObtenerCn());
-                cn.Open();
-
-
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Error de Conexion" + ex.ToString());
-            }
+            // Ya no se abre una conexión compartida aquí.
+            // Cada método abre y cierra su propia conexión con "using"
+            // para evitar conexiones o DataReaders que se quedan abiertos.
         }
+
         //______________________________________________________________________________________________________________________________
         public void SeleccionarDocumentoEntrada(ComboBox cb)
         {
             cb.Items.Clear();
-            cmd = new SqlCommand("Select * from TipoMovimiento where TipoMovimiento='E' and Estatus='Activo'", cn);
-            dr = cmd.ExecuteReader();
-            while (dr.Read())
+            using (SqlConnection cn = new SqlConnection(ObtenerCn()))
             {
-                cb.Items.Add(dr[1].ToString());
+                cn.Open();
+                using (SqlCommand cmd = new SqlCommand("Select * from TipoMovimiento where TipoMovimiento='E' and Estatus='Activo'", cn))
+                using (SqlDataReader dr = cmd.ExecuteReader())
+                {
+                    while (dr.Read())
+                    {
+                        cb.Items.Add(dr[1].ToString());
+                    }
+                }
             }
-            dr.Close();
         }
         //______________________________________________________________________________________________________________________________
         public void SeleccionarAlmacen(ComboBox cb)
         {
             cb.Items.Clear();
-            cmd = new SqlCommand("select (convert(varchar, Clave) + ' - ' + Nombre) as Nombre from Almacenes", cn);
-            dr = cmd.ExecuteReader();
-            while (dr.Read())
+            using (SqlConnection cn = new SqlConnection(ObtenerCn()))
             {
-                cb.Items.Add(dr[0].ToString());
+                cn.Open();
+                using (SqlCommand cmd = new SqlCommand("select (convert(varchar, Clave) + ' - ' + Nombre) as Nombre from Almacenes", cn))
+                using (SqlDataReader dr = cmd.ExecuteReader())
+                {
+                    while (dr.Read())
+                    {
+                        cb.Items.Add(dr[0].ToString());
+                    }
+                }
             }
-            dr.Close();
         }
         //______________________________________________________________________________________________________________________________
         public string[] InformacionAlmacen(string Documento)
         {
-            cmd = new SqlCommand("Select Clave from Almacenes where (convert(varchar, Clave) + ' - ' + Nombre) = '" + Documento + "'", cn);
-            dr = cmd.ExecuteReader();
             string[] resultado = null;
-            while (dr.Read())
+            using (SqlConnection cn = new SqlConnection(ObtenerCn()))
             {
-                string[] valores =
+                cn.Open();
+                using (SqlCommand cmd = new SqlCommand("Select Clave from Almacenes where (convert(varchar, Clave) + ' - ' + Nombre) = '" + Documento + "'", cn))
+                using (SqlDataReader dr = cmd.ExecuteReader())
                 {
-                    dr[0].ToString(),
-                };
-                resultado = valores;
+                    while (dr.Read())
+                    {
+                        string[] valores =
+                        {
+                            dr[0].ToString(),
+                        };
+                        resultado = valores;
+                    }
+                }
             }
-            dr.Close();
             return resultado;
         }
         //______________________________________________________________________________________________________________________________
         public string[] InformacionAlmacen2(string Documento)
         {
-            cmd = new SqlCommand("Select (convert(varchar, Clave) + ' - ' + Nombre) from Almacenes where  Clave= '" + Documento + "'", cn);
-            dr = cmd.ExecuteReader();
             string[] resultado = null;
-            while (dr.Read())
+            using (SqlConnection cn = new SqlConnection(ObtenerCn()))
             {
-                string[] valores =
+                cn.Open();
+                using (SqlCommand cmd = new SqlCommand("Select (convert(varchar, Clave) + ' - ' + Nombre) from Almacenes where  Clave= '" + Documento + "'", cn))
+                using (SqlDataReader dr = cmd.ExecuteReader())
                 {
-                    dr[0].ToString(),
-                };
-                resultado = valores;
+                    while (dr.Read())
+                    {
+                        string[] valores =
+                        {
+                            dr[0].ToString(),
+                        };
+                        resultado = valores;
+                    }
+                }
             }
-            dr.Close();
             return resultado;
         }
         //______________________________________________________________________________________________________________________________
         public void SeleccionarDocumentoSalida(ComboBox cb)
         {
             cb.Items.Clear();
-            cmd = new SqlCommand("Select * from TipoMovimiento where TipoMovimiento='S' and Estatus='Activo'", cn);
-            dr = cmd.ExecuteReader();
-            while (dr.Read())
+            using (SqlConnection cn = new SqlConnection(ObtenerCn()))
             {
-                cb.Items.Add(dr[1].ToString());
+                cn.Open();
+                using (SqlCommand cmd = new SqlCommand("Select * from TipoMovimiento where TipoMovimiento='S' and Estatus='Activo'", cn))
+                using (SqlDataReader dr = cmd.ExecuteReader())
+                {
+                    while (dr.Read())
+                    {
+                        cb.Items.Add(dr[1].ToString());
+                    }
+                }
             }
-            dr.Close();
         }
         //______________________________________________________________________________________________________________________________
         public void SeleccionarDocumentoTraslado(ComboBox cb)
         {
             cb.Items.Clear();
-            cmd = new SqlCommand("Select * from TipoMovimiento where TipoMovimiento='T' and Estatus='Activo'", cn);
-            dr = cmd.ExecuteReader();
-            while (dr.Read())
+            using (SqlConnection cn = new SqlConnection(ObtenerCn()))
             {
-                cb.Items.Add(dr[1].ToString());
+                cn.Open();
+                using (SqlCommand cmd = new SqlCommand("Select * from TipoMovimiento where TipoMovimiento='T' and Estatus='Activo'", cn))
+                using (SqlDataReader dr = cmd.ExecuteReader())
+                {
+                    while (dr.Read())
+                    {
+                        cb.Items.Add(dr[1].ToString());
+                    }
+                }
             }
-            dr.Close();
         }
 
         internal void SeleccionarProducto(Guna2ComboBox cb)
         {
             cb.Items.Clear();
-            cmd = new SqlCommand("Select * from ProductosServicios where Inventariable = 'Si'", cn);
-            dr = cmd.ExecuteReader();
-            while (dr.Read())
+            using (SqlConnection cn = new SqlConnection(ObtenerCn()))
             {
-                cb.Items.Add(dr[0].ToString() + '-' + dr[2].ToString() + ' ' + dr[4].ToString());
+                cn.Open();
+                using (SqlCommand cmd = new SqlCommand("Select * from ProductosServicios where Inventariable = 'Si'", cn))
+                using (SqlDataReader dr = cmd.ExecuteReader())
+                {
+                    while (dr.Read())
+                    {
+                        cb.Items.Add(dr[0].ToString() + '-' + dr[2].ToString() + ' ' + dr[4].ToString());
+                    }
+                }
             }
-            dr.Close();
         }
 
-        
+
 
         //______________________________________________________________________________________________________________________________
         public string[] InformacionEntrada(string Documento)
         {
-            cmd = new SqlCommand("Select * from TipoMovimiento where TipoMovimiento= 'E' and Documento= '" + Documento + "'", cn);
-            dr = cmd.ExecuteReader();
             string[] resultado = null;
-            while (dr.Read())
+            using (SqlConnection cn = new SqlConnection(ObtenerCn()))
             {
-                string[] valores =
+                cn.Open();
+                using (SqlCommand cmd = new SqlCommand("Select * from TipoMovimiento where TipoMovimiento= 'E' and Documento= '" + Documento + "'", cn))
+                using (SqlDataReader dr = cmd.ExecuteReader())
                 {
-                    dr[2].ToString(),
-                    dr[4].ToString(),
-                    dr[6].ToString(),
-                };
-                resultado = valores;
+                    while (dr.Read())
+                    {
+                        string[] valores =
+                        {
+                            dr[2].ToString(),
+                            dr[4].ToString(),
+                            dr[6].ToString(),
+                        };
+                        resultado = valores;
+                    }
+                }
             }
-            dr.Close();
             return resultado;
         }
         //______________________________________________________________________________________________________________________________
         public string[] InformacionSalida(string Documento)
         {
-            cmd = new SqlCommand("Select * from TipoMovimiento where TipoMovimiento= 'S' and Documento= '" + Documento + "'", cn);
-            dr = cmd.ExecuteReader();
             string[] resultado = null;
-            while (dr.Read())
+            using (SqlConnection cn = new SqlConnection(ObtenerCn()))
             {
-                string[] valores =
+                cn.Open();
+                using (SqlCommand cmd = new SqlCommand("Select * from TipoMovimiento where TipoMovimiento= 'S' and Documento= '" + Documento + "'", cn))
+                using (SqlDataReader dr = cmd.ExecuteReader())
                 {
-                    dr[2].ToString(),
-                    dr[4].ToString(),
-                };
-                resultado = valores;
+                    while (dr.Read())
+                    {
+                        string[] valores =
+                        {
+                            dr[2].ToString(),
+                            dr[4].ToString(),
+                        };
+                        resultado = valores;
+                    }
+                }
             }
-            dr.Close();
             return resultado;
         }
         //______________________________________________________________________________________________________________________________
         public string[] InformacionTraspaso(string Documento)
         {
-            cmd = new SqlCommand("Select * from TipoMovimiento where TipoMovimiento= 'T' and Documento= '" + Documento + "'", cn);
-            dr = cmd.ExecuteReader();
             string[] resultado = null;
-            while (dr.Read())
+            using (SqlConnection cn = new SqlConnection(ObtenerCn()))
             {
-                string[] valores =
+                cn.Open();
+                using (SqlCommand cmd = new SqlCommand("Select * from TipoMovimiento where TipoMovimiento= 'T' and Documento= '" + Documento + "'", cn))
+                using (SqlDataReader dr = cmd.ExecuteReader())
                 {
-                    dr[2].ToString(),
-                    dr[4].ToString(),
-                };
-                resultado = valores;
+                    while (dr.Read())
+                    {
+                        string[] valores =
+                        {
+                            dr[2].ToString(),
+                            dr[4].ToString(),
+                        };
+                        resultado = valores;
+                    }
+                }
             }
-            dr.Close();
             return resultado;
         }
         //______________________________________________________________________________________________________________________________
         public void SeleccionarDivisa(ComboBox cb)
         {
             cb.Items.Clear();
-            cmd = new SqlCommand("Select * from Divisas", cn);
-            dr = cmd.ExecuteReader();
-            while (dr.Read())
+            using (SqlConnection cn = new SqlConnection(ObtenerCn()))
             {
-                cb.Items.Add(dr[1].ToString());
+                cn.Open();
+                using (SqlCommand cmd = new SqlCommand("Select * from Divisas", cn))
+                using (SqlDataReader dr = cmd.ExecuteReader())
+                {
+                    while (dr.Read())
+                    {
+                        cb.Items.Add(dr[1].ToString());
+                    }
+                }
             }
-            dr.Close();
         }
         //______________________________________________________________________________________________________________________________
         public string[] InformacionDivisa(string Nombre)
         {
-            cmd = new SqlCommand("Select TipoCambio from Divisas where Nombre= '" + Nombre + "'", cn);
-            dr = cmd.ExecuteReader();
             string[] resultado = null;
-            while (dr.Read())
+            using (SqlConnection cn = new SqlConnection(ObtenerCn()))
             {
-                string[] valores =
+                cn.Open();
+                using (SqlCommand cmd = new SqlCommand("Select TipoCambio from Divisas where Nombre= '" + Nombre + "'", cn))
+                using (SqlDataReader dr = cmd.ExecuteReader())
                 {
-                    dr[0].ToString(),
-                };
-                resultado = valores;
+                    while (dr.Read())
+                    {
+                        string[] valores =
+                        {
+                            dr[0].ToString(),
+                        };
+                        resultado = valores;
+                    }
+                }
             }
-            dr.Close();
             return resultado;
         }
 
@@ -231,12 +278,13 @@ namespace PV.Clases.Inventario
                 {
                     cn.Open();
 
-                    SqlCommand cmd = new SqlCommand("IF NOT EXISTS (SELECT * FROM TipoMovimiento WHERE Documento = 'EPR' AND TipoMovimiento = 'E') " +
+                    using (SqlCommand cmd = new SqlCommand("IF NOT EXISTS (SELECT * FROM TipoMovimiento WHERE Documento = 'EPR' AND TipoMovimiento = 'E') " +
                                                      "BEGIN " +
                                                      "    INSERT INTO TipoMovimiento VALUES ('E', 'EPR', 'ENTRADA POR RECEPCIÓN', 'Activo', '0', 'Si', 'Si', '', '') " +
-                                                     "END", cn);
-
-                    cmd.ExecuteNonQuery();
+                                                     "END", cn))
+                    {
+                        cmd.ExecuteNonQuery();
+                    }
                 }
             }
             catch (Exception ex)
@@ -255,39 +303,44 @@ namespace PV.Clases.Inventario
 
             try
             {
-                cmd = new SqlCommand("Select top 1 * from MovimientoInventario order by Folio Desc", cn);
-                dr = cmd.ExecuteReader();
-
-                if (dr.Read())
+                using (SqlConnection cn = new SqlConnection(ObtenerCn()))
                 {
-                    FolioM = Convert.ToInt32(dr["Folio"].ToString());
-                    FolioM++;
+                    cn.Open();
 
-                    FOlioP.Text = FolioM.ToString();
-                }
-                else
-                {
-                    FolioM = 1;
-                    FOlioP.Text = FolioM.ToString();
-                }
-                dr.Close();
+                    using (SqlCommand cmd = new SqlCommand("Select top 1 * from MovimientoInventario order by Folio Desc", cn))
+                    using (SqlDataReader dr = cmd.ExecuteReader())
+                    {
+                        if (dr.Read())
+                        {
+                            FolioM = Convert.ToInt32(dr["Folio"].ToString());
+                            FolioM++;
 
-                cmd = new SqlCommand("select * from MovimientoInventario where Folio='" + FolioM + "' and TipoDocumento='" + txtTipoDocumento + "' and Referencias='" + txtReferencias + "'", cn);
-                dr = cmd.ExecuteReader();
+                            FOlioP.Text = FolioM.ToString();
+                        }
+                        else
+                        {
+                            FolioM = 1;
+                            FOlioP.Text = FolioM.ToString();
+                        }
+                    }
 
-                while (dr.Read())
-                {
-                    contador++;
-                }
-                dr.Close();
+                    using (SqlCommand cmd = new SqlCommand("select * from MovimientoInventario where Folio='" + FolioM + "' and TipoDocumento='" + txtTipoDocumento + "' and Referencias='" + txtReferencias + "'", cn))
+                    using (SqlDataReader dr = cmd.ExecuteReader())
+                    {
+                        while (dr.Read())
+                        {
+                            contador++;
+                        }
+                    }
 
-                if (contador <= 0)
-                {
-
-                    cmd = new SqlCommand("Insert into MovimientoInventario (Folio, TipoDocumento, Descripcion, Fecha, Estatus, Referencias, Almacen, TotalPartidas, Divisa, TipoCambio, Total, Notas, Elaborado, Consecutivo, AlmacenSalida) values ('" + FolioM + "', '" + txtTipoDocumento + "',  '" + cmbDescripcion + "',  '" + dtpFecha + "', '" + cmbEstatus + "',  '" + txtReferencias + "', '" + txtAlmacen + "', '" + txtTotalPartidas + "', '" + cmbDivisa + "', '" + txtTipoCambio + "', '" + txtTotal + "', '" + txtNotas + "', '" + txtElaborado + "', '" + txtFolio + "', '" + txtAlmacenSalida + "')", cn);
-                    cmd.ExecuteNonQuery();
-                    mensaje = "Registro guardado.";
-
+                    if (contador <= 0)
+                    {
+                        using (SqlCommand cmd = new SqlCommand("Insert into MovimientoInventario (Folio, TipoDocumento, Descripcion, Fecha, Estatus, Referencias, Almacen, TotalPartidas, Divisa, TipoCambio, Total, Notas, Elaborado, Consecutivo, AlmacenSalida) values ('" + FolioM + "', '" + txtTipoDocumento + "',  '" + cmbDescripcion + "',  '" + dtpFecha + "', '" + cmbEstatus + "',  '" + txtReferencias + "', '" + txtAlmacen + "', '" + txtTotalPartidas + "', '" + cmbDivisa + "', '" + txtTipoCambio + "', '" + txtTotal + "', '" + txtNotas + "', '" + txtElaborado + "', '" + txtFolio + "', '" + txtAlmacenSalida + "')", cn))
+                        {
+                            cmd.ExecuteNonQuery();
+                        }
+                        mensaje = "Registro guardado.";
+                    }
                 }
             }
             catch (Exception ex)
@@ -307,23 +360,26 @@ namespace PV.Clases.Inventario
 
             try
             {
-                cmd = new SqlCommand("select * from TipoMovimiento where TipoMovimiento= '" + txtTipoMovimiento + "' and Documento='" + txtDocumento + "'", cn);
-                dr = cmd.ExecuteReader();
-
-                while (dr.Read())
+                using (SqlConnection cn = new SqlConnection(ObtenerCn()))
                 {
-                    contador++;
+                    cn.Open();
+
+                    using (SqlCommand cmd = new SqlCommand("select * from TipoMovimiento where TipoMovimiento= '" + txtTipoMovimiento + "' and Documento='" + txtDocumento + "'", cn))
+                    using (SqlDataReader dr = cmd.ExecuteReader())
+                    {
+                        while (dr.Read())
+                        {
+                            contador++;
+                        }
+                    }
+
+                    using (SqlCommand cmd = new SqlCommand("Update TipoMovimiento set  UltimoFolio='" + txtUltimoFolio + "' where TipoMovimiento= '" + txtTipoMovimiento + "' and Documento='" + txtDocumento + "'", cn))
+                    {
+                        cmd.ExecuteNonQuery();
+                    }
+
+                    mensaje = "Registro modificado.";
                 }
-                dr.Close();
-
-
-
-                cmd = new SqlCommand("Update TipoMovimiento set  UltimoFolio='" + txtUltimoFolio + "' where TipoMovimiento= '" + txtTipoMovimiento + "' and Documento='" + txtDocumento + "'", cn);
-                cmd.ExecuteNonQuery();
-
-                mensaje = "Registro modificado.";
-
-
             }
             catch (Exception ex)
             {
@@ -340,9 +396,14 @@ namespace PV.Clases.Inventario
 
             try
             {
-                cmd = new SqlCommand("Update MovimientoInventario set Estatus='Bloqueado', TotalPartidas= '" + txtPartidas + "', Total='" + txtTotal + "' where Folio='"+txtFolio+"' and TipoDocumento= '" + txtTipoMovimiento + "' and Descripcion='" + txtDocumento + "'", cn);
-                cmd.ExecuteNonQuery();
-
+                using (SqlConnection cn = new SqlConnection(ObtenerCn()))
+                {
+                    cn.Open();
+                    using (SqlCommand cmd = new SqlCommand("Update MovimientoInventario set Estatus='Bloqueado', TotalPartidas= '" + txtPartidas + "', Total='" + txtTotal + "' where Folio='" + txtFolio + "' and TipoDocumento= '" + txtTipoMovimiento + "' and Descripcion='" + txtDocumento + "'", cn))
+                    {
+                        cmd.ExecuteNonQuery();
+                    }
+                }
             }
             catch (Exception ex)
             {
@@ -359,9 +420,14 @@ namespace PV.Clases.Inventario
 
             try
             {
-                cmd = new SqlCommand("Update MovimientoInventario set Estatus='Cancelado', TotalPartidas= '" + txtPartidas + "', Total='" + txtTotal + "' where Folio='" + txtFolio + "' and TipoDocumento= '" + txtTipoMovimiento + "' and Descripcion='" + txtDocumento + "'", cn);
-                cmd.ExecuteNonQuery();
-
+                using (SqlConnection cn = new SqlConnection(ObtenerCn()))
+                {
+                    cn.Open();
+                    using (SqlCommand cmd = new SqlCommand("Update MovimientoInventario set Estatus='Cancelado', TotalPartidas= '" + txtPartidas + "', Total='" + txtTotal + "' where Folio='" + txtFolio + "' and TipoDocumento= '" + txtTipoMovimiento + "' and Descripcion='" + txtDocumento + "'", cn))
+                    {
+                        cmd.ExecuteNonQuery();
+                    }
+                }
             }
             catch (Exception ex)
             {
@@ -372,23 +438,25 @@ namespace PV.Clases.Inventario
         }
         public void CancelarMovimientoInventario(string Folio, string Documento, string Descripcion)
         {
-
             try
             {
-                cmd = new SqlCommand("CancelarMovimientoInventario", cn);
-                cmd.CommandType = CommandType.StoredProcedure;
-                cmd.Parameters.Add(new SqlParameter("@Folio", Folio));
-                cmd.Parameters.Add(new SqlParameter("@TipoDocumento", Documento));
-                cmd.Parameters.Add(new SqlParameter("@Descripcion", Descripcion));
-                cmd.ExecuteNonQuery();
+                using (SqlConnection cn = new SqlConnection(ObtenerCn()))
+                {
+                    cn.Open();
+                    using (SqlCommand cmd = new SqlCommand("CancelarMovimientoInventario", cn))
+                    {
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Parameters.Add(new SqlParameter("@Folio", Folio));
+                        cmd.Parameters.Add(new SqlParameter("@TipoDocumento", Documento));
+                        cmd.Parameters.Add(new SqlParameter("@Descripcion", Descripcion));
+                        cmd.ExecuteNonQuery();
+                    }
+                }
             }
             catch (Exception ex)
             {
                 MessageBox.Show("Error." + ex.ToString());
             }
-
-
-
         }
         //_____________________________________________________________________________________________________
         //Mostrar Usuario seleccionado
@@ -396,34 +464,34 @@ namespace PV.Clases.Inventario
         {
             try
             {
-                cmd = new SqlCommand("select * from MovimientoInventario where Folio='"+Folio+"' and TipoDocumento= '" + txtTipoMovimiento + "' and Descripcion='" + txtDocumento + "'", cn);
-                dr = cmd.ExecuteReader();
-                if (dr.Read())
+                using (SqlConnection cn = new SqlConnection(ObtenerCn()))
                 {
-                    txtPartidas.Text = dr["TotalPartidas"].ToString();
-                    txtReferencia.Text = dr["Referencias"].ToString();
-                    txtAlmacen.Text = dr["Almacen"].ToString();
-                    txtTotal.Text = dr["Total"].ToString();
-                    txtNotas.Text = dr["Notas"].ToString();
-                    cmbEstatus.Text = dr["Estatus"].ToString();
-                    txtElaborado.Text = dr["Elaborado"].ToString();
-                    txtTipoCambio.Text = dr["TipoCambio"].ToString();
-                    cmbDivisa.Text = dr["Divisa"].ToString();
-                    txtFolioP.Text = dr["Folio"].ToString();
+                    cn.Open();
+                    using (SqlCommand cmd = new SqlCommand("select * from MovimientoInventario where Folio='" + Folio + "' and TipoDocumento= '" + txtTipoMovimiento + "' and Descripcion='" + txtDocumento + "'", cn))
+                    using (SqlDataReader dr = cmd.ExecuteReader())
+                    {
+                        if (dr.Read())
+                        {
+                            txtPartidas.Text = dr["TotalPartidas"].ToString();
+                            txtReferencia.Text = dr["Referencias"].ToString();
+                            txtAlmacen.Text = dr["Almacen"].ToString();
+                            txtTotal.Text = dr["Total"].ToString();
+                            txtNotas.Text = dr["Notas"].ToString();
+                            cmbEstatus.Text = dr["Estatus"].ToString();
+                            txtElaborado.Text = dr["Elaborado"].ToString();
+                            txtTipoCambio.Text = dr["TipoCambio"].ToString();
+                            cmbDivisa.Text = dr["Divisa"].ToString();
+                            txtFolioP.Text = dr["Folio"].ToString();
+                        }
+                    }
                 }
-                dr.Close();
             }
             catch (Exception ex)
             {
-                dr.Close();
                 MessageBox.Show("Error" + ex.ToString());
             }
         }
 
-        internal void RegistroPartida(string text1, string text2, string text3, string text4, string clave, string text5, string text6, decimal v1, string text7, string text8, decimal v2, string text9)
-        {
-            throw new NotImplementedException();
-        }
 
         //_____________________________________________________________________________________________________
         //Mostrar Usuario seleccionado
@@ -431,27 +499,31 @@ namespace PV.Clases.Inventario
         {
             try
             {
-                cmd = new SqlCommand("select * from MovimientoInventario where Folio= '" + Folio + "' and TipoDocumento= '" + txtTipoMovimiento + "' and Descripcion='" + txtDocumento + "'", cn);
-                dr = cmd.ExecuteReader();
-                if (dr.Read())
+                using (SqlConnection cn = new SqlConnection(ObtenerCn()))
                 {
-                    txtFolio.Text = dr["Folio"].ToString();
-                    txtDescricpcion.Text = dr["Descripcion"].ToString();
-                    txtPartidas.Text = dr["TotalPartidas"].ToString();
-                    txtReferencia.Text = dr["Referencias"].ToString();
-                    txtAlmacen.Text = dr["Almacen"].ToString();
-                    txtTotal.Text = dr["Total"].ToString();
-                    txtNotas.Text = dr["Notas"].ToString();
-                    cmbEstatus.Text = dr["Estatus"].ToString();
-                    txtElaborado.Text = dr["Elaborado"].ToString();
-                    txtTipoCambio.Text = dr["TipoCambio"].ToString();
-                    cmbDivisa.Text = dr["Divisa"].ToString();
+                    cn.Open();
+                    using (SqlCommand cmd = new SqlCommand("select * from MovimientoInventario where Folio= '" + Folio + "' and TipoDocumento= '" + txtTipoMovimiento + "' and Descripcion='" + txtDocumento + "'", cn))
+                    using (SqlDataReader dr = cmd.ExecuteReader())
+                    {
+                        if (dr.Read())
+                        {
+                            txtFolio.Text = dr["Folio"].ToString();
+                            txtDescricpcion.Text = dr["Descripcion"].ToString();
+                            txtPartidas.Text = dr["TotalPartidas"].ToString();
+                            txtReferencia.Text = dr["Referencias"].ToString();
+                            txtAlmacen.Text = dr["Almacen"].ToString();
+                            txtTotal.Text = dr["Total"].ToString();
+                            txtNotas.Text = dr["Notas"].ToString();
+                            cmbEstatus.Text = dr["Estatus"].ToString();
+                            txtElaborado.Text = dr["Elaborado"].ToString();
+                            txtTipoCambio.Text = dr["TipoCambio"].ToString();
+                            cmbDivisa.Text = dr["Divisa"].ToString();
+                        }
+                    }
                 }
-                dr.Close();
             }
             catch (Exception ex)
             {
-                dr.Close();
                 MessageBox.Show("Error" + ex.ToString());
             }
         }
@@ -461,28 +533,31 @@ namespace PV.Clases.Inventario
         {
             try
             {
-                cmd = new SqlCommand("select P.*, PS.*, PS.Descripcion as Producto from PartidasMovimientoInventario as P, ProductosServicios as PS where P.FolioMovimiento= '" + Folio + "' and P.TipoDocumento= '" + Tipo + "' and P.Descripcion= '" + Documento + "' and P.NoPartida= '" + Partida + "' and P.ClaveProducto=PS.ClaveProducto", cn);
-                dr = cmd.ExecuteReader();
-                if (dr.Read())
+                using (SqlConnection cn = new SqlConnection(ObtenerCn()))
                 {
-                    txtConcepto.Text = dr["Concepto"].ToString();
-                    cmnDescripcion.Text = dr["Producto"].ToString();
-                    txtAlias.Text = dr["Alias"].ToString();
-                    txtTipoCosteo.Text = dr["TipoCosteo"].ToString();
-                    txtExActual.Text = dr["ExActual"].ToString();
-                    txtCantidad.Text = dr["Cantidad"].ToString();
-                    txtUnidad.Text = dr["unidad"].ToString();
-                    txtPrecio.Text = dr["Precio"].ToString();
-                    cmbDivisa.Text = dr["Divisa"].ToString();
-                    txtTipoCambio.Text = dr["TipoCambio"].ToString();
-                    txtTotal.Text = dr["Total"].ToString();
-
+                    cn.Open();
+                    using (SqlCommand cmd = new SqlCommand("select P.*, PS.*, PS.Descripcion as Producto from PartidasMovimientoInventario as P, ProductosServicios as PS where P.FolioMovimiento= '" + Folio + "' and P.TipoDocumento= '" + Tipo + "' and P.Descripcion= '" + Documento + "' and P.NoPartida= '" + Partida + "' and P.ClaveProducto=PS.ClaveProducto", cn))
+                    using (SqlDataReader dr = cmd.ExecuteReader())
+                    {
+                        if (dr.Read())
+                        {
+                            txtConcepto.Text = dr["Concepto"].ToString();
+                            cmnDescripcion.Text = dr["Producto"].ToString();
+                            txtAlias.Text = dr["Alias"].ToString();
+                            txtTipoCosteo.Text = dr["TipoCosteo"].ToString();
+                            txtExActual.Text = dr["ExActual"].ToString();
+                            txtCantidad.Text = dr["Cantidad"].ToString();
+                            txtUnidad.Text = dr["unidad"].ToString();
+                            txtPrecio.Text = dr["Precio"].ToString();
+                            cmbDivisa.Text = dr["Divisa"].ToString();
+                            txtTipoCambio.Text = dr["TipoCambio"].ToString();
+                            txtTotal.Text = dr["Total"].ToString();
+                        }
+                    }
                 }
-                dr.Close();
             }
             catch (Exception ex)
             {
-                //dr.Close();
                 MessageBox.Show("Error" + ex.ToString());
             }
         }
@@ -493,19 +568,24 @@ namespace PV.Clases.Inventario
             try
             {
                 dgv.Rows.Clear();
-                da = new SqlDataAdapter("select * from MovimientoInventario", cn);
-                dt = new DataTable();
-                da.Fill(dt);
-                foreach (DataRow item in dt.Rows)
+                using (SqlConnection cn = new SqlConnection(ObtenerCn()))
                 {
-                    int n = dgv.Rows.Add();
-                    dgv.Rows[n].Cells[0].Value = item["Folio"].ToString();
-                    dgv.Rows[n].Cells[1].Value = item["Consecutivo"].ToString();
-                    dgv.Rows[n].Cells[2].Value = item["TipoDocumento"].ToString();
-                    dgv.Rows[n].Cells[3].Value = item["Descripcion"].ToString();
-                    dgv.Rows[n].Cells[4].Value = item["Estatus"].ToString();
+                    cn.Open();
+                    using (SqlDataAdapter da = new SqlDataAdapter("select * from MovimientoInventario", cn))
+                    {
+                        DataTable dt = new DataTable();
+                        da.Fill(dt);
+                        foreach (DataRow item in dt.Rows)
+                        {
+                            int n = dgv.Rows.Add();
+                            dgv.Rows[n].Cells[0].Value = item["Folio"].ToString();
+                            dgv.Rows[n].Cells[1].Value = item["Consecutivo"].ToString();
+                            dgv.Rows[n].Cells[2].Value = item["TipoDocumento"].ToString();
+                            dgv.Rows[n].Cells[3].Value = item["Descripcion"].ToString();
+                            dgv.Rows[n].Cells[4].Value = item["Estatus"].ToString();
+                        }
+                    }
                 }
-
             }
             catch (Exception ex)
             {
@@ -519,19 +599,24 @@ namespace PV.Clases.Inventario
             try
             {
                 dgv.Rows.Clear();
-                da = new SqlDataAdapter("select * from MovimientoInventario where TipoDocumento='" + FiltroTipo + "' and Fecha='" + FiltroFecha + "'", cn);
-                dt = new DataTable();
-                da.Fill(dt);
-                foreach (DataRow item in dt.Rows)
+                using (SqlConnection cn = new SqlConnection(ObtenerCn()))
                 {
-                    int n = dgv.Rows.Add();
-                    dgv.Rows[n].Cells[0].Value = item["Folio"].ToString();
-                    dgv.Rows[n].Cells[1].Value = item["Consecutivo"].ToString();
-                    dgv.Rows[n].Cells[2].Value = item["TipoDocumento"].ToString();
-                    dgv.Rows[n].Cells[3].Value = item["Descripcion"].ToString();
-                    dgv.Rows[n].Cells[4].Value = item["Estatus"].ToString();
+                    cn.Open();
+                    using (SqlDataAdapter da = new SqlDataAdapter("select * from MovimientoInventario where TipoDocumento='" + FiltroTipo + "' and Fecha='" + FiltroFecha + "'", cn))
+                    {
+                        DataTable dt = new DataTable();
+                        da.Fill(dt);
+                        foreach (DataRow item in dt.Rows)
+                        {
+                            int n = dgv.Rows.Add();
+                            dgv.Rows[n].Cells[0].Value = item["Folio"].ToString();
+                            dgv.Rows[n].Cells[1].Value = item["Consecutivo"].ToString();
+                            dgv.Rows[n].Cells[2].Value = item["TipoDocumento"].ToString();
+                            dgv.Rows[n].Cells[3].Value = item["Descripcion"].ToString();
+                            dgv.Rows[n].Cells[4].Value = item["Estatus"].ToString();
+                        }
+                    }
                 }
-
             }
             catch (Exception ex)
             {
@@ -551,20 +636,25 @@ namespace PV.Clases.Inventario
             try
             {
                 dgv.Rows.Clear();
-                da = new SqlDataAdapter("select M.*, P.Descripcion as des from PartidasMovimientoInventario as M Join ProductosServicios as P on P.ClaveProducto=M.ClaveProducto where M.TipoDocumento='" + tipo + "' and M.Descripcion = '" + descripcion + "' and M.FolioMovimiento = " + folio + "", cn);
-                dt = new DataTable();
-                da.Fill(dt);
-                foreach (DataRow item in dt.Rows)
+                using (SqlConnection cn = new SqlConnection(ObtenerCn()))
                 {
-                    int n = dgv.Rows.Add();
-                    //dgv.Rows[n].Cells[0].Value = item["TipoDocumento"].ToString();
-                    dgv.Rows[n].Cells[0].Value = item["NoPartida"].ToString();
-                    dgv.Rows[n].Cells[1].Value = item["Descripcion"].ToString();
-                    dgv.Rows[n].Cells[2].Value = item["des"].ToString();
-                    dgv.Rows[n].Cells[3].Value = item["Cantidad"].ToString();
-                    dgv.Rows[n].Cells[4].Value = item["FolioMovimiento"].ToString();
+                    cn.Open();
+                    using (SqlDataAdapter da = new SqlDataAdapter("select M.*, P.Descripcion as des from PartidasMovimientoInventario as M Join ProductosServicios as P on P.ClaveProducto=M.ClaveProducto where M.TipoDocumento='" + tipo + "' and M.Descripcion = '" + descripcion + "' and M.FolioMovimiento = " + folio + " order by  NoPartida", cn))
+                    {
+                        DataTable dt = new DataTable();
+                        da.Fill(dt);
+                        foreach (DataRow item in dt.Rows)
+                        {
+                            int n = dgv.Rows.Add();
+                            //dgv.Rows[n].Cells[0].Value = item["TipoDocumento"].ToString();
+                            dgv.Rows[n].Cells[0].Value = item["NoPartida"].ToString();
+                            dgv.Rows[n].Cells[1].Value = item["Descripcion"].ToString();
+                            dgv.Rows[n].Cells[2].Value = item["des"].ToString();
+                            dgv.Rows[n].Cells[3].Value = item["Cantidad"].ToString();
+                            dgv.Rows[n].Cells[4].Value = item["FolioMovimiento"].ToString();
+                        }
+                    }
                 }
-
             }
             catch (Exception ex)
             {
@@ -584,19 +674,24 @@ namespace PV.Clases.Inventario
             try
             {
                 dgv.Rows.Clear();
-                da = new SqlDataAdapter("select * from MovimientoInventario where TipoDocumento= 'E'", cn);
-                dt = new DataTable();
-                da.Fill(dt);
-                foreach (DataRow item in dt.Rows)
+                using (SqlConnection cn = new SqlConnection(ObtenerCn()))
                 {
-                    int n = dgv.Rows.Add();
-                    dgv.Rows[n].Cells[0].Value = item["Folio"].ToString();
-                    dgv.Rows[n].Cells[1].Value = item["Consecutivo"].ToString();
-                    dgv.Rows[n].Cells[2].Value = item["TipoDocumento"].ToString();
-                    dgv.Rows[n].Cells[3].Value = item["Descripcion"].ToString();
-                    dgv.Rows[n].Cells[4].Value = item["Estatus"].ToString();
+                    cn.Open();
+                    using (SqlDataAdapter da = new SqlDataAdapter("select * from MovimientoInventario where TipoDocumento= 'E'", cn))
+                    {
+                        DataTable dt = new DataTable();
+                        da.Fill(dt);
+                        foreach (DataRow item in dt.Rows)
+                        {
+                            int n = dgv.Rows.Add();
+                            dgv.Rows[n].Cells[0].Value = item["Folio"].ToString();
+                            dgv.Rows[n].Cells[1].Value = item["Consecutivo"].ToString();
+                            dgv.Rows[n].Cells[2].Value = item["TipoDocumento"].ToString();
+                            dgv.Rows[n].Cells[3].Value = item["Descripcion"].ToString();
+                            dgv.Rows[n].Cells[4].Value = item["Estatus"].ToString();
+                        }
+                    }
                 }
-
             }
             catch (Exception ex)
             {
@@ -610,19 +705,24 @@ namespace PV.Clases.Inventario
             try
             {
                 dgv.Rows.Clear();
-                da = new SqlDataAdapter("select * from MovimientoInventario where TipoDocumento= 'S'", cn);
-                dt = new DataTable();
-                da.Fill(dt);
-                foreach (DataRow item in dt.Rows)
+                using (SqlConnection cn = new SqlConnection(ObtenerCn()))
                 {
-                    int n = dgv.Rows.Add();
-                    dgv.Rows[n].Cells[0].Value = item["Folio"].ToString();
-                    dgv.Rows[n].Cells[1].Value = item["Consecutivo"].ToString();
-                    dgv.Rows[n].Cells[2].Value = item["TipoDocumento"].ToString();
-                    dgv.Rows[n].Cells[3].Value = item["Descripcion"].ToString();
-                    dgv.Rows[n].Cells[4].Value = item["Estatus"].ToString();
+                    cn.Open();
+                    using (SqlDataAdapter da = new SqlDataAdapter("select * from MovimientoInventario where TipoDocumento= 'S'", cn))
+                    {
+                        DataTable dt = new DataTable();
+                        da.Fill(dt);
+                        foreach (DataRow item in dt.Rows)
+                        {
+                            int n = dgv.Rows.Add();
+                            dgv.Rows[n].Cells[0].Value = item["Folio"].ToString();
+                            dgv.Rows[n].Cells[1].Value = item["Consecutivo"].ToString();
+                            dgv.Rows[n].Cells[2].Value = item["TipoDocumento"].ToString();
+                            dgv.Rows[n].Cells[3].Value = item["Descripcion"].ToString();
+                            dgv.Rows[n].Cells[4].Value = item["Estatus"].ToString();
+                        }
+                    }
                 }
-
             }
             catch (Exception ex)
             {
@@ -636,25 +736,30 @@ namespace PV.Clases.Inventario
             try
             {
                 dgv.Rows.Clear();
-                da = new SqlDataAdapter("select * from MovimientoInventario where TipoDocumento= 'T'", cn);
-                dt = new DataTable();
-                da.Fill(dt);
-                foreach (DataRow item in dt.Rows)
+                using (SqlConnection cn = new SqlConnection(ObtenerCn()))
                 {
-                    int n = dgv.Rows.Add();
-                    dgv.Rows[n].Cells[0].Value = item["Folio"].ToString();
-                    dgv.Rows[n].Cells[1].Value = item["Consecutivo"].ToString();
-                    dgv.Rows[n].Cells[2].Value = item["TipoDocumento"].ToString();
-                    dgv.Rows[n].Cells[3].Value = item["Descripcion"].ToString();
-                    dgv.Rows[n].Cells[4].Value = item["Estatus"].ToString();
+                    cn.Open();
+                    using (SqlDataAdapter da = new SqlDataAdapter("select * from MovimientoInventario where TipoDocumento= 'T'", cn))
+                    {
+                        DataTable dt = new DataTable();
+                        da.Fill(dt);
+                        foreach (DataRow item in dt.Rows)
+                        {
+                            int n = dgv.Rows.Add();
+                            dgv.Rows[n].Cells[0].Value = item["Folio"].ToString();
+                            dgv.Rows[n].Cells[1].Value = item["Consecutivo"].ToString();
+                            dgv.Rows[n].Cells[2].Value = item["TipoDocumento"].ToString();
+                            dgv.Rows[n].Cells[3].Value = item["Descripcion"].ToString();
+                            dgv.Rows[n].Cells[4].Value = item["Estatus"].ToString();
+                        }
+                    }
                 }
-
             }
             catch (Exception ex)
             {
                 MessageBox.Show("Error" + ex.ToString());
             }
         }
-       
+
     }
 }

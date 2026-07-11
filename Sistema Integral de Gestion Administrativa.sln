@@ -1,11 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 17
-VisualStudioVersion = 17.8.34316.72
+# Visual Studio Version 18
+VisualStudioVersion = 18.7.11919.86 stable
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sistema Integral de Gestion Administrativa", "PV\Sistema Integral de Gestion Administrativa.csproj", "{6A138B22-4FBE-48AF-B1FC-92F2D7111F20}"
 EndProject
 Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "SIGA", "SIGA\SIGA.vdproj", "{AD7CD235-488D-493C-9D55-9E4C2EC19F8D}"
+EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "SIGA Lite", "SIGA Lite\SIGA Lite.vdproj", "{A13817E2-36CF-33D1-FFDF-3D956B8FA3A3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -19,6 +21,8 @@ Global
 		{6A138B22-4FBE-48AF-B1FC-92F2D7111F20}.Release|Any CPU.Build.0 = Release|Any CPU
 		{AD7CD235-488D-493C-9D55-9E4C2EC19F8D}.Debug|Any CPU.ActiveCfg = Debug
 		{AD7CD235-488D-493C-9D55-9E4C2EC19F8D}.Release|Any CPU.ActiveCfg = Release
+		{A13817E2-36CF-33D1-FFDF-3D956B8FA3A3}.Debug|Any CPU.ActiveCfg = Debug
+		{A13817E2-36CF-33D1-FFDF-3D956B8FA3A3}.Release|Any CPU.ActiveCfg = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

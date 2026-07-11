@@ -278,22 +278,42 @@ namespace PV.Clases.PedidoCliente
         public void SeleccionarConceptoDocumentoV(ComboBox cb, string tipo)
         {
             cb.Items.Clear();
-            if (tipo == "Remision")
-            {
-                cmd = new SqlCommand("Select (Clave + ' - ' + Nombre) as Nombre from Documento where TipoDocumento='Venta' and Clase='Remision'", cn);
 
-            }
-            else if (tipo == "Pedido")
-            {
-                cmd = new SqlCommand("Select (Clave + ' - ' + Nombre) as Nombre from Documento where TipoDocumento='Venta' and Clase='Pedido a Clientes'", cn);
+            string clase;
 
-            }
-            dr = cmd.ExecuteReader();
-            while (dr.Read())
+            switch (tipo)
             {
-                cb.Items.Add(dr[0].ToString());
+                case "Remision":
+                    clase = "Remision";
+                    break;
+
+                case "Pedido":
+                    clase = "Pedido a Clientes";
+                    break;
+
+                default:
+                    return;
             }
-            dr.Close();
+
+            const string query = @"
+        SELECT Clave + ' - ' + Nombre AS Nombre
+        FROM Documento
+        WHERE TipoDocumento = 'Venta'
+          AND Clase = @Clase
+        ORDER BY Nombre";
+
+            using (SqlCommand cmd = new SqlCommand(query, cn))
+            {
+                cmd.Parameters.Add("@Clase", SqlDbType.VarChar, 50).Value = clase;
+
+                using (SqlDataReader dr = cmd.ExecuteReader())
+                {
+                    while (dr.Read())
+                    {
+                        cb.Items.Add(dr["Nombre"].ToString());
+                    }
+                }
+            }
         }
         //_______________________________________________________________________________________________
         public void SeleccionarConceptoDocumentoNotaCargo(ComboBox cb)
