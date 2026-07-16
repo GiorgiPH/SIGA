@@ -127,8 +127,8 @@
   <data name="icons8-print-filled-25" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\icons8-print-filled-25.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Flecha abajo blanco 55x551" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Flecha abajo blanco 55x551.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="SACC COMPRAS1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\SACC COMPRAS.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="CATEGORIAS Y FAMILIAS" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\CATEGORIAS Y FAMILIAS.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -160,11 +160,8 @@
   <data name="SACC PARAMETROS" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\SACC PARAMETROS.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="icons8-delete-25" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\icons8-delete-25.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Camera_Moto_300131" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Camera_Moto_30013.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="ALMACENES" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ALMACENES.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Logo PTIA2" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Logo PTIA.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -172,17 +169,26 @@
   <data name="Guardar" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Guardar.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="cityscape1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\cityscape.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="siga_logo_blanco" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\siga_logo_blanco.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="carrito-de-compras" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\carrito-de-compras.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="icons8-delete-251" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\icons8-delete-25.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="SACC COMPRAS1" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\SACC COMPRAS.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="FORMAD DE PAGO" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\FORMAD DE PAGO.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="presupuesto" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\presupuesto.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="disco-flexible" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\disco-flexible.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="icons8-go-back-filled-251" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\icons8-go-back-filled-25.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -196,8 +202,11 @@
   <data name="documento 85 x 75" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\documento 85 x 75.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="personas (2)1" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\personas (2)1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="paper-clip-outline1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\paper-clip-outline.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="CONCEPTOS GLOBALESS" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\CONCEPTOS GLOBALESS.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="borrar blanco" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\borrar blanco.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -205,11 +214,8 @@
   <data name="banco" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\banco.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="SACC FACTURAS1" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\SACC FACTURAS.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="SACC PRESUPUESTOS" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\SACC PRESUPUESTOS.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="personas (2)1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\personas (2)1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Logo PTIA1" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Logo PTIA.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -231,9 +237,6 @@
   </data>
   <data name="email 50X50" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\email 50X50.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="placeholder" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\placeholder.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="PROVEEDORES" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\PROVEEDORES.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -259,14 +262,11 @@
   <data name="icons8-agreement-301" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\icons8-agreement-30.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="credit-cards-payment1" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\credit-cards-payment.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="PRODUCTOS" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\PRODUCTOS.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="disco-flexible1" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\disco-flexible.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="SACC PRESUPUESTOS" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\SACC PRESUPUESTOS.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="renovacion" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\renovacion.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -289,6 +289,9 @@
   <data name="cortafuegos2" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\cortafuegos2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="autorizar 50X50" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\autorizar 50X50.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="print 50x501" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\print 50x501.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -297,9 +300,6 @@
   </data>
   <data name="SICC LOGO1" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\SICC LOGO.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="FORMAD DE PAGO" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\FORMAD DE PAGO.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="SACC HUESPEDES1" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\SACC HUESPEDES.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -310,8 +310,11 @@
   <data name="next (1)" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\next (1).png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Flecha abajo blanco 55x55" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Flecha abajo blanco 55x55.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="disco-flexible1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\disco-flexible.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="maintenance1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\maintenance.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="shopping-bag2" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\shopping-bag.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -319,11 +322,8 @@
   <data name="usuario-de-perfil" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\usuario-de-perfil.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="filtrar" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\filtrar.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="SACC TESORERIA1" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\SACC TESORERIA.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="bolsa-de-la-compra 55X 55" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\bolsa-de-la-compra 55X 55.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="logo proyecto2" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\logo proyecto2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -337,8 +337,8 @@
   <data name="icons8-print-filled-252" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\icons8-print-filled-25.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="autorizar 50X50" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\autorizar 50X50.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="filtrar" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\filtrar.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="icons8-agreement-30" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\icons8-agreement-30.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -400,23 +400,26 @@
   <data name="email - copia" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\email - copia.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Siga" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Siga.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="DOCUMENTOS" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\DOCUMENTOS.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="SACC RESERVACIONES" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\SACC RESERVACIONES.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="SACC CONDOMINIO" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\SACC CONDOMINIO.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Siga" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Siga.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="icons8-delete-25" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons8-delete-25.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="grafico-de-barras" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\grafico-de-barras.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="SACC HUESPEDES" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\SACC HUESPEDES.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="SACC CATALOGOS1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\SACC CATALOGOS.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="agregar-archivo 75x75" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\agregar-archivo 75x75.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="Flecha abajo blanco 55x551" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Flecha abajo blanco 55x551.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Flecha abajo blanco" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Flecha abajo blanco.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -427,8 +430,8 @@
   <data name="print 50x50" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\print 50x50.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="ALMACENES" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\ALMACENES.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="Camera_Moto_300131" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Camera_Moto_30013.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="cityscape" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\cityscape.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -442,20 +445,20 @@
   <data name="maintenance2" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\maintenance.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="SACC CATALOGOS1" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\SACC CATALOGOS.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="SACC HUESPEDES" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\SACC HUESPEDES.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="siga_logo" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\siga_logo.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="logo proyecto" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\logo proyecto.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="SACC FACTURAS1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\SACC FACTURAS.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="print 75x75" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\print 75x75.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="garbage1" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\garbage.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="agregar-archivo 75x75" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\agregar-archivo 75x75.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Flecha izquierda blanco" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Flecha izquierda blanco.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -463,14 +466,14 @@
   <data name="dollar-symbol2" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\dollar-symbol.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="paper-clip-outline1" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\paper-clip-outline.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="logo proyecto" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\logo proyecto.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Camera_Moto_30013" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Camera_Moto_30013.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="CONCEPTOS GLOBALESS" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\CONCEPTOS GLOBALESS.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="garbage1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\garbage.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="next (2)" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\next (2).png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -478,14 +481,14 @@
   <data name="SACC TESORERIA" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\SACC TESORERIA.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="bolsa-de-la-compra 55X 55" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\bolsa-de-la-compra 55X 55.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="placeholder" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\placeholder.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="SACC CONDOMINIO" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\SACC CONDOMINIO.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="SACC RESERVACIONES" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\SACC RESERVACIONES.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="maintenance1" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\maintenance.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="Flecha abajo blanco 55x55" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Flecha abajo blanco 55x55.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="usuario-de-perfil1" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\usuario-de-perfil.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -502,16 +505,16 @@
   <data name="Flecha izquierda blanco 55x 55" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Flecha izquierda blanco 55x 55.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="cityscape1" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\cityscape.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="credit-cards-payment1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\credit-cards-payment.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="disco-flexible" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\disco-flexible.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="SACC TESORERIA1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\SACC TESORERIA.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="icons8-test-passed-filled-252" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\icons8-test-passed-filled-251.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="siga_logo_blanco" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\siga_logo_blanco.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="sigalite_logo" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\sigalite_logo.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

@@ -1323,6 +1323,16 @@ namespace PV.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap sigalite_logo {
+            get {
+                object obj = ResourceManager.GetObject("sigalite_logo", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap sigalite_logo_blanco {
             get {
                 object obj = ResourceManager.GetObject("sigalite_logo_blanco", resourceCulture);

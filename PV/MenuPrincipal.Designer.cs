@@ -3279,7 +3279,7 @@
             // 
             // pictureBox2
             // 
-            this.pictureBox2.Image = global::PV.Properties.Resources.siga_logo;
+            this.pictureBox2.Image = global::PV.Properties.Resources.sigalite_logo;
             this.pictureBox2.Location = new System.Drawing.Point(9, 15);
             this.pictureBox2.Name = "pictureBox2";
             this.pictureBox2.Size = new System.Drawing.Size(142, 65);

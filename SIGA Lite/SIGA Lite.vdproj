@@ -22,13 +22,13 @@
         "Entry"
         {
         "MsmKey" = "8:_0AA978EE7EB265E924801F3A3E082EA5"
-        "OwnerKey" = "8:_1B6204CEC33841EE8DAFC6E4F6022AFE"
+        "OwnerKey" = "8:_77A5F52B886948F7A3FB6EA9A7C1C6A6"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_12374186AF821725416C789EF6F1D967"
-        "OwnerKey" = "8:_1B6204CEC33841EE8DAFC6E4F6022AFE"
+        "OwnerKey" = "8:_77A5F52B886948F7A3FB6EA9A7C1C6A6"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -39,20 +39,20 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_173671653D86430CBE98AB0B1D16D52A"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_1857EC8762123FAD0CF044D62FC1E5EA"
-        "OwnerKey" = "8:_1B6204CEC33841EE8DAFC6E4F6022AFE"
+        "OwnerKey" = "8:_77A5F52B886948F7A3FB6EA9A7C1C6A6"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_1857EC8762123FAD0CF044D62FC1E5EA"
         "OwnerKey" = "8:_B0002822822162862A67C2BD1D672DCB"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_1B6204CEC33841EE8DAFC6E4F6022AFE"
-        "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -70,7 +70,7 @@
         "Entry"
         {
         "MsmKey" = "8:_1C045CC8B800A869B36FD438065A9209"
-        "OwnerKey" = "8:_1B6204CEC33841EE8DAFC6E4F6022AFE"
+        "OwnerKey" = "8:_77A5F52B886948F7A3FB6EA9A7C1C6A6"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -82,13 +82,19 @@
         "Entry"
         {
         "MsmKey" = "8:_51F1EB8B2773DC2BE9B6FC21C4689094"
-        "OwnerKey" = "8:_1B6204CEC33841EE8DAFC6E4F6022AFE"
+        "OwnerKey" = "8:_77A5F52B886948F7A3FB6EA9A7C1C6A6"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_7157F1D98D2B2DB90E038FCFE96B8D31"
-        "OwnerKey" = "8:_1B6204CEC33841EE8DAFC6E4F6022AFE"
+        "OwnerKey" = "8:_77A5F52B886948F7A3FB6EA9A7C1C6A6"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_77A5F52B886948F7A3FB6EA9A7C1C6A6"
+        "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -100,7 +106,7 @@
         "Entry"
         {
         "MsmKey" = "8:_93E7E6497AB61FF3359F8ECF6B7FF805"
-        "OwnerKey" = "8:_1B6204CEC33841EE8DAFC6E4F6022AFE"
+        "OwnerKey" = "8:_77A5F52B886948F7A3FB6EA9A7C1C6A6"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -112,13 +118,13 @@
         "Entry"
         {
         "MsmKey" = "8:_A2BBB73BAE46C0F5176F397BCA754699"
-        "OwnerKey" = "8:_1B6204CEC33841EE8DAFC6E4F6022AFE"
+        "OwnerKey" = "8:_77A5F52B886948F7A3FB6EA9A7C1C6A6"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_B0002822822162862A67C2BD1D672DCB"
-        "OwnerKey" = "8:_1B6204CEC33841EE8DAFC6E4F6022AFE"
+        "OwnerKey" = "8:_77A5F52B886948F7A3FB6EA9A7C1C6A6"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -130,25 +136,19 @@
         "Entry"
         {
         "MsmKey" = "8:_B9A00437662B3A2F181A9E1FF439D9E6"
-        "OwnerKey" = "8:_1B6204CEC33841EE8DAFC6E4F6022AFE"
+        "OwnerKey" = "8:_77A5F52B886948F7A3FB6EA9A7C1C6A6"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_C18C2C01F7D097F10E1902A1E248C711"
-        "OwnerKey" = "8:_1B6204CEC33841EE8DAFC6E4F6022AFE"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_C9126A08CDCF479289B127758991477B"
-        "OwnerKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_77A5F52B886948F7A3FB6EA9A7C1C6A6"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_D2E20380DAEBE688E84EA0245CBE5F8F"
-        "OwnerKey" = "8:_1B6204CEC33841EE8DAFC6E4F6022AFE"
+        "OwnerKey" = "8:_77A5F52B886948F7A3FB6EA9A7C1C6A6"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -160,7 +160,7 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_1B6204CEC33841EE8DAFC6E4F6022AFE"
+        "OwnerKey" = "8:_77A5F52B886948F7A3FB6EA9A7C1C6A6"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -247,6 +247,14 @@
         "PrivateKeyFile" = "8:"
         "TimeStampServer" = "8:"
         "InstallerBootstrapper" = "3:2"
+            "BootstrapperCfg:{63ACBE69-63AA-4F98-B2B6-99F9E24495F2}"
+            {
+            "Enabled" = "11:TRUE"
+            "PromptEnabled" = "11:TRUE"
+            "PrerequisitesLocation" = "2:1"
+            "Url" = "8:"
+            "ComponentsUrl" = "8:"
+            }
         }
         "Release"
         {
@@ -263,6 +271,14 @@
         "PrivateKeyFile" = "8:"
         "TimeStampServer" = "8:"
         "InstallerBootstrapper" = "3:2"
+            "BootstrapperCfg:{63ACBE69-63AA-4F98-B2B6-99F9E24495F2}"
+            {
+            "Enabled" = "11:TRUE"
+            "PromptEnabled" = "11:TRUE"
+            "PrerequisitesLocation" = "2:1"
+            "Url" = "8:"
+            "ComponentsUrl" = "8:"
+            }
         }
     }
     "Deployable"
@@ -352,6 +368,26 @@
             "Register" = "3:1"
             "Exclude" = "11:FALSE"
             "IsDependency" = "11:TRUE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_173671653D86430CBE98AB0B1D16D52A"
+            {
+            "SourcePath" = "8:..\\..\\..\\..\\Downloads\\sigalite_icon.ico"
+            "TargetName" = "8:sigalite_icon.ico"
+            "Tag" = "8:"
+            "Folder" = "8:_56353553BAAE4EBC9C78880399B9FAD4"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
             "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_1857EC8762123FAD0CF044D62FC1E5EA"
@@ -653,26 +689,6 @@
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_C9126A08CDCF479289B127758991477B"
-            {
-            "SourcePath" = "8:..\\Siga.ico"
-            "TargetName" = "8:Siga.ico"
-            "Tag" = "8:"
-            "Folder" = "8:_56353553BAAE4EBC9C78880399B9FAD4"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
             "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_D2E20380DAEBE688E84EA0245CBE5F8F"
             {
             "AssemblyRegister" = "3:1"
@@ -881,32 +897,32 @@
         }
         "Shortcut"
         {
-            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_1B43E022E89A44379EFEBC255325BEA1"
+            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_0494AAE785164A60A14FBBEC2E577413"
             {
-            "Name" = "8:SIGA Lite"
+            "Name" = "8:Siga Lite"
             "Arguments" = "8:"
             "Description" = "8:"
             "ShowCmd" = "3:1"
             "IconIndex" = "3:0"
             "Transitive" = "11:FALSE"
-            "Target" = "8:_1B6204CEC33841EE8DAFC6E4F6022AFE"
+            "Target" = "8:_77A5F52B886948F7A3FB6EA9A7C1C6A6"
             "Folder" = "8:_1729DF0BC96E4232A166E41B9D1BB76E"
             "WorkingFolder" = "8:_56353553BAAE4EBC9C78880399B9FAD4"
-            "Icon" = "8:_C9126A08CDCF479289B127758991477B"
+            "Icon" = "8:_173671653D86430CBE98AB0B1D16D52A"
             "Feature" = "8:"
             }
-            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_3A958A2920BA4CD3B20E1DDCEDC3FA93"
+            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_39D7B67E167846769280E0808B7F9FE8"
             {
-            "Name" = "8:SIGA Lite"
+            "Name" = "8:Siga Lite"
             "Arguments" = "8:"
             "Description" = "8:"
             "ShowCmd" = "3:1"
             "IconIndex" = "3:0"
             "Transitive" = "11:FALSE"
-            "Target" = "8:_1B6204CEC33841EE8DAFC6E4F6022AFE"
+            "Target" = "8:_77A5F52B886948F7A3FB6EA9A7C1C6A6"
             "Folder" = "8:_5D64871D8B544F5483B234492A41D60E"
             "WorkingFolder" = "8:_56353553BAAE4EBC9C78880399B9FAD4"
-            "Icon" = "8:_C9126A08CDCF479289B127758991477B"
+            "Icon" = "8:_173671653D86430CBE98AB0B1D16D52A"
             "Feature" = "8:"
             }
         }
@@ -1308,7 +1324,7 @@
         }
         "ProjectOutput"
         {
-            "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_1B6204CEC33841EE8DAFC6E4F6022AFE"
+            "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_77A5F52B886948F7A3FB6EA9A7C1C6A6"
             {
             "SourcePath" = "8:..\\PV\\obj\\Release\\PV.exe"
             "TargetName" = "8:"
