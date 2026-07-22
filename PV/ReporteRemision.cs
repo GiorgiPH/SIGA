@@ -41,7 +41,7 @@ namespace PV
             this.dataTable1TableAdapter.FillBy(this.controlCondominiosDataSet60.DataTable1, int.Parse(FolioOrdenPedido));
             // TODO: This line of code loads data into the 'controlCondominiosDataSet23.DatosEmpresa' table. You can move, or remove it, as needed.
             this.datosEmpresaTableAdapter.Fill(this.controlCondominiosDataSet23.DatosEmpresa);
-
+  
             decimal Total = co.ObtenerTotalRemision(FolioOrdenPedido);
 
             string numerotexto = m.Convertir(Total.ToString(), false, "pesos");
@@ -64,7 +64,7 @@ namespace PV
         {
             string carpeta = Utilerias.SavePDF(reportViewer1, "Remision", valoresR[1], valoresR[4]);
 
-            bool enviado = CorreosMasivos.EnviarCorreos(
+            bool enviado = CorreosMasivos.EnviarCorreosMime(
                                 "Remisión",
                                 "",
                                 Utilerias.ConvertirReportViewerAPdf(reportViewer1),
@@ -72,7 +72,7 @@ namespace PV
                                 valores[5]);
             if (!string.IsNullOrEmpty(valores[6]))
             {
-                CorreosMasivos.EnviarCorreos(
+                CorreosMasivos.EnviarCorreosMime(
                                 "Remisión",
                                 "",
                                 Utilerias.ConvertirReportViewerAPdf(reportViewer1),
@@ -81,7 +81,7 @@ namespace PV
             }
             if (!string.IsNullOrEmpty(valores[7]))
             {
-                CorreosMasivos.EnviarCorreos(
+                CorreosMasivos.EnviarCorreosMime(
                                 "Remisión",
                                 "",
                                 Utilerias.ConvertirReportViewerAPdf(reportViewer1),

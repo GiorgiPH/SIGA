@@ -1,13 +1,17 @@
-﻿using System;
+﻿using PuntoVentas.Clases.DatosEmpresa;
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
-using System.Net.Mail;
 using System.Net;
+using System.Net.Mail;
+using System.Net.Mime;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.IO;
-using PuntoVentas.Clases.DatosEmpresa;
+using MailKit.Net.Smtp;
+using MailKit.Security;
+using MimeKit;
 
 namespace PV.Clases
 {
@@ -20,8 +24,68 @@ namespace PV.Clases
         //private string puerto;
         //private string ssl;
 
+        public static bool EnviarCorreosMime(string asunto, string mensaje, byte[] reportePdf, string nombreArchivo, string destino)
+        {
+            try
+            {
+                DBDatosEmpresa d = new DBDatosEmpresa();
+                string[] configuracionCorreo = d.CorreoContra();
 
+                if (configuracionCorreo == null)
+                {
+                    MessageBox.Show("No se pudo obtener la configuración de correo.");
+                    return false;
+                }
 
+                string usuarioCorreo = configuracionCorreo[0]; // "ventas.cuernavaca"
+                string dominioCorreo = configuracionCorreo[1]; // "rcr-itsystems.com"
+                string contraseña = configuracionCorreo[2]; // "Ptia#2023"
+                string puerto = configuracionCorreo[3]; // "465" o "587"
+                string host = configuracionCorreo[4];
+
+                string correoCompleto = $"{usuarioCorreo}@{dominioCorreo}".Trim();
+
+                var email = new MimeKit.MimeMessage();
+                email.From.Add(new MimeKit.MailboxAddress("Ventas", correoCompleto));
+                email.To.Add(MimeKit.MailboxAddress.Parse(destino));
+                email.Subject = asunto;
+
+                var builder = new MimeKit.BodyBuilder();
+                builder.HtmlBody = mensaje;
+
+                if (reportePdf != null && !string.IsNullOrEmpty(nombreArchivo))
+                {
+                    // MimeKit.ContentType especificado explícitamente para evitar ambigüedad
+                    builder.Attachments.Add(nombreArchivo, reportePdf, MimeKit.ContentType.Parse("application/pdf"));
+                }
+
+                email.Body = builder.ToMessageBody();
+
+                // MailKit.Net.Smtp.SmtpClient especificado explícitamente para evitar conflicto con System.Net.Mail
+                using (var client = new MailKit.Net.Smtp.SmtpClient())
+                {
+                    int portNum = int.Parse(puerto);
+
+                    // Si usas puerto 465 usas SslOnConnect, si usas 587 usas StartTls
+                    MailKit.Security.SecureSocketOptions opcionesSsl = portNum == 465
+                        ? MailKit.Security.SecureSocketOptions.SslOnConnect
+                        : MailKit.Security.SecureSocketOptions.StartTls;
+
+                    client.Connect(host, portNum, opcionesSsl);
+                    client.Authenticate(correoCompleto, contraseña);
+
+                    client.Send(email);
+                    client.Disconnect(true);
+                }
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error al enviar correo: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
+        }
         //public void EnviarCorreosMasivos(string asunto, string mensaje, string archivo, List<string> destinatarios)
         //{
 
@@ -94,12 +158,12 @@ namespace PV.Clases
 
                     string remitente = correo;
 
-                    using (SmtpClient smtpClient = new SmtpClient())
+                    using (System.Net.Mail.SmtpClient smtpClient = new System.Net.Mail.SmtpClient())
                     {
                         smtpClient.Host = host;
                         smtpClient.Port = int.Parse(puerto);
                         smtpClient.EnableSsl = ssl.Equals("true", StringComparison.OrdinalIgnoreCase);
-
+                        smtpClient.UseDefaultCredentials = false; // OBLIGATORIO colocar antes de Credentials
                         smtpClient.Credentials = new NetworkCredential(remitente + "@" + servidor, contraseña);
 
                         using (MailMessage mailMessage = new MailMessage())
@@ -140,6 +204,7 @@ namespace PV.Clases
                 return false;
             }
         }
+
 
         //public void EnviarCorreoss(string asunto, string mensaje, string archivo, string destino)
         //{
