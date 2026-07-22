@@ -46,6 +46,46 @@ namespace PV.Clases.Inventario
             }
         }
 
+        //_________________________________________________________________________________________________________________________
+        // Actualiza una partida ya existente (se usa cuando el botón
+        // "Confirmar" se reutiliza como "Actualizar" al editar una partida
+        // previamente guardada, en vez de insertar una nueva).
+        // Parametrizada para evitar inyección SQL.
+        public void ActualizarPartida(string folioMovimiento, string tipoDocumento, string descripcion, string noPartida, string claveProducto, string cantidad, string unidad, decimal precio, string divisa, string tipoCambio, decimal total, string concepto)
+        {
+            try
+            {
+                using (SqlConnection cn = new SqlConnection(ObtenerCn()))
+                {
+                    cn.Open();
+                    using (SqlCommand cmd = new SqlCommand(
+                        "UPDATE PartidasMovimientoInventario SET " +
+                        "ClaveProducto = @ClaveProducto, Cantidad = @Cantidad, unidad = @Unidad, " +
+                        "Precio = @Precio, Divisa = @Divisa, TipoCambio = @TipoCambio, Total = @Total, Concepto = @Concepto " +
+                        "WHERE FolioMovimiento = @Folio AND TipoDocumento = @Tipo AND Descripcion = @Descripcion AND NoPartida = @NoPartida", cn))
+                    {
+                        cmd.Parameters.AddWithValue("@ClaveProducto", claveProducto);
+                        cmd.Parameters.AddWithValue("@Cantidad", cantidad);
+                        cmd.Parameters.AddWithValue("@Unidad", unidad);
+                        cmd.Parameters.AddWithValue("@Precio", precio);
+                        cmd.Parameters.AddWithValue("@Divisa", divisa);
+                        cmd.Parameters.AddWithValue("@TipoCambio", tipoCambio);
+                        cmd.Parameters.AddWithValue("@Total", total);
+                        cmd.Parameters.AddWithValue("@Concepto", concepto);
+                        cmd.Parameters.AddWithValue("@Folio", folioMovimiento);
+                        cmd.Parameters.AddWithValue("@Tipo", tipoDocumento);
+                        cmd.Parameters.AddWithValue("@Descripcion", descripcion);
+                        cmd.Parameters.AddWithValue("@NoPartida", noPartida);
+                        cmd.ExecuteNonQuery();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error." + ex.ToString());
+            }
+        }
+
         // registrar forma partida 
         public void ConsultarPartida(string FolioMovimiento, string TipoDocumento, string Descripcion, string NoPartida, Guna.UI2.WinForms.Guna2TextBox ClaveProducto, Guna.UI2.WinForms.Guna2TextBox Cantidad, Guna.UI2.WinForms.Guna2TextBox unidad, Guna.UI2.WinForms.Guna2TextBox Precio, Label Divisa, Guna.UI2.WinForms.Guna2TextBox TipoCambio, Guna.UI2.WinForms.Guna2TextBox Total, Guna.UI2.WinForms.Guna2TextBox Concepto)
         {

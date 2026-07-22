@@ -26,7 +26,6 @@ namespace PV
         private const string TIPO_SALIDA = "S";
         private const string TIPO_TRASPASO = "T";
 
-        private const string ESTATUS_ABIERTO = "Abierto";
         private const string ESTATUS_ACTIVO = "Activo";
         private const string ESTATUS_CANCELADO = "Cancelado";
         private const string ESTATUS_BLOQUEADO = "Bloqueado";
@@ -37,6 +36,12 @@ namespace PV
         public static int Opcion = 0;
 
         string Documento = string.Empty;
+
+        // Indica si el panel de partida está en modo "editar una partida ya
+        // guardada" (true) o "agregar una partida nueva" (false). Se usa
+        // para que btnConfirmarPartida_Click sepa si debe INSERTAR o
+        // ACTUALIZAR, y para cambiar el texto del botón en consecuencia.
+        private bool editandoPartidaExistente = false;
 
         DBPartidas c1 = new DBPartidas();
 
@@ -155,13 +160,44 @@ namespace PV
 
             if (Partida1 != 0)
             {
+                // Se está continuando un documento que ya tenía partidas
+                // (por ejemplo, uno Activo reabierto desde consulta).
                 txtNoPartida.Text = (Partida1 + 1).ToString();
+            }
+            else
+            {
+                // CORRECCIÓN: documento nuevo, sin partidas todavía. Antes se
+                // dejaba vacío (o peor, arrastraba el número de la última
+                // partida consultada de OTRO documento ya bloqueado). Ahora
+                // se deja en "1" directamente, que es el número real de la
+                // primera partida, igual que hace btnAgregarPartida_Click.
+                Partida1 = 1;
+                txtNoPartida.Text = Partida1.ToString();
             }
 
             if (cmbDescripcion.Text == TIPO_SALIDA || cmbDescripcion.Text == TIPO_TRASPASO)
             {
                 txtPrecio.Enabled = false;
             }
+
+            // CORRECCIÓN: antes, al llegar aquí desde "Nuevo Documento" justo
+            // después de haber consultado una partida de OTRO documento ya
+            // bloqueado, el panel de captura y sus botones (Confirmar,
+            // Siguiente) seguían deshabilitados -- porque solo
+            // btnAgregarPartida_Click (el botón "+") los habilitaba, y nada
+            // garantizaba que el usuario pasara por ahí antes de intentar
+            // capturar la primera partida. Ahora este botón deja el panel
+            // listo para capturar de inmediato.
+            PanelPartidasRequisicion.Visible = true;
+            PanelPartidasRequisicion.BringToFront();
+            btnCerrarPartida.Enabled = true;
+            btnConfirmarPartida.Enabled = true;
+            btnSiguientePartida.Enabled = true;
+            btnEliminarPartida.Enabled = false;
+            txtAlias.Enabled = true;
+            cmbDivisa1.Enabled = true;
+            editandoPartidaExistente = false;
+            btnConfirmarPartida.Text = "Confirmar Partida";
 
             guna2TabControl1.SelectedIndex = 1;
         }
@@ -308,19 +344,28 @@ namespace PV
             txtReferencia.Clear();
             txtFolioRegistrar.Text = string.Empty;
 
-            cmbAlmacen.Text = string.Empty;
+            cmbAlmacen.SelectedIndex=-1;
             txtTotalPartidas.Text = "0";
             txtTotal.Text = "0.00";
             txtNotas.Clear();
             txtElaborado.Clear();
             txtDescripcion.Clear();
             txtAlmacen.Clear();
+            txtAlmacenSalida.Clear();
             txtCosteo.Clear();
             txtAlmacenSalida.Clear();
             txtFolioP.Clear();
-            cmbAlmacenSalida.Text = string.Empty;
+            cmbAlmacenSalida.SelectedIndex = -1;
             guna2DataGridView1.Rows.Clear();
-            cmbEstatus.Text = ESTATUS_ABIERTO;
+            cmbEstatus.Text = string.Empty;
+            // CORRECCIÓN: Limpiar() nunca reseteaba txtNoPartida ni Partida1,
+            // así que podían quedar arrastrados de un documento visto
+            // anteriormente (por ejemplo, la partida "2" de un documento ya
+            // bloqueado) y aparecer incorrectamente en un documento nuevo.
+            txtNoPartida.Clear();
+            cmbEstatus.
+                Text = ESTATUS_ACTIVO;
+            Partida1 = 0;
             // groupBox2.Enabled = false;
             MovimientosInventario.Subtotal = 0.00;
             MovimientosInventario.Descuento = 0.00;
@@ -359,7 +404,7 @@ namespace PV
             cmbDivisa.Enabled = true;
             txtNotas.Enabled = true;
             btnAgregarPartidas.Enabled = true;
-            cmbEstatus.Enabled = true;
+            //cmbEstatus.Enabled = true;
             btnIniciarMovimiento.Enabled = true;
         }
 
@@ -371,7 +416,7 @@ namespace PV
             cmbDivisa.Enabled = false;
             txtNotas.Enabled = false;
             btnAgregarPartidas.Enabled = false;
-            cmbEstatus.Enabled = false;
+            //cmbEstatus.Enabled = false;
             btnIniciarMovimiento.Enabled = false;
         }
 
@@ -390,6 +435,12 @@ namespace PV
             txtConcepto.Enabled = true;
             txtCantidad.Enabled = true;
             txtPrecio.Enabled = true;
+            // CORRECCIÓN: BloquearDetalle() también deshabilita btnAgregarPartida,
+            // pero este método (su contraparte) nunca lo volvía a habilitar. Esto
+            // causaba que, tras consultar un documento ya bloqueado, el botón
+            // quedara deshabilitado para siempre, incluso al crear un documento
+            // nuevo con estatus Activo.
+            btnAgregarPartida.Enabled = true;
         }
 
         private void PanelPartidasRequisicion_Paint(object sender, PaintEventArgs e)
@@ -398,6 +449,12 @@ namespace PV
 
         private void btnSiguientePartida_Click(object sender, EventArgs e)
         {
+            if (!DocumentoPermiteEdicionDePartidas())
+            {
+                MessageBox.Show("Solo se pueden agregar partidas cuando el documento está activo.");
+                return;
+            }
+
             if (!ValidarDatosPartida("Producto debe tener precio"))
             {
                 return;
@@ -420,7 +477,7 @@ namespace PV
                 return;
             }
 
-            // Registrar partida sin procesar inventarios (documento está en estado "Abierto")
+            // Registrar partida sin procesar inventarios (documento está en estado "Activo")
             c1.RegistroPartida(txtFolioP.Text, txtTipoDocumento.Text, cmbDescripcion.Text, txtNoPartida.Text, clave, txtCantidad.Text, txtUnidad.Text, precio, cmbDivisa1.Text, txtTipoCambio1.Text, totalPartida, txtConcepto.Text);
 
             // Se recalcula el total del encabezado consultando la BD (fuente
@@ -443,6 +500,14 @@ namespace PV
 
         private void btnConfirmarPartida_Click(object sender, EventArgs e)
         {
+            if (!DocumentoPermiteEdicionDePartidas())
+            {
+                MessageBox.Show(editandoPartidaExistente
+                    ? "Solo se pueden actualizar partidas cuando el documento está activo."
+                    : "Solo se pueden agregar partidas cuando el documento está activo.");
+                return;
+            }
+
             if (!ValidarDatosPartida("Registre el precio para continuar"))
             {
                 return;
@@ -465,8 +530,16 @@ namespace PV
                 return;
             }
 
-            // Registrar partida sin procesar inventarios (documento está en estado "Abierto")
-            c1.RegistroPartida(txtFolioP.Text, Documento, cmbDescripcion.Text, txtNoPartida.Text, clave, txtCantidad.Text, txtUnidad.Text, precio, cmbDivisa1.Text, txtTipoCambio1.Text, totalPartida, txtConcepto.Text);
+            if (editandoPartidaExistente)
+            {
+                // Actualizar una partida ya guardada (documento está en estado "Activo")
+                c1.ActualizarPartida(txtFolioP.Text, Documento, cmbDescripcion.Text, txtNoPartida.Text, clave, txtCantidad.Text, txtUnidad.Text, precio, cmbDivisa1.Text, txtTipoCambio1.Text, totalPartida, txtConcepto.Text);
+            }
+            else
+            {
+                // Registrar partida nueva sin procesar inventarios (documento está en estado "Activo")
+                c1.RegistroPartida(txtFolioP.Text, Documento, cmbDescripcion.Text, txtNoPartida.Text, clave, txtCantidad.Text, txtUnidad.Text, precio, cmbDivisa1.Text, txtTipoCambio1.Text, totalPartida, txtConcepto.Text);
+            }
 
             // Se recalcula el total del encabezado consultando la BD (fuente
             // de verdad) en vez de acumular en memoria, para que nunca se
@@ -482,6 +555,12 @@ namespace PV
             c.CargarPartida(guna2DataGridView1, Documento, Descripcion, txtFolioP.Text);
             LimpiarDetalle();
 
+            // Se vuelve al modo "agregar nueva" por defecto y se restaura el
+            // texto del botón, para que la próxima vez que se abra el panel
+            // (vía btnAgregarPartida_Click) no quede la etiqueta de "Actualizar".
+            editandoPartidaExistente = false;
+            btnConfirmarPartida.Text = "Confirmar Partida";
+
             btnTerminarDocumento.Visible = true;
             btnTerminarDocumento.Enabled = true;
         }
@@ -494,6 +573,12 @@ namespace PV
                  RegistrarEntrada.Bloqueo = 1;
              }*/
             PanelPartidasRequisicion.Visible = false;
+
+            // Se resetea el modo por si se estaba editando una partida y se
+            // cierra el panel sin confirmar; evita que quede la etiqueta
+            // "Actualizar Partida" pegada la próxima vez que se abra.
+            editandoPartidaExistente = false;
+            btnConfirmarPartida.Text = "Confirmar Partida";
             // this.Close();
         }
 
@@ -518,6 +603,12 @@ namespace PV
 
         private void btnAgregarPartida_Click(object sender, EventArgs e)
         {
+            if (!DocumentoPermiteEdicionDePartidas())
+            {
+                MessageBox.Show("Solo se pueden agregar partidas cuando el documento está activo.");
+                return;
+            }
+
             guna2Button11.Visible = false;
             LimpiarDetalle();
             PanelPartidasRequisicion.Visible = true;
@@ -544,6 +635,18 @@ namespace PV
             btnSiguientePartida.Enabled = true;
             btnEliminarPartida.Enabled = false;
             c.SeleccionarProducto(cmbProducto);
+
+            // CORRECCIÓN: al consultar/editar una partida existente
+            // (guna2DataGridView1_CellDoubleClick) se deshabilitan txtAlias y
+            // cmbDivisa1, pero nunca se volvían a habilitar. Este es el punto
+            // natural para revertirlo, ya que aquí se empieza una partida
+            // realmente nueva (no una edición).
+            txtAlias.Enabled = true;
+            cmbDivisa1.Enabled = true;
+
+            // Modo "agregar nueva partida": btnConfirmarPartida insertará.
+            editandoPartidaExistente = false;
+            btnConfirmarPartida.Text = "Confirmar Partida";
         }
 
         private void cmbProducto_SelectedIndexChanged(object sender, EventArgs e)
@@ -693,12 +796,18 @@ namespace PV
 
             txtCantidad.Text = cantidad;
             btnCerrarPartida.Enabled = false;
-            btnConfirmarPartida.Enabled = false;
-            btnSiguientePartida.Enabled = false;
-            btnEliminarPartida.Enabled = true;
+            btnSiguientePartida.Enabled = false; // no aplica: se está editando una partida puntual, no agregando en cadena
+            // Antes esto quedaba en "true" sin importar el estatus del
+            // documento. Ahora solo se habilita si el documento está activo.
+            btnEliminarPartida.Enabled = DocumentoPermiteEdicionDePartidas();
             txtAlias.Enabled = false;
             cmbDivisa1.Enabled = false;
-            //guna2DataGridView1.Visible = false;
+
+            // Modo "editar partida existente": btnConfirmarPartida actualizará
+            // en vez de insertar. Solo se habilita si el documento sigue activo.
+            editandoPartidaExistente = true;
+            btnConfirmarPartida.Enabled = DocumentoPermiteEdicionDePartidas();
+            btnConfirmarPartida.Text = "Actualizar Partida";
         }
 
         private void btnTerminarDocumento_Click(object sender, EventArgs e)
@@ -710,7 +819,17 @@ namespace PV
             // real ni el total quedaba correcto. Se recalcula todo desde la
             // BD justo antes de bloquear el documento.
             RecalcularTotalesEncabezado();
-            BLoqueo();
+
+            // CORRECCIÓN: antes se limpiaba la pantalla (Limpiar/LimpiarDetalle)
+            // sin importar si BLoqueo() realmente había bloqueado el
+            // documento. Si el usuario cancelaba el "¿desea continuar?" o el
+            // documento tenía 0 partidas, la pantalla igual se vaciaba,
+            // aunque el documento siguiera Activo y sin bloquear en la BD.
+            // Ahora solo se limpia si el bloqueo se completó de verdad.
+            if (!BLoqueo())
+            {
+                return;
+            }
 
             guna2TabControl1.SelectedIndex = 0;
 
@@ -728,6 +847,12 @@ namespace PV
 
         private void btnEliminarPartida_Click(object sender, EventArgs e)
         {
+            if (!DocumentoPermiteEdicionDePartidas())
+            {
+                MessageBox.Show("Solo se pueden eliminar partidas cuando el documento está activo.");
+                return;
+            }
+
             c1.Eliminarpartida(txtFolioP.Text, txtTipoDocumento.Text, cmbDescripcion.Text, txtNoPartida.Text);
             MessageBox.Show("Partida Eliminada");
             PanelPartidasRequisicion.Visible = false;
@@ -746,40 +871,67 @@ namespace PV
             LimpiarDetalle();
         }
 
-        private void BLoqueo()
+        private bool BLoqueo()
         {
+            // CORRECCIÓN: antes, si por cualquier motivo se volvía a invocar
+            // BLoqueo() sobre un documento que ya no está "Activo" (por
+            // ejemplo, ya "Bloqueado" o "Cancelado"), el método seguía
+            // ejecutando ActualizarMovimiento y podía volver a llamar
+            // RegistrarInventarioDelDocumento, generando movimientos de
+            // almacén duplicados. Ahora solo se permite procesar el
+            // documento cuando su transición es Activo -> Bloqueado.
+            if (!DocumentoPermiteEdicionDePartidas())
+            {
+                MessageBox.Show("Este documento ya no está activo; no se puede volver a bloquear ni reprocesar sus movimientos de almacén.");
+                return false;
+            }
+
             if (txtTotalPartidas.Text == "0")
             {
                 MessageBox.Show("Es necesario registrar articulos para bloquear.");
-                return;
+                return false;
             }
 
             if (MessageBox.Show("El registro quedara bloqueado, ¿desea continuar?", "Movimiento de Inventario", MessageBoxButtons.YesNo, MessageBoxIcon.Question) != DialogResult.Yes)
             {
-                return;
+                return false;
             }
 
             txtTotal.Text = Total.ToString();
             c.ActualizarMovimiento(txtFolioP.Text, txtTipoDocumento.Text, cmbDescripcion.Text, txtTotalPartidas.Text, txtTotal.Text);
 
-            // Registrar inventarios solo si el documento está en estado "Activo"
-            if (cmbEstatus.Text == ESTATUS_ACTIVO)
-            {
-                c1.RegistrarInventarioDelDocumento(txtFolioP.Text, txtTipoDocumento.Text, cmbDescripcion.Text, txtAlmacen.Text, txtAlmacenSalida.Text, txtCosteo.Text, txtTipoCosteo.Text);
-                MessageBox.Show("Inventarios registrados correctamente.");
-            }
-
-            // NOTA: se eliminó un segundo bloque que repetía exactamente la
-            // misma carga de grilla (CargarEntrada/CargarSalida/CargarTraspaso)
-            // que Limpiar() ya ejecuta internamente mediante
-            // CargarInformacionPorTipoDocumento(). Era una consulta duplicada
-            // e idéntica, no un comportamiento distinto.
+            // Al llegar aquí, ya se validó arriba que el estatus era "Activo",
+            // así que los inventarios siempre se procesan exactamente una vez
+            // por esta llamada (transición Activo -> Bloqueado).
+            c1.RegistrarInventarioDelDocumento(txtFolioP.Text, txtTipoDocumento.Text, cmbDescripcion.Text, txtAlmacen.Text, txtAlmacenSalida.Text, txtCosteo.Text, txtTipoCosteo.Text);
+            MessageBox.Show("Inventarios registrados correctamente.");
             Limpiar();
+            // CORRECCIÓN: antes BLoqueo() llamaba aquí mismo a Limpiar(), y
+            // btnTerminarDocumento_Click también llamaba a Limpiar() otra vez
+            // justo después de invocar BLoqueo() -- sin importar si este
+            // realmente había terminado el proceso o había salido antes por
+            // cualquiera de los "return" de arriba (0 partidas, usuario dijo
+            // "No", documento no activo). Eso hacía que la pantalla se
+            // limpiara igual aunque el documento NO se hubiera bloqueado,
+            // dando la falsa impresión de que se perdió el trabajo. Ahora
+            // BLoqueo() ya no limpia nada por sí mismo: solo informa con este
+            // "return true" que sí terminó, y quien la llama decide si limpia.
+            return true;
         }
 
         private void guna2Button3_Click(object sender, EventArgs e)
         {
-            BLoqueo();
+            // Este botón es un atajo directo a "Bloquear" (ver el ToolTip
+            // original en el constructor). Debe comportarse igual que
+            // btnTerminarDocumento_Click: solo limpiar la pantalla si el
+            // documento realmente quedó bloqueado.
+            if (!BLoqueo())
+            {
+                return;
+            }
+
+            Limpiar();
+            LimpiarDetalle();
         }
 
         private void guna2Button4_Click(object sender, EventArgs e)
@@ -1120,6 +1272,23 @@ namespace PV
 
             txtTotal.Text = Total.ToString();
             txtTotalPartidas.Text = totalPartidasCalculado.ToString();
+        }
+
+        /// <summary>
+        /// Indica si el documento actual permite agregar, actualizar o
+        /// eliminar partidas. Se valida contra ESTATUS_ACTIVO ("Activo") y
+        /// NO contra "Abierto", porque revisando el flujo completo del
+        /// formulario, "Abierto" nunca se guarda como estatus real de un
+        /// documento en la base de datos: es solo el texto que Limpiar()
+        /// pone en cmbEstatus cuando no hay ningún documento cargado. El
+        /// estatus real con el que se crea un documento (RegistroMovimientoInventario,
+        /// disparado desde btnIniciarMovimiento_Click) es "Activo". Si en tu
+        /// negocio existen documentos reales guardados con Estatus = 'Abierto',
+        /// avísame y cambio esta comparación aquí mismo.
+        /// </summary>
+        private bool DocumentoPermiteEdicionDePartidas()
+        {
+            return cmbEstatus.Text == ESTATUS_ACTIVO;
         }
 
         private static bool TryParseInt(string valor, out int resultado)
