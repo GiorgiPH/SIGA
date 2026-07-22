@@ -396,9 +396,42 @@ namespace PV.Clases.Inventario
 
         }
 
-      
-      
-      
+        //_________________________________________________________________________________________________________________________
+        // Consulta el total en dinero y el número de partidas de un
+        // documento directamente desde la tabla PartidasMovimientoInventario.
+        // Se usa como "fuente de verdad" para sincronizar el encabezado cada
+        // vez que se agrega, confirma o elimina una partida, en vez de ir
+        // acumulando/restando manualmente en memoria (lo cual se
+        // desincronizaba, por ejemplo, al eliminar una partida).
+        // Se parametriza la consulta para evitar inyección SQL.
+        public void ObtenerTotalesPartidas(string folioMovimiento, string tipoDocumento, string descripcion, out decimal total, out int totalPartidas)
+        {
+            total = 0.00m;
+            totalPartidas = 0;
+
+            using (SqlConnection cn = new SqlConnection(ObtenerCn()))
+            {
+                cn.Open();
+                using (SqlCommand cmd = new SqlCommand(
+                    "SELECT ISNULL(SUM(Total), 0) AS TotalGeneral, COUNT(*) AS Partidas " +
+                    "FROM PartidasMovimientoInventario " +
+                    "WHERE FolioMovimiento = @Folio AND TipoDocumento = @Tipo AND Descripcion = @Descripcion", cn))
+                {
+                    cmd.Parameters.AddWithValue("@Folio", folioMovimiento);
+                    cmd.Parameters.AddWithValue("@Tipo", tipoDocumento);
+                    cmd.Parameters.AddWithValue("@Descripcion", descripcion);
+
+                    using (SqlDataReader dr = cmd.ExecuteReader())
+                    {
+                        if (dr.Read())
+                        {
+                            total = Convert.ToDecimal(dr["TotalGeneral"]);
+                            totalPartidas = Convert.ToInt32(dr["Partidas"]);
+                        }
+                    }
+                }
+            }
+        }
 
         public void SeleccionarProducto3(Guna2ComboBox cb, string clave)
         {
