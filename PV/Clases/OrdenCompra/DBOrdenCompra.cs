@@ -5530,7 +5530,7 @@ namespace PV.Clases.OrdenCompra
 
             try
             {
-                cmd = new SqlCommand("select (R.Total+CG.Cargo-CG.Descuento) from Remision as R Join ConceptoGlobalesRemision as CG On CG.Folio=R.Folio where R.Folio=" + Folio + "", cn);
+                cmd = new SqlCommand("select (R.Total+isnull(CG.Cargo,0.00)-isnull(CG.Descuento,0.00)) from Remision as R left Join ConceptoGlobalesRemision as CG On CG.Folio=R.Folio where R.Folio=" + Folio + "", cn);
                 dr = cmd.ExecuteReader();
 
                 if (dr.Read())
