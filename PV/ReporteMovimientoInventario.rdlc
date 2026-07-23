@@ -27,10 +27,10 @@
               <Width>2.89036cm</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>3.13971cm</Width>
+              <Width>3.07268cm</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>3.15086cm</Width>
+              <Width>2.90039cm</Width>
             </TablixColumn>
           </TablixColumns>
           <TablixRows>
@@ -600,7 +600,7 @@
         <DataSetName>DataSet2</DataSetName>
         <Top>0.43188cm</Top>
         <Height>1.2cm</Height>
-        <Width>19.80056cm</Width>
+        <Width>19.48306cm</Width>
         <Style>
           <Border>
             <Style>None</Style>
@@ -611,7 +611,7 @@
     <Height>0.8125in</Height>
     <Style />
   </Body>
-  <Width>7.83183in</Width>
+  <Width>7.69689in</Width>
   <Page>
     <PageHeader>
       <Height>6.73861cm</Height>
@@ -1554,7 +1554,7 @@
           </Paragraphs>
           <rd:DefaultName>Textbox2</rd:DefaultName>
           <Top>2.15984cm</Top>
-          <Left>16.97594cm</Left>
+          <Left>16.65844cm</Left>
           <Height>0.6cm</Height>
           <Width>2.83168cm</Width>
           <ZIndex>26</ZIndex>
@@ -1589,7 +1589,7 @@
           </Paragraphs>
           <rd:DefaultName>Textbox3</rd:DefaultName>
           <Top>2.86567cm</Top>
-          <Left>16.97594cm</Left>
+          <Left>16.65844cm</Left>
           <Height>0.6cm</Height>
           <Width>2.83168cm</Width>
           <ZIndex>27</ZIndex>
