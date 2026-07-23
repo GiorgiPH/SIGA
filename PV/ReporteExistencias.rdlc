@@ -520,6 +520,11 @@
             </TablixMember>
             <TablixMember>
               <Group Name="Detalles" />
+              <SortExpressions>
+                <SortExpression>
+                  <Value>=Fields!ClaveProducto.Value</Value>
+                </SortExpression>
+              </SortExpressions>
             </TablixMember>
           </TablixMembers>
         </TablixRowHierarchy>

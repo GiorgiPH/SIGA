@@ -158,22 +158,14 @@ namespace PV
             Total = 0.00m;
             txtTotal1.Clear();
 
-            if (Partida1 != 0)
-            {
-                // Se está continuando un documento que ya tenía partidas
-                // (por ejemplo, uno Activo reabierto desde consulta).
-                txtNoPartida.Text = (Partida1 + 1).ToString();
-            }
-            else
-            {
-                // CORRECCIÓN: documento nuevo, sin partidas todavía. Antes se
-                // dejaba vacío (o peor, arrastraba el número de la última
-                // partida consultada de OTRO documento ya bloqueado). Ahora
-                // se deja en "1" directamente, que es el número real de la
-                // primera partida, igual que hace btnAgregarPartida_Click.
-                Partida1 = 1;
-                txtNoPartida.Text = Partida1.ToString();
-            }
+            // CORRECCIÓN (sincronización con guna2DataGridView1): antes se
+            // calculaba el siguiente número de partida a partir de un
+            // contador en memoria (Partida1) que no reflejaba la realidad
+            // tras eliminar partidas o tras abrir/cerrar el panel sin
+            // confirmar. Ahora siempre se calcula leyendo la grilla, que es
+            // la fuente de verdad.
+            Partida1 = ObtenerSiguienteNumeroPartida();
+            txtNoPartida.Text = Partida1.ToString();
 
             if (cmbDescripcion.Text == TIPO_SALIDA || cmbDescripcion.Text == TIPO_TRASPASO)
             {
@@ -344,7 +336,7 @@ namespace PV
             txtReferencia.Clear();
             txtFolioRegistrar.Text = string.Empty;
 
-            cmbAlmacen.SelectedIndex=-1;
+            cmbAlmacen.SelectedIndex = -1;
             txtTotalPartidas.Text = "0";
             txtTotal.Text = "0.00";
             txtNotas.Clear();
@@ -485,16 +477,23 @@ namespace PV
             // desincronice sin importar qué operación se haga después.
             RecalcularTotalesEncabezado();
 
+            // CORRECCIÓN (sincronización con guna2DataGridView1): antes esta
+            // grilla no se refrescaba al usar "Siguiente" (a diferencia de
+            // "Confirmar", que sí lo hacía). Sin refrescarla, calcular el
+            // siguiente número de partida desde la grilla habría dado un
+            // valor desactualizado. Ahora se refresca aquí también.
+            c.CargarPartida(guna2DataGridView1, txtTipoDocumento.Text, cmbDescripcion.Text, txtFolioP.Text);
+
             // NO procesar inventarios aquí - se hará cuando se termine el documento
 
             LimpiarDetalle();
 
-            if (!TryParseInt(txtNoPartida.Text, out int noPartidaActual))
-            {
-                noPartidaActual = Partida1;
-            }
-
-            Partida1 = noPartidaActual + 1;
+            // CORRECCIÓN: antes se calculaba el siguiente número de partida
+            // a partir de "txtNoPartida"/"Partida1" en memoria, lo cual se
+            // desincronizaba con la realidad. Ahora se calcula leyendo
+            // guna2DataGridView1 (la fuente de verdad), igual que en el resto
+            // del formulario.
+            Partida1 = ObtenerSiguienteNumeroPartida();
             txtNoPartida.Text = Partida1.ToString();
         }
 
@@ -567,11 +566,6 @@ namespace PV
 
         private void btnCerrarPartida_Click(object sender, EventArgs e)
         {
-            /* if (Partida1 > 1)
-             {
-                 Partida1 = Convert.ToInt32(txtNoPartida.Text) - 1;
-                 RegistrarEntrada.Bloqueo = 1;
-             }*/
             PanelPartidasRequisicion.Visible = false;
 
             // Se resetea el modo por si se estaba editando una partida y se
@@ -614,21 +608,18 @@ namespace PV
             PanelPartidasRequisicion.Visible = true;
             PanelPartidasRequisicion.BringToFront();
 
-            if (Partida1 == 0)
-            {
-                Partida1 = 1;
-                txtNoPartida.Text = Partida1.ToString();
-            }
-            else if (Partida1 >= 1)
-            {
-                if (!TryParseInt(txtNoPartida.Text, out int noPartidaActual))
-                {
-                    noPartidaActual = Partida1;
-                }
-
-                Partida1 = noPartidaActual + 1;
-                txtNoPartida.Text = Partida1.ToString();
-            }
+            // CORRECCIÓN (sincronización con guna2DataGridView1): antes se
+            // calculaba a partir de "Partida1" en memoria, que se
+            // incrementaba especulativamente cada vez que se abría este
+            // panel, sin importar si el usuario realmente confirmaba una
+            // partida. Esto causaba dos desincronizaciones reportadas:
+            // (1) al eliminar una partida el número no bajaba, y (2) al
+            // abrir el panel y darle "Cerrar" sin agregar nada, el número
+            // ya había subido de todos modos y volvía a subir en el
+            // siguiente intento. Ahora siempre se calcula leyendo la
+            // grilla real.
+            Partida1 = ObtenerSiguienteNumeroPartida();
+            txtNoPartida.Text = Partida1.ToString();
 
             btnCerrarPartida.Enabled = true;
             btnConfirmarPartida.Enabled = true;
@@ -779,7 +770,7 @@ namespace PV
         {
             string NoPartida = guna2DataGridView1.Rows[e.RowIndex].Cells["NoPartida"].Value.ToString();
             string cantidad = string.Empty;
-
+            cmbProducto.SelectedIndexChanged -= cmbProducto_SelectedIndexChanged;
             c1.ConsultarPartida(txtFolioP.Text, txtTipoDocumento.Text, cmbDescripcion.Text, NoPartida, txtclave, txtCantidad, txtUnidad, txtPrecio, lblDivisa1, txtTipoCambio1, txtTotal1, txtConcepto);
             cantidad = txtCantidad.Text;
             cmbDivisa1.Items.Add(lblDivisa1.Text);
@@ -793,6 +784,7 @@ namespace PV
                 c1.SeleccionarProducto3(cmbProducto, txtclave.Text);
                 cmbProducto.SelectedIndex = 0;
             }
+            cmbProducto.SelectedIndexChanged += cmbProducto_SelectedIndexChanged;
 
             txtCantidad.Text = cantidad;
             btnCerrarPartida.Enabled = false;
@@ -991,8 +983,31 @@ namespace PV
 
             Descripcion = cmbDescripcion.Text;
 
-            BloquearDetalle();
+            // CORRECCIÓN: antes se bloqueaba TODO (encabezado y detalle) sin
+            // importar el estatus real del documento consultado. Buena
+            // práctica: el encabezado (folio, tipo de documento, almacén)
+            // permanece siempre protegido aquí, para no permitir volver a
+            // "Iniciar Movimiento" ni alterar datos maestros de un documento
+            // ya creado -- eso evitaría, por ejemplo, generar un folio nuevo
+            // encima de uno existente. Pero el DETALLE (partidas) sí debe
+            // quedar editable si el documento sigue "Activo", que es
+            // justamente cuando SÍ se permite seguir agregando, actualizando
+            // o eliminando partidas (ver DocumentoPermiteEdicionDePartidas).
             BloquearEncabezado();
+
+            if (DocumentoPermiteEdicionDePartidas())
+            {
+                DesbloquearDetalle();
+                btnTerminarDocumento.Visible = true;
+                btnTerminarDocumento.Enabled = true;
+            }
+            else
+            {
+                BloquearDetalle();
+                btnTerminarDocumento.Visible = false;
+                btnTerminarDocumento.Enabled = false;
+            }
+
             c.CargarPartida(guna2DataGridView1, txtTipoDocumento.Text, cmbDescripcion.Text, Folio);
 
             // CORRECCIÓN: al reabrir un documento existente, Total/Subtotal
@@ -1289,6 +1304,45 @@ namespace PV
         private bool DocumentoPermiteEdicionDePartidas()
         {
             return cmbEstatus.Text == ESTATUS_ACTIVO;
+        }
+
+        /// <summary>
+        /// Calcula el siguiente número de partida basándose en lo que
+        /// realmente existe en guna2DataGridView1 (la grilla de partidas ya
+        /// guardadas para el documento actual), que es la fuente de verdad.
+        /// Antes se usaba un contador en memoria (Partida1) que se
+        /// incrementaba especulativamente cada vez que se abría el panel de
+        /// captura, sin importar si el usuario realmente confirmaba una
+        /// partida. Eso causaba dos desincronizaciones: (1) al eliminar una
+        /// partida el número no bajaba (si tenías 1,2,3 y borrabas la 3, la
+        /// siguiente debía ser 3 otra vez, no 4), y (2) al abrir el panel y
+        /// darle "Cerrar" sin agregar nada, el contador ya había subido de
+        /// todos modos, y volvía a subir la próxima vez que se abría.
+        /// Calculando siempre desde la grilla, ambos casos quedan resueltos
+        /// automáticamente sin necesidad de rastrear manualmente cada acción.
+        /// </summary>
+        private int ObtenerSiguienteNumeroPartida()
+        {
+            int maxNoPartida = 0;
+
+            foreach (DataGridViewRow fila in guna2DataGridView1.Rows)
+            {
+                if (fila.IsNewRow)
+                {
+                    continue;
+                }
+
+                object valorCelda = fila.Cells["NoPartida"].Value;
+                if (valorCelda != null && TryParseInt(valorCelda.ToString(), out int noPartidaFila))
+                {
+                    if (noPartidaFila > maxNoPartida)
+                    {
+                        maxNoPartida = noPartidaFila;
+                    }
+                }
+            }
+
+            return maxNoPartida + 1;
         }
 
         private static bool TryParseInt(string valor, out int resultado)
