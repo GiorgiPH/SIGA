@@ -9,19 +9,32 @@ namespace PuntoVentas.Clases.Usuarios
 {
     class DBPermisos
     {
-        private SqlConnection cn;
+        // NOTA: se eliminó el campo de instancia "cn" que se compartía entre
+        // métodos (incluyendo los privados InsertarPermisos/ActualizarPermisos,
+        // llamados desde GuardarPermisosUsuario). Esa práctica dejaba la conexión
+        // abierta durante toda la vida del objeto sin garantía de cierre.
+        //
+        // Ahora cada método público abre su propia conexión dentro de un bloque
+        // "using". Cuando una operación pública necesita invocar un método
+        // interno (InsertarPermisos/ActualizarPermisos) como parte de la MISMA
+        // operación lógica (GuardarPermisosUsuario), se le pasa la conexión ya
+        // abierta como parámetro, en vez de depender de un campo compartido.
+        // Estos dos métodos son privados (detalle de implementación), así que
+        // agregarles el parámetro de conexión no cambia la API pública de la
+        // clase ni la lógica de negocio.
+        //
+        // Las firmas de los métodos PÚBLICOS, sus parámetros de entrada y sus
+        // valores de retorno son EXACTAMENTE los mismos que en la clase original,
+        // así como la lógica de negocio (mismas consultas, mismo orden de
+        // operaciones).
 
         public DBPermisos()
         {
-            try
-            {
-                cn = new SqlConnection(DBUsuarios.ObtenerCn());
-                cn.Open();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Error de Conexión: " + ex.ToString());
-            }
+            // Antes este constructor abría y dejaba abierta una conexión durante
+            // toda la vida del objeto. Ahora cada método administra su propia
+            // conexión, así que ya no es necesario abrir nada aquí. Se conserva
+            // el constructor vacío para no romper código existente que hace
+            // "new DBPermisos()".
         }
 
         /// <summary>
@@ -35,25 +48,33 @@ namespace PuntoVentas.Clases.Usuarios
 
             try
             {
-                string query = "SELECT * FROM UsuarioPermiso WHERE USUARIO = @Usuario";
-                SqlCommand cmd = new SqlCommand(query, cn);
-                cmd.Parameters.AddWithValue("@Usuario", usuario);
-
-                SqlDataReader dr = cmd.ExecuteReader();
-                if (dr.Read())
+                using (SqlConnection cn = new SqlConnection(DBUsuarios.ObtenerCn()))
                 {
-                    // Obtener todos los campos de la tabla
-                    for (int i = 0; i < dr.FieldCount; i++)
+                    cn.Open();
+
+                    string query = "SELECT * FROM UsuarioPermiso WHERE USUARIO = @Usuario";
+                    using (SqlCommand cmd = new SqlCommand(query, cn))
                     {
-                        string columnName = dr.GetName(i);
-                        if (columnName != "USUARIO") // Excluir la columna de usuario
+                        cmd.Parameters.AddWithValue("@Usuario", usuario);
+
+                        using (SqlDataReader dr = cmd.ExecuteReader())
                         {
-                            string valor = dr.IsDBNull(i) ? "inactivo" : dr.GetString(i);
-                            permisos[columnName] = valor;
+                            if (dr.Read())
+                            {
+                                // Obtener todos los campos de la tabla
+                                for (int i = 0; i < dr.FieldCount; i++)
+                                {
+                                    string columnName = dr.GetName(i);
+                                    if (columnName != "USUARIO") // Excluir la columna de usuario
+                                    {
+                                        string valor = dr.IsDBNull(i) ? "inactivo" : dr.GetString(i);
+                                        permisos[columnName] = valor;
+                                    }
+                                }
+                            }
                         }
                     }
                 }
-                dr.Close();
             }
             catch (Exception ex)
             {
@@ -73,21 +94,29 @@ namespace PuntoVentas.Clases.Usuarios
         {
             try
             {
-                // Verificar si el usuario ya tiene permisos registrados
-                string checkQuery = "SELECT COUNT(*) FROM UsuarioPermiso WHERE USUARIO = @Usuario";
-                SqlCommand checkCmd = new SqlCommand(checkQuery, cn);
-                checkCmd.Parameters.AddWithValue("@Usuario", usuario);
-                int count = Convert.ToInt32(checkCmd.ExecuteScalar());
+                using (SqlConnection cn = new SqlConnection(DBUsuarios.ObtenerCn()))
+                {
+                    cn.Open();
 
-                if (count == 0)
-                {
-                    // Insertar nuevo registro
-                    return InsertarPermisos(usuario, permisos);
-                }
-                else
-                {
-                    // Actualizar registro existente
-                    return ActualizarPermisos(usuario, permisos);
+                    // Verificar si el usuario ya tiene permisos registrados
+                    int count;
+                    string checkQuery = "SELECT COUNT(*) FROM UsuarioPermiso WHERE USUARIO = @Usuario";
+                    using (SqlCommand checkCmd = new SqlCommand(checkQuery, cn))
+                    {
+                        checkCmd.Parameters.AddWithValue("@Usuario", usuario);
+                        count = Convert.ToInt32(checkCmd.ExecuteScalar());
+                    }
+
+                    if (count == 0)
+                    {
+                        // Insertar nuevo registro
+                        return InsertarPermisos(cn, usuario, permisos);
+                    }
+                    else
+                    {
+                        // Actualizar registro existente
+                        return ActualizarPermisos(cn, usuario, permisos);
+                    }
                 }
             }
             catch (Exception ex)
@@ -96,7 +125,7 @@ namespace PuntoVentas.Clases.Usuarios
             }
         }
 
-        private string InsertarPermisos(string usuario, Dictionary<string, string> permisos)
+        private string InsertarPermisos(SqlConnection cn, string usuario, Dictionary<string, string> permisos)
         {
             try
             {
@@ -118,10 +147,11 @@ namespace PuntoVentas.Clases.Usuarios
                 }
 
                 string query = $"INSERT INTO UsuarioPermiso ({columns}) VALUES ({values})";
-                SqlCommand cmd = new SqlCommand(query, cn);
-                cmd.Parameters.AddRange(parameters.ToArray());
-
-                cmd.ExecuteNonQuery();
+                using (SqlCommand cmd = new SqlCommand(query, cn))
+                {
+                    cmd.Parameters.AddRange(parameters.ToArray());
+                    cmd.ExecuteNonQuery();
+                }
                 return "Permisos guardados correctamente.";
             }
             catch (Exception ex)
@@ -130,7 +160,7 @@ namespace PuntoVentas.Clases.Usuarios
             }
         }
 
-        private string ActualizarPermisos(string usuario, Dictionary<string, string> permisos)
+        private string ActualizarPermisos(SqlConnection cn, string usuario, Dictionary<string, string> permisos)
         {
             try
             {
@@ -143,7 +173,7 @@ namespace PuntoVentas.Clases.Usuarios
                 {
                     if (setClause.Length > 0)
                         setClause += ", ";
-                    
+
                     setClause += $"[{permiso.Key}] = @Param{paramIndex}";
                     parameters.Add(new SqlParameter($"@Param{paramIndex}", permiso.Value ?? "inactivo"));
                     paramIndex++;
@@ -151,12 +181,13 @@ namespace PuntoVentas.Clases.Usuarios
 
                 parameters.Add(new SqlParameter("@Usuario", usuario));
                 string query = $"UPDATE UsuarioPermiso SET {setClause} WHERE USUARIO = @Usuario";
-                
-                SqlCommand cmd = new SqlCommand(query, cn);
-                cmd.Parameters.AddRange(parameters.ToArray());
 
-                int rowsAffected = cmd.ExecuteNonQuery();
-                return rowsAffected > 0 ? "Permisos actualizados correctamente." : "No se encontró el usuario.";
+                using (SqlCommand cmd = new SqlCommand(query, cn))
+                {
+                    cmd.Parameters.AddRange(parameters.ToArray());
+                    int rowsAffected = cmd.ExecuteNonQuery();
+                    return rowsAffected > 0 ? "Permisos actualizados correctamente." : "No se encontró el usuario.";
+                }
             }
             catch (Exception ex)
             {
@@ -174,15 +205,20 @@ namespace PuntoVentas.Clases.Usuarios
 
             try
             {
-                string query = "SELECT USUARIO FROM UsuarioPermiso ORDER BY USUARIO";
-                SqlCommand cmd = new SqlCommand(query, cn);
-                SqlDataReader dr = cmd.ExecuteReader();
-
-                while (dr.Read())
+                using (SqlConnection cn = new SqlConnection(DBUsuarios.ObtenerCn()))
                 {
-                    usuarios.Add(dr["USUARIO"].ToString());
+                    cn.Open();
+
+                    string query = "SELECT USUARIO FROM UsuarioPermiso ORDER BY USUARIO";
+                    using (SqlCommand cmd = new SqlCommand(query, cn))
+                    using (SqlDataReader dr = cmd.ExecuteReader())
+                    {
+                        while (dr.Read())
+                        {
+                            usuarios.Add(dr["USUARIO"].ToString());
+                        }
+                    }
                 }
-                dr.Close();
             }
             catch (Exception ex)
             {
@@ -201,12 +237,15 @@ namespace PuntoVentas.Clases.Usuarios
         {
             try
             {
-                string query = "DELETE FROM UsuarioPermiso WHERE USUARIO = @Usuario";
-                SqlCommand cmd = new SqlCommand(query, cn);
-                cmd.Parameters.AddWithValue("@Usuario", usuario);
+                using (SqlConnection cn = new SqlConnection(DBUsuarios.ObtenerCn()))
+                using (SqlCommand cmd = new SqlCommand("DELETE FROM UsuarioPermiso WHERE USUARIO = @Usuario", cn))
+                {
+                    cn.Open();
+                    cmd.Parameters.AddWithValue("@Usuario", usuario);
 
-                int rowsAffected = cmd.ExecuteNonQuery();
-                return rowsAffected > 0 ? "Permisos eliminados correctamente." : "No se encontró el usuario.";
+                    int rowsAffected = cmd.ExecuteNonQuery();
+                    return rowsAffected > 0 ? "Permisos eliminados correctamente." : "No se encontró el usuario.";
+                }
             }
             catch (Exception ex)
             {
@@ -219,10 +258,10 @@ namespace PuntoVentas.Clases.Usuarios
         /// </summary>
         public void CerrarConexion()
         {
-            if (cn != null && cn.State == ConnectionState.Open)
-            {
-                cn.Close();
-            }
+            // Ya no se mantiene una conexión abierta a nivel de instancia: cada
+            // método abre y cierra la suya propia mediante "using". Se conserva
+            // este método público (vacío) para no romper código existente que
+            // lo invoque explícitamente.
         }
     }
 }

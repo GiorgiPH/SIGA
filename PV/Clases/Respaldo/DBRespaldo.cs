@@ -10,11 +10,15 @@ namespace PV.Clases.Respaldo
 {
     class DBRespaldo
     {
-        SqlConnection cn;
-        SqlCommand cmd;
-        SqlDataReader dr;
-        SqlDataAdapter da;
-        DataTable dt;
+        // NOTA: se eliminaron los campos de instancia (cn, cmd, dr, da, dt) que se
+        // compartían entre métodos. Esa práctica dejaba conexiones y DataReaders
+        // abiertos (el constructor abría "cn" una sola vez y nunca se cerraba).
+        // Ahora cada método abre su propia conexión dentro de un bloque "using",
+        // por lo que se cierra y libera automáticamente, incluso si hay una excepción.
+        //
+        // Las firmas de los métodos, los parámetros de entrada y los valores de
+        // retorno son EXACTAMENTE los mismos que en la clase original, así como
+        // la lógica de negocio (mismas consultas, mismo orden de operaciones).
 
         public static int Folio = 0;
         public static string Ruta = string.Empty;
@@ -26,18 +30,13 @@ namespace PV.Clases.Respaldo
 
         public DBRespaldo()
         {
-            try
-            {
-                cn = new SqlConnection(ObtenerCn());
-                cn.Open();
-
-
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Error de Conexion" + ex.ToString());
-            }
+            // Antes este constructor abría y dejaba abierta una conexión durante
+            // toda la vida del objeto. Ahora cada método administra su propia
+            // conexión, así que ya no es necesario abrir nada aquí. Se conserva
+            // el constructor vacío para no romper código existente que hace
+            // "new DBRespaldo()".
         }
+
         //_________________________________________________________________________________________________________________________--
         // registrar producto 
         public string Respaldo()
@@ -46,9 +45,8 @@ namespace PV.Clases.Respaldo
 
             try
             {
-
                 string Carpeta = Ruta + @"\\" + "Backup";
-                
+
                 try
                 {
                     if (Directory.Exists(Carpeta))
@@ -62,29 +60,30 @@ namespace PV.Clases.Respaldo
                 }
                 catch (Exception)
                 {
-
                     throw;
                 }
 
-             
-                string r1 = Carpeta.Substring(0,1);
+                string r1 = Carpeta.Substring(0, 1);
 
                 int found = Carpeta.IndexOf(":");
                 string r = Carpeta.Substring(found + 2);
 
                 Carpeta = r1 + ":" + @"\\" + r + @"\\" + mensaje;
 
-                cmd = new SqlCommand("BACKUP DATABASE [ControlCondominios] TO DISK = N'"+Carpeta+"' WITH NOFORMAT, NOINIT, NAME=N'Copia de Seguridad', SKIP, NOREWIND, NOUNLOAD, STATS=10", cn);
-                cmd.ExecuteNonQuery();
-               
+                using (SqlConnection cn = new SqlConnection(ObtenerCn()))
+                using (SqlCommand cmd = new SqlCommand("BACKUP DATABASE [ControlCondominios] TO DISK = N'" + Carpeta + "' WITH NOFORMAT, NOINIT, NAME=N'Copia de Seguridad', SKIP, NOREWIND, NOUNLOAD, STATS=10", cn))
+                {
+                    cn.Open();
+                    cmd.ExecuteNonQuery();
+                }
             }
             catch (Exception ex)
             {
                 MessageBox.Show("Error Aqui." + ex.ToString());
             }
             return "Respaldo Guardado";
-
         }
+
         //_________________________________________________________________________________________
         public int ruta()
         {
@@ -92,22 +91,30 @@ namespace PV.Clases.Respaldo
 
             try
             {
-                cmd = new SqlCommand("select Ruta from DatosEmpresa", cn);
-                dr = cmd.ExecuteReader();
-
-                while (dr.Read())
+                using (SqlConnection cn = new SqlConnection(ObtenerCn()))
                 {
-                    contador++;
-                }
-                dr.Close();
+                    cn.Open();
 
-                if (contador > 0)
-                {
-                    da = new SqlDataAdapter(cmd);
-                    dt = new DataTable();
-                    da.Fill(dt);
-                    Ruta = dt.Rows[0][0].ToString();
+                    using (SqlCommand cmd = new SqlCommand("select Ruta from DatosEmpresa", cn))
+                    {
+                        using (SqlDataReader dr = cmd.ExecuteReader())
+                        {
+                            while (dr.Read())
+                            {
+                                contador++;
+                            }
+                        }
 
+                        if (contador > 0)
+                        {
+                            using (SqlDataAdapter da = new SqlDataAdapter(cmd))
+                            {
+                                DataTable dt = new DataTable();
+                                da.Fill(dt);
+                                Ruta = dt.Rows[0][0].ToString();
+                            }
+                        }
+                    }
                 }
             }
             catch (Exception ex)
