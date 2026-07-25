@@ -2153,6 +2153,11 @@ namespace PV
         {
 
         }
+
+        private void OrdenPedidoCliente_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            o.CerrarConexion();
+        }
     }
 
     }

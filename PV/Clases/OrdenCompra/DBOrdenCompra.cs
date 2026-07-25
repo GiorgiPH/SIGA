@@ -1,12 +1,11 @@
-﻿using System;
+﻿using Guna.UI2.WinForms;
+using PV.Properties;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Globalization;
 using System.Windows.Forms;
-using ControlAcademico;
-using Guna.UI2.WinForms;
-using PV.Properties;
 
 
 namespace PV.Clases.OrdenCompra
@@ -43,6 +42,18 @@ namespace PV.Clases.OrdenCompra
             catch (Exception ex)
             {
                 MessageBox.Show("Error de Conexion" + ex.ToString());
+            }
+        }
+        public void CerrarConexion()
+        {
+            try
+            {
+                if (cn.State != ConnectionState.Closed)
+                    cn.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al cerrar la conexión: " + ex.Message);
             }
         }
         private void CapturarMensajes(object sender, SqlInfoMessageEventArgs e)
@@ -193,47 +204,7 @@ namespace PV.Clases.OrdenCompra
             return resultado;
         }
         //_______________________________________________________________________________________________
-        public void SeleccionarCentroCostoSubDepartamento(ComboBox cb, string Centro)
-        {
-            cb.Items.Clear();
-            cmd = new SqlCommand("select (clave + ' - ' + Nombre) as Nombre from Departamentos_SubDepartamento where Departamento='" + Centro + "'", cn);
-            dr = cmd.ExecuteReader();
-            while (dr.Read())
-            {
-                cb.Items.Add(dr[0].ToString());
-            }
-            dr.Close();
-        }
-        //_______________________________________________________________________________________________
-        public void SeleccionarCentroCostoSubDepartamento2(ComboBox cb, string Centro)
-        {
-            cb.Items.Clear();
-            cmd = new SqlCommand("select (clave + ' - ' + Nombre) as Nombre from Departamentos_SubDepartamento where Clave='" + Centro + "'", cn);
-            dr = cmd.ExecuteReader();
-            while (dr.Read())
-            {
-                cb.Items.Add(dr[0].ToString());
-            }
-            dr.Close();
-        }
-        //_________________________________________________________________________________________
-        public string[] InformacionCentroCostoSubDepartamento(string Documento)
-        {
-            cmd = new SqlCommand("Select Clave from Departamentos_SubDepartamento where (Clave + ' - ' + Nombre)= '" + Documento + "'", cn);
-            dr = cmd.ExecuteReader();
-            string[] resultado = null;
-            while (dr.Read())
-            {
-                string[] valores =
-                {
-                    dr[0].ToString(),
-
-                };
-                resultado = valores;
-            }
-            dr.Close();
-            return resultado;
-        }
+       
         //_______________________________________________________________________________________________
         public void SeleccionarConceptoDocumento(ComboBox cb)
         {

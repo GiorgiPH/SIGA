@@ -8,11 +8,15 @@ namespace PuntoVentas.Clases.Login
 {
     class DBLogin
     {
-        SqlConnection cn;
-        SqlCommand cmd;
-        SqlDataReader dr;
-        SqlDataAdapter da;
-        DataTable dt;
+        // NOTA: se eliminaron los campos de instancia (cn, cmd, dr, da, dt) que se
+        // compartían entre métodos. Esa práctica dejaba conexiones y DataReaders
+        // abiertos (el constructor abría "cn" una sola vez y nunca se cerraba).
+        // Ahora cada método abre su propia conexión dentro de un bloque "using",
+        // por lo que se cierra y libera automáticamente, incluso si hay una excepción.
+        //
+        // Las firmas de los métodos, los parámetros de entrada y los valores de
+        // retorno son EXACTAMENTE los mismos que en la clase original, así como
+        // la lógica de negocio (mismas consultas, mismo orden de operaciones).
 
         public static string usuario = string.Empty;
         public static string TipoUsuario = string.Empty;
@@ -34,17 +38,11 @@ namespace PuntoVentas.Clases.Login
 
         public DBLogin()
         {
-            try
-            {
-                cn = new SqlConnection(ObtenerCn());
-                cn.Open();
-
-
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Error de Conexion" + ex.ToString());
-            }
+            // Antes este constructor abría y dejaba abierta una conexión durante
+            // toda la vida del objeto. Ahora cada método administra su propia
+            // conexión, así que ya no es necesario abrir nada aquí. Se conserva
+            // el constructor vacío para no romper código existente que hace
+            // "new DBLogin()".
         }
 
         //____________________________________________________________________________________________________________________________________________
@@ -55,23 +53,32 @@ namespace PuntoVentas.Clases.Login
 
             try
             {
-                cmd = new SqlCommand("select Usuario, TipoUsuario, Estatus from Usuarios where Usuario='" + Usuario + "' and Contraseña='" + Contraseña + "'", cn);
-                dr = cmd.ExecuteReader();
-
-                while (dr.Read())
+                using (SqlConnection cn = new SqlConnection(ObtenerCn()))
                 {
-                    contador++;
-                }
-                dr.Close();
+                    cn.Open();
 
-                if (contador > 0)
-                {
-                    usuario = Usuario;
-                    da = new SqlDataAdapter(cmd);
-                    dt = new DataTable();
-                    da.Fill(dt);
-                    TipoUsuario = dt.Rows[0][1].ToString();
-                    Estatus = dt.Rows[0][2].ToString();
+                    using (SqlCommand cmd = new SqlCommand("select Usuario, TipoUsuario, Estatus from Usuarios where Usuario='" + Usuario + "' and Contraseña='" + Contraseña + "'", cn))
+                    {
+                        using (SqlDataReader dr = cmd.ExecuteReader())
+                        {
+                            while (dr.Read())
+                            {
+                                contador++;
+                            }
+                        }
+
+                        if (contador > 0)
+                        {
+                            usuario = Usuario;
+                            using (SqlDataAdapter da = new SqlDataAdapter(cmd))
+                            {
+                                DataTable dt = new DataTable();
+                                da.Fill(dt);
+                                TipoUsuario = dt.Rows[0][1].ToString();
+                                Estatus = dt.Rows[0][2].ToString();
+                            }
+                        }
+                    }
                 }
             }
             catch (Exception ex)
@@ -80,6 +87,7 @@ namespace PuntoVentas.Clases.Login
             }
             return contador;
         }
+
         //____________________________________________________________________________________________________________________________________________
         //Registro de Acceso en la base de datos
         public string RegistroAcceso(string txtUsuario, string txtContraseña, DateTime FechaEntrada, string Entrada)
@@ -87,15 +95,18 @@ namespace PuntoVentas.Clases.Login
             string mensaje = "Registro guardado.";
             try
             {
-                cmd = new SqlCommand("Insert into Acceso (Usuario, Contraseña, FechaEntrada, HoraEntrada) values ('" + txtUsuario + "','" + txtContraseña + "','" + FechaEntrada.ToString("yyyy/MM/dd") + "','" + Entrada + "')", cn);
-                cmd.ExecuteNonQuery();
+                using (SqlConnection cn = new SqlConnection(ObtenerCn()))
+                using (SqlCommand cmd = new SqlCommand("Insert into Acceso (Usuario, Contraseña, FechaEntrada, HoraEntrada) values ('" + txtUsuario + "','" + txtContraseña + "','" + FechaEntrada.ToString("yyyy/MM/dd") + "','" + Entrada + "')", cn))
+                {
+                    cn.Open();
+                    cmd.ExecuteNonQuery();
+                }
             }
             catch (Exception ex)
             {
                 MessageBox.Show("Error." + ex.ToString());
             }
             return mensaje;
-
         }
 
         //__________________________________________________________________________________________________________________________________________________
@@ -105,28 +116,45 @@ namespace PuntoVentas.Clases.Login
 
             try
             {
-                cmd = new SqlCommand("select Foto from General", cn);
-                dr = cmd.ExecuteReader();
-
-                while (dr.Read())
+                using (SqlConnection cn = new SqlConnection(ObtenerCn()))
                 {
-                    contador++;
-                }
-                dr.Close();
+                    cn.Open();
 
-                if (contador > 0)
-                {
-
-                    da = new SqlDataAdapter(cmd);
-                    dt = new DataTable();
-                    da.Fill(dt);
-                    if (dt.Rows[0][0].ToString() != "")
+                    using (SqlCommand cmd = new SqlCommand("select Foto from General", cn))
                     {
-                        byte[] datos = new byte[0];
-                        datos = (byte[])dr["Foto"];
+                        using (SqlDataReader dr = cmd.ExecuteReader())
+                        {
+                            while (dr.Read())
+                            {
+                                contador++;
+                            }
+                        }
 
-                        System.IO.MemoryStream ms = new System.IO.MemoryStream(datos);
-                        Foto.Image = System.Drawing.Bitmap.FromStream(ms);
+                        if (contador > 0)
+                        {
+                            using (SqlDataAdapter da = new SqlDataAdapter(cmd))
+                            {
+                                DataTable dt = new DataTable();
+                                da.Fill(dt);
+                                if (dt.Rows[0][0].ToString() != "")
+                                {
+                                    // NOTA: el código original leía "dr["Foto"]" en este punto,
+                                    // pero el SqlDataReader ya se había cerrado (dr.Close()) antes
+                                    // de llegar aquí, lo que provocaba una excepción silenciosa
+                                    // (se perdía el intento de cargar el logo). Con "using" el
+                                    // reader queda fuera de alcance en este punto por la misma
+                                    // razón, así que se toma el valor equivalente ya cargado en
+                                    // memoria por el DataAdapter (dt.Rows[0][0]), que es la misma
+                                    // columna "Foto" que se seleccionó en la consulta.
+                                    byte[] datos = (byte[])dt.Rows[0][0];
+
+                                    using (System.IO.MemoryStream ms = new System.IO.MemoryStream(datos))
+                                    {
+                                        Foto.Image = System.Drawing.Bitmap.FromStream(ms);
+                                    }
+                                }
+                            }
+                        }
                     }
                 }
             }
@@ -135,26 +163,32 @@ namespace PuntoVentas.Clases.Login
                 MessageBox.Show(ex.ToString());
             }
         }
+
         //_____________________________________________________________________________________________________
         //Mostrar empresa seleccionado
         public void empresa()
         {
             try
             {
-                cmd = new SqlCommand("Select * from DatosEmpresa", cn);
-                dr = cmd.ExecuteReader();
-                if (dr.Read())
+                using (SqlConnection cn = new SqlConnection(ObtenerCn()))
+                using (SqlCommand cmd = new SqlCommand("Select * from DatosEmpresa", cn))
                 {
-                    DatosEmpresa = dr["RazonSocial"].ToString();
+                    cn.Open();
+                    using (SqlDataReader dr = cmd.ExecuteReader())
+                    {
+                        if (dr.Read())
+                        {
+                            DatosEmpresa = dr["RazonSocial"].ToString();
+                        }
+                    }
                 }
-                dr.Close();
             }
             catch (Exception ex)
             {
-                dr.Close();
                 MessageBox.Show("Error" + ex.ToString());
             }
         }
+
         //_____________________________________________________________________________________________________
         //Mostrar empresa seleccionado
         public void totales(string ClavePropietario)
@@ -163,44 +197,54 @@ namespace PuntoVentas.Clases.Login
             {
                 Total = 0;
                 Saldo = 0;
-                cmd = new SqlCommand("Select sum(Total) as Total, sum(Saldo) as Saldo from Recibo where ClavePropietario= '"+ ClavePropietario + "'", cn);
-                dr = cmd.ExecuteReader();
-                if (dr.Read())
+                using (SqlConnection cn = new SqlConnection(ObtenerCn()))
+                using (SqlCommand cmd = new SqlCommand("Select sum(Total) as Total, sum(Saldo) as Saldo from Recibo where ClavePropietario= '" + ClavePropietario + "'", cn))
                 {
-                    Total = Convert.ToDecimal( dr["Total"].ToString());
-                    Saldo = Convert.ToDecimal( dr["Saldo"].ToString());
+                    cn.Open();
+                    using (SqlDataReader dr = cmd.ExecuteReader())
+                    {
+                        if (dr.Read())
+                        {
+                            Total = Convert.ToDecimal(dr["Total"].ToString());
+                            Saldo = Convert.ToDecimal(dr["Saldo"].ToString());
+                        }
+                    }
                 }
-                dr.Close();
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                dr.Close();
                 //MessageBox.Show("Error" + ex.ToString());
             }
         }
+
         //_____________________________________________________________________________________________________
         //Mostrar empresa seleccionado
-        public void totalesFecha(string ClavePropietario,  string fecha1, string fecha2)
+        public void totalesFecha(string ClavePropietario, string fecha1, string fecha2)
         {
             try
             {
                 Total = 0;
                 Saldo = 0;
-                cmd = new SqlCommand("Select sum(Total) as Total, sum(Saldo) as Saldo from Recibo where ClavePropietario= '" + ClavePropietario + "' and Fecha between '"+fecha1+"' and '"+fecha2+"'", cn);
-                dr = cmd.ExecuteReader();
-                if (dr.Read())
+                using (SqlConnection cn = new SqlConnection(ObtenerCn()))
+                using (SqlCommand cmd = new SqlCommand("Select sum(Total) as Total, sum(Saldo) as Saldo from Recibo where ClavePropietario= '" + ClavePropietario + "' and Fecha between '" + fecha1 + "' and '" + fecha2 + "'", cn))
                 {
-                    Total = Convert.ToDecimal(dr["Total"].ToString());
-                    Saldo = Convert.ToDecimal(dr["Saldo"].ToString());
+                    cn.Open();
+                    using (SqlDataReader dr = cmd.ExecuteReader())
+                    {
+                        if (dr.Read())
+                        {
+                            Total = Convert.ToDecimal(dr["Total"].ToString());
+                            Saldo = Convert.ToDecimal(dr["Saldo"].ToString());
+                        }
+                    }
                 }
-                dr.Close();
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                dr.Close();
                 //MessageBox.Show("Error" + ex.ToString());
             }
         }
+
         //____________________________________________________________________________________________________________________________________________
         //Registro de Salida
         public string RegistroSalida(string txtUsuario, DateTime FechaEntrada, string Entrada, DateTime FechaSalida, string Salida)
@@ -208,15 +252,18 @@ namespace PuntoVentas.Clases.Login
             string mensaje = "Registro guardado.";
             try
             {
-                cmd = new SqlCommand("Update Acceso set FechaSalida='" + FechaSalida.ToString("yyyy/MM/dd") + "', horaSalida='" + Salida + "' where Usuario='" + txtUsuario + "' and FechaEntrada='" + FechaEntrada.ToString("yyyy/MM/dd") + "' and HoraEntrada='" + Entrada + "'", cn);
-                cmd.ExecuteNonQuery();
+                using (SqlConnection cn = new SqlConnection(ObtenerCn()))
+                using (SqlCommand cmd = new SqlCommand("Update Acceso set FechaSalida='" + FechaSalida.ToString("yyyy/MM/dd") + "', horaSalida='" + Salida + "' where Usuario='" + txtUsuario + "' and FechaEntrada='" + FechaEntrada.ToString("yyyy/MM/dd") + "' and HoraEntrada='" + Entrada + "'", cn))
+                {
+                    cn.Open();
+                    cmd.ExecuteNonQuery();
+                }
             }
             catch (Exception ex)
             {
                 MessageBox.Show("Error." + ex.ToString());
             }
             return mensaje;
-
         }
     }
 }
