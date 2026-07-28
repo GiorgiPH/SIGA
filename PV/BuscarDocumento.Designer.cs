@@ -127,7 +127,7 @@
             // Proveedor
             // 
             this.Proveedor.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.Proveedor.HeaderText = "Proveedor";
+            this.Proveedor.HeaderText = "Cliente";
             this.Proveedor.Name = "Proveedor";
             this.Proveedor.ReadOnly = true;
             // 

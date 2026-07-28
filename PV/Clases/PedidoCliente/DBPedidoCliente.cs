@@ -565,9 +565,9 @@ namespace PV.Clases.PedidoCliente
         {
             dgv.Rows.Clear();
             using (SqlConnection cn = new SqlConnection(ObtenerCn()))
-            using (SqlDataAdapter da = new SqlDataAdapter(@" Select OC.Folio, Oc.Consecutivo, OC.ClaveDocumento
- from OrdenPedidoCliente as OC, Documento as D 
- where OC.ClaveDocumento=D.Clave and OC.ClaveDocumento like '%" + documento + "%' and OC.Estatus in ('Bloqueado') and OC.Consecutivo like '%" + consecutivo + "%' and Cast(OC.iDCLiente as varchar) like '%" + cliente + "%' and (select Count(*) from PartidaOrdenPedidoCliente where CantidadPendiente>0 and FolioOrden=OC.Folio)>0", cn))
+            using (SqlDataAdapter da = new SqlDataAdapter(@" Select OC.Folio, Oc.Consecutivo, OC.ClaveDocumento, C.RazonSocial
+ from OrdenPedidoCliente as OC, Documento as D, Clientes as C 
+ where C.IdCliente=OC.IdCliente and OC.ClaveDocumento=D.Clave and OC.ClaveDocumento like '%" + documento + "%' and OC.Estatus in ('Bloqueado') and OC.Consecutivo like '%" + consecutivo + "%' and Cast(OC.iDCLiente as varchar) like '%" + cliente + "%' and (select Count(*) from PartidaOrdenPedidoCliente where CantidadPendiente>0 and FolioOrden=OC.Folio)>0", cn))
             {
                 DataTable dt = new DataTable();
                 da.Fill(dt);
@@ -577,7 +577,7 @@ namespace PV.Clases.PedidoCliente
                     dgv.Rows[n].Cells[0].Value = item["Folio"].ToString();
                     dgv.Rows[n].Cells[1].Value = item["ClaveDocumento"].ToString();
                     dgv.Rows[n].Cells[2].Value = item["Consecutivo"].ToString();
-                    //dgv.Rows[n].Cells[2].Value = item["RazonSocial"].ToString();
+                    dgv.Rows[n].Cells[3].Value = item["RazonSocial"].ToString();
                 }
             }
         }

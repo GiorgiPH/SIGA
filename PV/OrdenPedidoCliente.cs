@@ -351,8 +351,8 @@ namespace PV
 
                         p.RegistroPedidosCliente(txtConcepto2.Text, cantneg.ToString().Replace(",", ""));
                     }
-                    ConceptosGlobalesPartidaRemision cg = new ConceptosGlobalesPartidaRemision(txtFolio.Text, "", "");
-                    cg.ShowDialog();
+                    //ConceptosGlobalesPartidaRemision cg = new ConceptosGlobalesPartidaRemision(txtFolio.Text, "", "");
+                    //cg.ShowDialog();
 
                 }
                 else
