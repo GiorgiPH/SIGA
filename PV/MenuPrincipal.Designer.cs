@@ -4065,7 +4065,6 @@
             this.btnUtilerias2.Name = "btnUtilerias2";
             this.btnUtilerias2.Size = new System.Drawing.Size(40, 45);
             this.btnUtilerias2.TabIndex = 58;
-            this.btnUtilerias2.Visible = false;
             this.btnUtilerias2.Click += new System.EventHandler(this.btnUtilerias2_Click);
             // 
             // BtnParametros2
@@ -4132,7 +4131,6 @@
             this.btnUtilerias1.TabIndex = 57;
             this.btnUtilerias1.Text = "UTILERIAS";
             this.btnUtilerias1.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
-            this.btnUtilerias1.Visible = false;
             // 
             // btncatalogos1
             // 
@@ -4289,7 +4287,6 @@
             this.btnTesoreria2.Name = "btnTesoreria2";
             this.btnTesoreria2.Size = new System.Drawing.Size(40, 45);
             this.btnTesoreria2.TabIndex = 54;
-            this.btnTesoreria2.Visible = false;
             this.btnTesoreria2.Click += new System.EventHandler(this.btnTesoreria2_Click);
             // 
             // btnCompras1
@@ -4359,7 +4356,6 @@
             this.btnTesoreria1.TabIndex = 53;
             this.btnTesoreria1.Text = "TESORERIA";
             this.btnTesoreria1.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
-            this.btnTesoreria1.Visible = false;
             // 
             // btnventas1
             // 
