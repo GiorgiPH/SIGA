@@ -1563,7 +1563,7 @@
             this.guna2GradientButton57.HoverState.FillColor2 = System.Drawing.Color.DimGray;
             this.guna2GradientButton57.Location = new System.Drawing.Point(6, 186);
             this.guna2GradientButton57.Name = "guna2GradientButton57";
-            this.guna2GradientButton57.Size = new System.Drawing.Size(180, 45);
+            this.guna2GradientButton57.Size = new System.Drawing.Size(189, 45);
             this.guna2GradientButton57.TabIndex = 14;
             this.guna2GradientButton57.Text = "Compras Via Reembolso";
             this.guna2GradientButton57.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
@@ -1586,7 +1586,7 @@
             this.guna2GradientButton50.HoverState.FillColor2 = System.Drawing.Color.DimGray;
             this.guna2GradientButton50.Location = new System.Drawing.Point(5, 234);
             this.guna2GradientButton50.Name = "guna2GradientButton50";
-            this.guna2GradientButton50.Size = new System.Drawing.Size(180, 45);
+            this.guna2GradientButton50.Size = new System.Drawing.Size(187, 45);
             this.guna2GradientButton50.TabIndex = 12;
             this.guna2GradientButton50.Text = "Compras Inventariables";
             this.guna2GradientButton50.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
@@ -1702,7 +1702,7 @@
             this.guna2GradientButton4.HoverState.FillColor2 = System.Drawing.Color.DimGray;
             this.guna2GradientButton4.Location = new System.Drawing.Point(7, 93);
             this.guna2GradientButton4.Name = "guna2GradientButton4";
-            this.guna2GradientButton4.Size = new System.Drawing.Size(180, 45);
+            this.guna2GradientButton4.Size = new System.Drawing.Size(188, 45);
             this.guna2GradientButton4.TabIndex = 5;
             this.guna2GradientButton4.Text = "Pedidos Proveedores";
             this.guna2GradientButton4.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
@@ -3613,7 +3613,7 @@
             this.BtnCuentasBancarias.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
             this.BtnCuentasBancarias.FillColor = System.Drawing.Color.Empty;
             this.BtnCuentasBancarias.FillColor2 = System.Drawing.Color.Empty;
-            this.BtnCuentasBancarias.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BtnCuentasBancarias.Font = new System.Drawing.Font("Segoe UI", 10.2F);
             this.BtnCuentasBancarias.ForeColor = System.Drawing.Color.White;
             this.BtnCuentasBancarias.HoverState.FillColor = System.Drawing.Color.DimGray;
             this.BtnCuentasBancarias.HoverState.FillColor2 = System.Drawing.Color.DimGray;
@@ -3622,7 +3622,7 @@
             this.BtnCuentasBancarias.ImageSize = new System.Drawing.Size(35, 35);
             this.BtnCuentasBancarias.Location = new System.Drawing.Point(7, 599);
             this.BtnCuentasBancarias.Name = "BtnCuentasBancarias";
-            this.BtnCuentasBancarias.Size = new System.Drawing.Size(166, 45);
+            this.BtnCuentasBancarias.Size = new System.Drawing.Size(184, 45);
             this.BtnCuentasBancarias.TabIndex = 18;
             this.BtnCuentasBancarias.Text = "Cuentas Bancarias";
             this.BtnCuentasBancarias.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
@@ -3726,7 +3726,7 @@
             this.BtnCategorias.ImageSize = new System.Drawing.Size(35, 35);
             this.BtnCategorias.Location = new System.Drawing.Point(7, 96);
             this.BtnCategorias.Name = "BtnCategorias";
-            this.BtnCategorias.Size = new System.Drawing.Size(180, 45);
+            this.BtnCategorias.Size = new System.Drawing.Size(188, 45);
             this.BtnCategorias.TabIndex = 5;
             this.BtnCategorias.Text = "Categorias y Familias";
             this.BtnCategorias.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
@@ -3906,7 +3906,7 @@
             this.BtnConceptosGlobales.ImageSize = new System.Drawing.Size(35, 35);
             this.BtnConceptosGlobales.Location = new System.Drawing.Point(7, 322);
             this.BtnConceptosGlobales.Name = "BtnConceptosGlobales";
-            this.BtnConceptosGlobales.Size = new System.Drawing.Size(175, 45);
+            this.BtnConceptosGlobales.Size = new System.Drawing.Size(185, 45);
             this.BtnConceptosGlobales.TabIndex = 12;
             this.BtnConceptosGlobales.Text = "Conceptos Globales";
             this.BtnConceptosGlobales.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
@@ -3978,7 +3978,7 @@
             this.guna2Button2.Image = ((System.Drawing.Image)(resources.GetObject("guna2Button2.Image")));
             this.guna2Button2.ImageAlign = System.Windows.Forms.HorizontalAlignment.Left;
             this.guna2Button2.ImageSize = new System.Drawing.Size(35, 35);
-            this.guna2Button2.Location = new System.Drawing.Point(147, 681);
+            this.guna2Button2.Location = new System.Drawing.Point(224, 677);
             this.guna2Button2.Name = "guna2Button2";
             this.guna2Button2.Size = new System.Drawing.Size(161, 44);
             this.guna2Button2.TabIndex = 42;
