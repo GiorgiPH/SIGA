@@ -186,7 +186,7 @@
             // guna2PictureBox1
             // 
             this.guna2PictureBox1.BackColor = System.Drawing.Color.Transparent;
-            this.guna2PictureBox1.Image = global::PV.Properties.Resources.siga_logo_blanco;
+            this.guna2PictureBox1.Image = global::PV.Properties.Resources.sigalite_logo_blanco;
             this.guna2PictureBox1.ImageRotate = 0F;
             this.guna2PictureBox1.Location = new System.Drawing.Point(4, 7);
             this.guna2PictureBox1.Name = "guna2PictureBox1";
