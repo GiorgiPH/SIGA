@@ -49,10 +49,11 @@ namespace Condominios.Clases.Documentos
         }
         //_________________________________________________________________________________________________________________________--
         // registrar divisa 
-        public string RegistroDocumento(string TipoDocumento, string Clase, string Clave, string Nombre, string Almace, string UltimoFolio, string Consecutivo, string Bloquear, string Cuenta, string Cuenta2, string tarea)
+        public string RegistroDocumento(string TipoDocumento, string Clase, string Clave, string Nombre, string Almace, string UltimoFolio, string Consecutivo, string Bloquear, string Cuenta, string Cuenta2, string tarea, bool CentroCosto)
         {
             string mensaje = "";
             int contador = 0;
+            string MostrarCentroCosto = CentroCosto ? "1" : "0";
 
             try
             {
@@ -67,11 +68,9 @@ namespace Condominios.Clases.Documentos
 
                 if (contador <= 0)
                 {
-
-                    cmd = new SqlCommand("Insert into Documento (TipoDocumento, Clase, Clave, Nombre, Almace, UltimoFolio, Consecutivo, Bloquear, Cuenta, Cuenta2,Tarea) values ('" + TipoDocumento + "', '" + Clase + "', '" + Clave + "', '" + Nombre + "', '" + Almace + "', '" + UltimoFolio + "', '" + Consecutivo + "', '" + Bloquear + "', '" + Cuenta + "', '" + Cuenta2 + "', '" + tarea + "')", cn);
+                    cmd = new SqlCommand("Insert into Documento (TipoDocumento, Clase, Clave, Nombre, Almace, UltimoFolio, Consecutivo, Bloquear, Cuenta, Cuenta2, Tarea, MostrarCentroCosto) values ('" + TipoDocumento + "', '" + Clase + "', '" + Clave + "', '" + Nombre + "', '" + Almace + "', '" + UltimoFolio + "', '" + Consecutivo + "', '" + Bloquear + "', '" + Cuenta + "', '" + Cuenta2 + "', '" + tarea + "', " + MostrarCentroCosto + ")", cn);
                     cmd.ExecuteNonQuery();
                     mensaje = "Registro guardado.";
-
                 }
                 else if (contador > 0)
                 {
@@ -98,7 +97,7 @@ namespace Condominios.Clases.Documentos
                     {
                         if (MessageBox.Show("El documento ya existe, si continua sera modificado", "Documento", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                         {
-                            cmd = new SqlCommand("Update Documento set Tarea='"+tarea+"', TipoDocumento=  '" + TipoDocumento + "', Clase='" + Clase + "', Almace='" + Almace + "', UltimoFolio='" + UltimoFolio + "', Consecutivo='" + Consecutivo + "', Bloquear='" + Bloquear + "', Cuenta='" + Cuenta + "', Cuenta2= '" + Cuenta2 + "' where Clave='" + Clave + "' and TipoDocumento= '" + TipoDocumento + "'", cn);
+                            cmd = new SqlCommand("Update Documento set Tarea='" + tarea + "', TipoDocumento=  '" + TipoDocumento + "', Clase='" + Clase + "', Almace='" + Almace + "', UltimoFolio='" + UltimoFolio + "', Consecutivo='" + Consecutivo + "', Bloquear='" + Bloquear + "', Cuenta='" + Cuenta + "', Cuenta2= '" + Cuenta2 + "', MostrarCentroCosto=" + MostrarCentroCosto + " where Clave='" + Clave + "' and TipoDocumento= '" + TipoDocumento + "'", cn);
                             cmd.ExecuteNonQuery();
                             mensaje = "Registro modificado.";
                         }
@@ -110,7 +109,6 @@ namespace Condominios.Clases.Documentos
                 MessageBox.Show("Error." + ex.ToString());
             }
             return mensaje;
-
         }
         //________________________________________________________________________________________________
         //Documentos Registrados
@@ -139,7 +137,7 @@ namespace Condominios.Clases.Documentos
         }
         //_____________________________________________________________________________________________________
         //Mostrar Usuario seleccionado
-        public void ConsultaDocumentoSeleccionado(ComboBox TipoDocumento, ComboBox Clase, string Clave, string Nombre, Guna2TextBox Almace, Guna2TextBox UltimoFolio, Guna2ToggleSwitch tgConsecutivo, Guna2ToggleSwitch tgBloquear, Guna2TextBox Cuenta, Guna2TextBox Cuenta2,ComboBox Tarea )
+        public void ConsultaDocumentoSeleccionado(ComboBox TipoDocumento, ComboBox Clase, string Clave, string Nombre, Guna2TextBox Almace, Guna2TextBox UltimoFolio, Guna2ToggleSwitch tgConsecutivo, Guna2ToggleSwitch tgBloquear, Guna2TextBox Cuenta, Guna2TextBox Cuenta2, ComboBox Tarea, Guna2ToggleSwitch tgCentroCosto)
         {
             try
             {
@@ -172,6 +170,7 @@ namespace Condominios.Clases.Documentos
                         tgBloquear.Checked = false;
                     }
 
+                    tgCentroCosto.Checked = Convert.ToBoolean(dr["MostrarCentroCosto"]);
 
                     Cuenta.Text = dr["Cuenta"].ToString();
                     Cuenta2.Text = dr["Cuenta2"].ToString();

@@ -2,6 +2,7 @@
 using Condominios.Clases.CentroCostos;
 using PuntoVentas.Clases.Login;
 using PV.Clases;
+
 using PV.Clases.OrdenCompra;
 using PV.Clases.Proveedores;
 using System;
@@ -34,6 +35,12 @@ namespace PV
         int opcion = 0;
 
         int Partidas = 0;
+
+        // NUEVO: indica si el documento seleccionado en cmbDocumento permite capturar
+        // Centro de Costos (se llena desde valores[2] en cmbDocumento_SelectedIndexChanged
+        // y controla el Enabled de cmbCentroCostos).
+        private bool mostrrcentorcosto = false;
+
         public RegistroGastos2()
         {
             InitializeComponent();
@@ -42,6 +49,50 @@ namespace PV
                 cmbSemana.Items.Add($"Semana {i}");
             }
         }
+
+        // ===================== NUEVO: Métodos auxiliares =====================
+        /// <summary>
+        /// Calcula el número de semana del año en curso (1 a 52), tomando el día
+        /// del año y dividiendo entre 7 (misma cantidad de semanas que se cargan
+        /// en cmbSemana en el constructor). Se usa para preseleccionar la semana
+        /// actual en cmbSemana al iniciar un nuevo registro.
+        /// </summary>
+        private int ObtenerNumeroSemanaActual()
+        {
+            DateTime hoy = DateTime.Today;
+            int semana = ((hoy.DayOfYear - 1) / 7) + 1;
+
+            if (semana > 52) semana = 52;
+            if (semana < 1) semana = 1;
+
+            return semana;
+        }
+
+        /// <summary>
+        /// Interpreta distintos formatos comunes que puede regresar la base de datos
+        /// (1/0, true/false, si/no) como un valor booleano. Se usa para convertir
+        /// valores[2] (InformacionDocumento) en el booleano mostrrcentorcosto.
+        /// </summary>
+        private bool ParsearBooleano(string valor)
+        {
+            if (string.IsNullOrWhiteSpace(valor))
+                return false;
+
+            switch (valor.Trim().ToUpperInvariant())
+            {
+                case "1":
+                case "TRUE":
+                case "SI":
+                case "SÍ":
+                case "S":
+                case "YES":
+                    return true;
+                default:
+                    return false;
+            }
+        }
+        // =======================================================================
+
         private void LlenarComboCentro()
         {
             try
@@ -62,10 +113,7 @@ namespace PV
                 cmbCentroCostosAlterno.ValueMember = "Clave";   // Campo interno
                 cmbCentroCostosAlterno.SelectedIndex = -1;     // Ningún elemento seleccionado al inicio
 
-                //cmbCentroCostos.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
-                //cmbCentroCostos.AutoCompleteSource = AutoCompleteSource.ListItems;
-
-                // Reanudar eventos
+           
             }
             catch (Exception ex)
             {
@@ -155,9 +203,8 @@ namespace PV
 
         private void RegistroGastos2_Load(object sender, EventArgs e)
         {
-            c.SeleccionarRecepcionProducto(cmbDocumento);
+            c.SeleccionarRegistroGastos(cmbDocumento);
             c.SeleccionarConceptoDocumento(cmbFiltroDocumentoC);
-            c.SeleccionarCondomini2(cmbCondominio);
             LlenarComboProveedores();
             LlenarComboCentro();
             LlenarComboProveedores();
@@ -170,16 +217,19 @@ namespace PV
             txtTipoCambio.Text = "1.00";
             txtElaborado.Text = DBLogin.usuario;
             cmbOrdenCompra.Text = txtFiltroOrdenC.Text;
-            cmbCondominio.SelectedIndex = 0;
             txtDiasVence.Text = "0";
             cmbProoveedorAlternoSiNo.Text = "Si";
             int Dias = Convert.ToInt32(txtDiasVence.Text);
             DateTime FechaVence = Convert.ToDateTime(txtFecha.Text);
             FechaVence = FechaVence.AddDays(Dias);
             txtFechaVence.Text = FechaVence.ToString("yyyy/MM/dd");
+
+            // NUEVO: al iniciar un nuevo registro se preselecciona el año y la semana actual
+            dtpAnio.Value = DateTime.Today;
+            cmbSemana.SelectedIndex = ObtenerNumeroSemanaActual() - 1;
         }
 
-        private void btnarticulos_Click(object sender, EventArgs e)
+        private void btnAgregarPartidas_Click(object sender, EventArgs e)
         {
             if (txtMatricular.Text == string.Empty)
             {
@@ -207,7 +257,7 @@ namespace PV
 
                 if (txtFolio.Text == string.Empty)
                 {
-                    c.InsertarRegistroGasto(txtFolio, txtClave.Text, cmbEstatus.Text, txtFecha.Text, txtMatricular.Text, txtDivisa.Text, txtTipoCambio.Text, txtNotas.Text, txtElaborado.Text, FolioOrden, txtConsecutivo.Text, txtReferencia.Text, txtCondominio.Text, txtDiasVence.Text, txtFechaVence.Text, cmbCentroCostos?.SelectedValue?.ToString(), cmbSemana.SelectedIndex + 1, dtpAnio.Text, cmbProoveedorAlternoSiNo.Text);
+                    c.InsertarRegistroGasto(txtFolio, txtClave.Text, cmbEstatus.Text, txtFecha.Text, txtMatricular.Text, txtDivisa.Text, txtTipoCambio.Text, txtNotas.Text, txtElaborado.Text, FolioOrden, txtConsecutivo.Text, txtReferencia.Text, txtDiasVence.Text, txtFechaVence.Text, cmbCentroCostos?.SelectedValue?.ToString(), cmbSemana.SelectedIndex + 1, dtpAnio.Text, cmbProoveedorAlternoSiNo.Text);
                 }
                 int opcion = 0;
                 if (txtArchivo.Text != string.Empty)
@@ -247,29 +297,25 @@ namespace PV
 
                 if (opcion != 0)
                 {
-                    button11.Enabled = false;
-                    button12.Enabled = false;
-                    button13.Enabled = false;
+                    btnAdjuntarComporbante.Enabled = false;
+                  
                 }
             }
 
-            cmbCondominio.DroppedDown = false;
             cmbFiltroDocumentoC.DroppedDown = false;
             cmbProveedor.DroppedDown = false;
             cmbOrdenCompra.DroppedDown = false;
-            //  btLimpiarOrden.BackColor = Color.Gainsboro;
             button3.BackColor = Color.Gainsboro;
             txtReferencia.BackColor = Color.White;
             txtNotas.BackColor = Color.White;
             cmbDocumento.DroppedDown = false;
-            //   button6.BackColor = Color.Gainsboro;
             button2.BackColor = Color.Gainsboro;
             txtDiasVence.BackColor = Color.White;
             button7.BackColor = Color.Gainsboro;
 
         }
 
-        private void guna2Button12_Click(object sender, EventArgs e)
+        private void btnConfirmarPartida_Click(object sender, EventArgs e)
         {
             if (txtTotal1.Text == "0.00" || txtTotal1.Text == "0")
             {
@@ -317,21 +363,53 @@ namespace PV
                 c.ActualizarGasto(TxtFolio1.Text, txtPartida.Text);
                 c.ActualizarPartidaOrden(txtOrden.Text, txtPartidaOrden.Text, txtCantidad.Text);
 
-                //c.RegistroProducto(txtClave.Text, txtCantidad.Text, txtAlmacen.Text);
-                //this.Close();
-             //   ConceptosGlobalesPartidaGastos documentoConceptoGlobal = new ConceptosGlobalesPartidaGastos(TxtFolio1.Text, recibo, reciboCol);
-              //  documentoConceptoGlobal.ShowDialog();
+   
                 Limpiar();
                 c.ConsultaGasto(TxtFolio1.Text, txtPartida);
 
             }
-            PanelPartidasRequisicion.Visible = false;
-            guna2Button9.Visible = true;
+            PanelPartidasGasto.Visible = false;
+            btnTerminarGasto.Visible = true;
             c.CargarRecibosPartidasGasto(guna2DataGridView1, TxtFolio1.Text);
-            dataGridView2.Rows.Clear();
+            dgvComprobantesPartidas.Rows.Clear();
         }
+        private void SumarColumnasPartida()
+        {
+            decimal totalSubtotal = 0;
+            decimal totalDescuento = 0;
+            decimal totalImpuesto = 0;
 
-        private void guna2Button8_Click(object sender, EventArgs e)
+
+            foreach (DataGridViewRow fila in guna2DataGridView1.Rows)
+            {
+                if (!fila.IsNewRow)
+                {
+                    if (fila.Cells["Subtotal"].Value != null && decimal.TryParse(fila.Cells["Subtotal"].Value.ToString(), out decimal subtotal))
+                        totalSubtotal += subtotal;
+
+                    if (fila.Cells["Descuento"].Value != null && decimal.TryParse(fila.Cells["Descuento"].Value.ToString(), out decimal descuento))
+                        totalDescuento += descuento;
+
+                    if (fila.Cells["Impuesto"].Value != null && decimal.TryParse(fila.Cells["Impuesto"].Value.ToString(), out decimal impuesto))
+                        totalImpuesto += impuesto;
+
+                  
+
+                }
+
+            }
+
+            lblSubtotalPartidas.Text = "Subtotal: $" + totalSubtotal.ToString("N2");
+            lblDescuentosPartidas.Text = "Descuento: $" + totalDescuento.ToString("N2");
+            lblImpuestosPartidas.Text = "Impuesto: $" + totalImpuesto.ToString("N2");
+
+            // txttotalretenciones.Text = totalretenciones.ToString("N2");
+            decimal total = totalSubtotal - totalDescuento + totalImpuesto;
+            lblTotal.Text = "Total: $" + total.ToString();
+
+
+        }
+        private void btnSiguientePartida_Click(object sender, EventArgs e)
         {
 
             if (cmbConcepto.Text == string.Empty)
@@ -361,13 +439,12 @@ namespace PV
                 }
                 c.InsertarPartidaGasto(TxtFolio1.Text, txtPartida.Text, txtClave1.Text, txtConcepto2.Text, txtCantidad.Text.Replace(",", ""), txtUnidad.Text, txtDivisa1.Text, txtTipoCambio1.Text.Replace(",", ""), Convert.ToDecimal(txtSubtotal1.Text.Replace(",", "")), Convert.ToDecimal(txtDescuento1.Text.Replace(",", "")), Convert.ToDecimal(txtTotal1.Text.Replace(",", "")), Convert.ToDecimal(txtImpuesto1.Text.Replace(",", "")), rutaCompletaArchivo, cmbProveedroAlterno?.SelectedValue?.ToString(), cmbCentroCostosAlterno?.SelectedValue?.ToString(), txtDescuentoIm.Text.Replace(",", ""), txtImpuestoIm.Text.Replace(",", ""));
                 c.ActualizarPartidaOrden(txtOrden.Text, txtPartidaOrden.Text, txtCantidad.Text.Replace(",", ""));
-                //c.RegistroProducto(txtClave.Text, txtCantidad.Text, txtAlmacen.Text);
                 c.ActualizarGasto(TxtFolio1.Text, txtPartida.Text);
                 c.Consulta5RegistroGasto(TxtFolio1.Text, txtPartida);
                 c.ReciboSaldosPartidasGasto(TxtFolio1.Text, txtSubtotalR, txtDescuentoR, txtTotalR, txtImpuestoR);
                 Limpiar();
                 c.ConsultaGasto(TxtFolio1.Text, txtPartida);
-                dataGridView2.Rows.Clear();
+                dgvComprobantesPartidas.Rows.Clear();
 
                 if (txtOrden.Text != string.Empty)
                 {
@@ -404,7 +481,7 @@ namespace PV
             cmbCentroCostosAlterno.Text = cmbCentroCostos.Text;
         }
 
-        private void guna2Button10_Click(object sender, EventArgs e)
+        private void btnLimpiarPartida_Click(object sender, EventArgs e)
         {
             Limpiar();
         }
@@ -459,10 +536,10 @@ namespace PV
                 decimal.TryParse(txtDescuentoIm.Text.Replace(",", ""), out descuentoIm);
 
 
-                PanelPartidasRequisicion.Visible = true;
-                guna2Button11.Visible = true;
+                PanelPartidasGasto.Visible = true;
+                btnCerrarPanelPartida.Visible = true;
 
-                c.mostrarArchivos(dataGridView2, txtFolio.Text, txtPartida.Text);
+                c.mostrarArchivos(dgvComprobantesPartidas, txtFolio.Text, txtPartida.Text);
             }
             catch (Exception ex)
             {
@@ -478,82 +555,7 @@ namespace PV
 
         private void toolStrip2_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
         {
-            /*if (e.ClickedItem.Text == "NUEVO")
-            {
-                //   Limpiar();
-
-
-                guna2TabControl1.Enabled = true;
-              //  guna2GradientPanel2.Size = new Size(22, 569);
-                toolStrip1.Size = new Size(22, 569);
-                toolStripButton11.TextDirection = System.Windows.Forms.ToolStripTextDirection.Vertical270;
-                toolStripButton12.TextDirection = System.Windows.Forms.ToolStripTextDirection.Vertical270;
-                toolStripButton13.TextDirection = System.Windows.Forms.ToolStripTextDirection.Vertical270;
-                guna2TabControl1.SelectedIndex = 0;
-                guna2TabControl1.Enabled = true;
-
-                Limpiarcabezado();
-                LimpiarDetalle();
-                DesbloquearEncabezado();
-                DesbloquearDetalle  ();
-
-
-                c.SeleccionarRecepcionProducto(cmbDocumento);
-                c.SeleccionarConceptoDocumento(cmbFiltroDocumentoC);
-                c.SeleccionarCondomini2(cmbCondominio);
-                c.ruta();
-                //c.SeleccionarOrdenEntrega(cmbOrdenCompra);
-                c.CargarGasto(dataGridView1);
-                cmbEstatus.SelectedIndex = 0;
-                txtFecha.Text = DateTime.Today.ToString("yyyy/MM/dd");
-                txtDivisa.Text = "MXN";
-                txtTipoCambio.Text = "1.00";
-                txtElaborado.Text = DBLogin.usuario;
-                cmbOrdenCompra.Text = txtFiltroOrdenC.Text;
-                cmbCondominio.SelectedIndex = 0;
-                txtDiasVence.Text = "0";
-                int Dias = Convert.ToInt32(txtDiasVence.Text);
-                DateTime FechaVence = Convert.ToDateTime(txtFecha.Text);
-                FechaVence = FechaVence.AddDays(Dias);
-                txtFechaVence.Text = FechaVence.ToString("yyyy/MM/dd");
-                guna2TabControl1.Enabled = true;
-
-            }
-            else if (e.ClickedItem.Text == "CONSULTAR")
-            {
-                if (guna2GradientPanel2.Visible == true)
-                {
-                    guna2GradientPanel2.Enabled = true;
-                    guna2GradientPanel2.Visible = false;
-                    guna2GradientPanel2.SendToBack();
-                }
-                else
-                {
-                    guna2GradientPanel2.Enabled = true;
-                    guna2GradientPanel2.Visible = true;
-                    guna2GradientPanel2.BringToFront();
-                }
-              //  guna2GradientPanel4.Size = new Size(22, 569);
-
-
-                guna2TabControl1.Enabled = true;
-
-                BloquearDetalle();
-                BloquearEncabezado();
-                guna2TabControl1.Enabled = true;
-
-
-
-            }
-            else if (e.ClickedItem.Text == "IMPRIMIR")
-            {
-                guna2GradientPanel4.Size = new Size(22, 569);
-                toolStrip1.Size = new Size(22, 569);
-                toolStripButton11.TextDirection = System.Windows.Forms.ToolStripTextDirection.Vertical270;
-                toolStripButton12.TextDirection = System.Windows.Forms.ToolStripTextDirection.Vertical270;
-                toolStripButton13.TextDirection = System.Windows.Forms.ToolStripTextDirection.Vertical270;
-            }
-            */
+           
         }
 
         private void cmbOrdenCompra_SelectedIndexChanged(object sender, EventArgs e)
@@ -605,7 +607,6 @@ namespace PV
                 cmbOrdenCompra.Text = null;
                 cmbProveedor.Text = null;
 
-                cmbCondominio.DroppedDown = false;
                 cmbFiltroDocumentoC.DroppedDown = false;
                 cmbProveedor.DroppedDown = false;
                 cmbOrdenCompra.DroppedDown = false;
@@ -633,7 +634,6 @@ namespace PV
                 buscarListaAlumnos2.ShowDialog();
             }
 
-            cmbCondominio.DroppedDown = false;
             cmbFiltroDocumentoC.DroppedDown = false;
             cmbProveedor.DroppedDown = false;
             cmbDocumento.DroppedDown = false;
@@ -650,7 +650,6 @@ namespace PV
         private void button3_Click(object sender, EventArgs e)
         {
             cmbDocumento.DroppedDown = false;
-            cmbCondominio.DroppedDown = false;
             cmbFiltroDocumentoC.DroppedDown = false;
             cmbProveedor.DroppedDown = false;
             cmbOrdenCompra.DroppedDown = false;
@@ -669,7 +668,7 @@ namespace PV
                 int opcion = 0;
                 if (txtFolio.Text == string.Empty)
                 {
-                    c.InsertarRegistroGasto(txtFolio, txtClave.Text, cmbEstatus.Text, txtFecha.Text, txtMatricular.Text, txtDivisa.Text, txtTipoCambio.Text, txtNotas.Text, txtElaborado.Text, FolioOrden, txtConsecutivo.Text, txtReferencia.Text, txtCondominio.Text, txtDiasVence.Text, txtFechaVence.Text, cmbCentroCostos.SelectedValue.ToString(), cmbSemana.SelectedIndex + 1, dtpAnio.Text, cmbProoveedorAlternoSiNo.Text);
+                    c.InsertarRegistroGasto(txtFolio, txtClave.Text, cmbEstatus.Text, txtFecha.Text, txtMatricular.Text, txtDivisa.Text, txtTipoCambio.Text, txtNotas.Text, txtElaborado.Text, FolioOrden, txtConsecutivo.Text, txtReferencia.Text, txtDiasVence.Text, txtFechaVence.Text, cmbCentroCostos.SelectedValue.ToString(), cmbSemana.SelectedIndex + 1, dtpAnio.Text, cmbProoveedorAlternoSiNo.Text);
                     opcion = 1;
                 }
 
@@ -683,14 +682,8 @@ namespace PV
 
                     try
                     {
-                        if (Directory.Exists(Carpeta))
-                        {
-
-                        }
-                        else
-                        {
-                            Directory.CreateDirectory(Carpeta);
-                        }
+                        // NUEVO: creación de carpeta delegada a ArchivoUtil (misma lógica que había)
+                        ArchivoUtil.CrearCarpetaSiNoExiste(Carpeta);
                     }
                     catch (Exception)
                     {
@@ -709,7 +702,8 @@ namespace PV
                         string ext = Path.GetExtension(archivo);
                         try
                         {
-                            File.Copy(archivo, Carpeta + @"\" + Descripcion + ext);
+                            // NUEVO: copia de archivo delegada a ArchivoUtil (misma lógica que había)
+                            ArchivoUtil.CopiarArchivo(archivo, Carpeta + @"\" + Descripcion + ext);
                             txtArchivo.Text = Descripcion + ext;
                             c.ModificarExtension5gasto(txtFolio.Text, txtClave.Text, ext);
                             c.ActualizarRecepcion3gasto(txtFolio.Text, txtClave.Text, txtArchivo.Text);
@@ -743,7 +737,6 @@ namespace PV
         private void button2_Click(object sender, EventArgs e)
         {
             cmbDocumento.DroppedDown = false;
-            cmbCondominio.DroppedDown = false;
             cmbFiltroDocumentoC.DroppedDown = false;
             cmbProveedor.DroppedDown = false;
             cmbOrdenCompra.DroppedDown = false;
@@ -752,7 +745,6 @@ namespace PV
             txtReferencia.BackColor = Color.White;
             txtNotas.BackColor = Color.White;
             button2.BackColor = Color.Gainsboro;
-            // button6.BackColor = Color.Gainsboro;
             button7.BackColor = Color.Gainsboro;
             txtDiasVence.BackColor = Color.White;
 
@@ -765,7 +757,8 @@ namespace PV
 
                     Carpeta = DBOrdenCompra.Ruta + @"\" + "EG" + NoOrdenResl;
 
-                    Process.Start(Carpeta + @"\" + txtArchivo.Text);
+                    // NUEVO: apertura de archivo delegada a ArchivoUtil (misma lógica que había)
+                    ArchivoUtil.AbrirArchivo(Carpeta + @"\" + txtArchivo.Text);
                 }
                 else if (txtFolio.Text != string.Empty)
                 {
@@ -786,7 +779,6 @@ namespace PV
         private void button1_Click(object sender, EventArgs e)
         {
             cmbDocumento.DroppedDown = false;
-            cmbCondominio.DroppedDown = false;
             cmbFiltroDocumentoC.DroppedDown = false;
             cmbProveedor.DroppedDown = false;
             cmbOrdenCompra.DroppedDown = false;
@@ -808,7 +800,8 @@ namespace PV
                     Carpeta = DBOrdenCompra.Ruta + @"\" + "EG" + NoOrdenResl;
                     if (Directory.Exists(Carpeta))
                     {
-                        File.Delete(Carpeta + @"\" + txtArchivo.Text);
+                        // NUEVO: eliminación de archivo delegada a ArchivoUtil (misma lógica que había)
+                        ArchivoUtil.EliminarArchivo(Carpeta + @"\" + txtArchivo.Text);
                         txtArchivo.Clear();
                         c.ModificarExtension4(txtFolio.Text, txtClave.Text);
                     }
@@ -844,7 +837,6 @@ namespace PV
                 documentoConceptoGlobalVer.ShowDialog();
             }
 
-            cmbCondominio.DroppedDown = false;
             cmbFiltroDocumentoC.DroppedDown = false;
             cmbProveedor.DroppedDown = false;
             cmbOrdenCompra.DroppedDown = false;
@@ -869,6 +861,13 @@ namespace PV
                     txtDocumento.Text = valores[0];
                     txtClave.Text = valores[1];
 
+                    // NUEVO: valores[2] indica si el documento permite capturar Centro de Costos
+                    if (valores.Length > 2)
+                    {
+                        mostrrcentorcosto = ParsearBooleano(valores[2]);
+                        cmbCentroCostos.Enabled = mostrrcentorcosto;
+                    }
+
                     //MessageBox.Show(txtFolio.Text);
 
                     if (txtFolio.Text == string.Empty)
@@ -881,22 +880,7 @@ namespace PV
             }
         }
 
-        private void cmbCondominio_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (cmbCondominio.Text != string.Empty)
-            {
-                if (cmbCondominio.Text == "GLOBAL")
-                {
-                    txtCondominio.Text = "GLOBAL";
-                }
-                else
-                {
-                    string[] valores = c.InformacionCondominio(cmbCondominio.Text);
-                    txtCondominio.Text = valores[0];
-                }
-
-            }
-        }
+   
 
         private void cmbFiltroDocumentoC_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -941,7 +925,7 @@ namespace PV
 
 
 
-           //     c.ReciboSaldosGastos(txtFolio.Text, txtSubtotal, txtDescuento, txtImpuestos, txtTotal, txtPartidas, txtSaldo);
+                //     c.ReciboSaldosGastos(txtFolio.Text, txtSubtotal, txtDescuento, txtImpuestos, txtTotal, txtPartidas, txtSaldo);
 
                 if (txtPartidas.Text == string.Empty)
                 {
@@ -964,13 +948,12 @@ namespace PV
             }
         }
 
-        private void guna2Button6_Click(object sender, EventArgs e)
+        private void btnAgregarPartida_Click(object sender, EventArgs e)
         {
-            PanelPartidasRequisicion.Visible = true;
+            PanelPartidasGasto.Visible = true;
             LimpiarDetalle();
             c.ConsultaGasto(TxtFolio1.Text, txtPartida);
-            button11.Enabled = true;
-            // PanelPartidasRequisicion.Visible = true;
+            btnAdjuntarComporbante.Enabled = true;
 
         }
 
@@ -1014,7 +997,7 @@ namespace PV
             }
         }
 
-        private void guna2Button9_Click(object sender, EventArgs e)
+        private void btnTerminarGasto_Click(object sender, EventArgs e)
         {
             if (txtPartidas.Text == string.Empty)
             {
@@ -1039,14 +1022,14 @@ namespace PV
             LimpiarDetalle();
 
             guna2TabControl1.SelectedIndex = 0;
-            guna2Button9.Visible = true;
+            btnTerminarGasto.Visible = true;
             guna2TabControl1.Enabled = false;
             guna2DataGridView1.Rows.Clear();
             txtFolio.Text = String.Empty;
             toolStripButton1.Enabled = true;
             toolStripButton2.Enabled = true;
             toolStripButton3.Enabled = true;
-            dataGridView2.Rows.Clear();
+            dgvComprobantesPartidas.Rows.Clear();
         }
 
         private void txtCantidad_TextChanged(object sender, EventArgs e)
@@ -1221,7 +1204,7 @@ namespace PV
         private string nombreArchivo = string.Empty;
         private string extensionArchivo = string.Empty;
 
-        private void button11_Click(object sender, EventArgs e)
+        private void btnAdjuntarComporbante_Click(object sender, EventArgs e)
         {
             // Primero, obtén la ruta de la base de datos.
 
@@ -1243,8 +1226,8 @@ namespace PV
 
             try
             {
-                if (!Directory.Exists(carpetaDestino))
-                    Directory.CreateDirectory(carpetaDestino);
+                // NUEVO: creación de carpeta delegada a ArchivoUtil (misma lógica que había)
+                ArchivoUtil.CrearCarpetaSiNoExiste(carpetaDestino);
             }
             catch (Exception ex)
             {
@@ -1268,14 +1251,13 @@ namespace PV
 
                 try
                 {
-                    // Copia el archivo al sistema de archivos.
-                    File.Copy(archivoSeleccionado, rutaCompletaArchivo, overwrite: true);
+                    // NUEVO: copia de archivo y conversión a Base64 delegadas a ArchivoUtil (misma lógica que había)
+                    ArchivoUtil.CopiarArchivo(archivoSeleccionado, rutaCompletaArchivo, true);
                     txtArchivo1.Text = nombreArchivo; // Actualiza el TextBox
 
                     //  contenidoArchivo = File.ReadAllText(archivoSeleccionado);
 
-                    byte[] archivoBytes = File.ReadAllBytes(archivoSeleccionado);
-                    contenidoArchivo = Convert.ToBase64String(archivoBytes);
+                    contenidoArchivo = ArchivoUtil.ConvertirArchivoABase64(archivoSeleccionado);
 
 
                     MessageBox.Show(c.insertaArchivos(TxtFolio1.Text, txtPartida.Text, txtClave1.Text, nombreArchivo, extensionArchivo, contenidoArchivo));
@@ -1285,7 +1267,7 @@ namespace PV
                     // Si no, necesitarás instanciarla o usar un enfoque diferente.
                     //c.ModificarExtension4gasto(noOrden, descripcion, extensionArchivo);
                     //c.ActualizarRecepcion2gasto(noOrden, descripcion, nombreArchivo);
-                    c.mostrarArchivos(dataGridView2, TxtFolio1.Text, txtPartida.Text);
+                    c.mostrarArchivos(dgvComprobantesPartidas, TxtFolio1.Text, txtPartida.Text);
                 }
                 catch (IOException ex)
                 {
@@ -1299,156 +1281,9 @@ namespace PV
                 }
             }
         }
-        /*    private void button11_Click(object sender, EventArgs e)
-            {
-                if (string.IsNullOrWhiteSpace(DBOrdenCompra.Ruta))
-                {
-                    MessageBox.Show("No existe una ruta para guardar archivos definida en Parametros->Datos Condominio");
-                    return;
-                }
+     
 
-                if (string.IsNullOrWhiteSpace(TxtFolio1.Text))
-                {
-                    MessageBox.Show("Continue con el registro antes de adjuntar archivos");
-                    return;
-                }
-
-                string noOrden = TxtFolio1.Text;
-                string descripcion = txtPartida.Text;
-                string carpetaDestino = Path.Combine(DBOrdenCompra.Ruta, "G" + noOrden);
-
-                try
-                {
-                    if (!Directory.Exists(carpetaDestino))
-                        Directory.CreateDirectory(carpetaDestino);
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("Error al crear carpeta: " + ex.Message);
-                    return;
-                }
-
-                OpenFileDialog open = new OpenFileDialog();
-                open.Filter = "Todos los archivos|*.*";
-
-                if (open.ShowDialog() == DialogResult.OK)
-                {
-                    string archivoSeleccionado = open.FileName;
-                    extensionArchivo = Path.GetExtension(archivoSeleccionado);
-                    nombreArchivo = descripcion + extensionArchivo;
-                    rutaCompletaArchivo = Path.Combine(carpetaDestino, nombreArchivo);
-
-                    try
-                    {
-                        File.Copy(archivoSeleccionado, rutaCompletaArchivo, overwrite: true);
-                        txtArchivo1.Text = nombreArchivo;
-
-                        // Si quieres actualizar la base con el nombre/extension ya, puedes dejar esto:
-                        c.ModificarExtension4gasto(noOrden, descripcion, extensionArchivo);
-                        c.ActualizarRecepcion2gasto(noOrden, descripcion, nombreArchivo);
-                    }
-                    catch (IOException ex)
-                    {
-                        MessageBox.Show("Ya hay un archivo guardado o en uso: " + ex.Message);
-                        return;
-                    }
-                }
-            }*/
-
-
-        private void button12_Click(object sender, EventArgs e)
-        {
-            if (string.IsNullOrWhiteSpace(DBOrdenCompra.Ruta))
-            {
-                MessageBox.Show("No existe una ruta para guardar archivos definida en Parametros->Datos Condominio");
-                return;
-            }
-
-            if (string.IsNullOrWhiteSpace(TxtFolio1.Text))
-            {
-                MessageBox.Show("Seleccione un registro para continuar");
-                return;
-            }
-
-            if (string.IsNullOrWhiteSpace(txtArchivo1.Text))
-            {
-                MessageBox.Show("Este registro no cuenta con un archivo adjunto");
-                return;
-            }
-
-            if (!string.IsNullOrWhiteSpace(rutaCompletaArchivo) && File.Exists(rutaCompletaArchivo))
-            {
-                Process.Start(rutaCompletaArchivo);
-            }
-            else
-            {
-                // Si rutaCompletaArchivo está vacía, intenta reconstruirla desde los datos
-                string noOrden = TxtFolio1.Text;
-                string carpeta = Path.Combine(DBOrdenCompra.Ruta, "G" + noOrden);
-                string rutaReconstruida = Path.Combine(carpeta, txtArchivo1.Text);
-
-                if (File.Exists(rutaReconstruida))
-                {
-                    Process.Start(rutaReconstruida);
-                }
-                else
-                {
-                    MessageBox.Show("No se encontró el archivo en la ruta esperada.");
-                }
-            }
-        }
-
-
-        private void button13_Click(object sender, EventArgs e)
-        {
-            if (string.IsNullOrWhiteSpace(DBOrdenCompra.Ruta))
-            {
-                MessageBox.Show("No existe una ruta para guardar archivos definida en Parametros->Datos Condominio");
-                return;
-            }
-
-            if (string.IsNullOrWhiteSpace(TxtFolio1.Text))
-            {
-                MessageBox.Show("Seleccione un registro para continuar");
-                return;
-            }
-
-            if (string.IsNullOrWhiteSpace(txtArchivo1.Text))
-            {
-                MessageBox.Show("Este registro no cuenta con un archivo adjunto");
-                return;
-            }
-
-            // Usamos rutaCompletaArchivo si está definida, de lo contrario la reconstruimos
-            string rutaArchivo = !string.IsNullOrWhiteSpace(rutaCompletaArchivo)
-                ? rutaCompletaArchivo
-                : Path.Combine(DBOrdenCompra.Ruta, "G" + TxtFolio1.Text, txtArchivo1.Text);
-
-            try
-            {
-                if (File.Exists(rutaArchivo))
-                {
-                    File.Delete(rutaArchivo);
-                    txtArchivo1.Clear();
-                    rutaCompletaArchivo = string.Empty;
-                    nombreArchivo = string.Empty;
-                    extensionArchivo = string.Empty;
-
-                    c.ModificarExtension3gasto(TxtFolio1.Text, txtPartida.Text);
-
-                    MessageBox.Show("Archivo eliminado correctamente.");
-                }
-                else
-                {
-                    MessageBox.Show("El archivo no existe o ya fue eliminado.");
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Error al eliminar el archivo: " + ex.Message);
-            }
-        }
-
+       
 
         private void dataGridView1_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
@@ -1457,10 +1292,9 @@ namespace PV
                 Limpiar();
                 string Folio = dataGridView1.Rows[e.RowIndex].Cells["Folio"].Value.ToString();
                 txtFolio.Text = "X";
-                c.ConsultaGastos(Folio, txtClave, cmbEstatus, txtFecha, txtDivisa, txtTipoCambio, txtSubtotal, txtDescuento, txtImpuestos, txtTotal, txtPartidas, txtNotas, txtElaborado, txtFolio, txtReciboCol, txtConsecutivo, txtReferencia, txtSaldo, txtCondominio, txtDiasVence, txtFechaVence, txtArchivo, cmbCentroCostos, cmbSemana, dtpAnio, cmbProoveedorAlternoSiNo);
+                c.ConsultaGastos(Folio, txtClave, cmbEstatus, txtFecha, txtDivisa, txtTipoCambio, txtSubtotal, txtDescuento, txtImpuestos, txtTotal, txtPartidas, txtNotas, txtElaborado, txtFolio, txtReciboCol, txtConsecutivo, txtReferencia, txtSaldo, txtDiasVence, txtFechaVence, txtArchivo, cmbCentroCostos, cmbSemana, dtpAnio, cmbProoveedorAlternoSiNo);
                 rutaCompletaArchivo = txtArchivo.Text;
                 cmbOrdenCompra.Enabled = false;
-                cmbCondominio.Enabled = false;
                 txtNotas.Enabled = false;
                 button3.Enabled = false;
                 c.ConsultaAbonoGasto(txtFolio.Text, txtAbono);
@@ -1487,15 +1321,7 @@ namespace PV
                     cmbFiltroDocumentoC.Text = txtFiltroOrdenC.Text + " - " + txtDocumentoCol.Text;
                 }
 
-                if (txtCondominio.Text == "GLOBAL")
-                {
-                    cmbCondominio.Text = "GLOBAL";
-                }
-                else if (txtCondominio.Text != "GLOBAL" && txtCondominio.Text != string.Empty)
-                {
-                    string[] valores3 = c.InformacionCondominio2(txtCondominio.Text);
-                    cmbCondominio.Text = valores3[0];
-                }
+            
                 guna2GradientPanel2.Visible = false;
                 guna2GradientPanel2.SendToBack();
                 c.CargarRecibosPartidasGasto(guna2DataGridView1, txtFolio.Text);
@@ -1507,24 +1333,18 @@ namespace PV
 
         }
 
-        private void guna2Button11_Click(object sender, EventArgs e)
+        private void btnCerrarPanelPartida_Click(object sender, EventArgs e)
         {
-            PanelPartidasRequisicion.Visible = false;
+            PanelPartidasGasto.Visible = false;
         }
 
         void Limpiarcabezado()
         {
-            //cmbDocumento.Items.Clear();
             txtConsecutivo.Text = string.Empty;
             txtFecha.Text = string.Empty;
             txtDiasVence.Text = string.Empty;
             txtFechaVence.Text = string.Empty;
-            // cmbEstatus.Items.Clear();
-            cmbCondominio.Items.Clear();
-            txtCondominio.Text = string.Empty;
-            // cmbFiltroDocumentoC.Items.Clear();
-            //   cmbProveedor.Items.Clear();
-            //  cmbOrdenCompra.Items.Clear();
+          
             txtMatricular.Text = string.Empty;
             txtNombreAlumnno.Text = string.Empty;
             txtReferencia.Text = string.Empty;
@@ -1579,15 +1399,14 @@ namespace PV
             cmbProveedroAlterno.SelectedIndex = -1;
             cmbCentroCostosAlterno.SelectedIndex = -1;
             cmbCentroCostosAlterno.Text = cmbCentroCostos.Text;
-            dataGridView2.Rows.Clear();
+            dgvComprobantesPartidas.Rows.Clear();
         }
 
         void BloquearEncabezado()
         {
             cmbDocumento.Enabled = false;
             txtDiasVence.Enabled = false;
-            cmbCondominio.Enabled = false;
-            txtCondominio.Enabled = false;
+
             cmbFiltroDocumentoC.Enabled = false;
             cmbProveedor.Enabled = false;
             cmbOrdenCompra.Enabled = false;
@@ -1606,8 +1425,7 @@ namespace PV
         {
             cmbDocumento.Enabled = true;
             txtDiasVence.Enabled = true;
-            cmbCondominio.Enabled = true;
-            txtCondominio.Enabled = true;
+
             cmbFiltroDocumentoC.Enabled = true;
             cmbProveedor.Enabled = true;
             cmbOrdenCompra.Enabled = true;
@@ -1843,9 +1661,8 @@ namespace PV
                 DesbloquearDetalle();
 
 
-                c.SeleccionarRecepcionProducto(cmbDocumento);
+                c.SeleccionarRegistroGastos(cmbDocumento);
                 c.SeleccionarConceptoDocumento(cmbFiltroDocumentoC);
-                c.SeleccionarCondomini2(cmbCondominio);
                 c.ruta();
                 //c.SeleccionarOrdenEntrega(cmbOrdenCompra);
                 c.CargarGasto(dataGridView1);
@@ -1855,13 +1672,16 @@ namespace PV
                 txtTipoCambio.Text = "1.00";
                 txtElaborado.Text = DBLogin.usuario;
                 cmbOrdenCompra.Text = txtFiltroOrdenC.Text;
-                cmbCondominio.SelectedIndex = 0;
                 txtDiasVence.Text = "0";
                 int Dias = Convert.ToInt32(txtDiasVence.Text);
                 DateTime FechaVence = Convert.ToDateTime(txtFecha.Text);
                 FechaVence = FechaVence.AddDays(Dias);
                 txtFechaVence.Text = FechaVence.ToString("yyyy/MM/dd");
                 guna2TabControl1.Enabled = true;
+
+                // NUEVO: al iniciar un nuevo registro se preselecciona el año y la semana actual
+                dtpAnio.Value = DateTime.Today;
+                cmbSemana.SelectedIndex = ObtenerNumeroSemanaActual() - 1;
 
 
             }
@@ -2078,7 +1898,7 @@ namespace PV
 
         }
 
-        private void guna2Button1_Click(object sender, EventArgs e)
+        private void btnEliminarGasto_Click(object sender, EventArgs e)
         {
             if (txtFolio.Text == string.Empty)
             {
@@ -2105,7 +1925,7 @@ namespace PV
             }
         }
 
-        private void guna2Button7_Click(object sender, EventArgs e)
+        private void btnEliminarPartida_Click(object sender, EventArgs e)
         {
             if (string.IsNullOrEmpty(txtPartida.Text))
             {
@@ -2217,13 +2037,13 @@ namespace PV
         {
         }
 
-        private void dataGridView2_CellClick_1(object sender, DataGridViewCellEventArgs e)
+        private void dgvComprobantesPartidas_CellClick_1(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex >= 0)
             {
-                DataGridViewRow filaSeleccionada = dataGridView2.Rows[e.RowIndex];
+                DataGridViewRow filaSeleccionada = dgvComprobantesPartidas.Rows[e.RowIndex];
 
-                if (dataGridView2.Columns[e.ColumnIndex].Name == "Eliminar")
+                if (dgvComprobantesPartidas.Columns[e.ColumnIndex].Name == "Eliminar")
                 {
                     var secuencia = filaSeleccionada.Cells[0].Value?.ToString() ?? "";
                     var folio = filaSeleccionada.Cells[1].Value?.ToString() ?? "";
@@ -2237,18 +2057,18 @@ namespace PV
                         string resultado = c.EliminarArchivosGastos(folio, partida, secuencia);
                         if (resultado == "Eliminado")
                         {
-                            dataGridView2.Rows.Remove(filaSeleccionada);
+                            dgvComprobantesPartidas.Rows.Remove(filaSeleccionada);
                             MessageBox.Show($"Archivo {archivo} eliminado correctamente.");
-                            c.mostrarArchivos(dataGridView2, TxtFolio1.Text, txtPartida.Text);
+                            c.mostrarArchivos(dgvComprobantesPartidas, TxtFolio1.Text, txtPartida.Text);
                         }
                     }
                 }
 
-                if (dataGridView2.Columns[e.ColumnIndex].Name == "Ver")
+                if (dgvComprobantesPartidas.Columns[e.ColumnIndex].Name == "Ver")
                 {
                     try
                     {
-                        if (!dataGridView2.Columns.Contains("ContenidoArchivo"))
+                        if (!dgvComprobantesPartidas.Columns.Contains("ContenidoArchivo"))
                         {
                             MessageBox.Show("La columna 'ContenidoArchivo' no existe.");
                             return;
@@ -2263,29 +2083,11 @@ namespace PV
                         }
 
                         string nombreArchivo = "archivo_visualizado";
-                        string tipo = DetectarTipo(base64Archivo);
 
-                        string extension;
-                        switch (tipo)
-                        {
-                            case "pdf":
-                                extension = ".pdf";
-                                break;
-                            case "xml":
-                                extension = ".xml";
-                                break;
-                            case "png":
-                                extension = ".png";
-                                break;
-                            default:
-                                extension = ".bin";
-                                break;
-                        }
-
-                        string rutaTemporal = Path.Combine(Path.GetTempPath(), nombreArchivo + extension);
-                        byte[] bytes = Convert.FromBase64String(base64Archivo);
-                        File.WriteAllBytes(rutaTemporal, bytes);
-                        Process.Start(new ProcessStartInfo(rutaTemporal) { UseShellExecute = true });
+                        // NUEVO: detección de tipo, escritura temporal y apertura delegadas a ArchivoUtil
+                        // (misma lógica de firmas de archivo que había en el método DetectarTipo)
+                        string rutaTemporal = ArchivoUtil.GuardarArchivoTemporalDesdeBase64(base64Archivo, nombreArchivo);
+                        ArchivoUtil.AbrirArchivoConShell(rutaTemporal);
                     }
                     catch (Exception ex)
                     {
@@ -2293,46 +2095,6 @@ namespace PV
                     }
                 }
             }
-        }
-
-        private string DetectarTipo(string base64)
-        {
-            byte[] bytes = Convert.FromBase64String(base64);
-
-            // PDF: inicia con %PDF
-            if (bytes.Length > 4 &&
-                bytes[0] == 0x25 &&
-                bytes[1] == 0x50 &&
-                bytes[2] == 0x44 &&
-                bytes[3] == 0x46)
-            {
-                return "pdf";
-            }
-
-            // XML: inicia con <?xml
-            string texto = Encoding.UTF8.GetString(bytes);
-            if (texto.TrimStart().StartsWith("<?xml"))
-            {
-                return "xml";
-            }
-
-            // PNG: firma 89 50 4E 47 0D 0A 1A 0A
-            if (bytes.Length > 8 &&
-                bytes[0] == 0x89 &&
-                bytes[1] == 0x50 &&
-                bytes[2] == 0x4E &&
-                bytes[3] == 0x47 &&
-                bytes[4] == 0x0D &&
-                bytes[5] == 0x0A &&
-                bytes[6] == 0x1A &&
-                bytes[7] == 0x0A)
-            {
-                return "png";
-            }
-
-            return "desconocido";
-
-
         }
 
     }

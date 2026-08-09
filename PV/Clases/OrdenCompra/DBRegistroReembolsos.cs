@@ -49,13 +49,6 @@ namespace PV.Clases.OrdenCompra
             MessageBox.Show("Error de Conexion" + ex.ToString());
         }
     }
-    private void CapturarMensajes(object sender, SqlInfoMessageEventArgs e)
-    {
-        foreach (SqlError info in e.Errors)
-        {
-            MessageBox.Show(info.Message);
-        }
-    }
 
 
         //___________________________________________________________________________________________
@@ -178,7 +171,7 @@ namespace PV.Clases.OrdenCompra
 
         }
         //_______________________________________________________________________________________________________________________________------
-        public void InsertarRegistroGasto(TextBox txtFolio, string ClaveDocumento, string Estatus, string Fecha, string ClavePropietario, string Divisa, string TipoCambio, string Notas, string Elaborado, string RecepcionProducto, string Consecutivo, string Referencia, string Condominio, string DiasVence, string FechaVence, string centrocosto, int semana, string anio, string proveedorAlterno,string proyecto,string totalRetenciones)
+        public void InsertarRegistroGasto(TextBox txtFolio, string ClaveDocumento, string Estatus, string Fecha, string ClavePropietario, string Divisa, string TipoCambio, string Notas, string Elaborado, string RecepcionProducto, string Consecutivo, string Referencia, string DiasVence, string FechaVence, string centrocosto, int semana, string anio, string proveedorAlterno,string proyecto,string totalRetenciones)
         {
             try
             {
@@ -193,9 +186,9 @@ namespace PV.Clases.OrdenCompra
                 string orden = string.IsNullOrEmpty(RecepcionProducto) ? "0" : RecepcionProducto;
 
                 string query = @"INSERT INTO RegistroReembolso 
-                        (Folio, ClaveDocumento, Estatus, Fecha, ClaveProveedor, Divisa, TipoCambio, Notas, Elaborado, FolioOrden, Consecutivo, Referencia, Condominio, DiasVence, FechaVence, CentroCostos, Semana, Anio, ProveedorAlterno,Proyecto,TotalRetenciones)
+                        (Folio, ClaveDocumento, Estatus, Fecha, ClaveProveedor, Divisa, TipoCambio, Notas, Elaborado, FolioOrden, Consecutivo, Referencia, DiasVence, FechaVence, CentroCostos, Semana, Anio, ProveedorAlterno,Proyecto,TotalRetenciones)
                         VALUES 
-                        (@Folio, @ClaveDocumento, @Estatus, @Fecha, @ClaveProveedor, @Divisa, @TipoCambio, @Notas, @Elaborado, @FolioOrden, @Consecutivo, @Referencia, @Condominio, @DiasVence, @FechaVence, @CentroCostos, @Semana, @Anio, @ProveedorAlterno,@proyecto,@TotalRetenciones)";
+                        (@Folio, @ClaveDocumento, @Estatus, @Fecha, @ClaveProveedor, @Divisa, @TipoCambio, @Notas, @Elaborado, @FolioOrden, @Consecutivo, @Referencia, @DiasVence, @FechaVence, @CentroCostos, @Semana, @Anio, @ProveedorAlterno,@proyecto,@TotalRetenciones)";
 
                 using (SqlCommand cmdInsert = new SqlCommand(query, cn))
                 {
@@ -211,7 +204,6 @@ namespace PV.Clases.OrdenCompra
                     cmdInsert.Parameters.AddWithValue("@FolioOrden", orden);
                     cmdInsert.Parameters.AddWithValue("@Consecutivo", Consecutivo);
                     cmdInsert.Parameters.AddWithValue("@Referencia", Referencia);
-                    cmdInsert.Parameters.AddWithValue("@Condominio", Condominio);
                     cmdInsert.Parameters.AddWithValue("@DiasVence", DiasVence);
                     cmdInsert.Parameters.AddWithValue("@FechaVence", FechaVence);
                     cmdInsert.Parameters.AddWithValue("@CentroCostos", centrocosto);
@@ -1053,7 +1045,7 @@ cmd.Parameters.AddWithValue("@formadepago", string.IsNullOrWhiteSpace(formadepag
         {
             cb.Items.Clear();
             //cmd = new SqlCommand("Select (Clave + ' - ' + Nombre) as Nombre from Documento where TipoDocumento='Compra' and Clase='Compra'", cn);
-            cmd = new SqlCommand("Select (Clave + ' - ' + Nombre) as Nombre from Documento where TipoDocumento='Compra' and Clase='Compra' and Tarea='Compras Reembolso'", cn);
+            cmd = new SqlCommand("Select (Clave + ' - ' + Nombre) as Nombre from Documento where /*TipoDocumento='Compra' and Clase='Compra' and*/ Tarea='Compras Reembolso'", cn);
             dr = cmd.ExecuteReader();
             while (dr.Read())
             {
@@ -1134,7 +1126,7 @@ cmd.Parameters.AddWithValue("@formadepago", string.IsNullOrWhiteSpace(formadepag
             return resultado;
         }
         //______________________________________________________________________________________________________-
-        public void ConsultaGastos(string Folio, TextBox Documento, ComboBox Estatus, Guna.UI2.WinForms.Guna2TextBox Fecha, Guna.UI2.WinForms.Guna2TextBox Divisa, Guna.UI2.WinForms.Guna2TextBox TipoCambio, Guna.UI2.WinForms.Guna2TextBox Subtotal, Guna.UI2.WinForms.Guna2TextBox Descuentos, Guna.UI2.WinForms.Guna2TextBox Cargo, Guna.UI2.WinForms.Guna2TextBox Total, Guna.UI2.WinForms.Guna2TextBox Partidas, Guna.UI2.WinForms.Guna2TextBox Notas, Guna.UI2.WinForms.Guna2TextBox Elaborado, TextBox txtFolio, TextBox txtReciboCol, Guna.UI2.WinForms.Guna2TextBox txtconsecutivo, Guna.UI2.WinForms.Guna2TextBox txtReferencia, Guna.UI2.WinForms.Guna2TextBox txtSaldo, Guna.UI2.WinForms.Guna2TextBox condominio, Guna.UI2.WinForms.Guna2TextBox DiasVence, Guna.UI2.WinForms.Guna2TextBox FechaVence, Guna.UI2.WinForms.Guna2TextBox Archivo, ComboBox CentroCosto, ComboBox cmbSemana, DateTimePicker dtpAnio, ComboBox pro,ComboBox proyecto, Guna.UI2.WinForms.Guna2TextBox Tretenciones )
+        public void ConsultaGastos(string Folio, TextBox Documento, ComboBox Estatus, Guna.UI2.WinForms.Guna2TextBox Fecha, Guna.UI2.WinForms.Guna2TextBox Divisa, Guna.UI2.WinForms.Guna2TextBox TipoCambio, Guna.UI2.WinForms.Guna2TextBox Subtotal, Guna.UI2.WinForms.Guna2TextBox Descuentos, Guna.UI2.WinForms.Guna2TextBox Cargo, Guna.UI2.WinForms.Guna2TextBox Total, Guna.UI2.WinForms.Guna2TextBox Partidas, Guna.UI2.WinForms.Guna2TextBox Notas, Guna.UI2.WinForms.Guna2TextBox Elaborado, TextBox txtFolio, TextBox txtReciboCol, Guna.UI2.WinForms.Guna2TextBox txtconsecutivo, Guna.UI2.WinForms.Guna2TextBox txtReferencia, Guna.UI2.WinForms.Guna2TextBox txtSaldo, Guna.UI2.WinForms.Guna2TextBox DiasVence, Guna.UI2.WinForms.Guna2TextBox FechaVence, Guna.UI2.WinForms.Guna2TextBox Archivo, ComboBox CentroCosto, ComboBox cmbSemana, DateTimePicker dtpAnio, ComboBox pro,ComboBox proyecto, Guna.UI2.WinForms.Guna2TextBox Tretenciones )
         {
         try{
                 cmd = new SqlCommand("Select * from RegistroReembolso where Folio='" + Folio + "'", cn);
@@ -1159,7 +1151,6 @@ cmd.Parameters.AddWithValue("@formadepago", string.IsNullOrWhiteSpace(formadepag
                     txtReciboCol.Text = dr["FolioOrden"].ToString();
                     txtconsecutivo.Text = dr["Consecutivo"].ToString();
                     txtReferencia.Text = dr["Referencia"].ToString();
-                    condominio.Text = dr["Condominio"].ToString();
                     DiasVence.Text = dr["DiasVence"].ToString();
                     FechaVence.Text = dr["FechaVence"].ToString();
                     Archivo.Text = dr["Archivo"].ToString();

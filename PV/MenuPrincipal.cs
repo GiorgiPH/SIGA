@@ -1004,7 +1004,7 @@ namespace PuntoVentas
             GrpoMovimientos.Visible = false;
             SubGrupoReportes.Visible = false;
             SubGrupoReportesCompras.Visible = false;
-            gbGraficas.Visible = false;
+            subGrupoGraficasCompras.Visible = false;
             if (GroupCatalogo.Visible == true)           
             {
                
@@ -1102,7 +1102,7 @@ namespace PuntoVentas
             GrpoMovimientos.Visible = false;
             SubGrupoReportes.Visible = false;
             SubGrupoReportesCompras.Visible = false;
-            gbGraficas.Visible = false;
+            subGrupoGraficasCompras.Visible = false;
             if (GruopParametros.Visible == true)
             {
 
@@ -1182,7 +1182,7 @@ namespace PuntoVentas
             GrpoMovimientos.Visible = false;
             SubGrupoReportes.Visible = false;
             SubGrupoReportesCompras.Visible = false;
-            gbGraficas.Visible = false;
+            subGrupoGraficasCompras.Visible = false;
             if (Grupoinventarios.Visible == true)
             {
                 Grupoinventarios.Visible = false;
@@ -1274,7 +1274,7 @@ namespace PuntoVentas
             GrpoMovimientos.Visible = false;
             SubGrupoReportes.Visible = false;
             SubGrupoReportesCompras.Visible = false;
-            gbGraficas.Visible = false;
+            subGrupoGraficasCompras.Visible = false;
             if (GrupoVentas.Visible == true)
             {
            
@@ -1352,7 +1352,7 @@ namespace PuntoVentas
             GrpoMovimientos.Visible = false;
             SubGrupoReportes.Visible = false;
             SubGrupoReportesCompras.Visible = false;
-            gbGraficas.Visible = false;
+            subGrupoGraficasCompras.Visible = false;
             if (GrupoCompras.Visible == true)
             {
                
@@ -1427,7 +1427,7 @@ namespace PuntoVentas
             GrpoMovimientos.Visible = false;
             SubGrupoReportesCompras.Visible = false;
             SubGrupoReportes.Visible = false;
-            gbGraficas.Visible = false;
+            subGrupoGraficasCompras.Visible = false;
             if (GrupoPresupuesto.Visible == true)
             {
        
@@ -1501,7 +1501,7 @@ namespace PuntoVentas
         {
             GrpoMovimientos.Visible = false;
             SubGrupoReportes.Visible = false;
-            gbGraficas.Visible = false;
+            subGrupoGraficasCompras.Visible = false;
             if (GrupoTesoreria.Visible == true)
             {
               
@@ -1579,7 +1579,7 @@ namespace PuntoVentas
             GrpoMovimientos.Visible = false;
             SubGrupoReportes.Visible = false;
             SubGrupoReportesCompras.Visible = false;
-            gbGraficas.Visible = false;
+            subGrupoGraficasCompras.Visible = false;
             if (GrupoUtilerias.Visible == true)
             {
               
@@ -2113,7 +2113,7 @@ namespace PuntoVentas
         {
             SubGrupoReportesCompras.Visible = false;
             SubGrupoReportesProveedores.Visible = false;
-            gbGraficas.Visible = false; 
+            subGrupoGraficasCompras.Visible = false; 
             RegistroGastos2 RG = new RegistroGastos2();
             RG.ShowDialog();
         }
@@ -2163,7 +2163,7 @@ namespace PuntoVentas
 
         private void guna2GradientButton1_Click(object sender, EventArgs e)
         {
-            //gbGraficas.Visible = true;
+            subGrupoGraficasCompras.Visible = false;
             SubGrupoReportesCompras.Visible = true;
             SubGrupoReportesCompras.Location = new Point(1, 260);
         }
@@ -2365,7 +2365,7 @@ namespace PuntoVentas
 
         private void guna2GradientButton50_Click(object sender, EventArgs e)
         {
-            gbGraficas.Visible = false;
+            subGrupoGraficasCompras.Visible = false;
             RecepcionProductos2 recepcionProductos = new RecepcionProductos2();
             recepcionProductos.ShowDialog();
         }
@@ -2421,7 +2421,7 @@ namespace PuntoVentas
 
         private void guna2GradientButton58_Click(object sender, EventArgs e)
         {
-            gbGraficas.Visible = false;
+            subGrupoGraficasCompras.Visible = false;
             guna2GradientButton58.Visible = false;
             GraficaMontoGastosxMes f = new GraficaMontoGastosxMes();
             f.ShowDialog();
@@ -2429,13 +2429,15 @@ namespace PuntoVentas
 
         private void guna2GradientButton56_Click(object sender, EventArgs e)
         {
-            gbGraficas.Visible = true;
-            gbGraficas.Location = new Point(1, 260);
+            subGrupoGraficasCompras.Visible = true;
+            SubGrupoReportesCompras.Visible = false;
+
+            subGrupoGraficasCompras.Location = new Point(1, 260);
         }
 
         private void guna2GradientButton17_Click(object sender, EventArgs e)
         {
-            gbGraficas.Visible = false;
+            subGrupoGraficasCompras.Visible = false;
             RegistroEgreso r = new RegistroEgreso();
             r.ShowDialog();
         }

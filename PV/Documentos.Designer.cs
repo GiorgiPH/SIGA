@@ -79,6 +79,9 @@
             this.label17 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
             this.cmbVentas = new Guna.UI2.WinForms.Guna2ComboBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.lblCentroCosto = new System.Windows.Forms.Label();
+            this.tgCentroCosto = new Guna.UI2.WinForms.Guna2ToggleSwitch();
             this.PanelUsuario.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.guna2GradientPanel1.SuspendLayout();
@@ -157,14 +160,14 @@
             this.dataGridView1.ThemeStyle.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(229)))), ((int)(((byte)(255)))));
             this.dataGridView1.ThemeStyle.HeaderStyle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(88)))), ((int)(((byte)(255)))));
             this.dataGridView1.ThemeStyle.HeaderStyle.BorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
-            this.dataGridView1.ThemeStyle.HeaderStyle.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dataGridView1.ThemeStyle.HeaderStyle.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.dataGridView1.ThemeStyle.HeaderStyle.ForeColor = System.Drawing.Color.White;
             this.dataGridView1.ThemeStyle.HeaderStyle.HeaightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.EnableResizing;
             this.dataGridView1.ThemeStyle.HeaderStyle.Height = 19;
             this.dataGridView1.ThemeStyle.ReadOnly = true;
             this.dataGridView1.ThemeStyle.RowsStyle.BackColor = System.Drawing.Color.White;
             this.dataGridView1.ThemeStyle.RowsStyle.BorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal;
-            this.dataGridView1.ThemeStyle.RowsStyle.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dataGridView1.ThemeStyle.RowsStyle.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.dataGridView1.ThemeStyle.RowsStyle.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(71)))), ((int)(((byte)(69)))), ((int)(((byte)(94)))));
             this.dataGridView1.ThemeStyle.RowsStyle.Height = 22;
             this.dataGridView1.ThemeStyle.RowsStyle.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(229)))), ((int)(((byte)(255)))));
@@ -534,6 +537,7 @@
             this.groupBox4.BackColor = System.Drawing.Color.White;
             this.groupBox4.Controls.Add(this.cmbtarea);
             this.groupBox4.Controls.Add(this.label2);
+            this.groupBox4.Controls.Add(this.tgCentroCosto);
             this.groupBox4.Controls.Add(this.tgBloquear);
             this.groupBox4.Controls.Add(this.tgConsecutivo);
             this.groupBox4.Controls.Add(this.txtCuenta2);
@@ -543,9 +547,11 @@
             this.groupBox4.Controls.Add(this.txtNombre);
             this.groupBox4.Controls.Add(this.txtClave);
             this.groupBox4.Controls.Add(this.label7);
+            this.groupBox4.Controls.Add(this.lblCentroCosto);
             this.groupBox4.Controls.Add(this.lblBloquear);
             this.groupBox4.Controls.Add(this.lblConsecutivo);
             this.groupBox4.Controls.Add(this.label16);
+            this.groupBox4.Controls.Add(this.label3);
             this.groupBox4.Controls.Add(this.label13);
             this.groupBox4.Controls.Add(this.label8);
             this.groupBox4.Controls.Add(this.label6);
@@ -580,7 +586,7 @@
             "Compras Gastos Inventariables"});
             this.cmbtarea.Location = new System.Drawing.Point(154, 327);
             this.cmbtarea.Name = "cmbtarea";
-            this.cmbtarea.Size = new System.Drawing.Size(198, 26);
+            this.cmbtarea.Size = new System.Drawing.Size(325, 26);
             this.cmbtarea.TabIndex = 238;
             // 
             // label2
@@ -643,7 +649,6 @@
             this.txtCuenta2.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.txtCuenta2.Location = new System.Drawing.Point(156, 290);
             this.txtCuenta2.Name = "txtCuenta2";
-            this.txtCuenta2.PasswordChar = '\0';
             this.txtCuenta2.PlaceholderText = "";
             this.txtCuenta2.SelectedText = "";
             this.txtCuenta2.Size = new System.Drawing.Size(323, 25);
@@ -666,7 +671,6 @@
             this.txtCuenta.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.txtCuenta.Location = new System.Drawing.Point(156, 257);
             this.txtCuenta.Name = "txtCuenta";
-            this.txtCuenta.PasswordChar = '\0';
             this.txtCuenta.PlaceholderText = "";
             this.txtCuenta.SelectedText = "";
             this.txtCuenta.Size = new System.Drawing.Size(323, 25);
@@ -689,7 +693,6 @@
             this.txtUltimoFolio.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.txtUltimoFolio.Location = new System.Drawing.Point(156, 99);
             this.txtUltimoFolio.Name = "txtUltimoFolio";
-            this.txtUltimoFolio.PasswordChar = '\0';
             this.txtUltimoFolio.PlaceholderText = "";
             this.txtUltimoFolio.SelectedText = "";
             this.txtUltimoFolio.Size = new System.Drawing.Size(86, 25);
@@ -712,7 +715,6 @@
             this.txtAlmacen.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.txtAlmacen.Location = new System.Drawing.Point(156, 62);
             this.txtAlmacen.Name = "txtAlmacen";
-            this.txtAlmacen.PasswordChar = '\0';
             this.txtAlmacen.PlaceholderText = "";
             this.txtAlmacen.SelectedText = "";
             this.txtAlmacen.Size = new System.Drawing.Size(86, 25);
@@ -735,7 +737,6 @@
             this.txtNombre.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.txtNombre.Location = new System.Drawing.Point(249, 16);
             this.txtNombre.Name = "txtNombre";
-            this.txtNombre.PasswordChar = '\0';
             this.txtNombre.PlaceholderText = "";
             this.txtNombre.SelectedText = "";
             this.txtNombre.Size = new System.Drawing.Size(437, 25);
@@ -758,7 +759,6 @@
             this.txtClave.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.txtClave.Location = new System.Drawing.Point(154, 16);
             this.txtClave.Name = "txtClave";
-            this.txtClave.PasswordChar = '\0';
             this.txtClave.PlaceholderText = "";
             this.txtClave.SelectedText = "";
             this.txtClave.Size = new System.Drawing.Size(86, 25);
@@ -895,6 +895,43 @@
             this.cmbVentas.TabIndex = 165;
             this.cmbVentas.Visible = false;
             // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.Location = new System.Drawing.Point(259, 149);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(104, 15);
+            this.label3.TabIndex = 20;
+            this.label3.Text = "CENTRO COSTO:";
+            // 
+            // lblCentroCosto
+            // 
+            this.lblCentroCosto.AutoSize = true;
+            this.lblCentroCosto.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblCentroCosto.Location = new System.Drawing.Point(431, 145);
+            this.lblCentroCosto.Name = "lblCentroCosto";
+            this.lblCentroCosto.Size = new System.Drawing.Size(23, 15);
+            this.lblCentroCosto.TabIndex = 13;
+            this.lblCentroCosto.Text = "No";
+            this.lblCentroCosto.Click += new System.EventHandler(this.lblConsecutivo_Click);
+            // 
+            // tgCentroCosto
+            // 
+            this.tgCentroCosto.CheckedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.tgCentroCosto.CheckedState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.tgCentroCosto.CheckedState.InnerBorderColor = System.Drawing.Color.White;
+            this.tgCentroCosto.CheckedState.InnerColor = System.Drawing.Color.White;
+            this.tgCentroCosto.Location = new System.Drawing.Point(390, 144);
+            this.tgCentroCosto.Name = "tgCentroCosto";
+            this.tgCentroCosto.Size = new System.Drawing.Size(35, 20);
+            this.tgCentroCosto.TabIndex = 169;
+            this.tgCentroCosto.UncheckedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(137)))), ((int)(((byte)(149)))));
+            this.tgCentroCosto.UncheckedState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(137)))), ((int)(((byte)(149)))));
+            this.tgCentroCosto.UncheckedState.InnerBorderColor = System.Drawing.Color.White;
+            this.tgCentroCosto.UncheckedState.InnerColor = System.Drawing.Color.White;
+            this.tgCentroCosto.CheckedChanged += new System.EventHandler(this.tgBloquear_CheckedChanged);
+            // 
             // Documentos
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -974,5 +1011,8 @@
         private System.Windows.Forms.Label lblBloquear;
         private Guna.UI2.WinForms.Guna2ComboBox cmbtarea;
         private System.Windows.Forms.Label label2;
+        private Guna.UI2.WinForms.Guna2ToggleSwitch tgCentroCosto;
+        private System.Windows.Forms.Label lblCentroCosto;
+        private System.Windows.Forms.Label label3;
     }
 }

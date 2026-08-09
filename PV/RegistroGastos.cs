@@ -49,7 +49,7 @@ namespace PV
         }
         private void RegistroGastos_Load(object sender, EventArgs e)
         {
-            c.SeleccionarRecepcionProducto(cmbDocumento);
+            c.SeleccionarRegistroGastos(cmbDocumento);
             c.SeleccionarConceptoDocumento(cmbFiltroDocumentoC);
             c.SeleccionarCondomini2(cmbCondominio);
             LlenarComboCentro();

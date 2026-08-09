@@ -279,7 +279,6 @@
             this.txtencargado.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.txtencargado.Location = new System.Drawing.Point(397, 160);
             this.txtencargado.Name = "txtencargado";
-            this.txtencargado.PasswordChar = '\0';
             this.txtencargado.PlaceholderText = "";
             this.txtencargado.SelectedText = "";
             this.txtencargado.Size = new System.Drawing.Size(131, 25);
@@ -304,7 +303,6 @@
             this.txtiva.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.txtiva.Location = new System.Drawing.Point(207, 311);
             this.txtiva.Name = "txtiva";
-            this.txtiva.PasswordChar = '\0';
             this.txtiva.PlaceholderText = "";
             this.txtiva.SelectedText = "";
             this.txtiva.Size = new System.Drawing.Size(80, 25);
@@ -329,7 +327,6 @@
             this.RBreferencia.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.RBreferencia.Location = new System.Drawing.Point(115, 310);
             this.RBreferencia.Name = "RBreferencia";
-            this.RBreferencia.PasswordChar = '\0';
             this.RBreferencia.PlaceholderText = "";
             this.RBreferencia.SelectedText = "";
             this.RBreferencia.Size = new System.Drawing.Size(80, 25);
@@ -354,7 +351,6 @@
             this.txtfolio.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.txtfolio.Location = new System.Drawing.Point(397, 13);
             this.txtfolio.Name = "txtfolio";
-            this.txtfolio.PasswordChar = '\0';
             this.txtfolio.PlaceholderText = "";
             this.txtfolio.SelectedText = "";
             this.txtfolio.Size = new System.Drawing.Size(131, 25);
@@ -422,7 +418,6 @@
             this.txtcentrocosto.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.txtcentrocosto.Location = new System.Drawing.Point(130, 16);
             this.txtcentrocosto.Name = "txtcentrocosto";
-            this.txtcentrocosto.PasswordChar = '\0';
             this.txtcentrocosto.PlaceholderText = "";
             this.txtcentrocosto.SelectedText = "";
             this.txtcentrocosto.Size = new System.Drawing.Size(221, 25);
@@ -464,7 +459,6 @@
             this.guna2TextBox2.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.guna2TextBox2.Location = new System.Drawing.Point(414, 280);
             this.guna2TextBox2.Name = "guna2TextBox2";
-            this.guna2TextBox2.PasswordChar = '\0';
             this.guna2TextBox2.PlaceholderText = "";
             this.guna2TextBox2.SelectedText = "";
             this.guna2TextBox2.Size = new System.Drawing.Size(272, 25);
@@ -532,7 +526,6 @@
             this.txtFormaPago.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.txtFormaPago.Location = new System.Drawing.Point(507, 5);
             this.txtFormaPago.Name = "txtFormaPago";
-            this.txtFormaPago.PasswordChar = '\0';
             this.txtFormaPago.PlaceholderText = "";
             this.txtFormaPago.SelectedText = "";
             this.txtFormaPago.Size = new System.Drawing.Size(131, 25);
@@ -613,7 +606,6 @@
             this.txtId.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.txtId.Location = new System.Drawing.Point(37, 27);
             this.txtId.Name = "txtId";
-            this.txtId.PasswordChar = '\0';
             this.txtId.PlaceholderText = "";
             this.txtId.SelectedText = "";
             this.txtId.Size = new System.Drawing.Size(80, 25);
@@ -638,7 +630,6 @@
             this.txtclaveFP.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.txtclaveFP.Location = new System.Drawing.Point(144, 3);
             this.txtclaveFP.Name = "txtclaveFP";
-            this.txtclaveFP.PasswordChar = '\0';
             this.txtclaveFP.PlaceholderText = "";
             this.txtclaveFP.SelectedText = "";
             this.txtclaveFP.Size = new System.Drawing.Size(80, 25);
@@ -661,7 +652,6 @@
             this.guna2TextBox3.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.guna2TextBox3.Location = new System.Drawing.Point(259, 37);
             this.guna2TextBox3.Name = "guna2TextBox3";
-            this.guna2TextBox3.PasswordChar = '\0';
             this.guna2TextBox3.PlaceholderText = "";
             this.guna2TextBox3.SelectedText = "";
             this.guna2TextBox3.Size = new System.Drawing.Size(231, 25);
@@ -760,7 +750,6 @@
             this.txtDescripcion.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.txtDescripcion.Location = new System.Drawing.Point(130, 78);
             this.txtDescripcion.Name = "txtDescripcion";
-            this.txtDescripcion.PasswordChar = '\0';
             this.txtDescripcion.PlaceholderText = "";
             this.txtDescripcion.SelectedText = "";
             this.txtDescripcion.Size = new System.Drawing.Size(515, 49);
@@ -783,7 +772,6 @@
             this.txtCuenta.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.txtCuenta.Location = new System.Drawing.Point(130, 133);
             this.txtCuenta.Name = "txtCuenta";
-            this.txtCuenta.PasswordChar = '\0';
             this.txtCuenta.PlaceholderText = "";
             this.txtCuenta.SelectedText = "";
             this.txtCuenta.Size = new System.Drawing.Size(131, 25);
@@ -840,7 +828,6 @@
             this.txtNombre.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.txtNombre.Location = new System.Drawing.Point(130, 47);
             this.txtNombre.Name = "txtNombre";
-            this.txtNombre.PasswordChar = '\0';
             this.txtNombre.PlaceholderText = "";
             this.txtNombre.SelectedText = "";
             this.txtNombre.Size = new System.Drawing.Size(515, 25);
@@ -935,14 +922,14 @@
             this.dtgconsulta.ThemeStyle.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(229)))), ((int)(((byte)(255)))));
             this.dtgconsulta.ThemeStyle.HeaderStyle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(88)))), ((int)(((byte)(255)))));
             this.dtgconsulta.ThemeStyle.HeaderStyle.BorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
-            this.dtgconsulta.ThemeStyle.HeaderStyle.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dtgconsulta.ThemeStyle.HeaderStyle.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.dtgconsulta.ThemeStyle.HeaderStyle.ForeColor = System.Drawing.Color.White;
             this.dtgconsulta.ThemeStyle.HeaderStyle.HeaightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.EnableResizing;
             this.dtgconsulta.ThemeStyle.HeaderStyle.Height = 19;
             this.dtgconsulta.ThemeStyle.ReadOnly = true;
             this.dtgconsulta.ThemeStyle.RowsStyle.BackColor = System.Drawing.Color.White;
             this.dtgconsulta.ThemeStyle.RowsStyle.BorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal;
-            this.dtgconsulta.ThemeStyle.RowsStyle.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dtgconsulta.ThemeStyle.RowsStyle.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.dtgconsulta.ThemeStyle.RowsStyle.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(71)))), ((int)(((byte)(69)))), ((int)(((byte)(94)))));
             this.dtgconsulta.ThemeStyle.RowsStyle.Height = 22;
             this.dtgconsulta.ThemeStyle.RowsStyle.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(229)))), ((int)(((byte)(255)))));

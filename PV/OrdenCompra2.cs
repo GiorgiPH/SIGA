@@ -394,9 +394,7 @@ namespace PV
                     cmbDocumento.Enabled = true;
                     txtDiasVence.Enabled = true;
                     txtNotas.Enabled = true;
-                    //     button3.Enabled = true;
-                    //    cmbDocumento.Focus();
-                    //     cmbDocumento.DroppedDown = true;
+                 
 
                 }
                 else if (cmbEstatus.Text == "Abierto" && cmbDocumento.Text == string.Empty)
@@ -1266,25 +1264,7 @@ namespace PV
             c.SeleccionarProducto2(cmbConcepto);
         }
 
-        void CambioTamañotoolstripPequeño()
-        {
-         /*   this.toolStripButton11.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            toolStripButton11.Size = new Size(23, 79);
-            this.toolStripButton12.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            toolStripButton12.Size = new Size(23, 79);
-            this.toolStripButton13.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            toolStripButton13.Size = new Size(23, 79);
-
-            toolStrip1.Size = new Size(22, 569);
-            this.toolStripButton14.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            toolStripButton14.Size = new Size(23, 79);
-
-            toolStrip1.Size = new Size(22, 569);
-            this.toolStripButton15.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            toolStripButton15.Size = new Size(23, 79);*/
-
-     
-        }
+       
 
         private void guna2PictureBox1_Click(object sender, EventArgs e)
         {

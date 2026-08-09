@@ -242,11 +242,26 @@ namespace PV.Clases.OrdenCompra
             dr.Close();
         }
         //_______________________________________________________________________________________________
-        public void SeleccionarRecepcionProducto(ComboBox cb)
+       
+
+        public void SeleccionarRegistroGastos(ComboBox cb)
         {
             cb.Items.Clear();
             //   cmd = new SqlCommand("Select (Clave + ' - ' + Nombre) as Nombre from Documento where TipoDocumento='Compra' and Clase='Compra'", cn);
             cmd = new SqlCommand("Select (Clave + ' - ' + Nombre) as Nombre from Documento where TipoDocumento='Compra' and Clase='Compra' and Tarea='Compras Gastos'", cn);
+            dr = cmd.ExecuteReader();
+            while (dr.Read())
+            {
+                cb.Items.Add(dr[0].ToString());
+            }
+            dr.Close();
+        }
+
+        public void SeleccionarRecepcionProductos(ComboBox cb)
+        {
+            cb.Items.Clear();
+            //   cmd = new SqlCommand("Select (Clave + ' - ' + Nombre) as Nombre from Documento where TipoDocumento='Compra' and Clase='Compra'", cn);
+            cmd = new SqlCommand("Select (Clave + ' - ' + Nombre) as Nombre from Documento where  Tarea='Compras Gastos Inventariables'", cn);
             dr = cmd.ExecuteReader();
             while (dr.Read())
             {
@@ -980,14 +995,15 @@ namespace PV.Clases.OrdenCompra
         //_________________________________________________________________________________________
         public string[] InformacionDocumento(string Documento)
         {
-            cmd = new SqlCommand("Select * from Documento where (Clave + ' - ' + Nombre)= '" + Documento + "'", cn);
+            cmd = new SqlCommand("Select Nombre, Clave, MostrarCentroCosto from Documento where (Clave + ' - ' + Nombre)= '" + Documento + "'", cn);
             dr = cmd.ExecuteReader();
             string[] resultado = null;
             while (dr.Read())
             {
                 string[] valores =
                 {
-                    dr[3].ToString(),
+                    dr[0].ToString(),
+                     dr[1].ToString(),
                      dr[2].ToString(),
 
                 };
@@ -1076,7 +1092,7 @@ namespace PV.Clases.OrdenCompra
                     txtFolio.Text = Convert.ToString(Folio);
                     dr.Close();
 
-                    cmd = new SqlCommand("insert into OrdenCompra (Folio, ClaveDocumento, Estatus, Fecha, DiasVencen, FechaVence, ClaveProveedor, Divisa, TipoCambio, Notas, Elaborado, Consecutivo, almacen, FolioOrdenPedidoCliente) values ('" + Folio + "', '" + ClaveDocumento + "', '" + Estatus + "', '" + Fecha + "', '" + DiasVencen + "', '" + FechaVence + "', '" + ClavePropietario + "', '" + Divisa + "', '" + TipoCambio + "', '" + Notas + "', '" + Elaborado + "', '" + Consecutivo + "','" + almacen + "', '" + FolioOrdenPedidoCliente + "')", cn);
+                    cmd = new SqlCommand("insert into OrdenCompra (Folio, ClaveDocumento, Estatus, Fecha, DiasVencen, FechaVence, ClaveProveedor, Divisa, TipoCambio, Notas, Elaborado, Consecutivo, almacen) values ('" + Folio + "', '" + ClaveDocumento + "', '" + Estatus + "', '" + Fecha + "', '" + DiasVencen + "', '" + FechaVence + "', '" + ClavePropietario + "', '" + Divisa + "', '" + TipoCambio + "', '" + Notas + "', '" + Elaborado + "', '" + Consecutivo + "','" + almacen + "')", cn);
                     cmd.ExecuteNonQuery();
 
                 }
@@ -1361,7 +1377,7 @@ namespace PV.Clases.OrdenCompra
             }
         }
         //______________________________________________________________________________________________
-        public void InsertarRegistroGasto(TextBox txtFolio, string ClaveDocumento, string Estatus, string Fecha, string ClavePropietario, string Divisa, string TipoCambio, string Notas, string Elaborado, string RecepcionProducto, string Consecutivo, string Referencia, string Condominio, string DiasVence, string FechaVence, string centrocosto, int semana, string anio, string proveedorAlterno)
+        public void InsertarRegistroGasto(TextBox txtFolio, string ClaveDocumento, string Estatus, string Fecha, string ClavePropietario, string Divisa, string TipoCambio, string Notas, string Elaborado, string RecepcionProducto, string Consecutivo, string Referencia, string DiasVence, string FechaVence, string centrocosto, int semana, string anio, string proveedorAlterno)
         {
             try
             {
@@ -1376,9 +1392,9 @@ namespace PV.Clases.OrdenCompra
                 string orden = string.IsNullOrEmpty(RecepcionProducto) ? "0" : RecepcionProducto;
 
                 string query = @"INSERT INTO RegistroGastos 
-                        (Folio, ClaveDocumento, Estatus, Fecha, ClaveProveedor, Divisa, TipoCambio, Notas, Elaborado, FolioOrden, Consecutivo, Referencia, Condominio, DiasVence, FechaVence, CentroCostos, Semana, Anio, ProveedorAlterno)
+                        (Folio, ClaveDocumento, Estatus, Fecha, ClaveProveedor, Divisa, TipoCambio, Notas, Elaborado, FolioOrden, Consecutivo, Referencia, DiasVence, FechaVence, CentroCostos, Semana, Anio, ProveedorAlterno)
                         VALUES 
-                        (@Folio, @ClaveDocumento, @Estatus, @Fecha, @ClaveProveedor, @Divisa, @TipoCambio, @Notas, @Elaborado, @FolioOrden, @Consecutivo, @Referencia, @Condominio, @DiasVence, @FechaVence, @CentroCostos, @Semana, @Anio, @ProveedorAlterno)";
+                        (@Folio, @ClaveDocumento, @Estatus, @Fecha, @ClaveProveedor, @Divisa, @TipoCambio, @Notas, @Elaborado, @FolioOrden, @Consecutivo, @Referencia, @DiasVence, @FechaVence, @CentroCostos, @Semana, @Anio, @ProveedorAlterno)";
 
                 using (SqlCommand cmdInsert = new SqlCommand(query, cn))
                 {
@@ -1394,7 +1410,6 @@ namespace PV.Clases.OrdenCompra
                     cmdInsert.Parameters.AddWithValue("@FolioOrden", orden);
                     cmdInsert.Parameters.AddWithValue("@Consecutivo", Consecutivo);
                     cmdInsert.Parameters.AddWithValue("@Referencia", Referencia);
-                    cmdInsert.Parameters.AddWithValue("@Condominio", Condominio);
                     cmdInsert.Parameters.AddWithValue("@DiasVence", DiasVence);
                     cmdInsert.Parameters.AddWithValue("@FechaVence", FechaVence);
                     cmdInsert.Parameters.AddWithValue("@CentroCostos", centrocosto);
@@ -3176,7 +3191,7 @@ namespace PV.Clases.OrdenCompra
             }
         }
         //______________________________________________________________________________________________________-
-        public void ConsultaGastos(string Folio, TextBox Documento, ComboBox Estatus, Guna.UI2.WinForms.Guna2TextBox Fecha, Guna.UI2.WinForms.Guna2TextBox Divisa, Guna.UI2.WinForms.Guna2TextBox TipoCambio, Guna.UI2.WinForms.Guna2TextBox Subtotal, Guna.UI2.WinForms.Guna2TextBox Descuentos, Guna.UI2.WinForms.Guna2TextBox Cargo, Guna.UI2.WinForms.Guna2TextBox Total, Guna.UI2.WinForms.Guna2TextBox Partidas, Guna.UI2.WinForms.Guna2TextBox Notas, Guna.UI2.WinForms.Guna2TextBox Elaborado, TextBox txtFolio, TextBox txtReciboCol, Guna.UI2.WinForms.Guna2TextBox txtconsecutivo, Guna.UI2.WinForms.Guna2TextBox txtReferencia, Guna.UI2.WinForms.Guna2TextBox txtSaldo, Guna.UI2.WinForms.Guna2TextBox condominio, Guna.UI2.WinForms.Guna2TextBox DiasVence, Guna.UI2.WinForms.Guna2TextBox FechaVence, Guna.UI2.WinForms.Guna2TextBox Archivo, ComboBox CentroCosto, ComboBox cmbSemana, DateTimePicker dtpAnio, ComboBox pro)
+        public void ConsultaGastos(string Folio, TextBox Documento, ComboBox Estatus, Guna.UI2.WinForms.Guna2TextBox Fecha, Guna.UI2.WinForms.Guna2TextBox Divisa, Guna.UI2.WinForms.Guna2TextBox TipoCambio, Guna.UI2.WinForms.Guna2TextBox Subtotal, Guna.UI2.WinForms.Guna2TextBox Descuentos, Guna.UI2.WinForms.Guna2TextBox Cargo, Guna.UI2.WinForms.Guna2TextBox Total, Guna.UI2.WinForms.Guna2TextBox Partidas, Guna.UI2.WinForms.Guna2TextBox Notas, Guna.UI2.WinForms.Guna2TextBox Elaborado, TextBox txtFolio, TextBox txtReciboCol, Guna.UI2.WinForms.Guna2TextBox txtconsecutivo, Guna.UI2.WinForms.Guna2TextBox txtReferencia, Guna.UI2.WinForms.Guna2TextBox txtSaldo, Guna.UI2.WinForms.Guna2TextBox DiasVence, Guna.UI2.WinForms.Guna2TextBox FechaVence, Guna.UI2.WinForms.Guna2TextBox Archivo, ComboBox CentroCosto, ComboBox cmbSemana, DateTimePicker dtpAnio, ComboBox pro)
         {
             try
             {
@@ -3204,7 +3219,6 @@ namespace PV.Clases.OrdenCompra
                     txtReciboCol.Text = dr["FolioOrden"].ToString();
                     txtconsecutivo.Text = dr["Consecutivo"].ToString();
                     txtReferencia.Text = dr["Referencia"].ToString();
-                    condominio.Text = dr["Condominio"].ToString();
                     DiasVence.Text = dr["DiasVence"].ToString();
                     FechaVence.Text = dr["FechaVence"].ToString();
                     Archivo.Text = dr["Archivo"].ToString();
@@ -3405,6 +3419,10 @@ namespace PV.Clases.OrdenCompra
                     dgv.Rows[n].Cells[1].Value = item["Partida"].ToString();
                     dgv.Rows[n].Cells[2].Value = item["Descripcion"].ToString();
                     dgv.Rows[n].Cells[3].Value = item["Concepto2"].ToString();
+                    dgv.Rows[n].Cells[4].Value = item["Subtotal"].ToString();
+                    dgv.Rows[n].Cells[5].Value = item["Descuento"].ToString();
+                    dgv.Rows[n].Cells[6].Value = item["Impuesto"].ToString();
+                    dgv.Rows[n].Cells[7].Value = item["Total"].ToString();
                 }
             }
             catch (Exception ex)

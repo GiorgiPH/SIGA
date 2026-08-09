@@ -178,7 +178,7 @@
             this.guna2GradientButton17 = new Guna.UI2.WinForms.Guna2GradientButton();
             this.guna2GradientButton18 = new Guna.UI2.WinForms.Guna2GradientButton();
             this.guna2GradientButton19 = new Guna.UI2.WinForms.Guna2GradientButton();
-            this.gbGraficas = new Guna.UI2.WinForms.Guna2GroupBox();
+            this.subGrupoGraficasCompras = new Guna.UI2.WinForms.Guna2GroupBox();
             this.guna2GradientButton58 = new Guna.UI2.WinForms.Guna2GradientButton();
             this.guna2GroupBox2 = new Guna.UI2.WinForms.Guna2GroupBox();
             this.guna2GradientButton63 = new Guna.UI2.WinForms.Guna2GradientButton();
@@ -298,7 +298,7 @@
             this.pnReportesEgresos.SuspendLayout();
             this.GrupoCompras.SuspendLayout();
             this.GrupoTesoreria.SuspendLayout();
-            this.gbGraficas.SuspendLayout();
+            this.subGrupoGraficasCompras.SuspendLayout();
             this.guna2GroupBox2.SuspendLayout();
             this.guna2GroupBox1.SuspendLayout();
             this.subgrupoPresupuesto3.SuspendLayout();
@@ -1377,7 +1377,7 @@
             this.guna2Panel2.Controls.Add(this.pnReportesEgresos);
             this.guna2Panel2.Controls.Add(this.GrupoCompras);
             this.guna2Panel2.Controls.Add(this.GrupoTesoreria);
-            this.guna2Panel2.Controls.Add(this.gbGraficas);
+            this.guna2Panel2.Controls.Add(this.subGrupoGraficasCompras);
             this.guna2Panel2.Controls.Add(this.guna2GroupBox2);
             this.guna2Panel2.Controls.Add(this.guna2GroupBox1);
             this.guna2Panel2.Controls.Add(this.subgrupoPresupuesto3);
@@ -1952,21 +1952,21 @@
             this.guna2GradientButton19.Text = "Bancos";
             this.guna2GradientButton19.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
             // 
-            // gbGraficas
+            // subGrupoGraficasCompras
             // 
-            this.gbGraficas.BackColor = System.Drawing.Color.DodgerBlue;
-            this.gbGraficas.BorderColor = System.Drawing.Color.White;
-            this.gbGraficas.BorderThickness = 0;
-            this.gbGraficas.Controls.Add(this.guna2GradientButton58);
-            this.gbGraficas.CustomBorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(19)))), ((int)(((byte)(35)))), ((int)(((byte)(95)))));
-            this.gbGraficas.FillColor = System.Drawing.Color.DodgerBlue;
-            this.gbGraficas.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.gbGraficas.ForeColor = System.Drawing.Color.DodgerBlue;
-            this.gbGraficas.Location = new System.Drawing.Point(895, 578);
-            this.gbGraficas.Name = "gbGraficas";
-            this.gbGraficas.Size = new System.Drawing.Size(236, 56);
-            this.gbGraficas.TabIndex = 69;
-            this.gbGraficas.Visible = false;
+            this.subGrupoGraficasCompras.BackColor = System.Drawing.Color.DodgerBlue;
+            this.subGrupoGraficasCompras.BorderColor = System.Drawing.Color.White;
+            this.subGrupoGraficasCompras.BorderThickness = 0;
+            this.subGrupoGraficasCompras.Controls.Add(this.guna2GradientButton58);
+            this.subGrupoGraficasCompras.CustomBorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(19)))), ((int)(((byte)(35)))), ((int)(((byte)(95)))));
+            this.subGrupoGraficasCompras.FillColor = System.Drawing.Color.DodgerBlue;
+            this.subGrupoGraficasCompras.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.subGrupoGraficasCompras.ForeColor = System.Drawing.Color.DodgerBlue;
+            this.subGrupoGraficasCompras.Location = new System.Drawing.Point(1128, 585);
+            this.subGrupoGraficasCompras.Name = "subGrupoGraficasCompras";
+            this.subGrupoGraficasCompras.Size = new System.Drawing.Size(236, 56);
+            this.subGrupoGraficasCompras.TabIndex = 69;
+            this.subGrupoGraficasCompras.Visible = false;
             // 
             // guna2GradientButton58
             // 
@@ -2542,7 +2542,7 @@
             this.SubGrupoReportesProveedores.FillColor = System.Drawing.Color.DodgerBlue;
             this.SubGrupoReportesProveedores.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.SubGrupoReportesProveedores.ForeColor = System.Drawing.Color.DodgerBlue;
-            this.SubGrupoReportesProveedores.Location = new System.Drawing.Point(884, 555);
+            this.SubGrupoReportesProveedores.Location = new System.Drawing.Point(859, 578);
             this.SubGrupoReportesProveedores.Name = "SubGrupoReportesProveedores";
             this.SubGrupoReportesProveedores.Size = new System.Drawing.Size(236, 160);
             this.SubGrupoReportesProveedores.TabIndex = 67;
@@ -2608,9 +2608,9 @@
             this.guna2GradientButton42.ForeColor = System.Drawing.Color.White;
             this.guna2GradientButton42.HoverState.FillColor = System.Drawing.Color.DimGray;
             this.guna2GradientButton42.HoverState.FillColor2 = System.Drawing.Color.DimGray;
-            this.guna2GradientButton42.Location = new System.Drawing.Point(7, 6);
+            this.guna2GradientButton42.Location = new System.Drawing.Point(0, 0);
             this.guna2GradientButton42.Name = "guna2GradientButton42";
-            this.guna2GradientButton42.Size = new System.Drawing.Size(226, 45);
+            this.guna2GradientButton42.Size = new System.Drawing.Size(236, 45);
             this.guna2GradientButton42.TabIndex = 3;
             this.guna2GradientButton42.Text = "Estado de Cuenta Proveedores";
             this.guna2GradientButton42.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
@@ -4443,7 +4443,7 @@
             this.pnReportesEgresos.ResumeLayout(false);
             this.GrupoCompras.ResumeLayout(false);
             this.GrupoTesoreria.ResumeLayout(false);
-            this.gbGraficas.ResumeLayout(false);
+            this.subGrupoGraficasCompras.ResumeLayout(false);
             this.guna2GroupBox2.ResumeLayout(false);
             this.guna2GroupBox1.ResumeLayout(false);
             this.subgrupoPresupuesto3.ResumeLayout(false);
@@ -4687,7 +4687,7 @@
         private Guna.UI2.WinForms.Guna2GradientButton btnReporteRemisiones;
         private Guna.UI2.WinForms.Guna2GradientButton btnReporteUtilidadProducto;
         private Guna.UI2.WinForms.Guna2GradientButton btnReporteUtilidadPedido;
-        private Guna.UI2.WinForms.Guna2GroupBox gbGraficas;
+        private Guna.UI2.WinForms.Guna2GroupBox subGrupoGraficasCompras;
         private Guna.UI2.WinForms.Guna2GradientButton guna2GradientButton58;
         private Guna.UI2.WinForms.Guna2GradientButton guna2GradientButton56;
         private Guna.UI2.WinForms.Guna2GradientButton guna2GradientButton57;

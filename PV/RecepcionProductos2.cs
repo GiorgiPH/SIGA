@@ -67,7 +67,7 @@ namespace PV
 
         private void RegistroGastos2_Load(object sender, EventArgs e)
         {
-            c.SeleccionarRecepcionProducto(cmbDocumento);
+            c.SeleccionarRecepcionProductos(cmbDocumento);
             c.SeleccionarConceptoDocumento(cmbFiltroDocumentoC);
             c.SeleccionarCondomini2(cmbCondominio);
             a.SeleccionarAlmacen(cmbAlmacen);
@@ -1542,7 +1542,7 @@ namespace PV
                 DesbloquearDetalle();
 
 
-                c.SeleccionarRecepcionProducto(cmbDocumento);
+                c.SeleccionarRegistroGastos(cmbDocumento);
                 c.SeleccionarConceptoDocumento(cmbFiltroDocumentoC);
                 c.SeleccionarCondomini2(cmbCondominio);
                 c.ruta();

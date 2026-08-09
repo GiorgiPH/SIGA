@@ -334,6 +334,7 @@
     <Compile Include="Clases\ActivoFijo\DBActivoFijo.cs" />
     <Compile Include="Clases\Almacenes\DBAlmacenes.cs" />
     <Compile Include="Clases\Anticipo\DBAnticipo.cs" />
+    <Compile Include="Clases\ArchivoUtil.cs" />
     <Compile Include="Clases\AreasComunes\DBAreasComunes.cs" />
     <Compile Include="Clases\Avisos\DBAvisos.cs" />
     <Compile Include="Clases\CategoriaFamilias\DBCategoriasFamilias.cs" />
