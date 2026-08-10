@@ -136,8 +136,6 @@ namespace PV
                 cmbProveedroAlterno.SelectedIndex = -1;     // Ningún elemento seleccionado al inicio
 
 
-                //cmbCentroCostos.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
-                //cmbCentroCostos.AutoCompleteSource = AutoCompleteSource.ListItems;
 
                 // Reanudar eventos
 
@@ -231,84 +229,135 @@ namespace PV
 
         private void btnAgregarPartidas_Click(object sender, EventArgs e)
         {
-            if (txtMatricular.Text == string.Empty)
+            // Validar proveedor
+            if (string.IsNullOrWhiteSpace(txtMatricular.Text))
             {
-                MessageBox.Show("Registre al proveedor antes de continuar");
+                MessageBox.Show(
+                    "Registre al proveedor antes de continuar",
+                    "Validación",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Warning);
+
                 return;
             }
-            else if (cmbEstatus.Text != "Abierto")
+
+            // Validar estatus de la recepción
+            if (!string.Equals(cmbEstatus.Text, "Abierto", StringComparison.OrdinalIgnoreCase))
             {
-                MessageBox.Show("No es posible agregar partidas a una recepcion deproductos Bloqueada o Cancelada");
+                MessageBox.Show(
+                    "No es posible agregar partidas a una recepción de productos bloqueada o cancelada.",
+                    "Validación",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Warning);
+
                 return;
             }
-            else if (string.IsNullOrEmpty(cmbCentroCostos.Text))
+
+            string centroCosto = null;
+
+            if (mostrrcentorcosto)
             {
-                MessageBox.Show("No es posible agregar partidas a una recepcion deproductos Bloqueada o Cancelada");
+                if (cmbCentroCostos.SelectedValue == null ||
+                    string.IsNullOrWhiteSpace(cmbCentroCostos.SelectedValue.ToString()))
+                {
+                    MessageBox.Show(
+                        "Seleccione un centro de costos antes de continuar.",
+                        "Validación",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Warning);
+
+                    return;
+                }
+
+                centroCosto = cmbCentroCostos.SelectedValue.ToString();
+            }
+            // Validar semana
+            if (cmbSemana.SelectedIndex < 0)
+            {
+                MessageBox.Show(
+                    "Seleccione la semana.",
+                    "Validación",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Warning);
+
                 return;
+            }
+
+            string folioOrden = txtOrdenCompra.Text.Trim();
+
+            // Si todavía no existe el folio, crear el registro
+            if (string.IsNullOrWhiteSpace(txtFolio.Text))
+            {
+                c.InsertarRegistroGasto(
+                    txtFolio,
+                    txtClave.Text,
+                    cmbEstatus.Text,
+                    txtFecha.Text,
+                    txtMatricular.Text,
+                    txtDivisa.Text,
+                    txtTipoCambio.Text,
+                    txtNotas.Text,
+                    txtElaborado.Text,
+                    folioOrden,
+                    txtConsecutivo.Text,
+                    txtReferencia.Text,
+                    txtDiasVence.Text,
+                    txtFechaVence.Text,
+                    centroCosto,
+                    cmbSemana.SelectedIndex + 1,
+                    dtpAnio.Text,
+                    cmbProoveedorAlternoSiNo.Text
+                );
+            }
+
+            // Determinar si ya existe un archivo/comprobante
+            bool tieneArchivo = !string.IsNullOrWhiteSpace(txtArchivo.Text);
+
+            // Ir a la pestaña de partidas
+            guna2TabControl1.SelectedIndex = 1;
+
+            // Pasar datos al formulario de partidas
+            TxtFolio1.Text = txtFolio.Text.Trim();
+            txtOrden.Text = folioOrden;
+
+            // Configurar productos dependiendo de si existe orden de compra
+            if (!string.IsNullOrWhiteSpace(txtOrden.Text))
+            {
+                c.SeleccionarProductoGasto(cmbConcepto, txtOrden.Text);
+                c.ConsultaGasto(TxtFolio1.Text, txtPartida);
+
+                txtPrecio.Enabled = false;
             }
             else
             {
-                if (string.IsNullOrEmpty(cmbSemana.Text))
-                {
-                    MessageBox.Show("Selecciona la semana");
-                    return;
-                }
-                string FolioOrden = txtOrdenCompra.Text;
+                c.SeleccionarProductoGasto(cmbConcepto);
+                c.ConsultaGasto(TxtFolio1.Text, txtPartida);
 
-                if (txtFolio.Text == string.Empty)
-                {
-                    c.InsertarRegistroGasto(txtFolio, txtClave.Text, cmbEstatus.Text, txtFecha.Text, txtMatricular.Text, txtDivisa.Text, txtTipoCambio.Text, txtNotas.Text, txtElaborado.Text, FolioOrden, txtConsecutivo.Text, txtReferencia.Text, txtDiasVence.Text, txtFechaVence.Text, cmbCentroCostos?.SelectedValue?.ToString(), cmbSemana.SelectedIndex + 1, dtpAnio.Text, cmbProoveedorAlternoSiNo.Text);
-                }
-                int opcion = 0;
-                if (txtArchivo.Text != string.Empty)
-                {
-                    opcion = 1;
-                }
-                //   PartidaGastos partidas = new PartidaGastos(txtFolio.Text, txtDocumento.Text, FolioOrden, opcion);
-                //   partidas.ShowDialog();
-
-                guna2TabControl1.SelectedIndex = 1;
-
-
-                TxtFolio1.Text = txtFolio.Text;
-                txtOrden.Text = FolioOrden;
-                opcion = opcion;
-
-                if (txtOrden.Text != string.Empty)
-                {
-                    c.SeleccionarProductoGasto(cmbConcepto, txtOrden.Text);
-                    c.ConsultaGasto(TxtFolio1.Text, txtPartida);
-                    txtPrecio.Enabled = false;
-                    txtCantidad.Text = "1";
-                    txtUnidad.Text = "Servicio";
-                    txtDivisa1.Text = "MXN";
-                    txtTipoCambio1.Text = "1.00";
-                }
-                else
-                {
-                    c.SeleccionarProductoGasto(cmbConcepto);
-                    c.ConsultaGasto(TxtFolio1.Text, txtPartida);
-                    txtPrecio.Enabled = true;
-                    txtCantidad.Text = "1";
-                    txtUnidad.Text = "Servicio";
-                    txtDivisa1.Text = "MXN";
-                    txtTipoCambio1.Text = "1.00";
-                }
-
-                if (opcion != 0)
-                {
-                    btnAdjuntarComporbante.Enabled = false;
-                  
-                }
+                txtPrecio.Enabled = true;
             }
 
+            // Valores iniciales de la partida
+            txtCantidad.Text = "1";
+            txtUnidad.Text = "Servicio";
+            txtDivisa1.Text = "MXN";
+            txtTipoCambio1.Text = "1.00";
+
+            // Si ya tiene comprobante, no permitir adjuntarlo nuevamente
+            if (tieneArchivo)
+            {
+                btnAdjuntarComporbante.Enabled = false;
+            }
+
+            // Cerrar listas desplegables
             cmbFiltroDocumentoC.DroppedDown = false;
             cmbProveedor.DroppedDown = false;
             cmbOrdenCompra.DroppedDown = false;
+            cmbDocumento.DroppedDown = false;
+
+            // Restaurar colores
             button3.BackColor = Color.Gainsboro;
             txtReferencia.BackColor = Color.White;
             txtNotas.BackColor = Color.White;
-            cmbDocumento.DroppedDown = false;
             button2.BackColor = Color.Gainsboro;
             txtDiasVence.BackColor = Color.White;
             button7.BackColor = Color.Gainsboro;

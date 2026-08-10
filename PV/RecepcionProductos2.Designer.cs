@@ -552,7 +552,6 @@ namespace PV
             this.txtArchivo.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.txtArchivo.Location = new System.Drawing.Point(138, 460);
             this.txtArchivo.Name = "txtArchivo";
-            this.txtArchivo.PasswordChar = '\0';
             this.txtArchivo.PlaceholderText = "";
             this.txtArchivo.SelectedText = "";
             this.txtArchivo.Size = new System.Drawing.Size(304, 25);
@@ -576,7 +575,6 @@ namespace PV
             this.txtElaborado.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.txtElaborado.Location = new System.Drawing.Point(138, 424);
             this.txtElaborado.Name = "txtElaborado";
-            this.txtElaborado.PasswordChar = '\0';
             this.txtElaborado.PlaceholderText = "";
             this.txtElaborado.SelectedText = "";
             this.txtElaborado.Size = new System.Drawing.Size(304, 25);
@@ -600,7 +598,6 @@ namespace PV
             this.txtPartidas.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.txtPartidas.Location = new System.Drawing.Point(882, 313);
             this.txtPartidas.Name = "txtPartidas";
-            this.txtPartidas.PasswordChar = '\0';
             this.txtPartidas.PlaceholderText = "";
             this.txtPartidas.SelectedText = "";
             this.txtPartidas.Size = new System.Drawing.Size(98, 25);
@@ -626,7 +623,6 @@ namespace PV
             this.txtTipoCambio.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.txtTipoCambio.Location = new System.Drawing.Point(881, 239);
             this.txtTipoCambio.Name = "txtTipoCambio";
-            this.txtTipoCambio.PasswordChar = '\0';
             this.txtTipoCambio.PlaceholderText = "";
             this.txtTipoCambio.SelectedText = "";
             this.txtTipoCambio.Size = new System.Drawing.Size(98, 25);
@@ -652,7 +648,6 @@ namespace PV
             this.txtDivisa.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.txtDivisa.Location = new System.Drawing.Point(703, 239);
             this.txtDivisa.Name = "txtDivisa";
-            this.txtDivisa.PasswordChar = '\0';
             this.txtDivisa.PlaceholderText = "";
             this.txtDivisa.SelectedText = "";
             this.txtDivisa.Size = new System.Drawing.Size(79, 25);
@@ -677,7 +672,6 @@ namespace PV
             this.txtImpuestos.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.txtImpuestos.Location = new System.Drawing.Point(568, 239);
             this.txtImpuestos.Name = "txtImpuestos";
-            this.txtImpuestos.PasswordChar = '\0';
             this.txtImpuestos.PlaceholderText = "";
             this.txtImpuestos.SelectedText = "";
             this.txtImpuestos.Size = new System.Drawing.Size(79, 25);
@@ -736,7 +730,6 @@ namespace PV
             this.txtSaldo.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.txtSaldo.Location = new System.Drawing.Point(362, 312);
             this.txtSaldo.Name = "txtSaldo";
-            this.txtSaldo.PasswordChar = '\0';
             this.txtSaldo.PlaceholderText = "";
             this.txtSaldo.SelectedText = "";
             this.txtSaldo.Size = new System.Drawing.Size(100, 25);
@@ -762,7 +755,6 @@ namespace PV
             this.txtAbono.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.txtAbono.Location = new System.Drawing.Point(138, 313);
             this.txtAbono.Name = "txtAbono";
-            this.txtAbono.PasswordChar = '\0';
             this.txtAbono.PlaceholderText = "";
             this.txtAbono.SelectedText = "";
             this.txtAbono.Size = new System.Drawing.Size(100, 25);
@@ -788,7 +780,6 @@ namespace PV
             this.txtTotal.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.txtTotal.Location = new System.Drawing.Point(138, 279);
             this.txtTotal.Name = "txtTotal";
-            this.txtTotal.PasswordChar = '\0';
             this.txtTotal.PlaceholderText = "";
             this.txtTotal.SelectedText = "";
             this.txtTotal.Size = new System.Drawing.Size(100, 25);
@@ -814,7 +805,6 @@ namespace PV
             this.txtSubtotal.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.txtSubtotal.Location = new System.Drawing.Point(138, 238);
             this.txtSubtotal.Name = "txtSubtotal";
-            this.txtSubtotal.PasswordChar = '\0';
             this.txtSubtotal.PlaceholderText = "";
             this.txtSubtotal.SelectedText = "";
             this.txtSubtotal.Size = new System.Drawing.Size(100, 25);
@@ -840,7 +830,6 @@ namespace PV
             this.txtDescuento.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.txtDescuento.Location = new System.Drawing.Point(362, 239);
             this.txtDescuento.Name = "txtDescuento";
-            this.txtDescuento.PasswordChar = '\0';
             this.txtDescuento.PlaceholderText = "";
             this.txtDescuento.SelectedText = "";
             this.txtDescuento.Size = new System.Drawing.Size(100, 25);
@@ -865,7 +854,6 @@ namespace PV
             this.txtReferencia.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.txtReferencia.Location = new System.Drawing.Point(138, 204);
             this.txtReferencia.Name = "txtReferencia";
-            this.txtReferencia.PasswordChar = '\0';
             this.txtReferencia.PlaceholderText = "";
             this.txtReferencia.SelectedText = "";
             this.txtReferencia.Size = new System.Drawing.Size(304, 25);
@@ -889,7 +877,6 @@ namespace PV
             this.txtNombreAlumnno.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.txtNombreAlumnno.Location = new System.Drawing.Point(246, 171);
             this.txtNombreAlumnno.Name = "txtNombreAlumnno";
-            this.txtNombreAlumnno.PasswordChar = '\0';
             this.txtNombreAlumnno.PlaceholderText = "";
             this.txtNombreAlumnno.SelectedText = "";
             this.txtNombreAlumnno.Size = new System.Drawing.Size(363, 25);
@@ -913,7 +900,6 @@ namespace PV
             this.txtMatricular.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.txtMatricular.Location = new System.Drawing.Point(138, 171);
             this.txtMatricular.Name = "txtMatricular";
-            this.txtMatricular.PasswordChar = '\0';
             this.txtMatricular.PlaceholderText = "";
             this.txtMatricular.SelectedText = "";
             this.txtMatricular.Size = new System.Drawing.Size(93, 25);
@@ -1042,7 +1028,6 @@ namespace PV
             this.txtCondominio.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.txtCondominio.Location = new System.Drawing.Point(339, 96);
             this.txtCondominio.Name = "txtCondominio";
-            this.txtCondominio.PasswordChar = '\0';
             this.txtCondominio.PlaceholderText = "";
             this.txtCondominio.SelectedText = "";
             this.txtCondominio.Size = new System.Drawing.Size(100, 25);
@@ -1067,7 +1052,6 @@ namespace PV
             this.txtFechaVence.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.txtFechaVence.Location = new System.Drawing.Point(826, 58);
             this.txtFechaVence.Name = "txtFechaVence";
-            this.txtFechaVence.PasswordChar = '\0';
             this.txtFechaVence.PlaceholderText = "";
             this.txtFechaVence.SelectedText = "";
             this.txtFechaVence.Size = new System.Drawing.Size(125, 25);
@@ -1090,7 +1074,6 @@ namespace PV
             this.txtDiasVence.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.txtDiasVence.Location = new System.Drawing.Point(520, 58);
             this.txtDiasVence.Name = "txtDiasVence";
-            this.txtDiasVence.PasswordChar = '\0';
             this.txtDiasVence.PlaceholderText = "";
             this.txtDiasVence.SelectedText = "";
             this.txtDiasVence.Size = new System.Drawing.Size(100, 25);
@@ -1115,7 +1098,6 @@ namespace PV
             this.txtFecha.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.txtFecha.Location = new System.Drawing.Point(340, 58);
             this.txtFecha.Name = "txtFecha";
-            this.txtFecha.PasswordChar = '\0';
             this.txtFecha.PlaceholderText = "";
             this.txtFecha.SelectedText = "";
             this.txtFecha.Size = new System.Drawing.Size(100, 25);
@@ -1139,7 +1121,6 @@ namespace PV
             this.txtConsecutivo.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.txtConsecutivo.Location = new System.Drawing.Point(138, 58);
             this.txtConsecutivo.Name = "txtConsecutivo";
-            this.txtConsecutivo.PasswordChar = '\0';
             this.txtConsecutivo.PlaceholderText = "";
             this.txtConsecutivo.SelectedText = "";
             this.txtConsecutivo.Size = new System.Drawing.Size(149, 25);
@@ -1487,7 +1468,6 @@ namespace PV
             this.txtNotas.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.txtNotas.Location = new System.Drawing.Point(138, 348);
             this.txtNotas.Name = "txtNotas";
-            this.txtNotas.PasswordChar = '\0';
             this.txtNotas.PlaceholderText = "";
             this.txtNotas.SelectedText = "";
             this.txtNotas.Size = new System.Drawing.Size(722, 68);
@@ -1614,7 +1594,6 @@ namespace PV
             this.txtTotal1.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.txtTotal1.Location = new System.Drawing.Point(675, 260);
             this.txtTotal1.Name = "txtTotal1";
-            this.txtTotal1.PasswordChar = '\0';
             this.txtTotal1.PlaceholderText = "";
             this.txtTotal1.SelectedText = "";
             this.txtTotal1.Size = new System.Drawing.Size(116, 25);
@@ -1692,7 +1671,6 @@ namespace PV
             this.txtImpuestoR.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.txtImpuestoR.Location = new System.Drawing.Point(631, 359);
             this.txtImpuestoR.Name = "txtImpuestoR";
-            this.txtImpuestoR.PasswordChar = '\0';
             this.txtImpuestoR.PlaceholderText = "";
             this.txtImpuestoR.SelectedText = "";
             this.txtImpuestoR.Size = new System.Drawing.Size(116, 25);
@@ -1718,7 +1696,6 @@ namespace PV
             this.txtDescuentoR.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.txtDescuentoR.Location = new System.Drawing.Point(411, 362);
             this.txtDescuentoR.Name = "txtDescuentoR";
-            this.txtDescuentoR.PasswordChar = '\0';
             this.txtDescuentoR.PlaceholderText = "";
             this.txtDescuentoR.SelectedText = "";
             this.txtDescuentoR.Size = new System.Drawing.Size(116, 25);
@@ -1745,7 +1722,6 @@ namespace PV
             this.txtTotalR.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.txtTotalR.Location = new System.Drawing.Point(130, 396);
             this.txtTotalR.Name = "txtTotalR";
-            this.txtTotalR.PasswordChar = '\0';
             this.txtTotalR.PlaceholderText = "";
             this.txtTotalR.SelectedText = "";
             this.txtTotalR.Size = new System.Drawing.Size(157, 25);
@@ -1772,7 +1748,6 @@ namespace PV
             this.txtSubtotalR.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.txtSubtotalR.Location = new System.Drawing.Point(130, 362);
             this.txtSubtotalR.Name = "txtSubtotalR";
-            this.txtSubtotalR.PasswordChar = '\0';
             this.txtSubtotalR.PlaceholderText = "";
             this.txtSubtotalR.SelectedText = "";
             this.txtSubtotalR.Size = new System.Drawing.Size(157, 25);
@@ -1798,7 +1773,6 @@ namespace PV
             this.txtArchivo1.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.txtArchivo1.Location = new System.Drawing.Point(130, 297);
             this.txtArchivo1.Name = "txtArchivo1";
-            this.txtArchivo1.PasswordChar = '\0';
             this.txtArchivo1.PlaceholderText = "";
             this.txtArchivo1.SelectedText = "";
             this.txtArchivo1.Size = new System.Drawing.Size(288, 25);
@@ -1823,7 +1797,6 @@ namespace PV
             this.txtTipoCambio1.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.txtTipoCambio1.Location = new System.Drawing.Point(671, 188);
             this.txtTipoCambio1.Name = "txtTipoCambio1";
-            this.txtTipoCambio1.PasswordChar = '\0';
             this.txtTipoCambio1.PlaceholderText = "";
             this.txtTipoCambio1.SelectedText = "";
             this.txtTipoCambio1.Size = new System.Drawing.Size(116, 25);
@@ -1847,7 +1820,6 @@ namespace PV
             this.txtImpuestoIm.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.txtImpuestoIm.Location = new System.Drawing.Point(405, 260);
             this.txtImpuestoIm.Name = "txtImpuestoIm";
-            this.txtImpuestoIm.PasswordChar = '\0';
             this.txtImpuestoIm.PlaceholderText = "";
             this.txtImpuestoIm.SelectedText = "";
             this.txtImpuestoIm.Size = new System.Drawing.Size(116, 25);
@@ -1873,7 +1845,6 @@ namespace PV
             this.txtImpuesto1.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.txtImpuesto1.Location = new System.Drawing.Point(130, 260);
             this.txtImpuesto1.Name = "txtImpuesto1";
-            this.txtImpuesto1.PasswordChar = '\0';
             this.txtImpuesto1.PlaceholderText = "";
             this.txtImpuesto1.SelectedText = "";
             this.txtImpuesto1.Size = new System.Drawing.Size(157, 25);
@@ -1900,7 +1871,6 @@ namespace PV
             this.txtDescuento1.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.txtDescuento1.Location = new System.Drawing.Point(405, 225);
             this.txtDescuento1.Name = "txtDescuento1";
-            this.txtDescuento1.PasswordChar = '\0';
             this.txtDescuento1.PlaceholderText = "";
             this.txtDescuento1.SelectedText = "";
             this.txtDescuento1.Size = new System.Drawing.Size(116, 25);
@@ -1928,7 +1898,6 @@ namespace PV
             this.txtSubtotal1.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.txtSubtotal1.Location = new System.Drawing.Point(130, 225);
             this.txtSubtotal1.Name = "txtSubtotal1";
-            this.txtSubtotal1.PasswordChar = '\0';
             this.txtSubtotal1.PlaceholderText = "";
             this.txtSubtotal1.SelectedText = "";
             this.txtSubtotal1.Size = new System.Drawing.Size(157, 25);
@@ -1957,7 +1926,6 @@ namespace PV
             this.txtDivisa1.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.txtDivisa1.Location = new System.Drawing.Point(404, 187);
             this.txtDivisa1.Name = "txtDivisa1";
-            this.txtDivisa1.PasswordChar = '\0';
             this.txtDivisa1.PlaceholderText = "";
             this.txtDivisa1.SelectedText = "";
             this.txtDivisa1.Size = new System.Drawing.Size(116, 25);
@@ -1980,7 +1948,6 @@ namespace PV
             this.txtPrecio.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.txtPrecio.Location = new System.Drawing.Point(130, 185);
             this.txtPrecio.Name = "txtPrecio";
-            this.txtPrecio.PasswordChar = '\0';
             this.txtPrecio.PlaceholderText = "";
             this.txtPrecio.SelectedText = "";
             this.txtPrecio.Size = new System.Drawing.Size(157, 25);
@@ -2008,7 +1975,6 @@ namespace PV
             this.txtUnidad.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.txtUnidad.Location = new System.Drawing.Point(405, 149);
             this.txtUnidad.Name = "txtUnidad";
-            this.txtUnidad.PasswordChar = '\0';
             this.txtUnidad.PlaceholderText = "";
             this.txtUnidad.SelectedText = "";
             this.txtUnidad.Size = new System.Drawing.Size(375, 25);
@@ -2031,7 +1997,6 @@ namespace PV
             this.txtCantidad.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.txtCantidad.Location = new System.Drawing.Point(130, 149);
             this.txtCantidad.Name = "txtCantidad";
-            this.txtCantidad.PasswordChar = '\0';
             this.txtCantidad.PlaceholderText = "";
             this.txtCantidad.SelectedText = "";
             this.txtCantidad.Size = new System.Drawing.Size(157, 25);
@@ -2105,7 +2070,6 @@ namespace PV
             this.txtConcepto2.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.txtConcepto2.Location = new System.Drawing.Point(130, 100);
             this.txtConcepto2.Name = "txtConcepto2";
-            this.txtConcepto2.PasswordChar = '\0';
             this.txtConcepto2.PlaceholderText = "";
             this.txtConcepto2.SelectedText = "";
             this.txtConcepto2.Size = new System.Drawing.Size(650, 25);
@@ -2129,7 +2093,6 @@ namespace PV
             this.txtPartida.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.txtPartida.Location = new System.Drawing.Point(130, 31);
             this.txtPartida.Name = "txtPartida";
-            this.txtPartida.PasswordChar = '\0';
             this.txtPartida.PlaceholderText = "";
             this.txtPartida.SelectedText = "";
             this.txtPartida.Size = new System.Drawing.Size(650, 25);
@@ -2930,7 +2893,6 @@ namespace PV
             this.guna2TextBox22.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.guna2TextBox22.Location = new System.Drawing.Point(111, 70);
             this.guna2TextBox22.Name = "guna2TextBox22";
-            this.guna2TextBox22.PasswordChar = '\0';
             this.guna2TextBox22.PlaceholderText = "";
             this.guna2TextBox22.SelectedText = "";
             this.guna2TextBox22.Size = new System.Drawing.Size(309, 25);
@@ -2953,7 +2915,6 @@ namespace PV
             this.guna2TextBox21.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.guna2TextBox21.Location = new System.Drawing.Point(116, 101);
             this.guna2TextBox21.Name = "guna2TextBox21";
-            this.guna2TextBox21.PasswordChar = '\0';
             this.guna2TextBox21.PlaceholderText = "";
             this.guna2TextBox21.SelectedText = "";
             this.guna2TextBox21.Size = new System.Drawing.Size(157, 25);
@@ -2976,7 +2937,6 @@ namespace PV
             this.guna2TextBox24.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.guna2TextBox24.Location = new System.Drawing.Point(130, 134);
             this.guna2TextBox24.Name = "guna2TextBox24";
-            this.guna2TextBox24.PasswordChar = '\0';
             this.guna2TextBox24.PlaceholderText = "";
             this.guna2TextBox24.SelectedText = "";
             this.guna2TextBox24.Size = new System.Drawing.Size(143, 25);
@@ -3195,14 +3155,14 @@ namespace PV
             this.dataGridView1.ThemeStyle.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(229)))), ((int)(((byte)(255)))));
             this.dataGridView1.ThemeStyle.HeaderStyle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(88)))), ((int)(((byte)(255)))));
             this.dataGridView1.ThemeStyle.HeaderStyle.BorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
-            this.dataGridView1.ThemeStyle.HeaderStyle.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dataGridView1.ThemeStyle.HeaderStyle.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.dataGridView1.ThemeStyle.HeaderStyle.ForeColor = System.Drawing.Color.White;
             this.dataGridView1.ThemeStyle.HeaderStyle.HeaightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.EnableResizing;
             this.dataGridView1.ThemeStyle.HeaderStyle.Height = 19;
             this.dataGridView1.ThemeStyle.ReadOnly = true;
             this.dataGridView1.ThemeStyle.RowsStyle.BackColor = System.Drawing.Color.White;
             this.dataGridView1.ThemeStyle.RowsStyle.BorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal;
-            this.dataGridView1.ThemeStyle.RowsStyle.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dataGridView1.ThemeStyle.RowsStyle.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.dataGridView1.ThemeStyle.RowsStyle.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(71)))), ((int)(((byte)(69)))), ((int)(((byte)(94)))));
             this.dataGridView1.ThemeStyle.RowsStyle.Height = 22;
             this.dataGridView1.ThemeStyle.RowsStyle.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(229)))), ((int)(((byte)(255)))));
@@ -3258,7 +3218,6 @@ namespace PV
             this.txtFiltro.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.txtFiltro.Location = new System.Drawing.Point(144, 27);
             this.txtFiltro.Name = "txtFiltro";
-            this.txtFiltro.PasswordChar = '\0';
             this.txtFiltro.PlaceholderText = "";
             this.txtFiltro.SelectedText = "";
             this.txtFiltro.Size = new System.Drawing.Size(137, 25);
@@ -3284,7 +3243,6 @@ namespace PV
             this.txtFiltroDocumento.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.txtFiltroDocumento.Location = new System.Drawing.Point(144, 72);
             this.txtFiltroDocumento.Name = "txtFiltroDocumento";
-            this.txtFiltroDocumento.PasswordChar = '\0';
             this.txtFiltroDocumento.PlaceholderText = "";
             this.txtFiltroDocumento.SelectedText = "";
             this.txtFiltroDocumento.Size = new System.Drawing.Size(137, 25);
@@ -3310,7 +3268,6 @@ namespace PV
             this.txtFiltroNombre.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.txtFiltroNombre.Location = new System.Drawing.Point(145, 112);
             this.txtFiltroNombre.Name = "txtFiltroNombre";
-            this.txtFiltroNombre.PasswordChar = '\0';
             this.txtFiltroNombre.PlaceholderText = "";
             this.txtFiltroNombre.SelectedText = "";
             this.txtFiltroNombre.Size = new System.Drawing.Size(136, 25);

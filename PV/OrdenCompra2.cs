@@ -203,7 +203,7 @@ namespace PV
 
         }
 
-        private void button2_Click(object sender, EventArgs e)
+        private void btnConfirmarPartida_Click(object sender, EventArgs e)
         {
             if (cmbConcepto.Text == string.Empty)
             {
@@ -234,7 +234,7 @@ namespace PV
             LimpiarPartida();
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void btnSiguientePartida_Click(object sender, EventArgs e)
         {
             if (cmbConcepto.Text == string.Empty)
             {
@@ -273,11 +273,11 @@ namespace PV
                 //    this.Close();
             }
             PanelPartidasRequisicion.Visible = false;
-            c.CargarRecibosPartidas(guna2DataGridView1, TxtFolio2.Text);
-            guna2Button9.Visible = true;
+            c.CargarRecibosPartidas(dgvPartidas, TxtFolio2.Text);
+            btnTerminarOrden.Visible = true;
         }
 
-        private void guna2Button3_Click(object sender, EventArgs e)
+        private void btnAgregarPartidas_Click(object sender, EventArgs e)
         {
 
             if (txtDiasVence.Text == string.Empty)
@@ -307,7 +307,6 @@ namespace PV
                 if (txtFolio.Text == string.Empty)
                 {
                     c.InsertarOrden(txtFolio, txtClave.Text, cmbEstatus.Text, txtFecha.Text, txtDiasVence.Text, txtFechaVence.Text, txtMatricular.Text, txtDivisa1.Text, txtTipoCambio1.Text, txtNotas.Text, txtElaborado.Text, txtConsecutivo.Text, "0", "");
-                    //    MessageBox.Show(txtFolio.Text);
 
                 }
 
@@ -316,9 +315,7 @@ namespace PV
                     ReciboCol = txtReciboCol.Text;
                 }
 
-                //PartidasOrden partidas = new PartidasOrden(txtFolio.Text, txtReciboInsc.Text, ReciboCol);
-                //partidas.ShowDialog();
-
+        
 
                 guna2TabControl1.SelectedIndex = 1;
                 TxtFolio2.Text = txtFolio.Text;
@@ -413,20 +410,20 @@ namespace PV
                 guna2TabControl1.SelectedIndex = 0;
                 guna2TabControl1.Enabled = true;
 
-                guna2Button2.Visible = true;
-                guna2Button5.Visible = true;
-                guna2Button6.Visible = true;
-                guna2Button7.Visible = true;
-                guna2Button8.Visible = true;
+                btnAgregarPartida.Visible = true;
+                btnEliminarPartida.Visible = true;
+                btnCancelarPartida.Visible = true;
+                btnConfirmarPartida.Visible = true;
+                btnSiguientePartida.Visible = true;
 
-                guna2Button2.Enabled = true;
-                guna2Button5.Enabled = true;
-                guna2Button6.Enabled = true;
-                guna2Button7.Enabled = true;
-                guna2Button8.Enabled = true;
+                btnAgregarPartida.Enabled = true;
+                btnEliminarPartida.Enabled = true;
+                btnCancelarPartida.Enabled = true;
+                btnConfirmarPartida.Enabled = true;
+                btnSiguientePartida.Enabled = true;
 
                 cmbDocumento.Enabled = true;
-                c.CargarRequisicionPartidas(guna2DataGridView1, TxtFolio2.Text);
+                c.CargarRequisicionPartidas(dgvPartidas, TxtFolio2.Text);
                 guna2PictureBox2.Visible = false;
                 guna2PictureBox1.Visible = true;
                 guna2GradientPanel6.Location = new Point(1077, 83);
@@ -471,16 +468,16 @@ namespace PV
                 }
               
                 cmbDocumento.Enabled = false;
-                guna2Button5.Visible = true;
-                guna2Button6.Visible = true;
-                guna2Button7.Visible = true;
-                guna2Button8.Visible = true;
+                btnEliminarPartida.Visible = true;
+                btnCancelarPartida.Visible = true;
+                btnConfirmarPartida.Visible = true;
+                btnSiguientePartida.Visible = true;
 
-                guna2Button2.Enabled = false;
-                guna2Button5.Enabled = false;
-                guna2Button6.Enabled = false;
-                guna2Button7.Enabled = false;
-                guna2Button8.Enabled = false;
+                btnAgregarPartida.Enabled = false;
+                btnEliminarPartida.Enabled = false;
+                btnCancelarPartida.Enabled = false;
+                btnConfirmarPartida.Enabled = false;
+                btnSiguientePartida.Enabled = false;
 
                 guna2PictureBox2.Visible = false;
                 guna2PictureBox1.Visible = true;
@@ -728,7 +725,7 @@ namespace PV
             guna2GradientPanel5.Visible = false;
         }
 
-        private void guna2Button1_Click(object sender, EventArgs e)
+        private void btnLimpuarOrden_Click(object sender, EventArgs e)
         {
             if (txtFolio.Text == string.Empty)
             {
@@ -796,7 +793,7 @@ namespace PV
             }
         }
 
-        private void guna2Button2_Click(object sender, EventArgs e)
+        private void btnAgregarPartida_Click(object sender, EventArgs e)
         {
             PanelPartidasRequisicion.Visible = true;
             txtPartida.Enabled = false;
@@ -806,11 +803,11 @@ namespace PV
             txtDescuento1.Enabled = true;
             txtImpuesto1.Enabled = true;
 
-            guna2Button5.Visible = false;
+            btnEliminarPartida.Visible = false;
 
-            guna2Button6.Visible = true;
-            guna2Button7.Visible = true;
-            guna2Button8.Visible = true;
+            btnCancelarPartida.Visible = true;
+            btnConfirmarPartida.Visible = true;
+            btnSiguientePartida.Visible = true;
 
             cmbConcepto.Text = "";
 
@@ -1074,11 +1071,11 @@ namespace PV
 
         }
 
-        private void guna2DataGridView1_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        private void dgvPartidas_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex != -1)
             {
-                string Partida = guna2DataGridView1.Rows[e.RowIndex].Cells["Partida"].Value.ToString();
+                string Partida = dgvPartidas.Rows[e.RowIndex].Cells["Partida"].Value.ToString();
                 c.ConsultaPartida(TxtFolio2.Text, Partida, cmbconcepto2, txtConcepto, txtConcepto2, txtCantidad, txtUnidad, txtDivisa1, txtTipoCambio1, txtSubtotal1, txtDescuento1, txtTotal1, txtPrecio, txtImpuesto1, txtEntregado);
                 txtPartida.Text = Partida;
                 // panel2.Visible = false;
@@ -1086,10 +1083,10 @@ namespace PV
                 txtEntregado.Visible = true;
                 PanelPartidasRequisicion.Visible = Visible;
                 guna2Button11.Visible = true;
-                guna2Button5.Visible = false;
-                guna2Button6.Visible = false;
-                guna2Button7.Visible = false;
-                guna2Button8.Visible = false;
+                btnEliminarPartida.Visible = false;
+                btnCancelarPartida.Visible = false;
+                btnConfirmarPartida.Visible = false;
+                btnSiguientePartida.Visible = false;
 
 
 
@@ -1098,10 +1095,10 @@ namespace PV
                 txtPrecio.Enabled = false;
                 txtDescuento1.Enabled = false;
                 txtImpuesto1.Enabled = false;
-                guna2Button5.Visible = false;
-                guna2Button6.Visible = false;
-                guna2Button7.Visible = false;
-                guna2Button8.Visible = false;
+                btnEliminarPartida.Visible = false;
+                btnCancelarPartida.Visible = false;
+                btnConfirmarPartida.Visible = false;
+                btnSiguientePartida.Visible = false;
             }
             else
             {
@@ -1109,7 +1106,7 @@ namespace PV
             }
         }
 
-        private void guna2Button9_Click(object sender, EventArgs e)
+        private void btnTerminarOrden_Click(object sender, EventArgs e)
         {
             if (txtDiasVence.Text == string.Empty)
             {
@@ -1135,7 +1132,7 @@ namespace PV
                 c.CargarRecibos(dataGridView1);
             }
             guna2TabControl1.SelectedIndex = 0;
-            guna2Button9.Visible = false;
+            btnTerminarOrden.Visible = false;
         }
 
         private void 
@@ -1252,7 +1249,7 @@ namespace PV
             }
         }
 
-        private void guna2Button6_Click(object sender, EventArgs e)
+        private void btnCancelarPartida_Click(object sender, EventArgs e)
         {
             cmbConcepto.Text = "";
             

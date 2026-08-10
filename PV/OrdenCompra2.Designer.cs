@@ -54,7 +54,7 @@ namespace PV
             this.guna2CircleButton1 = new Guna.UI2.WinForms.Guna2CircleButton();
             this.guna2HtmlLabel1 = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.guna2Panel1 = new Guna.UI2.WinForms.Guna2Panel();
-            this.guna2Button9 = new Guna.UI2.WinForms.Guna2Button();
+            this.btnTerminarOrden = new Guna.UI2.WinForms.Guna2Button();
             this.guna2TabControl1 = new Guna.UI2.WinForms.Guna2TabControl();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.Folio1 = new System.Windows.Forms.TextBox();
@@ -103,9 +103,9 @@ namespace PV
             this.txtDiasVence = new Guna.UI2.WinForms.Guna2TextBox();
             this.txtFecha = new Guna.UI2.WinForms.Guna2TextBox();
             this.txtConsecutivo = new Guna.UI2.WinForms.Guna2TextBox();
-            this.guna2Button4 = new Guna.UI2.WinForms.Guna2Button();
-            this.guna2Button1 = new Guna.UI2.WinForms.Guna2Button();
-            this.guna2Button3 = new Guna.UI2.WinForms.Guna2Button();
+            this.btnEliminarOrden = new Guna.UI2.WinForms.Guna2Button();
+            this.btnLimpuarOrden = new Guna.UI2.WinForms.Guna2Button();
+            this.btnAgregarPartidas = new Guna.UI2.WinForms.Guna2Button();
             this.label8 = new System.Windows.Forms.Label();
             this.label19 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
@@ -168,23 +168,23 @@ namespace PV
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.txtConcepto = new System.Windows.Forms.TextBox();
             this.guna2Button11 = new Guna.UI2.WinForms.Guna2Button();
-            this.guna2Button8 = new Guna.UI2.WinForms.Guna2Button();
+            this.btnSiguientePartida = new Guna.UI2.WinForms.Guna2Button();
             this.cmbConcepto = new Guna.UI2.WinForms.Guna2ComboBox();
             this.txtPrecio = new Guna.UI2.WinForms.Guna2TextBox();
             this.txtCantidad = new Guna.UI2.WinForms.Guna2TextBox();
             this.txtUnidad = new Guna.UI2.WinForms.Guna2TextBox();
             this.txtConcepto2 = new Guna.UI2.WinForms.Guna2TextBox();
             this.txtPartida = new Guna.UI2.WinForms.Guna2TextBox();
-            this.guna2Button5 = new Guna.UI2.WinForms.Guna2Button();
-            this.guna2Button6 = new Guna.UI2.WinForms.Guna2Button();
-            this.guna2Button7 = new Guna.UI2.WinForms.Guna2Button();
+            this.btnEliminarPartida = new Guna.UI2.WinForms.Guna2Button();
+            this.btnCancelarPartida = new Guna.UI2.WinForms.Guna2Button();
+            this.btnConfirmarPartida = new Guna.UI2.WinForms.Guna2Button();
             this.label16 = new System.Windows.Forms.Label();
             this.label20 = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
             this.label13 = new System.Windows.Forms.Label();
             this.guna2GradientPanel3 = new Guna.UI2.WinForms.Guna2GradientPanel();
-            this.guna2Button2 = new Guna.UI2.WinForms.Guna2Button();
-            this.guna2DataGridView1 = new Guna.UI2.WinForms.Guna2DataGridView();
+            this.btnAgregarPartida = new Guna.UI2.WinForms.Guna2Button();
+            this.dgvPartidas = new Guna.UI2.WinForms.Guna2DataGridView();
             this.Folio3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Partida = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Concepto = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -234,7 +234,7 @@ namespace PV
             this.tabPage3.SuspendLayout();
             this.PanelPartidasRequisicion.SuspendLayout();
             this.guna2GradientPanel3.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.guna2DataGridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvPartidas)).BeginInit();
             this.guna2GradientPanel2.SuspendLayout();
             this.guna2TabControl2.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -303,7 +303,7 @@ namespace PV
             | System.Windows.Forms.AnchorStyles.Right)));
             this.guna2Panel1.BackColor = System.Drawing.Color.Transparent;
             this.guna2Panel1.BorderRadius = 20;
-            this.guna2Panel1.Controls.Add(this.guna2Button9);
+            this.guna2Panel1.Controls.Add(this.btnTerminarOrden);
             this.guna2Panel1.Controls.Add(this.guna2TabControl1);
             this.guna2Panel1.Controls.Add(this.guna2Separator1);
             this.guna2Panel1.Controls.Add(this.guna2GradientPanel2);
@@ -315,32 +315,32 @@ namespace PV
             this.guna2Panel1.Size = new System.Drawing.Size(1000, 621);
             this.guna2Panel1.TabIndex = 98;
             // 
-            // guna2Button9
+            // btnTerminarOrden
             // 
-            this.guna2Button9.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.guna2Button9.BackColor = System.Drawing.Color.Transparent;
-            this.guna2Button9.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(19)))), ((int)(((byte)(35)))), ((int)(((byte)(95)))));
-            this.guna2Button9.BorderRadius = 20;
-            this.guna2Button9.BorderThickness = 1;
-            this.guna2Button9.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
-            this.guna2Button9.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
-            this.guna2Button9.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.guna2Button9.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.guna2Button9.FillColor = System.Drawing.Color.Transparent;
-            this.guna2Button9.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold);
-            this.guna2Button9.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(19)))), ((int)(((byte)(35)))), ((int)(((byte)(95)))));
-            this.guna2Button9.Image = ((System.Drawing.Image)(resources.GetObject("guna2Button9.Image")));
-            this.guna2Button9.ImageAlign = System.Windows.Forms.HorizontalAlignment.Left;
-            this.guna2Button9.ImageSize = new System.Drawing.Size(48, 48);
-            this.guna2Button9.Location = new System.Drawing.Point(826, 564);
-            this.guna2Button9.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.guna2Button9.Name = "guna2Button9";
-            this.guna2Button9.Size = new System.Drawing.Size(128, 46);
-            this.guna2Button9.TabIndex = 18;
-            this.guna2Button9.Text = "Terminar";
-            this.guna2Button9.TextOffset = new System.Drawing.Point(23, 0);
-            this.guna2Button9.Visible = false;
-            this.guna2Button9.Click += new System.EventHandler(this.guna2Button9_Click);
+            this.btnTerminarOrden.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnTerminarOrden.BackColor = System.Drawing.Color.Transparent;
+            this.btnTerminarOrden.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(19)))), ((int)(((byte)(35)))), ((int)(((byte)(95)))));
+            this.btnTerminarOrden.BorderRadius = 20;
+            this.btnTerminarOrden.BorderThickness = 1;
+            this.btnTerminarOrden.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.btnTerminarOrden.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.btnTerminarOrden.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.btnTerminarOrden.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.btnTerminarOrden.FillColor = System.Drawing.Color.Transparent;
+            this.btnTerminarOrden.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold);
+            this.btnTerminarOrden.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(19)))), ((int)(((byte)(35)))), ((int)(((byte)(95)))));
+            this.btnTerminarOrden.Image = ((System.Drawing.Image)(resources.GetObject("btnTerminarOrden.Image")));
+            this.btnTerminarOrden.ImageAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.btnTerminarOrden.ImageSize = new System.Drawing.Size(48, 48);
+            this.btnTerminarOrden.Location = new System.Drawing.Point(826, 564);
+            this.btnTerminarOrden.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.btnTerminarOrden.Name = "btnTerminarOrden";
+            this.btnTerminarOrden.Size = new System.Drawing.Size(128, 46);
+            this.btnTerminarOrden.TabIndex = 18;
+            this.btnTerminarOrden.Text = "Terminar";
+            this.btnTerminarOrden.TextOffset = new System.Drawing.Point(23, 0);
+            this.btnTerminarOrden.Visible = false;
+            this.btnTerminarOrden.Click += new System.EventHandler(this.btnTerminarOrden_Click);
             // 
             // guna2TabControl1
             // 
@@ -416,9 +416,9 @@ namespace PV
             this.tabPage2.Controls.Add(this.txtDiasVence);
             this.tabPage2.Controls.Add(this.txtFecha);
             this.tabPage2.Controls.Add(this.txtConsecutivo);
-            this.tabPage2.Controls.Add(this.guna2Button4);
-            this.tabPage2.Controls.Add(this.guna2Button1);
-            this.tabPage2.Controls.Add(this.guna2Button3);
+            this.tabPage2.Controls.Add(this.btnEliminarOrden);
+            this.tabPage2.Controls.Add(this.btnLimpuarOrden);
+            this.tabPage2.Controls.Add(this.btnAgregarPartidas);
             this.tabPage2.Controls.Add(this.label8);
             this.tabPage2.Controls.Add(this.label19);
             this.tabPage2.Controls.Add(this.label9);
@@ -593,7 +593,6 @@ namespace PV
             this.txtFiltro1.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.txtFiltro1.Location = new System.Drawing.Point(100, 44);
             this.txtFiltro1.Name = "txtFiltro1";
-            this.txtFiltro1.PasswordChar = '\0';
             this.txtFiltro1.PlaceholderText = "";
             this.txtFiltro1.SelectedText = "";
             this.txtFiltro1.Size = new System.Drawing.Size(202, 25);
@@ -639,7 +638,6 @@ namespace PV
             this.txtFechaAuto.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.txtFechaAuto.Location = new System.Drawing.Point(526, 385);
             this.txtFechaAuto.Name = "txtFechaAuto";
-            this.txtFechaAuto.PasswordChar = '\0';
             this.txtFechaAuto.PlaceholderText = "";
             this.txtFechaAuto.SelectedText = "";
             this.txtFechaAuto.Size = new System.Drawing.Size(150, 25);
@@ -673,7 +671,6 @@ namespace PV
             this.txtAutoriza.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.txtAutoriza.Location = new System.Drawing.Point(140, 385);
             this.txtAutoriza.Name = "txtAutoriza";
-            this.txtAutoriza.PasswordChar = '\0';
             this.txtAutoriza.PlaceholderText = "";
             this.txtAutoriza.SelectedText = "";
             this.txtAutoriza.Size = new System.Drawing.Size(322, 25);
@@ -747,7 +744,6 @@ namespace PV
             this.txtDivisa.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.txtDivisa.Location = new System.Drawing.Point(582, 174);
             this.txtDivisa.Name = "txtDivisa";
-            this.txtDivisa.PasswordChar = '\0';
             this.txtDivisa.PlaceholderText = "";
             this.txtDivisa.SelectedText = "";
             this.txtDivisa.Size = new System.Drawing.Size(119, 25);
@@ -771,7 +767,6 @@ namespace PV
             this.txtTipoCambio.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.txtTipoCambio.Location = new System.Drawing.Point(820, 174);
             this.txtTipoCambio.Name = "txtTipoCambio";
-            this.txtTipoCambio.PasswordChar = '\0';
             this.txtTipoCambio.PlaceholderText = "";
             this.txtTipoCambio.SelectedText = "";
             this.txtTipoCambio.Size = new System.Drawing.Size(119, 25);
@@ -795,7 +790,6 @@ namespace PV
             this.txtTotal.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.txtTotal.Location = new System.Drawing.Point(371, 223);
             this.txtTotal.Name = "txtTotal";
-            this.txtTotal.PasswordChar = '\0';
             this.txtTotal.PlaceholderText = "";
             this.txtTotal.SelectedText = "";
             this.txtTotal.Size = new System.Drawing.Size(119, 25);
@@ -820,7 +814,6 @@ namespace PV
             this.txtDescuento.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.txtDescuento.Location = new System.Drawing.Point(371, 174);
             this.txtDescuento.Name = "txtDescuento";
-            this.txtDescuento.PasswordChar = '\0';
             this.txtDescuento.PlaceholderText = "";
             this.txtDescuento.SelectedText = "";
             this.txtDescuento.Size = new System.Drawing.Size(119, 25);
@@ -845,7 +838,6 @@ namespace PV
             this.txtRecargo.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.txtRecargo.Location = new System.Drawing.Point(140, 223);
             this.txtRecargo.Name = "txtRecargo";
-            this.txtRecargo.PasswordChar = '\0';
             this.txtRecargo.PlaceholderText = "";
             this.txtRecargo.SelectedText = "";
             this.txtRecargo.Size = new System.Drawing.Size(119, 25);
@@ -870,7 +862,6 @@ namespace PV
             this.txtSubtotal.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.txtSubtotal.Location = new System.Drawing.Point(140, 174);
             this.txtSubtotal.Name = "txtSubtotal";
-            this.txtSubtotal.PasswordChar = '\0';
             this.txtSubtotal.PlaceholderText = "";
             this.txtSubtotal.SelectedText = "";
             this.txtSubtotal.Size = new System.Drawing.Size(119, 25);
@@ -981,7 +972,6 @@ namespace PV
             this.txtNombreAlumnno.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.txtNombreAlumnno.Location = new System.Drawing.Point(289, 128);
             this.txtNombreAlumnno.Name = "txtNombreAlumnno";
-            this.txtNombreAlumnno.PasswordChar = '\0';
             this.txtNombreAlumnno.PlaceholderText = "";
             this.txtNombreAlumnno.SelectedText = "";
             this.txtNombreAlumnno.Size = new System.Drawing.Size(317, 25);
@@ -1006,7 +996,6 @@ namespace PV
             this.txtMatricular.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.txtMatricular.Location = new System.Drawing.Point(140, 128);
             this.txtMatricular.Name = "txtMatricular";
-            this.txtMatricular.PasswordChar = '\0';
             this.txtMatricular.PlaceholderText = "";
             this.txtMatricular.SelectedText = "";
             this.txtMatricular.Size = new System.Drawing.Size(119, 25);
@@ -1117,7 +1106,6 @@ namespace PV
             this.txtNotas.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.txtNotas.Location = new System.Drawing.Point(140, 267);
             this.txtNotas.Name = "txtNotas";
-            this.txtNotas.PasswordChar = '\0';
             this.txtNotas.PlaceholderText = "";
             this.txtNotas.SelectedText = "";
             this.txtNotas.Size = new System.Drawing.Size(536, 47);
@@ -1141,7 +1129,6 @@ namespace PV
             this.txtElaborado.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.txtElaborado.Location = new System.Drawing.Point(140, 336);
             this.txtElaborado.Name = "txtElaborado";
-            this.txtElaborado.PasswordChar = '\0';
             this.txtElaborado.PlaceholderText = "";
             this.txtElaborado.SelectedText = "";
             this.txtElaborado.Size = new System.Drawing.Size(322, 25);
@@ -1165,7 +1152,6 @@ namespace PV
             this.txtPartidas.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.txtPartidas.Location = new System.Drawing.Point(820, 264);
             this.txtPartidas.Name = "txtPartidas";
-            this.txtPartidas.PasswordChar = '\0';
             this.txtPartidas.PlaceholderText = "";
             this.txtPartidas.SelectedText = "";
             this.txtPartidas.Size = new System.Drawing.Size(119, 25);
@@ -1189,7 +1175,6 @@ namespace PV
             this.txtTotalConceptos.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.txtTotalConceptos.Location = new System.Drawing.Point(820, 293);
             this.txtTotalConceptos.Name = "txtTotalConceptos";
-            this.txtTotalConceptos.PasswordChar = '\0';
             this.txtTotalConceptos.PlaceholderText = "";
             this.txtTotalConceptos.SelectedText = "";
             this.txtTotalConceptos.Size = new System.Drawing.Size(119, 25);
@@ -1215,7 +1200,6 @@ namespace PV
             this.txtFechaVence.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.txtFechaVence.Location = new System.Drawing.Point(814, 72);
             this.txtFechaVence.Name = "txtFechaVence";
-            this.txtFechaVence.PasswordChar = '\0';
             this.txtFechaVence.PlaceholderText = "";
             this.txtFechaVence.SelectedText = "";
             this.txtFechaVence.Size = new System.Drawing.Size(119, 25);
@@ -1238,7 +1222,6 @@ namespace PV
             this.txtDiasVence.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.txtDiasVence.Location = new System.Drawing.Point(582, 72);
             this.txtDiasVence.Name = "txtDiasVence";
-            this.txtDiasVence.PasswordChar = '\0';
             this.txtDiasVence.PlaceholderText = "";
             this.txtDiasVence.SelectedText = "";
             this.txtDiasVence.Size = new System.Drawing.Size(119, 25);
@@ -1262,7 +1245,6 @@ namespace PV
             this.txtFecha.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.txtFecha.Location = new System.Drawing.Point(371, 72);
             this.txtFecha.Name = "txtFecha";
-            this.txtFecha.PasswordChar = '\0';
             this.txtFecha.PlaceholderText = "";
             this.txtFecha.SelectedText = "";
             this.txtFecha.Size = new System.Drawing.Size(119, 25);
@@ -1286,87 +1268,86 @@ namespace PV
             this.txtConsecutivo.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.txtConsecutivo.Location = new System.Drawing.Point(140, 72);
             this.txtConsecutivo.Name = "txtConsecutivo";
-            this.txtConsecutivo.PasswordChar = '\0';
             this.txtConsecutivo.PlaceholderText = "";
             this.txtConsecutivo.SelectedText = "";
             this.txtConsecutivo.Size = new System.Drawing.Size(119, 25);
             this.txtConsecutivo.TabIndex = 166;
             // 
-            // guna2Button4
+            // btnEliminarOrden
             // 
-            this.guna2Button4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.guna2Button4.BackColor = System.Drawing.Color.Transparent;
-            this.guna2Button4.BorderRadius = 20;
-            this.guna2Button4.BorderThickness = 1;
-            this.guna2Button4.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
-            this.guna2Button4.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
-            this.guna2Button4.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.guna2Button4.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.guna2Button4.FillColor = System.Drawing.Color.Transparent;
-            this.guna2Button4.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.guna2Button4.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(19)))), ((int)(((byte)(35)))), ((int)(((byte)(95)))));
-            this.guna2Button4.Image = global::PV.Properties.Resources.Borrar;
-            this.guna2Button4.ImageAlign = System.Windows.Forms.HorizontalAlignment.Left;
-            this.guna2Button4.ImageSize = new System.Drawing.Size(48, 48);
-            this.guna2Button4.Location = new System.Drawing.Point(8, 432);
-            this.guna2Button4.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.guna2Button4.Name = "guna2Button4";
-            this.guna2Button4.Size = new System.Drawing.Size(121, 46);
-            this.guna2Button4.TabIndex = 7;
-            this.guna2Button4.Text = "Eliminar";
-            this.guna2Button4.TextOffset = new System.Drawing.Point(23, 0);
+            this.btnEliminarOrden.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnEliminarOrden.BackColor = System.Drawing.Color.Transparent;
+            this.btnEliminarOrden.BorderRadius = 20;
+            this.btnEliminarOrden.BorderThickness = 1;
+            this.btnEliminarOrden.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.btnEliminarOrden.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.btnEliminarOrden.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.btnEliminarOrden.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.btnEliminarOrden.FillColor = System.Drawing.Color.Transparent;
+            this.btnEliminarOrden.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnEliminarOrden.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(19)))), ((int)(((byte)(35)))), ((int)(((byte)(95)))));
+            this.btnEliminarOrden.Image = global::PV.Properties.Resources.Borrar;
+            this.btnEliminarOrden.ImageAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.btnEliminarOrden.ImageSize = new System.Drawing.Size(48, 48);
+            this.btnEliminarOrden.Location = new System.Drawing.Point(8, 432);
+            this.btnEliminarOrden.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.btnEliminarOrden.Name = "btnEliminarOrden";
+            this.btnEliminarOrden.Size = new System.Drawing.Size(121, 46);
+            this.btnEliminarOrden.TabIndex = 7;
+            this.btnEliminarOrden.Text = "Eliminar";
+            this.btnEliminarOrden.TextOffset = new System.Drawing.Point(23, 0);
             // 
-            // guna2Button1
+            // btnLimpuarOrden
             // 
-            this.guna2Button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.guna2Button1.BackColor = System.Drawing.Color.Transparent;
-            this.guna2Button1.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(19)))), ((int)(((byte)(35)))), ((int)(((byte)(95)))));
-            this.guna2Button1.BorderRadius = 20;
-            this.guna2Button1.BorderThickness = 1;
-            this.guna2Button1.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
-            this.guna2Button1.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
-            this.guna2Button1.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.guna2Button1.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.guna2Button1.FillColor = System.Drawing.Color.Transparent;
-            this.guna2Button1.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.guna2Button1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(19)))), ((int)(((byte)(35)))), ((int)(((byte)(95)))));
-            this.guna2Button1.Image = global::PV.Properties.Resources.cancelar;
-            this.guna2Button1.ImageAlign = System.Windows.Forms.HorizontalAlignment.Left;
-            this.guna2Button1.Location = new System.Drawing.Point(661, 432);
-            this.guna2Button1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.guna2Button1.Name = "guna2Button1";
-            this.guna2Button1.Size = new System.Drawing.Size(128, 46);
-            this.guna2Button1.TabIndex = 6;
-            this.guna2Button1.Text = "Cancelar";
-            this.guna2Button1.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
-            this.guna2Button1.TextOffset = new System.Drawing.Point(10, 0);
-            this.guna2Button1.Click += new System.EventHandler(this.guna2Button1_Click);
+            this.btnLimpuarOrden.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnLimpuarOrden.BackColor = System.Drawing.Color.Transparent;
+            this.btnLimpuarOrden.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(19)))), ((int)(((byte)(35)))), ((int)(((byte)(95)))));
+            this.btnLimpuarOrden.BorderRadius = 20;
+            this.btnLimpuarOrden.BorderThickness = 1;
+            this.btnLimpuarOrden.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.btnLimpuarOrden.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.btnLimpuarOrden.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.btnLimpuarOrden.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.btnLimpuarOrden.FillColor = System.Drawing.Color.Transparent;
+            this.btnLimpuarOrden.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnLimpuarOrden.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(19)))), ((int)(((byte)(35)))), ((int)(((byte)(95)))));
+            this.btnLimpuarOrden.Image = global::PV.Properties.Resources.cancelar;
+            this.btnLimpuarOrden.ImageAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.btnLimpuarOrden.Location = new System.Drawing.Point(661, 432);
+            this.btnLimpuarOrden.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.btnLimpuarOrden.Name = "btnLimpuarOrden";
+            this.btnLimpuarOrden.Size = new System.Drawing.Size(128, 46);
+            this.btnLimpuarOrden.TabIndex = 6;
+            this.btnLimpuarOrden.Text = "Cancelar";
+            this.btnLimpuarOrden.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.btnLimpuarOrden.TextOffset = new System.Drawing.Point(10, 0);
+            this.btnLimpuarOrden.Click += new System.EventHandler(this.btnLimpuarOrden_Click);
             // 
-            // guna2Button3
+            // btnAgregarPartidas
             // 
-            this.guna2Button3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.guna2Button3.BackColor = System.Drawing.Color.Transparent;
-            this.guna2Button3.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(19)))), ((int)(((byte)(35)))), ((int)(((byte)(95)))));
-            this.guna2Button3.BorderRadius = 20;
-            this.guna2Button3.BorderThickness = 1;
-            this.guna2Button3.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
-            this.guna2Button3.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
-            this.guna2Button3.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.guna2Button3.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.guna2Button3.FillColor = System.Drawing.Color.Transparent;
-            this.guna2Button3.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold);
-            this.guna2Button3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(19)))), ((int)(((byte)(35)))), ((int)(((byte)(95)))));
-            this.guna2Button3.Image = global::PV.Properties.Resources.Guardar;
-            this.guna2Button3.ImageAlign = System.Windows.Forms.HorizontalAlignment.Left;
-            this.guna2Button3.ImageSize = new System.Drawing.Size(48, 48);
-            this.guna2Button3.Location = new System.Drawing.Point(802, 432);
-            this.guna2Button3.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.guna2Button3.Name = "guna2Button3";
-            this.guna2Button3.Size = new System.Drawing.Size(128, 46);
-            this.guna2Button3.TabIndex = 5;
-            this.guna2Button3.Text = "Confirmar";
-            this.guna2Button3.TextOffset = new System.Drawing.Point(23, 0);
-            this.guna2Button3.Click += new System.EventHandler(this.guna2Button3_Click);
+            this.btnAgregarPartidas.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnAgregarPartidas.BackColor = System.Drawing.Color.Transparent;
+            this.btnAgregarPartidas.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(19)))), ((int)(((byte)(35)))), ((int)(((byte)(95)))));
+            this.btnAgregarPartidas.BorderRadius = 20;
+            this.btnAgregarPartidas.BorderThickness = 1;
+            this.btnAgregarPartidas.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.btnAgregarPartidas.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.btnAgregarPartidas.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.btnAgregarPartidas.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.btnAgregarPartidas.FillColor = System.Drawing.Color.Transparent;
+            this.btnAgregarPartidas.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold);
+            this.btnAgregarPartidas.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(19)))), ((int)(((byte)(35)))), ((int)(((byte)(95)))));
+            this.btnAgregarPartidas.Image = global::PV.Properties.Resources.Guardar;
+            this.btnAgregarPartidas.ImageAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.btnAgregarPartidas.ImageSize = new System.Drawing.Size(48, 48);
+            this.btnAgregarPartidas.Location = new System.Drawing.Point(802, 432);
+            this.btnAgregarPartidas.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.btnAgregarPartidas.Name = "btnAgregarPartidas";
+            this.btnAgregarPartidas.Size = new System.Drawing.Size(128, 46);
+            this.btnAgregarPartidas.TabIndex = 5;
+            this.btnAgregarPartidas.Text = "Confirmar";
+            this.btnAgregarPartidas.TextOffset = new System.Drawing.Point(23, 0);
+            this.btnAgregarPartidas.Click += new System.EventHandler(this.btnAgregarPartidas_Click);
             // 
             // label8
             // 
@@ -1535,7 +1516,7 @@ namespace PV
             // 
             this.tabPage3.Controls.Add(this.PanelPartidasRequisicion);
             this.tabPage3.Controls.Add(this.guna2GradientPanel3);
-            this.tabPage3.Controls.Add(this.guna2DataGridView1);
+            this.tabPage3.Controls.Add(this.dgvPartidas);
             this.tabPage3.Location = new System.Drawing.Point(4, 34);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Size = new System.Drawing.Size(952, 491);
@@ -1592,16 +1573,16 @@ namespace PV
             this.PanelPartidasRequisicion.Controls.Add(this.textBox1);
             this.PanelPartidasRequisicion.Controls.Add(this.txtConcepto);
             this.PanelPartidasRequisicion.Controls.Add(this.guna2Button11);
-            this.PanelPartidasRequisicion.Controls.Add(this.guna2Button8);
+            this.PanelPartidasRequisicion.Controls.Add(this.btnSiguientePartida);
             this.PanelPartidasRequisicion.Controls.Add(this.cmbConcepto);
             this.PanelPartidasRequisicion.Controls.Add(this.txtPrecio);
             this.PanelPartidasRequisicion.Controls.Add(this.txtCantidad);
             this.PanelPartidasRequisicion.Controls.Add(this.txtUnidad);
             this.PanelPartidasRequisicion.Controls.Add(this.txtConcepto2);
             this.PanelPartidasRequisicion.Controls.Add(this.txtPartida);
-            this.PanelPartidasRequisicion.Controls.Add(this.guna2Button5);
-            this.PanelPartidasRequisicion.Controls.Add(this.guna2Button6);
-            this.PanelPartidasRequisicion.Controls.Add(this.guna2Button7);
+            this.PanelPartidasRequisicion.Controls.Add(this.btnEliminarPartida);
+            this.PanelPartidasRequisicion.Controls.Add(this.btnCancelarPartida);
+            this.PanelPartidasRequisicion.Controls.Add(this.btnConfirmarPartida);
             this.PanelPartidasRequisicion.Controls.Add(this.label16);
             this.PanelPartidasRequisicion.Controls.Add(this.label20);
             this.PanelPartidasRequisicion.Controls.Add(this.label12);
@@ -1638,7 +1619,6 @@ namespace PV
             this.txtEntregado.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.txtEntregado.Location = new System.Drawing.Point(576, 200);
             this.txtEntregado.Name = "txtEntregado";
-            this.txtEntregado.PasswordChar = '\0';
             this.txtEntregado.PlaceholderText = "";
             this.txtEntregado.SelectedText = "";
             this.txtEntregado.Size = new System.Drawing.Size(119, 25);
@@ -1821,7 +1801,6 @@ namespace PV
             this.txtImpuestoR.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.txtImpuestoR.Location = new System.Drawing.Point(582, 319);
             this.txtImpuestoR.Name = "txtImpuestoR";
-            this.txtImpuestoR.PasswordChar = '\0';
             this.txtImpuestoR.PlaceholderText = "";
             this.txtImpuestoR.SelectedText = "";
             this.txtImpuestoR.Size = new System.Drawing.Size(119, 25);
@@ -1846,7 +1825,6 @@ namespace PV
             this.txtDescuentoR.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.txtDescuentoR.Location = new System.Drawing.Point(330, 320);
             this.txtDescuentoR.Name = "txtDescuentoR";
-            this.txtDescuentoR.PasswordChar = '\0';
             this.txtDescuentoR.PlaceholderText = "";
             this.txtDescuentoR.SelectedText = "";
             this.txtDescuentoR.Size = new System.Drawing.Size(119, 25);
@@ -1872,7 +1850,6 @@ namespace PV
             this.txtTotalR.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.txtTotalR.Location = new System.Drawing.Point(118, 358);
             this.txtTotalR.Name = "txtTotalR";
-            this.txtTotalR.PasswordChar = '\0';
             this.txtTotalR.PlaceholderText = "";
             this.txtTotalR.SelectedText = "";
             this.txtTotalR.Size = new System.Drawing.Size(119, 25);
@@ -1898,7 +1875,6 @@ namespace PV
             this.txtSubtotalR.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.txtSubtotalR.Location = new System.Drawing.Point(118, 320);
             this.txtSubtotalR.Name = "txtSubtotalR";
-            this.txtSubtotalR.PasswordChar = '\0';
             this.txtSubtotalR.PlaceholderText = "";
             this.txtSubtotalR.SelectedText = "";
             this.txtSubtotalR.Size = new System.Drawing.Size(119, 25);
@@ -1964,7 +1940,6 @@ namespace PV
             this.txtTotal1.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.txtTotal1.Location = new System.Drawing.Point(576, 236);
             this.txtTotal1.Name = "txtTotal1";
-            this.txtTotal1.PasswordChar = '\0';
             this.txtTotal1.PlaceholderText = "";
             this.txtTotal1.SelectedText = "";
             this.txtTotal1.Size = new System.Drawing.Size(119, 25);
@@ -1991,7 +1966,6 @@ namespace PV
             this.txtTipoCambio1.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.txtTipoCambio1.Location = new System.Drawing.Point(576, 160);
             this.txtTipoCambio1.Name = "txtTipoCambio1";
-            this.txtTipoCambio1.PasswordChar = '\0';
             this.txtTipoCambio1.PlaceholderText = "";
             this.txtTipoCambio1.SelectedText = "";
             this.txtTipoCambio1.Size = new System.Drawing.Size(119, 25);
@@ -2017,7 +1991,6 @@ namespace PV
             this.txtImpuestoIm.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.txtImpuestoIm.Location = new System.Drawing.Point(330, 236);
             this.txtImpuestoIm.Name = "txtImpuestoIm";
-            this.txtImpuestoIm.PasswordChar = '\0';
             this.txtImpuestoIm.PlaceholderText = "";
             this.txtImpuestoIm.SelectedText = "";
             this.txtImpuestoIm.Size = new System.Drawing.Size(119, 25);
@@ -2043,7 +2016,6 @@ namespace PV
             this.txtDescuento1.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.txtDescuento1.Location = new System.Drawing.Point(330, 200);
             this.txtDescuento1.Name = "txtDescuento1";
-            this.txtDescuento1.PasswordChar = '\0';
             this.txtDescuento1.PlaceholderText = "";
             this.txtDescuento1.SelectedText = "";
             this.txtDescuento1.Size = new System.Drawing.Size(119, 25);
@@ -2070,7 +2042,6 @@ namespace PV
             this.txtDivisa1.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.txtDivisa1.Location = new System.Drawing.Point(330, 160);
             this.txtDivisa1.Name = "txtDivisa1";
-            this.txtDivisa1.PasswordChar = '\0';
             this.txtDivisa1.PlaceholderText = "";
             this.txtDivisa1.SelectedText = "";
             this.txtDivisa1.Size = new System.Drawing.Size(119, 25);
@@ -2094,7 +2065,6 @@ namespace PV
             this.txtImpuesto1.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.txtImpuesto1.Location = new System.Drawing.Point(118, 236);
             this.txtImpuesto1.Name = "txtImpuesto1";
-            this.txtImpuesto1.PasswordChar = '\0';
             this.txtImpuesto1.PlaceholderText = "";
             this.txtImpuesto1.SelectedText = "";
             this.txtImpuesto1.Size = new System.Drawing.Size(119, 25);
@@ -2121,7 +2091,6 @@ namespace PV
             this.txtSubtotal1.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.txtSubtotal1.Location = new System.Drawing.Point(118, 200);
             this.txtSubtotal1.Name = "txtSubtotal1";
-            this.txtSubtotal1.PasswordChar = '\0';
             this.txtSubtotal1.PlaceholderText = "";
             this.txtSubtotal1.SelectedText = "";
             this.txtSubtotal1.Size = new System.Drawing.Size(119, 25);
@@ -2246,31 +2215,31 @@ namespace PV
             this.guna2Button11.Visible = false;
             this.guna2Button11.Click += new System.EventHandler(this.guna2Button11_Click);
             // 
-            // guna2Button8
+            // btnSiguientePartida
             // 
-            this.guna2Button8.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.guna2Button8.BackColor = System.Drawing.Color.Transparent;
-            this.guna2Button8.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(19)))), ((int)(((byte)(35)))), ((int)(((byte)(95)))));
-            this.guna2Button8.BorderRadius = 20;
-            this.guna2Button8.BorderThickness = 1;
-            this.guna2Button8.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
-            this.guna2Button8.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
-            this.guna2Button8.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.guna2Button8.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.guna2Button8.FillColor = System.Drawing.Color.Transparent;
-            this.guna2Button8.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.guna2Button8.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(19)))), ((int)(((byte)(35)))), ((int)(((byte)(95)))));
-            this.guna2Button8.Image = ((System.Drawing.Image)(resources.GetObject("guna2Button8.Image")));
-            this.guna2Button8.ImageAlign = System.Windows.Forms.HorizontalAlignment.Left;
-            this.guna2Button8.ImageSize = new System.Drawing.Size(35, 35);
-            this.guna2Button8.Location = new System.Drawing.Point(644, 402);
-            this.guna2Button8.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.guna2Button8.Name = "guna2Button8";
-            this.guna2Button8.Size = new System.Drawing.Size(128, 46);
-            this.guna2Button8.TabIndex = 15;
-            this.guna2Button8.Text = "Siguiente";
-            this.guna2Button8.TextOffset = new System.Drawing.Point(23, 0);
-            this.guna2Button8.Click += new System.EventHandler(this.button2_Click);
+            this.btnSiguientePartida.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnSiguientePartida.BackColor = System.Drawing.Color.Transparent;
+            this.btnSiguientePartida.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(19)))), ((int)(((byte)(35)))), ((int)(((byte)(95)))));
+            this.btnSiguientePartida.BorderRadius = 20;
+            this.btnSiguientePartida.BorderThickness = 1;
+            this.btnSiguientePartida.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.btnSiguientePartida.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.btnSiguientePartida.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.btnSiguientePartida.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.btnSiguientePartida.FillColor = System.Drawing.Color.Transparent;
+            this.btnSiguientePartida.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnSiguientePartida.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(19)))), ((int)(((byte)(35)))), ((int)(((byte)(95)))));
+            this.btnSiguientePartida.Image = ((System.Drawing.Image)(resources.GetObject("btnSiguientePartida.Image")));
+            this.btnSiguientePartida.ImageAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.btnSiguientePartida.ImageSize = new System.Drawing.Size(35, 35);
+            this.btnSiguientePartida.Location = new System.Drawing.Point(644, 402);
+            this.btnSiguientePartida.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.btnSiguientePartida.Name = "btnSiguientePartida";
+            this.btnSiguientePartida.Size = new System.Drawing.Size(128, 46);
+            this.btnSiguientePartida.TabIndex = 15;
+            this.btnSiguientePartida.Text = "Siguiente";
+            this.btnSiguientePartida.TextOffset = new System.Drawing.Point(23, 0);
+            this.btnSiguientePartida.Click += new System.EventHandler(this.btnSiguientePartida_Click);
             // 
             // cmbConcepto
             // 
@@ -2313,7 +2282,6 @@ namespace PV
             this.txtPrecio.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.txtPrecio.Location = new System.Drawing.Point(118, 160);
             this.txtPrecio.Name = "txtPrecio";
-            this.txtPrecio.PasswordChar = '\0';
             this.txtPrecio.PlaceholderText = "";
             this.txtPrecio.SelectedText = "";
             this.txtPrecio.Size = new System.Drawing.Size(119, 25);
@@ -2339,7 +2307,6 @@ namespace PV
             this.txtCantidad.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.txtCantidad.Location = new System.Drawing.Point(118, 122);
             this.txtCantidad.Name = "txtCantidad";
-            this.txtCantidad.PasswordChar = '\0';
             this.txtCantidad.PlaceholderText = "";
             this.txtCantidad.SelectedText = "";
             this.txtCantidad.Size = new System.Drawing.Size(119, 25);
@@ -2364,7 +2331,6 @@ namespace PV
             this.txtUnidad.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.txtUnidad.Location = new System.Drawing.Point(330, 123);
             this.txtUnidad.Name = "txtUnidad";
-            this.txtUnidad.PasswordChar = '\0';
             this.txtUnidad.PlaceholderText = "";
             this.txtUnidad.SelectedText = "";
             this.txtUnidad.Size = new System.Drawing.Size(358, 25);
@@ -2387,7 +2353,6 @@ namespace PV
             this.txtConcepto2.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.txtConcepto2.Location = new System.Drawing.Point(118, 78);
             this.txtConcepto2.Name = "txtConcepto2";
-            this.txtConcepto2.PasswordChar = '\0';
             this.txtConcepto2.PlaceholderText = "";
             this.txtConcepto2.SelectedText = "";
             this.txtConcepto2.Size = new System.Drawing.Size(480, 25);
@@ -2410,87 +2375,86 @@ namespace PV
             this.txtPartida.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.txtPartida.Location = new System.Drawing.Point(118, 13);
             this.txtPartida.Name = "txtPartida";
-            this.txtPartida.PasswordChar = '\0';
             this.txtPartida.PlaceholderText = "";
             this.txtPartida.SelectedText = "";
             this.txtPartida.Size = new System.Drawing.Size(119, 25);
             this.txtPartida.TabIndex = 167;
             // 
-            // guna2Button5
+            // btnEliminarPartida
             // 
-            this.guna2Button5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.guna2Button5.BackColor = System.Drawing.Color.Transparent;
-            this.guna2Button5.BorderRadius = 20;
-            this.guna2Button5.BorderThickness = 1;
-            this.guna2Button5.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
-            this.guna2Button5.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
-            this.guna2Button5.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.guna2Button5.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.guna2Button5.FillColor = System.Drawing.Color.Transparent;
-            this.guna2Button5.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.guna2Button5.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(19)))), ((int)(((byte)(35)))), ((int)(((byte)(95)))));
-            this.guna2Button5.Image = global::PV.Properties.Resources.Borrar;
-            this.guna2Button5.ImageAlign = System.Windows.Forms.HorizontalAlignment.Left;
-            this.guna2Button5.ImageSize = new System.Drawing.Size(48, 48);
-            this.guna2Button5.Location = new System.Drawing.Point(32, 402);
-            this.guna2Button5.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.guna2Button5.Name = "guna2Button5";
-            this.guna2Button5.Size = new System.Drawing.Size(121, 46);
-            this.guna2Button5.TabIndex = 17;
-            this.guna2Button5.Text = "Eliminar";
-            this.guna2Button5.TextOffset = new System.Drawing.Point(23, 0);
-            this.guna2Button5.Visible = false;
+            this.btnEliminarPartida.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnEliminarPartida.BackColor = System.Drawing.Color.Transparent;
+            this.btnEliminarPartida.BorderRadius = 20;
+            this.btnEliminarPartida.BorderThickness = 1;
+            this.btnEliminarPartida.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.btnEliminarPartida.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.btnEliminarPartida.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.btnEliminarPartida.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.btnEliminarPartida.FillColor = System.Drawing.Color.Transparent;
+            this.btnEliminarPartida.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnEliminarPartida.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(19)))), ((int)(((byte)(35)))), ((int)(((byte)(95)))));
+            this.btnEliminarPartida.Image = global::PV.Properties.Resources.Borrar;
+            this.btnEliminarPartida.ImageAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.btnEliminarPartida.ImageSize = new System.Drawing.Size(48, 48);
+            this.btnEliminarPartida.Location = new System.Drawing.Point(32, 402);
+            this.btnEliminarPartida.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.btnEliminarPartida.Name = "btnEliminarPartida";
+            this.btnEliminarPartida.Size = new System.Drawing.Size(121, 46);
+            this.btnEliminarPartida.TabIndex = 17;
+            this.btnEliminarPartida.Text = "Eliminar";
+            this.btnEliminarPartida.TextOffset = new System.Drawing.Point(23, 0);
+            this.btnEliminarPartida.Visible = false;
             // 
-            // guna2Button6
+            // btnCancelarPartida
             // 
-            this.guna2Button6.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.guna2Button6.BackColor = System.Drawing.Color.Transparent;
-            this.guna2Button6.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(19)))), ((int)(((byte)(35)))), ((int)(((byte)(95)))));
-            this.guna2Button6.BorderRadius = 20;
-            this.guna2Button6.BorderThickness = 1;
-            this.guna2Button6.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
-            this.guna2Button6.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
-            this.guna2Button6.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.guna2Button6.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.guna2Button6.FillColor = System.Drawing.Color.Transparent;
-            this.guna2Button6.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.guna2Button6.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(19)))), ((int)(((byte)(35)))), ((int)(((byte)(95)))));
-            this.guna2Button6.Image = global::PV.Properties.Resources.cancelar;
-            this.guna2Button6.ImageAlign = System.Windows.Forms.HorizontalAlignment.Left;
-            this.guna2Button6.Location = new System.Drawing.Point(355, 402);
-            this.guna2Button6.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.guna2Button6.Name = "guna2Button6";
-            this.guna2Button6.Size = new System.Drawing.Size(128, 46);
-            this.guna2Button6.TabIndex = 16;
-            this.guna2Button6.Text = "Cancelar";
-            this.guna2Button6.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
-            this.guna2Button6.TextOffset = new System.Drawing.Point(10, 0);
-            this.guna2Button6.Click += new System.EventHandler(this.guna2Button6_Click);
+            this.btnCancelarPartida.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnCancelarPartida.BackColor = System.Drawing.Color.Transparent;
+            this.btnCancelarPartida.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(19)))), ((int)(((byte)(35)))), ((int)(((byte)(95)))));
+            this.btnCancelarPartida.BorderRadius = 20;
+            this.btnCancelarPartida.BorderThickness = 1;
+            this.btnCancelarPartida.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.btnCancelarPartida.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.btnCancelarPartida.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.btnCancelarPartida.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.btnCancelarPartida.FillColor = System.Drawing.Color.Transparent;
+            this.btnCancelarPartida.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnCancelarPartida.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(19)))), ((int)(((byte)(35)))), ((int)(((byte)(95)))));
+            this.btnCancelarPartida.Image = global::PV.Properties.Resources.cancelar;
+            this.btnCancelarPartida.ImageAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.btnCancelarPartida.Location = new System.Drawing.Point(355, 402);
+            this.btnCancelarPartida.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.btnCancelarPartida.Name = "btnCancelarPartida";
+            this.btnCancelarPartida.Size = new System.Drawing.Size(128, 46);
+            this.btnCancelarPartida.TabIndex = 16;
+            this.btnCancelarPartida.Text = "Cancelar";
+            this.btnCancelarPartida.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.btnCancelarPartida.TextOffset = new System.Drawing.Point(10, 0);
+            this.btnCancelarPartida.Click += new System.EventHandler(this.btnCancelarPartida_Click);
             // 
-            // guna2Button7
+            // btnConfirmarPartida
             // 
-            this.guna2Button7.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.guna2Button7.BackColor = System.Drawing.Color.Transparent;
-            this.guna2Button7.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(19)))), ((int)(((byte)(35)))), ((int)(((byte)(95)))));
-            this.guna2Button7.BorderRadius = 20;
-            this.guna2Button7.BorderThickness = 1;
-            this.guna2Button7.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
-            this.guna2Button7.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
-            this.guna2Button7.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.guna2Button7.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.guna2Button7.FillColor = System.Drawing.Color.Transparent;
-            this.guna2Button7.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.guna2Button7.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(19)))), ((int)(((byte)(35)))), ((int)(((byte)(95)))));
-            this.guna2Button7.ImageAlign = System.Windows.Forms.HorizontalAlignment.Left;
-            this.guna2Button7.ImageSize = new System.Drawing.Size(48, 48);
-            this.guna2Button7.Location = new System.Drawing.Point(493, 402);
-            this.guna2Button7.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.guna2Button7.Name = "guna2Button7";
-            this.guna2Button7.Size = new System.Drawing.Size(128, 46);
-            this.guna2Button7.TabIndex = 14;
-            this.guna2Button7.Text = "Confirmar";
-            this.guna2Button7.TextOffset = new System.Drawing.Point(23, 0);
-            this.guna2Button7.Click += new System.EventHandler(this.button1_Click);
+            this.btnConfirmarPartida.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnConfirmarPartida.BackColor = System.Drawing.Color.Transparent;
+            this.btnConfirmarPartida.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(19)))), ((int)(((byte)(35)))), ((int)(((byte)(95)))));
+            this.btnConfirmarPartida.BorderRadius = 20;
+            this.btnConfirmarPartida.BorderThickness = 1;
+            this.btnConfirmarPartida.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.btnConfirmarPartida.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.btnConfirmarPartida.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.btnConfirmarPartida.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.btnConfirmarPartida.FillColor = System.Drawing.Color.Transparent;
+            this.btnConfirmarPartida.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnConfirmarPartida.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(19)))), ((int)(((byte)(35)))), ((int)(((byte)(95)))));
+            this.btnConfirmarPartida.ImageAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.btnConfirmarPartida.ImageSize = new System.Drawing.Size(48, 48);
+            this.btnConfirmarPartida.Location = new System.Drawing.Point(493, 402);
+            this.btnConfirmarPartida.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.btnConfirmarPartida.Name = "btnConfirmarPartida";
+            this.btnConfirmarPartida.Size = new System.Drawing.Size(128, 46);
+            this.btnConfirmarPartida.TabIndex = 14;
+            this.btnConfirmarPartida.Text = "Confirmar";
+            this.btnConfirmarPartida.TextOffset = new System.Drawing.Point(23, 0);
+            this.btnConfirmarPartida.Click += new System.EventHandler(this.btnConfirmarPartida_Click);
             // 
             // label16
             // 
@@ -2535,7 +2499,7 @@ namespace PV
             // guna2GradientPanel3
             // 
             this.guna2GradientPanel3.BorderRadius = 20;
-            this.guna2GradientPanel3.Controls.Add(this.guna2Button2);
+            this.guna2GradientPanel3.Controls.Add(this.btnAgregarPartida);
             this.guna2GradientPanel3.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(19)))), ((int)(((byte)(35)))), ((int)(((byte)(95)))));
             this.guna2GradientPanel3.FillColor2 = System.Drawing.Color.SteelBlue;
             this.guna2GradientPanel3.GradientMode = System.Drawing.Drawing2D.LinearGradientMode.ForwardDiagonal;
@@ -2549,34 +2513,34 @@ namespace PV
             this.guna2GradientPanel3.Size = new System.Drawing.Size(77, 417);
             this.guna2GradientPanel3.TabIndex = 100;
             // 
-            // guna2Button2
+            // btnAgregarPartida
             // 
-            this.guna2Button2.Animated = true;
-            this.guna2Button2.BackColor = System.Drawing.Color.Transparent;
-            this.guna2Button2.BorderRadius = 20;
-            this.guna2Button2.CheckedState.FillColor = System.Drawing.Color.Black;
-            this.guna2Button2.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
-            this.guna2Button2.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
-            this.guna2Button2.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.guna2Button2.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.guna2Button2.FillColor = System.Drawing.Color.Transparent;
-            this.guna2Button2.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.guna2Button2.ForeColor = System.Drawing.Color.White;
-            this.guna2Button2.Image = ((System.Drawing.Image)(resources.GetObject("guna2Button2.Image")));
-            this.guna2Button2.ImageSize = new System.Drawing.Size(35, 35);
-            this.guna2Button2.Location = new System.Drawing.Point(6, 25);
-            this.guna2Button2.Name = "guna2Button2";
-            this.guna2Button2.Size = new System.Drawing.Size(65, 65);
-            this.guna2Button2.TabIndex = 88;
-            this.guna2Button2.Click += new System.EventHandler(this.guna2Button2_Click);
+            this.btnAgregarPartida.Animated = true;
+            this.btnAgregarPartida.BackColor = System.Drawing.Color.Transparent;
+            this.btnAgregarPartida.BorderRadius = 20;
+            this.btnAgregarPartida.CheckedState.FillColor = System.Drawing.Color.Black;
+            this.btnAgregarPartida.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.btnAgregarPartida.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.btnAgregarPartida.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.btnAgregarPartida.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.btnAgregarPartida.FillColor = System.Drawing.Color.Transparent;
+            this.btnAgregarPartida.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.btnAgregarPartida.ForeColor = System.Drawing.Color.White;
+            this.btnAgregarPartida.Image = ((System.Drawing.Image)(resources.GetObject("btnAgregarPartida.Image")));
+            this.btnAgregarPartida.ImageSize = new System.Drawing.Size(35, 35);
+            this.btnAgregarPartida.Location = new System.Drawing.Point(6, 25);
+            this.btnAgregarPartida.Name = "btnAgregarPartida";
+            this.btnAgregarPartida.Size = new System.Drawing.Size(65, 65);
+            this.btnAgregarPartida.TabIndex = 88;
+            this.btnAgregarPartida.Click += new System.EventHandler(this.btnAgregarPartida_Click);
             // 
-            // guna2DataGridView1
+            // dgvPartidas
             // 
-            this.guna2DataGridView1.AllowUserToAddRows = false;
-            this.guna2DataGridView1.AllowUserToDeleteRows = false;
+            this.dgvPartidas.AllowUserToAddRows = false;
+            this.dgvPartidas.AllowUserToDeleteRows = false;
             dataGridViewCellStyle6.BackColor = System.Drawing.Color.White;
-            this.guna2DataGridView1.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle6;
-            this.guna2DataGridView1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.dgvPartidas.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle6;
+            this.dgvPartidas.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle7.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(19)))), ((int)(((byte)(35)))), ((int)(((byte)(95)))));
             dataGridViewCellStyle7.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -2584,10 +2548,10 @@ namespace PV
             dataGridViewCellStyle7.SelectionBackColor = System.Drawing.SystemColors.Highlight;
             dataGridViewCellStyle7.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.guna2DataGridView1.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle7;
-            this.guna2DataGridView1.ColumnHeadersHeight = 19;
-            this.guna2DataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.EnableResizing;
-            this.guna2DataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.dgvPartidas.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle7;
+            this.dgvPartidas.ColumnHeadersHeight = 19;
+            this.dgvPartidas.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.EnableResizing;
+            this.dgvPartidas.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Folio3,
             this.Partida,
             this.Concepto,
@@ -2599,11 +2563,11 @@ namespace PV
             dataGridViewCellStyle8.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(99)))), ((int)(((byte)(114)))), ((int)(((byte)(169)))));
             dataGridViewCellStyle8.SelectionForeColor = System.Drawing.Color.White;
             dataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.guna2DataGridView1.DefaultCellStyle = dataGridViewCellStyle8;
-            this.guna2DataGridView1.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(229)))), ((int)(((byte)(255)))));
-            this.guna2DataGridView1.Location = new System.Drawing.Point(93, 35);
-            this.guna2DataGridView1.Name = "guna2DataGridView1";
-            this.guna2DataGridView1.ReadOnly = true;
+            this.dgvPartidas.DefaultCellStyle = dataGridViewCellStyle8;
+            this.dgvPartidas.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(229)))), ((int)(((byte)(255)))));
+            this.dgvPartidas.Location = new System.Drawing.Point(93, 35);
+            this.dgvPartidas.Name = "dgvPartidas";
+            this.dgvPartidas.ReadOnly = true;
             dataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle9.BackColor = System.Drawing.SystemColors.Control;
             dataGridViewCellStyle9.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -2611,37 +2575,37 @@ namespace PV
             dataGridViewCellStyle9.SelectionBackColor = System.Drawing.SystemColors.Highlight;
             dataGridViewCellStyle9.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle9.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.guna2DataGridView1.RowHeadersDefaultCellStyle = dataGridViewCellStyle9;
-            this.guna2DataGridView1.RowHeadersVisible = false;
+            this.dgvPartidas.RowHeadersDefaultCellStyle = dataGridViewCellStyle9;
+            this.dgvPartidas.RowHeadersVisible = false;
             dataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle10.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             dataGridViewCellStyle10.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             dataGridViewCellStyle10.ForeColor = System.Drawing.Color.Black;
-            this.guna2DataGridView1.RowsDefaultCellStyle = dataGridViewCellStyle10;
-            this.guna2DataGridView1.Size = new System.Drawing.Size(802, 418);
-            this.guna2DataGridView1.TabIndex = 99;
-            this.guna2DataGridView1.ThemeStyle.AlternatingRowsStyle.BackColor = System.Drawing.Color.White;
-            this.guna2DataGridView1.ThemeStyle.AlternatingRowsStyle.Font = null;
-            this.guna2DataGridView1.ThemeStyle.AlternatingRowsStyle.ForeColor = System.Drawing.Color.Empty;
-            this.guna2DataGridView1.ThemeStyle.AlternatingRowsStyle.SelectionBackColor = System.Drawing.Color.Empty;
-            this.guna2DataGridView1.ThemeStyle.AlternatingRowsStyle.SelectionForeColor = System.Drawing.Color.Empty;
-            this.guna2DataGridView1.ThemeStyle.BackColor = System.Drawing.Color.White;
-            this.guna2DataGridView1.ThemeStyle.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(229)))), ((int)(((byte)(255)))));
-            this.guna2DataGridView1.ThemeStyle.HeaderStyle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(88)))), ((int)(((byte)(255)))));
-            this.guna2DataGridView1.ThemeStyle.HeaderStyle.BorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
-            this.guna2DataGridView1.ThemeStyle.HeaderStyle.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.guna2DataGridView1.ThemeStyle.HeaderStyle.ForeColor = System.Drawing.Color.White;
-            this.guna2DataGridView1.ThemeStyle.HeaderStyle.HeaightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.EnableResizing;
-            this.guna2DataGridView1.ThemeStyle.HeaderStyle.Height = 19;
-            this.guna2DataGridView1.ThemeStyle.ReadOnly = true;
-            this.guna2DataGridView1.ThemeStyle.RowsStyle.BackColor = System.Drawing.Color.White;
-            this.guna2DataGridView1.ThemeStyle.RowsStyle.BorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal;
-            this.guna2DataGridView1.ThemeStyle.RowsStyle.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.guna2DataGridView1.ThemeStyle.RowsStyle.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(71)))), ((int)(((byte)(69)))), ((int)(((byte)(94)))));
-            this.guna2DataGridView1.ThemeStyle.RowsStyle.Height = 22;
-            this.guna2DataGridView1.ThemeStyle.RowsStyle.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(229)))), ((int)(((byte)(255)))));
-            this.guna2DataGridView1.ThemeStyle.RowsStyle.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(71)))), ((int)(((byte)(69)))), ((int)(((byte)(94)))));
-            this.guna2DataGridView1.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.guna2DataGridView1_CellDoubleClick);
+            this.dgvPartidas.RowsDefaultCellStyle = dataGridViewCellStyle10;
+            this.dgvPartidas.Size = new System.Drawing.Size(802, 418);
+            this.dgvPartidas.TabIndex = 99;
+            this.dgvPartidas.ThemeStyle.AlternatingRowsStyle.BackColor = System.Drawing.Color.White;
+            this.dgvPartidas.ThemeStyle.AlternatingRowsStyle.Font = null;
+            this.dgvPartidas.ThemeStyle.AlternatingRowsStyle.ForeColor = System.Drawing.Color.Empty;
+            this.dgvPartidas.ThemeStyle.AlternatingRowsStyle.SelectionBackColor = System.Drawing.Color.Empty;
+            this.dgvPartidas.ThemeStyle.AlternatingRowsStyle.SelectionForeColor = System.Drawing.Color.Empty;
+            this.dgvPartidas.ThemeStyle.BackColor = System.Drawing.Color.White;
+            this.dgvPartidas.ThemeStyle.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(229)))), ((int)(((byte)(255)))));
+            this.dgvPartidas.ThemeStyle.HeaderStyle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(88)))), ((int)(((byte)(255)))));
+            this.dgvPartidas.ThemeStyle.HeaderStyle.BorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
+            this.dgvPartidas.ThemeStyle.HeaderStyle.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dgvPartidas.ThemeStyle.HeaderStyle.ForeColor = System.Drawing.Color.White;
+            this.dgvPartidas.ThemeStyle.HeaderStyle.HeaightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.EnableResizing;
+            this.dgvPartidas.ThemeStyle.HeaderStyle.Height = 19;
+            this.dgvPartidas.ThemeStyle.ReadOnly = true;
+            this.dgvPartidas.ThemeStyle.RowsStyle.BackColor = System.Drawing.Color.White;
+            this.dgvPartidas.ThemeStyle.RowsStyle.BorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal;
+            this.dgvPartidas.ThemeStyle.RowsStyle.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dgvPartidas.ThemeStyle.RowsStyle.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(71)))), ((int)(((byte)(69)))), ((int)(((byte)(94)))));
+            this.dgvPartidas.ThemeStyle.RowsStyle.Height = 22;
+            this.dgvPartidas.ThemeStyle.RowsStyle.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(229)))), ((int)(((byte)(255)))));
+            this.dgvPartidas.ThemeStyle.RowsStyle.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(71)))), ((int)(((byte)(69)))), ((int)(((byte)(94)))));
+            this.dgvPartidas.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvPartidas_CellDoubleClick);
             // 
             // Folio3
             // 
@@ -2982,7 +2946,6 @@ namespace PV
             this.guna2Button10.Size = new System.Drawing.Size(37, 32);
             this.guna2Button10.TabIndex = 240;
             this.guna2Button10.Text = "X";
-            //this.guna2Button10.Click += new System.EventHandler(this.guna2Button10_Click);
             // 
             // txtFiltroNombre
             // 
@@ -3001,7 +2964,6 @@ namespace PV
             this.txtFiltroNombre.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.txtFiltroNombre.Location = new System.Drawing.Point(8, 177);
             this.txtFiltroNombre.Name = "txtFiltroNombre";
-            this.txtFiltroNombre.PasswordChar = '\0';
             this.txtFiltroNombre.PlaceholderText = "";
             this.txtFiltroNombre.SelectedText = "";
             this.txtFiltroNombre.Size = new System.Drawing.Size(202, 25);
@@ -3025,7 +2987,6 @@ namespace PV
             this.txtFiltroDocumento.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.txtFiltroDocumento.Location = new System.Drawing.Point(5, 121);
             this.txtFiltroDocumento.Name = "txtFiltroDocumento";
-            this.txtFiltroDocumento.PasswordChar = '\0';
             this.txtFiltroDocumento.PlaceholderText = "";
             this.txtFiltroDocumento.SelectedText = "";
             this.txtFiltroDocumento.Size = new System.Drawing.Size(202, 25);
@@ -3049,7 +3010,6 @@ namespace PV
             this.txtFiltro.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.txtFiltro.Location = new System.Drawing.Point(8, 62);
             this.txtFiltro.Name = "txtFiltro";
-            this.txtFiltro.PasswordChar = '\0';
             this.txtFiltro.PlaceholderText = "";
             this.txtFiltro.SelectedText = "";
             this.txtFiltro.Size = new System.Drawing.Size(202, 25);
@@ -3253,7 +3213,7 @@ namespace PV
             this.toolStripButton5.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.toolStripButton5.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButton5.Name = "toolStripButton5";
-            this.toolStripButton5.Size = new System.Drawing.Size(23, 73);
+            this.toolStripButton5.Size = new System.Drawing.Size(23, 74);
             this.toolStripButton5.Text = "AUTORIZAR";
             this.toolStripButton5.TextDirection = System.Windows.Forms.ToolStripTextDirection.Vertical270;
             // 
@@ -3301,7 +3261,7 @@ namespace PV
             this.PanelPartidasRequisicion.ResumeLayout(false);
             this.PanelPartidasRequisicion.PerformLayout();
             this.guna2GradientPanel3.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.guna2DataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvPartidas)).EndInit();
             this.guna2GradientPanel2.ResumeLayout(false);
             this.guna2GradientPanel2.PerformLayout();
             this.guna2TabControl2.ResumeLayout(false);
@@ -3326,7 +3286,7 @@ namespace PV
         private Guna.UI2.WinForms.Guna2CircleButton guna2CircleButton1;
         private Guna.UI2.WinForms.Guna2HtmlLabel guna2HtmlLabel1;
         private Guna.UI2.WinForms.Guna2Panel guna2Panel1;
-        private Guna.UI2.WinForms.Guna2Button guna2Button9;
+        private Guna.UI2.WinForms.Guna2Button btnTerminarOrden;
         private Guna.UI2.WinForms.Guna2TabControl guna2TabControl1;
         private System.Windows.Forms.TabPage tabPage2;
         private Guna.UI2.WinForms.Guna2ComboBox cmbEstatus;
@@ -3339,9 +3299,9 @@ namespace PV
         private Guna.UI2.WinForms.Guna2TextBox txtDiasVence;
         private Guna.UI2.WinForms.Guna2TextBox txtFecha;
         private Guna.UI2.WinForms.Guna2TextBox txtConsecutivo;
-        private Guna.UI2.WinForms.Guna2Button guna2Button4;
-        private Guna.UI2.WinForms.Guna2Button guna2Button1;
-        private Guna.UI2.WinForms.Guna2Button guna2Button3;
+        private Guna.UI2.WinForms.Guna2Button btnEliminarOrden;
+        private Guna.UI2.WinForms.Guna2Button btnLimpuarOrden;
+        private Guna.UI2.WinForms.Guna2Button btnAgregarPartidas;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label19;
         private System.Windows.Forms.Label label9;
@@ -3364,7 +3324,7 @@ namespace PV
         private System.Windows.Forms.TextBox txtFrecuencia;
         private System.Windows.Forms.TextBox TxtFolio2;
         private Guna.UI2.WinForms.Guna2GradientPanel guna2GradientPanel3;
-        private Guna.UI2.WinForms.Guna2Button guna2Button2;
+        private Guna.UI2.WinForms.Guna2Button btnAgregarPartida;
         private Guna.UI2.WinForms.Guna2Separator guna2Separator1;
         private Guna.UI2.WinForms.Guna2GradientPanel guna2GradientPanel2;
         private Guna.UI2.WinForms.Guna2Button guna2Button10;
@@ -3394,7 +3354,7 @@ namespace PV
         private System.Windows.Forms.DataGridViewTextBoxColumn Documento2;
         private System.Windows.Forms.DataGridViewTextBoxColumn Proveedor2;
         private System.Windows.Forms.DataGridViewTextBoxColumn Fecha2;
-        private Guna.UI2.WinForms.Guna2DataGridView guna2DataGridView1;
+        private Guna.UI2.WinForms.Guna2DataGridView dgvPartidas;
         private Guna.UI2.WinForms.Guna2TextBox txtNombreAlumnno;
         private Guna.UI2.WinForms.Guna2TextBox txtMatricular;
         private Guna.UI2.WinForms.Guna2Button guna2Button12;
@@ -3456,16 +3416,16 @@ namespace PV
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.TextBox txtConcepto;
         private Guna.UI2.WinForms.Guna2Button guna2Button11;
-        private Guna.UI2.WinForms.Guna2Button guna2Button8;
+        private Guna.UI2.WinForms.Guna2Button btnSiguientePartida;
         private Guna.UI2.WinForms.Guna2ComboBox cmbConcepto;
         private Guna.UI2.WinForms.Guna2TextBox txtPrecio;
         private Guna.UI2.WinForms.Guna2TextBox txtCantidad;
         private Guna.UI2.WinForms.Guna2TextBox txtUnidad;
         private Guna.UI2.WinForms.Guna2TextBox txtConcepto2;
         private Guna.UI2.WinForms.Guna2TextBox txtPartida;
-        private Guna.UI2.WinForms.Guna2Button guna2Button5;
-        private Guna.UI2.WinForms.Guna2Button guna2Button6;
-        private Guna.UI2.WinForms.Guna2Button guna2Button7;
+        private Guna.UI2.WinForms.Guna2Button btnEliminarPartida;
+        private Guna.UI2.WinForms.Guna2Button btnCancelarPartida;
+        private Guna.UI2.WinForms.Guna2Button btnConfirmarPartida;
         private System.Windows.Forms.Label label16;
         private System.Windows.Forms.Label label20;
         private System.Windows.Forms.Label label12;

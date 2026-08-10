@@ -1542,7 +1542,7 @@ namespace PV
                 DesbloquearDetalle();
 
 
-                c.SeleccionarRegistroGastos(cmbDocumento);
+                c.SeleccionarRecepcionProductos(cmbDocumento);
                 c.SeleccionarConceptoDocumento(cmbFiltroDocumentoC);
                 c.SeleccionarCondomini2(cmbCondominio);
                 c.ruta();

@@ -454,6 +454,9 @@
     <Compile Include="ConsultaInventario2.Designer.cs">
       <DependentUpon>ConsultaInventario2.cs</DependentUpon>
     </Compile>
+    <Compile Include="ControlCondominiosDataSet36.cs">
+      <DependentUpon>ControlCondominiosDataSet36.xsd</DependentUpon>
+    </Compile>
     <Compile Include="ControlCondominiosDataSet58.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

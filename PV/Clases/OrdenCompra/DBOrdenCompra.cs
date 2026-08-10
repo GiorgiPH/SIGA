@@ -248,7 +248,7 @@ namespace PV.Clases.OrdenCompra
         {
             cb.Items.Clear();
             //   cmd = new SqlCommand("Select (Clave + ' - ' + Nombre) as Nombre from Documento where TipoDocumento='Compra' and Clase='Compra'", cn);
-            cmd = new SqlCommand("Select (Clave + ' - ' + Nombre) as Nombre from Documento where TipoDocumento='Compra' and Clase='Compra' and Tarea='Compras Gastos'", cn);
+            cmd = new SqlCommand("Select (Clave + ' - ' + Nombre) as Nombre from Documento where /*TipoDocumento='Compra' and Clase='Compra' and*/ Tarea='Compras Gastos'", cn);
             dr = cmd.ExecuteReader();
             while (dr.Read())
             {
@@ -1412,8 +1412,12 @@ namespace PV.Clases.OrdenCompra
                     cmdInsert.Parameters.AddWithValue("@Referencia", Referencia);
                     cmdInsert.Parameters.AddWithValue("@DiasVence", DiasVence);
                     cmdInsert.Parameters.AddWithValue("@FechaVence", FechaVence);
-                    cmdInsert.Parameters.AddWithValue("@CentroCostos", centrocosto);
-                    cmdInsert.Parameters.AddWithValue("@Semana", semana);
+                    cmdInsert.Parameters.AddWithValue(
+                        "@CentroCostos",
+                        string.IsNullOrWhiteSpace(centrocosto)
+                            ? (object)DBNull.Value
+                            : centrocosto
+                    ); cmdInsert.Parameters.AddWithValue("@Semana", semana);
                     cmdInsert.Parameters.AddWithValue("@Anio", anio);
                     cmdInsert.Parameters.AddWithValue("@ProveedorAlterno", proveedorAlterno);
 
