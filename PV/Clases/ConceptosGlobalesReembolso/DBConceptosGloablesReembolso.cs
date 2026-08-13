@@ -63,7 +63,7 @@ namespace PV.Clases.ConceptosGlobalesReembolso
         }
         public void EliminarConceptosGlobales(string folio, string partida, string clase)
         {
-            string query = "DELETE CGG FROM ConceptoGlobalesGasto AS CGG JOIN ConceptosGlobales AS CG ON CGG.ClaveConceptoG = CG.Clave WHERE Folio = @folio and Partida = @partida";
+            string query = "DELETE CGG FROM ConceptoGlobalesGasto AS CGG JOIN ConceptosGlobales AS CG ON CGG.ClaveConceptoG = CG.Clave WHERE Folio = @folio and CGG.Partida = @partida";
             if (!string.IsNullOrEmpty(clase))
             {
                 query += " and CG.Clase='" + clase + "'";

@@ -351,5 +351,17 @@ namespace Condominios
                 lblCentroCosto.Text = "No";
             }
         }
+
+        private void tgCentroCosto_CheckedChanged_1(object sender, EventArgs e)
+        {
+            if (tgCentroCosto.Checked == true)
+            {
+                lblCentroCosto.Text = "Si";
+            }
+            else
+            {
+                lblCentroCosto.Text = "No";
+            }
+        }
     }
 }

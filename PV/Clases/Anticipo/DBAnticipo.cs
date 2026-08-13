@@ -6,18 +6,32 @@ using System.Windows.Forms;
 using Guna.UI2.WinForms;
 using PV.Properties;
 
-
 namespace PV.Clases.Anticipo
 {
+    /// <summary>
+    /// Acceso a datos del módulo de Anticipos (Clientes/Propietarios y Proveedores).
+    ///
+    /// Cambios respecto a la versión original (ver detalle completo en el chat):
+    ///  - Ya no se mantiene una SqlConnection abierta como campo de instancia durante
+    ///    toda la vida del formulario. Cada operación abre su propia conexión con
+    ///    "using" y la libera automáticamente (igual con SqlCommand/SqlDataReader/SqlDataAdapter).
+    ///  - Todas las consultas usan parámetros (SqlParameter) en vez de concatenar texto,
+    ///    eliminando el riesgo de inyección SQL.
+    ///  - Se corrigió CultureInfo("US-AR") -> "en-US" en CargarReciboProveedor y CargarEgreso2
+    ///    (esa culture no existe en .NET y lanzaba CultureNotFoundException al imprimir
+    ///    recibos de proveedor / cargar egresos).
+    ///  - Los métodos "Informacion..." ya no devuelven null cuando no hay coincidencias
+    ///    (antes provocaba NullReferenceException en el formulario al hacer valores[0]).
+    ///  - ClaveProductoSiguiente/2 e InsertarCobroGeneral/Proveedor ya no ejecutan la
+    ///    misma consulta dos veces (se usa ExecuteScalar una sola vez).
+    ///  - La lógica de negocio (qué se inserta, qué se actualiza, cuándo se pregunta,
+    ///    qué mensajes se muestran) se mantiene intacta.
+    /// </summary>
     class DBAnticipo
     {
-        SqlConnection cn;
-        SqlCommand cmd;
-        SqlDataReader dr;
-        SqlDataAdapter da;
-        DataTable dt;
-
         public static int Folio = 0;
+
+        #region Configuración de conexión
 
         public static string ObtenerCn()
         {
@@ -26,152 +40,242 @@ namespace PV.Clases.Anticipo
 
         public DBAnticipo()
         {
+            // Se conserva el comportamiento original: validar la conexión al crear el
+            // objeto para avisar de inmediato si la base de datos no está disponible.
+            // A diferencia del original, esta conexión de prueba se cierra al instante
+            // (no se deja abierta para toda la vida del formulario).
             try
             {
-                cn = new SqlConnection(ObtenerCn());
-                cn.Open();
-
-
+                using (SqlConnection cnPrueba = new SqlConnection(ObtenerCn()))
+                {
+                    cnPrueba.Open();
+                }
             }
             catch (Exception ex)
             {
                 MessageBox.Show("Error de Conexion" + ex.ToString());
             }
         }
-        //____________________________________________________________________________________________________________________________________________
-        //Obtener la clave consecutiva
+
+        /// <summary>Crea y abre una nueva conexión. El llamador debe liberarla con "using".</summary>
+        private SqlConnection AbrirConexion()
+        {
+            SqlConnection conexion = new SqlConnection(ObtenerCn());
+            conexion.Open();
+            return conexion;
+        }
+
+        #endregion
+
+        #region Generación de folios
+
+        // Obtiene el folio máximo de Anticipo y lo deja en la propiedad estática Folio.
+        // El formulario (RegistrarAnticipo.GenerarNuevoFolio) es quien suma 1.
         public int ClaveProductoSiguiente()
         {
             int contador = 0;
-
             try
             {
-                cmd = new SqlCommand("select max(Folio) from Anticipo", cn);
-                dr = cmd.ExecuteReader();
-
-                while (dr.Read())
+                using (SqlConnection cn = AbrirConexion())
+                using (SqlCommand cmd = new SqlCommand("SELECT ISNULL(MAX(Folio), 0) FROM Anticipo", cn))
                 {
-                    contador++;
-                }
-                dr.Close();
-
-                if (contador > 0)
-                {
-
-                    da = new SqlDataAdapter(cmd);
-                    dt = new DataTable();
-                    da.Fill(dt);
-                    if (dt.Rows[0][0].ToString() != string.Empty)
-                    {
-                        Folio = Convert.ToInt32(dt.Rows[0][0].ToString());
-                    }
+                    Folio = Convert.ToInt32(cmd.ExecuteScalar());
+                    contador = 1;
                 }
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.ToString());
-                dr.Close();
             }
             return contador;
         }
-        //____________________________________________________________________________________________________________________________________________
-        //Obtener la clave consecutiva
+
         public int ClaveProductoSiguiente2()
         {
             int contador = 0;
-
             try
             {
-                cmd = new SqlCommand("select max(Folio) from AnticipoProveedor", cn);
-                dr = cmd.ExecuteReader();
-
-                while (dr.Read())
+                using (SqlConnection cn = AbrirConexion())
+                using (SqlCommand cmd = new SqlCommand("SELECT ISNULL(MAX(Folio), 0) FROM AnticipoProveedor", cn))
                 {
-                    contador++;
-                }
-                dr.Close();
-
-                if (contador > 0)
-                {
-
-                    da = new SqlDataAdapter(cmd);
-                    dt = new DataTable();
-                    da.Fill(dt);
-                    if (dt.Rows[0][0].ToString() != string.Empty)
-                    {
-                        Folio = Convert.ToInt32(dt.Rows[0][0].ToString());
-                    }
+                    Folio = Convert.ToInt32(cmd.ExecuteScalar());
+                    contador = 1;
                 }
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.ToString());
-                dr.Close();
             }
             return contador;
         }
-        //_______________________________________________________________________________________________
+
+        #endregion
+
+        #region Catálogos para ComboBox
+
         public void SeleccionarCuentaBancaria(ComboBox cb)
         {
-
             cb.Items.Clear();
-            cmd = new SqlCommand("Select (Nombre + ' - '+ Cuenta) as Cuenta from CuentasBancarias", cn);
-            dr = cmd.ExecuteReader();
-            while (dr.Read())
+            try
             {
-                cb.Items.Add(dr[0].ToString());
+                using (SqlConnection cn = AbrirConexion())
+                using (SqlCommand cmd = new SqlCommand(
+                    "SELECT (Nombre + ' - ' + Cuenta) AS Cuenta FROM CuentasBancarias", cn))
+                using (SqlDataReader dr = cmd.ExecuteReader())
+                {
+                    while (dr.Read())
+                    {
+                        cb.Items.Add(dr[0].ToString());
+                    }
+                }
             }
-            dr.Close();
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al cargar cuentas bancarias. " + ex.Message);
+            }
         }
-        //_______________________________________________________________________________________________
+
         public void SeleccionarFormaPago(ComboBox cb)
         {
-
             cb.Items.Clear();
-            cmd = new SqlCommand("Select Descripcion from FormasPago", cn);
-            dr = cmd.ExecuteReader();
-            while (dr.Read())
-            {
-                cb.Items.Add(dr[0].ToString());
-            }
-            dr.Close();
-        }
-        //_________________________________________________________________________________________________________________________--
-        // registrar producto 
-        public string RegistroAnticipo(string txtfolio, string txtClavePropietario, string txtCaja, string txtFecha, string txtFormaPago, string txtConcepto, string txtReferencia, string txtCuentaBancaria, string txtNumeroOperacion, decimal importe, string Divisa, string TipoCambio, string FolioC, string FolioCGeneral)
-        {
-            string mensaje = "";
-            int contador = 0;
-
             try
             {
-                cmd = new SqlCommand("select * from Anticipo where Folio='" + txtfolio + "'", cn);
-                dr = cmd.ExecuteReader();
-
-                while (dr.Read())
+                using (SqlConnection cn = AbrirConexion())
+                using (SqlCommand cmd = new SqlCommand("SELECT Descripcion FROM FormasPago", cn))
+                using (SqlDataReader dr = cmd.ExecuteReader())
                 {
-                    contador++;
-                }
-                dr.Close();
-
-                if (contador <= 0)
-                {
-
-                    cmd = new SqlCommand("Insert into Anticipo (Folio, ClavePropietario, Caja, Fecha, FormaPago, Concepto, Referencia, CuentaBancaria, NumeroOperacion, Importe, Saldo, Divisa, TipoCambio, FolioC, FolioCGeneral ) values ('" + txtfolio + "', '" + txtClavePropietario + "',  '" + txtCaja + "',  '" + txtFecha + "', '" + txtFormaPago + "',  '" + txtConcepto + "',  '" + txtReferencia + "', '" + txtCuentaBancaria + "',  '" + txtNumeroOperacion + "',  " + importe + ", " + importe + ", '" + Divisa + "', '" + TipoCambio + "', '" + FolioC + "', '" + FolioCGeneral + "')", cn);
-                    cmd.ExecuteNonQuery();
-                    mensaje = "Registro guardado.";
-
-                }
-
-                else if (contador > 0)
-                {
-                    if (MessageBox.Show("¿Desea actualizar el registro actual?", "Datos de la Tienda", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                    while (dr.Read())
                     {
+                        cb.Items.Add(dr[0].ToString());
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al cargar formas de pago. " + ex.Message);
+            }
+        }
 
-                        cmd = new SqlCommand("Update Anticipo set ClavePropietario='" + txtClavePropietario + "', Caja='" + txtCaja + "', Fecha='" + txtFecha + "', FormaPago='" + txtFormaPago + "', Concepto='" + txtConcepto + "', Referencia='" + txtReferencia + "', CuentaBancaria='" + txtCuentaBancaria + "', NumeroOperacion='" + txtNumeroOperacion + "', Importe= " + importe + ", Saldo= " + importe + ", Divisa='" + Divisa + "', TipoCambio='" + TipoCambio + "', FolioC='" + FolioC + "', FolioCGeneral='" + FolioCGeneral + "' where Folio= '" + txtfolio + "'", cn);
-                        cmd.ExecuteNonQuery();
+        public void SeleccionarPropietarios(ComboBox cb)
+        {
+            cb.Items.Clear();
+            cb.Items.Add("TODOS");
+            try
+            {
+                using (SqlConnection cn = AbrirConexion())
+                using (SqlCommand cmd = new SqlCommand(
+                    "SELECT (CONVERT(varchar, IdPropietario) + ' - ' + RazonSocial) AS Nombre FROM Propietarios", cn))
+                using (SqlDataReader dr = cmd.ExecuteReader())
+                {
+                    while (dr.Read())
+                    {
+                        cb.Items.Add(dr[0].ToString());
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("ERROR" + ex.ToString());
+            }
+        }
+
+        public void SeleccionarProveedor(ComboBox cb)
+        {
+            cb.Items.Clear();
+            cb.Items.Add("TODOS");
+            try
+            {
+                using (SqlConnection cn = AbrirConexion())
+                using (SqlCommand cmd = new SqlCommand(
+                    "SELECT (CONVERT(varchar, IdProveedor) + ' - ' + RazonSocial) AS Nombre FROM Proveedor", cn))
+                using (SqlDataReader dr = cmd.ExecuteReader())
+                {
+                    while (dr.Read())
+                    {
+                        cb.Items.Add(dr[0].ToString());
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("ERROR" + ex.ToString());
+            }
+        }
+
+        #endregion
+
+        #region Registro de anticipos (alta / actualización)
+
+        public string RegistroAnticipo(string txtfolio, string txtClavePropietario, string txtCaja, string txtFecha,
+            string txtFormaPago, string txtConcepto, string txtReferencia, string txtCuentaBancaria,
+            string txtNumeroOperacion, decimal importe, string Divisa, string TipoCambio, string FolioC, string FolioCGeneral)
+        {
+            string mensaje = string.Empty;
+            try
+            {
+                using (SqlConnection cn = AbrirConexion())
+                {
+                    bool existe;
+                    using (SqlCommand cmdExiste = new SqlCommand("SELECT COUNT(*) FROM Anticipo WHERE Folio = @Folio", cn))
+                    {
+                        cmdExiste.Parameters.AddWithValue("@Folio", txtfolio);
+                        existe = Convert.ToInt32(cmdExiste.ExecuteScalar()) > 0;
+                    }
+
+                    if (!existe)
+                    {
+                        using (SqlCommand cmdInsert = new SqlCommand(
+                            "INSERT INTO Anticipo (Folio, ClavePropietario, Caja, Fecha, FormaPago, Concepto, Referencia, " +
+                            "CuentaBancaria, NumeroOperacion, Importe, Saldo, Divisa, TipoCambio, FolioC, FolioCGeneral) " +
+                            "VALUES (@Folio, @ClavePropietario, @Caja, @Fecha, @FormaPago, @Concepto, @Referencia, " +
+                            "@CuentaBancaria, @NumeroOperacion, @Importe, @Saldo, @Divisa, @TipoCambio, @FolioC, @FolioCGeneral)", cn))
+                        {
+                            cmdInsert.Parameters.AddWithValue("@Folio", txtfolio);
+                            cmdInsert.Parameters.AddWithValue("@ClavePropietario", txtClavePropietario);
+                            cmdInsert.Parameters.AddWithValue("@Caja", txtCaja);
+                            cmdInsert.Parameters.AddWithValue("@Fecha", txtFecha);
+                            cmdInsert.Parameters.AddWithValue("@FormaPago", txtFormaPago);
+                            cmdInsert.Parameters.AddWithValue("@Concepto", txtConcepto);
+                            cmdInsert.Parameters.AddWithValue("@Referencia", txtReferencia);
+                            cmdInsert.Parameters.AddWithValue("@CuentaBancaria", txtCuentaBancaria);
+                            cmdInsert.Parameters.AddWithValue("@NumeroOperacion", txtNumeroOperacion);
+                            cmdInsert.Parameters.AddWithValue("@Importe", importe);
+                            cmdInsert.Parameters.AddWithValue("@Saldo", importe);
+                            cmdInsert.Parameters.AddWithValue("@Divisa", Divisa);
+                            cmdInsert.Parameters.AddWithValue("@TipoCambio", TipoCambio);
+                            cmdInsert.Parameters.AddWithValue("@FolioC", FolioC);
+                            cmdInsert.Parameters.AddWithValue("@FolioCGeneral", FolioCGeneral);
+                            cmdInsert.ExecuteNonQuery();
+                        }
+                        mensaje = "Registro guardado.";
+                    }
+                    else if (MessageBox.Show("¿Desea actualizar el registro actual?", "Datos de la Tienda",
+                                 MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                    {
+                        using (SqlCommand cmdUpdate = new SqlCommand(
+                            "UPDATE Anticipo SET ClavePropietario=@ClavePropietario, Caja=@Caja, Fecha=@Fecha, " +
+                            "FormaPago=@FormaPago, Concepto=@Concepto, Referencia=@Referencia, CuentaBancaria=@CuentaBancaria, " +
+                            "NumeroOperacion=@NumeroOperacion, Importe=@Importe, Saldo=@Saldo, Divisa=@Divisa, " +
+                            "TipoCambio=@TipoCambio, FolioC=@FolioC, FolioCGeneral=@FolioCGeneral WHERE Folio=@Folio", cn))
+                        {
+                            cmdUpdate.Parameters.AddWithValue("@ClavePropietario", txtClavePropietario);
+                            cmdUpdate.Parameters.AddWithValue("@Caja", txtCaja);
+                            cmdUpdate.Parameters.AddWithValue("@Fecha", txtFecha);
+                            cmdUpdate.Parameters.AddWithValue("@FormaPago", txtFormaPago);
+                            cmdUpdate.Parameters.AddWithValue("@Concepto", txtConcepto);
+                            cmdUpdate.Parameters.AddWithValue("@Referencia", txtReferencia);
+                            cmdUpdate.Parameters.AddWithValue("@CuentaBancaria", txtCuentaBancaria);
+                            cmdUpdate.Parameters.AddWithValue("@NumeroOperacion", txtNumeroOperacion);
+                            cmdUpdate.Parameters.AddWithValue("@Importe", importe);
+                            cmdUpdate.Parameters.AddWithValue("@Saldo", importe);
+                            cmdUpdate.Parameters.AddWithValue("@Divisa", Divisa);
+                            cmdUpdate.Parameters.AddWithValue("@TipoCambio", TipoCambio);
+                            cmdUpdate.Parameters.AddWithValue("@FolioC", FolioC);
+                            cmdUpdate.Parameters.AddWithValue("@FolioCGeneral", FolioCGeneral);
+                            cmdUpdate.Parameters.AddWithValue("@Folio", txtfolio);
+                            cmdUpdate.ExecuteNonQuery();
+                        }
                         mensaje = "Registro modificado.";
-
                     }
                 }
             }
@@ -180,44 +284,74 @@ namespace PV.Clases.Anticipo
                 MessageBox.Show("Error." + ex.ToString());
             }
             return mensaje;
-
         }
-        //_________________________________________________________________________________________________________________________--
-        // registrar producto 
-        public string RegistroAnticipoProveedor(string txtfolio, string txtClavePropietario, string txtCaja, string txtFecha, string txtFormaPago, string txtConcepto, string txtReferencia, string txtCuentaBancaria, string txtNumeroOperacion, decimal importe, string Divisa, string TipoCambio)
-        {
-            string mensaje = "";
-            int contador = 0;
 
+        public string RegistroAnticipoProveedor(string txtfolio, string txtClaveProveedor, string txtCaja, string txtFecha,
+            string txtFormaPago, string txtConcepto, string txtReferencia, string txtCuentaBancaria,
+            string txtNumeroOperacion, decimal importe, string Divisa, string TipoCambio)
+        {
+            string mensaje = string.Empty;
             try
             {
-                cmd = new SqlCommand("select * from AnticipoProveedor where Folio='" + txtfolio + "'", cn);
-                dr = cmd.ExecuteReader();
-
-                while (dr.Read())
+                using (SqlConnection cn = AbrirConexion())
                 {
-                    contador++;
-                }
-                dr.Close();
-
-                if (contador <= 0)
-                {
-
-                    cmd = new SqlCommand("Insert into AnticipoProveedor (Folio, ClaveProveedor, Caja, Fecha, FormaPago, Concepto, Referencia, CuentaBancaria, NumeroOperacion, Importe, Saldo, Divisa, TipoCambio) values ('" + txtfolio + "', '" + txtClavePropietario + "',  '" + txtCaja + "',  '" + txtFecha + "', '" + txtFormaPago + "',  '" + txtConcepto + "',  '" + txtReferencia + "', '" + txtCuentaBancaria + "',  '" + txtNumeroOperacion + "',  " + importe + ", " + importe + ", '" + Divisa + "', '" + TipoCambio + "')", cn);
-                    cmd.ExecuteNonQuery();
-                    mensaje = "Registro guardado.";
-
-                }
-
-                else if (contador > 0)
-                {
-                    if (MessageBox.Show("¿Desea actualizar el registro actual?", "Datos de la Tienda", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                    bool existe;
+                    using (SqlCommand cmdExiste = new SqlCommand("SELECT COUNT(*) FROM AnticipoProveedor WHERE Folio = @Folio", cn))
                     {
+                        cmdExiste.Parameters.AddWithValue("@Folio", txtfolio);
+                        existe = Convert.ToInt32(cmdExiste.ExecuteScalar()) > 0;
+                    }
 
-                        cmd = new SqlCommand("Update AnticipoProveedor set ClaveProveedor='" + txtClavePropietario + "', Caja='" + txtCaja + "', Fecha='" + txtFecha + "', FormaPago='" + txtFormaPago + "', Concepto='" + txtConcepto + "', Referencia='" + txtReferencia + "', CuentaBancaria='" + txtCuentaBancaria + "', NumeroOperacion='" + txtNumeroOperacion + "', Importe= " + importe + ", Saldo= " + importe + ", Divisa='" + Divisa + "', TipoCambio='" + TipoCambio + "' where Folio= '" + txtfolio + "'", cn);
-                        cmd.ExecuteNonQuery();
+                    if (!existe)
+                    {
+                        using (SqlCommand cmdInsert = new SqlCommand(
+                            "INSERT INTO AnticipoProveedor (Folio, ClaveProveedor, Caja, Fecha, FormaPago, Concepto, " +
+                            "Referencia, CuentaBancaria, NumeroOperacion, Importe, Saldo, Divisa, TipoCambio) " +
+                            "VALUES (@Folio, @ClaveProveedor, @Caja, @Fecha, @FormaPago, @Concepto, @Referencia, " +
+                            "@CuentaBancaria, @NumeroOperacion, @Importe, @Saldo, @Divisa, @TipoCambio)", cn))
+                        {
+                            cmdInsert.Parameters.AddWithValue("@Folio", txtfolio);
+                            cmdInsert.Parameters.AddWithValue("@ClaveProveedor", txtClaveProveedor);
+                            cmdInsert.Parameters.AddWithValue("@Caja", txtCaja);
+                            cmdInsert.Parameters.AddWithValue("@Fecha", txtFecha);
+                            cmdInsert.Parameters.AddWithValue("@FormaPago", txtFormaPago);
+                            cmdInsert.Parameters.AddWithValue("@Concepto", txtConcepto);
+                            cmdInsert.Parameters.AddWithValue("@Referencia", txtReferencia);
+                            cmdInsert.Parameters.AddWithValue("@CuentaBancaria", txtCuentaBancaria);
+                            cmdInsert.Parameters.AddWithValue("@NumeroOperacion", txtNumeroOperacion);
+                            cmdInsert.Parameters.AddWithValue("@Importe", importe);
+                            cmdInsert.Parameters.AddWithValue("@Saldo", importe);
+                            cmdInsert.Parameters.AddWithValue("@Divisa", Divisa);
+                            cmdInsert.Parameters.AddWithValue("@TipoCambio", TipoCambio);
+                            cmdInsert.ExecuteNonQuery();
+                        }
+                        mensaje = "Registro guardado.";
+                    }
+                    else if (MessageBox.Show("¿Desea actualizar el registro actual?", "Datos de la Tienda",
+                                 MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                    {
+                        using (SqlCommand cmdUpdate = new SqlCommand(
+                            "UPDATE AnticipoProveedor SET ClaveProveedor=@ClaveProveedor, Caja=@Caja, Fecha=@Fecha, " +
+                            "FormaPago=@FormaPago, Concepto=@Concepto, Referencia=@Referencia, CuentaBancaria=@CuentaBancaria, " +
+                            "NumeroOperacion=@NumeroOperacion, Importe=@Importe, Saldo=@Saldo, Divisa=@Divisa, " +
+                            "TipoCambio=@TipoCambio WHERE Folio=@Folio", cn))
+                        {
+                            cmdUpdate.Parameters.AddWithValue("@ClaveProveedor", txtClaveProveedor);
+                            cmdUpdate.Parameters.AddWithValue("@Caja", txtCaja);
+                            cmdUpdate.Parameters.AddWithValue("@Fecha", txtFecha);
+                            cmdUpdate.Parameters.AddWithValue("@FormaPago", txtFormaPago);
+                            cmdUpdate.Parameters.AddWithValue("@Concepto", txtConcepto);
+                            cmdUpdate.Parameters.AddWithValue("@Referencia", txtReferencia);
+                            cmdUpdate.Parameters.AddWithValue("@CuentaBancaria", txtCuentaBancaria);
+                            cmdUpdate.Parameters.AddWithValue("@NumeroOperacion", txtNumeroOperacion);
+                            cmdUpdate.Parameters.AddWithValue("@Importe", importe);
+                            cmdUpdate.Parameters.AddWithValue("@Saldo", importe);
+                            cmdUpdate.Parameters.AddWithValue("@Divisa", Divisa);
+                            cmdUpdate.Parameters.AddWithValue("@TipoCambio", TipoCambio);
+                            cmdUpdate.Parameters.AddWithValue("@Folio", txtfolio);
+                            cmdUpdate.ExecuteNonQuery();
+                        }
                         mensaje = "Registro modificado.";
-
                     }
                 }
             }
@@ -226,326 +360,403 @@ namespace PV.Clases.Anticipo
                 MessageBox.Show("Error." + ex.ToString());
             }
             return mensaje;
-
         }
-        //___________________________________________________________________________________________________________________
-        public void Monto(KeyPressEventArgs e)
-        {
-            try
-            {
-                if (char.IsNumber(e.KeyChar))
-                {
-                    e.Handled = false;
-                }
-                else if (char.IsPunctuation(e.KeyChar))
-                {
-                    e.Handled = false;
-                }
-                else if (char.IsControl(e.KeyChar))
-                {
-                    e.Handled = false;
-                }
-                else if (char.IsSeparator(e.KeyChar))
-                {
-                    e.Handled = true;
-                }
-                else
-                    e.Handled = true;
-            }
-            catch (Exception)
-            {
 
-                throw;
-            }
-        }
-        //________________________________________________________________________________________________
-        //tiendas Registrados
-        public void CargarAnticipo(DataGridView dgv, string Filtro)
+        #endregion
+
+        #region Carga de grids (listado de anticipos)
+
+        // NOTA: esta consulta une Anticipo con Propietarios/Propietarios_Condominios.
+        // Se usa en btnConfirmarAnticipo_Click y txtFiltro_TextChanged cuando Opcion=="Propietario",
+        // mientras que el constructor y Limpiar() usan CargarAnticipoCliente (join contra Clientes)
+        // para ese mismo flujo. Ver aviso en el chat: esto ya existía en el código original,
+        // se conserva tal cual para no alterar el comportamiento actual.
+        public void CargarAnticipo(DataGridView dgv, string filtro)
         {
             try
             {
                 dgv.Rows.Clear();
-                //da = new SqlDataAdapter("select A.*, P.RazonSocial from Anticipo as A, Propietarios as P where A.ClavePropietario=P.IdPropietario and P.RazonSocial like '%"+Filtro+"%'", cn);
-                da = new SqlDataAdapter("select A.*, P.RazonSocial,PC.Descripcion as Depto from Anticipo as A, Propietarios as P, Propietarios_Condominios as PC where A.ClavePropietario = P.IdPropietario and P.IdPropietario = PC.ClavePropietario and Activo is null and P.RazonSocial like '%" + Filtro + "%'  order by IdPropietario asc", cn);
-
-                dt = new DataTable();
-                da.Fill(dt);
-                foreach (DataRow item in dt.Rows)
+                using (SqlConnection cn = AbrirConexion())
+                using (SqlCommand cmd = new SqlCommand(
+                    "SELECT A.Folio, A.Saldo, P.RazonSocial, PC.Descripcion AS Depto " +
+                    "FROM Anticipo AS A " +
+                    "INNER JOIN Propietarios AS P ON A.ClavePropietario = P.IdPropietario " +
+                    "INNER JOIN Propietarios_Condominios AS PC ON P.IdPropietario = PC.ClavePropietario " +
+                    "WHERE A.Activo IS NULL AND P.RazonSocial LIKE @Filtro " +
+                    "ORDER BY P.IdPropietario ASC", cn))
                 {
-                    int n = dgv.Rows.Add();
-                    dgv.Rows[n].Cells[1].Value = item["RazonSocial"].ToString();
-                    dgv.Rows[n].Cells[0].Value = item["Folio"].ToString();
-                    dgv.Rows[n].Cells[2].Value = item["Saldo"].ToString();
+                    cmd.Parameters.AddWithValue("@Filtro", "%" + filtro + "%");
+                    using (SqlDataAdapter da = new SqlDataAdapter(cmd))
+                    {
+                        DataTable dt = new DataTable();
+                        da.Fill(dt);
+                        foreach (DataRow item in dt.Rows)
+                        {
+                            int n = dgv.Rows.Add();
+                            dgv.Rows[n].Cells[1].Value = item["RazonSocial"].ToString();
+                            dgv.Rows[n].Cells[0].Value = item["Folio"].ToString();
+                            dgv.Rows[n].Cells[2].Value = item["Saldo"].ToString();
+                        }
+                    }
                 }
-
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Error" + ex.ToString());
-            }
-
-        }
-        public void CargarAnticipoCliente(DataGridView dgv, string Filtro)
-        {
-            try
-            {
-                dgv.Rows.Clear();
-                //da = new SqlDataAdapter("select A.*, P.RazonSocial from Anticipo as A, Propietarios as P where A.ClavePropietario=P.IdPropietario and P.RazonSocial like '%"+Filtro+"%'", cn);
-                da = new SqlDataAdapter("select A.*, C.RazonSocial from Anticipo as A, Clientes as C where A.ClavePropietario = C.IdCliente and Activo is null and C.RazonSocial like '%" + Filtro + "%'  order by IdCliente asc", cn);
-
-                dt = new DataTable();
-                da.Fill(dt);
-                foreach (DataRow item in dt.Rows)
-                {
-                    int n = dgv.Rows.Add();
-                    dgv.Rows[n].Cells[1].Value = item["RazonSocial"].ToString();
-                    dgv.Rows[n].Cells[0].Value = item["Folio"].ToString();
-                    dgv.Rows[n].Cells[2].Value = item["Saldo"].ToString();
-                }
-
             }
             catch (Exception ex)
             {
                 MessageBox.Show("Error" + ex.ToString());
             }
         }
-        //________________________________________________________________________________________________
-        //tiendas Registrados
-        public void CargarAnticipoProveedor(DataGridView dgv, string Filtro)
+
+        public void CargarAnticipoCliente(DataGridView dgv, string filtro)
         {
             try
             {
                 dgv.Rows.Clear();
-                da = new SqlDataAdapter("select A.*, P.RazonSocial from AnticipoProveedor as A, Proveedor as P where A.ClaveProveedor=P.IdProveedor and Activo is null and P.RazonSocial like '%" + Filtro + "%' order by A.Folio asc", cn);
-                dt = new DataTable();
-                da.Fill(dt);
-                foreach (DataRow item in dt.Rows)
+                using (SqlConnection cn = AbrirConexion())
+                using (SqlCommand cmd = new SqlCommand(
+                    "SELECT A.Folio, A.Saldo, C.RazonSocial " +
+                    "FROM Anticipo AS A " +
+                    "INNER JOIN Clientes AS C ON A.ClavePropietario = C.IdCliente " +
+                    "WHERE A.Activo IS NULL AND C.RazonSocial LIKE @Filtro " +
+                    "ORDER BY C.IdCliente ASC", cn))
                 {
-                    int n = dgv.Rows.Add();
-                    dgv.Rows[n].Cells[1].Value = item["RazonSocial"].ToString();
-                    dgv.Rows[n].Cells[0].Value = item["Folio"].ToString();
-                    dgv.Rows[n].Cells[2].Value = item["Saldo"].ToString();
+                    cmd.Parameters.AddWithValue("@Filtro", "%" + filtro + "%");
+                    using (SqlDataAdapter da = new SqlDataAdapter(cmd))
+                    {
+                        DataTable dt = new DataTable();
+                        da.Fill(dt);
+                        foreach (DataRow item in dt.Rows)
+                        {
+                            int n = dgv.Rows.Add();
+                            dgv.Rows[n].Cells[1].Value = item["RazonSocial"].ToString();
+                            dgv.Rows[n].Cells[0].Value = item["Folio"].ToString();
+                            dgv.Rows[n].Cells[2].Value = item["Saldo"].ToString();
+                        }
+                    }
                 }
-
             }
             catch (Exception ex)
             {
                 MessageBox.Show("Error" + ex.ToString());
             }
         }
-        //_____________________________________________________________________________________________________
-        //Mostrar Usuario seleccionado
-        public string ConsultaProductoSeleccionado(string txtfolio, Guna2TextBox txtClavePropietario, Guna2TextBox txtCaja, Guna2DateTimePicker txtFecha, ComboBox txtFormaPago, TextBox txtConcepto, Guna2TextBox txtReferencia, TextBox txtCuentaBancaria, Guna2TextBox txtNumeroOperacion, Guna2TextBox importe, ComboBox Divisa, Guna2TextBox TipoCambio, Guna2TextBox Saldo, Guna2TextBox ImporteMXN)
+
+        public void CargarAnticipoProveedor(DataGridView dgv, string filtro)
+        {
+            try
+            {
+                dgv.Rows.Clear();
+                using (SqlConnection cn = AbrirConexion())
+                using (SqlCommand cmd = new SqlCommand(
+                    "SELECT A.Folio, A.Saldo, P.RazonSocial " +
+                    "FROM AnticipoProveedor AS A " +
+                    "INNER JOIN Proveedor AS P ON A.ClaveProveedor = P.IdProveedor " +
+                    "WHERE A.Activo IS NULL AND P.RazonSocial LIKE @Filtro " +
+                    "ORDER BY A.Folio ASC", cn))
+                {
+                    cmd.Parameters.AddWithValue("@Filtro", "%" + filtro + "%");
+                    using (SqlDataAdapter da = new SqlDataAdapter(cmd))
+                    {
+                        DataTable dt = new DataTable();
+                        da.Fill(dt);
+                        foreach (DataRow item in dt.Rows)
+                        {
+                            int n = dgv.Rows.Add();
+                            dgv.Rows[n].Cells[1].Value = item["RazonSocial"].ToString();
+                            dgv.Rows[n].Cells[0].Value = item["Folio"].ToString();
+                            dgv.Rows[n].Cells[2].Value = item["Saldo"].ToString();
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error" + ex.ToString());
+            }
+        }
+
+        #endregion
+
+        #region Consulta de un anticipo seleccionado (doble clic en el grid)
+
+        // Devuelve el valor de "Activo" ("1" = cancelado). Se conserva exactamente
+        // el mismo conjunto de columnas y asignaciones que el original (incluyendo
+        // que ImporteMXN se llena con "Importe", no con la columna calculada ImporteMXN).
+        public string ConsultaProductoSeleccionado(string txtfolio, Guna2TextBox txtClavePropietario, Guna2TextBox txtCaja,
+            Guna2DateTimePicker txtFecha, ComboBox txtFormaPago, TextBox txtConcepto, Guna2TextBox txtReferencia,
+            TextBox txtCuentaBancaria, Guna2TextBox txtNumeroOperacion, Guna2TextBox importe, ComboBox Divisa,
+            Guna2TextBox TipoCambio, Guna2TextBox Saldo, Guna2TextBox ImporteMXN)
         {
             string cont = string.Empty;
             try
             {
-                cmd = new SqlCommand("Select Folio,ClavePropietario,Caja,Fecha,FormaPago,Concepto,Referencia,CuentaBancaria,NumeroOperacion, Importe , Saldo,Divisa,TipoCambio,ImporteMxn,SaldoMxn,Activo, (convert(float, importe) * convert(float, TipoCambio)) as ImporteMXN from Anticipo where Folio='" + txtfolio + "'", cn);
-                dr = cmd.ExecuteReader();
-                if (dr.Read())
+                using (SqlConnection cn = AbrirConexion())
+                using (SqlCommand cmd = new SqlCommand(
+                    "SELECT Folio, ClavePropietario, Caja, Fecha, FormaPago, Concepto, Referencia, CuentaBancaria, " +
+                    "NumeroOperacion, Importe, Saldo, Divisa, TipoCambio, ImporteMxn, SaldoMxn, Activo, " +
+                    "(CONVERT(float, Importe) * CONVERT(float, TipoCambio)) AS ImporteMXNCalculado " +
+                    "FROM Anticipo WHERE Folio = @Folio", cn))
                 {
-
-                    txtClavePropietario.Text = dr["ClavePropietario"].ToString();
-                    txtCaja.Text = dr["Caja"].ToString();
-                    txtFecha.Text = Convert.ToDateTime(dr["Fecha"]).ToString("yyyy/MM/dd");
-                    txtFormaPago.Text = dr["FormaPago"].ToString();
-                    txtConcepto.Text = dr["Concepto"].ToString();
-                    txtReferencia.Text = dr["Referencia"].ToString();
-                    txtCuentaBancaria.Text = dr["CuentaBancaria"].ToString();
-                    txtNumeroOperacion.Text = dr["NumeroOperacion"].ToString();
-                    importe.Text = dr["Importe"].ToString();
-                    Divisa.Text = dr["Divisa"].ToString();
-                    TipoCambio.Text = dr["TipoCambio"].ToString();
-                    Saldo.Text = dr["Saldo"].ToString();
-                    ImporteMXN.Text = dr["Importe"].ToString();
-                    cont = dr["Activo"].ToString();
-
+                    cmd.Parameters.AddWithValue("@Folio", txtfolio);
+                    using (SqlDataReader dr = cmd.ExecuteReader())
+                    {
+                        if (dr.Read())
+                        {
+                            txtClavePropietario.Text = dr["ClavePropietario"].ToString();
+                            txtCaja.Text = dr["Caja"].ToString();
+                            txtFecha.Text = Convert.ToDateTime(dr["Fecha"]).ToString("yyyy/MM/dd");
+                            txtFormaPago.Text = dr["FormaPago"].ToString();
+                            txtConcepto.Text = dr["Concepto"].ToString();
+                            txtReferencia.Text = dr["Referencia"].ToString();
+                            txtCuentaBancaria.Text = dr["CuentaBancaria"].ToString();
+                            txtNumeroOperacion.Text = dr["NumeroOperacion"].ToString();
+                            importe.Text = dr["Importe"].ToString();
+                            Divisa.Text = dr["Divisa"].ToString();
+                            TipoCambio.Text = dr["TipoCambio"].ToString();
+                            Saldo.Text = dr["Saldo"].ToString();
+                            ImporteMXN.Text = dr["Importe"].ToString();
+                            cont = dr["Activo"].ToString();
+                        }
+                    }
                 }
-                dr.Close();
             }
             catch (Exception ex)
             {
-                dr.Close();
                 MessageBox.Show("Error" + ex.ToString());
             }
             return cont;
         }
-        //_____________________________________________________________________________________________________
-        //Mostrar Usuario seleccionado
-        public void ConsultaProductoSeleccionadoProveedor(string txtfolio, Guna2TextBox txtClavePropietario, Guna2TextBox txtCaja, Guna2DateTimePicker txtFecha, ComboBox txtFormaPago, TextBox txtConcepto, Guna2TextBox txtReferencia, TextBox txtCuentaBancaria, Guna2TextBox txtNumeroOperacion, Guna2TextBox importe, ComboBox Divisa, Guna2TextBox TipoCambio, Guna2TextBox saldo, Guna2TextBox ImporteMXN)
+
+        public void ConsultaProductoSeleccionadoProveedor(string txtfolio, Guna2TextBox txtClaveProveedor, Guna2TextBox txtCaja,
+            Guna2DateTimePicker txtFecha, ComboBox txtFormaPago, TextBox txtConcepto, Guna2TextBox txtReferencia,
+            TextBox txtCuentaBancaria, Guna2TextBox txtNumeroOperacion, Guna2TextBox importe, ComboBox Divisa,
+            Guna2TextBox TipoCambio, Guna2TextBox saldo, Guna2TextBox ImporteMXN)
         {
             try
             {
-                cmd = new SqlCommand("Select Folio,ClaveProveedor, Caja,Fecha,FormaPago,Concepto,Referencia,CuentaBancaria,NumeroOperacion, Importe, Saldo, Divisa,TipoCambio, (importe *  TipoCambio) as ImporteMXN from AnticipoProveedor where Folio='" + txtfolio + "'", cn);
-                dr = cmd.ExecuteReader();
-                if (dr.Read())
+                using (SqlConnection cn = AbrirConexion())
+                using (SqlCommand cmd = new SqlCommand(
+                    "SELECT Folio, ClaveProveedor, Caja, Fecha, FormaPago, Concepto, Referencia, CuentaBancaria, " +
+                    "NumeroOperacion, Importe, Saldo, Divisa, TipoCambio, (Importe * TipoCambio) AS ImporteMXNCalculado " +
+                    "FROM AnticipoProveedor WHERE Folio = @Folio", cn))
                 {
-
-                    txtClavePropietario.Text = dr["ClaveProveedor"].ToString();
-                    txtCaja.Text = dr["Caja"].ToString();
-                    txtFecha.Text = Convert.ToDateTime(dr["Fecha"]).ToString("yyyy/MM/dd");
-                    txtFormaPago.Text = dr["FormaPago"].ToString();
-                    txtConcepto.Text = dr["Concepto"].ToString();
-                    txtReferencia.Text = dr["Referencia"].ToString();
-                    txtCuentaBancaria.Text = dr["CuentaBancaria"].ToString();
-                    txtNumeroOperacion.Text = dr["NumeroOperacion"].ToString();
-                    importe.Text = dr["Importe"].ToString();
-                    Divisa.Text = dr["Divisa"].ToString();
-                    TipoCambio.Text = dr["TipoCambio"].ToString();
-                    saldo.Text = dr["Saldo"].ToString();
-                    //ImporteMXN.Text = dr["ImporteMXN"].ToString();
-                    ImporteMXN.Text = dr["Importe"].ToString();
-
+                    cmd.Parameters.AddWithValue("@Folio", txtfolio);
+                    using (SqlDataReader dr = cmd.ExecuteReader())
+                    {
+                        if (dr.Read())
+                        {
+                            txtClaveProveedor.Text = dr["ClaveProveedor"].ToString();
+                            txtCaja.Text = dr["Caja"].ToString();
+                            txtFecha.Text = Convert.ToDateTime(dr["Fecha"]).ToString("yyyy/MM/dd");
+                            txtFormaPago.Text = dr["FormaPago"].ToString();
+                            txtConcepto.Text = dr["Concepto"].ToString();
+                            txtReferencia.Text = dr["Referencia"].ToString();
+                            txtCuentaBancaria.Text = dr["CuentaBancaria"].ToString();
+                            txtNumeroOperacion.Text = dr["NumeroOperacion"].ToString();
+                            importe.Text = dr["Importe"].ToString();
+                            Divisa.Text = dr["Divisa"].ToString();
+                            TipoCambio.Text = dr["TipoCambio"].ToString();
+                            saldo.Text = dr["Saldo"].ToString();
+                            ImporteMXN.Text = dr["Importe"].ToString();
+                        }
+                    }
                 }
-                dr.Close();
             }
             catch (Exception ex)
             {
-                dr.Close();
                 MessageBox.Show("Error" + ex.ToString());
             }
         }
-        //_____________________________________________________________________________________________________
-        //Mostrar Usuario seleccionado
+
         public void ConsultaConceptoAnticipo(Guna2TextBox txtconcepto, TextBox txtconceptoclave)
         {
             try
             {
-                cmd = new SqlCommand("select DE.ConceptoAnt, (DE.ConceptoAnt + ' - ' + CI.Descripcion) as Nombre from DatosEmpresa as DE, ConceptosIngreso as CI where DE.ConceptoAnt=CI.Clave", cn);
-                dr = cmd.ExecuteReader();
-                if (dr.Read())
+                using (SqlConnection cn = AbrirConexion())
+                using (SqlCommand cmd = new SqlCommand(
+                    "SELECT DE.ConceptoAnt, (DE.ConceptoAnt + ' - ' + CI.Descripcion) AS Nombre " +
+                    "FROM DatosEmpresa AS DE, ConceptosIngreso AS CI WHERE DE.ConceptoAnt = CI.Clave", cn))
+                using (SqlDataReader dr = cmd.ExecuteReader())
                 {
-
-                    txtconcepto.Text = dr["Nombre"].ToString();
-                    txtconceptoclave.Text = dr["ConceptoAnt"].ToString();
-
-                    dr.Close();
+                    if (dr.Read())
+                    {
+                        txtconcepto.Text = dr["Nombre"].ToString();
+                        txtconceptoclave.Text = dr["ConceptoAnt"].ToString();
+                    }
                 }
-                dr.Close();
             }
             catch (Exception ex)
             {
-                dr.Close();
                 MessageBox.Show("Error" + ex.ToString());
             }
         }
-        //______________________________________________________________________________________________________________________________
-        //_________________________________________________________________________________________
-        public string[] InformacionCuenta(string Documento)
-        {
-            cmd = new SqlCommand("Select Clave from CuentasBancarias where (Nombre + ' - '+ Cuenta)= '" + Documento + "'", cn);
-            dr = cmd.ExecuteReader();
-            string[] resultado = null;
-            while (dr.Read())
-            {
-                string[] valores =
-                {
-                    dr[0].ToString(),
 
-                };
-                resultado = valores;
-            }
-            dr.Close();
-            return resultado;
-        }
-        //_________________________________________________________________________________________
-        public string[] InformacionCuenta2(string Documento)
-        {
-            cmd = new SqlCommand("Select  (Nombre + ' - '+ Cuenta)  from CuentasBancarias where Clave= '" + Documento + "'", cn);
-            dr = cmd.ExecuteReader();
-            string[] resultado = null;
-            while (dr.Read())
-            {
-                string[] valores =
-                {
-                    dr[0].ToString(),
+        #endregion
 
-                };
-                resultado = valores;
-            }
-            dr.Close();
-            return resultado;
-        }
-        //_________________________________________________________________________________________
-        public string[] InformacionConcepto(string Documento)
-        {
-            cmd = new SqlCommand("select (CI.Clave + ' - ' + CI.Descripcion) as Nombre from  ConceptosIngreso as CI where CI.Clave= '" + Documento + "'", cn);
-            dr = cmd.ExecuteReader();
-            string[] resultado = null;
-            while (dr.Read())
-            {
-                string[] valores =
-                {
-                    dr[0].ToString(),
+        #region Información complementaria (cuentas, conceptos, propietarios, proveedores)
 
-                };
-                resultado = valores;
-            }
-            dr.Close();
-            return resultado;
-        }
-        //_________________________________________________________________________________________
-        public string[] InformacionPropietario(string Documento)
+        // NOTA: antes devolvían null si no había coincidencias, lo que provocaba
+        // NullReferenceException en el formulario al hacer valores[0]. Ahora devuelven
+        // un arreglo con cadena vacía en ese caso.
+        public string[] InformacionCuenta(string documento)
         {
-            cmd = new SqlCommand("select RazonSocial from Propietarios where IdPropietario= '" + Documento + "'", cn);
-            dr = cmd.ExecuteReader();
-            string[] resultado = null;
-            while (dr.Read())
+            try
             {
-                string[] valores =
+                using (SqlConnection cn = AbrirConexion())
+                using (SqlCommand cmd = new SqlCommand(
+                    "SELECT Clave FROM CuentasBancarias WHERE (Nombre + ' - ' + Cuenta) = @Documento", cn))
                 {
-                    dr[0].ToString(),
-
-                };
-                resultado = valores;
+                    cmd.Parameters.AddWithValue("@Documento", documento);
+                    using (SqlDataReader dr = cmd.ExecuteReader())
+                    {
+                        if (dr.Read())
+                        {
+                            return new[] { dr[0].ToString() };
+                        }
+                    }
+                }
             }
-            dr.Close();
-            return resultado;
-        }
-        //_________________________________________________________________________________________
-        public string[] InformacionProveedor(string Documento)
-        {
-            cmd = new SqlCommand("select RazonSocial from Proveedor where IdProveedor= '" + Documento + "'", cn);
-            dr = cmd.ExecuteReader();
-            string[] resultado = null;
-            while (dr.Read())
+            catch (Exception ex)
             {
-                string[] valores =
-                {
-                    dr[0].ToString(),
-
-                };
-                resultado = valores;
+                MessageBox.Show("Error" + ex.ToString());
             }
-            dr.Close();
-            return resultado;
+            return new[] { string.Empty };
         }
 
-        //____________________________________________________________________
-        //----------------------------------------------------------
-        public void CargarReciboAlumno(DataGridView dgv, string Matricula)
+        public string[] InformacionCuenta2(string documento)
+        {
+            try
+            {
+                using (SqlConnection cn = AbrirConexion())
+                using (SqlCommand cmd = new SqlCommand(
+                    "SELECT (Nombre + ' - ' + Cuenta) FROM CuentasBancarias WHERE Clave = @Documento", cn))
+                {
+                    cmd.Parameters.AddWithValue("@Documento", documento);
+                    using (SqlDataReader dr = cmd.ExecuteReader())
+                    {
+                        if (dr.Read())
+                        {
+                            return new[] { dr[0].ToString() };
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error" + ex.ToString());
+            }
+            return new[] { string.Empty };
+        }
+
+        public string[] InformacionConcepto(string documento)
+        {
+            try
+            {
+                using (SqlConnection cn = AbrirConexion())
+                using (SqlCommand cmd = new SqlCommand(
+                    "SELECT (CI.Clave + ' - ' + CI.Descripcion) AS Nombre FROM ConceptosIngreso AS CI WHERE CI.Clave = @Documento", cn))
+                {
+                    cmd.Parameters.AddWithValue("@Documento", documento);
+                    using (SqlDataReader dr = cmd.ExecuteReader())
+                    {
+                        if (dr.Read())
+                        {
+                            return new[] { dr[0].ToString() };
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error" + ex.ToString());
+            }
+            return new[] { string.Empty };
+        }
+
+        public string[] InformacionPropietario(string documento)
+        {
+            try
+            {
+                using (SqlConnection cn = AbrirConexion())
+                using (SqlCommand cmd = new SqlCommand(
+                    "SELECT RazonSocial FROM Propietarios WHERE IdPropietario = @Documento", cn))
+                {
+                    cmd.Parameters.AddWithValue("@Documento", documento);
+                    using (SqlDataReader dr = cmd.ExecuteReader())
+                    {
+                        if (dr.Read())
+                        {
+                            return new[] { dr[0].ToString() };
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error" + ex.ToString());
+            }
+            return new[] { string.Empty };
+        }
+
+        public string[] InformacionProveedor(string documento)
+        {
+            try
+            {
+                using (SqlConnection cn = AbrirConexion())
+                using (SqlCommand cmd = new SqlCommand(
+                    "SELECT RazonSocial FROM Proveedor WHERE IdProveedor = @Documento", cn))
+                {
+                    cmd.Parameters.AddWithValue("@Documento", documento);
+                    using (SqlDataReader dr = cmd.ExecuteReader())
+                    {
+                        if (dr.Read())
+                        {
+                            return new[] { dr[0].ToString() };
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error" + ex.ToString());
+            }
+            return new[] { string.Empty };
+        }
+
+        #endregion
+
+        #region Recibos y reportes
+
+        public void CargarReciboAlumno(DataGridView dgv, string matricula)
         {
             try
             {
                 NumberFormatInfo formato = new CultureInfo("en-US").NumberFormat;
-
                 formato.CurrencyGroupSeparator = ",";
                 formato.NumberDecimalSeparator = ".";
 
                 dgv.Rows.Clear();
-                da = new SqlDataAdapter("select A.*, CI. Descripcion from Anticipo as A, ConceptosIngreso as CI where A.Concepto=CI.CLave and A.ClavePropietario='" + Matricula + "' and A.Saldo>0 and (A.Activo<>1 or A.Activo is null)", cn);
-                dt = new DataTable();
-                da.Fill(dt);
-                foreach (DataRow item in dt.Rows)
+                using (SqlConnection cn = AbrirConexion())
+                using (SqlCommand cmd = new SqlCommand(
+                    "SELECT A.*, CI.Descripcion FROM Anticipo AS A, ConceptosIngreso AS CI " +
+                    "WHERE A.Concepto = CI.Clave AND A.ClavePropietario = @Matricula AND A.Saldo > 0 " +
+                    "AND (A.Activo <> 1 OR A.Activo IS NULL)", cn))
                 {
-                    int n = dgv.Rows.Add();
-                    dgv.Rows[n].Cells[1].Value = item["Folio"].ToString();
-                    dgv.Rows[n].Cells[2].Value = item["Concepto"].ToString();
-                    dgv.Rows[n].Cells[3].Value = item["Descripcion"].ToString();
-                    dgv.Rows[n].Cells[4].Value = Convert.ToDateTime(item["Fecha"]).ToString("yyyy/MM/dd");
-                    dgv.Rows[n].Cells[5].Value = item["Divisa"].ToString();
-                    dgv.Rows[n].Cells[6].Value = Convert.ToDecimal(item["Saldo"]).ToString("N", formato);
-
+                    cmd.Parameters.AddWithValue("@Matricula", matricula);
+                    using (SqlDataAdapter da = new SqlDataAdapter(cmd))
+                    {
+                        DataTable dt = new DataTable();
+                        da.Fill(dt);
+                        foreach (DataRow item in dt.Rows)
+                        {
+                            int n = dgv.Rows.Add();
+                            dgv.Rows[n].Cells[1].Value = item["Folio"].ToString();
+                            dgv.Rows[n].Cells[2].Value = item["Concepto"].ToString();
+                            dgv.Rows[n].Cells[3].Value = item["Descripcion"].ToString();
+                            dgv.Rows[n].Cells[4].Value = Convert.ToDateTime(item["Fecha"]).ToString("yyyy/MM/dd");
+                            dgv.Rows[n].Cells[5].Value = item["Divisa"].ToString();
+                            dgv.Rows[n].Cells[6].Value = Convert.ToDecimal(item["Saldo"]).ToString("N", formato);
+                        }
+                    }
                 }
             }
             catch (Exception ex)
@@ -553,30 +764,39 @@ namespace PV.Clases.Anticipo
                 MessageBox.Show("Error al cargar Conceptos1" + ex.ToString());
             }
         }
-        //____________________________________________________________________
-        //----------------------------------------------------------
-        public void CargarReciboProveedor(DataGridView dgv, string Matricula)
+
+        // CORRECCIÓN: la culture "US-AR" no existe en .NET y lanzaba
+        // CultureNotFoundException cada vez que se imprimía un recibo de proveedor.
+        // Se cambió a "en-US" (mismo formato que usa CargarReciboAlumno).
+        public void CargarReciboProveedor(DataGridView dgv, string claveProveedor)
         {
             try
             {
-                NumberFormatInfo formato = new CultureInfo("US-AR").NumberFormat;
-
+                NumberFormatInfo formato = new CultureInfo("en-US").NumberFormat;
                 formato.CurrencyGroupSeparator = ",";
                 formato.NumberDecimalSeparator = ".";
 
                 dgv.Rows.Clear();
-                da = new SqlDataAdapter("select A.*, CI. Descripcion from AnticipoProveedor as A, ConceptosIngreso as CI where A.Concepto=CI.CLave and A.ClaveProveedor='" + Matricula + "' and A.Saldo>0", cn);
-                dt = new DataTable();
-                da.Fill(dt);
-                foreach (DataRow item in dt.Rows)
+                using (SqlConnection cn = AbrirConexion())
+                using (SqlCommand cmd = new SqlCommand(
+                    "SELECT A.*, CI.Descripcion FROM AnticipoProveedor AS A, ConceptosIngreso AS CI " +
+                    "WHERE A.Concepto = CI.Clave AND A.ClaveProveedor = @ClaveProveedor AND A.Saldo > 0", cn))
                 {
-                    int n = dgv.Rows.Add();
-                    dgv.Rows[n].Cells[1].Value = item["Folio"].ToString();
-                    dgv.Rows[n].Cells[2].Value = item["Concepto"].ToString();
-                    dgv.Rows[n].Cells[3].Value = item["Descripcion"].ToString();
-                    dgv.Rows[n].Cells[4].Value = Convert.ToDateTime(item["Fecha"]).ToString("yyyy/MM/dd");
-                    dgv.Rows[n].Cells[5].Value = Convert.ToDecimal(item["Saldo"]).ToString("N", formato);
-
+                    cmd.Parameters.AddWithValue("@ClaveProveedor", claveProveedor);
+                    using (SqlDataAdapter da = new SqlDataAdapter(cmd))
+                    {
+                        DataTable dt = new DataTable();
+                        da.Fill(dt);
+                        foreach (DataRow item in dt.Rows)
+                        {
+                            int n = dgv.Rows.Add();
+                            dgv.Rows[n].Cells[1].Value = item["Folio"].ToString();
+                            dgv.Rows[n].Cells[2].Value = item["Concepto"].ToString();
+                            dgv.Rows[n].Cells[3].Value = item["Descripcion"].ToString();
+                            dgv.Rows[n].Cells[4].Value = Convert.ToDateTime(item["Fecha"]).ToString("yyyy/MM/dd");
+                            dgv.Rows[n].Cells[5].Value = Convert.ToDecimal(item["Saldo"]).ToString("N", formato);
+                        }
+                    }
                 }
             }
             catch (Exception ex)
@@ -584,34 +804,39 @@ namespace PV.Clases.Anticipo
                 MessageBox.Show("Error al cargar Conceptos1" + ex.ToString());
             }
         }
-        //____________________________________________________________________________________________________
-        public void CargarReciboAlumno2(DataGridView dgv, string Matricula)
+
+        public void CargarReciboAlumno2(DataGridView dgv, string claveProveedor)
         {
             try
             {
                 NumberFormatInfo formato = new CultureInfo("en-US").NumberFormat;
-
                 formato.CurrencyGroupSeparator = ",";
                 formato.NumberDecimalSeparator = ".";
 
                 dgv.Rows.Clear();
-
-                da = new SqlDataAdapter("select R.*, D.Nombre from Remision as R, Documento as D where claveproveedor='" + Matricula + "' and R.ClaveDocumento=D.Clave and R.Saldo>0", cn);
-                dt = new DataTable();
-                da.Fill(dt);
-
-                foreach (DataRow item in dt.Rows)
+                using (SqlConnection cn = AbrirConexion())
+                using (SqlCommand cmd = new SqlCommand(
+                    "SELECT R.*, D.Nombre FROM Remision AS R, Documento AS D " +
+                    "WHERE ClaveProveedor = @ClaveProveedor AND R.ClaveDocumento = D.Clave AND R.Saldo > 0", cn))
                 {
-                    int n = dgv.Rows.Add();
-                    dgv.Rows[n].Cells[0].Value = item["Folio"].ToString();
-                    dgv.Rows[n].Cells[1].Value = item["Consecutivo"].ToString();
-                    dgv.Rows[n].Cells[2].Value = item["ClaveDocumento"].ToString();
-                    dgv.Rows[n].Cells[3].Value = item["Nombre"].ToString();
-                    dgv.Rows[n].Cells[4].Value = Convert.ToDecimal(item["Saldo"]).ToString("N", formato);
-                    dgv.Rows[n].Cells[6].Value = Convert.ToDecimal(0.00).ToString("N", formato);
-                    dgv.Rows[n].Cells[8].Value = Convert.ToDecimal(0.00).ToString("N", formato);
-                    dgv.Rows[n].Cells[9].Value = Convert.ToDecimal(0.00).ToString("N", formato);
-
+                    cmd.Parameters.AddWithValue("@ClaveProveedor", claveProveedor);
+                    using (SqlDataAdapter da = new SqlDataAdapter(cmd))
+                    {
+                        DataTable dt = new DataTable();
+                        da.Fill(dt);
+                        foreach (DataRow item in dt.Rows)
+                        {
+                            int n = dgv.Rows.Add();
+                            dgv.Rows[n].Cells[0].Value = item["Folio"].ToString();
+                            dgv.Rows[n].Cells[1].Value = item["Consecutivo"].ToString();
+                            dgv.Rows[n].Cells[2].Value = item["ClaveDocumento"].ToString();
+                            dgv.Rows[n].Cells[3].Value = item["Nombre"].ToString();
+                            dgv.Rows[n].Cells[4].Value = Convert.ToDecimal(item["Saldo"]).ToString("N", formato);
+                            dgv.Rows[n].Cells[6].Value = Convert.ToDecimal(0.00).ToString("N", formato);
+                            dgv.Rows[n].Cells[8].Value = Convert.ToDecimal(0.00).ToString("N", formato);
+                            dgv.Rows[n].Cells[9].Value = Convert.ToDecimal(0.00).ToString("N", formato);
+                        }
+                    }
                 }
             }
             catch (Exception ex)
@@ -619,34 +844,45 @@ namespace PV.Clases.Anticipo
                 MessageBox.Show("Error al cargar Conceptos aqui" + ex.ToString());
             }
         }
-        //____________________________________________________________________________________________________
-        public void CargarEgreso2(DataGridView dgv, string Matricula)
+
+        // CORRECCIÓN: misma culture inválida "US-AR" -> "en-US".
+        public void CargarEgreso2(DataGridView dgv, string claveProveedor)
         {
             try
             {
-                NumberFormatInfo formato = new CultureInfo("US-AR").NumberFormat;
-
+                NumberFormatInfo formato = new CultureInfo("en-US").NumberFormat;
                 formato.CurrencyGroupSeparator = ",";
                 formato.NumberDecimalSeparator = ".";
 
                 dgv.Rows.Clear();
-
-
-                da = new SqlDataAdapter("(select 'P' as Tipo, R.*, D.Nombre from RecepcionProducto as R, Documento as D where ClaveProveedor='" + Matricula + "'  and Saldo!=0 and R.ClaveDocumento=D.Clave) union (select 'G' as Tipo, R.*, D.Nombre from RegistroGastos as R, Documento as D where ClaveProveedor='" + Matricula + "'  and Saldo!=0 and R.ClaveDocumento=D.Clave) union (select 'NCG' as Tipo, R.*, '' as DiasVence, '' as FechaVence, D.Nombre from NotasGasto as R, Documento as D where ClaveProveedor='" + Matricula + "'  and Saldo!=0 and R.ClaveDocumento=D.Clave)", cn);
-                dt = new DataTable();
-                da.Fill(dt);
-
-                foreach (DataRow item in dt.Rows)
+                using (SqlConnection cn = AbrirConexion())
+                using (SqlCommand cmd = new SqlCommand(
+                    "(SELECT 'P' AS Tipo, R.*, D.Nombre FROM RecepcionProducto AS R, Documento AS D " +
+                    " WHERE ClaveProveedor = @ClaveProveedor AND Saldo <> 0 AND R.ClaveDocumento = D.Clave) " +
+                    "UNION " +
+                    "(SELECT 'G' AS Tipo, R.*, D.Nombre FROM RegistroGastos AS R, Documento AS D " +
+                    " WHERE ClaveProveedor = @ClaveProveedor AND Saldo <> 0 AND R.ClaveDocumento = D.Clave) " +
+                    "UNION " +
+                    "(SELECT 'NCG' AS Tipo, R.*, '' AS DiasVence, '' AS FechaVence, D.Nombre FROM NotasGasto AS R, Documento AS D " +
+                    " WHERE ClaveProveedor = @ClaveProveedor AND Saldo <> 0 AND R.ClaveDocumento = D.Clave)", cn))
                 {
-                    int n = dgv.Rows.Add();
-                    dgv.Rows[n].Cells[0].Value = item["Tipo"].ToString();
-                    dgv.Rows[n].Cells[1].Value = item["Folio"].ToString();
-                    dgv.Rows[n].Cells[2].Value = item["ClaveDocumento"].ToString();
-                    dgv.Rows[n].Cells[3].Value = item["Nombre"].ToString();
-                    dgv.Rows[n].Cells[4].Value = Convert.ToDecimal(item["Saldo"]).ToString("N", formato);
-                    dgv.Rows[n].Cells[6].Value = Convert.ToDecimal(0.00).ToString("N", formato);
-                    dgv.Rows[n].Cells[7].Value = Convert.ToDecimal(0.00).ToString("N", formato);
-
+                    cmd.Parameters.AddWithValue("@ClaveProveedor", claveProveedor);
+                    using (SqlDataAdapter da = new SqlDataAdapter(cmd))
+                    {
+                        DataTable dt = new DataTable();
+                        da.Fill(dt);
+                        foreach (DataRow item in dt.Rows)
+                        {
+                            int n = dgv.Rows.Add();
+                            dgv.Rows[n].Cells[0].Value = item["Tipo"].ToString();
+                            dgv.Rows[n].Cells[1].Value = item["Folio"].ToString();
+                            dgv.Rows[n].Cells[2].Value = item["ClaveDocumento"].ToString();
+                            dgv.Rows[n].Cells[3].Value = item["Nombre"].ToString();
+                            dgv.Rows[n].Cells[4].Value = Convert.ToDecimal(item["Saldo"]).ToString("N", formato);
+                            dgv.Rows[n].Cells[6].Value = Convert.ToDecimal(0.00).ToString("N", formato);
+                            dgv.Rows[n].Cells[7].Value = Convert.ToDecimal(0.00).ToString("N", formato);
+                        }
+                    }
                 }
             }
             catch (Exception ex)
@@ -654,50 +890,102 @@ namespace PV.Clases.Anticipo
                 MessageBox.Show("Error al cargar Conceptos1" + ex.ToString());
             }
         }
-        //___________________________________________________________________________________---
-        public void InsertarCobroGeneral(decimal Importe, TextBox folio)
+
+        #endregion
+
+        #region Cobros y movimientos generales
+
+        public void InsertarCobroGeneral(decimal importe, TextBox folio)
         {
-            int contador = 0;
-            int Folio = 0;
             try
             {
-                cmd = new SqlCommand("select max(Folio) from Anticipo_General", cn);
-                dr = cmd.ExecuteReader();
-
-                while (dr.Read())
+                using (SqlConnection cn = AbrirConexion())
                 {
-                    contador++;
-                }
-                dr.Close();
-
-                if (contador > 0)
-                {
-
-                    da = new SqlDataAdapter(cmd);
-                    dt = new DataTable();
-                    da.Fill(dt);
-                    if (dt.Rows[0][0].ToString() != string.Empty)
+                    int folioSiguiente;
+                    using (SqlCommand cmdMax = new SqlCommand("SELECT ISNULL(MAX(Folio), 0) FROM Anticipo_General", cn))
                     {
-                        Folio = Convert.ToInt32(dt.Rows[0][0].ToString());
+                        folioSiguiente = Convert.ToInt32(cmdMax.ExecuteScalar()) + 1;
+                    }
+                    folio.Text = folioSiguiente.ToString();
 
+                    bool existe;
+                    using (SqlCommand cmdExiste = new SqlCommand("SELECT COUNT(*) FROM Anticipo_General WHERE Folio = @Folio", cn))
+                    {
+                        cmdExiste.Parameters.AddWithValue("@Folio", folioSiguiente);
+                        existe = Convert.ToInt32(cmdExiste.ExecuteScalar()) > 0;
+                    }
+
+                    if (!existe)
+                    {
+                        using (SqlCommand cmdInsert = new SqlCommand(
+                            "INSERT INTO Anticipo_General (Folio, Importe) VALUES (@Folio, @Importe)", cn))
+                        {
+                            cmdInsert.Parameters.AddWithValue("@Folio", folioSiguiente);
+                            cmdInsert.Parameters.AddWithValue("@Importe", importe);
+                            cmdInsert.ExecuteNonQuery();
+                        }
                     }
                 }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("ERROR" + ex.ToString());
+            }
+        }
 
-                Folio++;
-                folio.Text = Folio.ToString();
-                contador = 0;
-                cmd = new SqlCommand("select * from Anticipo_General where Folio='" + Folio + "'", cn);
-                dr = cmd.ExecuteReader();
-
-                while (dr.Read())
+        public void InsertarCobroGeneralProveedor(decimal importe, TextBox folio)
+        {
+            try
+            {
+                using (SqlConnection cn = AbrirConexion())
                 {
-                    contador++;
+                    int folioSiguiente;
+                    using (SqlCommand cmdMax = new SqlCommand("SELECT ISNULL(MAX(Folio), 0) FROM AnticipoProveedor_General", cn))
+                    {
+                        folioSiguiente = Convert.ToInt32(cmdMax.ExecuteScalar()) + 1;
+                    }
+                    folio.Text = folioSiguiente.ToString();
+
+                    bool existe;
+                    using (SqlCommand cmdExiste = new SqlCommand("SELECT COUNT(*) FROM AnticipoProveedor_General WHERE Folio = @Folio", cn))
+                    {
+                        cmdExiste.Parameters.AddWithValue("@Folio", folioSiguiente);
+                        existe = Convert.ToInt32(cmdExiste.ExecuteScalar()) > 0;
+                    }
+
+                    if (!existe)
+                    {
+                        using (SqlCommand cmdInsert = new SqlCommand(
+                            "INSERT INTO AnticipoProveedor_General (Folio, Importe) VALUES (@Folio, @Importe)", cn))
+                        {
+                            cmdInsert.Parameters.AddWithValue("@Folio", folioSiguiente);
+                            cmdInsert.Parameters.AddWithValue("@Importe", importe);
+                            cmdInsert.ExecuteNonQuery();
+                        }
+                    }
                 }
-                dr.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("ERROR" + ex.ToString());
+            }
+        }
 
-                if (contador <= 0)
+        public void InsertarEgreso(string tipo, string folio, string claveProveedor, string fecha, decimal pago, string folioGeneral)
+        {
+            try
+            {
+                using (SqlConnection cn = AbrirConexion())
+                using (SqlCommand cmd = new SqlCommand(
+                    "INSERT INTO AnticipoProveedorCobros (Tipo, Folio, ClaveProveedor, Fecha, Pago, FolioGeneral) " +
+                    "VALUES (@Tipo, @Folio, @ClaveProveedor, @Fecha, @Pago, @FolioGeneral)", cn))
                 {
-                    cmd = new SqlCommand("Insert into Anticipo_General (Folio, Importe) values ('" + Folio + "'," + Importe + ")", cn);
+                    cmd.Parameters.AddWithValue("@Tipo", tipo);
+                    cmd.Parameters.AddWithValue("@Folio", folio);
+                    cmd.Parameters.AddWithValue("@ClaveProveedor", claveProveedor);
+                    cmd.Parameters.AddWithValue("@Fecha", fecha);
+                    cmd.Parameters.AddWithValue("@Pago", pago);
+                    cmd.Parameters.AddWithValue("@FolioGeneral", folioGeneral);
                     cmd.ExecuteNonQuery();
                 }
             }
@@ -706,50 +994,25 @@ namespace PV.Clases.Anticipo
                 MessageBox.Show("ERROR" + ex.ToString());
             }
         }
-        //___________________________________________________________________________________---
-        public void InsertarCobroGeneralProveedor(decimal Importe, TextBox folio)
+
+        public void InsertarCobro(string folio, string claveProperietario, string fecha, decimal pago, string folioGeneral,
+            string anticipo, decimal saldo, decimal descuentoPago)
         {
-            int contador = 0;
-            int Folio = 0;
             try
             {
-                cmd = new SqlCommand("select max(Folio) from AnticipoProveedor_General", cn);
-                dr = cmd.ExecuteReader();
-
-                while (dr.Read())
+                using (SqlConnection cn = AbrirConexion())
+                using (SqlCommand cmd = new SqlCommand(
+                    "INSERT INTO AnticipoCobros (Folio, ClavePropietario, Fecha, Pago, FolioGeneral, Anticipo, SaldoRestante, DescuentoPago) " +
+                    "VALUES (@Folio, @ClavePropietario, @Fecha, @Pago, @FolioGeneral, @Anticipo, @SaldoRestante, @DescuentoPago)", cn))
                 {
-                    contador++;
-                }
-                dr.Close();
-
-                if (contador > 0)
-                {
-
-                    da = new SqlDataAdapter(cmd);
-                    dt = new DataTable();
-                    da.Fill(dt);
-                    if (dt.Rows[0][0].ToString() != string.Empty)
-                    {
-                        Folio = Convert.ToInt32(dt.Rows[0][0].ToString());
-
-                    }
-                }
-
-                Folio++;
-                folio.Text = Folio.ToString();
-                contador = 0;
-                cmd = new SqlCommand("select * from AnticipoProveedor_General where Folio='" + Folio + "'", cn);
-                dr = cmd.ExecuteReader();
-
-                while (dr.Read())
-                {
-                    contador++;
-                }
-                dr.Close();
-
-                if (contador <= 0)
-                {
-                    cmd = new SqlCommand("Insert into AnticipoProveedor_General (Folio, Importe) values ('" + Folio + "'," + Importe + ")", cn);
+                    cmd.Parameters.AddWithValue("@Folio", folio);
+                    cmd.Parameters.AddWithValue("@ClavePropietario", claveProperietario);
+                    cmd.Parameters.AddWithValue("@Fecha", fecha);
+                    cmd.Parameters.AddWithValue("@Pago", pago);
+                    cmd.Parameters.AddWithValue("@FolioGeneral", folioGeneral);
+                    cmd.Parameters.AddWithValue("@Anticipo", anticipo);
+                    cmd.Parameters.AddWithValue("@SaldoRestante", saldo);
+                    cmd.Parameters.AddWithValue("@DescuentoPago", descuentoPago);
                     cmd.ExecuteNonQuery();
                 }
             }
@@ -758,175 +1021,176 @@ namespace PV.Clases.Anticipo
                 MessageBox.Show("ERROR" + ex.ToString());
             }
         }
-        //____________________________________________________________________________________________
-        public void ActualizarSaldoProveedor(string Clave, decimal Saldo)
+
+        #endregion
+
+        #region Actualización de saldos
+
+        public void ActualizarSaldoProveedor(string clave, decimal saldo)
         {
             try
             {
-                cmd = new SqlCommand("Update Proveedor set Saldo= Saldo - " + Saldo + " where IdProveedor=" + Clave + "", cn);
-                cmd.ExecuteNonQuery();
-
+                using (SqlConnection cn = AbrirConexion())
+                using (SqlCommand cmd = new SqlCommand("UPDATE Proveedor SET Saldo = Saldo - @Saldo WHERE IdProveedor = @Clave", cn))
+                {
+                    cmd.Parameters.AddWithValue("@Saldo", saldo);
+                    cmd.Parameters.AddWithValue("@Clave", clave);
+                    cmd.ExecuteNonQuery();
+                }
             }
             catch (Exception ex)
             {
                 MessageBox.Show("ERROR prov" + ex.ToString());
             }
         }
-        //___________________________________________________________________________________---
-        public void InsertarEgreso(string Tipo, string Folio, string MatriculaAlumno, string Fecha, decimal Pago,  string FolioGeneral)
-        {
-            try
-            {
-                cmd = new SqlCommand("insert into AnticipoProveedorCobros (Tipo, Folio, ClaveProveedor, Fecha, Pago, FolioGeneral) values ('" + Tipo + "', '" + Folio + "', '" + MatriculaAlumno + "', '" + Fecha + "', '" + Pago + "', '" + FolioGeneral + "')", cn);
-                cmd.ExecuteNonQuery();
 
-               
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("ERROR" + ex.ToString());
-            }
-        }
-        //_________________________________________________________________________
-        public void ActualizarEgreso2(string Tipo, string Folio, decimal Saldo)
+        public void ActualizarEgreso2(string tipo, string folio, decimal saldo)
         {
+            string tabla = null;
+            if (tipo == "P") tabla = "RecepcionProducto";
+            else if (tipo == "G") tabla = "RegistroGastos";
+            else if (tipo == "NCG") tabla = "NotasGasto";
+
+            if (tabla == null)
+            {
+                return;
+            }
+
             try
             {
-                if (Tipo == "P")
+                using (SqlConnection cn = AbrirConexion())
+                using (SqlCommand cmd = new SqlCommand($"UPDATE {tabla} SET Saldo = @Saldo WHERE Folio = @Folio", cn))
                 {
-                    cmd = new SqlCommand("Update RecepcionProducto set  Saldo=" + Saldo + " where Folio='" + Folio + "'", cn);
+                    cmd.Parameters.AddWithValue("@Saldo", saldo);
+                    cmd.Parameters.AddWithValue("@Folio", folio);
                     cmd.ExecuteNonQuery();
                 }
-                else if (Tipo == "G")
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("ERROR" + ex.ToString());
+            }
+        }
+
+        public void ActualizarRecibo2(string folio, decimal saldo)
+        {
+            try
+            {
+                using (SqlConnection cn = AbrirConexion())
+                using (SqlCommand cmd = new SqlCommand("UPDATE Recibo SET Saldo = @Saldo WHERE Folio = @Folio", cn))
                 {
-                    cmd = new SqlCommand("Update RegistroGastos set  Saldo=" + Saldo + " where Folio='" + Folio + "'", cn);
+                    cmd.Parameters.AddWithValue("@Saldo", saldo);
+                    cmd.Parameters.AddWithValue("@Folio", folio);
                     cmd.ExecuteNonQuery();
                 }
-                else if (Tipo == "NCG")
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("ERROR" + ex.ToString());
+            }
+        }
+
+        public void ActualizarAnticipo(string folio, decimal saldo)
+        {
+            try
+            {
+                using (SqlConnection cn = AbrirConexion())
+                using (SqlCommand cmd = new SqlCommand("UPDATE Anticipo SET Saldo = @Saldo WHERE Folio = @Folio", cn))
                 {
-                    cmd = new SqlCommand("Update NotasGasto set  Saldo=" + Saldo + " where Folio='" + Folio + "'", cn);
+                    cmd.Parameters.AddWithValue("@Saldo", saldo);
+                    cmd.Parameters.AddWithValue("@Folio", folio);
                     cmd.ExecuteNonQuery();
                 }
-
-
             }
             catch (Exception ex)
             {
                 MessageBox.Show("ERROR" + ex.ToString());
             }
         }
-        //_________________________________________________________________________________
-        public void ActualizarRecibo2(string Folio, decimal Saldo)
+
+        public void ActualizarAnticipoProveedor(string folio, decimal saldo)
         {
             try
             {
-
-                cmd = new SqlCommand("Update Recibo set Saldo=" + Saldo + " where Folio='" + Folio + "'", cn);
-                cmd.ExecuteNonQuery();
-
+                using (SqlConnection cn = AbrirConexion())
+                using (SqlCommand cmd = new SqlCommand("UPDATE AnticipoProveedor SET Saldo = @Saldo WHERE Folio = @Folio", cn))
+                {
+                    cmd.Parameters.AddWithValue("@Saldo", saldo);
+                    cmd.Parameters.AddWithValue("@Folio", folio);
+                    cmd.ExecuteNonQuery();
+                }
             }
             catch (Exception ex)
             {
                 MessageBox.Show("ERROR" + ex.ToString());
             }
         }
-        //___________________________________________________________________________________---
-        public void InsertarCobro(string Folio, string MatriculaAlumno, string Fecha, decimal Pago, string FolioGeneral, string Anticipo, decimal saldo, decimal DescuentoPago)
+
+        #endregion
+
+        #region Cancelación (eliminación lógica) de anticipos
+
+        public void EliminarAnticipo(string folio)
         {
             try
             {
-                cmd = new SqlCommand("insert into AnticipoCobros (Folio, ClavePropietario, Fecha, Pago, FolioGeneral, Anticipo,SaldoRestante,DescuentoPago) values ('" + Folio + "', '" + MatriculaAlumno + "', '" + Fecha + "', '" + Pago + "', '" + FolioGeneral + "', '" + Anticipo + "', '" + saldo + "', '" + DescuentoPago + "')", cn);
-                cmd.ExecuteNonQuery();
-
+                using (SqlConnection cn = AbrirConexion())
+                using (SqlCommand cmd = new SqlCommand("UPDATE Anticipo SET Activo = 1 WHERE Folio = @Folio", cn))
+                {
+                    cmd.Parameters.AddWithValue("@Folio", folio);
+                    cmd.ExecuteNonQuery();
+                }
             }
             catch (Exception ex)
             {
                 MessageBox.Show("ERROR" + ex.ToString());
             }
         }
-        //_________________________________________________________________________________
-        public void ActualizarAnticipo(string Folio, decimal Saldo)
+
+        public void EliminarAnticipoProveedor(string folio)
         {
             try
             {
-
-                cmd = new SqlCommand("Update Anticipo set Saldo=" + Saldo + " where Folio='" + Folio + "'", cn);
-                cmd.ExecuteNonQuery();
-
+                using (SqlConnection cn = AbrirConexion())
+                using (SqlCommand cmd = new SqlCommand("UPDATE AnticipoProveedor SET Activo = 1 WHERE Folio = @Folio", cn))
+                {
+                    cmd.Parameters.AddWithValue("@Folio", folio);
+                    cmd.ExecuteNonQuery();
+                }
             }
             catch (Exception ex)
             {
                 MessageBox.Show("ERROR" + ex.ToString());
             }
         }
-        //_________________________________________________________________________________
-        public void ActualizarAnticipoProveedor(string Folio, decimal Saldo)
+
+        #endregion
+
+        #region Validación de teclado (uso desde el formulario)
+
+        // Se conserva igual que el original (permite números, puntuación y teclas de
+        // control; bloquea separadores). Se quitó el try/catch que solo relanzaba la
+        // excepción sin aportar nada.
+        public void Monto(KeyPressEventArgs e)
         {
-            try
+            if (char.IsNumber(e.KeyChar))
             {
-
-                cmd = new SqlCommand("Update AnticipoProveedor set Saldo=" + Saldo + " where Folio='" + Folio + "'", cn);
-                cmd.ExecuteNonQuery();
-
+                e.Handled = false;
             }
-            catch (Exception ex)
+            else if (char.IsPunctuation(e.KeyChar))
             {
-                MessageBox.Show("ERROR" + ex.ToString());
+                e.Handled = false;
+            }
+            else if (char.IsControl(e.KeyChar))
+            {
+                e.Handled = false;
+            }
+            else
+            {
+                e.Handled = true;
             }
         }
-        //___________________________________________________________________________________________
-        public void SeleccionarPropietarios(ComboBox cb)
-        {
-            cb.Items.Clear();
-            cb.Items.Add("TODOS");
-            cmd = new SqlCommand("select (convert(varchar, idPropietario) + ' - ' + RazonSocial) as Nombre from Propietarios", cn);
-            dr = cmd.ExecuteReader();
-            while (dr.Read())
-            {
-                cb.Items.Add(dr[0].ToString());
-            }
-            dr.Close();
-        }
-        //___________________________________________________________________________________________
-        public void SeleccionarProveedor(ComboBox cb)
-        {
-            cb.Items.Clear();
-            cb.Items.Add("TODOS");
-            cmd = new SqlCommand("select (convert(varchar, idProveedor) + ' - ' + RazonSocial) as Nombre from Proveedor", cn);
-            dr = cmd.ExecuteReader();
-            while (dr.Read())
-            {
-                cb.Items.Add(dr[0].ToString());
-            }
-            dr.Close();
-        }
-        public void EliminarAnticipo(string Folio)
-        {
-            try
-            {
 
-                cmd = new SqlCommand("update Anticipo set Activo=1 where Folio='" + Folio + "'", cn);
-                cmd.ExecuteNonQuery();
-
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("ERROR" + ex.ToString());
-            }
-        }
-        public void EliminarAnticipoProveedor(string Folio)
-        {
-            try
-            {
-
-                cmd = new SqlCommand("update AnticipoProveedor set Activo=1 where Folio='" + Folio + "'", cn);
-                cmd.ExecuteNonQuery();
-
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("ERROR" + ex.ToString());
-            }
-        }
+        #endregion
     }
 }

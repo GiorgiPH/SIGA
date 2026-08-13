@@ -71,14 +71,13 @@
             this.label8 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.button5 = new Guna.UI2.WinForms.Guna2Button();
-            this.button6 = new Guna.UI2.WinForms.Guna2Button();
-            this.button3 = new Guna.UI2.WinForms.Guna2Button();
-            this.guna2Panel1 = new Guna.UI2.WinForms.Guna2Panel();
-            this.button8 = new Guna.UI2.WinForms.Guna2Button();
+            this.btnConfirmarAnticipo = new Guna.UI2.WinForms.Guna2Button();
+            this.btnLimpiar = new Guna.UI2.WinForms.Guna2Button();
+            this.btnCancelarAnticipo = new Guna.UI2.WinForms.Guna2Button();
+            this.btnConsultarAnticipos = new Guna.UI2.WinForms.Guna2Button();
             this.button11 = new Guna.UI2.WinForms.Guna2Button();
-            this.button10 = new Guna.UI2.WinForms.Guna2Button();
-            this.button1 = new Guna.UI2.WinForms.Guna2Button();
+            this.btnImprimirAnticipo = new Guna.UI2.WinForms.Guna2Button();
+            this.btnNuevoAnticipo = new Guna.UI2.WinForms.Guna2Button();
             this.guna2Elipse1 = new Guna.UI2.WinForms.Guna2Elipse(this.components);
             this.guna2Elipse2 = new Guna.UI2.WinForms.Guna2Elipse(this.components);
             this.fl = new System.Windows.Forms.FlowLayoutPanel();
@@ -86,9 +85,9 @@
             this.guna2GradientPanel1 = new Guna.UI2.WinForms.Guna2GradientPanel();
             this.guna2Button14 = new Guna.UI2.WinForms.Guna2Button();
             this.txtFolioPedido = new System.Windows.Forms.TextBox();
-            this.label18 = new System.Windows.Forms.Label();
+            this.lblTitulo = new System.Windows.Forms.Label();
             this.guna2CircleButton1 = new Guna.UI2.WinForms.Guna2CircleButton();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.dgvAnticipos = new System.Windows.Forms.DataGridView();
             this.Folio = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Propietario = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Saldo = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -99,7 +98,7 @@
             this.pnRegistrar.SuspendLayout();
             this.fl.SuspendLayout();
             this.guna2GradientPanel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvAnticipos)).BeginInit();
             this.PanelUsuario.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -707,113 +706,103 @@
             this.label2.TabIndex = 1;
             this.label2.Text = "Fecha:";
             // 
-            // button5
+            // btnConfirmarAnticipo
             // 
-            this.button5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.button5.BackColor = System.Drawing.Color.Transparent;
-            this.button5.BorderColor = System.Drawing.Color.DodgerBlue;
-            this.button5.BorderRadius = 20;
-            this.button5.BorderThickness = 1;
-            this.button5.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
-            this.button5.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
-            this.button5.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.button5.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.button5.FillColor = System.Drawing.Color.White;
-            this.button5.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button5.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(19)))), ((int)(((byte)(35)))), ((int)(((byte)(95)))));
-            this.button5.Image = ((System.Drawing.Image)(resources.GetObject("button5.Image")));
-            this.button5.ImageAlign = System.Windows.Forms.HorizontalAlignment.Left;
-            this.button5.ImageSize = new System.Drawing.Size(48, 48);
-            this.button5.Location = new System.Drawing.Point(503, 576);
-            this.button5.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(142, 46);
-            this.button5.TabIndex = 17;
-            this.button5.Text = "Confirmar";
-            this.button5.TextOffset = new System.Drawing.Point(23, 0);
-            this.button5.Click += new System.EventHandler(this.button5_Click);
+            this.btnConfirmarAnticipo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnConfirmarAnticipo.BackColor = System.Drawing.Color.Transparent;
+            this.btnConfirmarAnticipo.BorderColor = System.Drawing.Color.DodgerBlue;
+            this.btnConfirmarAnticipo.BorderRadius = 20;
+            this.btnConfirmarAnticipo.BorderThickness = 1;
+            this.btnConfirmarAnticipo.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.btnConfirmarAnticipo.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.btnConfirmarAnticipo.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.btnConfirmarAnticipo.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.btnConfirmarAnticipo.FillColor = System.Drawing.Color.White;
+            this.btnConfirmarAnticipo.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnConfirmarAnticipo.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(19)))), ((int)(((byte)(35)))), ((int)(((byte)(95)))));
+            this.btnConfirmarAnticipo.Image = ((System.Drawing.Image)(resources.GetObject("btnConfirmarAnticipo.Image")));
+            this.btnConfirmarAnticipo.ImageAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.btnConfirmarAnticipo.ImageSize = new System.Drawing.Size(48, 48);
+            this.btnConfirmarAnticipo.Location = new System.Drawing.Point(503, 576);
+            this.btnConfirmarAnticipo.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.btnConfirmarAnticipo.Name = "btnConfirmarAnticipo";
+            this.btnConfirmarAnticipo.Size = new System.Drawing.Size(142, 46);
+            this.btnConfirmarAnticipo.TabIndex = 17;
+            this.btnConfirmarAnticipo.Text = "Confirmar";
+            this.btnConfirmarAnticipo.TextOffset = new System.Drawing.Point(23, 0);
+            this.btnConfirmarAnticipo.Click += new System.EventHandler(this.btnConfirmarAnticipo_Click);
             // 
-            // button6
+            // btnLimpiar
             // 
-            this.button6.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.button6.BackColor = System.Drawing.Color.Transparent;
-            this.button6.BorderColor = System.Drawing.Color.DodgerBlue;
-            this.button6.BorderRadius = 20;
-            this.button6.BorderThickness = 1;
-            this.button6.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
-            this.button6.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
-            this.button6.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.button6.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.button6.FillColor = System.Drawing.Color.White;
-            this.button6.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button6.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(19)))), ((int)(((byte)(35)))), ((int)(((byte)(95)))));
-            this.button6.Image = global::PV.Properties.Resources.Borrar;
-            this.button6.ImageAlign = System.Windows.Forms.HorizontalAlignment.Left;
-            this.button6.ImageSize = new System.Drawing.Size(44, 44);
-            this.button6.Location = new System.Drawing.Point(369, 576);
-            this.button6.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.button6.Name = "button6";
-            this.button6.Size = new System.Drawing.Size(128, 46);
-            this.button6.TabIndex = 18;
-            this.button6.Text = "Limpiar";
-            this.button6.TextOffset = new System.Drawing.Point(23, 0);
-            this.button6.Click += new System.EventHandler(this.button6_Click);
+            this.btnLimpiar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnLimpiar.BackColor = System.Drawing.Color.Transparent;
+            this.btnLimpiar.BorderColor = System.Drawing.Color.DodgerBlue;
+            this.btnLimpiar.BorderRadius = 20;
+            this.btnLimpiar.BorderThickness = 1;
+            this.btnLimpiar.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.btnLimpiar.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.btnLimpiar.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.btnLimpiar.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.btnLimpiar.FillColor = System.Drawing.Color.White;
+            this.btnLimpiar.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnLimpiar.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(19)))), ((int)(((byte)(35)))), ((int)(((byte)(95)))));
+            this.btnLimpiar.Image = global::PV.Properties.Resources.Borrar;
+            this.btnLimpiar.ImageAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.btnLimpiar.ImageSize = new System.Drawing.Size(44, 44);
+            this.btnLimpiar.Location = new System.Drawing.Point(369, 576);
+            this.btnLimpiar.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.btnLimpiar.Name = "btnLimpiar";
+            this.btnLimpiar.Size = new System.Drawing.Size(128, 46);
+            this.btnLimpiar.TabIndex = 18;
+            this.btnLimpiar.Text = "Limpiar";
+            this.btnLimpiar.TextOffset = new System.Drawing.Point(23, 0);
+            this.btnLimpiar.Click += new System.EventHandler(this.btnLimpiar_Click);
             // 
-            // button3
+            // btnCancelarAnticipo
             // 
-            this.button3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.button3.BackColor = System.Drawing.Color.Transparent;
-            this.button3.BorderColor = System.Drawing.Color.DodgerBlue;
-            this.button3.BorderRadius = 20;
-            this.button3.BorderThickness = 1;
-            this.button3.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
-            this.button3.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
-            this.button3.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.button3.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.button3.Enabled = false;
-            this.button3.FillColor = System.Drawing.Color.White;
-            this.button3.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(19)))), ((int)(((byte)(35)))), ((int)(((byte)(95)))));
-            this.button3.ImageAlign = System.Windows.Forms.HorizontalAlignment.Left;
-            this.button3.ImageSize = new System.Drawing.Size(48, 48);
-            this.button3.Location = new System.Drawing.Point(10, 576);
-            this.button3.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(128, 46);
-            this.button3.TabIndex = 19;
-            this.button3.Text = "Cancelar";
-            this.button3.TextOffset = new System.Drawing.Point(20, 0);
-            this.button3.Click += new System.EventHandler(this.button3_Click);
+            this.btnCancelarAnticipo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnCancelarAnticipo.BackColor = System.Drawing.Color.Transparent;
+            this.btnCancelarAnticipo.BorderColor = System.Drawing.Color.DodgerBlue;
+            this.btnCancelarAnticipo.BorderRadius = 20;
+            this.btnCancelarAnticipo.BorderThickness = 1;
+            this.btnCancelarAnticipo.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.btnCancelarAnticipo.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.btnCancelarAnticipo.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.btnCancelarAnticipo.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.btnCancelarAnticipo.Enabled = false;
+            this.btnCancelarAnticipo.FillColor = System.Drawing.Color.White;
+            this.btnCancelarAnticipo.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnCancelarAnticipo.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(19)))), ((int)(((byte)(35)))), ((int)(((byte)(95)))));
+            this.btnCancelarAnticipo.Image = global::PV.Properties.Resources.cancelar;
+            this.btnCancelarAnticipo.ImageAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.btnCancelarAnticipo.ImageSize = new System.Drawing.Size(30, 30);
+            this.btnCancelarAnticipo.Location = new System.Drawing.Point(10, 576);
+            this.btnCancelarAnticipo.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.btnCancelarAnticipo.Name = "btnCancelarAnticipo";
+            this.btnCancelarAnticipo.Size = new System.Drawing.Size(128, 46);
+            this.btnCancelarAnticipo.TabIndex = 19;
+            this.btnCancelarAnticipo.Text = "Cancelar";
+            this.btnCancelarAnticipo.TextOffset = new System.Drawing.Point(20, 0);
+            this.btnCancelarAnticipo.Click += new System.EventHandler(this.btnCancelarAnticipo_Click);
             // 
-            // guna2Panel1
+            // btnConsultarAnticipos
             // 
-            this.guna2Panel1.BackColor = System.Drawing.Color.Transparent;
-            this.guna2Panel1.BorderRadius = 20;
-            this.guna2Panel1.FillColor = System.Drawing.Color.DodgerBlue;
-            this.guna2Panel1.Location = new System.Drawing.Point(226, 577);
-            this.guna2Panel1.Name = "guna2Panel1";
-            this.guna2Panel1.Size = new System.Drawing.Size(72, 482);
-            this.guna2Panel1.TabIndex = 149;
-            this.guna2Panel1.Visible = false;
-            // 
-            // button8
-            // 
-            this.button8.BackColor = System.Drawing.Color.Transparent;
-            this.button8.BorderRadius = 20;
-            this.button8.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
-            this.button8.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
-            this.button8.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.button8.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.button8.FillColor = System.Drawing.Color.Transparent;
-            this.button8.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.button8.ForeColor = System.Drawing.Color.White;
-            this.button8.Image = ((System.Drawing.Image)(resources.GetObject("button8.Image")));
-            this.button8.ImageSize = new System.Drawing.Size(35, 35);
-            this.button8.Location = new System.Drawing.Point(3, 74);
-            this.button8.Name = "button8";
-            this.button8.Size = new System.Drawing.Size(65, 65);
-            this.button8.TabIndex = 21;
-            this.button8.Click += new System.EventHandler(this.button8_Click);
+            this.btnConsultarAnticipos.BackColor = System.Drawing.Color.Transparent;
+            this.btnConsultarAnticipos.BorderRadius = 20;
+            this.btnConsultarAnticipos.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.btnConsultarAnticipos.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.btnConsultarAnticipos.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.btnConsultarAnticipos.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.btnConsultarAnticipos.FillColor = System.Drawing.Color.Transparent;
+            this.btnConsultarAnticipos.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.btnConsultarAnticipos.ForeColor = System.Drawing.Color.White;
+            this.btnConsultarAnticipos.Image = ((System.Drawing.Image)(resources.GetObject("btnConsultarAnticipos.Image")));
+            this.btnConsultarAnticipos.ImageSize = new System.Drawing.Size(35, 35);
+            this.btnConsultarAnticipos.Location = new System.Drawing.Point(3, 74);
+            this.btnConsultarAnticipos.Name = "btnConsultarAnticipos";
+            this.btnConsultarAnticipos.Size = new System.Drawing.Size(65, 65);
+            this.btnConsultarAnticipos.TabIndex = 21;
+            this.btnConsultarAnticipos.Click += new System.EventHandler(this.btnConsultarAnticipos_Click);
             // 
             // button11
             // 
@@ -834,43 +823,43 @@
             this.button11.TabIndex = 23;
             this.button11.Click += new System.EventHandler(this.button11_Click);
             // 
-            // button10
+            // btnImprimirAnticipo
             // 
-            this.button10.BackColor = System.Drawing.Color.Transparent;
-            this.button10.BorderRadius = 20;
-            this.button10.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
-            this.button10.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
-            this.button10.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.button10.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.button10.FillColor = System.Drawing.Color.Transparent;
-            this.button10.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.button10.ForeColor = System.Drawing.Color.White;
-            this.button10.Image = ((System.Drawing.Image)(resources.GetObject("button10.Image")));
-            this.button10.ImageSize = new System.Drawing.Size(35, 35);
-            this.button10.Location = new System.Drawing.Point(3, 145);
-            this.button10.Name = "button10";
-            this.button10.Size = new System.Drawing.Size(65, 65);
-            this.button10.TabIndex = 22;
-            this.button10.Click += new System.EventHandler(this.button10_Click);
+            this.btnImprimirAnticipo.BackColor = System.Drawing.Color.Transparent;
+            this.btnImprimirAnticipo.BorderRadius = 20;
+            this.btnImprimirAnticipo.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.btnImprimirAnticipo.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.btnImprimirAnticipo.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.btnImprimirAnticipo.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.btnImprimirAnticipo.FillColor = System.Drawing.Color.Transparent;
+            this.btnImprimirAnticipo.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.btnImprimirAnticipo.ForeColor = System.Drawing.Color.White;
+            this.btnImprimirAnticipo.Image = ((System.Drawing.Image)(resources.GetObject("btnImprimirAnticipo.Image")));
+            this.btnImprimirAnticipo.ImageSize = new System.Drawing.Size(35, 35);
+            this.btnImprimirAnticipo.Location = new System.Drawing.Point(3, 145);
+            this.btnImprimirAnticipo.Name = "btnImprimirAnticipo";
+            this.btnImprimirAnticipo.Size = new System.Drawing.Size(65, 65);
+            this.btnImprimirAnticipo.TabIndex = 22;
+            this.btnImprimirAnticipo.Click += new System.EventHandler(this.button10_Click);
             // 
-            // button1
+            // btnNuevoAnticipo
             // 
-            this.button1.BackColor = System.Drawing.Color.Transparent;
-            this.button1.BorderRadius = 20;
-            this.button1.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
-            this.button1.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
-            this.button1.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.button1.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.button1.FillColor = System.Drawing.Color.Transparent;
-            this.button1.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.button1.ForeColor = System.Drawing.Color.White;
-            this.button1.Image = ((System.Drawing.Image)(resources.GetObject("button1.Image")));
-            this.button1.ImageSize = new System.Drawing.Size(35, 35);
-            this.button1.Location = new System.Drawing.Point(3, 3);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(65, 65);
-            this.button1.TabIndex = 20;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.btnNuevoAnticipo.BackColor = System.Drawing.Color.Transparent;
+            this.btnNuevoAnticipo.BorderRadius = 20;
+            this.btnNuevoAnticipo.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.btnNuevoAnticipo.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.btnNuevoAnticipo.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.btnNuevoAnticipo.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.btnNuevoAnticipo.FillColor = System.Drawing.Color.Transparent;
+            this.btnNuevoAnticipo.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.btnNuevoAnticipo.ForeColor = System.Drawing.Color.White;
+            this.btnNuevoAnticipo.Image = ((System.Drawing.Image)(resources.GetObject("btnNuevoAnticipo.Image")));
+            this.btnNuevoAnticipo.ImageSize = new System.Drawing.Size(35, 35);
+            this.btnNuevoAnticipo.Location = new System.Drawing.Point(3, 3);
+            this.btnNuevoAnticipo.Name = "btnNuevoAnticipo";
+            this.btnNuevoAnticipo.Size = new System.Drawing.Size(65, 65);
+            this.btnNuevoAnticipo.TabIndex = 20;
+            this.btnNuevoAnticipo.Click += new System.EventHandler(this.btnNuevoAnticipo_Click);
             // 
             // guna2Elipse1
             // 
@@ -885,9 +874,9 @@
             // fl
             // 
             this.fl.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(19)))), ((int)(((byte)(35)))), ((int)(((byte)(95)))));
-            this.fl.Controls.Add(this.button1);
-            this.fl.Controls.Add(this.button8);
-            this.fl.Controls.Add(this.button10);
+            this.fl.Controls.Add(this.btnNuevoAnticipo);
+            this.fl.Controls.Add(this.btnConsultarAnticipos);
+            this.fl.Controls.Add(this.btnImprimirAnticipo);
             this.fl.Controls.Add(this.button11);
             this.fl.Location = new System.Drawing.Point(655, 83);
             this.fl.Name = "fl";
@@ -904,7 +893,7 @@
             this.guna2GradientPanel1.BorderRadius = 80;
             this.guna2GradientPanel1.Controls.Add(this.guna2Button14);
             this.guna2GradientPanel1.Controls.Add(this.txtFolioPedido);
-            this.guna2GradientPanel1.Controls.Add(this.label18);
+            this.guna2GradientPanel1.Controls.Add(this.lblTitulo);
             this.guna2GradientPanel1.Controls.Add(this.guna2CircleButton1);
             this.guna2GradientPanel1.CustomizableEdges.BottomRight = false;
             this.guna2GradientPanel1.CustomizableEdges.TopLeft = false;
@@ -947,18 +936,18 @@
             this.txtFolioPedido.TabStop = false;
             this.txtFolioPedido.Visible = false;
             // 
-            // label18
+            // lblTitulo
             // 
-            this.label18.AutoSize = true;
-            this.label18.BackColor = System.Drawing.Color.Transparent;
-            this.label18.Font = new System.Drawing.Font("Segoe UI", 15.75F, System.Drawing.FontStyle.Bold);
-            this.label18.ForeColor = System.Drawing.Color.White;
-            this.label18.Location = new System.Drawing.Point(49, 17);
-            this.label18.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(193, 30);
-            this.label18.TabIndex = 80;
-            this.label18.Text = "Registro Anticipos";
+            this.lblTitulo.AutoSize = true;
+            this.lblTitulo.BackColor = System.Drawing.Color.Transparent;
+            this.lblTitulo.Font = new System.Drawing.Font("Segoe UI", 15.75F, System.Drawing.FontStyle.Bold);
+            this.lblTitulo.ForeColor = System.Drawing.Color.White;
+            this.lblTitulo.Location = new System.Drawing.Point(49, 17);
+            this.lblTitulo.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblTitulo.Name = "lblTitulo";
+            this.lblTitulo.Size = new System.Drawing.Size(193, 30);
+            this.lblTitulo.TabIndex = 80;
+            this.lblTitulo.Text = "Registro Anticipos";
             // 
             // guna2CircleButton1
             // 
@@ -980,13 +969,13 @@
             this.guna2CircleButton1.TabIndex = 79;
             this.guna2CircleButton1.Click += new System.EventHandler(this.guna2CircleButton1_Click);
             // 
-            // dataGridView1
+            // dgvAnticipos
             // 
-            this.dataGridView1.AllowUserToAddRows = false;
-            this.dataGridView1.AllowUserToDeleteRows = false;
-            this.dataGridView1.BackgroundColor = System.Drawing.Color.WhiteSmoke;
-            this.dataGridView1.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.dataGridView1.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
+            this.dgvAnticipos.AllowUserToAddRows = false;
+            this.dgvAnticipos.AllowUserToDeleteRows = false;
+            this.dgvAnticipos.BackgroundColor = System.Drawing.Color.WhiteSmoke;
+            this.dgvAnticipos.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.dgvAnticipos.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
             dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(19)))), ((int)(((byte)(35)))), ((int)(((byte)(95)))));
             dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -994,9 +983,9 @@
             dataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(19)))), ((int)(((byte)(35)))), ((int)(((byte)(95)))));
             dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridView1.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.dgvAnticipos.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            this.dgvAnticipos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvAnticipos.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Folio,
             this.Propietario,
             this.Saldo});
@@ -1007,12 +996,12 @@
             dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
             dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dataGridView1.DefaultCellStyle = dataGridViewCellStyle2;
-            this.dataGridView1.EnableHeadersVisualStyles = false;
-            this.dataGridView1.Location = new System.Drawing.Point(0, 46);
-            this.dataGridView1.MultiSelect = false;
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.ReadOnly = true;
+            this.dgvAnticipos.DefaultCellStyle = dataGridViewCellStyle2;
+            this.dgvAnticipos.EnableHeadersVisualStyles = false;
+            this.dgvAnticipos.Location = new System.Drawing.Point(0, 46);
+            this.dgvAnticipos.MultiSelect = false;
+            this.dgvAnticipos.Name = "dgvAnticipos";
+            this.dgvAnticipos.ReadOnly = true;
             dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
             dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -1020,13 +1009,13 @@
             dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
             dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridView1.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
-            this.dataGridView1.RowHeadersVisible = false;
-            this.dataGridView1.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
-            this.dataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridView1.Size = new System.Drawing.Size(299, 436);
-            this.dataGridView1.TabIndex = 0;
-            this.dataGridView1.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellDoubleClick);
+            this.dgvAnticipos.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            this.dgvAnticipos.RowHeadersVisible = false;
+            this.dgvAnticipos.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
+            this.dgvAnticipos.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dgvAnticipos.Size = new System.Drawing.Size(299, 436);
+            this.dgvAnticipos.TabIndex = 0;
+            this.dgvAnticipos.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvAnticipos_CellDoubleClick);
             // 
             // Folio
             // 
@@ -1088,7 +1077,7 @@
             this.PanelUsuario.BackColor = System.Drawing.Color.White;
             this.PanelUsuario.Controls.Add(this.txtFiltro);
             this.PanelUsuario.Controls.Add(this.label12);
-            this.PanelUsuario.Controls.Add(this.dataGridView1);
+            this.PanelUsuario.Controls.Add(this.dgvAnticipos);
             this.PanelUsuario.Location = new System.Drawing.Point(354, 83);
             this.PanelUsuario.Name = "PanelUsuario";
             this.PanelUsuario.Size = new System.Drawing.Size(302, 482);
@@ -1105,11 +1094,10 @@
             this.Controls.Add(this.guna2GradientPanel1);
             this.Controls.Add(this.fl);
             this.Controls.Add(this.PanelUsuario);
-            this.Controls.Add(this.guna2Panel1);
             this.Controls.Add(this.panel1);
-            this.Controls.Add(this.button5);
-            this.Controls.Add(this.button3);
-            this.Controls.Add(this.button6);
+            this.Controls.Add(this.btnConfirmarAnticipo);
+            this.Controls.Add(this.btnCancelarAnticipo);
+            this.Controls.Add(this.btnLimpiar);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "RegistrarAnticipo";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
@@ -1123,7 +1111,7 @@
             this.fl.ResumeLayout(false);
             this.guna2GradientPanel1.ResumeLayout(false);
             this.guna2GradientPanel1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvAnticipos)).EndInit();
             this.PanelUsuario.ResumeLayout(false);
             this.PanelUsuario.PerformLayout();
             this.ResumeLayout(false);
@@ -1149,10 +1137,9 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label7;
-        private Guna.UI2.WinForms.Guna2Panel guna2Panel1;
-        private Guna.UI2.WinForms.Guna2Button button8;
+        private Guna.UI2.WinForms.Guna2Button btnConsultarAnticipos;
         private Guna.UI2.WinForms.Guna2Button button11;
-        private Guna.UI2.WinForms.Guna2Button button10;
+        private Guna.UI2.WinForms.Guna2Button btnImprimirAnticipo;
         private Guna.UI2.WinForms.Guna2TextBox txtConcepto;
         private Guna.UI2.WinForms.Guna2TextBox txtFolio;
         private Guna.UI2.WinForms.Guna2TextBox txtAlumno;
@@ -1161,16 +1148,16 @@
         private Guna.UI2.WinForms.Guna2TextBox txtNumOperacion;
         private Guna.UI2.WinForms.Guna2TextBox txtTipoCambio;
         private Guna.UI2.WinForms.Guna2TextBox txtSaldo;
-        private Guna.UI2.WinForms.Guna2Button button3;
-        private Guna.UI2.WinForms.Guna2Button button6;
-        private Guna.UI2.WinForms.Guna2Button button5;
+        private Guna.UI2.WinForms.Guna2Button btnCancelarAnticipo;
+        private Guna.UI2.WinForms.Guna2Button btnLimpiar;
+        private Guna.UI2.WinForms.Guna2Button btnConfirmarAnticipo;
         private Guna.UI2.WinForms.Guna2Elipse guna2Elipse1;
         private Guna.UI2.WinForms.Guna2Elipse guna2Elipse2;
         private System.Windows.Forms.Panel pnRegistrar;
         private System.Windows.Forms.Label label15;
         private System.Windows.Forms.Label lbEstatus;
         private System.Windows.Forms.Label lbProv;
-        public Guna.UI2.WinForms.Guna2Button button1;
+        public Guna.UI2.WinForms.Guna2Button btnNuevoAnticipo;
         private Guna.UI2.WinForms.Guna2Elipse guna2Elipse3;
         public System.Windows.Forms.FlowLayoutPanel fl;
         public Guna.UI2.WinForms.Guna2Button btnBuscar;
@@ -1183,13 +1170,13 @@
         private Guna.UI2.WinForms.Guna2GradientPanel guna2GradientPanel1;
         private Guna.UI2.WinForms.Guna2Button guna2Button14;
         private System.Windows.Forms.TextBox txtFolioPedido;
-        private System.Windows.Forms.Label label18;
+        private System.Windows.Forms.Label lblTitulo;
         private Guna.UI2.WinForms.Guna2CircleButton guna2CircleButton1;
         public Guna.UI2.WinForms.Guna2DateTimePicker dtpFecha;
         private System.Windows.Forms.Panel PanelUsuario;
         private Guna.UI2.WinForms.Guna2TextBox txtFiltro;
         private System.Windows.Forms.Label label12;
-        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.DataGridView dgvAnticipos;
         private System.Windows.Forms.DataGridViewTextBoxColumn Folio;
         private System.Windows.Forms.DataGridViewTextBoxColumn Propietario;
         private System.Windows.Forms.DataGridViewTextBoxColumn Saldo;

@@ -2125,7 +2125,7 @@
             <Paragraph>
               <TextRuns>
                 <TextRun>
-                  <Value>COMPRAS</Value>
+                  <Value>REPORTE DIARIO DE GASTOS</Value>
                   <Style>
                     <FontSize>12pt</FontSize>
                     <FontWeight>Bold</FontWeight>

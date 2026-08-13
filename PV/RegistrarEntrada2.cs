@@ -261,12 +261,7 @@ namespace PV
             txtTotal.Text = "0.00";
 
             txtElaborado.Text = DBLogin.usuario;
-            //  groupBox2.Enabled = true;
-            /* if (cmbDivisa.Enabled == true)
-             {
-                 string[] valores = c.InformacionDivisa(cmbDivisa.Text);
-                 txtTipoCambio.Text = valores[0];
-             }*/
+     
         }
 
         private void cmbAlmacen_SelectedIndexChanged(object sender, EventArgs e)

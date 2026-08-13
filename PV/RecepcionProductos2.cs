@@ -42,17 +42,17 @@ namespace PV
         private void txtFiltro_TextChanged(object sender, EventArgs e)
         {
 
-            c.CargarRrecepcion(dataGridView1, txtFiltro.Text, txtFiltroDocumento.Text, txtFiltroNombre.Text);
+            c.CargarRrecepcion(dgvRecepciones, txtFiltro.Text, txtFiltroDocumento.Text, txtFiltroNombre.Text);
         }
 
         private void txtFiltroDocumento_TextChanged(object sender, EventArgs e)
         {
-            c.CargarRrecepcion(dataGridView1, txtFiltro.Text, txtFiltroDocumento.Text, txtFiltroNombre.Text);
+            c.CargarRrecepcion(dgvRecepciones, txtFiltro.Text, txtFiltroDocumento.Text, txtFiltroNombre.Text);
         }
 
         private void txtFiltroNombre_TextChanged(object sender, EventArgs e)
         {
-            c.CargarRrecepcion(dataGridView1, txtFiltro.Text, txtFiltroDocumento.Text, txtFiltroNombre.Text);
+            c.CargarRrecepcion(dgvRecepciones, txtFiltro.Text, txtFiltroDocumento.Text, txtFiltroNombre.Text);
         }
 
         private void guna2Button13_Click(object sender, EventArgs e)
@@ -74,7 +74,7 @@ namespace PV
             c.SeleccionarProducto(cmbConcepto);
             c.ruta();
             //c.SeleccionarOrdenEntrega(cmbOrdenCompra);
-            c.CargarRrecepcion(dataGridView1, txtFiltro.Text, txtFiltroDocumento.Text, txtFiltroNombre.Text);
+            c.CargarRrecepcion(dgvRecepciones, txtFiltro.Text, txtFiltroDocumento.Text, txtFiltroNombre.Text);
             cmbEstatus.SelectedIndex = 0;
             txtFecha.Text = DateTime.Today.ToString("yyyy/MM/dd");
             txtDivisa.Text = "MXN";
@@ -89,7 +89,7 @@ namespace PV
 
         }
 
-        private void btnarticulos_Click(object sender, EventArgs e)
+        private void btnCrearEncabezado_Click(object sender, EventArgs e)
         {
             if (txtMatricular.Text == string.Empty)
             {
@@ -179,7 +179,7 @@ namespace PV
 
         }
 
-        private void guna2Button12_Click(object sender, EventArgs e)
+        private void btnConfirmarPartida_Click(object sender, EventArgs e)
         {
             if (txtTotal1.Text == "0.00" || txtTotal1.Text == "0")
             {
@@ -210,12 +210,12 @@ namespace PV
                // ConceptosGlobalesPartidaGastos documentoConceptoGlobal = new ConceptosGlobalesPartidaGastos(TxtFolio1.Text, recibo, reciboCol);
                // documentoConceptoGlobal.ShowDialog();
             }
-            PanelPartidasRequisicion.Visible = false;
-            guna2Button9.Visible = true;
-            c.CargarRecibosPartidasRecepcion(guna2DataGridView1, TxtFolio1.Text);
+            PanelPartidasRecepcion.Visible = false;
+            btnTerminarRecepcion.Visible = true;
+            c.CargarRecibosPartidasRecepcion(dgvPartidas, TxtFolio1.Text);
         }
 
-        private void guna2Button8_Click(object sender, EventArgs e)
+        private void btnSiguientePartida_Click(object sender, EventArgs e)
         {
 
             if (cmbConcepto.Text == string.Empty)
@@ -284,21 +284,20 @@ namespace PV
                 }
             }
             Limpiar();
-            Limpiarcabezado();
             LimpiarDetalle();
         }
 
-        private void guna2DataGridView1_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        private void dgvPartidas_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex != -1)
             {
-                string Partida = guna2DataGridView1.Rows[e.RowIndex].Cells["Partida"].Value.ToString();
+                string Partida = dgvPartidas.Rows[e.RowIndex].Cells["Partida"].Value.ToString();
                 cmbConcepto.SelectedIndexChanged -= cmbConcepto_SelectedIndexChanged;
                 c.ConsultaPartidaRecepcion(TxtFolio1.Text, Partida, txtClave1, txtConcepto, txtConcepto2, txtCantidad, txtUnidad, txtDivisa1, txtTipoCambio1, txtSubtotal1, txtDescuento1, txtTotal1, txtImpuesto1, txtArchivo1, cmbConcepto);
                 cmbConcepto.SelectedIndexChanged += cmbConcepto_SelectedIndexChanged;
                 txtPartida.Text = Partida;
                 txtPrecio.Text = ((Convert.ToDecimal(txtSubtotal1.Text)+ Convert.ToDecimal(txtDescuento1.Text)) / Convert.ToDecimal(txtCantidad.Text)).ToString("N2");
-                PanelPartidasRequisicion.Visible = true;
+                PanelPartidasRecepcion.Visible = true;
                 guna2Button11.Visible = true;
 
             }
@@ -458,7 +457,7 @@ namespace PV
             }
         }
 
-        private void button4_Click(object sender, EventArgs e)
+        private void btnBuscarProveedor_Click(object sender, EventArgs e)
         {
             if (txtOrdenCompra.Text != string.Empty)
             {
@@ -665,7 +664,7 @@ namespace PV
             }
         }
 
-        private void button7_Click(object sender, EventArgs e)
+        private void btnEliminarPartida_Click(object sender, EventArgs e)
         {
             if (txtFolio.Text == string.Empty)
             {
@@ -793,9 +792,9 @@ namespace PV
             }
         }
 
-        private void guna2Button6_Click(object sender, EventArgs e)
+        private void btnAgregarPartida_Click(object sender, EventArgs e)
         {
-            PanelPartidasRequisicion.Visible = true;
+            PanelPartidasRecepcion.Visible = true;
             c.ConsultaRecepcion(TxtFolio1.Text, txtPartida);
             // PanelPartidasRequisicion.Visible = true;
 
@@ -841,9 +840,9 @@ namespace PV
             }
         }
 
-        private void guna2Button9_Click(object sender, EventArgs e)
+        private void btnTerminarRecepcion_Click(object sender, EventArgs e)
         {
-            if (guna2DataGridView1.Rows.Count == 0)
+            if (dgvPartidas.Rows.Count == 0)
             {
                 MessageBox.Show("Registre las partidas para continuar");
                 return;
@@ -872,11 +871,11 @@ namespace PV
 
 
                 Limpiar();
-                c.CargarRrecepcion(dataGridView1, txtFiltro.Text, txtFiltroDocumento.Text, txtFiltroNombre.Text);
+                c.CargarRrecepcion(dgvRecepciones, txtFiltro.Text, txtFiltroDocumento.Text, txtFiltroNombre.Text);
                 Limpiarcabezado();
                 LimpiarDetalle();
                 guna2TabControl1.SelectedIndex = 0;
-                guna2Button9.Visible = true;
+                btnTerminarRecepcion.Visible = true;
                 guna2TabControl1.Enabled = false;
             }
             
@@ -1201,13 +1200,13 @@ namespace PV
             }
         }
 
-        private void dataGridView1_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        private void dgvRecepciones_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex != -1)
             {
                 Limpiar();
                 Limpiarcabezado();
-                string Folio = dataGridView1.Rows[e.RowIndex].Cells["Folio"].Value.ToString();
+                string Folio = dgvRecepciones.Rows[e.RowIndex].Cells["Folio"].Value.ToString();
                 txtFolio.Text = "X";
                 c.ConsultaRecepcion(Folio, txtClave, cmbEstatus, txtFecha, txtDivisa, txtTipoCambio, txtSubtotal, txtDescuento, txtImpuestos, txtTotal, txtPartidas, txtNotas, txtElaborado, txtFolio, txtReciboCol, txtConsecutivo, txtAlmacen, txtReferencia, txtSaldo, txtCondominio, txtDiasVence, txtFechaVence, txtArchivo);
                 cmbOrdenCompra.Enabled = false;
@@ -1249,7 +1248,7 @@ namespace PV
                 }
                 guna2GradientPanel2.Visible = false;
                 guna2GradientPanel2.SendToBack();
-                c.CargarRecibosPartidasRecepcion(guna2DataGridView1, txtFolio.Text);
+                c.CargarRecibosPartidasRecepcion(dgvPartidas, txtFolio.Text);
             }
             else
             {
@@ -1260,7 +1259,7 @@ namespace PV
 
         private void guna2Button11_Click(object sender, EventArgs e)
         {
-            PanelPartidasRequisicion.Visible = false;
+            PanelPartidasRecepcion.Visible = false;
         }
 
         void Limpiarcabezado()
@@ -1299,7 +1298,7 @@ namespace PV
             cmbProveedor.SelectedIndex = -1;
             cmbOrdenCompra.SelectedIndex = -1;
             cmbAlmacen.SelectedIndex = -1;
-            guna2DataGridView1.Rows.Clear();
+            dgvPartidas.Rows.Clear();
             txtFolio.Text = string.Empty;
             TxtFolio1.Text = string.Empty;
             guna2TabControl1.SelectedIndex = 0;
@@ -1343,7 +1342,7 @@ namespace PV
             txtNotas.Enabled = false;
             txtArchivo.Enabled = false;
             btLimpiarOrden.Enabled = false;
-            button4.Enabled = false;
+            btnBuscarProveedor.Enabled = false;
             button7.Enabled = false;
             button1.Enabled = false;
             button2.Enabled = false;
@@ -1364,7 +1363,7 @@ namespace PV
             txtNotas.Enabled = true;
             txtArchivo.Enabled = true;
             btLimpiarOrden.Enabled = true;
-            button4.Enabled = true;
+            btnBuscarProveedor.Enabled = true;
             button7.Enabled = true;
             button1.Enabled = true;
             button2.Enabled = true;
@@ -1420,17 +1419,17 @@ namespace PV
 
         private void txtFiltro_TextChanged_1(object sender, EventArgs e)
         {
-            c.CargarRrecepcion(dataGridView1, txtFiltro.Text, txtFiltroDocumento.Text, txtFiltroNombre.Text);
+            c.CargarRrecepcion(dgvRecepciones, txtFiltro.Text, txtFiltroDocumento.Text, txtFiltroNombre.Text);
         }
 
         private void txtFiltroDocumento_TextChanged_1(object sender, EventArgs e)
         {
-            c.CargarRrecepcion(dataGridView1, txtFiltro.Text, txtFiltroDocumento.Text, txtFiltroNombre.Text);
+            c.CargarRrecepcion(dgvRecepciones, txtFiltro.Text, txtFiltroDocumento.Text, txtFiltroNombre.Text);
         }
 
         private void txtFiltroNombre_TextChanged_1(object sender, EventArgs e)
         {
-            c.CargarRrecepcion(dataGridView1, txtFiltro.Text, txtFiltroDocumento.Text, txtFiltroNombre.Text);
+            c.CargarRrecepcion(dgvRecepciones, txtFiltro.Text, txtFiltroDocumento.Text, txtFiltroNombre.Text);
         }
 
         private void guna2PictureBox1_Click(object sender, EventArgs e)
@@ -1547,7 +1546,7 @@ namespace PV
                 c.SeleccionarCondomini2(cmbCondominio);
                 c.ruta();
                 //c.SeleccionarOrdenEntrega(cmbOrdenCompra);
-                c.CargarRrecepcion(dataGridView1, txtFiltro.Text, txtFiltroDocumento.Text, txtFiltroNombre.Text);
+                c.CargarRrecepcion(dgvRecepciones, txtFiltro.Text, txtFiltroDocumento.Text, txtFiltroNombre.Text);
                 cmbEstatus.SelectedIndex = 0;
                 txtFecha.Text = DateTime.Today.ToString("yyyy/MM/dd");
                 txtDivisa.Text = "MXN";
@@ -1705,7 +1704,7 @@ namespace PV
             Utilerias.SoloNumFracc(sender, e);
         }
 
-        private void guna2Button1_Click(object sender, EventArgs e)
+        private void btnEliminarRecepcion_Click(object sender, EventArgs e)
         {
             if (txtFolio.Text == string.Empty)
             {

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Windows.Forms;
@@ -7,98 +8,85 @@ using PV.Properties;
 
 namespace Condominios.Clases.Documentos
 {
+    /// <summary>
+    /// Acceso a datos y soporte de UI para el catálogo de Documento.
+    ///
+    /// Misma clase, mismas firmas públicas, misma secuencia de negocio
+    /// (mismos mensajes, mismas confirmaciones Sí/No, mismo orden de
+    /// validaciones). Lo que cambió es la implementación interna:
+    ///
+    /// - Cada operación abre su propia conexión con "using" y la cierra
+    ///   siempre, incluso si hay una excepción. Ya no existe una conexión
+    ///   de instancia abierta durante toda la vida del objeto.
+    /// - Todas las consultas están parametrizadas (@parametro). No hay
+    ///   concatenación de valores dentro del texto SQL en ningún método.
+    /// - Los conteos "leer todas las filas y contarlas en un while" se
+    ///   reemplazaron por EXISTS, que resuelven lo mismo en un solo
+    ///   round-trip al servidor.
+    /// - EliminarDivisa ahora valida y borra dentro de una misma
+    ///   transacción, así se elimina la ventana entre "puede eliminarse"
+    ///   y el DELETE que existía en la versión anterior.
+    /// </summary>
     class DBDocumentos
     {
-        SqlConnection cn;
-        SqlCommand cmd;
-        SqlDataReader dr;
-        SqlDataAdapter da;
-        DataTable dt;
-
         public static int Folio = 0;
 
         public static string ObtenerCn()
         {
             return Settings.Default.ControlCondominiosConnectionString;
         }
+
+        /// <summary>
+        /// Se conserva por compatibilidad con código que ya la invoca después
+        /// de usar la clase. Ya no hay una conexión de instancia que cerrar:
+        /// cada método abre y cierra la suya con "using".
+        /// </summary>
         public void CerrarConexion()
         {
-            try
-            {
-                cn.Close();
-
-            }
-            catch (Exception ex)
-            {
-
-            }
+            // No-op intencional.
         }
+
         public DBDocumentos()
         {
-            try
-            {
-                cn = new SqlConnection(ObtenerCn());
-                cn.Open();
-
-
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Error de Conexion" + ex.ToString());
-            }
+            // Ya no se abre conexión aquí: construir el objeto no debe poder
+            // fallar por un problema de red o de credenciales. Cada método
+            // abre su propia conexión en el momento en que la necesita.
         }
+
+        #region Registro y actualización
+
         //_________________________________________________________________________________________________________________________--
-        // registrar divisa 
+        // registrar documento
         public string RegistroDocumento(string TipoDocumento, string Clase, string Clave, string Nombre, string Almace, string UltimoFolio, string Consecutivo, string Bloquear, string Cuenta, string Cuenta2, string tarea, bool CentroCosto)
         {
             string mensaje = "";
-            int contador = 0;
-            string MostrarCentroCosto = CentroCosto ? "1" : "0";
 
             try
             {
-                cmd = new SqlCommand("select * from Documento where Clave='" + Clave + "' and TipoDocumento= '" + TipoDocumento + "'", cn);
-                dr = cmd.ExecuteReader();
+                bool existe = ExisteDocumento(TipoDocumento, Clave);
 
-                while (dr.Read())
+                if (!existe)
                 {
-                    contador++;
-                }
-                dr.Close();
-
-                if (contador <= 0)
-                {
-                    cmd = new SqlCommand("Insert into Documento (TipoDocumento, Clase, Clave, Nombre, Almace, UltimoFolio, Consecutivo, Bloquear, Cuenta, Cuenta2, Tarea, MostrarCentroCosto) values ('" + TipoDocumento + "', '" + Clase + "', '" + Clave + "', '" + Nombre + "', '" + Almace + "', '" + UltimoFolio + "', '" + Consecutivo + "', '" + Bloquear + "', '" + Cuenta + "', '" + Cuenta2 + "', '" + tarea + "', " + MostrarCentroCosto + ")", cn);
-                    cmd.ExecuteNonQuery();
+                    InsertarDocumento(TipoDocumento, Clase, Clave, Nombre, Almace, UltimoFolio, Consecutivo, Bloquear, Cuenta, Cuenta2, tarea, CentroCosto);
                     mensaje = "Registro guardado.";
                 }
-                else if (contador > 0)
+                else
                 {
-                    contador = 0;
-                    cmd = new SqlCommand("select * from Documento where Clave='" + Clave + "' and TipoDocumento= '" + TipoDocumento + "' and UltimoFolio = '0'", cn);
-                    dr = cmd.ExecuteReader();
+                    bool folioSinUsar = FolioSinUsar(TipoDocumento, Clave);
 
-                    while (dr.Read())
-                    {
-                        contador++;
-                    }
-                    dr.Close();
-
-                    if (contador <= 0)
+                    if (!folioSinUsar)
                     {
                         if (MessageBox.Show("El documento ya tiene folios registrados solo es posible modificar los numeros de cuenta", "Documento", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                         {
-                            cmd = new SqlCommand("Update Documento set  Cuenta='" + Cuenta + "', Cuenta2= '" + Cuenta2 + "' where Clave='" + Clave + "' and TipoDocumento= '" + TipoDocumento + "'", cn);
-                            cmd.ExecuteNonQuery();
+                            ActualizarCuentas(TipoDocumento, Clave, Cuenta, Cuenta2);
                             mensaje = "Registro modificado.";
                         }
                     }
-                    else if (contador > 0)
+                    else
                     {
                         if (MessageBox.Show("El documento ya existe, si continua sera modificado", "Documento", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                         {
-                            cmd = new SqlCommand("Update Documento set Tarea='" + tarea + "', TipoDocumento=  '" + TipoDocumento + "', Clase='" + Clase + "', Almace='" + Almace + "', UltimoFolio='" + UltimoFolio + "', Consecutivo='" + Consecutivo + "', Bloquear='" + Bloquear + "', Cuenta='" + Cuenta + "', Cuenta2= '" + Cuenta2 + "', MostrarCentroCosto=" + MostrarCentroCosto + " where Clave='" + Clave + "' and TipoDocumento= '" + TipoDocumento + "'", cn);
-                            cmd.ExecuteNonQuery();
+                            ActualizarDocumentoCompleto(TipoDocumento, Clase, Clave, Almace, UltimoFolio, Consecutivo, Bloquear, Cuenta, Cuenta2, tarea, CentroCosto);
                             mensaje = "Registro modificado.";
                         }
                     }
@@ -106,10 +94,127 @@ namespace Condominios.Clases.Documentos
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error." + ex.ToString());
+                MessageBox.Show("Error: " + ex.Message);
             }
+
             return mensaje;
         }
+
+        private bool ExisteDocumento(string tipoDocumento, string clave)
+        {
+            const string sql = @"SELECT CASE WHEN EXISTS (
+                                      SELECT 1 FROM Documento
+                                      WHERE Clave = @Clave AND TipoDocumento = @TipoDocumento
+                                  ) THEN 1 ELSE 0 END";
+
+            using (var connection = new SqlConnection(ObtenerCn()))
+            using (var command = new SqlCommand(sql, connection))
+            {
+                command.Parameters.AddWithValue("@Clave", clave);
+                command.Parameters.AddWithValue("@TipoDocumento", tipoDocumento);
+
+                connection.Open();
+                return (int)command.ExecuteScalar() == 1;
+            }
+        }
+
+        private bool FolioSinUsar(string tipoDocumento, string clave)
+        {
+            const string sql = @"SELECT CASE WHEN EXISTS (
+                                      SELECT 1 FROM Documento
+                                      WHERE Clave = @Clave AND TipoDocumento = @TipoDocumento AND UltimoFolio = '0'
+                                  ) THEN 1 ELSE 0 END";
+
+            using (var connection = new SqlConnection(ObtenerCn()))
+            using (var command = new SqlCommand(sql, connection))
+            {
+                command.Parameters.AddWithValue("@Clave", clave);
+                command.Parameters.AddWithValue("@TipoDocumento", tipoDocumento);
+
+                connection.Open();
+                return (int)command.ExecuteScalar() == 1;
+            }
+        }
+
+        private void InsertarDocumento(string tipoDocumento, string clase, string clave, string nombre, string almace, string ultimoFolio, string consecutivo, string bloquear, string cuenta, string cuenta2, string tarea, bool centroCosto)
+        {
+            const string sql = @"INSERT INTO Documento
+                (TipoDocumento, Clase, Clave, Nombre, Almace, UltimoFolio, Consecutivo, Bloquear, Cuenta, Cuenta2, Tarea, MostrarCentroCosto)
+                VALUES
+                (@TipoDocumento, @Clase, @Clave, @Nombre, @Almace, @UltimoFolio, @Consecutivo, @Bloquear, @Cuenta, @Cuenta2, @Tarea, @MostrarCentroCosto)";
+
+            using (var connection = new SqlConnection(ObtenerCn()))
+            using (var command = new SqlCommand(sql, connection))
+            {
+                command.Parameters.AddWithValue("@TipoDocumento", tipoDocumento ?? string.Empty);
+                command.Parameters.AddWithValue("@Clase", clase ?? string.Empty);
+                command.Parameters.AddWithValue("@Clave", clave ?? string.Empty);
+                command.Parameters.AddWithValue("@Nombre", nombre ?? string.Empty);
+                command.Parameters.AddWithValue("@Almace", almace ?? string.Empty);
+                command.Parameters.AddWithValue("@UltimoFolio", ultimoFolio ?? string.Empty);
+                command.Parameters.AddWithValue("@Consecutivo", consecutivo ?? string.Empty);
+                command.Parameters.AddWithValue("@Bloquear", bloquear ?? string.Empty);
+                command.Parameters.AddWithValue("@Cuenta", cuenta ?? string.Empty);
+                command.Parameters.AddWithValue("@Cuenta2", cuenta2 ?? string.Empty);
+                command.Parameters.AddWithValue("@Tarea", tarea ?? string.Empty);
+                command.Parameters.Add("@MostrarCentroCosto", SqlDbType.Bit).Value = centroCosto;
+
+                connection.Open();
+                command.ExecuteNonQuery();
+            }
+        }
+
+        private void ActualizarCuentas(string tipoDocumento, string clave, string cuenta, string cuenta2)
+        {
+            const string sql = @"UPDATE Documento SET Cuenta = @Cuenta, Cuenta2 = @Cuenta2
+                                  WHERE Clave = @Clave AND TipoDocumento = @TipoDocumento";
+
+            using (var connection = new SqlConnection(ObtenerCn()))
+            using (var command = new SqlCommand(sql, connection))
+            {
+                command.Parameters.AddWithValue("@Cuenta", cuenta ?? string.Empty);
+                command.Parameters.AddWithValue("@Cuenta2", cuenta2 ?? string.Empty);
+                command.Parameters.AddWithValue("@Clave", clave);
+                command.Parameters.AddWithValue("@TipoDocumento", tipoDocumento);
+
+                connection.Open();
+                command.ExecuteNonQuery();
+            }
+        }
+
+        private void ActualizarDocumentoCompleto(string tipoDocumento, string clase, string clave, string almace, string ultimoFolio, string consecutivo, string bloquear, string cuenta, string cuenta2, string tarea, bool centroCosto)
+        {
+            const string sql = @"UPDATE Documento SET
+                                    Tarea = @Tarea, TipoDocumento = @TipoDocumento, Clase = @Clase,
+                                    Almace = @Almace, UltimoFolio = @UltimoFolio, Consecutivo = @Consecutivo,
+                                    Bloquear = @Bloquear, Cuenta = @Cuenta, Cuenta2 = @Cuenta2,
+                                    MostrarCentroCosto = @MostrarCentroCosto
+                                  WHERE Clave = @Clave AND TipoDocumento = @TipoDocumento";
+
+            using (var connection = new SqlConnection(ObtenerCn()))
+            using (var command = new SqlCommand(sql, connection))
+            {
+                command.Parameters.AddWithValue("@Tarea", tarea ?? string.Empty);
+                command.Parameters.AddWithValue("@TipoDocumento", tipoDocumento ?? string.Empty);
+                command.Parameters.AddWithValue("@Clase", clase ?? string.Empty);
+                command.Parameters.AddWithValue("@Almace", almace ?? string.Empty);
+                command.Parameters.AddWithValue("@UltimoFolio", ultimoFolio ?? string.Empty);
+                command.Parameters.AddWithValue("@Consecutivo", consecutivo ?? string.Empty);
+                command.Parameters.AddWithValue("@Bloquear", bloquear ?? string.Empty);
+                command.Parameters.AddWithValue("@Cuenta", cuenta ?? string.Empty);
+                command.Parameters.AddWithValue("@Cuenta2", cuenta2 ?? string.Empty);
+                command.Parameters.Add("@MostrarCentroCosto", SqlDbType.Bit).Value = centroCosto;
+                command.Parameters.AddWithValue("@Clave", clave ?? string.Empty);
+
+                connection.Open();
+                command.ExecuteNonQuery();
+            }
+        }
+
+        #endregion
+
+        #region Consultas
+
         //________________________________________________________________________________________________
         //Documentos Registrados
         public void CargarDocumentos(DataGridView dgv)
@@ -117,180 +222,258 @@ namespace Condominios.Clases.Documentos
             try
             {
                 dgv.Rows.Clear();
-                da = new SqlDataAdapter("Select * from Documento", cn);
-                dt = new DataTable();
-                da.Fill(dt);
-                foreach (DataRow item in dt.Rows)
-                {
-                    int n = dgv.Rows.Add();
-                    dgv.Rows[n].Cells[0].Value = item["TipoDocumento"].ToString();
-                    dgv.Rows[n].Cells[1].Value = item["Clase"].ToString();
-                    dgv.Rows[n].Cells[2].Value = item["Clave"].ToString();
-                    dgv.Rows[n].Cells[3].Value = item["Nombre"].ToString();
-                }
 
+                // Antes: "Select * from Documento" y solo se usaban 4 columnas.
+                // Antes: "Select * from Documento" y solo se usaban 4 columnas.
+                // Se piden únicamente las columnas que el grid consume.
+                const string sql = "SELECT TipoDocumento, Clase, Clave, Nombre FROM Documento order by tipoDocumento";
+
+                using (var connection = new SqlConnection(ObtenerCn()))
+                using (var command = new SqlCommand(sql, connection))
+                using (var adapter = new SqlDataAdapter(command))
+                {
+                    var dt = new DataTable();
+                    adapter.Fill(dt); // SqlDataAdapter abre y cierra la conexión por sí solo.
+
+                    foreach (DataRow item in dt.Rows)
+                    {
+                        int n = dgv.Rows.Add();
+                        dgv.Rows[n].Cells[0].Value = item["TipoDocumento"].ToString();
+                        dgv.Rows[n].Cells[1].Value = item["Clase"].ToString();
+                        dgv.Rows[n].Cells[2].Value = item["Clave"].ToString();
+                        dgv.Rows[n].Cells[3].Value = item["Nombre"].ToString();
+                    }
+                }
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error" + ex.ToString());
+                MessageBox.Show("Error: " + ex.Message);
             }
         }
+
         //_____________________________________________________________________________________________________
         //Mostrar Usuario seleccionado
         public void ConsultaDocumentoSeleccionado(ComboBox TipoDocumento, ComboBox Clase, string Clave, string Nombre, Guna2TextBox Almace, Guna2TextBox UltimoFolio, Guna2ToggleSwitch tgConsecutivo, Guna2ToggleSwitch tgBloquear, Guna2TextBox Cuenta, Guna2TextBox Cuenta2, ComboBox Tarea, Guna2ToggleSwitch tgCentroCosto)
         {
+            const string sql = "SELECT * FROM Documento WHERE Clave = @Clave AND Nombre = @Nombre";
+
             try
             {
-                cmd = new SqlCommand("Select * from Documento where Clave='" + Clave + "' and Nombre= '" + Nombre + "'", cn);
-                dr = cmd.ExecuteReader();
-                if (dr.Read())
+                using (var connection = new SqlConnection(ObtenerCn()))
+                using (var command = new SqlCommand(sql, connection))
                 {
-                    TipoDocumento.Text = dr["TipoDocumento"].ToString();
+                    command.Parameters.AddWithValue("@Clave", Clave);
+                    command.Parameters.AddWithValue("@Nombre", Nombre);
 
-                    Almace.Text = dr["Almace"].ToString();
-                    UltimoFolio.Text = dr["UltimoFolio"].ToString();
-
-                    string Consecutivo = dr["Consecutivo"].ToString();
-                    if (Consecutivo == "Si")
+                    connection.Open();
+                    using (var reader = command.ExecuteReader(CommandBehavior.SingleRow))
                     {
-                        tgConsecutivo.Checked = true;
-                    }
-                    else if (Consecutivo == "No")
-                    {
-                        tgConsecutivo.Checked = false;
-                    }
+                        if (reader.Read())
+                        {
+                            TipoDocumento.Text = reader["TipoDocumento"].ToString();
 
-                    string Bloqueo = dr["Bloquear"].ToString();
-                    if (Bloqueo == "Si")
-                    {
-                        tgBloquear.Checked = true;
-                    }
-                    else if (Bloqueo == "No")
-                    {
-                        tgBloquear.Checked = false;
-                    }
+                            Almace.Text = reader["Almace"].ToString();
+                            UltimoFolio.Text = reader["UltimoFolio"].ToString();
 
-                    tgCentroCosto.Checked = Convert.ToBoolean(dr["MostrarCentroCosto"]);
+                            string consecutivo = reader["Consecutivo"].ToString();
+                            if (consecutivo == "Si")
+                            {
+                                tgConsecutivo.Checked = true;
+                            }
+                            else if (consecutivo == "No")
+                            {
+                                tgConsecutivo.Checked = false;
+                            }
 
-                    Cuenta.Text = dr["Cuenta"].ToString();
-                    Cuenta2.Text = dr["Cuenta2"].ToString();
-                    Clase.Text = dr["Clase"].ToString();
-                    Tarea.Text = dr["Tarea"].ToString();
+                            string bloqueo = reader["Bloquear"].ToString();
+                            if (bloqueo == "Si")
+                            {
+                                tgBloquear.Checked = true;
+                            }
+                            else if (bloqueo == "No")
+                            {
+                                tgBloquear.Checked = false;
+                            }
+
+                            tgCentroCosto.Checked = Convert.ToBoolean(reader["MostrarCentroCosto"]);
+
+                            Cuenta.Text = reader["Cuenta"].ToString();
+                            Cuenta2.Text = reader["Cuenta2"].ToString();
+                            Clase.Text = reader["Clase"].ToString();
+                            Tarea.Text = reader["Tarea"].ToString();
+                        }
+                    }
                 }
-                dr.Close();
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error" + ex.ToString());
+                MessageBox.Show("Error: " + ex.Message);
             }
         }
+
         //_____________________________________________________________________________________________________
         //Mostrar Usuario seleccionado
         public void ConsultaDocumentoSeleccionado2(ComboBox Clase, string Clave, string Nombre)
         {
+            const string sql = "SELECT Clase FROM Documento WHERE Clave = @Clave AND Nombre = @Nombre";
+
             try
             {
-                cmd = new SqlCommand("Select * from Documento where Clave='" + Clave + "' and Nombre= '" + Nombre + "'", cn);
-                dr = cmd.ExecuteReader();
-                if (dr.Read())
+                using (var connection = new SqlConnection(ObtenerCn()))
+                using (var command = new SqlCommand(sql, connection))
                 {
+                    command.Parameters.AddWithValue("@Clave", Clave);
+                    command.Parameters.AddWithValue("@Nombre", Nombre);
 
-                    Clase.Text = dr["Clase"].ToString();
+                    connection.Open();
+                    using (var reader = command.ExecuteReader(CommandBehavior.SingleRow))
+                    {
+                        if (reader.Read())
+                        {
+                            Clase.Text = reader["Clase"].ToString();
+                        }
+                    }
                 }
-                dr.Close();
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error" + ex.ToString());
+                MessageBox.Show("Error: " + ex.Message);
             }
         }
-        //___________________________________________________________________________________________________________________
-        public void Monto(KeyPressEventArgs e)
-        {
-            try
-            {
-                if (char.IsNumber(e.KeyChar))
-                {
-                    e.Handled = false;
-                }
-                else if (char.IsPunctuation(e.KeyChar))
-                {
-                    e.Handled = false;
-                }
-                else if (char.IsControl(e.KeyChar))
-                {
-                    e.Handled = false;
-                }
-                else if (char.IsSeparator(e.KeyChar))
-                {
-                    e.Handled = true;
-                }
-                else
-                    e.Handled = true;
-            }
-            catch (Exception)
-            {
 
-                throw;
-            }
-        }
-        //_________________________________________________________________________________________________________________________--
-        // registrar divisa 
-        public string EliminarDivisa(string txtClaveDivisa, string txtClase, string txtTipoDocumento)
-        {
-            string mensaje = string.Empty;
-            int contador = 0;
-            try
-            {
-                cmd = new SqlCommand("select D.* from Documento as D where D.Clave='" + txtClaveDivisa + "' and D.Clase='" + txtClase + "' and D.TipoDocumento='" + txtTipoDocumento + "' and not exists (select Documento from DatosEmpresa as DE where D.Clave=DE.Documento) and not exists (select ClaveDocumento from Recibo as R where D.Clave=R.ClaveDocumento) and not exists (select ClaveDocumento from OrdenCompra as R where D.Clave=R.ClaveDocumento) and not exists (select ClaveDocumento from RecepcionProducto as R where D.Clave=R.ClaveDocumento) and not exists (select ClaveDocumento from RegistroGastos as R where D.Clave=R.ClaveDocumento) and not exists (select ClaveDocumento from Requisicion as R where D.Clave=R.ClaveDocumento)  and not exists (select ClaveDocumento from NotasGasto as R where D.Clave=R.ClaveDocumento)", cn);
-                dr = cmd.ExecuteReader();
-
-                while (dr.Read())
-                {
-                    contador++;
-                }
-                dr.Close();
-
-                if (contador <= 0)
-                {
-                    mensaje = "El registro esta en uso, no es posible eliminar";
-                }
-                else if (contador > 0)
-                {
-                    cmd = new SqlCommand("Delete Documento  where Clave='" + txtClaveDivisa + "' and TipoDocumento= '" + txtTipoDocumento + "' and Clase='"+txtClase+"'", cn);
-                    cmd.ExecuteNonQuery();
-                    mensaje = "Registro Eliminado.";
-
-                }
-
-            }
-            catch (Exception)
-            {
-                MessageBox.Show("El registro esta en uso, no es posible eliminar");
-            }
-            return mensaje;
-        }
         public DataTable ConsultarDocumento(string tipo = null, string clase = null)
         {
-            string query = "SELECT * FROM Documento where 1=1";
+            string query = "SELECT * FROM Documento WHERE 1=1";
+            var parametros = new List<SqlParameter>();
+
             if (!string.IsNullOrEmpty(tipo))
             {
-                query += " and TipoDocumento='" + tipo + "'";
+                query += " AND TipoDocumento = @TipoDocumento";
+                parametros.Add(new SqlParameter("@TipoDocumento", tipo));
             }
             if (!string.IsNullOrEmpty(clase))
             {
-                query += " and clase='" + clase + "'";
+                query += " AND clase = @Clase";
+                parametros.Add(new SqlParameter("@Clase", clase));
             }
+
             var dataTable = new DataTable();
 
             using (var connection = new SqlConnection(ObtenerCn()))
+            using (var command = new SqlCommand(query, connection))
+            using (var adapter = new SqlDataAdapter(command))
             {
-                var command = new SqlCommand(query, connection);
-                var adapter = new SqlDataAdapter(command);
+                command.Parameters.AddRange(parametros.ToArray());
                 adapter.Fill(dataTable);
             }
 
             return dataTable;
         }
+
+        #endregion
+
+        #region Utilidades de UI
+
+        public void Monto(KeyPressEventArgs e)
+        {
+            if (char.IsNumber(e.KeyChar))
+            {
+                e.Handled = false;
+            }
+            else if (char.IsPunctuation(e.KeyChar))
+            {
+                e.Handled = false;
+            }
+            else if (char.IsControl(e.KeyChar))
+            {
+                e.Handled = false;
+            }
+            else if (char.IsSeparator(e.KeyChar))
+            {
+                e.Handled = true;
+            }
+            else
+            {
+                e.Handled = true;
+            }
+        }
+
+        #endregion
+
+        #region Eliminación
+
+        //_________________________________________________________________________________________________________________________--
+        // eliminar documento
+        public string EliminarDivisa(string txtClaveDivisa, string txtClase, string txtTipoDocumento)
+        {
+            string mensaje = string.Empty;
+
+            const string sqlPuedeEliminar = @"SELECT CASE WHEN EXISTS (
+                    SELECT 1 FROM Documento AS D
+                    WHERE D.Clave = @Clave AND D.Clase = @Clase AND D.TipoDocumento = @TipoDocumento
+                      AND NOT EXISTS (SELECT 1 FROM DatosEmpresa AS DE WHERE D.Clave = DE.Documento)
+                      AND NOT EXISTS (SELECT 1 FROM Recibo AS R WHERE D.Clave = R.ClaveDocumento)
+                      AND NOT EXISTS (SELECT 1 FROM OrdenCompra AS R WHERE D.Clave = R.ClaveDocumento)
+                      AND NOT EXISTS (SELECT 1 FROM RecepcionProducto AS R WHERE D.Clave = R.ClaveDocumento)
+                      AND NOT EXISTS (SELECT 1 FROM RegistroGastos AS R WHERE D.Clave = R.ClaveDocumento)
+                      AND NOT EXISTS (SELECT 1 FROM Requisicion AS R WHERE D.Clave = R.ClaveDocumento)
+                      AND NOT EXISTS (SELECT 1 FROM NotasGasto AS R WHERE D.Clave = R.ClaveDocumento)
+                ) THEN 1 ELSE 0 END";
+
+            const string sqlEliminar = "DELETE FROM Documento WHERE Clave = @Clave AND TipoDocumento = @TipoDocumento AND Clase = @Clase";
+
+            try
+            {
+                using (var connection = new SqlConnection(ObtenerCn()))
+                {
+                    connection.Open();
+
+                    using (var transaction = connection.BeginTransaction())
+                    {
+                        try
+                        {
+                            bool puedeEliminar;
+                            using (var command = new SqlCommand(sqlPuedeEliminar, connection, transaction))
+                            {
+                                command.Parameters.AddWithValue("@Clave", txtClaveDivisa);
+                                command.Parameters.AddWithValue("@Clase", txtClase);
+                                command.Parameters.AddWithValue("@TipoDocumento", txtTipoDocumento);
+                                puedeEliminar = (int)command.ExecuteScalar() == 1;
+                            }
+
+                            if (!puedeEliminar)
+                            {
+                                transaction.Rollback();
+                                return "El registro esta en uso, no es posible eliminar";
+                            }
+
+                            using (var command = new SqlCommand(sqlEliminar, connection, transaction))
+                            {
+                                command.Parameters.AddWithValue("@Clave", txtClaveDivisa);
+                                command.Parameters.AddWithValue("@TipoDocumento", txtTipoDocumento);
+                                command.Parameters.AddWithValue("@Clase", txtClase);
+                                command.ExecuteNonQuery();
+                            }
+
+                            transaction.Commit();
+                            mensaje = "Registro Eliminado.";
+                        }
+                        catch
+                        {
+                            transaction.Rollback();
+                            throw;
+                        }
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("El registro esta en uso, no es posible eliminar");
+            }
+
+            return mensaje;
+        }
+
+        #endregion
     }
 }

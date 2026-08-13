@@ -252,6 +252,21 @@ namespace PV.Clases
                 e.Handled = true;
             }
         }
+        public static string FormatearMiles(string valor)
+        {
+            if (string.IsNullOrWhiteSpace(valor))
+                return "0";
+
+            // Quitar separadores de miles existentes
+            valor = valor.Replace(",", "").Trim();
+
+            if (decimal.TryParse(valor, out decimal numero))
+            {
+                return numero.ToString("#,##0.##");
+            }
+
+            return valor;
+        }
         public static void SoloEnteros(object sender, KeyPressEventArgs e)
         {
             // Permitir solo dígitos y teclas de control (como Backspace)

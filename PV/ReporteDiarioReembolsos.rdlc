@@ -1476,7 +1476,7 @@
                 </TablixCell>
                 <TablixCell>
                   <CellContents>
-                    <Textbox Name="ClaveProducto">
+                    <Textbox Name="Descripcion">
                       <CanGrow>true</CanGrow>
                       <KeepTogether>true</KeepTogether>
                       <Paragraphs>
@@ -1494,7 +1494,7 @@
                           </Style>
                         </Paragraph>
                       </Paragraphs>
-                      <rd:DefaultName>ClaveProducto</rd:DefaultName>
+                      <rd:DefaultName>Descripcion</rd:DefaultName>
                       <Style>
                         <Border>
                           <Color>LightGrey</Color>
@@ -1510,14 +1510,14 @@
                 </TablixCell>
                 <TablixCell>
                   <CellContents>
-                    <Textbox Name="FormadePago">
+                    <Textbox Name="FormaDePago">
                       <CanGrow>true</CanGrow>
                       <KeepTogether>true</KeepTogether>
                       <Paragraphs>
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>=Fields!FormadePago.Value</Value>
+                              <Value>=Fields!FormaDePago.Value</Value>
                               <Style>
                                 <FontSize>8pt</FontSize>
                               </Style>
@@ -1528,7 +1528,7 @@
                           </Style>
                         </Paragraph>
                       </Paragraphs>
-                      <rd:DefaultName>FormadePago</rd:DefaultName>
+                      <rd:DefaultName>FormaDePago</rd:DefaultName>
                       <Style>
                         <Border>
                           <Color>LightGrey</Color>
@@ -1540,6 +1540,7 @@
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
                     </Textbox>
+                    <rd:Selected>true</rd:Selected>
                   </CellContents>
                 </TablixCell>
                 <TablixCell>
@@ -2310,11 +2311,11 @@
         </Field>
         <Field Name="Fecha">
           <DataField>Fecha</DataField>
-          <rd:TypeName>System.DateTime</rd:TypeName>
+          <rd:TypeName>System.String</rd:TypeName>
         </Field>
         <Field Name="FechaVence">
           <DataField>FechaVence</DataField>
-          <rd:TypeName>System.DateTime</rd:TypeName>
+          <rd:TypeName>System.String</rd:TypeName>
         </Field>
         <Field Name="Divisa">
           <DataField>Divisa</DataField>
@@ -2338,7 +2339,7 @@
         </Field>
         <Field Name="Anio">
           <DataField>Anio</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
+          <rd:TypeName>System.Int32</rd:TypeName>
         </Field>
         <Field Name="Semana">
           <DataField>Semana</DataField>
@@ -2370,7 +2371,7 @@
         </Field>
         <Field Name="Cantidad">
           <DataField>Cantidad</DataField>
-          <rd:TypeName>System.Int32</rd:TypeName>
+          <rd:TypeName>System.Decimal</rd:TypeName>
         </Field>
         <Field Name="ClaveServicio">
           <DataField>ClaveServicio</DataField>
@@ -2420,8 +2421,8 @@
           <DataField>IEPSPartida</DataField>
           <rd:TypeName>System.Decimal</rd:TypeName>
         </Field>
-        <Field Name="FormadePago">
-          <DataField>FormadePago</DataField>
+        <Field Name="FormaDePago">
+          <DataField>FormaDePago</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
         <Field Name="ProyectoEncabezado">
@@ -2435,7 +2436,7 @@
       </Fields>
       <rd:DataSetInfo>
         <rd:DataSetName>DTSReporteDiarioReembolsos</rd:DataSetName>
-        <rd:SchemaPath>C:\Users\jorge\Desktop\SIGA Constructora\PV\DTSReporteDiarioReembolsos.xsd</rd:SchemaPath>
+        <rd:SchemaPath>C:\Users\Giorgi\Documents\Proyectos .Net\SIGA\PV\DTSReporteDiarioReembolsos.xsd</rd:SchemaPath>
         <rd:TableName>sp_ReporteDiarioReembolsos</rd:TableName>
         <rd:TableAdapterFillMethod>Fill</rd:TableAdapterFillMethod>
         <rd:TableAdapterGetDataMethod>GetData</rd:TableAdapterGetDataMethod>

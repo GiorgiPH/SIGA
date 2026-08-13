@@ -50,98 +50,6 @@
             this.asignaturasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.otrosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.miniToolStrip = new System.Windows.Forms.ToolStrip();
-            this.guna2Panel1 = new Guna.UI2.WinForms.Guna2Panel();
-            this.toolStrip1 = new System.Windows.Forms.ToolStrip();
-            this.btnParametros = new System.Windows.Forms.ToolStripDropDownButton();
-            this.toolStripMenuItem4 = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem5 = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
-            this.btnCatalogos = new System.Windows.Forms.ToolStripDropDownButton();
-            this.divisasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.almacenesToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.categoriasYFamiliasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.productosYServiciosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.serviciosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.centrosDeCostosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.documentosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.conceptosGlobalesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.formasDePagoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.empleadosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.tiposYZonasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.clientesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.proveedoresToolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
-            this.cuentasBancariasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.sATToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripDropDownButton4 = new System.Windows.Forms.ToolStripSeparator();
-            this.btnInventarios = new System.Windows.Forms.ToolStripDropDownButton();
-            this.movimientosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.tipoMovimientosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.registrarEntradasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.registrarSalidaToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.registrarTraspasosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.consultaInventariosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem6 = new System.Windows.Forms.ToolStripMenuItem();
-            this.reporteKardexToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.reporteExistenciasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.reporteCostoPorProductosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.inventariosFisicosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.explosionDeMaterialesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.reportesToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
-            this.btnCompras = new System.Windows.Forms.ToolStripDropDownButton();
-            this.requisicionesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.cotizacionesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.pedidosProveedoresToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.comprasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.notasDeCrYCaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.reportesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.reporteDiarioDeRequisicionesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.reporteDiarioDeOrdenesDeCompraToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.reporteDiarioDeComprasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.reporteDiarioNotasDeCargoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.reporteDeEgresosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.reporteSaldoDeComprasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.anticiposToolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
-            this.anticiposToolStripMenuItem4 = new System.Windows.Forms.ToolStripMenuItem();
-            this.anticiposAplicadosToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.proveedoresToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.estadoDeCuentaProveedoresToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.saldosProveedoresToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.detallesDeSaldosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.DefinepolizaStripMenuItem7 = new System.Windows.Forms.ToolStripMenuItem();
-            this.GenerePolizaStripMenuItem7 = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
-            this.btnVentas = new System.Windows.Forms.ToolStripDropDownButton();
-            this.cotizacionesToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.pedidosDeClientesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.remisionesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.cFDIToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.notasDeCrYCaToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.reportesToolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator7 = new System.Windows.Forms.ToolStripSeparator();
-            this.btnTesoreria = new System.Windows.Forms.ToolStripDropDownButton();
-            this.bancosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.btnIngresos = new System.Windows.Forms.ToolStripMenuItem();
-            this.egresosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.reportesToolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator8 = new System.Windows.Forms.ToolStripSeparator();
-            this.btnPresupuesto = new System.Windows.Forms.ToolStripDropDownButton();
-            this.base0ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.historicoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.registrarPresupuestosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.ingresosToolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
-            this.egresosToolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
-            this.crearPresupuestosHistoricosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.ingreosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.egresosToolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
-            this.cerrarPresupuestoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.reportesToolStripMenuItem8 = new System.Windows.Forms.ToolStripMenuItem();
-            this.periodicoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
-            this.btnUtilerias = new System.Windows.Forms.ToolStripDropDownButton();
-            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
             this.guna2Panel3 = new Guna.UI2.WinForms.Guna2Panel();
             this.guna2HtmlLabel3 = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.guna2HtmlLabel2 = new Guna.UI2.WinForms.Guna2HtmlLabel();
@@ -158,12 +66,14 @@
             this.guna2GradientButton60 = new Guna.UI2.WinForms.Guna2GradientButton();
             this.guna2GradientButton61 = new Guna.UI2.WinForms.Guna2GradientButton();
             this.guna2GradientButton62 = new Guna.UI2.WinForms.Guna2GradientButton();
+            this.btnReporteAnticipos = new Guna.UI2.WinForms.Guna2GradientButton();
+            this.btnReporteIngresos = new Guna.UI2.WinForms.Guna2GradientButton();
             this.GrupoCompras = new Guna.UI2.WinForms.Guna2GroupBox();
             this.guna2GradientButton6 = new Guna.UI2.WinForms.Guna2GradientButton();
             this.guna2GradientButton57 = new Guna.UI2.WinForms.Guna2GradientButton();
             this.guna2GradientButton50 = new Guna.UI2.WinForms.Guna2GradientButton();
             this.guna2GradientButton56 = new Guna.UI2.WinForms.Guna2GradientButton();
-            this.guna2GradientButton1 = new Guna.UI2.WinForms.Guna2GradientButton();
+            this.btnReportesCompras = new Guna.UI2.WinForms.Guna2GradientButton();
             this.guna2GradientButton51 = new Guna.UI2.WinForms.Guna2GradientButton();
             this.guna2GradientButton3 = new Guna.UI2.WinForms.Guna2GradientButton();
             this.guna2GradientButton4 = new Guna.UI2.WinForms.Guna2GradientButton();
@@ -174,7 +84,7 @@
             this.guna2GradientButton10 = new Guna.UI2.WinForms.Guna2GradientButton();
             this.guna2GradientButton49 = new Guna.UI2.WinForms.Guna2GradientButton();
             this.guna2GradientButton11 = new Guna.UI2.WinForms.Guna2GradientButton();
-            this.guna2GradientButton16 = new Guna.UI2.WinForms.Guna2GradientButton();
+            this.btnReportesTesoreria = new Guna.UI2.WinForms.Guna2GradientButton();
             this.guna2GradientButton17 = new Guna.UI2.WinForms.Guna2GradientButton();
             this.guna2GradientButton18 = new Guna.UI2.WinForms.Guna2GradientButton();
             this.guna2GradientButton19 = new Guna.UI2.WinForms.Guna2GradientButton();
@@ -190,21 +100,14 @@
             this.guna2GradientButton53 = new Guna.UI2.WinForms.Guna2GradientButton();
             this.subgrupoPresupuesto3 = new Guna.UI2.WinForms.Guna2GroupBox();
             this.guna2GradientButton48 = new Guna.UI2.WinForms.Guna2GradientButton();
-            this.subgrupoPresupuesto1 = new Guna.UI2.WinForms.Guna2GroupBox();
-            this.guna2GradientButton44 = new Guna.UI2.WinForms.Guna2GradientButton();
-            this.guna2GradientButton47 = new Guna.UI2.WinForms.Guna2GradientButton();
-            this.subgrupoPresupuesto = new Guna.UI2.WinForms.Guna2GroupBox();
-            this.guna2GradientButton45 = new Guna.UI2.WinForms.Guna2GradientButton();
-            this.guna2GradientButton46 = new Guna.UI2.WinForms.Guna2GradientButton();
-            this.GrupoVentas = new Guna.UI2.WinForms.Guna2GroupBox();
+            this.SubgrupoIngresos = new Guna.UI2.WinForms.Guna2GroupBox();
             this.btnRegistrarINgresos = new Guna.UI2.WinForms.Guna2GradientButton();
+            this.GrupoVentas = new Guna.UI2.WinForms.Guna2GroupBox();
             this.btnRemisiones = new Guna.UI2.WinForms.Guna2GradientButton();
             this.btnPedidos = new Guna.UI2.WinForms.Guna2GradientButton();
             this.btnReporteUtilidadProducto = new Guna.UI2.WinForms.Guna2GradientButton();
             this.btnReporteUtilidadPedido = new Guna.UI2.WinForms.Guna2GradientButton();
             this.btnReporteRemisiones = new Guna.UI2.WinForms.Guna2GradientButton();
-            this.btnReporteAnticipos = new Guna.UI2.WinForms.Guna2GradientButton();
-            this.btnReporteIngresos = new Guna.UI2.WinForms.Guna2GradientButton();
             this.SubGrupoReportesProveedores = new Guna.UI2.WinForms.Guna2GroupBox();
             this.guna2GradientButton43 = new Guna.UI2.WinForms.Guna2GradientButton();
             this.guna2GradientButton41 = new Guna.UI2.WinForms.Guna2GradientButton();
@@ -214,7 +117,7 @@
             this.guna2GradientButton40 = new Guna.UI2.WinForms.Guna2GradientButton();
             this.SubGrupoReportesCompras = new Guna.UI2.WinForms.Guna2GroupBox();
             this.guna2GradientButton35 = new Guna.UI2.WinForms.Guna2GradientButton();
-            this.guna2GradientButton36 = new Guna.UI2.WinForms.Guna2GradientButton();
+            this.btnAnticipos = new Guna.UI2.WinForms.Guna2GradientButton();
             this.guna2GradientButton37 = new Guna.UI2.WinForms.Guna2GradientButton();
             this.guna2GradientButton38 = new Guna.UI2.WinForms.Guna2GradientButton();
             this.guna2GradientButton59 = new Guna.UI2.WinForms.Guna2GradientButton();
@@ -222,7 +125,7 @@
             this.guna2GradientButton34 = new Guna.UI2.WinForms.Guna2GradientButton();
             this.guna2GradientButton26 = new Guna.UI2.WinForms.Guna2GradientButton();
             this.guna2GradientButton32 = new Guna.UI2.WinForms.Guna2GradientButton();
-            this.SubGrupoReportes = new Guna.UI2.WinForms.Guna2GroupBox();
+            this.SubGrupoReportesMovimientos = new Guna.UI2.WinForms.Guna2GroupBox();
             this.btnReporteCostoxProducto = new Guna.UI2.WinForms.Guna2GradientButton();
             this.btnReporteExistencias = new Guna.UI2.WinForms.Guna2GradientButton();
             this.GrupoUtilerias = new Guna.UI2.WinForms.Guna2GroupBox();
@@ -236,24 +139,24 @@
             this.guna2GradientButton23 = new Guna.UI2.WinForms.Guna2GradientButton();
             this.guna2GradientButton24 = new Guna.UI2.WinForms.Guna2GradientButton();
             this.guna2GradientButton25 = new Guna.UI2.WinForms.Guna2GradientButton();
-            this.GrpoMovimientos = new Guna.UI2.WinForms.Guna2GroupBox();
-            this.guna2GradientButton9 = new Guna.UI2.WinForms.Guna2GradientButton();
+            this.SubgrupoMovimientos = new Guna.UI2.WinForms.Guna2GroupBox();
+            this.btnReportesMovimientosInventarios = new Guna.UI2.WinForms.Guna2GradientButton();
             this.btnConsultaInventarios = new Guna.UI2.WinForms.Guna2GradientButton();
             this.btnRegistrarTrasnpasos = new Guna.UI2.WinForms.Guna2GradientButton();
             this.btnRegistrarSalidas = new Guna.UI2.WinForms.Guna2GradientButton();
             this.btnRegistrarEntradas = new Guna.UI2.WinForms.Guna2GradientButton();
             this.btnTipoMovimientos = new Guna.UI2.WinForms.Guna2GradientButton();
             this.Grupoinventarios = new Guna.UI2.WinForms.Guna2GroupBox();
-            this.guna2GradientButton30 = new Guna.UI2.WinForms.Guna2GradientButton();
+            this.btnReportesInventarios = new Guna.UI2.WinForms.Guna2GradientButton();
             this.guna2GradientButton29 = new Guna.UI2.WinForms.Guna2GradientButton();
             this.BtnInventariosfisicos = new Guna.UI2.WinForms.Guna2GradientButton();
             this.BtnMovimientos = new Guna.UI2.WinForms.Guna2GradientButton();
-            this.GruopParametros = new Guna.UI2.WinForms.Guna2GroupBox();
+            this.GrupoParametros = new Guna.UI2.WinForms.Guna2GroupBox();
             this.BtnUsuarios = new Guna.UI2.WinForms.Guna2GradientButton();
             this.btnDatosMmpresa = new Guna.UI2.WinForms.Guna2GradientButton();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.GroupCatalogo = new Guna.UI2.WinForms.Guna2GroupBox();
+            this.GrupoCatalogos = new Guna.UI2.WinForms.Guna2GroupBox();
             this.BtnCuentasBancarias = new Guna.UI2.WinForms.Guna2GradientButton();
             this.btnDivisas = new Guna.UI2.WinForms.Guna2GradientButton();
             this.btnAlmacen = new Guna.UI2.WinForms.Guna2GradientButton();
@@ -289,8 +192,6 @@
             this.btnventas1 = new Guna.UI2.WinForms.Guna2GradientButton();
             this.btnventas2 = new Guna.UI2.WinForms.Guna2GradientButton();
             this.guna2HtmlLabel1 = new Guna.UI2.WinForms.Guna2HtmlLabel();
-            this.guna2Panel1.SuspendLayout();
-            this.toolStrip1.SuspendLayout();
             this.guna2Panel3.SuspendLayout();
             this.guna2Panel4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.guna2PictureBox1)).BeginInit();
@@ -302,21 +203,20 @@
             this.guna2GroupBox2.SuspendLayout();
             this.guna2GroupBox1.SuspendLayout();
             this.subgrupoPresupuesto3.SuspendLayout();
-            this.subgrupoPresupuesto1.SuspendLayout();
-            this.subgrupoPresupuesto.SuspendLayout();
+            this.SubgrupoIngresos.SuspendLayout();
             this.GrupoVentas.SuspendLayout();
             this.SubGrupoReportesProveedores.SuspendLayout();
             this.SubGrupoReportesAnticipos.SuspendLayout();
             this.SubGrupoReportesCompras.SuspendLayout();
-            this.SubGrupoReportes.SuspendLayout();
+            this.SubGrupoReportesMovimientos.SuspendLayout();
             this.GrupoUtilerias.SuspendLayout();
             this.GrupoPresupuesto.SuspendLayout();
-            this.GrpoMovimientos.SuspendLayout();
+            this.SubgrupoMovimientos.SuspendLayout();
             this.Grupoinventarios.SuspendLayout();
-            this.GruopParametros.SuspendLayout();
+            this.GrupoParametros.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
-            this.GroupCatalogo.SuspendLayout();
+            this.GrupoCatalogos.SuspendLayout();
             this.guna2Panel5.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -452,796 +352,6 @@
             this.miniToolStrip.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
             this.miniToolStrip.Size = new System.Drawing.Size(1359, 583);
             this.miniToolStrip.TabIndex = 39;
-            // 
-            // guna2Panel1
-            // 
-            this.guna2Panel1.BackColor = System.Drawing.Color.Black;
-            this.guna2Panel1.Controls.Add(this.toolStrip1);
-            this.guna2Panel1.Location = new System.Drawing.Point(677, 10);
-            this.guna2Panel1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.guna2Panel1.Name = "guna2Panel1";
-            this.guna2Panel1.Size = new System.Drawing.Size(228, 485);
-            this.guna2Panel1.TabIndex = 39;
-            this.guna2Panel1.Visible = false;
-            // 
-            // toolStrip1
-            // 
-            this.toolStrip1.AutoSize = false;
-            this.toolStrip1.BackColor = System.Drawing.Color.Transparent;
-            this.toolStrip1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.toolStrip1.Font = new System.Drawing.Font("Segoe UI Black", 12F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.toolStrip1.ImageScalingSize = new System.Drawing.Size(24, 24);
-            this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.btnParametros,
-            this.toolStripSeparator1,
-            this.btnCatalogos,
-            this.toolStripDropDownButton4,
-            this.btnInventarios,
-            this.toolStripSeparator3,
-            this.btnCompras,
-            this.toolStripSeparator2,
-            this.btnVentas,
-            this.toolStripSeparator7,
-            this.btnTesoreria,
-            this.toolStripSeparator8,
-            this.btnPresupuesto,
-            this.toolStripSeparator4,
-            this.btnUtilerias});
-            this.toolStrip1.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.Table;
-            this.toolStrip1.Location = new System.Drawing.Point(0, 0);
-            this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
-            this.toolStrip1.Size = new System.Drawing.Size(228, 485);
-            this.toolStrip1.TabIndex = 1;
-            this.toolStrip1.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.toolStrip1_ItemClicked);
-            // 
-            // btnParametros
-            // 
-            this.btnParametros.AutoSize = false;
-            this.btnParametros.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripMenuItem4,
-            this.toolStripMenuItem5});
-            this.btnParametros.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnParametros.ForeColor = System.Drawing.Color.White;
-            this.btnParametros.Image = ((System.Drawing.Image)(resources.GetObject("btnParametros.Image")));
-            this.btnParametros.ImageTransparentColor = System.Drawing.Color.MediumBlue;
-            this.btnParametros.Name = "btnParametros";
-            this.btnParametros.Size = new System.Drawing.Size(225, 36);
-            this.btnParametros.Text = "PARAMETROS";
-            // 
-            // toolStripMenuItem4
-            // 
-            this.toolStripMenuItem4.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-            this.toolStripMenuItem4.AutoSize = false;
-            this.toolStripMenuItem4.MergeIndex = 0;
-            this.toolStripMenuItem4.Name = "toolStripMenuItem4";
-            this.toolStripMenuItem4.Overflow = System.Windows.Forms.ToolStripItemOverflow.AsNeeded;
-            this.toolStripMenuItem4.Size = new System.Drawing.Size(225, 24);
-            this.toolStripMenuItem4.Text = "Datos Empresa";
-            this.toolStripMenuItem4.Click += new System.EventHandler(this.toolStripMenuItem4_Click);
-            // 
-            // toolStripMenuItem5
-            // 
-            this.toolStripMenuItem5.AutoSize = false;
-            this.toolStripMenuItem5.Name = "toolStripMenuItem5";
-            this.toolStripMenuItem5.Overflow = System.Windows.Forms.ToolStripItemOverflow.AsNeeded;
-            this.toolStripMenuItem5.Size = new System.Drawing.Size(225, 24);
-            this.toolStripMenuItem5.Text = "Usuarios";
-            this.toolStripMenuItem5.Click += new System.EventHandler(this.toolStripMenuItem5_Click);
-            // 
-            // toolStripSeparator1
-            // 
-            this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 23);
-            // 
-            // btnCatalogos
-            // 
-            this.btnCatalogos.AutoSize = false;
-            this.btnCatalogos.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.divisasToolStripMenuItem,
-            this.almacenesToolStripMenuItem1,
-            this.categoriasYFamiliasToolStripMenuItem,
-            this.productosYServiciosToolStripMenuItem,
-            this.serviciosToolStripMenuItem,
-            this.centrosDeCostosToolStripMenuItem,
-            this.documentosToolStripMenuItem,
-            this.conceptosGlobalesToolStripMenuItem,
-            this.formasDePagoToolStripMenuItem,
-            this.empleadosToolStripMenuItem,
-            this.tiposYZonasToolStripMenuItem,
-            this.clientesToolStripMenuItem,
-            this.proveedoresToolStripMenuItem2,
-            this.cuentasBancariasToolStripMenuItem,
-            this.sATToolStripMenuItem});
-            this.btnCatalogos.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnCatalogos.ForeColor = System.Drawing.Color.White;
-            this.btnCatalogos.Image = ((System.Drawing.Image)(resources.GetObject("btnCatalogos.Image")));
-            this.btnCatalogos.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.btnCatalogos.Name = "btnCatalogos";
-            this.btnCatalogos.Size = new System.Drawing.Size(225, 36);
-            this.btnCatalogos.Text = "CATALOGOS";
-            this.btnCatalogos.Click += new System.EventHandler(this.btnCatalogos_Click);
-            // 
-            // divisasToolStripMenuItem
-            // 
-            this.divisasToolStripMenuItem.Name = "divisasToolStripMenuItem";
-            this.divisasToolStripMenuItem.Size = new System.Drawing.Size(225, 24);
-            this.divisasToolStripMenuItem.Text = "Divisas";
-            this.divisasToolStripMenuItem.Click += new System.EventHandler(this.divisasToolStripMenuItem_Click);
-            // 
-            // almacenesToolStripMenuItem1
-            // 
-            this.almacenesToolStripMenuItem1.Name = "almacenesToolStripMenuItem1";
-            this.almacenesToolStripMenuItem1.Size = new System.Drawing.Size(225, 24);
-            this.almacenesToolStripMenuItem1.Text = "Almacenes";
-            this.almacenesToolStripMenuItem1.Click += new System.EventHandler(this.almacenesToolStripMenuItem_Click);
-            // 
-            // categoriasYFamiliasToolStripMenuItem
-            // 
-            this.categoriasYFamiliasToolStripMenuItem.Name = "categoriasYFamiliasToolStripMenuItem";
-            this.categoriasYFamiliasToolStripMenuItem.Size = new System.Drawing.Size(225, 24);
-            this.categoriasYFamiliasToolStripMenuItem.Text = "Categorias y Familias";
-            this.categoriasYFamiliasToolStripMenuItem.Click += new System.EventHandler(this.categoriasYFamiliasToolStripMenuItem_Click);
-            // 
-            // productosYServiciosToolStripMenuItem
-            // 
-            this.productosYServiciosToolStripMenuItem.Name = "productosYServiciosToolStripMenuItem";
-            this.productosYServiciosToolStripMenuItem.Size = new System.Drawing.Size(225, 24);
-            this.productosYServiciosToolStripMenuItem.Text = "Productos";
-            this.productosYServiciosToolStripMenuItem.Click += new System.EventHandler(this.productosYServiciosToolStripMenuItem_Click);
-            // 
-            // serviciosToolStripMenuItem
-            // 
-            this.serviciosToolStripMenuItem.Name = "serviciosToolStripMenuItem";
-            this.serviciosToolStripMenuItem.Size = new System.Drawing.Size(225, 24);
-            this.serviciosToolStripMenuItem.Text = "Servicios";
-            this.serviciosToolStripMenuItem.Click += new System.EventHandler(this.serviciosToolStripMenuItem_Click);
-            // 
-            // centrosDeCostosToolStripMenuItem
-            // 
-            this.centrosDeCostosToolStripMenuItem.Name = "centrosDeCostosToolStripMenuItem";
-            this.centrosDeCostosToolStripMenuItem.Size = new System.Drawing.Size(225, 24);
-            this.centrosDeCostosToolStripMenuItem.Text = "Centros de Costos";
-            this.centrosDeCostosToolStripMenuItem.Click += new System.EventHandler(this.centrosDeCostosToolStripMenuItem_Click);
-            // 
-            // documentosToolStripMenuItem
-            // 
-            this.documentosToolStripMenuItem.Name = "documentosToolStripMenuItem";
-            this.documentosToolStripMenuItem.Size = new System.Drawing.Size(225, 24);
-            this.documentosToolStripMenuItem.Text = "Documentos";
-            this.documentosToolStripMenuItem.Click += new System.EventHandler(this.documentosToolStripMenuItem_Click);
-            // 
-            // conceptosGlobalesToolStripMenuItem
-            // 
-            this.conceptosGlobalesToolStripMenuItem.Name = "conceptosGlobalesToolStripMenuItem";
-            this.conceptosGlobalesToolStripMenuItem.Size = new System.Drawing.Size(225, 24);
-            this.conceptosGlobalesToolStripMenuItem.Text = "Conceptos Globales";
-            this.conceptosGlobalesToolStripMenuItem.Click += new System.EventHandler(this.conceptosGlobalesToolStripMenuItem_Click);
-            // 
-            // formasDePagoToolStripMenuItem
-            // 
-            this.formasDePagoToolStripMenuItem.Name = "formasDePagoToolStripMenuItem";
-            this.formasDePagoToolStripMenuItem.Size = new System.Drawing.Size(225, 24);
-            this.formasDePagoToolStripMenuItem.Text = "Formas de Pago";
-            this.formasDePagoToolStripMenuItem.Click += new System.EventHandler(this.formasDePagoToolStripMenuItem_Click);
-            // 
-            // empleadosToolStripMenuItem
-            // 
-            this.empleadosToolStripMenuItem.Name = "empleadosToolStripMenuItem";
-            this.empleadosToolStripMenuItem.Size = new System.Drawing.Size(225, 24);
-            this.empleadosToolStripMenuItem.Text = "Empleados";
-            this.empleadosToolStripMenuItem.Click += new System.EventHandler(this.empleadosToolStripMenuItem_Click);
-            // 
-            // tiposYZonasToolStripMenuItem
-            // 
-            this.tiposYZonasToolStripMenuItem.Name = "tiposYZonasToolStripMenuItem";
-            this.tiposYZonasToolStripMenuItem.Size = new System.Drawing.Size(225, 24);
-            this.tiposYZonasToolStripMenuItem.Text = "Tipos y Zonas";
-            this.tiposYZonasToolStripMenuItem.Click += new System.EventHandler(this.tiposYZonasToolStripMenuItem_Click);
-            // 
-            // clientesToolStripMenuItem
-            // 
-            this.clientesToolStripMenuItem.Name = "clientesToolStripMenuItem";
-            this.clientesToolStripMenuItem.Size = new System.Drawing.Size(225, 24);
-            this.clientesToolStripMenuItem.Text = "Clientes";
-            this.clientesToolStripMenuItem.Click += new System.EventHandler(this.clientesToolStripMenuItem_Click);
-            // 
-            // proveedoresToolStripMenuItem2
-            // 
-            this.proveedoresToolStripMenuItem2.Name = "proveedoresToolStripMenuItem2";
-            this.proveedoresToolStripMenuItem2.Size = new System.Drawing.Size(225, 24);
-            this.proveedoresToolStripMenuItem2.Text = "Proveedores";
-            this.proveedoresToolStripMenuItem2.Click += new System.EventHandler(this.proveedoresToolStripMenuItem_Click);
-            // 
-            // cuentasBancariasToolStripMenuItem
-            // 
-            this.cuentasBancariasToolStripMenuItem.Name = "cuentasBancariasToolStripMenuItem";
-            this.cuentasBancariasToolStripMenuItem.Size = new System.Drawing.Size(225, 24);
-            this.cuentasBancariasToolStripMenuItem.Text = "Cuentas Bancarias";
-            this.cuentasBancariasToolStripMenuItem.Click += new System.EventHandler(this.cuentasBancariasToolStripMenuItem_Click);
-            // 
-            // sATToolStripMenuItem
-            // 
-            this.sATToolStripMenuItem.Enabled = false;
-            this.sATToolStripMenuItem.Name = "sATToolStripMenuItem";
-            this.sATToolStripMenuItem.Size = new System.Drawing.Size(225, 24);
-            this.sATToolStripMenuItem.Text = "SAT";
-            // 
-            // toolStripDropDownButton4
-            // 
-            this.toolStripDropDownButton4.Name = "toolStripDropDownButton4";
-            this.toolStripDropDownButton4.Size = new System.Drawing.Size(6, 23);
-            // 
-            // btnInventarios
-            // 
-            this.btnInventarios.AutoSize = false;
-            this.btnInventarios.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.movimientosToolStripMenuItem,
-            this.inventariosFisicosToolStripMenuItem,
-            this.explosionDeMaterialesToolStripMenuItem,
-            this.reportesToolStripMenuItem1});
-            this.btnInventarios.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnInventarios.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.btnInventarios.Image = ((System.Drawing.Image)(resources.GetObject("btnInventarios.Image")));
-            this.btnInventarios.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.btnInventarios.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btnInventarios.Name = "btnInventarios";
-            this.btnInventarios.Size = new System.Drawing.Size(225, 36);
-            this.btnInventarios.Text = "INVENTARIOS";
-            // 
-            // movimientosToolStripMenuItem
-            // 
-            this.movimientosToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.tipoMovimientosToolStripMenuItem,
-            this.registrarEntradasToolStripMenuItem,
-            this.registrarSalidaToolStripMenuItem1,
-            this.registrarTraspasosToolStripMenuItem,
-            this.consultaInventariosToolStripMenuItem,
-            this.toolStripMenuItem6});
-            this.movimientosToolStripMenuItem.Name = "movimientosToolStripMenuItem";
-            this.movimientosToolStripMenuItem.Size = new System.Drawing.Size(243, 24);
-            this.movimientosToolStripMenuItem.Text = "Movimientos";
-            // 
-            // tipoMovimientosToolStripMenuItem
-            // 
-            this.tipoMovimientosToolStripMenuItem.Name = "tipoMovimientosToolStripMenuItem";
-            this.tipoMovimientosToolStripMenuItem.Size = new System.Drawing.Size(222, 24);
-            this.tipoMovimientosToolStripMenuItem.Text = "Tipo Movimientos";
-            this.tipoMovimientosToolStripMenuItem.Click += new System.EventHandler(this.tipoMovimientosToolStripMenuItem_Click);
-            // 
-            // registrarEntradasToolStripMenuItem
-            // 
-            this.registrarEntradasToolStripMenuItem.Name = "registrarEntradasToolStripMenuItem";
-            this.registrarEntradasToolStripMenuItem.Size = new System.Drawing.Size(222, 24);
-            this.registrarEntradasToolStripMenuItem.Text = "Registrar Entradas";
-            this.registrarEntradasToolStripMenuItem.Click += new System.EventHandler(this.registrarEntradasToolStripMenuItem_Click);
-            // 
-            // registrarSalidaToolStripMenuItem1
-            // 
-            this.registrarSalidaToolStripMenuItem1.Name = "registrarSalidaToolStripMenuItem1";
-            this.registrarSalidaToolStripMenuItem1.Size = new System.Drawing.Size(222, 24);
-            this.registrarSalidaToolStripMenuItem1.Text = "Registrar Salida";
-            this.registrarSalidaToolStripMenuItem1.Click += new System.EventHandler(this.registrarSalidaToolStripMenuItem1_Click);
-            // 
-            // registrarTraspasosToolStripMenuItem
-            // 
-            this.registrarTraspasosToolStripMenuItem.Name = "registrarTraspasosToolStripMenuItem";
-            this.registrarTraspasosToolStripMenuItem.Size = new System.Drawing.Size(222, 24);
-            this.registrarTraspasosToolStripMenuItem.Text = "Registrar Traspasos";
-            this.registrarTraspasosToolStripMenuItem.Click += new System.EventHandler(this.registrarTraspasosToolStripMenuItem_Click_1);
-            // 
-            // consultaInventariosToolStripMenuItem
-            // 
-            this.consultaInventariosToolStripMenuItem.Name = "consultaInventariosToolStripMenuItem";
-            this.consultaInventariosToolStripMenuItem.Size = new System.Drawing.Size(222, 24);
-            this.consultaInventariosToolStripMenuItem.Text = "Consulta Inventarios";
-            this.consultaInventariosToolStripMenuItem.Click += new System.EventHandler(this.consultaInventariosToolStripMenuItem_Click);
-            // 
-            // toolStripMenuItem6
-            // 
-            this.toolStripMenuItem6.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.reporteKardexToolStripMenuItem,
-            this.reporteExistenciasToolStripMenuItem,
-            this.reporteCostoPorProductosToolStripMenuItem});
-            this.toolStripMenuItem6.Name = "toolStripMenuItem6";
-            this.toolStripMenuItem6.Size = new System.Drawing.Size(222, 24);
-            this.toolStripMenuItem6.Text = "Reportes";
-            this.toolStripMenuItem6.Click += new System.EventHandler(this.toolStripMenuItem6_Click);
-            // 
-            // reporteKardexToolStripMenuItem
-            // 
-            this.reporteKardexToolStripMenuItem.Name = "reporteKardexToolStripMenuItem";
-            this.reporteKardexToolStripMenuItem.Size = new System.Drawing.Size(307, 24);
-            this.reporteKardexToolStripMenuItem.Text = "Reporte Kardex";
-            this.reporteKardexToolStripMenuItem.Visible = false;
-            this.reporteKardexToolStripMenuItem.Click += new System.EventHandler(this.reporteKardexToolStripMenuItem_Click);
-            // 
-            // reporteExistenciasToolStripMenuItem
-            // 
-            this.reporteExistenciasToolStripMenuItem.Name = "reporteExistenciasToolStripMenuItem";
-            this.reporteExistenciasToolStripMenuItem.Size = new System.Drawing.Size(307, 24);
-            this.reporteExistenciasToolStripMenuItem.Text = "Reporte Existencias por Almacen";
-            this.reporteExistenciasToolStripMenuItem.Click += new System.EventHandler(this.reporteExistenciasToolStripMenuItem_Click);
-            // 
-            // reporteCostoPorProductosToolStripMenuItem
-            // 
-            this.reporteCostoPorProductosToolStripMenuItem.Name = "reporteCostoPorProductosToolStripMenuItem";
-            this.reporteCostoPorProductosToolStripMenuItem.Size = new System.Drawing.Size(307, 24);
-            this.reporteCostoPorProductosToolStripMenuItem.Text = "Reporte Costo por Productos";
-            this.reporteCostoPorProductosToolStripMenuItem.Click += new System.EventHandler(this.reporteCostoPorProductosToolStripMenuItem_Click_1);
-            // 
-            // inventariosFisicosToolStripMenuItem
-            // 
-            this.inventariosFisicosToolStripMenuItem.Enabled = false;
-            this.inventariosFisicosToolStripMenuItem.Name = "inventariosFisicosToolStripMenuItem";
-            this.inventariosFisicosToolStripMenuItem.Size = new System.Drawing.Size(243, 24);
-            this.inventariosFisicosToolStripMenuItem.Text = "Inventarios Fisicos";
-            // 
-            // explosionDeMaterialesToolStripMenuItem
-            // 
-            this.explosionDeMaterialesToolStripMenuItem.Enabled = false;
-            this.explosionDeMaterialesToolStripMenuItem.Name = "explosionDeMaterialesToolStripMenuItem";
-            this.explosionDeMaterialesToolStripMenuItem.Size = new System.Drawing.Size(243, 24);
-            this.explosionDeMaterialesToolStripMenuItem.Text = "Explosion de Materiales";
-            // 
-            // reportesToolStripMenuItem1
-            // 
-            this.reportesToolStripMenuItem1.Enabled = false;
-            this.reportesToolStripMenuItem1.Name = "reportesToolStripMenuItem1";
-            this.reportesToolStripMenuItem1.Size = new System.Drawing.Size(243, 24);
-            this.reportesToolStripMenuItem1.Text = "Reportes";
-            // 
-            // toolStripSeparator3
-            // 
-            this.toolStripSeparator3.Name = "toolStripSeparator3";
-            this.toolStripSeparator3.Size = new System.Drawing.Size(6, 23);
-            // 
-            // btnCompras
-            // 
-            this.btnCompras.AutoSize = false;
-            this.btnCompras.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.requisicionesToolStripMenuItem,
-            this.cotizacionesToolStripMenuItem,
-            this.pedidosProveedoresToolStripMenuItem,
-            this.comprasToolStripMenuItem,
-            this.notasDeCrYCaToolStripMenuItem,
-            this.reportesToolStripMenuItem,
-            this.DefinepolizaStripMenuItem7,
-            this.GenerePolizaStripMenuItem7});
-            this.btnCompras.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnCompras.ForeColor = System.Drawing.Color.White;
-            this.btnCompras.Image = ((System.Drawing.Image)(resources.GetObject("btnCompras.Image")));
-            this.btnCompras.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.btnCompras.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btnCompras.Name = "btnCompras";
-            this.btnCompras.Size = new System.Drawing.Size(225, 36);
-            this.btnCompras.Text = "COMPRAS";
-            // 
-            // requisicionesToolStripMenuItem
-            // 
-            this.requisicionesToolStripMenuItem.Name = "requisicionesToolStripMenuItem";
-            this.requisicionesToolStripMenuItem.Size = new System.Drawing.Size(224, 24);
-            this.requisicionesToolStripMenuItem.Text = "Requisiciones";
-            this.requisicionesToolStripMenuItem.Click += new System.EventHandler(this.requisicionesToolStripMenuItem_Click_1);
-            // 
-            // cotizacionesToolStripMenuItem
-            // 
-            this.cotizacionesToolStripMenuItem.Enabled = false;
-            this.cotizacionesToolStripMenuItem.Name = "cotizacionesToolStripMenuItem";
-            this.cotizacionesToolStripMenuItem.Size = new System.Drawing.Size(224, 24);
-            this.cotizacionesToolStripMenuItem.Text = "Cotizaciones";
-            // 
-            // pedidosProveedoresToolStripMenuItem
-            // 
-            this.pedidosProveedoresToolStripMenuItem.Name = "pedidosProveedoresToolStripMenuItem";
-            this.pedidosProveedoresToolStripMenuItem.Size = new System.Drawing.Size(224, 24);
-            this.pedidosProveedoresToolStripMenuItem.Text = "Pedidos Proveedores";
-            this.pedidosProveedoresToolStripMenuItem.Click += new System.EventHandler(this.pedidosProveedoresToolStripMenuItem_Click);
-            // 
-            // comprasToolStripMenuItem
-            // 
-            this.comprasToolStripMenuItem.Name = "comprasToolStripMenuItem";
-            this.comprasToolStripMenuItem.Size = new System.Drawing.Size(224, 24);
-            this.comprasToolStripMenuItem.Text = "Compras";
-            this.comprasToolStripMenuItem.Click += new System.EventHandler(this.comprasToolStripMenuItem_Click);
-            // 
-            // notasDeCrYCaToolStripMenuItem
-            // 
-            this.notasDeCrYCaToolStripMenuItem.Name = "notasDeCrYCaToolStripMenuItem";
-            this.notasDeCrYCaToolStripMenuItem.Size = new System.Drawing.Size(224, 24);
-            this.notasDeCrYCaToolStripMenuItem.Text = "Notas de Cr y Ca";
-            this.notasDeCrYCaToolStripMenuItem.Click += new System.EventHandler(this.notasDeCrYCaToolStripMenuItem_Click);
-            // 
-            // reportesToolStripMenuItem
-            // 
-            this.reportesToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.reporteDiarioDeRequisicionesToolStripMenuItem,
-            this.reporteDiarioDeOrdenesDeCompraToolStripMenuItem,
-            this.reporteDiarioDeComprasToolStripMenuItem,
-            this.reporteDiarioNotasDeCargoToolStripMenuItem,
-            this.reporteDeEgresosToolStripMenuItem,
-            this.reporteSaldoDeComprasToolStripMenuItem,
-            this.anticiposToolStripMenuItem3,
-            this.proveedoresToolStripMenuItem1});
-            this.reportesToolStripMenuItem.Name = "reportesToolStripMenuItem";
-            this.reportesToolStripMenuItem.Size = new System.Drawing.Size(224, 24);
-            this.reportesToolStripMenuItem.Text = "Reportes";
-            // 
-            // reporteDiarioDeRequisicionesToolStripMenuItem
-            // 
-            this.reporteDiarioDeRequisicionesToolStripMenuItem.Name = "reporteDiarioDeRequisicionesToolStripMenuItem";
-            this.reporteDiarioDeRequisicionesToolStripMenuItem.Size = new System.Drawing.Size(283, 24);
-            this.reporteDiarioDeRequisicionesToolStripMenuItem.Text = "Diario de Requisiciones";
-            this.reporteDiarioDeRequisicionesToolStripMenuItem.Click += new System.EventHandler(this.reporteDiarioDeRequisicionesToolStripMenuItem_Click);
-            // 
-            // reporteDiarioDeOrdenesDeCompraToolStripMenuItem
-            // 
-            this.reporteDiarioDeOrdenesDeCompraToolStripMenuItem.Name = "reporteDiarioDeOrdenesDeCompraToolStripMenuItem";
-            this.reporteDiarioDeOrdenesDeCompraToolStripMenuItem.Size = new System.Drawing.Size(283, 24);
-            this.reporteDiarioDeOrdenesDeCompraToolStripMenuItem.Text = "Diario de Ordenes de Compra";
-            this.reporteDiarioDeOrdenesDeCompraToolStripMenuItem.Click += new System.EventHandler(this.reporteDiarioDeOrdenesDeCompraToolStripMenuItem_Click);
-            // 
-            // reporteDiarioDeComprasToolStripMenuItem
-            // 
-            this.reporteDiarioDeComprasToolStripMenuItem.Name = "reporteDiarioDeComprasToolStripMenuItem";
-            this.reporteDiarioDeComprasToolStripMenuItem.Size = new System.Drawing.Size(283, 24);
-            this.reporteDiarioDeComprasToolStripMenuItem.Text = "Diario de Compras";
-            this.reporteDiarioDeComprasToolStripMenuItem.Click += new System.EventHandler(this.reporteDiarioDeComprasToolStripMenuItem_Click);
-            // 
-            // reporteDiarioNotasDeCargoToolStripMenuItem
-            // 
-            this.reporteDiarioNotasDeCargoToolStripMenuItem.Name = "reporteDiarioNotasDeCargoToolStripMenuItem";
-            this.reporteDiarioNotasDeCargoToolStripMenuItem.Size = new System.Drawing.Size(283, 24);
-            this.reporteDiarioNotasDeCargoToolStripMenuItem.Text = "Diario de Notas de Cargo";
-            this.reporteDiarioNotasDeCargoToolStripMenuItem.Click += new System.EventHandler(this.reporteDiarioNotasDeCargoToolStripMenuItem_Click);
-            // 
-            // reporteDeEgresosToolStripMenuItem
-            // 
-            this.reporteDeEgresosToolStripMenuItem.Name = "reporteDeEgresosToolStripMenuItem";
-            this.reporteDeEgresosToolStripMenuItem.Size = new System.Drawing.Size(283, 24);
-            this.reporteDeEgresosToolStripMenuItem.Text = "Egresos";
-            this.reporteDeEgresosToolStripMenuItem.Click += new System.EventHandler(this.reporteDeEgresosToolStripMenuItem_Click);
-            // 
-            // reporteSaldoDeComprasToolStripMenuItem
-            // 
-            this.reporteSaldoDeComprasToolStripMenuItem.Name = "reporteSaldoDeComprasToolStripMenuItem";
-            this.reporteSaldoDeComprasToolStripMenuItem.Size = new System.Drawing.Size(283, 24);
-            this.reporteSaldoDeComprasToolStripMenuItem.Text = "Saldo de Compras";
-            this.reporteSaldoDeComprasToolStripMenuItem.Click += new System.EventHandler(this.reporteSaldoDeComprasToolStripMenuItem_Click);
-            // 
-            // anticiposToolStripMenuItem3
-            // 
-            this.anticiposToolStripMenuItem3.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.anticiposToolStripMenuItem4,
-            this.anticiposAplicadosToolStripMenuItem1});
-            this.anticiposToolStripMenuItem3.Name = "anticiposToolStripMenuItem3";
-            this.anticiposToolStripMenuItem3.Size = new System.Drawing.Size(283, 24);
-            this.anticiposToolStripMenuItem3.Text = "Anticipos";
-            this.anticiposToolStripMenuItem3.Click += new System.EventHandler(this.anticiposToolStripMenuItem3_Click_1);
-            // 
-            // anticiposToolStripMenuItem4
-            // 
-            this.anticiposToolStripMenuItem4.Name = "anticiposToolStripMenuItem4";
-            this.anticiposToolStripMenuItem4.Size = new System.Drawing.Size(216, 24);
-            this.anticiposToolStripMenuItem4.Text = "Anticipos";
-            this.anticiposToolStripMenuItem4.Click += new System.EventHandler(this.anticiposToolStripMenuItem4_Click);
-            // 
-            // anticiposAplicadosToolStripMenuItem1
-            // 
-            this.anticiposAplicadosToolStripMenuItem1.Name = "anticiposAplicadosToolStripMenuItem1";
-            this.anticiposAplicadosToolStripMenuItem1.Size = new System.Drawing.Size(216, 24);
-            this.anticiposAplicadosToolStripMenuItem1.Text = "Anticipos Aplicados";
-            this.anticiposAplicadosToolStripMenuItem1.Click += new System.EventHandler(this.anticiposAplicadosToolStripMenuItem1_Click_2);
-            // 
-            // proveedoresToolStripMenuItem1
-            // 
-            this.proveedoresToolStripMenuItem1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.estadoDeCuentaProveedoresToolStripMenuItem,
-            this.saldosProveedoresToolStripMenuItem,
-            this.detallesDeSaldosToolStripMenuItem});
-            this.proveedoresToolStripMenuItem1.Name = "proveedoresToolStripMenuItem1";
-            this.proveedoresToolStripMenuItem1.Size = new System.Drawing.Size(283, 24);
-            this.proveedoresToolStripMenuItem1.Text = "Proveedores";
-            // 
-            // estadoDeCuentaProveedoresToolStripMenuItem
-            // 
-            this.estadoDeCuentaProveedoresToolStripMenuItem.Name = "estadoDeCuentaProveedoresToolStripMenuItem";
-            this.estadoDeCuentaProveedoresToolStripMenuItem.Size = new System.Drawing.Size(290, 24);
-            this.estadoDeCuentaProveedoresToolStripMenuItem.Text = "Estado de Cuenta Proveedores";
-            this.estadoDeCuentaProveedoresToolStripMenuItem.Click += new System.EventHandler(this.estadoDeCuentaProveedoresToolStripMenuItem_Click);
-            // 
-            // saldosProveedoresToolStripMenuItem
-            // 
-            this.saldosProveedoresToolStripMenuItem.Enabled = false;
-            this.saldosProveedoresToolStripMenuItem.Name = "saldosProveedoresToolStripMenuItem";
-            this.saldosProveedoresToolStripMenuItem.Size = new System.Drawing.Size(290, 24);
-            this.saldosProveedoresToolStripMenuItem.Text = "Saldos Proveedores";
-            this.saldosProveedoresToolStripMenuItem.Click += new System.EventHandler(this.saldosProveedoresToolStripMenuItem_Click);
-            // 
-            // detallesDeSaldosToolStripMenuItem
-            // 
-            this.detallesDeSaldosToolStripMenuItem.Enabled = false;
-            this.detallesDeSaldosToolStripMenuItem.Name = "detallesDeSaldosToolStripMenuItem";
-            this.detallesDeSaldosToolStripMenuItem.Size = new System.Drawing.Size(290, 24);
-            this.detallesDeSaldosToolStripMenuItem.Text = "Detalles de Saldos";
-            this.detallesDeSaldosToolStripMenuItem.Click += new System.EventHandler(this.detallesDeSaldosToolStripMenuItem_Click);
-            // 
-            // DefinepolizaStripMenuItem7
-            // 
-            this.DefinepolizaStripMenuItem7.Name = "DefinepolizaStripMenuItem7";
-            this.DefinepolizaStripMenuItem7.Size = new System.Drawing.Size(224, 24);
-            this.DefinepolizaStripMenuItem7.Text = "Define Poliza";
-            this.DefinepolizaStripMenuItem7.Click += new System.EventHandler(this.DefinepolizaStripMenuItem7_Click);
-            // 
-            // GenerePolizaStripMenuItem7
-            // 
-            this.GenerePolizaStripMenuItem7.Name = "GenerePolizaStripMenuItem7";
-            this.GenerePolizaStripMenuItem7.Size = new System.Drawing.Size(224, 24);
-            this.GenerePolizaStripMenuItem7.Text = "Genere Poliza";
-            this.GenerePolizaStripMenuItem7.Click += new System.EventHandler(this.GenerePolizaStripMenuItem7_Click);
-            // 
-            // toolStripSeparator2
-            // 
-            this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(6, 23);
-            // 
-            // btnVentas
-            // 
-            this.btnVentas.AutoSize = false;
-            this.btnVentas.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.cotizacionesToolStripMenuItem1,
-            this.pedidosDeClientesToolStripMenuItem,
-            this.remisionesToolStripMenuItem,
-            this.cFDIToolStripMenuItem,
-            this.notasDeCrYCaToolStripMenuItem1,
-            this.reportesToolStripMenuItem2});
-            this.btnVentas.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnVentas.ForeColor = System.Drawing.Color.White;
-            this.btnVentas.Image = ((System.Drawing.Image)(resources.GetObject("btnVentas.Image")));
-            this.btnVentas.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.btnVentas.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btnVentas.Name = "btnVentas";
-            this.btnVentas.Size = new System.Drawing.Size(225, 36);
-            this.btnVentas.Text = "VENTAS";
-            // 
-            // cotizacionesToolStripMenuItem1
-            // 
-            this.cotizacionesToolStripMenuItem1.Enabled = false;
-            this.cotizacionesToolStripMenuItem1.Name = "cotizacionesToolStripMenuItem1";
-            this.cotizacionesToolStripMenuItem1.Size = new System.Drawing.Size(213, 24);
-            this.cotizacionesToolStripMenuItem1.Text = "Cotizaciones";
-            // 
-            // pedidosDeClientesToolStripMenuItem
-            // 
-            this.pedidosDeClientesToolStripMenuItem.Enabled = false;
-            this.pedidosDeClientesToolStripMenuItem.Name = "pedidosDeClientesToolStripMenuItem";
-            this.pedidosDeClientesToolStripMenuItem.Size = new System.Drawing.Size(213, 24);
-            this.pedidosDeClientesToolStripMenuItem.Text = "Pedidos de Clientes";
-            // 
-            // remisionesToolStripMenuItem
-            // 
-            this.remisionesToolStripMenuItem.Enabled = false;
-            this.remisionesToolStripMenuItem.Name = "remisionesToolStripMenuItem";
-            this.remisionesToolStripMenuItem.Size = new System.Drawing.Size(213, 24);
-            this.remisionesToolStripMenuItem.Text = "Remisiones";
-            // 
-            // cFDIToolStripMenuItem
-            // 
-            this.cFDIToolStripMenuItem.Enabled = false;
-            this.cFDIToolStripMenuItem.Name = "cFDIToolStripMenuItem";
-            this.cFDIToolStripMenuItem.Size = new System.Drawing.Size(213, 24);
-            this.cFDIToolStripMenuItem.Text = "CFDI";
-            // 
-            // notasDeCrYCaToolStripMenuItem1
-            // 
-            this.notasDeCrYCaToolStripMenuItem1.Enabled = false;
-            this.notasDeCrYCaToolStripMenuItem1.Name = "notasDeCrYCaToolStripMenuItem1";
-            this.notasDeCrYCaToolStripMenuItem1.Size = new System.Drawing.Size(213, 24);
-            this.notasDeCrYCaToolStripMenuItem1.Text = "Notas de Cr y Ca";
-            // 
-            // reportesToolStripMenuItem2
-            // 
-            this.reportesToolStripMenuItem2.Enabled = false;
-            this.reportesToolStripMenuItem2.Name = "reportesToolStripMenuItem2";
-            this.reportesToolStripMenuItem2.Size = new System.Drawing.Size(213, 24);
-            this.reportesToolStripMenuItem2.Text = "Reportes";
-            // 
-            // toolStripSeparator7
-            // 
-            this.toolStripSeparator7.Name = "toolStripSeparator7";
-            this.toolStripSeparator7.Size = new System.Drawing.Size(6, 23);
-            // 
-            // btnTesoreria
-            // 
-            this.btnTesoreria.AutoSize = false;
-            this.btnTesoreria.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.bancosToolStripMenuItem,
-            this.btnIngresos,
-            this.egresosToolStripMenuItem,
-            this.reportesToolStripMenuItem3});
-            this.btnTesoreria.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnTesoreria.ForeColor = System.Drawing.Color.White;
-            this.btnTesoreria.Image = ((System.Drawing.Image)(resources.GetObject("btnTesoreria.Image")));
-            this.btnTesoreria.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.btnTesoreria.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btnTesoreria.Name = "btnTesoreria";
-            this.btnTesoreria.Size = new System.Drawing.Size(225, 36);
-            this.btnTesoreria.Text = "TESORERIA";
-            // 
-            // bancosToolStripMenuItem
-            // 
-            this.bancosToolStripMenuItem.Enabled = false;
-            this.bancosToolStripMenuItem.Name = "bancosToolStripMenuItem";
-            this.bancosToolStripMenuItem.Size = new System.Drawing.Size(141, 24);
-            this.bancosToolStripMenuItem.Text = "Bancos";
-            // 
-            // btnIngresos
-            // 
-            this.btnIngresos.Enabled = false;
-            this.btnIngresos.Name = "btnIngresos";
-            this.btnIngresos.Size = new System.Drawing.Size(141, 24);
-            this.btnIngresos.Text = "Ingresos";
-            // 
-            // egresosToolStripMenuItem
-            // 
-            this.egresosToolStripMenuItem.Enabled = false;
-            this.egresosToolStripMenuItem.Name = "egresosToolStripMenuItem";
-            this.egresosToolStripMenuItem.Size = new System.Drawing.Size(141, 24);
-            this.egresosToolStripMenuItem.Text = "Egresos";
-            // 
-            // reportesToolStripMenuItem3
-            // 
-            this.reportesToolStripMenuItem3.Enabled = false;
-            this.reportesToolStripMenuItem3.Name = "reportesToolStripMenuItem3";
-            this.reportesToolStripMenuItem3.Size = new System.Drawing.Size(141, 24);
-            this.reportesToolStripMenuItem3.Text = "Reportes";
-            // 
-            // toolStripSeparator8
-            // 
-            this.toolStripSeparator8.Name = "toolStripSeparator8";
-            this.toolStripSeparator8.Size = new System.Drawing.Size(6, 23);
-            // 
-            // btnPresupuesto
-            // 
-            this.btnPresupuesto.AutoSize = false;
-            this.btnPresupuesto.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.base0ToolStripMenuItem,
-            this.historicoToolStripMenuItem,
-            this.registrarPresupuestosToolStripMenuItem,
-            this.crearPresupuestosHistoricosToolStripMenuItem,
-            this.cerrarPresupuestoToolStripMenuItem,
-            this.reportesToolStripMenuItem8});
-            this.btnPresupuesto.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnPresupuesto.ForeColor = System.Drawing.Color.White;
-            this.btnPresupuesto.Image = ((System.Drawing.Image)(resources.GetObject("btnPresupuesto.Image")));
-            this.btnPresupuesto.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.btnPresupuesto.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btnPresupuesto.Name = "btnPresupuesto";
-            this.btnPresupuesto.Size = new System.Drawing.Size(225, 36);
-            this.btnPresupuesto.Text = "PRESUPUESTO";
-            // 
-            // base0ToolStripMenuItem
-            // 
-            this.base0ToolStripMenuItem.Name = "base0ToolStripMenuItem";
-            this.base0ToolStripMenuItem.Size = new System.Drawing.Size(240, 24);
-            this.base0ToolStripMenuItem.Text = "Periodos";
-            this.base0ToolStripMenuItem.Click += new System.EventHandler(this.base0ToolStripMenuItem_Click);
-            // 
-            // historicoToolStripMenuItem
-            // 
-            this.historicoToolStripMenuItem.Name = "historicoToolStripMenuItem";
-            this.historicoToolStripMenuItem.Size = new System.Drawing.Size(240, 24);
-            this.historicoToolStripMenuItem.Text = "Conceptos";
-            this.historicoToolStripMenuItem.Click += new System.EventHandler(this.historicoToolStripMenuItem_Click);
-            // 
-            // registrarPresupuestosToolStripMenuItem
-            // 
-            this.registrarPresupuestosToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.ingresosToolStripMenuItem2,
-            this.egresosToolStripMenuItem2});
-            this.registrarPresupuestosToolStripMenuItem.Name = "registrarPresupuestosToolStripMenuItem";
-            this.registrarPresupuestosToolStripMenuItem.Size = new System.Drawing.Size(240, 24);
-            this.registrarPresupuestosToolStripMenuItem.Text = "Registrar Presupuestos";
-            // 
-            // ingresosToolStripMenuItem2
-            // 
-            this.ingresosToolStripMenuItem2.Name = "ingresosToolStripMenuItem2";
-            this.ingresosToolStripMenuItem2.Size = new System.Drawing.Size(138, 24);
-            this.ingresosToolStripMenuItem2.Text = "Ingresos";
-            this.ingresosToolStripMenuItem2.Click += new System.EventHandler(this.ingresosToolStripMenuItem2_Click);
-            // 
-            // egresosToolStripMenuItem2
-            // 
-            this.egresosToolStripMenuItem2.Name = "egresosToolStripMenuItem2";
-            this.egresosToolStripMenuItem2.Size = new System.Drawing.Size(138, 24);
-            this.egresosToolStripMenuItem2.Text = "Egresos";
-            this.egresosToolStripMenuItem2.Click += new System.EventHandler(this.egresosToolStripMenuItem2_Click);
-            // 
-            // crearPresupuestosHistoricosToolStripMenuItem
-            // 
-            this.crearPresupuestosHistoricosToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.ingreosToolStripMenuItem,
-            this.egresosToolStripMenuItem3});
-            this.crearPresupuestosHistoricosToolStripMenuItem.Name = "crearPresupuestosHistoricosToolStripMenuItem";
-            this.crearPresupuestosHistoricosToolStripMenuItem.Size = new System.Drawing.Size(240, 24);
-            this.crearPresupuestosHistoricosToolStripMenuItem.Text = "Crear Presupuestos";
-            // 
-            // ingreosToolStripMenuItem
-            // 
-            this.ingreosToolStripMenuItem.Name = "ingreosToolStripMenuItem";
-            this.ingreosToolStripMenuItem.Size = new System.Drawing.Size(132, 24);
-            this.ingreosToolStripMenuItem.Text = "Ingreos";
-            this.ingreosToolStripMenuItem.Click += new System.EventHandler(this.ingreosToolStripMenuItem_Click);
-            // 
-            // egresosToolStripMenuItem3
-            // 
-            this.egresosToolStripMenuItem3.Name = "egresosToolStripMenuItem3";
-            this.egresosToolStripMenuItem3.Size = new System.Drawing.Size(132, 24);
-            this.egresosToolStripMenuItem3.Text = "Egresos";
-            this.egresosToolStripMenuItem3.Click += new System.EventHandler(this.egresosToolStripMenuItem3_Click);
-            // 
-            // cerrarPresupuestoToolStripMenuItem
-            // 
-            this.cerrarPresupuestoToolStripMenuItem.Name = "cerrarPresupuestoToolStripMenuItem";
-            this.cerrarPresupuestoToolStripMenuItem.Size = new System.Drawing.Size(240, 24);
-            this.cerrarPresupuestoToolStripMenuItem.Text = "Cerrar Presupuesto";
-            this.cerrarPresupuestoToolStripMenuItem.Click += new System.EventHandler(this.cerrarPresupuestoToolStripMenuItem_Click);
-            // 
-            // reportesToolStripMenuItem8
-            // 
-            this.reportesToolStripMenuItem8.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.periodicoToolStripMenuItem});
-            this.reportesToolStripMenuItem8.Name = "reportesToolStripMenuItem8";
-            this.reportesToolStripMenuItem8.Size = new System.Drawing.Size(240, 24);
-            this.reportesToolStripMenuItem8.Text = "Reportes";
-            // 
-            // periodicoToolStripMenuItem
-            // 
-            this.periodicoToolStripMenuItem.Name = "periodicoToolStripMenuItem";
-            this.periodicoToolStripMenuItem.Size = new System.Drawing.Size(184, 24);
-            this.periodicoToolStripMenuItem.Text = "Global Ejercicio";
-            // 
-            // toolStripSeparator4
-            // 
-            this.toolStripSeparator4.Name = "toolStripSeparator4";
-            this.toolStripSeparator4.Size = new System.Drawing.Size(6, 23);
-            // 
-            // btnUtilerias
-            // 
-            this.btnUtilerias.AutoSize = false;
-            this.btnUtilerias.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripMenuItem1,
-            this.toolStripMenuItem2,
-            this.toolStripMenuItem3});
-            this.btnUtilerias.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnUtilerias.ForeColor = System.Drawing.Color.White;
-            this.btnUtilerias.Image = ((System.Drawing.Image)(resources.GetObject("btnUtilerias.Image")));
-            this.btnUtilerias.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.btnUtilerias.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btnUtilerias.Name = "btnUtilerias";
-            this.btnUtilerias.Size = new System.Drawing.Size(225, 36);
-            this.btnUtilerias.Text = "UTILERIAS";
-            // 
-            // toolStripMenuItem1
-            // 
-            this.toolStripMenuItem1.Enabled = false;
-            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(197, 24);
-            this.toolStripMenuItem1.Text = "Contabilidad";
-            // 
-            // toolStripMenuItem2
-            // 
-            this.toolStripMenuItem2.Enabled = false;
-            this.toolStripMenuItem2.Name = "toolStripMenuItem2";
-            this.toolStripMenuItem2.Size = new System.Drawing.Size(197, 24);
-            this.toolStripMenuItem2.Text = "ODBC";
-            // 
-            // toolStripMenuItem3
-            // 
-            this.toolStripMenuItem3.Enabled = false;
-            this.toolStripMenuItem3.Name = "toolStripMenuItem3";
-            this.toolStripMenuItem3.Size = new System.Drawing.Size(197, 24);
-            this.toolStripMenuItem3.Text = "Corre electrónico";
             // 
             // guna2Panel3
             // 
@@ -1381,22 +491,20 @@
             this.guna2Panel2.Controls.Add(this.guna2GroupBox2);
             this.guna2Panel2.Controls.Add(this.guna2GroupBox1);
             this.guna2Panel2.Controls.Add(this.subgrupoPresupuesto3);
-            this.guna2Panel2.Controls.Add(this.subgrupoPresupuesto1);
-            this.guna2Panel2.Controls.Add(this.subgrupoPresupuesto);
+            this.guna2Panel2.Controls.Add(this.SubgrupoIngresos);
             this.guna2Panel2.Controls.Add(this.GrupoVentas);
             this.guna2Panel2.Controls.Add(this.SubGrupoReportesProveedores);
             this.guna2Panel2.Controls.Add(this.SubGrupoReportesAnticipos);
             this.guna2Panel2.Controls.Add(this.SubGrupoReportesCompras);
-            this.guna2Panel2.Controls.Add(this.SubGrupoReportes);
+            this.guna2Panel2.Controls.Add(this.SubGrupoReportesMovimientos);
             this.guna2Panel2.Controls.Add(this.GrupoUtilerias);
             this.guna2Panel2.Controls.Add(this.GrupoPresupuesto);
-            this.guna2Panel2.Controls.Add(this.GrpoMovimientos);
+            this.guna2Panel2.Controls.Add(this.SubgrupoMovimientos);
             this.guna2Panel2.Controls.Add(this.Grupoinventarios);
-            this.guna2Panel2.Controls.Add(this.GruopParametros);
+            this.guna2Panel2.Controls.Add(this.GrupoParametros);
             this.guna2Panel2.Controls.Add(this.pictureBox2);
             this.guna2Panel2.Controls.Add(this.pictureBox1);
-            this.guna2Panel2.Controls.Add(this.guna2Panel1);
-            this.guna2Panel2.Controls.Add(this.GroupCatalogo);
+            this.guna2Panel2.Controls.Add(this.GrupoCatalogos);
             this.guna2Panel2.Controls.Add(this.guna2Button2);
             this.guna2Panel2.Controls.Add(this.guna2Button1);
             this.guna2Panel2.FillColor = System.Drawing.Color.White;
@@ -1404,7 +512,6 @@
             this.guna2Panel2.Name = "guna2Panel2";
             this.guna2Panel2.Size = new System.Drawing.Size(1195, 748);
             this.guna2Panel2.TabIndex = 40;
-            this.guna2Panel2.Paint += new System.Windows.Forms.PaintEventHandler(this.guna2Panel2_Paint);
             // 
             // pnReportesEgresos
             // 
@@ -1414,13 +521,15 @@
             this.pnReportesEgresos.Controls.Add(this.guna2GradientButton60);
             this.pnReportesEgresos.Controls.Add(this.guna2GradientButton61);
             this.pnReportesEgresos.Controls.Add(this.guna2GradientButton62);
+            this.pnReportesEgresos.Controls.Add(this.btnReporteAnticipos);
+            this.pnReportesEgresos.Controls.Add(this.btnReporteIngresos);
             this.pnReportesEgresos.CustomBorderColor = System.Drawing.Color.DodgerBlue;
             this.pnReportesEgresos.FillColor = System.Drawing.Color.DodgerBlue;
             this.pnReportesEgresos.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.pnReportesEgresos.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(19)))), ((int)(((byte)(35)))), ((int)(((byte)(95)))));
             this.pnReportesEgresos.Location = new System.Drawing.Point(527, 289);
             this.pnReportesEgresos.Name = "pnReportesEgresos";
-            this.pnReportesEgresos.Size = new System.Drawing.Size(195, 140);
+            this.pnReportesEgresos.Size = new System.Drawing.Size(195, 232);
             this.pnReportesEgresos.TabIndex = 70;
             this.pnReportesEgresos.Visible = false;
             // 
@@ -1441,7 +550,7 @@
             this.guna2GradientButton60.HoverState.FillColor2 = System.Drawing.Color.DimGray;
             this.guna2GradientButton60.ImageAlign = System.Windows.Forms.HorizontalAlignment.Left;
             this.guna2GradientButton60.ImageSize = new System.Drawing.Size(35, 35);
-            this.guna2GradientButton60.Location = new System.Drawing.Point(7, 92);
+            this.guna2GradientButton60.Location = new System.Drawing.Point(5, 189);
             this.guna2GradientButton60.Name = "guna2GradientButton60";
             this.guna2GradientButton60.Size = new System.Drawing.Size(180, 45);
             this.guna2GradientButton60.TabIndex = 5;
@@ -1466,7 +575,7 @@
             this.guna2GradientButton61.HoverState.FillColor2 = System.Drawing.Color.DimGray;
             this.guna2GradientButton61.ImageAlign = System.Windows.Forms.HorizontalAlignment.Left;
             this.guna2GradientButton61.ImageSize = new System.Drawing.Size(35, 35);
-            this.guna2GradientButton61.Location = new System.Drawing.Point(7, 48);
+            this.guna2GradientButton61.Location = new System.Drawing.Point(5, 144);
             this.guna2GradientButton61.Name = "guna2GradientButton61";
             this.guna2GradientButton61.Size = new System.Drawing.Size(180, 45);
             this.guna2GradientButton61.TabIndex = 4;
@@ -1491,13 +600,57 @@
             this.guna2GradientButton62.HoverState.FillColor2 = System.Drawing.Color.DimGray;
             this.guna2GradientButton62.ImageAlign = System.Windows.Forms.HorizontalAlignment.Left;
             this.guna2GradientButton62.ImageSize = new System.Drawing.Size(35, 35);
-            this.guna2GradientButton62.Location = new System.Drawing.Point(7, 3);
+            this.guna2GradientButton62.Location = new System.Drawing.Point(5, 99);
             this.guna2GradientButton62.Name = "guna2GradientButton62";
             this.guna2GradientButton62.Size = new System.Drawing.Size(180, 45);
             this.guna2GradientButton62.TabIndex = 3;
             this.guna2GradientButton62.Text = "Reporte Diario Egresos";
             this.guna2GradientButton62.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
             this.guna2GradientButton62.Click += new System.EventHandler(this.guna2GradientButton62_Click);
+            // 
+            // btnReporteAnticipos
+            // 
+            this.btnReporteAnticipos.BorderColor = System.Drawing.Color.White;
+            this.btnReporteAnticipos.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.btnReporteAnticipos.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.btnReporteAnticipos.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.btnReporteAnticipos.DisabledState.FillColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.btnReporteAnticipos.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.btnReporteAnticipos.FillColor = System.Drawing.Color.Empty;
+            this.btnReporteAnticipos.FillColor2 = System.Drawing.Color.Empty;
+            this.btnReporteAnticipos.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnReporteAnticipos.ForeColor = System.Drawing.Color.White;
+            this.btnReporteAnticipos.HoverState.FillColor = System.Drawing.Color.DimGray;
+            this.btnReporteAnticipos.HoverState.FillColor2 = System.Drawing.Color.DimGray;
+            this.btnReporteAnticipos.Location = new System.Drawing.Point(5, 54);
+            this.btnReporteAnticipos.Name = "btnReporteAnticipos";
+            this.btnReporteAnticipos.Size = new System.Drawing.Size(180, 45);
+            this.btnReporteAnticipos.TabIndex = 3;
+            this.btnReporteAnticipos.Text = "Reporte Anticipos";
+            this.btnReporteAnticipos.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.btnReporteAnticipos.Click += new System.EventHandler(this.guna2GradientButton52_Click);
+            // 
+            // btnReporteIngresos
+            // 
+            this.btnReporteIngresos.BorderColor = System.Drawing.Color.White;
+            this.btnReporteIngresos.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.btnReporteIngresos.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.btnReporteIngresos.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.btnReporteIngresos.DisabledState.FillColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.btnReporteIngresos.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.btnReporteIngresos.FillColor = System.Drawing.Color.Empty;
+            this.btnReporteIngresos.FillColor2 = System.Drawing.Color.Empty;
+            this.btnReporteIngresos.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnReporteIngresos.ForeColor = System.Drawing.Color.White;
+            this.btnReporteIngresos.HoverState.FillColor = System.Drawing.Color.DimGray;
+            this.btnReporteIngresos.HoverState.FillColor2 = System.Drawing.Color.DimGray;
+            this.btnReporteIngresos.Location = new System.Drawing.Point(5, 9);
+            this.btnReporteIngresos.Name = "btnReporteIngresos";
+            this.btnReporteIngresos.Size = new System.Drawing.Size(180, 45);
+            this.btnReporteIngresos.TabIndex = 3;
+            this.btnReporteIngresos.Text = "Reporte Ingresos";
+            this.btnReporteIngresos.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.btnReporteIngresos.Click += new System.EventHandler(this.guna2GradientButton15_Click);
             // 
             // GrupoCompras
             // 
@@ -1508,7 +661,7 @@
             this.GrupoCompras.Controls.Add(this.guna2GradientButton57);
             this.GrupoCompras.Controls.Add(this.guna2GradientButton50);
             this.GrupoCompras.Controls.Add(this.guna2GradientButton56);
-            this.GrupoCompras.Controls.Add(this.guna2GradientButton1);
+            this.GrupoCompras.Controls.Add(this.btnReportesCompras);
             this.GrupoCompras.Controls.Add(this.guna2GradientButton51);
             this.GrupoCompras.Controls.Add(this.guna2GradientButton3);
             this.GrupoCompras.Controls.Add(this.guna2GradientButton4);
@@ -1615,28 +768,28 @@
             this.guna2GradientButton56.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
             this.guna2GradientButton56.Click += new System.EventHandler(this.guna2GradientButton56_Click);
             // 
-            // guna2GradientButton1
+            // btnReportesCompras
             // 
-            this.guna2GradientButton1.BackColor = System.Drawing.Color.DodgerBlue;
-            this.guna2GradientButton1.BorderColor = System.Drawing.Color.White;
-            this.guna2GradientButton1.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
-            this.guna2GradientButton1.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
-            this.guna2GradientButton1.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.guna2GradientButton1.DisabledState.FillColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.guna2GradientButton1.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.guna2GradientButton1.FillColor = System.Drawing.Color.Empty;
-            this.guna2GradientButton1.FillColor2 = System.Drawing.Color.Empty;
-            this.guna2GradientButton1.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.guna2GradientButton1.ForeColor = System.Drawing.Color.White;
-            this.guna2GradientButton1.HoverState.FillColor = System.Drawing.Color.DimGray;
-            this.guna2GradientButton1.HoverState.FillColor2 = System.Drawing.Color.DimGray;
-            this.guna2GradientButton1.Location = new System.Drawing.Point(7, 271);
-            this.guna2GradientButton1.Name = "guna2GradientButton1";
-            this.guna2GradientButton1.Size = new System.Drawing.Size(180, 45);
-            this.guna2GradientButton1.TabIndex = 8;
-            this.guna2GradientButton1.Text = "Reportes";
-            this.guna2GradientButton1.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
-            this.guna2GradientButton1.Click += new System.EventHandler(this.guna2GradientButton1_Click);
+            this.btnReportesCompras.BackColor = System.Drawing.Color.DodgerBlue;
+            this.btnReportesCompras.BorderColor = System.Drawing.Color.White;
+            this.btnReportesCompras.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.btnReportesCompras.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.btnReportesCompras.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.btnReportesCompras.DisabledState.FillColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.btnReportesCompras.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.btnReportesCompras.FillColor = System.Drawing.Color.Empty;
+            this.btnReportesCompras.FillColor2 = System.Drawing.Color.Empty;
+            this.btnReportesCompras.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnReportesCompras.ForeColor = System.Drawing.Color.White;
+            this.btnReportesCompras.HoverState.FillColor = System.Drawing.Color.DimGray;
+            this.btnReportesCompras.HoverState.FillColor2 = System.Drawing.Color.DimGray;
+            this.btnReportesCompras.Location = new System.Drawing.Point(7, 271);
+            this.btnReportesCompras.Name = "btnReportesCompras";
+            this.btnReportesCompras.Size = new System.Drawing.Size(180, 45);
+            this.btnReportesCompras.TabIndex = 8;
+            this.btnReportesCompras.Text = "Reportes";
+            this.btnReportesCompras.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.btnReportesCompras.Click += new System.EventHandler(this.btnReportesCompras_Click);
             // 
             // guna2GradientButton51
             // 
@@ -1742,7 +895,7 @@
             this.GrupoTesoreria.Controls.Add(this.guna2GradientButton10);
             this.GrupoTesoreria.Controls.Add(this.guna2GradientButton49);
             this.GrupoTesoreria.Controls.Add(this.guna2GradientButton11);
-            this.GrupoTesoreria.Controls.Add(this.guna2GradientButton16);
+            this.GrupoTesoreria.Controls.Add(this.btnReportesTesoreria);
             this.GrupoTesoreria.Controls.Add(this.guna2GradientButton17);
             this.GrupoTesoreria.Controls.Add(this.guna2GradientButton18);
             this.GrupoTesoreria.Controls.Add(this.guna2GradientButton19);
@@ -1839,6 +992,7 @@
             this.guna2GradientButton49.TabIndex = 7;
             this.guna2GradientButton49.Text = "Pago Proveedor";
             this.guna2GradientButton49.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.guna2GradientButton49.Click += new System.EventHandler(this.guna2GradientButton49_Click_1);
             // 
             // guna2GradientButton11
             // 
@@ -1862,26 +1016,26 @@
             this.guna2GradientButton11.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
             this.guna2GradientButton11.Click += new System.EventHandler(this.guna2GradientButton11_Click);
             // 
-            // guna2GradientButton16
+            // btnReportesTesoreria
             // 
-            this.guna2GradientButton16.BackColor = System.Drawing.Color.DodgerBlue;
-            this.guna2GradientButton16.BorderColor = System.Drawing.Color.White;
-            this.guna2GradientButton16.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
-            this.guna2GradientButton16.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
-            this.guna2GradientButton16.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.guna2GradientButton16.DisabledState.FillColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.guna2GradientButton16.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.guna2GradientButton16.FillColor = System.Drawing.Color.Empty;
-            this.guna2GradientButton16.FillColor2 = System.Drawing.Color.Empty;
-            this.guna2GradientButton16.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.guna2GradientButton16.ForeColor = System.Drawing.Color.White;
-            this.guna2GradientButton16.Location = new System.Drawing.Point(7, 229);
-            this.guna2GradientButton16.Name = "guna2GradientButton16";
-            this.guna2GradientButton16.Size = new System.Drawing.Size(180, 45);
-            this.guna2GradientButton16.TabIndex = 6;
-            this.guna2GradientButton16.Text = "Reportes Tesoreria";
-            this.guna2GradientButton16.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
-            this.guna2GradientButton16.Click += new System.EventHandler(this.guna2GradientButton16_Click);
+            this.btnReportesTesoreria.BackColor = System.Drawing.Color.DodgerBlue;
+            this.btnReportesTesoreria.BorderColor = System.Drawing.Color.White;
+            this.btnReportesTesoreria.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.btnReportesTesoreria.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.btnReportesTesoreria.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.btnReportesTesoreria.DisabledState.FillColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.btnReportesTesoreria.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.btnReportesTesoreria.FillColor = System.Drawing.Color.Empty;
+            this.btnReportesTesoreria.FillColor2 = System.Drawing.Color.Empty;
+            this.btnReportesTesoreria.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnReportesTesoreria.ForeColor = System.Drawing.Color.White;
+            this.btnReportesTesoreria.Location = new System.Drawing.Point(7, 229);
+            this.btnReportesTesoreria.Name = "btnReportesTesoreria";
+            this.btnReportesTesoreria.Size = new System.Drawing.Size(180, 45);
+            this.btnReportesTesoreria.TabIndex = 6;
+            this.btnReportesTesoreria.Text = "Reportes Tesoreria";
+            this.btnReportesTesoreria.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.btnReportesTesoreria.Click += new System.EventHandler(this.btnReportesTesoreria_Click);
             // 
             // guna2GradientButton17
             // 
@@ -1927,6 +1081,7 @@
             this.guna2GradientButton18.TabIndex = 4;
             this.guna2GradientButton18.Text = "Ingresos";
             this.guna2GradientButton18.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.guna2GradientButton18.Click += new System.EventHandler(this.guna2GradientButton18_Click);
             // 
             // guna2GradientButton19
             // 
@@ -1951,6 +1106,7 @@
             this.guna2GradientButton19.TabIndex = 3;
             this.guna2GradientButton19.Text = "Bancos";
             this.guna2GradientButton19.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.guna2GradientButton19.Click += new System.EventHandler(this.guna2GradientButton19_Click);
             // 
             // subGrupoGraficasCompras
             // 
@@ -2200,159 +1356,21 @@
             this.guna2GradientButton48.Text = "Ejercicio Global";
             this.guna2GradientButton48.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
             // 
-            // subgrupoPresupuesto1
+            // SubgrupoIngresos
             // 
-            this.subgrupoPresupuesto1.BackColor = System.Drawing.Color.DodgerBlue;
-            this.subgrupoPresupuesto1.BorderColor = System.Drawing.Color.White;
-            this.subgrupoPresupuesto1.BorderThickness = 0;
-            this.subgrupoPresupuesto1.Controls.Add(this.guna2GradientButton44);
-            this.subgrupoPresupuesto1.Controls.Add(this.guna2GradientButton47);
-            this.subgrupoPresupuesto1.CustomBorderColor = System.Drawing.Color.DodgerBlue;
-            this.subgrupoPresupuesto1.FillColor = System.Drawing.Color.DodgerBlue;
-            this.subgrupoPresupuesto1.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.subgrupoPresupuesto1.ForeColor = System.Drawing.Color.DodgerBlue;
-            this.subgrupoPresupuesto1.Location = new System.Drawing.Point(1045, 105);
-            this.subgrupoPresupuesto1.Name = "subgrupoPresupuesto1";
-            this.subgrupoPresupuesto1.Size = new System.Drawing.Size(195, 100);
-            this.subgrupoPresupuesto1.TabIndex = 66;
-            this.subgrupoPresupuesto1.Visible = false;
-            // 
-            // guna2GradientButton44
-            // 
-            this.guna2GradientButton44.BorderColor = System.Drawing.Color.White;
-            this.guna2GradientButton44.BorderThickness = 1;
-            this.guna2GradientButton44.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
-            this.guna2GradientButton44.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
-            this.guna2GradientButton44.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.guna2GradientButton44.DisabledState.FillColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.guna2GradientButton44.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.guna2GradientButton44.FillColor = System.Drawing.Color.Empty;
-            this.guna2GradientButton44.FillColor2 = System.Drawing.Color.Empty;
-            this.guna2GradientButton44.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.guna2GradientButton44.ForeColor = System.Drawing.Color.White;
-            this.guna2GradientButton44.HoverState.FillColor = System.Drawing.Color.DimGray;
-            this.guna2GradientButton44.HoverState.FillColor2 = System.Drawing.Color.DimGray;
-            this.guna2GradientButton44.ImageAlign = System.Windows.Forms.HorizontalAlignment.Left;
-            this.guna2GradientButton44.ImageSize = new System.Drawing.Size(35, 35);
-            this.guna2GradientButton44.Location = new System.Drawing.Point(7, 48);
-            this.guna2GradientButton44.Name = "guna2GradientButton44";
-            this.guna2GradientButton44.Size = new System.Drawing.Size(180, 45);
-            this.guna2GradientButton44.TabIndex = 4;
-            this.guna2GradientButton44.Text = "Egreso";
-            this.guna2GradientButton44.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
-            // 
-            // guna2GradientButton47
-            // 
-            this.guna2GradientButton47.BorderColor = System.Drawing.Color.White;
-            this.guna2GradientButton47.BorderThickness = 1;
-            this.guna2GradientButton47.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
-            this.guna2GradientButton47.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
-            this.guna2GradientButton47.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.guna2GradientButton47.DisabledState.FillColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.guna2GradientButton47.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.guna2GradientButton47.FillColor = System.Drawing.Color.Empty;
-            this.guna2GradientButton47.FillColor2 = System.Drawing.Color.Empty;
-            this.guna2GradientButton47.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.guna2GradientButton47.ForeColor = System.Drawing.Color.White;
-            this.guna2GradientButton47.HoverState.FillColor = System.Drawing.Color.DimGray;
-            this.guna2GradientButton47.HoverState.FillColor2 = System.Drawing.Color.DimGray;
-            this.guna2GradientButton47.ImageAlign = System.Windows.Forms.HorizontalAlignment.Left;
-            this.guna2GradientButton47.ImageSize = new System.Drawing.Size(35, 35);
-            this.guna2GradientButton47.Location = new System.Drawing.Point(7, 3);
-            this.guna2GradientButton47.Name = "guna2GradientButton47";
-            this.guna2GradientButton47.Size = new System.Drawing.Size(180, 45);
-            this.guna2GradientButton47.TabIndex = 3;
-            this.guna2GradientButton47.Text = "Ingresos";
-            this.guna2GradientButton47.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
-            // 
-            // subgrupoPresupuesto
-            // 
-            this.subgrupoPresupuesto.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(19)))), ((int)(((byte)(35)))), ((int)(((byte)(95)))));
-            this.subgrupoPresupuesto.BorderColor = System.Drawing.Color.White;
-            this.subgrupoPresupuesto.BorderThickness = 0;
-            this.subgrupoPresupuesto.Controls.Add(this.guna2GradientButton45);
-            this.subgrupoPresupuesto.Controls.Add(this.guna2GradientButton46);
-            this.subgrupoPresupuesto.CustomBorderColor = System.Drawing.Color.DodgerBlue;
-            this.subgrupoPresupuesto.FillColor = System.Drawing.Color.DodgerBlue;
-            this.subgrupoPresupuesto.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.subgrupoPresupuesto.ForeColor = System.Drawing.Color.DodgerBlue;
-            this.subgrupoPresupuesto.Location = new System.Drawing.Point(1045, 3);
-            this.subgrupoPresupuesto.Name = "subgrupoPresupuesto";
-            this.subgrupoPresupuesto.Size = new System.Drawing.Size(195, 100);
-            this.subgrupoPresupuesto.TabIndex = 65;
-            this.subgrupoPresupuesto.Visible = false;
-            // 
-            // guna2GradientButton45
-            // 
-            this.guna2GradientButton45.BackColor = System.Drawing.Color.DodgerBlue;
-            this.guna2GradientButton45.BorderColor = System.Drawing.Color.White;
-            this.guna2GradientButton45.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
-            this.guna2GradientButton45.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
-            this.guna2GradientButton45.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.guna2GradientButton45.DisabledState.FillColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.guna2GradientButton45.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.guna2GradientButton45.FillColor = System.Drawing.Color.Empty;
-            this.guna2GradientButton45.FillColor2 = System.Drawing.Color.Empty;
-            this.guna2GradientButton45.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.guna2GradientButton45.ForeColor = System.Drawing.Color.White;
-            this.guna2GradientButton45.HoverState.FillColor = System.Drawing.Color.DimGray;
-            this.guna2GradientButton45.HoverState.FillColor2 = System.Drawing.Color.DimGray;
-            this.guna2GradientButton45.ImageAlign = System.Windows.Forms.HorizontalAlignment.Left;
-            this.guna2GradientButton45.ImageSize = new System.Drawing.Size(35, 35);
-            this.guna2GradientButton45.Location = new System.Drawing.Point(7, 48);
-            this.guna2GradientButton45.Name = "guna2GradientButton45";
-            this.guna2GradientButton45.Size = new System.Drawing.Size(180, 45);
-            this.guna2GradientButton45.TabIndex = 4;
-            this.guna2GradientButton45.Text = "Egreso";
-            this.guna2GradientButton45.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
-            // 
-            // guna2GradientButton46
-            // 
-            this.guna2GradientButton46.BackColor = System.Drawing.Color.DodgerBlue;
-            this.guna2GradientButton46.BorderColor = System.Drawing.Color.White;
-            this.guna2GradientButton46.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
-            this.guna2GradientButton46.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
-            this.guna2GradientButton46.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.guna2GradientButton46.DisabledState.FillColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.guna2GradientButton46.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.guna2GradientButton46.FillColor = System.Drawing.Color.Empty;
-            this.guna2GradientButton46.FillColor2 = System.Drawing.Color.Empty;
-            this.guna2GradientButton46.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.guna2GradientButton46.ForeColor = System.Drawing.Color.White;
-            this.guna2GradientButton46.HoverState.FillColor = System.Drawing.Color.DimGray;
-            this.guna2GradientButton46.HoverState.FillColor2 = System.Drawing.Color.DimGray;
-            this.guna2GradientButton46.ImageAlign = System.Windows.Forms.HorizontalAlignment.Left;
-            this.guna2GradientButton46.ImageSize = new System.Drawing.Size(35, 35);
-            this.guna2GradientButton46.Location = new System.Drawing.Point(7, 3);
-            this.guna2GradientButton46.Name = "guna2GradientButton46";
-            this.guna2GradientButton46.Size = new System.Drawing.Size(180, 45);
-            this.guna2GradientButton46.TabIndex = 3;
-            this.guna2GradientButton46.Text = "Ingresos";
-            this.guna2GradientButton46.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
-            // 
-            // GrupoVentas
-            // 
-            this.GrupoVentas.BackColor = System.Drawing.Color.DodgerBlue;
-            this.GrupoVentas.BorderColor = System.Drawing.Color.White;
-            this.GrupoVentas.BorderThickness = 0;
-            this.GrupoVentas.Controls.Add(this.btnRegistrarINgresos);
-            this.GrupoVentas.Controls.Add(this.btnRemisiones);
-            this.GrupoVentas.Controls.Add(this.btnPedidos);
-            this.GrupoVentas.Controls.Add(this.btnReporteUtilidadProducto);
-            this.GrupoVentas.Controls.Add(this.btnReporteUtilidadPedido);
-            this.GrupoVentas.Controls.Add(this.btnReporteRemisiones);
-            this.GrupoVentas.Controls.Add(this.btnReporteAnticipos);
-            this.GrupoVentas.Controls.Add(this.btnReporteIngresos);
-            this.GrupoVentas.CustomBorderColor = System.Drawing.Color.DodgerBlue;
-            this.GrupoVentas.FillColor = System.Drawing.Color.DodgerBlue;
-            this.GrupoVentas.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.GrupoVentas.ForeColor = System.Drawing.Color.DodgerBlue;
-            this.GrupoVentas.Location = new System.Drawing.Point(218, 220);
-            this.GrupoVentas.Name = "GrupoVentas";
-            this.GrupoVentas.Size = new System.Drawing.Size(195, 386);
-            this.GrupoVentas.TabIndex = 65;
-            this.GrupoVentas.Visible = false;
-            this.GrupoVentas.Click += new System.EventHandler(this.GrupoVentas_Click);
+            this.SubgrupoIngresos.BackColor = System.Drawing.Color.DodgerBlue;
+            this.SubgrupoIngresos.BorderColor = System.Drawing.Color.White;
+            this.SubgrupoIngresos.BorderThickness = 0;
+            this.SubgrupoIngresos.Controls.Add(this.btnRegistrarINgresos);
+            this.SubgrupoIngresos.CustomBorderColor = System.Drawing.Color.DodgerBlue;
+            this.SubgrupoIngresos.FillColor = System.Drawing.Color.DodgerBlue;
+            this.SubgrupoIngresos.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.SubgrupoIngresos.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(19)))), ((int)(((byte)(35)))), ((int)(((byte)(95)))));
+            this.SubgrupoIngresos.Location = new System.Drawing.Point(218, 632);
+            this.SubgrupoIngresos.Name = "SubgrupoIngresos";
+            this.SubgrupoIngresos.Size = new System.Drawing.Size(195, 45);
+            this.SubgrupoIngresos.TabIndex = 64;
+            this.SubgrupoIngresos.Visible = false;
             // 
             // btnRegistrarINgresos
             // 
@@ -2368,13 +1386,33 @@
             this.btnRegistrarINgresos.ForeColor = System.Drawing.Color.White;
             this.btnRegistrarINgresos.HoverState.FillColor = System.Drawing.Color.DimGray;
             this.btnRegistrarINgresos.HoverState.FillColor2 = System.Drawing.Color.DimGray;
-            this.btnRegistrarINgresos.Location = new System.Drawing.Point(6, 99);
+            this.btnRegistrarINgresos.Location = new System.Drawing.Point(0, 0);
             this.btnRegistrarINgresos.Name = "btnRegistrarINgresos";
             this.btnRegistrarINgresos.Size = new System.Drawing.Size(180, 45);
             this.btnRegistrarINgresos.TabIndex = 6;
             this.btnRegistrarINgresos.Text = "Registar Ingreso";
             this.btnRegistrarINgresos.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
             this.btnRegistrarINgresos.Click += new System.EventHandler(this.guna2GradientButton12_Click);
+            // 
+            // GrupoVentas
+            // 
+            this.GrupoVentas.BackColor = System.Drawing.Color.DodgerBlue;
+            this.GrupoVentas.BorderColor = System.Drawing.Color.White;
+            this.GrupoVentas.BorderThickness = 0;
+            this.GrupoVentas.Controls.Add(this.btnRemisiones);
+            this.GrupoVentas.Controls.Add(this.btnPedidos);
+            this.GrupoVentas.Controls.Add(this.btnReporteUtilidadProducto);
+            this.GrupoVentas.Controls.Add(this.btnReporteUtilidadPedido);
+            this.GrupoVentas.Controls.Add(this.btnReporteRemisiones);
+            this.GrupoVentas.CustomBorderColor = System.Drawing.Color.DodgerBlue;
+            this.GrupoVentas.FillColor = System.Drawing.Color.DodgerBlue;
+            this.GrupoVentas.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.GrupoVentas.ForeColor = System.Drawing.Color.DodgerBlue;
+            this.GrupoVentas.Location = new System.Drawing.Point(216, 231);
+            this.GrupoVentas.Name = "GrupoVentas";
+            this.GrupoVentas.Size = new System.Drawing.Size(195, 239);
+            this.GrupoVentas.TabIndex = 65;
+            this.GrupoVentas.Visible = false;
             // 
             // btnRemisiones
             // 
@@ -2434,7 +1472,7 @@
             this.btnReporteUtilidadProducto.ForeColor = System.Drawing.Color.White;
             this.btnReporteUtilidadProducto.HoverState.FillColor = System.Drawing.Color.DimGray;
             this.btnReporteUtilidadProducto.HoverState.FillColor2 = System.Drawing.Color.DimGray;
-            this.btnReporteUtilidadProducto.Location = new System.Drawing.Point(15, 324);
+            this.btnReporteUtilidadProducto.Location = new System.Drawing.Point(5, 189);
             this.btnReporteUtilidadProducto.Name = "btnReporteUtilidadProducto";
             this.btnReporteUtilidadProducto.Size = new System.Drawing.Size(180, 45);
             this.btnReporteUtilidadProducto.TabIndex = 3;
@@ -2456,7 +1494,7 @@
             this.btnReporteUtilidadPedido.ForeColor = System.Drawing.Color.White;
             this.btnReporteUtilidadPedido.HoverState.FillColor = System.Drawing.Color.DimGray;
             this.btnReporteUtilidadPedido.HoverState.FillColor2 = System.Drawing.Color.DimGray;
-            this.btnReporteUtilidadPedido.Location = new System.Drawing.Point(15, 279);
+            this.btnReporteUtilidadPedido.Location = new System.Drawing.Point(5, 144);
             this.btnReporteUtilidadPedido.Name = "btnReporteUtilidadPedido";
             this.btnReporteUtilidadPedido.Size = new System.Drawing.Size(180, 45);
             this.btnReporteUtilidadPedido.TabIndex = 3;
@@ -2478,57 +1516,13 @@
             this.btnReporteRemisiones.ForeColor = System.Drawing.Color.White;
             this.btnReporteRemisiones.HoverState.FillColor = System.Drawing.Color.DimGray;
             this.btnReporteRemisiones.HoverState.FillColor2 = System.Drawing.Color.DimGray;
-            this.btnReporteRemisiones.Location = new System.Drawing.Point(15, 234);
+            this.btnReporteRemisiones.Location = new System.Drawing.Point(5, 99);
             this.btnReporteRemisiones.Name = "btnReporteRemisiones";
             this.btnReporteRemisiones.Size = new System.Drawing.Size(180, 45);
             this.btnReporteRemisiones.TabIndex = 3;
             this.btnReporteRemisiones.Text = "Reporte Diario Remisiones";
             this.btnReporteRemisiones.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
             this.btnReporteRemisiones.Click += new System.EventHandler(this.guna2GradientButton2_Click_1);
-            // 
-            // btnReporteAnticipos
-            // 
-            this.btnReporteAnticipos.BorderColor = System.Drawing.Color.White;
-            this.btnReporteAnticipos.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
-            this.btnReporteAnticipos.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
-            this.btnReporteAnticipos.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.btnReporteAnticipos.DisabledState.FillColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.btnReporteAnticipos.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.btnReporteAnticipos.FillColor = System.Drawing.Color.Empty;
-            this.btnReporteAnticipos.FillColor2 = System.Drawing.Color.Empty;
-            this.btnReporteAnticipos.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnReporteAnticipos.ForeColor = System.Drawing.Color.White;
-            this.btnReporteAnticipos.HoverState.FillColor = System.Drawing.Color.DimGray;
-            this.btnReporteAnticipos.HoverState.FillColor2 = System.Drawing.Color.DimGray;
-            this.btnReporteAnticipos.Location = new System.Drawing.Point(12, 189);
-            this.btnReporteAnticipos.Name = "btnReporteAnticipos";
-            this.btnReporteAnticipos.Size = new System.Drawing.Size(180, 45);
-            this.btnReporteAnticipos.TabIndex = 3;
-            this.btnReporteAnticipos.Text = "Reporte Anticipos";
-            this.btnReporteAnticipos.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
-            this.btnReporteAnticipos.Click += new System.EventHandler(this.guna2GradientButton52_Click);
-            // 
-            // btnReporteIngresos
-            // 
-            this.btnReporteIngresos.BorderColor = System.Drawing.Color.White;
-            this.btnReporteIngresos.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
-            this.btnReporteIngresos.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
-            this.btnReporteIngresos.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.btnReporteIngresos.DisabledState.FillColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.btnReporteIngresos.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.btnReporteIngresos.FillColor = System.Drawing.Color.Empty;
-            this.btnReporteIngresos.FillColor2 = System.Drawing.Color.Empty;
-            this.btnReporteIngresos.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnReporteIngresos.ForeColor = System.Drawing.Color.White;
-            this.btnReporteIngresos.HoverState.FillColor = System.Drawing.Color.DimGray;
-            this.btnReporteIngresos.HoverState.FillColor2 = System.Drawing.Color.DimGray;
-            this.btnReporteIngresos.Location = new System.Drawing.Point(11, 144);
-            this.btnReporteIngresos.Name = "btnReporteIngresos";
-            this.btnReporteIngresos.Size = new System.Drawing.Size(180, 45);
-            this.btnReporteIngresos.TabIndex = 3;
-            this.btnReporteIngresos.Text = "Reporte Ingresos";
-            this.btnReporteIngresos.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
-            this.btnReporteIngresos.Click += new System.EventHandler(this.guna2GradientButton15_Click);
             // 
             // SubGrupoReportesProveedores
             // 
@@ -2685,7 +1679,7 @@
             this.SubGrupoReportesCompras.BorderColor = System.Drawing.Color.White;
             this.SubGrupoReportesCompras.BorderThickness = 0;
             this.SubGrupoReportesCompras.Controls.Add(this.guna2GradientButton35);
-            this.SubGrupoReportesCompras.Controls.Add(this.guna2GradientButton36);
+            this.SubGrupoReportesCompras.Controls.Add(this.btnAnticipos);
             this.SubGrupoReportesCompras.Controls.Add(this.guna2GradientButton37);
             this.SubGrupoReportesCompras.Controls.Add(this.guna2GradientButton38);
             this.SubGrupoReportesCompras.Controls.Add(this.guna2GradientButton59);
@@ -2725,27 +1719,27 @@
             this.guna2GradientButton35.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
             this.guna2GradientButton35.Click += new System.EventHandler(this.guna2GradientButton35_Click);
             // 
-            // guna2GradientButton36
+            // btnAnticipos
             // 
-            this.guna2GradientButton36.BorderColor = System.Drawing.Color.White;
-            this.guna2GradientButton36.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
-            this.guna2GradientButton36.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
-            this.guna2GradientButton36.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.guna2GradientButton36.DisabledState.FillColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.guna2GradientButton36.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.guna2GradientButton36.FillColor = System.Drawing.Color.Empty;
-            this.guna2GradientButton36.FillColor2 = System.Drawing.Color.Empty;
-            this.guna2GradientButton36.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.guna2GradientButton36.ForeColor = System.Drawing.Color.White;
-            this.guna2GradientButton36.HoverState.FillColor = System.Drawing.Color.DimGray;
-            this.guna2GradientButton36.HoverState.FillColor2 = System.Drawing.Color.DimGray;
-            this.guna2GradientButton36.Location = new System.Drawing.Point(5, 331);
-            this.guna2GradientButton36.Name = "guna2GradientButton36";
-            this.guna2GradientButton36.Size = new System.Drawing.Size(226, 45);
-            this.guna2GradientButton36.TabIndex = 9;
-            this.guna2GradientButton36.Text = "Anticipos";
-            this.guna2GradientButton36.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
-            this.guna2GradientButton36.Click += new System.EventHandler(this.guna2GradientButton36_Click);
+            this.btnAnticipos.BorderColor = System.Drawing.Color.White;
+            this.btnAnticipos.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.btnAnticipos.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.btnAnticipos.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.btnAnticipos.DisabledState.FillColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.btnAnticipos.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.btnAnticipos.FillColor = System.Drawing.Color.Empty;
+            this.btnAnticipos.FillColor2 = System.Drawing.Color.Empty;
+            this.btnAnticipos.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnAnticipos.ForeColor = System.Drawing.Color.White;
+            this.btnAnticipos.HoverState.FillColor = System.Drawing.Color.DimGray;
+            this.btnAnticipos.HoverState.FillColor2 = System.Drawing.Color.DimGray;
+            this.btnAnticipos.Location = new System.Drawing.Point(5, 331);
+            this.btnAnticipos.Name = "btnAnticipos";
+            this.btnAnticipos.Size = new System.Drawing.Size(226, 45);
+            this.btnAnticipos.TabIndex = 9;
+            this.btnAnticipos.Text = "Anticipos";
+            this.btnAnticipos.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.btnAnticipos.Click += new System.EventHandler(this.guna2GradientButton36_Click);
             // 
             // guna2GradientButton37
             // 
@@ -2853,7 +1847,7 @@
             this.guna2GradientButton34.Name = "guna2GradientButton34";
             this.guna2GradientButton34.Size = new System.Drawing.Size(226, 45);
             this.guna2GradientButton34.TabIndex = 5;
-            this.guna2GradientButton34.Text = "Diario de Compras";
+            this.guna2GradientButton34.Text = "Diario de Compras Inventariables";
             this.guna2GradientButton34.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
             this.guna2GradientButton34.Click += new System.EventHandler(this.guna2GradientButton34_Click);
             // 
@@ -2901,22 +1895,22 @@
             this.guna2GradientButton32.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
             this.guna2GradientButton32.Click += new System.EventHandler(this.guna2GradientButton32_Click);
             // 
-            // SubGrupoReportes
+            // SubGrupoReportesMovimientos
             // 
-            this.SubGrupoReportes.BackColor = System.Drawing.Color.DodgerBlue;
-            this.SubGrupoReportes.BorderColor = System.Drawing.Color.White;
-            this.SubGrupoReportes.BorderThickness = 0;
-            this.SubGrupoReportes.Controls.Add(this.btnReporteCostoxProducto);
-            this.SubGrupoReportes.Controls.Add(this.btnReporteExistencias);
-            this.SubGrupoReportes.CustomBorderColor = System.Drawing.Color.DodgerBlue;
-            this.SubGrupoReportes.FillColor = System.Drawing.Color.DodgerBlue;
-            this.SubGrupoReportes.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.SubGrupoReportes.ForeColor = System.Drawing.Color.DodgerBlue;
-            this.SubGrupoReportes.Location = new System.Drawing.Point(609, 4);
-            this.SubGrupoReportes.Name = "SubGrupoReportes";
-            this.SubGrupoReportes.Size = new System.Drawing.Size(236, 108);
-            this.SubGrupoReportes.TabIndex = 65;
-            this.SubGrupoReportes.Visible = false;
+            this.SubGrupoReportesMovimientos.BackColor = System.Drawing.Color.DodgerBlue;
+            this.SubGrupoReportesMovimientos.BorderColor = System.Drawing.Color.White;
+            this.SubGrupoReportesMovimientos.BorderThickness = 0;
+            this.SubGrupoReportesMovimientos.Controls.Add(this.btnReporteCostoxProducto);
+            this.SubGrupoReportesMovimientos.Controls.Add(this.btnReporteExistencias);
+            this.SubGrupoReportesMovimientos.CustomBorderColor = System.Drawing.Color.DodgerBlue;
+            this.SubGrupoReportesMovimientos.FillColor = System.Drawing.Color.DodgerBlue;
+            this.SubGrupoReportesMovimientos.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.SubGrupoReportesMovimientos.ForeColor = System.Drawing.Color.DodgerBlue;
+            this.SubGrupoReportesMovimientos.Location = new System.Drawing.Point(609, 4);
+            this.SubGrupoReportesMovimientos.Name = "SubGrupoReportesMovimientos";
+            this.SubGrupoReportesMovimientos.Size = new System.Drawing.Size(236, 108);
+            this.SubGrupoReportesMovimientos.TabIndex = 65;
+            this.SubGrupoReportesMovimientos.Visible = false;
             // 
             // btnReporteCostoxProducto
             // 
@@ -3137,7 +2131,6 @@
             this.guna2GradientButton22.TabIndex = 6;
             this.guna2GradientButton22.Text = "Crear Presupestos";
             this.guna2GradientButton22.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
-            this.guna2GradientButton22.Click += new System.EventHandler(this.guna2GradientButton22_Click);
             // 
             // guna2GradientButton23
             // 
@@ -3159,7 +2152,6 @@
             this.guna2GradientButton23.TabIndex = 5;
             this.guna2GradientButton23.Text = "Registrar Presupuestos";
             this.guna2GradientButton23.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
-            this.guna2GradientButton23.Click += new System.EventHandler(this.guna2GradientButton23_Click_1);
             // 
             // guna2GradientButton24
             // 
@@ -3205,50 +2197,49 @@
             this.guna2GradientButton25.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
             this.guna2GradientButton25.Click += new System.EventHandler(this.guna2GradientButton25_Click);
             // 
-            // GrpoMovimientos
+            // SubgrupoMovimientos
             // 
-            this.GrpoMovimientos.BackColor = System.Drawing.Color.DodgerBlue;
-            this.GrpoMovimientos.BorderColor = System.Drawing.Color.White;
-            this.GrpoMovimientos.BorderThickness = 0;
-            this.GrpoMovimientos.Controls.Add(this.guna2GradientButton9);
-            this.GrpoMovimientos.Controls.Add(this.btnConsultaInventarios);
-            this.GrpoMovimientos.Controls.Add(this.btnRegistrarTrasnpasos);
-            this.GrpoMovimientos.Controls.Add(this.btnRegistrarSalidas);
-            this.GrpoMovimientos.Controls.Add(this.btnRegistrarEntradas);
-            this.GrpoMovimientos.Controls.Add(this.btnTipoMovimientos);
-            this.GrpoMovimientos.CustomBorderColor = System.Drawing.Color.DodgerBlue;
-            this.GrpoMovimientos.FillColor = System.Drawing.Color.DodgerBlue;
-            this.GrpoMovimientos.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.GrpoMovimientos.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(19)))), ((int)(((byte)(35)))), ((int)(((byte)(95)))));
-            this.GrpoMovimientos.Location = new System.Drawing.Point(412, 4);
-            this.GrpoMovimientos.Name = "GrpoMovimientos";
-            this.GrpoMovimientos.Size = new System.Drawing.Size(195, 295);
-            this.GrpoMovimientos.TabIndex = 64;
-            this.GrpoMovimientos.Visible = false;
-            this.GrpoMovimientos.Click += new System.EventHandler(this.GrpoMovimientos_Click);
+            this.SubgrupoMovimientos.BackColor = System.Drawing.Color.DodgerBlue;
+            this.SubgrupoMovimientos.BorderColor = System.Drawing.Color.White;
+            this.SubgrupoMovimientos.BorderThickness = 0;
+            this.SubgrupoMovimientos.Controls.Add(this.btnReportesMovimientosInventarios);
+            this.SubgrupoMovimientos.Controls.Add(this.btnConsultaInventarios);
+            this.SubgrupoMovimientos.Controls.Add(this.btnRegistrarTrasnpasos);
+            this.SubgrupoMovimientos.Controls.Add(this.btnRegistrarSalidas);
+            this.SubgrupoMovimientos.Controls.Add(this.btnRegistrarEntradas);
+            this.SubgrupoMovimientos.Controls.Add(this.btnTipoMovimientos);
+            this.SubgrupoMovimientos.CustomBorderColor = System.Drawing.Color.DodgerBlue;
+            this.SubgrupoMovimientos.FillColor = System.Drawing.Color.DodgerBlue;
+            this.SubgrupoMovimientos.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.SubgrupoMovimientos.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(19)))), ((int)(((byte)(35)))), ((int)(((byte)(95)))));
+            this.SubgrupoMovimientos.Location = new System.Drawing.Point(412, 4);
+            this.SubgrupoMovimientos.Name = "SubgrupoMovimientos";
+            this.SubgrupoMovimientos.Size = new System.Drawing.Size(195, 295);
+            this.SubgrupoMovimientos.TabIndex = 64;
+            this.SubgrupoMovimientos.Visible = false;
             // 
-            // guna2GradientButton9
+            // btnReportesMovimientosInventarios
             // 
-            this.guna2GradientButton9.BorderColor = System.Drawing.Color.White;
-            this.guna2GradientButton9.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
-            this.guna2GradientButton9.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
-            this.guna2GradientButton9.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.guna2GradientButton9.DisabledState.FillColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.guna2GradientButton9.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.guna2GradientButton9.FillColor = System.Drawing.Color.Empty;
-            this.guna2GradientButton9.FillColor2 = System.Drawing.Color.Empty;
-            this.guna2GradientButton9.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.guna2GradientButton9.ForeColor = System.Drawing.Color.White;
-            this.guna2GradientButton9.HoverState.FillColor = System.Drawing.Color.DimGray;
-            this.guna2GradientButton9.HoverState.FillColor2 = System.Drawing.Color.DimGray;
-            this.guna2GradientButton9.ImageAlign = System.Windows.Forms.HorizontalAlignment.Left;
-            this.guna2GradientButton9.Location = new System.Drawing.Point(7, 241);
-            this.guna2GradientButton9.Name = "guna2GradientButton9";
-            this.guna2GradientButton9.Size = new System.Drawing.Size(180, 45);
-            this.guna2GradientButton9.TabIndex = 8;
-            this.guna2GradientButton9.Text = "Reportes";
-            this.guna2GradientButton9.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
-            this.guna2GradientButton9.Click += new System.EventHandler(this.guna2GradientButton9_Click);
+            this.btnReportesMovimientosInventarios.BorderColor = System.Drawing.Color.White;
+            this.btnReportesMovimientosInventarios.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.btnReportesMovimientosInventarios.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.btnReportesMovimientosInventarios.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.btnReportesMovimientosInventarios.DisabledState.FillColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.btnReportesMovimientosInventarios.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.btnReportesMovimientosInventarios.FillColor = System.Drawing.Color.Empty;
+            this.btnReportesMovimientosInventarios.FillColor2 = System.Drawing.Color.Empty;
+            this.btnReportesMovimientosInventarios.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnReportesMovimientosInventarios.ForeColor = System.Drawing.Color.White;
+            this.btnReportesMovimientosInventarios.HoverState.FillColor = System.Drawing.Color.DimGray;
+            this.btnReportesMovimientosInventarios.HoverState.FillColor2 = System.Drawing.Color.DimGray;
+            this.btnReportesMovimientosInventarios.ImageAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.btnReportesMovimientosInventarios.Location = new System.Drawing.Point(7, 241);
+            this.btnReportesMovimientosInventarios.Name = "btnReportesMovimientosInventarios";
+            this.btnReportesMovimientosInventarios.Size = new System.Drawing.Size(180, 45);
+            this.btnReportesMovimientosInventarios.TabIndex = 8;
+            this.btnReportesMovimientosInventarios.Text = "Reportes";
+            this.btnReportesMovimientosInventarios.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.btnReportesMovimientosInventarios.Click += new System.EventHandler(this.btnReportesMovimientosInventarios_Click);
             // 
             // btnConsultaInventarios
             // 
@@ -3370,7 +2361,7 @@
             this.Grupoinventarios.BackColor = System.Drawing.Color.DodgerBlue;
             this.Grupoinventarios.BorderColor = System.Drawing.Color.White;
             this.Grupoinventarios.BorderThickness = 0;
-            this.Grupoinventarios.Controls.Add(this.guna2GradientButton30);
+            this.Grupoinventarios.Controls.Add(this.btnReportesInventarios);
             this.Grupoinventarios.Controls.Add(this.guna2GradientButton29);
             this.Grupoinventarios.Controls.Add(this.BtnInventariosfisicos);
             this.Grupoinventarios.Controls.Add(this.BtnMovimientos);
@@ -3384,29 +2375,28 @@
             this.Grupoinventarios.TabIndex = 63;
             this.Grupoinventarios.Visible = false;
             // 
-            // guna2GradientButton30
+            // btnReportesInventarios
             // 
-            this.guna2GradientButton30.BorderColor = System.Drawing.Color.White;
-            this.guna2GradientButton30.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
-            this.guna2GradientButton30.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
-            this.guna2GradientButton30.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.guna2GradientButton30.DisabledState.FillColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.guna2GradientButton30.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.guna2GradientButton30.Enabled = false;
-            this.guna2GradientButton30.FillColor = System.Drawing.Color.Empty;
-            this.guna2GradientButton30.FillColor2 = System.Drawing.Color.Empty;
-            this.guna2GradientButton30.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.guna2GradientButton30.ForeColor = System.Drawing.Color.White;
-            this.guna2GradientButton30.HoverState.FillColor = System.Drawing.Color.DimGray;
-            this.guna2GradientButton30.HoverState.FillColor2 = System.Drawing.Color.DimGray;
-            this.guna2GradientButton30.ImageAlign = System.Windows.Forms.HorizontalAlignment.Left;
-            this.guna2GradientButton30.Location = new System.Drawing.Point(7, 143);
-            this.guna2GradientButton30.Name = "guna2GradientButton30";
-            this.guna2GradientButton30.Size = new System.Drawing.Size(180, 45);
-            this.guna2GradientButton30.TabIndex = 6;
-            this.guna2GradientButton30.Text = "Reportes Inventarios";
-            this.guna2GradientButton30.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
-            this.guna2GradientButton30.Click += new System.EventHandler(this.guna2GradientButton30_Click);
+            this.btnReportesInventarios.BorderColor = System.Drawing.Color.White;
+            this.btnReportesInventarios.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.btnReportesInventarios.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.btnReportesInventarios.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.btnReportesInventarios.DisabledState.FillColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.btnReportesInventarios.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.btnReportesInventarios.Enabled = false;
+            this.btnReportesInventarios.FillColor = System.Drawing.Color.Empty;
+            this.btnReportesInventarios.FillColor2 = System.Drawing.Color.Empty;
+            this.btnReportesInventarios.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnReportesInventarios.ForeColor = System.Drawing.Color.White;
+            this.btnReportesInventarios.HoverState.FillColor = System.Drawing.Color.DimGray;
+            this.btnReportesInventarios.HoverState.FillColor2 = System.Drawing.Color.DimGray;
+            this.btnReportesInventarios.ImageAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.btnReportesInventarios.Location = new System.Drawing.Point(7, 143);
+            this.btnReportesInventarios.Name = "btnReportesInventarios";
+            this.btnReportesInventarios.Size = new System.Drawing.Size(180, 45);
+            this.btnReportesInventarios.TabIndex = 6;
+            this.btnReportesInventarios.Text = "Reportes Inventarios";
+            this.btnReportesInventarios.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
             // 
             // guna2GradientButton29
             // 
@@ -3476,22 +2466,22 @@
             this.BtnMovimientos.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
             this.BtnMovimientos.Click += new System.EventHandler(this.BtnMovimientos_Click);
             // 
-            // GruopParametros
+            // GrupoParametros
             // 
-            this.GruopParametros.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(19)))), ((int)(((byte)(35)))), ((int)(((byte)(95)))));
-            this.GruopParametros.BorderColor = System.Drawing.Color.White;
-            this.GruopParametros.BorderThickness = 0;
-            this.GruopParametros.Controls.Add(this.BtnUsuarios);
-            this.GruopParametros.Controls.Add(this.btnDatosMmpresa);
-            this.GruopParametros.CustomBorderColor = System.Drawing.Color.DodgerBlue;
-            this.GruopParametros.FillColor = System.Drawing.Color.DodgerBlue;
-            this.GruopParametros.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.GruopParametros.ForeColor = System.Drawing.Color.DodgerBlue;
-            this.GruopParametros.Location = new System.Drawing.Point(6, 0);
-            this.GruopParametros.Name = "GruopParametros";
-            this.GruopParametros.Size = new System.Drawing.Size(195, 72);
-            this.GruopParametros.TabIndex = 46;
-            this.GruopParametros.Visible = false;
+            this.GrupoParametros.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(19)))), ((int)(((byte)(35)))), ((int)(((byte)(95)))));
+            this.GrupoParametros.BorderColor = System.Drawing.Color.White;
+            this.GrupoParametros.BorderThickness = 0;
+            this.GrupoParametros.Controls.Add(this.BtnUsuarios);
+            this.GrupoParametros.Controls.Add(this.btnDatosMmpresa);
+            this.GrupoParametros.CustomBorderColor = System.Drawing.Color.DodgerBlue;
+            this.GrupoParametros.FillColor = System.Drawing.Color.DodgerBlue;
+            this.GrupoParametros.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.GrupoParametros.ForeColor = System.Drawing.Color.DodgerBlue;
+            this.GrupoParametros.Location = new System.Drawing.Point(6, 0);
+            this.GrupoParametros.Name = "GrupoParametros";
+            this.GrupoParametros.Size = new System.Drawing.Size(195, 72);
+            this.GrupoParametros.TabIndex = 46;
+            this.GrupoParametros.Visible = false;
             // 
             // BtnUsuarios
             // 
@@ -3572,35 +2562,34 @@
             this.pictureBox1.TabIndex = 43;
             this.pictureBox1.TabStop = false;
             // 
-            // GroupCatalogo
+            // GrupoCatalogos
             // 
-            this.GroupCatalogo.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.GroupCatalogo.BorderColor = System.Drawing.Color.White;
-            this.GroupCatalogo.BorderThickness = 0;
-            this.GroupCatalogo.Controls.Add(this.BtnCuentasBancarias);
-            this.GroupCatalogo.Controls.Add(this.btnDivisas);
-            this.GroupCatalogo.Controls.Add(this.btnAlmacen);
-            this.GroupCatalogo.Controls.Add(this.BtnProveedores);
-            this.GroupCatalogo.Controls.Add(this.BtnCategorias);
-            this.GroupCatalogo.Controls.Add(this.BtnProductos);
-            this.GroupCatalogo.Controls.Add(this.BtnClientes);
-            this.GroupCatalogo.Controls.Add(this.BtnServicios);
-            this.GroupCatalogo.Controls.Add(this.BtnCentroCosto);
-            this.GroupCatalogo.Controls.Add(this.BtnTiposZonas);
-            this.GroupCatalogo.Controls.Add(this.BtnDocumentos);
-            this.GroupCatalogo.Controls.Add(this.BtnConceptosGlobales);
-            this.GroupCatalogo.Controls.Add(this.BtnEmpleados);
-            this.GroupCatalogo.Controls.Add(this.BtnFormaPago);
-            this.GroupCatalogo.CustomBorderColor = System.Drawing.Color.Transparent;
-            this.GroupCatalogo.FillColor = System.Drawing.Color.DodgerBlue;
-            this.GroupCatalogo.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.GroupCatalogo.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(19)))), ((int)(((byte)(35)))), ((int)(((byte)(95)))));
-            this.GroupCatalogo.Location = new System.Drawing.Point(6, 78);
-            this.GroupCatalogo.Name = "GroupCatalogo";
-            this.GroupCatalogo.Size = new System.Drawing.Size(195, 671);
-            this.GroupCatalogo.TabIndex = 60;
-            this.GroupCatalogo.Visible = false;
-            this.GroupCatalogo.Click += new System.EventHandler(this.GroupCatalogo_Click);
+            this.GrupoCatalogos.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.GrupoCatalogos.BorderColor = System.Drawing.Color.White;
+            this.GrupoCatalogos.BorderThickness = 0;
+            this.GrupoCatalogos.Controls.Add(this.BtnCuentasBancarias);
+            this.GrupoCatalogos.Controls.Add(this.btnDivisas);
+            this.GrupoCatalogos.Controls.Add(this.btnAlmacen);
+            this.GrupoCatalogos.Controls.Add(this.BtnProveedores);
+            this.GrupoCatalogos.Controls.Add(this.BtnCategorias);
+            this.GrupoCatalogos.Controls.Add(this.BtnProductos);
+            this.GrupoCatalogos.Controls.Add(this.BtnClientes);
+            this.GrupoCatalogos.Controls.Add(this.BtnServicios);
+            this.GrupoCatalogos.Controls.Add(this.BtnCentroCosto);
+            this.GrupoCatalogos.Controls.Add(this.BtnTiposZonas);
+            this.GrupoCatalogos.Controls.Add(this.BtnDocumentos);
+            this.GrupoCatalogos.Controls.Add(this.BtnConceptosGlobales);
+            this.GrupoCatalogos.Controls.Add(this.BtnEmpleados);
+            this.GrupoCatalogos.Controls.Add(this.BtnFormaPago);
+            this.GrupoCatalogos.CustomBorderColor = System.Drawing.Color.Transparent;
+            this.GrupoCatalogos.FillColor = System.Drawing.Color.DodgerBlue;
+            this.GrupoCatalogos.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.GrupoCatalogos.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(19)))), ((int)(((byte)(35)))), ((int)(((byte)(95)))));
+            this.GrupoCatalogos.Location = new System.Drawing.Point(6, 78);
+            this.GrupoCatalogos.Name = "GrupoCatalogos";
+            this.GrupoCatalogos.Size = new System.Drawing.Size(195, 671);
+            this.GrupoCatalogos.TabIndex = 60;
+            this.GrupoCatalogos.Visible = false;
             // 
             // BtnCuentasBancarias
             // 
@@ -4044,7 +3033,6 @@
             this.guna2Panel5.Name = "guna2Panel5";
             this.guna2Panel5.Size = new System.Drawing.Size(227, 529);
             this.guna2Panel5.TabIndex = 40;
-            this.guna2Panel5.Paint += new System.Windows.Forms.PaintEventHandler(this.guna2Panel5_Paint);
             // 
             // btnUtilerias2
             // 
@@ -4311,7 +3299,6 @@
             this.btnCompras1.TabIndex = 49;
             this.btnCompras1.Text = "COMPRAS";
             this.btnCompras1.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
-            this.btnCompras1.Click += new System.EventHandler(this.btnCompras1_Click);
             // 
             // btnCompras2
             // 
@@ -4432,9 +3419,6 @@
             this.Activated += new System.EventHandler(this.MenuPrincipal_Activated);
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MenuPrincipal_FormClosing);
             this.Load += new System.EventHandler(this.MenuPrincipal_Load);
-            this.guna2Panel1.ResumeLayout(false);
-            this.toolStrip1.ResumeLayout(false);
-            this.toolStrip1.PerformLayout();
             this.guna2Panel3.ResumeLayout(false);
             this.guna2Panel3.PerformLayout();
             this.guna2Panel4.ResumeLayout(false);
@@ -4447,21 +3431,20 @@
             this.guna2GroupBox2.ResumeLayout(false);
             this.guna2GroupBox1.ResumeLayout(false);
             this.subgrupoPresupuesto3.ResumeLayout(false);
-            this.subgrupoPresupuesto1.ResumeLayout(false);
-            this.subgrupoPresupuesto.ResumeLayout(false);
+            this.SubgrupoIngresos.ResumeLayout(false);
             this.GrupoVentas.ResumeLayout(false);
             this.SubGrupoReportesProveedores.ResumeLayout(false);
             this.SubGrupoReportesAnticipos.ResumeLayout(false);
             this.SubGrupoReportesCompras.ResumeLayout(false);
-            this.SubGrupoReportes.ResumeLayout(false);
+            this.SubGrupoReportesMovimientos.ResumeLayout(false);
             this.GrupoUtilerias.ResumeLayout(false);
             this.GrupoPresupuesto.ResumeLayout(false);
-            this.GrpoMovimientos.ResumeLayout(false);
+            this.SubgrupoMovimientos.ResumeLayout(false);
             this.Grupoinventarios.ResumeLayout(false);
-            this.GruopParametros.ResumeLayout(false);
+            this.GrupoParametros.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
-            this.GroupCatalogo.ResumeLayout(false);
+            this.GrupoCatalogos.ResumeLayout(false);
             this.guna2Panel5.ResumeLayout(false);
             this.ResumeLayout(false);
 
@@ -4490,7 +3473,6 @@
         private System.Windows.Forms.ToolStripMenuItem asignaturasToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem otrosToolStripMenuItem;
         private System.Windows.Forms.ToolStrip miniToolStrip;
-        private Guna.UI2.WinForms.Guna2Panel guna2Panel1;
         private Guna.UI2.WinForms.Guna2Panel guna2Panel3;
         private Guna.UI2.WinForms.Guna2ControlBox guna2ControlBox3;
         private Guna.UI2.WinForms.Guna2ControlBox guna2ControlBox2;
@@ -4502,123 +3484,32 @@
         private Guna.UI2.WinForms.Guna2PictureBox guna2PictureBox1;
         private Guna.UI2.WinForms.Guna2HtmlLabel guna2HtmlLabel3;
         private Guna.UI2.WinForms.Guna2HtmlLabel guna2HtmlLabel2;
-        private System.Windows.Forms.ToolStrip toolStrip1;
-        private System.Windows.Forms.ToolStripDropDownButton btnParametros;
-        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem4;
-        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem5;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
-        private System.Windows.Forms.ToolStripDropDownButton btnCatalogos;
-        private System.Windows.Forms.ToolStripMenuItem divisasToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem almacenesToolStripMenuItem1;
-        private System.Windows.Forms.ToolStripMenuItem categoriasYFamiliasToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem productosYServiciosToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem centrosDeCostosToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem documentosToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem conceptosGlobalesToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem formasDePagoToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem empleadosToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem tiposYZonasToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem clientesToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem proveedoresToolStripMenuItem2;
-        private System.Windows.Forms.ToolStripMenuItem cuentasBancariasToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem sATToolStripMenuItem;
-        private System.Windows.Forms.ToolStripSeparator toolStripDropDownButton4;
-        private System.Windows.Forms.ToolStripDropDownButton btnInventarios;
-        private System.Windows.Forms.ToolStripMenuItem movimientosToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem tipoMovimientosToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem registrarEntradasToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem registrarSalidaToolStripMenuItem1;
-        private System.Windows.Forms.ToolStripMenuItem registrarTraspasosToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem consultaInventariosToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem6;
-        private System.Windows.Forms.ToolStripMenuItem reporteKardexToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem reporteExistenciasToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem reporteCostoPorProductosToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem inventariosFisicosToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem explosionDeMaterialesToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem reportesToolStripMenuItem1;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
-        private System.Windows.Forms.ToolStripDropDownButton btnCompras;
-        private System.Windows.Forms.ToolStripMenuItem cotizacionesToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem comprasToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem requisicionesToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem pedidosProveedoresToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem notasDeCrYCaToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem reportesToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem reporteDiarioDeRequisicionesToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem reporteDiarioDeOrdenesDeCompraToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem reporteDiarioDeComprasToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem reporteDiarioNotasDeCargoToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem reporteDeEgresosToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem reporteSaldoDeComprasToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem anticiposToolStripMenuItem3;
-        private System.Windows.Forms.ToolStripMenuItem anticiposToolStripMenuItem4;
-        private System.Windows.Forms.ToolStripMenuItem anticiposAplicadosToolStripMenuItem1;
-        private System.Windows.Forms.ToolStripMenuItem proveedoresToolStripMenuItem1;
-        private System.Windows.Forms.ToolStripMenuItem estadoDeCuentaProveedoresToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem saldosProveedoresToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem detallesDeSaldosToolStripMenuItem;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
-        private System.Windows.Forms.ToolStripDropDownButton btnVentas;
-        private System.Windows.Forms.ToolStripMenuItem cotizacionesToolStripMenuItem1;
-        private System.Windows.Forms.ToolStripMenuItem pedidosDeClientesToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem remisionesToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem cFDIToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem notasDeCrYCaToolStripMenuItem1;
-        private System.Windows.Forms.ToolStripMenuItem reportesToolStripMenuItem2;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator7;
-        private System.Windows.Forms.ToolStripDropDownButton btnTesoreria;
-        private System.Windows.Forms.ToolStripMenuItem bancosToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem btnIngresos;
-        private System.Windows.Forms.ToolStripMenuItem egresosToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem reportesToolStripMenuItem3;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator8;
-        private System.Windows.Forms.ToolStripDropDownButton btnPresupuesto;
-        private System.Windows.Forms.ToolStripMenuItem base0ToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem historicoToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem registrarPresupuestosToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem ingresosToolStripMenuItem2;
-        private System.Windows.Forms.ToolStripMenuItem egresosToolStripMenuItem2;
-        private System.Windows.Forms.ToolStripMenuItem crearPresupuestosHistoricosToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem ingreosToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem egresosToolStripMenuItem3;
-        private System.Windows.Forms.ToolStripMenuItem cerrarPresupuestoToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem reportesToolStripMenuItem8;
-        private System.Windows.Forms.ToolStripMenuItem periodicoToolStripMenuItem;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator4;
-        private System.Windows.Forms.ToolStripDropDownButton btnUtilerias;
-        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;
-        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem2;
-        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem3;
         private Guna.UI2.WinForms.Guna2Button guna2Button1;
         private Guna.UI2.WinForms.Guna2Button guna2Button2;
         private Guna.UI2.WinForms.Guna2Panel guna2Panel2;
         private Guna.UI2.WinForms.Guna2HtmlLabel guna2HtmlLabel1;
-        private System.Windows.Forms.ToolStripMenuItem serviciosToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem DefinepolizaStripMenuItem7;
-        private System.Windows.Forms.ToolStripMenuItem GenerePolizaStripMenuItem7;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.PictureBox pictureBox2;
-        private Guna.UI2.WinForms.Guna2GroupBox GruopParametros;
+        private Guna.UI2.WinForms.Guna2GroupBox GrupoParametros;
         private Guna.UI2.WinForms.Guna2GradientButton BtnUsuarios;
         private Guna.UI2.WinForms.Guna2GradientButton btnDatosMmpresa;
-        private Guna.UI2.WinForms.Guna2GroupBox SubGrupoReportes;
+        private Guna.UI2.WinForms.Guna2GroupBox SubGrupoReportesMovimientos;
         private Guna.UI2.WinForms.Guna2GradientButton btnReporteCostoxProducto;
         private Guna.UI2.WinForms.Guna2GradientButton btnReporteExistencias;
-        private Guna.UI2.WinForms.Guna2GroupBox GrpoMovimientos;
-        private Guna.UI2.WinForms.Guna2GradientButton guna2GradientButton9;
+        private Guna.UI2.WinForms.Guna2GroupBox SubgrupoMovimientos;
+        private Guna.UI2.WinForms.Guna2GradientButton btnReportesMovimientosInventarios;
         private Guna.UI2.WinForms.Guna2GradientButton btnConsultaInventarios;
         private Guna.UI2.WinForms.Guna2GradientButton btnRegistrarTrasnpasos;
         private Guna.UI2.WinForms.Guna2GradientButton btnRegistrarSalidas;
         private Guna.UI2.WinForms.Guna2GradientButton btnRegistrarEntradas;
         private Guna.UI2.WinForms.Guna2GradientButton btnTipoMovimientos;
         private Guna.UI2.WinForms.Guna2GroupBox Grupoinventarios;
-        private Guna.UI2.WinForms.Guna2GradientButton guna2GradientButton30;
+        private Guna.UI2.WinForms.Guna2GradientButton btnReportesInventarios;
         private Guna.UI2.WinForms.Guna2GradientButton guna2GradientButton29;
         private Guna.UI2.WinForms.Guna2GradientButton BtnInventariosfisicos;
         private Guna.UI2.WinForms.Guna2GradientButton BtnMovimientos;
         private Guna.UI2.WinForms.Guna2GroupBox GrupoCompras;
-        private Guna.UI2.WinForms.Guna2GradientButton guna2GradientButton1;
+        private Guna.UI2.WinForms.Guna2GradientButton btnReportesCompras;
         private Guna.UI2.WinForms.Guna2GradientButton guna2GradientButton3;
         private Guna.UI2.WinForms.Guna2GradientButton guna2GradientButton4;
         private Guna.UI2.WinForms.Guna2GroupBox GrupoVentas;
@@ -4663,19 +3554,13 @@
         private Guna.UI2.WinForms.Guna2GradientButton guna2GradientButton40;
         private Guna.UI2.WinForms.Guna2GroupBox SubGrupoReportesCompras;
         private Guna.UI2.WinForms.Guna2GradientButton guna2GradientButton35;
-        private Guna.UI2.WinForms.Guna2GradientButton guna2GradientButton36;
+        private Guna.UI2.WinForms.Guna2GradientButton btnAnticipos;
         private Guna.UI2.WinForms.Guna2GradientButton guna2GradientButton37;
         private Guna.UI2.WinForms.Guna2GradientButton guna2GradientButton38;
         private Guna.UI2.WinForms.Guna2GradientButton guna2GradientButton33;
         private Guna.UI2.WinForms.Guna2GradientButton guna2GradientButton34;
         private Guna.UI2.WinForms.Guna2GradientButton guna2GradientButton26;
         private Guna.UI2.WinForms.Guna2GradientButton guna2GradientButton32;
-        private Guna.UI2.WinForms.Guna2GroupBox subgrupoPresupuesto;
-        private Guna.UI2.WinForms.Guna2GradientButton guna2GradientButton45;
-        private Guna.UI2.WinForms.Guna2GradientButton guna2GradientButton46;
-        private Guna.UI2.WinForms.Guna2GroupBox subgrupoPresupuesto1;
-        private Guna.UI2.WinForms.Guna2GradientButton guna2GradientButton44;
-        private Guna.UI2.WinForms.Guna2GradientButton guna2GradientButton47;
         private Guna.UI2.WinForms.Guna2VScrollBar guna2VScrollBar1;
         private Guna.UI2.WinForms.Guna2GradientButton guna2GradientButton50;
         private Guna.UI2.WinForms.Guna2GradientButton guna2GradientButton51;
@@ -4708,13 +3593,13 @@
         private Guna.UI2.WinForms.Guna2GradientButton guna2GradientButton10;
         private Guna.UI2.WinForms.Guna2GradientButton guna2GradientButton49;
         private Guna.UI2.WinForms.Guna2GradientButton guna2GradientButton11;
-        private Guna.UI2.WinForms.Guna2GradientButton guna2GradientButton16;
+        private Guna.UI2.WinForms.Guna2GradientButton btnReportesTesoreria;
         private Guna.UI2.WinForms.Guna2GradientButton guna2GradientButton17;
         private Guna.UI2.WinForms.Guna2GradientButton guna2GradientButton18;
         private Guna.UI2.WinForms.Guna2GradientButton guna2GradientButton19;
         private Guna.UI2.WinForms.Guna2GroupBox subgrupoPresupuesto3;
         private Guna.UI2.WinForms.Guna2GradientButton guna2GradientButton48;
-        private Guna.UI2.WinForms.Guna2GroupBox GroupCatalogo;
+        private Guna.UI2.WinForms.Guna2GroupBox GrupoCatalogos;
         private Guna.UI2.WinForms.Guna2GradientButton BtnCuentasBancarias;
         private Guna.UI2.WinForms.Guna2GradientButton btnDivisas;
         private Guna.UI2.WinForms.Guna2GradientButton btnAlmacen;
@@ -4729,5 +3614,6 @@
         private Guna.UI2.WinForms.Guna2GradientButton BtnConceptosGlobales;
         private Guna.UI2.WinForms.Guna2GradientButton BtnEmpleados;
         private Guna.UI2.WinForms.Guna2GradientButton BtnFormaPago;
+        private Guna.UI2.WinForms.Guna2GroupBox SubgrupoIngresos;
     }
 }

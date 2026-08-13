@@ -133,16 +133,13 @@ namespace PV
             LlenarComboCentro();
             LlenarComboProveedores();
             r.ruta();
-            r.CargarGasto(dataGridView1);
+            r.CargarGasto(dgvReembolsos);
 
+  
+
+            Limpiarcabezado();
             if (cmbEstatus.Items.Count > 0) cmbEstatus.SelectedIndex = 0;
-            txtFecha.Text = DateTime.Today.ToString("yyyy/MM/dd");
-            txtDivisa.Text = "MXN";
-            txtTipoCambio.Text = "1.00";
-            txtElaborado.Text = DBLogin.usuario;
-            cmbOrdenCompra.Text = txtFiltroOrdenC.Text;
-            txtDiasVence.Text = "0";
-            cmbProoveedorAlternoSiNo.Text = "Si";
+
 
             ActualizarFechaVencimiento();
 
@@ -196,7 +193,16 @@ namespace PV
         {
             MessageBox.Show($"Error: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
+        private int ObtenerNumeroSemanaActual()
+        {
+            DateTime hoy = DateTime.Today;
+            int semana = ((hoy.DayOfYear - 1) / 7) + 1;
 
+            if (semana > 52) semana = 52;
+            if (semana < 1) semana = 1;
+
+            return semana;
+        }
         /// <summary>
         /// Obtiene el elemento en "indice" de un arreglo devuelto por la capa de
         /// datos (por ejemplo r.InformacionGasto, r.InformacionDocumento, etc.)
@@ -376,7 +382,7 @@ namespace PV
             r.SeleccionarRecepcionProducto(cmbDocumento);
             r.SeleccionarConceptoDocumento(cmbFiltroDocumentoC);
             r.ruta();
-            r.CargarGasto(dataGridView1);
+            r.CargarGasto(dgvReembolsos);
 
             if (cmbEstatus.Items.Count > 0) cmbEstatus.SelectedIndex = 0;
             txtFecha.Text = DateTime.Today.ToString("yyyy/MM/dd");
@@ -722,13 +728,23 @@ namespace PV
             dtpAnio.Value = DateTime.Now;
             cmbProoveedorAlternoSiNo.SelectedIndex = -1;
             cmbProoveedorAlternoSiNo.Text = "Si";
+
+            // Preselecciona el año y la semana actual
+            dtpAnio.Value = DateTime.Today;
+            cmbSemana.SelectedIndex = ObtenerNumeroSemanaActual() - 1;
+            txtSubtotalGrid.Clear();
+            txtImpuestoGrid.Clear();
+            txtDescuentoGrid.Clear();
+            txtIEPSGrid.Clear();
+            txtTotalGrid.Clear();
+            txtRetencionesGrid.Clear();
         }
 
         #endregion
 
         #region Encabezado del reembolso (alta, confirmar, cancelar)
 
-        private void btnAgregarPartidas_Click(object sender, EventArgs e)
+        private void btnCrearEncabezado_Click(object sender, EventArgs e)
         {
             if (txtMatricular.Text == string.Empty)
             {
@@ -826,7 +842,7 @@ namespace PV
                 cmbEstatus.Text = EstadoReembolso.Bloqueado;
                 r.ActualizarReembolso(txtFolio.Text, cmbEstatus.Text, txtMatricular.Text);
                 r.ActualizarSaldoProveedor2(txtMatricular.Text, ParsearDecimal(txtTotal.Text));
-                r.CargarGasto(dataGridView1);
+                r.CargarGasto(dgvReembolsos);
             }
 
             Limpiarcabezado();
@@ -2028,14 +2044,14 @@ namespace PV
             }
         }
 
-        private void dataGridView1_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        private void dgvReembolsos_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex == -1) return;
 
             Limpiarcabezado();
             LimpiarDetalle();
 
-            string folio = dataGridView1.Rows[e.RowIndex].Cells["Folio"].Value?.ToString() ?? string.Empty;
+            string folio = dgvReembolsos.Rows[e.RowIndex].Cells["Folio"].Value?.ToString() ?? string.Empty;
             txtFolio.Text = "X";
 
             r.ConsultaGastos(folio, txtClave, cmbEstatus, txtFecha, txtDivisa, txtTipoCambio, txtSubtotal, txtDescuento,
@@ -2090,11 +2106,11 @@ namespace PV
             {
                 txtFiltroNombre.Clear();
                 txtFiltroDocumento.Clear();
-                r.CargarRecibosFiltroGasto(dataGridView1, txtFiltro.Text);
+                r.CargarRecibosFiltroGasto(dgvReembolsos, txtFiltro.Text);
             }
             else
             {
-                r.CargarGasto(dataGridView1);
+                r.CargarGasto(dgvReembolsos);
             }
         }
 
@@ -2104,11 +2120,11 @@ namespace PV
             {
                 txtFiltro.Clear();
                 txtFiltroNombre.Clear();
-                r.CargarRecibosFiltroDocumentoGasto(dataGridView1, txtFiltroDocumento.Text);
+                r.CargarRecibosFiltroDocumentoGasto(dgvReembolsos, txtFiltroDocumento.Text);
             }
             else
             {
-                r.CargarGasto(dataGridView1);
+                r.CargarGasto(dgvReembolsos);
             }
         }
 
@@ -2118,11 +2134,11 @@ namespace PV
             {
                 txtFiltro.Clear();
                 txtFiltroDocumento.Clear();
-                r.CargarRecibosFiltroPGasto(dataGridView1, txtFiltroNombre.Text);
+                r.CargarRecibosFiltroPGasto(dgvReembolsos, txtFiltroNombre.Text);
             }
             else
             {
-                r.CargarGasto(dataGridView1);
+                r.CargarGasto(dgvReembolsos);
             }
         }
 
@@ -2176,14 +2192,14 @@ namespace PV
                     totalretenciones += retenciones;
             }
 
-            lblSubtotalPartidas.Text = "Subtotal: $" + totalSubtotal.ToString("N2");
-            lblDescuentosPartidas.Text = "Descuento: $" + totalDescuento.ToString("N2");
-            lblImpuestosPartidas.Text = "Impuesto: $" + totalImpuesto.ToString("N2");
-            lblIEPSPartidas.Text = "IEPS: $" + totalIeps.ToString("N2");
-            lblRetenciones.Text = "Retenciones: $" + totalretenciones.ToString("N2");
+            txtSubtotalGrid.Text =Utilerias.FormatearMiles(totalSubtotal.ToString("N2"));
+            txtDescuentoGrid.Text = Utilerias.FormatearMiles(totalDescuento.ToString("N2"));
+            txtImpuestoGrid.Text =Utilerias.FormatearMiles( totalImpuesto.ToString("N2"));
+            txtIEPSGrid.Text =Utilerias.FormatearMiles( totalIeps.ToString("N2"));
+            txtRetencionesGrid.Text =Utilerias.FormatearMiles(totalretenciones.ToString("N2"));
 
             decimal total = totalSubtotal - totalDescuento + totalImpuesto + totalIeps - totalretenciones;
-            lblTotal.Text = "Total: $" + total.ToString();
+            txtTotalGrid.Text = Utilerias.FormatearMiles(total.ToString());
         }
 
         private void btnDescuentosPartida_Click(object sender, EventArgs e)

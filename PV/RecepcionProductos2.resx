@@ -118,7 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="guna2Button9.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+  <data name="btnTerminarRecepcion.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAACcQAAAnFCAYAAADlLyaYAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAu
         IgAALiIBquLdkgAA/7JJREFUeF7s3Vt61FX69+E3CWoghiSOIENgCPa+W9SOLRtRlFK7/be9TfcIGEIO
@@ -3065,7 +3065,7 @@
         AAAAAAAAoOgCAAAAAAAAAAAAii4AAAAAAAAAAACgaOF3vKMWyDl1AAAAAElFTkSuQmCC
 </value>
   </data>
-  <data name="btnarticulos.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+  <data name="btnCrearEncabezado.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAAgAAAAIACAYAAAD0eNT6AAAAIGNIUk0AAHolAACAgwAA+f8AAIDpAAB1
         MAAA6mAAADqYAAAXb5JfxUYAAAAJcEhZcwAADrwAAA68AZW8ckkAAIk8SURBVHhe7b0HkCTHeeeLd+/F
@@ -3657,7 +3657,7 @@
         b7lub1qan95NkW8x/z/4mwhcX2STGAAAAABJRU5ErkJggg==
 </value>
   </data>
-  <data name="guna2Button8.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+  <data name="btnSiguientePartida.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAAgAAAAIACAYAAAD0eNT6AAAAIGNIUk0AAHolAACAgwAA+f8AAIDpAAB1
         MAAA6mAAADqYAAAXb5JfxUYAAAAJcEhZcwAADrwAAA68AZW8ckkAAFvPSURBVHhe7d1rsyRXdt53fQec
@@ -4055,7 +4055,7 @@
         Edk/MyAiIiL7ZwZERERk/8yAiIiI7N//D/37La9FKnJuAAAAAElFTkSuQmCC
 </value>
   </data>
-  <data name="guna2Button12.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+  <data name="btnConfirmarPartida.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAACcQAAAnFCAYAAADlLyaYAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAu
         IgAALiIBquLdkgAA/7JJREFUeF7s3Vt61FX69+E3CWoghiSOIENgCPa+W9SOLRtRlFK7/be9TfcIGEIO
@@ -7002,7 +7002,7 @@
         AAAAAAAAoOgCAAAAAAAAAAAAii4AAAAAAAAAAACgaOF3vKMWyDl1AAAAAElFTkSuQmCC
 </value>
   </data>
-  <data name="guna2Button6.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+  <data name="btnAgregarPartida.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAAIAAAACACAYAAADDPmHLAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6
         JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAB3RJTUUH5gkcEhY0OZjuFQAABhpJREFU
@@ -7252,9 +7252,6 @@
         f/TRtcaFf6F3EO7+P6Xa+/Ts+Nh0AAAAAElFTkSuQmCC
 </value>
   </data>
-  <metadata name="toolStrip2.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>227, 17</value>
-  </metadata>
   <metadata name="toolStrip2.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>227, 17</value>
   </metadata>

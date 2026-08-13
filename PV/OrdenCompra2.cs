@@ -56,16 +56,16 @@ namespace PV
                 c.ActualizarOrdenAuto(txtFolio.Text, txtAutoriza.Text, txtFechaAuto.Text);
                 MessageBox.Show("Orden de Compra Autorizada");
                 Limpiar();
-                c.CargarRecibos(dataGridView1);
-                c.CargarRecibos2(DataGridView2);
+                c.CargarRecibos(dgvOrdenesCompraNoAutorizados);
+                c.CargarRecibos2(dgvOrdenesCompraAutorizados);
             }
         }
 
         private void OrdenCompra2_Load(object sender, EventArgs e)
         {
             c.SeleccionarConceptoDocumento(cmbDocumento);
-            c.CargarRecibos(dataGridView1);
-            c.CargarRecibos2(DataGridView2);
+            c.CargarRecibos(dgvOrdenesCompraNoAutorizados);
+            c.CargarRecibos2(dgvOrdenesCompraAutorizados);
             cmbEstatus.SelectedIndex = 0;
             txtFecha.Text = DateTime.Today.ToString("yyyy/MM/dd");
             txtDivisa1.Text = "MXN";
@@ -277,7 +277,7 @@ namespace PV
             btnTerminarOrden.Visible = true;
         }
 
-        private void btnAgregarPartidas_Click(object sender, EventArgs e)
+        private void btnCrearEncabezado_Click(object sender, EventArgs e)
         {
 
             if (txtDiasVence.Text == string.Empty)
@@ -1129,7 +1129,7 @@ namespace PV
                 cmbEstatus.Text = "Bloqueado";
                 c.ActualizarReciboEstatus(txtFolio.Text, cmbEstatus.Text, txtMatricular.Text, "");
                 Limpiar();
-                c.CargarRecibos(dataGridView1);
+                c.CargarRecibos(dgvOrdenesCompraNoAutorizados);
             }
             guna2TabControl1.SelectedIndex = 0;
             btnTerminarOrden.Visible = false;
@@ -1147,13 +1147,13 @@ namespace PV
             {
                 txtFiltroNombre.Clear();
                 txtFiltroDocumento.Clear();
-                c.CargarRecibosFiltro(dataGridView1, txtFiltro.Text);
-                c.CargarRecibosFiltro2(DataGridView2, txtFiltro.Text);
+                c.CargarRecibosFiltro(dgvOrdenesCompraNoAutorizados, txtFiltro.Text);
+                c.CargarRecibosFiltro2(dgvOrdenesCompraAutorizados, txtFiltro.Text);
             }
             else
             {
-                c.CargarRecibos(dataGridView1);
-                c.CargarRecibos2(DataGridView2);
+                c.CargarRecibos(dgvOrdenesCompraNoAutorizados);
+                c.CargarRecibos2(dgvOrdenesCompraAutorizados);
             }
         }
 
@@ -1163,13 +1163,13 @@ namespace PV
             {
                 txtFiltro.Clear();
                 txtFiltroNombre.Clear();
-                c.CargarRecibosFiltroDocumento(dataGridView1, txtFiltroDocumento.Text);
-                c.CargarRecibosFiltroDocumento2(DataGridView2, txtFiltroDocumento.Text);
+                c.CargarRecibosFiltroDocumento(dgvOrdenesCompraNoAutorizados, txtFiltroDocumento.Text);
+                c.CargarRecibosFiltroDocumento2(dgvOrdenesCompraAutorizados, txtFiltroDocumento.Text);
             }
             else
             {
-                c.CargarRecibos(dataGridView1);
-                c.CargarRecibos2(DataGridView2);
+                c.CargarRecibos(dgvOrdenesCompraNoAutorizados);
+                c.CargarRecibos2(dgvOrdenesCompraAutorizados);
             }
         }
 
@@ -1179,21 +1179,21 @@ namespace PV
             {
                 txtFiltro.Clear();
                 txtFiltroDocumento.Clear();
-                c.CargarRecibosFiltroP(dataGridView1, txtFiltroNombre.Text);
-                c.CargarRecibosFiltroP2(DataGridView2, txtFiltroNombre.Text);
+                c.CargarRecibosFiltroP(dgvOrdenesCompraNoAutorizados, txtFiltroNombre.Text);
+                c.CargarRecibosFiltroP2(dgvOrdenesCompraAutorizados, txtFiltroNombre.Text);
             }
             else
             {
-                c.CargarRecibos(dataGridView1);
-                c.CargarRecibos2(DataGridView2);
+                c.CargarRecibos(dgvOrdenesCompraNoAutorizados);
+                c.CargarRecibos2(dgvOrdenesCompraAutorizados);
             }
         }
 
-        private void dataGridView1_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        private void dgvOrdenesCompraNoAutorizados_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex != -1)
             {
-                string Folio = dataGridView1.Rows[e.RowIndex].Cells["Folio"].Value.ToString();
+                string Folio = dgvOrdenesCompraNoAutorizados.Rows[e.RowIndex].Cells["Folio"].Value.ToString();
                 txtFolio.Text = "X";
                 c.ConsultaRecibo(Folio, txtClave, cmbEstatus, txtFecha, txtDiasVence, txtFechaVence, txtDivisa, txtTipoCambio, txtSubtotal, txtDescuento, txtRecargo, txtTotal, txtPartidas, txtNotas, txtElaborado, txtFolio, txtConsecutivo, txtAutoriza, txtFechaAuto);
                 cmbDocumento.Enabled = false;
@@ -1219,11 +1219,11 @@ namespace PV
             }
         }
 
-        private void DataGridView2_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        private void dgvOrdenesCompraAutorizados_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex != -1)
             {
-                string Folio = DataGridView2.Rows[e.RowIndex].Cells["Folio2"].Value.ToString();
+                string Folio = dgvOrdenesCompraAutorizados.Rows[e.RowIndex].Cells["Folio2"].Value.ToString();
                 txtFolio.Text = "X";
                 c.ConsultaRecibo(Folio, txtClave, cmbEstatus, txtFecha, txtDiasVence, txtFechaVence, txtDivisa, txtTipoCambio, txtSubtotal, txtDescuento, txtRecargo, txtTotal, txtPartidas, txtNotas, txtElaborado, txtFolio, txtConsecutivo, txtAutoriza, txtFechaAuto);
                 cmbDocumento.Enabled = false;
