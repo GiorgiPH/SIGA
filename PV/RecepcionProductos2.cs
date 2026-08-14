@@ -181,7 +181,7 @@ namespace PV
 
         private void btnConfirmarPartida_Click(object sender, EventArgs e)
         {
-            if (txtTotal1.Text == "0.00" || txtTotal1.Text == "0")
+            if (cmbConcepto.SelectedIndex==-1)
             {
                 if (MessageBox.Show("Si termina la partida sin registrar un importe no se guardara", "Partida", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                 {
@@ -194,42 +194,27 @@ namespace PV
 
                 }
             }
-            else if (txtOrden.Text == "Automatico" && txtPartida.Text != "1")
-            {
-                MessageBox.Show("Los conceptos con cargos automaticos deben registrarse en recibos individuales, este recibo ya cuenta con una partida, seleccione otro concepto");
-            }
+          
             else
             {
                 c.InsertarPartidaRecepcion(TxtFolio1.Text, txtPartida.Text, txtClave1.Text, txtConcepto2.Text, txtCantidad.Text, txtUnidad.Text, txtDivisa1.Text, txtTipoCambio1.Text, Convert.ToDecimal(txtSubtotal1.Text), Convert.ToDecimal(txtDescuento1.Text), Convert.ToDecimal(txtTotal1.Text), Convert.ToDecimal(txtImpuesto1.Text), txtArchivo1.Text);
                 c.ActualizarRecepcion(TxtFolio1.Text, txtPartida.Text);
-               
-               
+                c.ReciboSaldosRecepcion(TxtFolio1.Text, txtSubtotal, txtDescuento, txtImpuestos, txtTotal, txtPartidas, txtSaldo);
+                PanelPartidasRecepcion.Visible = false;
+                btnTerminarRecepcion.Visible = true;
+                c.CargarRecibosPartidasRecepcion(dgvPartidas, TxtFolio1.Text);
+
             }
-            PanelPartidasRecepcion.Visible = false;
-            btnTerminarRecepcion.Visible = true;
-            c.CargarRecibosPartidasRecepcion(dgvPartidas, TxtFolio1.Text);
+       
         }
 
         private void btnSiguientePartida_Click(object sender, EventArgs e)
         {
 
-            if (cmbConcepto.Text == string.Empty)
+            if (cmbConcepto.SelectedIndex == -1)
             {
                 MessageBox.Show("Registre el Producto para continuar");
                 return;
-            }
-            else if (txtTotal1.Text == "0.00" || txtTotal1.Text == "0")
-            {
-                MessageBox.Show("Registre el importe para continuar para continuar");
-                return;
-            }
-            else if (txtOrden.Text == "Automatico")
-            {
-                MessageBox.Show("Los conceptos con cargos automaticos deben registrarse en recibos individuales, termine el registro o cambie el concepto");
-            }
-            else if (txtOrden.Text == "Automatico" && txtPartida.Text != "1")
-            {
-                MessageBox.Show("Los conceptos con cargos automaticos deben registrarse en recibos individuales, este recibo ya cuenta con una partida, seleccione otro concepto");
             }
             else
             {
@@ -238,8 +223,8 @@ namespace PV
                 //c.RegistroProducto(txtClave.Text, txtCantidad.Text, txtAlmacen.Text);
                 Limpiar();
                 c.ConsultaRecepcion(TxtFolio1.Text, txtPartida);
-                c.ReciboSaldosPartidasRecepcion(TxtFolio1.Text, txtSubtotalR, txtDescuentoR, txtTotalR);
-                c.ReciboSaldosPartidasRecepcion2(TxtFolio1.Text, txtImpuestoR);
+                c.ActualizarRecepcion(TxtFolio1.Text, txtPartida.Text);
+                c.ReciboSaldosRecepcion(TxtFolio1.Text, txtSubtotal, txtDescuento, txtImpuestos, txtTotal, txtPartidas, txtSaldo);
 
                 if (txtOrden.Text != string.Empty)
                 {
@@ -1759,6 +1744,13 @@ namespace PV
 
         private void txtImpuestoIm_TextChanged(object sender, EventArgs e)
         {
+
+        }
+
+        private void btnEliminarPartida_Click_1(object sender, EventArgs e)
+        {
+            c.ActualizarRecepcion(TxtFolio1.Text, txtPartida.Text);
+            c.ReciboSaldosRecepcion(TxtFolio1.Text, txtSubtotal, txtDescuento, txtImpuestos, txtTotal, txtPartidas, txtSaldo);
 
         }
     }

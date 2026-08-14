@@ -427,7 +427,7 @@ namespace PV
         {
             ColapsarPanelLateral(incluirBotones4y5: false);
 
-            ReporteComprasReembolso reporte = new ReporteComprasReembolso(TxtFolio1.Text);
+            ReporteComprasReembolso reporte = new ReporteComprasReembolso(txtFolio.Text);
             reporte.ShowDialog();
         }
 
@@ -786,13 +786,12 @@ namespace PV
 
             guna2TabControl1.SelectedIndex = 1;
 
-            TxtFolio1.Text = txtFolio.Text;
             txtOrden.Text = folioOrden;
 
             if (txtOrden.Text != string.Empty)
             {
                 LlenarComboGastos();
-                r.ConsultaGasto(TxtFolio1.Text, txtPartida);
+                r.ConsultaGasto(txtFolio.Text, txtPartida);
                 txtPrecio.Enabled = false;
                 txtCantidad.Text = "1";
                 txtUnidad.Text = "Servicio";
@@ -803,7 +802,7 @@ namespace PV
             {
                 CentroCosto = cmbCentroCostos.Text;
                 LlenarComboGastos();
-                r.ConsultaGasto(TxtFolio1.Text, txtPartida);
+                r.ConsultaGasto(txtFolio.Text, txtPartida);
                 txtPrecio.Enabled = true;
                 txtCantidad.Text = "1";
                 txtUnidad.Text = "Servicio";
@@ -1119,7 +1118,7 @@ namespace PV
 
             PanelPartidasRequisicion.Visible = true;
             LimpiarDetalle();
-            r.ConsultaGasto(TxtFolio1.Text, txtPartida);
+            r.ConsultaGasto(txtFolio.Text, txtPartida);
             PanelPartidasRequisicion.BringToFront();
             btnAdjuntarComprobantePartida.Enabled = true;
             PartidaNuevaConsulta = "NO";
@@ -1259,7 +1258,7 @@ namespace PV
         private void GuardarPartidaGasto(string formaPagoGuardado)
         {
             r.InsertarPartidaGasto(
-                TxtFolio1.Text,
+                txtFolio.Text,
                 txtPartida.Text,
                 cmbConcepto.SelectedValue?.ToString(),   // CAMBIO: antes txtClave1.Text
                 txtConcepto2.Text,
@@ -1294,7 +1293,7 @@ namespace PV
                     int partida = ParsearEntero(txtPartida.Text) - 1;
                     if (partida > 0)
                     {
-                        r.ActualizarGasto(TxtFolio1.Text, partida.ToString());
+                        r.ActualizarReembolso(txtFolio.Text);
                         r.ActualizarPartidaOrden(txtOrden.Text, txtPartidaOrden.Text, txtCantidad.Text);
                     }
                 }
@@ -1309,15 +1308,15 @@ namespace PV
                 if (!ValidarProveedorAlterno()) return;
 
                 GuardarPartidaGasto(cmbformapago.Text);
-                r.ActualizarGasto(TxtFolio1.Text, txtPartida.Text);
+                r.ActualizarReembolso(txtFolio.Text);
                 r.ActualizarPartidaOrden(txtOrden.Text, txtPartidaOrden.Text, txtCantidad.Text);
                 LimpiarDetalle();
-                r.ConsultaGasto(TxtFolio1.Text, txtPartida);
+                r.ConsultaGasto(txtFolio.Text, txtPartida);
             }
 
             PanelPartidasRequisicion.Visible = false;
             btnTerminarReembolso.Visible = true;
-            r.CargarRecibosPartidasGasto(dgvPartidas, TxtFolio1.Text);
+            r.CargarRecibosPartidasGasto(dgvPartidas, txtFolio.Text);
             SumarColumnasPartida();
         }
 
@@ -1348,9 +1347,8 @@ namespace PV
             }
 
             MessageBox.Show(r.EliminarPartidaRegistroGasto(txtFolio.Text, txtPartida.Text));
-            string maximo = r.ObtenerTotalPartidaRegistroGasto(txtFolio.Text);
-            r.ActualizarGasto(txtFolio.Text, maximo);
-            r.ReciboSaldosGastos(txtFolio.Text, txtSubtotal, txtDescuento, txtImpuestos, txtTotal, txtPartidas, txtSaldo);
+            r.ActualizarReembolso(txtFolio.Text);
+            r.ReciboSaldosReembolso(txtFolio.Text, txtSubtotal, txtDescuento, txtImpuestos, txtIEPSGlobal, txtTotal, txtPartidas, txtSaldo);
             r.CargarRecibosPartidasGasto(dgvPartidas, txtFolio.Text);
             SumarColumnasPartida();
 
@@ -1372,8 +1370,7 @@ namespace PV
             }
 
             MessageBox.Show(r.EliminarPartidaRegistroGasto(txtFolio.Text, txtPartida.Text));
-            string maximo = r.ObtenerTotalPartidaRegistroGasto(txtFolio.Text);
-            r.ActualizarGasto(txtFolio.Text, maximo);
+            r.ActualizarReembolso(txtFolio.Text);
             r.CargarRecibosPartidasGasto(dgvPartidas, txtFolio.Text);
             SumarColumnasPartida();
 
@@ -1397,7 +1394,7 @@ namespace PV
                     int partida = ParsearEntero(txtPartida.Text) - 1;
                     if (partida > 0)
                     {
-                        r.ActualizarGasto(TxtFolio1.Text, partida.ToString());
+                        r.ActualizarReembolso(txtFolio.Text);
                         r.ActualizarPartidaOrden(txtOrden.Text, txtPartidaOrden.Text, txtCantidad.Text);
                     }
                 }
@@ -1412,19 +1409,20 @@ namespace PV
                 if (!ValidarProveedorAlterno()) return;
 
                 GuardarPartidaGasto(cmbformapago?.SelectedValue?.ToString());
-                r.ActualizarGasto(TxtFolio1.Text, txtPartida.Text);
                 r.ActualizarPartidaOrden(txtOrden.Text, txtPartidaOrden.Text, txtCantidad.Text);
 
                 LimpiarDetalle();
-                r.ConsultaGasto(TxtFolio1.Text, txtPartida);
-                CargarConceptosGlobales(TxtFolio1.Text);
+
+                r.ConsultaGasto(txtFolio.Text, txtPartida);
+                CargarConceptosGlobales(txtFolio.Text);
             }
 
             PanelPartidasRequisicion.Visible = false;
             btnTerminarReembolso.Visible = true;
 
-            r.ReciboSaldosPartidasGasto(TxtFolio1.Text, txtSubtotal, txtDescuento, txtTotal, txtImpuestos, txtIEPSGlobal, txttotalretenciones, txtPartidas);
-            r.CargarRecibosPartidasGasto(dgvPartidas, TxtFolio1.Text);
+            r.ActualizarReembolso(txtFolio.Text);
+            r.ReciboSaldosReembolso(txtFolio.Text, txtSubtotal, txtDescuento, txtImpuestos, txtIEPSGlobal, txtTotal, txtPartidas, txtSaldo); 
+            r.CargarRecibosPartidasGasto(dgvPartidas, txtFolio.Text);
             SumarColumnasPartida();
 
             dgvComprobantesPartoda.Rows.Clear();
@@ -1462,12 +1460,11 @@ namespace PV
 
             GuardarPartidaGasto(cmbformapago?.SelectedValue?.ToString());
             r.ActualizarPartidaOrden(txtOrden.Text, txtPartidaOrden.Text, txtCantidad.Text.Replace(",", ""));
-            r.ActualizarGasto(TxtFolio1.Text, txtPartida.Text);
-            r.Consulta5RegistroGasto(TxtFolio1.Text, txtPartida);
-            r.ReciboSaldosPartidasGasto(TxtFolio1.Text, txtSubtotal, txtDescuento, txtTotal, txtImpuestos, txtIEPSGlobal, txttotalretenciones, txtPartidas);
+            r.ActualizarReembolso(txtFolio.Text);
+            r.ReciboSaldosPartidasGasto(txtFolio.Text, txtSubtotal, txtDescuento, txtTotal, txtImpuestos, txtIEPSGlobal, txttotalretenciones, txtPartidas);
 
             LimpiarDetalle();
-            r.ConsultaGasto(TxtFolio1.Text, txtPartida);
+            r.ConsultaGasto(txtFolio.Text, txtPartida);
             dgvComprobantesPartoda.Rows.Clear();
             cmdproyectoalterno.Text = cmbproyecto.Text;
 
@@ -1541,13 +1538,13 @@ namespace PV
                 return;
             }
 
-            if (string.IsNullOrWhiteSpace(TxtFolio1.Text))
+            if (string.IsNullOrWhiteSpace(txtFolio.Text))
             {
                 MessageBox.Show("Continue con el registro antes de adjuntar archivos");
                 return;
             }
 
-            string noOrden = TxtFolio1.Text;
+            string noOrden = txtFolio.Text;
             string descripcion = txtPartida.Text;
             string carpetaDestino = Path.Combine(DBOrdenCompra.Ruta, "G" + noOrden);
 
@@ -1595,7 +1592,7 @@ namespace PV
                 return;
             }
 
-            if (string.IsNullOrWhiteSpace(TxtFolio1.Text))
+            if (string.IsNullOrWhiteSpace(txtFolio.Text))
             {
                 MessageBox.Show("Seleccione un registro para continuar");
                 return;
@@ -1613,7 +1610,7 @@ namespace PV
                 return;
             }
 
-            string carpeta = Path.Combine(DBOrdenCompra.Ruta, "G" + TxtFolio1.Text);
+            string carpeta = Path.Combine(DBOrdenCompra.Ruta, "G" + txtFolio.Text);
             string rutaReconstruida = Path.Combine(carpeta, txtArchivo1.Text);
 
             if (File.Exists(rutaReconstruida))
@@ -1634,13 +1631,13 @@ namespace PV
                 return;
             }
 
-            if (string.IsNullOrWhiteSpace(TxtFolio1.Text))
+            if (string.IsNullOrWhiteSpace(txtFolio.Text))
             {
                 MessageBox.Show("Continue con el registro antes de adjuntar archivos");
                 return;
             }
 
-            string noOrden = TxtFolio1.Text;
+            string noOrden = txtFolio.Text;
             string carpetaDestino = Path.Combine(DBOrdenCompra.Ruta, "G" + noOrden);
 
             try
@@ -1684,9 +1681,9 @@ namespace PV
                     byte[] archivoBytes = File.ReadAllBytes(archivoSeleccionado);
                     string contenidoArchivo = Convert.ToBase64String(archivoBytes);
 
-                    MessageBox.Show(r.insertaArchivos(TxtFolio1.Text, txtPartida.Text, txtClave1.Text, nombreArchivoLocal, extensionArchivoLocal, contenidoArchivo));
+                    MessageBox.Show(r.insertaArchivos(txtFolio.Text, txtPartida.Text, txtClave1.Text, nombreArchivoLocal, extensionArchivoLocal, contenidoArchivo));
 
-                    r.mostrarArchivos(dgvComprobantesPartoda, TxtFolio1.Text, txtPartida.Text);
+                    r.mostrarArchivos(dgvComprobantesPartoda, txtFolio.Text, txtPartida.Text);
                 }
                 catch (IOException ex)
                 {
@@ -1723,7 +1720,7 @@ namespace PV
                     {
                         dgvComprobantesPartoda.Rows.Remove(filaSeleccionada);
                         MessageBox.Show($"Registro con ID {archivo} eliminado correctamente.");
-                        r.mostrarArchivos(dgvComprobantesPartoda, TxtFolio1.Text, txtPartida.Text);
+                        r.mostrarArchivos(dgvComprobantesPartoda, txtFolio.Text, txtPartida.Text);
                     }
                 }
             }
@@ -2061,7 +2058,7 @@ namespace PV
                 txtReferencia, txtSaldo, txtDiasVence, txtFechaVence, txtArchivo, cmbCentroCostos, cmbSemana, dtpAnio,
                 cmbProoveedorAlternoSiNo, cmbproyecto, txttotalretenciones);
 
-            TxtFolio1.Text = folio;
+            txtFolio.Text = folio;
             proyecto = cmbproyecto.Text;
 
             rutaCompletaArchivo = txtArchivo.Text;
@@ -2206,13 +2203,13 @@ namespace PV
 
         private void btnDescuentosPartida_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrEmpty(TxtFolio1.Text))
+            if (string.IsNullOrEmpty(txtFolio.Text))
             {
                 MessageBox.Show("Seleccione una Compra Reembolso");
                 return;
             }
 
-            ConceptosGlobalesPartida cgp = new ConceptosGlobalesPartida(TxtFolio1.Text, txtPartida.Text, "Descuento", cmbEstatus.Text);
+            ConceptosGlobalesPartida cgp = new ConceptosGlobalesPartida(txtFolio.Text, txtPartida.Text, "Descuento", cmbEstatus.Text);
 
             if (cgp.ShowDialog() == DialogResult.OK)
             {
@@ -2223,13 +2220,13 @@ namespace PV
 
         private void btnImpuestosPartida_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrEmpty(TxtFolio1.Text))
+            if (string.IsNullOrEmpty(txtFolio.Text))
             {
                 MessageBox.Show("Seleccione una Compra Reembolso");
                 return;
             }
 
-            ConceptosGlobalesPartida cgp = new ConceptosGlobalesPartida(TxtFolio1.Text, txtPartida.Text, "Impuesto", cmbEstatus.Text);
+            ConceptosGlobalesPartida cgp = new ConceptosGlobalesPartida(txtFolio.Text, txtPartida.Text, "Impuesto", cmbEstatus.Text);
 
             if (cgp.ShowDialog() == DialogResult.OK)
             {

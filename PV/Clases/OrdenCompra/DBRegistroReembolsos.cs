@@ -563,7 +563,7 @@ VALUES
             }
         }
 
-        public void ActualizarGasto(string txtFolio, string txtPartida)
+        public void ActualizarReembolso(string txtFolio)
         {
             try
             {
@@ -609,17 +609,7 @@ VALUES
             }
         }
 
-        public void Consulta5RegistroGasto(string Folio, Guna2TextBox txtPartida)
-        {
-            try
-            {
-                ObtenerSiguientePartida(Folio, txtPartida);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("ERROR" + ex.ToString());
-            }
-        }
+    
 
         public void ReciboSaldosPartidasGasto(string txtFolio, Guna2TextBox txtSubtoral, Guna2TextBox txtDescuento, Guna2TextBox txtTotal, Guna2TextBox txtImpuesto, Guna2TextBox txtIEPS, Guna2TextBox txtRetencion, Guna2TextBox txtPartidas)
         {
@@ -889,11 +879,11 @@ VALUES
             return maximo;
         }
 
-        public void ReciboSaldosGastos(string txtFolio, Guna2TextBox txtSubtoral, Guna2TextBox txtDescuento, Guna2TextBox txtRecargo, Guna2TextBox txtTotal, Guna2TextBox txtTotalPartidas, Guna2TextBox txtSaldo)
+        public void ReciboSaldosReembolso(string txtFolio, Guna2TextBox txtSubtoral, Guna2TextBox txtDescuento, Guna2TextBox txtRecargo, Guna2TextBox txtIEPS, Guna2TextBox txtTotal, Guna2TextBox txtTotalPartidas, Guna2TextBox txtSaldo)
         {
             try
             {
-                using (SqlCommand cmd = new SqlCommand("select Subtotal, Descuento, Cargo, Total, Saldo, TotalPartidas from RegistroReembolso where Folio='" + txtFolio + "'", cn))
+                using (SqlCommand cmd = new SqlCommand("select Subtotal, Descuento, Cargo, Total, Saldo, TotalPartidas, IEPS from RegistroReembolso where Folio='" + txtFolio + "'", cn))
                 using (SqlDataReader dr = cmd.ExecuteReader())
                 {
                     if (dr.Read())
@@ -901,6 +891,7 @@ VALUES
                         txtSubtoral.Text = dr["Subtotal"].ToString();
                         txtDescuento.Text = dr["Descuento"].ToString();
                         txtRecargo.Text = dr["Cargo"].ToString();
+                        txtIEPS.Text = dr["TotalPartidas"].ToString();
                         txtTotal.Text = dr["Total"].ToString();
                         txtSaldo.Text = dr["Saldo"].ToString();
                         txtTotalPartidas.Text = dr["TotalPartidas"].ToString();

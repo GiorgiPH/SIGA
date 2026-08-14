@@ -3008,33 +3008,7 @@ namespace PV.Clases.OrdenCompra
                 MessageBox.Show("ERROR" + ex.ToString());
             }
         }
-        //_______________________________________________________________________________________________________________
-        public void ReciboSaldosPartidasRecepcion2(string txtFolio, Guna2TextBox Impuesto)
-        {
-            NumberFormatInfo formato = new CultureInfo("US-AR").NumberFormat;
-            formato.CurrencyGroupSeparator = ",";
-            formato.NumberDecimalSeparator = ".";
-
-            try
-            {
-                using (SqlConnection cn = new SqlConnection(ObtenerCn()))
-                using (SqlCommand cmd = new SqlCommand("select sum(convert(decimal,(Impuesto / 100) * Subtotal)) as Impuesto from PartidaRecepcion where FolioRecepcion='" + txtFolio + "'", cn))
-                {
-                    cn.Open();
-                    using (SqlDataReader dr = cmd.ExecuteReader())
-                    {
-                        if (dr.Read())
-                        {
-                            Impuesto.Text = Convert.ToDecimal(dr["Impuesto"]).ToString("N", formato);
-                        }
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("ERROR" + ex.ToString());
-            }
-        }
+       
         //_______________________________________________________________________________________________________________
         public void ReciboSaldosPartidasOrden(string txtFolio, Guna.UI2.WinForms.Guna2TextBox txtSubtoral, Guna.UI2.WinForms.Guna2TextBox txtDescuento, Guna.UI2.WinForms.Guna2TextBox txtTotal, Guna.UI2.WinForms.Guna2TextBox txtImpuesto)
         {
@@ -3123,32 +3097,7 @@ namespace PV.Clases.OrdenCompra
             }
         }
         //_______________________________________________________________________________________________________________
-        public void ReciboSaldosPartidasGasto2(string txtFolio, Guna.UI2.WinForms.Guna2TextBox Impuesto)
-        {
-            NumberFormatInfo formato = new CultureInfo("US-AR").NumberFormat;
-            formato.CurrencyGroupSeparator = ",";
-            formato.NumberDecimalSeparator = ".";
-
-            try
-            {
-                using (SqlConnection cn = new SqlConnection(ObtenerCn()))
-                using (SqlCommand cmd = new SqlCommand("select sum(convert(decimal,(Impuesto / 100) * Subtotal)) as Impuesto from PartidaRegistroGastos where FolioGasto='" + txtFolio + "'", cn))
-                {
-                    cn.Open();
-                    using (SqlDataReader dr = cmd.ExecuteReader())
-                    {
-                        if (dr.Read())
-                        {
-                            Impuesto.Text = Convert.ToDecimal(dr["Impuesto"]).ToString("N", formato);
-                        }
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("ERROR" + ex.ToString());
-            }
-        }
+       
         //_______________________________________________________________________________________________________________
         public void ReciboSaldos(string txtFolio, Guna.UI2.WinForms.Guna2TextBox txtSubtoral, Guna.UI2.WinForms.Guna2TextBox txtDescuento, Guna.UI2.WinForms.Guna2TextBox txtRecargo, Guna.UI2.WinForms.Guna2TextBox txtTotal, Guna.UI2.WinForms.Guna2TextBox txtTotalPartidas)
         {

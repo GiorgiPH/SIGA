@@ -213,7 +213,6 @@
             this.txtCantidadPedido = new System.Windows.Forms.TextBox();
             this.txtDocumento1 = new System.Windows.Forms.TextBox();
             this.txtOrden = new System.Windows.Forms.TextBox();
-            this.TxtFolio1 = new System.Windows.Forms.TextBox();
             this.btnSiguientePartida = new Guna.UI2.WinForms.Guna2Button();
             this.btnConfirmarPartida = new Guna.UI2.WinForms.Guna2Button();
             this.btnImpuestosPartida = new Guna.UI2.WinForms.Guna2Button();
@@ -1929,7 +1928,6 @@
             this.PanelPartidasRequisicion.Controls.Add(this.txtCantidadPedido);
             this.PanelPartidasRequisicion.Controls.Add(this.txtDocumento1);
             this.PanelPartidasRequisicion.Controls.Add(this.txtOrden);
-            this.PanelPartidasRequisicion.Controls.Add(this.TxtFolio1);
             this.PanelPartidasRequisicion.Controls.Add(this.btnSiguientePartida);
             this.PanelPartidasRequisicion.Controls.Add(this.btnConfirmarPartida);
             this.PanelPartidasRequisicion.Controls.Add(this.btnImpuestosPartida);
@@ -2969,16 +2967,6 @@
             this.txtOrden.TabIndex = 239;
             this.txtOrden.TabStop = false;
             this.txtOrden.Visible = false;
-            // 
-            // TxtFolio1
-            // 
-            this.TxtFolio1.Location = new System.Drawing.Point(626, 40);
-            this.TxtFolio1.Margin = new System.Windows.Forms.Padding(4);
-            this.TxtFolio1.Name = "TxtFolio1";
-            this.TxtFolio1.Size = new System.Drawing.Size(55, 22);
-            this.TxtFolio1.TabIndex = 238;
-            this.TxtFolio1.TabStop = false;
-            this.TxtFolio1.Visible = false;
             // 
             // btnSiguientePartida
             // 
@@ -4221,7 +4209,6 @@
         private System.Windows.Forms.TextBox txtCantidadPedido;
         private System.Windows.Forms.TextBox txtDocumento1;
         private System.Windows.Forms.TextBox txtOrden;
-        private System.Windows.Forms.TextBox TxtFolio1;
         private Guna.UI2.WinForms.Guna2Button btnSiguientePartida;
         private Guna.UI2.WinForms.Guna2Button btnConfirmarPartida;
         private Guna.UI2.WinForms.Guna2ComboBox cmbDocumento;
