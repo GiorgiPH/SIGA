@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
+using System.Collections.Generic;
+using System.Drawing;
 using Condominios;
 using PuntoVentas.Clases.Login;
 using PV;
@@ -7,9 +9,8 @@ using ControlAcademico;
 using PuntoVentas;
 using MEDCON;
 using PV.Clases.Respaldo;
-using System.Drawing;
-using System.Collections.Generic;
 using PuntoVentas.Clases.Usuarios;
+using Guna.UI2.WinForms;
 
 namespace PuntoVentas
 {
@@ -18,28 +19,50 @@ namespace PuntoVentas
         DBLogin c = new DBLogin();
         DBRespaldo R = new DBRespaldo();
         DBPermisos p = new DBPermisos();
+
         public static int Opcion = 0;
         public static int Avisos = 0;
-        static string Seleccion = string.Empty;
+
         private Dictionary<string, string> _permisos;
+        private MenuLayoutController _menuLayout;
 
         public MenuPrincipal()
         {
             InitializeComponent();
-         
             lblTipoUsuario.Text = DBLogin.TipoUsuario;
             lblUsuario.Text = DBLogin.usuario;
-           
-
-
-
+            InicializarEstructuraMenu();
         }
 
+        private void InicializarEstructuraMenu()
+        {
+            // Mapeo de botones principales a sus respectivos paneles de grupo
+            var modulos = new List<ModuloMenu>
+            {
+                new ModuloMenu { BotonIzquierdo = BtnParametros1, BotonDerecho = BtnParametros2, PanelGrupo = GrupoParametros },
+                new ModuloMenu { BotonIzquierdo = btncatalogos1, BotonDerecho = btncatalogos2, PanelGrupo = GrupoCatalogos },
+                new ModuloMenu { BotonIzquierdo = btnInventario, BotonDerecho = BtnInventario1, PanelGrupo = Grupoinventarios },
+                new ModuloMenu { BotonIzquierdo = btnCompras1, BotonDerecho = btnCompras2, PanelGrupo = GrupoCompras },
+                new ModuloMenu { BotonIzquierdo = btnventas1, BotonDerecho = btnventas2, PanelGrupo = GrupoVentas },
+                new ModuloMenu { BotonIzquierdo = btnTesoreria1, BotonDerecho = btnTesoreria2, PanelGrupo = GrupoTesoreria },
+                new ModuloMenu { BotonIzquierdo = btnPresupuesto1, BotonDerecho = btnPresupuesto2, PanelGrupo = GrupoPresupuesto },
+                new ModuloMenu { BotonIzquierdo = btnUtilerias1, BotonDerecho = btnUtilerias2, PanelGrupo = GrupoUtilerias }
+            };
 
+            // Lista de todos los subgrupos para cerrarlos cuando sea necesario
+            var subgrupos = new List<Guna2GroupBox>
+            {
+                SubgrupoMovimientos, SubGrupoReportesMovimientos, SubGrupoReportesCompras,
+                subGrupoGraficasCompras, SubgrupoIngresos, SubGrupoReportesProveedores,
+                SubGrupoReportesAnticipos, pnReportesEgresos, subgrupoPresupuesto3
+            };
+
+            _menuLayout = new MenuLayoutController(guna2Panel5, modulos, subgrupos);
+        }
 
         private void MenuPrincipal_Load(object sender, EventArgs e)
         {
-            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
+            this.WindowState = FormWindowState.Maximized;
             c.empresa();
             _permisos = p.CargarPermisosUsuario(DBLogin.usuario);
             AplicarPermisosMenu();
@@ -47,80 +70,357 @@ namespace PuntoVentas
 
         private void AplicarPermisosMenu()
         {
+            var mapaPermisos = new Dictionary<string, Action<bool>>
+            {
+                { "MOD_PARAMETROS", val => { BtnParametros1.Enabled = val; BtnParametros2.Enabled = val; } },
+                { "MOD_CATALOGOS", val => { btncatalogos1.Enabled = val; btncatalogos2.Enabled = val; } },
+                { "MOD_INVENTARIOS", val => { btnInventario.Enabled = val; BtnInventario1.Enabled = val; } },
+                { "MOD_COMPRAS", val => { btnCompras1.Enabled = val; btnCompras2.Enabled = val; } },
+                { "MOD_VENTAS", val => { btnventas1.Enabled = val; btnventas2.Enabled = val; } },
+                { "VRegistrarCobranza", val => btnRegistrarINgresos.Enabled = val },
+                { "VPedidosClientes", val => btnPedidos.Enabled = val },
+                { "VRemisiones", val => btnRemisiones.Enabled = val },
+                { "VReportes", val => {
+                    btnReporteAnticipos.Enabled = val;
+                    btnReporteIngresos.Enabled = val;
+                    btnReporteUtilidadPedido.Enabled = val;
+                    btnReporteUtilidadProducto.Enabled = val;
+                    btnReporteRemisiones.Enabled = val;
+                }}
+            };
+
             foreach (var permiso in _permisos)
             {
                 bool habilitado = permiso.Value.ToLower() == "activo";
-
-                switch (permiso.Key)
+                if (mapaPermisos.ContainsKey(permiso.Key))
                 {
-                    case "MOD_PARAMETROS":
-                        BtnParametros1.Enabled = habilitado;
-                        BtnParametros2.Enabled = habilitado;
-                        break;
-
-                    case "MOD_CATALOGOS":
-                        btncatalogos1.Enabled = habilitado;
-                        btncatalogos2.Enabled = habilitado;
-                        break;
-
-                    case "MOD_INVENTARIOS":
-                        btnInventario.Enabled = habilitado;
-                        BtnInventario1.Enabled = habilitado;
-                        break;
-
-                    case "MOD_COMPRAS":
-                        btnCompras1.Enabled = habilitado;
-                        btnCompras2.Enabled = habilitado;
-                        break;
-
-                    case "MOD_VENTAS":
-                        btnventas1.Enabled = habilitado;
-                        btnventas2.Enabled = habilitado;
-                        break;
-
-                    // 🔽 NUEVOS PERMISOS DE VENTAS 🔽
-
-                    case "VRegistrarCobranza":
-                        btnRegistrarINgresos.Enabled = habilitado;
-                        break;
-
-                    case "VPedidosClientes":
-                        btnPedidos.Enabled = habilitado;
-                        break;
-
-                    case "VRemisiones":
-                        btnRemisiones.Enabled = habilitado;
-                        break;
-
-
-                    case "VReportes":
-                        btnReporteAnticipos.Enabled = habilitado;
-                        btnReporteIngresos.Enabled = habilitado;
-
-                        btnReporteUtilidadPedido.Enabled = habilitado;
-
-                        btnReporteUtilidadProducto.Enabled = habilitado;
-                        btnReporteRemisiones.Enabled = habilitado;
-
-
-
-                        break;
+                    mapaPermisos[permiso.Key](habilitado);
                 }
             }
         }
 
+        // --- PATRÓN COMMAND CENTRALIZADO PARA APERTURA DE FORMULARIOS ---
+        private void AbrirFormulario(Func<Form> crearFormulario, bool cerrarSubgrupos = true, int left = 0, int top = 0)
+        {
+            if (cerrarSubgrupos)
+            {
+                _menuLayout.OcultarTodosSubgrupos();
+            }
+
+            using (var form = crearFormulario())
+            {
+                if (left > 0 || top > 0)
+                {
+                    form.StartPosition = FormStartPosition.Manual;
+                    form.Left = left;
+                    form.Top = top;
+                }
+                form.ShowDialog();
+            }
+        }
+
+        // --- EVENTOS DE APERTURA DE GRUPOS PRINCIPALES ---
+        private void guna2GradientButton4_Click(object sender, EventArgs e) => _menuLayout.AlternarGrupo(GrupoParametros);
+        private void guna2GradientButton6_Click(object sender, EventArgs e) => _menuLayout.AlternarGrupo(GrupoCatalogos);
+        private void guna2GradientButton4_Click_1(object sender, EventArgs e) => _menuLayout.AlternarGrupo(GrupoParametros);
+        private void guna2GradientButton21_Click(object sender, EventArgs e) => _menuLayout.AlternarGrupo(Grupoinventarios);
+        private void btnventas2_Click(object sender, EventArgs e) => _menuLayout.AlternarGrupo(GrupoVentas);
+        private void btnCompras2_Click(object sender, EventArgs e) => _menuLayout.AlternarGrupo(GrupoCompras);
+        private void btnPresupuesto2_Click(object sender, EventArgs e) => _menuLayout.AlternarGrupo(GrupoPresupuesto);
+        private void btnTesoreria2_Click(object sender, EventArgs e) => _menuLayout.AlternarGrupo(GrupoTesoreria);
+        private void btnUtilerias2_Click(object sender, EventArgs e) => _menuLayout.AlternarGrupo(GrupoUtilerias);
+
+        // --- EVENTOS DE APERTURA DE SUBGRUPOS ---
+        private void BtnMovimientos_Click(object sender, EventArgs e)
+        {
+            _menuLayout.OcultarTodosSubgrupos();
+            SubgrupoMovimientos.Visible = true;
+            SubgrupoMovimientos.Location = new Point(1, 340);
+        }
+
+        private void btnReportesMovimientosInventarios_Click(object sender, EventArgs e)
+        {
+            _menuLayout.OcultarTodosSubgrupos();
+            SubGrupoReportesMovimientos.Visible = true;
+            SubGrupoReportesMovimientos.Location = new Point(202, 575);
+        }
+
+        private void btnReportesCompras_Click(object sender, EventArgs e)
+        {
+            _menuLayout.OcultarTodosSubgrupos();
+            SubGrupoReportesCompras.Visible = true;
+            SubGrupoReportesCompras.Location = new Point(1, 260);
+        }
+
+        private void guna2GradientButton56_Click(object sender, EventArgs e)
+        {
+            _menuLayout.OcultarTodosSubgrupos();
+            subGrupoGraficasCompras.Visible = true;
+            subGrupoGraficasCompras.Location = new Point(1, 260);
+        }
+
+        private void guna2GradientButton18_Click(object sender, EventArgs e)
+        {
+            _menuLayout.OcultarTodosSubgrupos();
+            SubgrupoIngresos.Visible = true;
+            SubgrupoIngresos.Location = new Point(1, 600);
+        }
+
+        private void guna2GradientButton20_Click(object sender, EventArgs e)
+        {
+            _menuLayout.OcultarTodosSubgrupos();
+            subgrupoPresupuesto3.Visible = true;
+            subgrupoPresupuesto3.Location = new Point(2, 555);
+        }
+
+        private void guna2GradientButton36_Click(object sender, EventArgs e)
+        {
+            _menuLayout.OcultarTodosSubgrupos();
+            SubGrupoReportesAnticipos.Visible = true;
+            SubGrupoReportesAnticipos.Location = new Point(236, 475);
+        }
+
+        private void guna2GradientButton35_Click(object sender, EventArgs e)
+        {
+            _menuLayout.OcultarTodosSubgrupos();
+            SubGrupoReportesProveedores.Visible = true;
+            SubGrupoReportesProveedores.Location = new Point(236, 580);
+        }
+
+        private void btnReportesTesoreria_Click(object sender, EventArgs e)
+        {
+            _menuLayout.OcultarTodosSubgrupos();
+            pnReportesEgresos.Visible = true;
+            pnReportesEgresos.Location = new Point(1, 630);
+        }
+
+        private void guna2GradientButton5_Click(object sender, EventArgs e) => _menuLayout.OcultarTodosSubgrupos();
+        private void guna2GradientButton39_Click(object sender, EventArgs e) => _menuLayout.OcultarTodosSubgrupos();
+        private void guna2GradientButton41_Click(object sender, EventArgs e) => _menuLayout.OcultarTodosSubgrupos();
+        private void guna2GradientButton43_Click(object sender, EventArgs e) => _menuLayout.OcultarTodosSubgrupos();
+        private void guna2GradientButton19_Click(object sender, EventArgs e) => _menuLayout.OcultarTodosSubgrupos();
+        private void guna2GradientButton49_Click_1(object sender, EventArgs e) => _menuLayout.OcultarTodosSubgrupos();
+
+        // --- EVENTOS DE APERTURA DE FORMULARIOS INDIVIDUALES ---
+
+        // MenuStrip Items
+        private void toolStripMenuItem4_Click(object sender, EventArgs e) => AbrirFormulario(() => new DatosEmpresas());
+        private void toolStripMenuItem5_Click(object sender, EventArgs e) => AbrirFormulario(() => new Usuarios());
+        private void divisasToolStripMenuItem_Click(object sender, EventArgs e) => AbrirFormulario(() => new CatalogoDivisa());
+        private void categoriasYFamiliasToolStripMenuItem_Click(object sender, EventArgs e) => AbrirFormulario(() => new CatalogoFamilias());
+        private void productosYServiciosToolStripMenuItem_Click(object sender, EventArgs e) => AbrirFormulario(() => new CatalogoProductosServicios(0));
+        private void formasDePagoToolStripMenuItem_Click(object sender, EventArgs e) => AbrirFormulario(() => new CatalogoFormasPago());
+        private void empleadosToolStripMenuItem_Click(object sender, EventArgs e) => AbrirFormulario(() => new CatalogoPersonal());
+        private void documentosToolStripMenuItem_Click(object sender, EventArgs e) => AbrirFormulario(() => new Documentos());
+        private void conceptosGlobalesToolStripMenuItem_Click(object sender, EventArgs e) => AbrirFormulario(() => new ConceptosGlobales());
+        private void centrosDeCostosToolStripMenuItem_Click(object sender, EventArgs e) => AbrirFormulario(() => new CentroCostos());
+        private void tiposYZonasToolStripMenuItem_Click(object sender, EventArgs e) => AbrirFormulario(() => new TiposZonas());
+        private void condominiosToolStripMenuItem_Click(object sender, EventArgs e) => AbrirFormulario(() => new CatalogoCondominios());
+        private void areasComunesToolStripMenuItem_Click(object sender, EventArgs e) => AbrirFormulario(() => new CatalogoAreasComunes());
+        private void propietariosToolStripMenuItem_Click(object sender, EventArgs e) => AbrirFormulario(() => new Propietarios());
+        private void conceptosIngresosToolStripMenuItem_Click(object sender, EventArgs e) => AbrirFormulario(() => new ConceptosIngresos());
+        private void generarRecibosAutomaticosToolStripMenuItem_Click(object sender, EventArgs e) => AbrirFormulario(() => new ReciboAutomaticos());
+        private void generarRecibosToolStripMenuItem_Click(object sender, EventArgs e) => AbrirFormulario(() => new GenerarRecibo());
+        private void registrarCobranzaToolStripMenuItem_Click(object sender, EventArgs e) => AbrirFormulario(() => new registroIngresos("", ""));
+        private void consultaDatosCondominioToolStripMenuItem_Click(object sender, EventArgs e) => AbrirFormulario(() => new ConsultaCondominio());
+        private void ocupacionCondominioToolStripMenuItem_Click(object sender, EventArgs e) => AbrirFormulario(() => new OcupacionCondominio());
+        private void controlDeActivoFijoToolStripMenuItem_Click(object sender, EventArgs e) => AbrirFormulario(() => new ActivoFijo());
+        private void resguardoDeActivoFijoToolStripMenuItem_Click(object sender, EventArgs e) => AbrirFormulario(() => new ResguardoActivoFijo());
+        private void activoFijoDiarioToolStripMenuItem_Click(object sender, EventArgs e) => AbrirFormulario(() => new ReporteActivoFijo2());
+        private void resguardoToolStripMenuItem_Click(object sender, EventArgs e) => AbrirFormulario(() => new ReporteResguardoActivoFijo2());
+        private void saldoPorPropietarioToolStripMenuItem_Click(object sender, EventArgs e) => AbrirFormulario(() => new ReporteSaldoPropietarioFiltro());
+        private void saldoPorPropiedadToolStripMenuItem_Click(object sender, EventArgs e) => AbrirFormulario(() => new ReporteSaldoCondominioFiltro());
+        private void saldoDetalladoToolStripMenuItem_Click(object sender, EventArgs e) => AbrirFormulario(() => new ReporteSaldoDetalladoFiltro());
+        private void catalagoClientesToolStripMenuItem_Click(object sender, EventArgs e) => AbrirFormulario(() => new Clientes());
+        private void disponibilidadToolStripMenuItem_Click(object sender, EventArgs e) => AbrirFormulario(() => new ParametrosGenerales());
+        private void reservaToolStripMenuItem_Click(object sender, EventArgs e) => AbrirFormulario(() => new RegistrarCitas());
+        private void cancelarReservaToolStripMenuItem_Click(object sender, EventArgs e) => AbrirFormulario(() => new CancelarCitas());
+        private void consultaReservaToolStripMenuItem_Click(object sender, EventArgs e) => AbrirFormulario(() => new ConsultaFechaNombre());
+        private void avisosToolStripMenuItem_Click(object sender, EventArgs e) => AbrirFormulario(() => new Avisos());
+        private void ingresosToolStripMenuItem1_Click(object sender, EventArgs e) => AbrirFormulario(() => new ReporteIngresoFormulario());
+        private void estadoDeCuentaToolStripMenuItem_Click(object sender, EventArgs e) => AbrirFormulario(() => new ReporteEstadoCuentaFormulario());
+        private void almacenesToolStripMenuItem_Click(object sender, EventArgs e) => AbrirFormulario(() => new Almacenes());
+        private void proveedoresToolStripMenuItem_Click(object sender, EventArgs e) => AbrirFormulario(() => new Proveedores());
+        private void ordenesDeCompraToolStripMenuItem_Click(object sender, EventArgs e) => AbrirFormulario(() => new OrdenCompra());
+        private void recepcionDeProductosToolStripMenuItem_Click(object sender, EventArgs e) => AbrirFormulario(() => new RecepcionProductos2());
+        private void registroDeGastosToolStripMenuItem_Click(object sender, EventArgs e) => AbrirFormulario(() => new RegistroGastos());
+        private void egresosToolStripMenuItem1_Click(object sender, EventArgs e) => AbrirFormulario(() => new RegistroEgreso());
+        private void cuentasBancariasToolStripMenuItem_Click(object sender, EventArgs e) => AbrirFormulario(() => new CuentasBancarias());
+        private void requisicionesToolStripMenuItem_Click(object sender, EventArgs e) => AbrirFormulario(() => new Requisicion());
+        private void reporteKardexToolStripMenuItem_Click(object sender, EventArgs e) => AbrirFormulario(() => new FiltroKardex());
+        private void reporteExistenciasToolStripMenuItem_Click(object sender, EventArgs e) => AbrirFormulario(() => new FiltroExistencias());
+        private void reporteCostoPorProductosToolStripMenuItem_Click(object sender, EventArgs e) => AbrirFormulario(() => new FiltroValorProducto());
+        private void notasDeCargosToolStripMenuItem_Click(object sender, EventArgs e) => AbrirFormulario(() => new NotasCargo());
+        private void reporteDiarioDeOrdenesDeCompraToolStripMenuItem_Click(object sender, EventArgs e) => AbrirFormulario(() => new ReporteDiarioOrdenesComprasFiltro());
+        private void reporteDiarioDeRequisicionesToolStripMenuItem_Click(object sender, EventArgs e) => AbrirFormulario(() => new ReporteDiarioRequisicionFiltro());
+        private void reporteDiarioDeComprasToolStripMenuItem_Click(object sender, EventArgs e) => AbrirFormulario(() => new ReporteDiarioComprasFiltro());
+        private void reporteDiarioNotasDeCargoToolStripMenuItem_Click(object sender, EventArgs e) => AbrirFormulario(() => new ReporteDiarioNotasCargoFiltro());
+        private void reporteDeEgresosToolStripMenuItem_Click(object sender, EventArgs e) => AbrirFormulario(() => new ReporteEgresosFiltro());
+        private void reporteSaldoDeComprasToolStripMenuItem_Click(object sender, EventArgs e) => AbrirFormulario(() => new ReporteComprasFiltro());
+        private void estadoDeCuentaProveedoresToolStripMenuItem_Click(object sender, EventArgs e) => AbrirFormulario(() => new ReporteEstadoCuentaProveedor());
+        private void base0ToolStripMenuItem_Click(object sender, EventArgs e) => AbrirFormulario(() => new CatalogoPeriodos());
+        private void historicoToolStripMenuItem_Click(object sender, EventArgs e) => AbrirFormulario(() => new ConceptosPresupuesto());
+        private void ingresosToolStripMenuItem2_Click(object sender, EventArgs e) => AbrirFormulario(() => new RegistroPresupuesto("Ingreso"));
+        private void egresosToolStripMenuItem2_Click(object sender, EventArgs e) => AbrirFormulario(() => new RegistroPresupuesto("Egreso"));
+        private void ingreosToolStripMenuItem_Click(object sender, EventArgs e) => AbrirFormulario(() => new PresupuestoHistorico("Ingreso"));
+        private void egresosToolStripMenuItem3_Click(object sender, EventArgs e) => AbrirFormulario(() => new PresupuestoHistorico("Egreso"));
+        private void cerrarPresupuestoToolStripMenuItem_Click(object sender, EventArgs e) => AbrirFormulario(() => new CerrarPresupuesto());
+        private void registrarAnticipoToolStripMenuItem_Click(object sender, EventArgs e) => AbrirFormulario(() => new RegistrarAnticipo("Propietario"));
+        private void registrarAnticipoToolStripMenuItem1_Click(object sender, EventArgs e) => AbrirFormulario(() => new RegistrarAnticipo("Proveedor"));
+        private void aplicarAnticipoToolStripMenuItem_Click(object sender, EventArgs e) => AbrirFormulario(() => new AplicarAnticipo());
+        private void backupToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            R.ruta();
+            MessageBox.Show(R.Respaldo());
+        }
+        private void ocupaciónENtradasYSalidasToolStripMenuItem_Click(object sender, EventArgs e) => AbrirFormulario(() => new FiltroEntradaSalidaCond());
+        private void aplicarAnticipoToolStripMenuItem1_Click(object sender, EventArgs e) => AbrirFormulario(() => new AplicarAnticipoProveedor());
+        private void anticiposAplicadosToolStripMenuItem_Click(object sender, EventArgs e) => AbrirFormulario(() => new ReporteAnticiposAplicadosFiltro());
+        private void anticiposToolStripMenuItem2_Click(object sender, EventArgs e) => AbrirFormulario(() => new ReporteAnticiposFiltro());
+        private void saldoDetalladoToolStripMenuItem_Click_1(object sender, EventArgs e) => AbrirFormulario(() => new ReporteSaldoDetalladoFiltro());
+        private void anticiposToolStripMenuItem4_Click(object sender, EventArgs e) => AbrirFormulario(() => new ReporteAnticipoProveedorFiltro());
+        private void anticiposAplicadosToolStripMenuItem1_Click(object sender, EventArgs e) => AbrirFormulario(() => new ReporeteAnticiposProveedorAplicadosFiltro());
+        private void estadoDeCuentaProveedoresToolStripMenuItem_Click_1(object sender, EventArgs e) => AbrirFormulario(() => new ReporteEstadoCuentaProveedor());
+        private void saldosProveedoresToolStripMenuItem_Click(object sender, EventArgs e) => AbrirFormulario(() => new ReporteSaldoProveedorFiltro());
+        private void detallesDeSaldosToolStripMenuItem_Click(object sender, EventArgs e) => AbrirFormulario(() => new ReporteSaldoDetalladoProveedoresFiltro());
+        private void ingresosToolStripMenuItem3_Click(object sender, EventArgs e) => AbrirFormulario(() => new GraficasIngresos());
+        private void almacenesToolStripMenuItem1_Click(object sender, EventArgs e) => AbrirFormulario(() => new Almacenes());
+        private void clientesToolStripMenuItem_Click(object sender, EventArgs e) => AbrirFormulario(() => new Clientes());
+        private void proveedoresToolStripMenuItem2_Click(object sender, EventArgs e) => AbrirFormulario(() => new Proveedores());
+        private void tipoMovimientosToolStripMenuItem_Click_1(object sender, EventArgs e) => AbrirFormulario(() => new TipoMovimientos());
+        private void registrarEntradasToolStripMenuItem_Click_1(object sender, EventArgs e) => AbrirFormulario(() => new RegistrarEntrada("E"));
+        private void registrarSalidaToolStripMenuItem1_Click_1(object sender, EventArgs e) => AbrirFormulario(() => new RegistrarEntrada("S"));
+        private void registrarTraspasosToolStripMenuItem_Click_1(object sender, EventArgs e) => AbrirFormulario(() => new RegistrarEntrada2("T"), true, 280, 80);
+        private void consultaInventariosToolStripMenuItem_Click_1(object sender, EventArgs e) => AbrirFormulario(() => new ConsultaInventario(0));
+        private void reporteKardexToolStripMenuItem_Click_1(object sender, EventArgs e) => AbrirFormulario(() => new FiltroKardex());
+        private void reporteExistenciasToolStripMenuItem_Click_1(object sender, EventArgs e) => AbrirFormulario(() => new FiltroExistencias());
+        private void reporteCostoPorProductosToolStripMenuItem_Click_1(object sender, EventArgs e) => AbrirFormulario(() => new FiltroValorProducto());
+        private void requisicionesToolStripMenuItem_Click_1(object sender, EventArgs e) => AbrirFormulario(() => new Requisicion2());
+        private void comprasToolStripMenuItem_Click(object sender, EventArgs e) => AbrirFormulario(() => new RegistroGastos2());
+        private void notasDeCrYCaToolStripMenuItem_Click(object sender, EventArgs e) => AbrirFormulario(() => new NotasCargo2());
+        private void reporteDiarioDeRequisicionesToolStripMenuItem_Click_1(object sender, EventArgs e) => AbrirFormulario(() => new ReporteDiarioRequisicionFiltro());
+        private void reporteDiarioDeOrdenesDeCompraToolStripMenuItem_Click_1(object sender, EventArgs e) => AbrirFormulario(() => new ReporteDiarioOrdenesComprasFiltro());
+        private void reporteDiarioDeComprasToolStripMenuItem_Click_1(object sender, EventArgs e) => AbrirFormulario(() => new ReporteDiarioComprasFiltro());
+        private void reporteDiarioNotasDeCargoToolStripMenuItem_Click_1(object sender, EventArgs e) => AbrirFormulario(() => new ReporteDiarioNotasCargoFiltro());
+        private void reporteDeEgresosToolStripMenuItem_Click_1(object sender, EventArgs e) => AbrirFormulario(() => new ReporteEgresosFiltro());
+        private void reporteSaldoDeComprasToolStripMenuItem_Click_1(object sender, EventArgs e) => AbrirFormulario(() => new ReporteComprasFiltro());
+        private void anticiposToolStripMenuItem4_Click_1(object sender, EventArgs e) => AbrirFormulario(() => new ReporteAnticipoProveedorFiltro());
+        private void anticiposAplicadosToolStripMenuItem1_Click_1(object sender, EventArgs e) => AbrirFormulario(() => new ReporeteAnticiposProveedorAplicadosFiltro());
+        private void estadoDeCuentaProveedoresToolStripMenuItem_Click_2(object sender, EventArgs e) => AbrirFormulario(() => new ReporteEstadoCuentaProveedor());
+        private void serviciosToolStripMenuItem_Click(object sender, EventArgs e) => AbrirFormulario(() => new CatalogoServicios(0));
+        private void comprasRegistroDeGastosServicioToolStripMenuItem_Click(object sender, EventArgs e) => AbrirFormulario(() => new RegistroGastos());
+        private void DefinepolizaStripMenuItem7_Click(object sender, EventArgs e)
+        {
+            DefinePoliza.TipopolizaCompras = "Compras";
+            AbrirFormulario(() => new DefinePoliza("Definiciones Compras"));
+        }
+        private void pedidosProveedoresToolStripMenuItem_Click(object sender, EventArgs e) => AbrirFormulario(() => new OrdenCompra2());
+        private void comprasRegistroDeGastosServicioToolStripMenuItem_Click_1(object sender, EventArgs e) => AbrirFormulario(() => new RegistroGastos());
+        private void comprasRecepciónEntradaProductosAlmacénToolStripMenuItem_Click(object sender, EventArgs e) => AbrirFormulario(() => new RecepcionProductos2());
+        private void GenerePolizaStripMenuItem7_Click(object sender, EventArgs e)
+        {
+            GENERARPOLIZAS.TipopolizaCompras = "Compras";
+            AbrirFormulario(() => new GENERARPOLIZAS("Polizas Compras"));
+        }
+
+        // Botones de Paneles
+        private void btnDatosMmpresa_Click(object sender, EventArgs e) => AbrirFormulario(() => new DatosEmpresas());
+        private void BtnUsuarios_Click(object sender, EventArgs e) => AbrirFormulario(() => new Usuarios());
+        private void btnDivisas_Click(object sender, EventArgs e) => AbrirFormulario(() => new CatalogoDivisa());
+        private void btnAlmacen_Click(object sender, EventArgs e) => AbrirFormulario(() => new Almacenes());
+        private void BtnCategorias_Click(object sender, EventArgs e) => AbrirFormulario(() => new CatalogoFamilias());
+        private void BtnProductos_Click(object sender, EventArgs e) => AbrirFormulario(() => new CatalogoProductosServicios(0));
+        private void BtnServicios_Click(object sender, EventArgs e) => AbrirFormulario(() => new CatalogoServicios(0));
+        private void BtnCentroCosto_Click(object sender, EventArgs e) => AbrirFormulario(() => new CentroCostos());
+        private void BtnDocumentos_Click(object sender, EventArgs e) => AbrirFormulario(() => new Documentos());
+        private void BtnConceptosGlobales_Click(object sender, EventArgs e) => AbrirFormulario(() => new ConceptosGlobales());
+        private void BtnFormaPago_Click(object sender, EventArgs e) => AbrirFormulario(() => new CatalogoFormasPago());
+        private void BtnEmpleados_Click(object sender, EventArgs e) => AbrirFormulario(() => new CatalogoPersonal());
+        private void BtnTiposZonas_Click(object sender, EventArgs e) => AbrirFormulario(() => new TiposZonas());
+        private void BtnClientes_Click(object sender, EventArgs e) => AbrirFormulario(() => new Clientes());
+        private void BtnProveedores_Click(object sender, EventArgs e) => AbrirFormulario(() => new Proveedores());
+        private void BtnCuentasBancarias_Click(object sender, EventArgs e) => AbrirFormulario(() => new CuentasBancarias());
+        private void btnTipoMovimientos_Click(object sender, EventArgs e) => AbrirFormulario(() => new TipoMovimientos(), true, 260, 80);
+        private void btnRegistrarEntradas_Click(object sender, EventArgs e) => AbrirFormulario(() => new RegistrarEntrada2("E"), true, 260, 80);
+        private void btnRegistrarSalidas_Click(object sender, EventArgs e) => AbrirFormulario(() => new RegistrarEntrada2("S"), true, 260, 80);
+        private void btnRegistrarTrasnpasos_Click(object sender, EventArgs e) => AbrirFormulario(() => new RegistrarEntrada2("T"), true, 280, 80);
+        private void btnConsultaInventarios_Click(object sender, EventArgs e) => AbrirFormulario(() => new ConsultaInventario2(0), true, 280, 80);
+        private void btnReporteExistencias_Click(object sender, EventArgs e) => AbrirFormulario(() => new FiltroExistencias());
+        private void btnReporteCostoxProducto_Click(object sender, EventArgs e) => AbrirFormulario(() => new FiltroValorProducto());
+        private void guna2GradientButton6_Click_1(object sender, EventArgs e) => AbrirFormulario(() => new Requisicion2());
+        private void guna2GradientButton4_Click_2(object sender, EventArgs e) => AbrirFormulario(() => new OrdenCompra2());
+        private void guna2GradientButton3_Click(object sender, EventArgs e) => AbrirFormulario(() => new RegistroGastos2());
+        private void guna2GradientButton2_Click(object sender, EventArgs e) => AbrirFormulario(() => new NotasCargo2());
+        private void guna2GradientButton7_Click(object sender, EventArgs e)
+        {
+            DefinePoliza.TipopolizaCompras = "Compras";
+            AbrirFormulario(() => new DefinePoliza("Definiciones Compras"));
+        }
+        private void guna2GradientButton8_Click(object sender, EventArgs e)
+        {
+            GENERARPOLIZAS.TipopolizaCompras = "Compras";
+            AbrirFormulario(() => new GENERARPOLIZAS("Polizas Compras"));
+        }
+        private void guna2GradientButton32_Click(object sender, EventArgs e) => AbrirFormulario(() => new ReporteDiarioRequisicionFiltro());
+        private void guna2GradientButton40_Click(object sender, EventArgs e) => AbrirFormulario(() => new ReporteAnticipoProveedorFiltro());
+        private void guna2GradientButton26_Click(object sender, EventArgs e) => AbrirFormulario(() => new ReporteDiarioOrdenesComprasFiltro());
+        private void guna2GradientButton34_Click(object sender, EventArgs e) => AbrirFormulario(() => new ReporteDiarioComprasFiltro("Diario Compras"));
+        private void guna2GradientButton33_Click(object sender, EventArgs e) => AbrirFormulario(() => new ReporteDiarioComprasFiltro("Diario Gastos"));
+        private void guna2GradientButton38_Click(object sender, EventArgs e) => AbrirFormulario(() => new ReporteEgresosFiltro());
+        private void guna2GradientButton37_Click(object sender, EventArgs e) => AbrirFormulario(() => new ReporteComprasFiltro());
+        private void guna2GradientButton42_Click(object sender, EventArgs e) => AbrirFormulario(() => new ReporteEstadoCuentaProveedor());
+        private void guna2GradientButton25_Click(object sender, EventArgs e) => AbrirFormulario(() => new CatalogoPeriodos());
+        private void guna2GradientButton24_Click(object sender, EventArgs e) => AbrirFormulario(() => new ConceptosPresupuesto());
+        private void guna2GradientButton21_Click_1(object sender, EventArgs e) => AbrirFormulario(() => new CerrarPresupuesto());
+        private void guna2GradientButton13_Click(object sender, EventArgs e) => AbrirFormulario(() => new OrdenPedidoCliente("Remision"));
+        private void guna2GradientButton14_Click(object sender, EventArgs e) => AbrirFormulario(() => new OrdenPedidoCliente("Pedido"));
+        private void guna2GradientButton15_Click(object sender, EventArgs e) => AbrirFormulario(() => new ReporteIngresoFormulario());
+        private void guna2GradientButton50_Click(object sender, EventArgs e) => AbrirFormulario(() => new RecepcionProductos2());
+        private void guna2GradientButton12_Click(object sender, EventArgs e) => AbrirFormulario(() => new registroIngresos("Remision", ""));
+        private void guna2GradientButton11_Click(object sender, EventArgs e) => AbrirFormulario(() => new RegistrarAnticipo("Propietario"));
+        private void guna2GradientButton10_Click(object sender, EventArgs e) => AbrirFormulario(() => new AplicarAnticipo());
+        private void guna2GradientButton52_Click(object sender, EventArgs e) => AbrirFormulario(() => new ReporteAnticiposFiltro());
+        private void guna2GradientButton2_Click_1(object sender, EventArgs e) => AbrirFormulario(() => new FiltroFecha("Diario Pedidos"));
+        private void guna2GradientButton54_Click(object sender, EventArgs e) => AbrirFormulario(() => new FiltroFecha("Utilidad Pedido"));
+        private void guna2GradientButton55_Click(object sender, EventArgs e) => AbrirFormulario(() => new FiltroFecha("Utilidad Producto"));
+        private void guna2GradientButton58_Click(object sender, EventArgs e)
+        {
+            subGrupoGraficasCompras.Visible = false;
+            guna2GradientButton58.Visible = false;
+            AbrirFormulario(() => new GraficaMontoGastosxMes());
+        }
+        private void guna2GradientButton17_Click(object sender, EventArgs e) => AbrirFormulario(() => new RegistroEgreso());
+        private void guna2GradientButton6_Click_2(object sender, EventArgs e) => AbrirFormulario(() => new Requisicion2());
+        private void guna2GradientButton57_Click(object sender, EventArgs e) => AbrirFormulario(() => new RegistroReembolsos());
+        private void guna2GradientButton59_Click(object sender, EventArgs e) => AbrirFormulario(() => new ReporteDiarioComprasFiltro("Diario Reembolsos"));
+        private void guna2GradientButton62_Click(object sender, EventArgs e) => AbrirFormulario(() => new ReporteDiarioComprasFiltro("Diario Egresos"));
+        private void guna2GradientButton61_Click(object sender, EventArgs e) => AbrirFormulario(() => new ReporteDiarioComprasFiltro("Saldos Proveedor"));
+        private void guna2GradientButton60_Click(object sender, EventArgs e) => AbrirFormulario(() => new ReporteEstadoCuentaProveedor());
+        private void guna2GradientButton73_Click(object sender, EventArgs e)
+        {
+            DefinePolizas.TipopolizaCompras = "Compras";
+            AbrirFormulario(() => new DefinePolizas("Definiciones Compras"));
+        }
+        private void guna2GradientButton10_Click_1(object sender, EventArgs e)
+        {
+            GENERARPOLIZAS.TipopolizaCompras = "Egresos";
+            AbrirFormulario(() => new GENERARPOLIZAS("Polizas Compras"));
+        }
+        private void guna2GradientButton73_Click_1(object sender, EventArgs e)
+        {
+            DefinePolizas.TipopolizaCompras = "Compras";
+            AbrirFormulario(() => new DefinePolizas("Definiciones Compras"));
+        }
+        private void guna2GradientButton66_Click(object sender, EventArgs e)
+        {
+            GENERARPOLIZAS.TipopolizaCompras = "Egresos";
+            AbrirFormulario(() => new GENERARPOLIZAS("Polizas Compras"));
+        }
+
+        // --- LÓGICA DE CIERRE DE SESIÓN Y APLICACIÓN ---
         private void button1_Click(object sender, EventArgs e)
         {
-            string Hoy = DateTime.Today.ToString();
-            DateTime FechaSalida = Convert.ToDateTime(Hoy);
-
-            string HoraSalida = DateTime.Now.ToString("HH");
-            string MinutoSalida = DateTime.Now.ToString("mm");
-            string SegundoSalida = DateTime.Now.ToString("ss tt");
-            string Salida = HoraSalida + ":" + MinutoSalida + ":" + SegundoSalida;
-
-            c.RegistroSalida(Login.UsuarioLogin, Login.FechaEntrada, Login.Entrada, FechaSalida, Salida);
-
+            RegistrarSalidaSistema();
             PuntoVentas.Opcion = 0;
             PuntoVentas med = new PuntoVentas();
             med.Show();
@@ -129,207 +429,16 @@ namespace PuntoVentas
 
         private void MenuPrincipal_FormClosing(object sender, FormClosingEventArgs e)
         {
-            string Hoy = DateTime.Today.ToString();
-            DateTime FechaSalida = Convert.ToDateTime(Hoy);
-
-            string HoraSalida = DateTime.Now.ToString("HH");
-            string MinutoSalida = DateTime.Now.ToString("mm");
-            string SegundoSalida = DateTime.Now.ToString("ss tt");
-            string Salida = HoraSalida + ":" + MinutoSalida + ":" + SegundoSalida;
-
-            c.RegistroSalida(Login.UsuarioLogin, Login.FechaEntrada, Login.Entrada, FechaSalida, Salida);
-
+            RegistrarSalidaSistema();
             PuntoVentas.Opcion = 0;
-
             Application.Exit();
         }
 
-
-        private void toolStripMenuItem4_Click(object sender, EventArgs e)
+        private void RegistrarSalidaSistema()
         {
-            DatosEmpresas datosEmpresas = new DatosEmpresas();
-            datosEmpresas.ShowDialog();
-        }
-
-        private void toolStripMenuItem5_Click(object sender, EventArgs e)
-        {
-            Usuarios usuarios = new Usuarios();
-            usuarios.ShowDialog();
-        }
-
-        private void divisasToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            CatalogoDivisa catalogoDivisa = new CatalogoDivisa();
-            catalogoDivisa.ShowDialog();
-        }
-
-        private void categoriasYFamiliasToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            CatalogoFamilias catalogoFamilias = new CatalogoFamilias();
-            catalogoFamilias.ShowDialog();
-        }
-
-        private void productosYServiciosToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            int Consulta = 0;
-            CatalogoProductosServicios catalogoProductosServicios = new CatalogoProductosServicios(Consulta);
-            catalogoProductosServicios.ShowDialog();
-        }
-
-        private void formasDePagoToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            CatalogoFormasPago catalogoFormasPago = new CatalogoFormasPago();
-            catalogoFormasPago.ShowDialog();
-        }
-
-        private void empleadosToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            CatalogoPersonal catalogoPersonal = new CatalogoPersonal();
-            catalogoPersonal.ShowDialog();
-        }
-
-        private void documentosToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            Documentos documento = new Documentos();
-            documento.ShowDialog();
-        }
-
-        private void conceptosGlobalesToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            ConceptosGlobales conceptosGlobales = new ConceptosGlobales();
-            conceptosGlobales.ShowDialog();
-        }
-
-        private void centrosDeCostosToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            CentroCostos centroCostos = new CentroCostos();
-            centroCostos.ShowDialog();
-        }
-
-        private void tiposYZonasToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            TiposZonas tiposZonas = new TiposZonas();
-            tiposZonas.ShowDialog();
-        }
-
-        private void condominiosToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            CatalogoCondominios catalogoCondominios = new CatalogoCondominios();
-            catalogoCondominios.ShowDialog();
-        }
-
-        private void areasComunesToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            CatalogoAreasComunes catalogoAreasComunes = new CatalogoAreasComunes();
-            catalogoAreasComunes.ShowDialog();
-        }
-
-        private void propietariosToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            Propietarios propietarios = new Propietarios();
-            propietarios.ShowDialog();
-        }
-
-        private void conceptosIngresosToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            ConceptosIngresos conceptosIngresos = new ConceptosIngresos();
-            conceptosIngresos.ShowDialog();
-        }
-
-        private void generarRecibosAutomaticosToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            ReciboAutomaticos reciboAutomaticos = new ReciboAutomaticos();
-            reciboAutomaticos.ShowDialog();
-        }
-
-        private void generarRecibosToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            GenerarRecibo generarRecibo = new GenerarRecibo();
-            generarRecibo.ShowDialog();
-        }
-
-        private void registrarCobranzaToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            registroIngresos registroIngresos = new registroIngresos("","");
-            registroIngresos.ShowDialog();
-        }
-
-        private void consultaDatosCondominioToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            ConsultaCondominio consultaCondominio = new ConsultaCondominio();
-            consultaCondominio.ShowDialog();
-        }
-
-        private void ocupacionCondominioToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            OcupacionCondominio consultaCondominio = new OcupacionCondominio();
-            consultaCondominio.ShowDialog();
-        }
-
-        private void controlDeActivoFijoToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            ActivoFijo activoFijo = new ActivoFijo();
-            activoFijo.ShowDialog();
-        }
-
-        private void resguardoDeActivoFijoToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            ResguardoActivoFijo resguardoActivoFijo = new ResguardoActivoFijo();
-            resguardoActivoFijo.ShowDialog();
-        }
-
-        private void activoFijoDiarioToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            ReporteActivoFijo2 reporteActivoFijo2 = new ReporteActivoFijo2();
-            reporteActivoFijo2.ShowDialog();
-        }
-
-        private void resguardoToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            ReporteResguardoActivoFijo2 reporteResguardoActivoFijo2 = new ReporteResguardoActivoFijo2();
-            reporteResguardoActivoFijo2.ShowDialog();
-        }
-
-        private void saldoPorPropietarioToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            ReporteSaldoPropietarioFiltro reporteSaldoPropietario = new ReporteSaldoPropietarioFiltro();
-            reporteSaldoPropietario.ShowDialog();
-        }
-
-        private void saldoPorPropiedadToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            ReporteSaldoCondominioFiltro reporteSaldoCondominio = new ReporteSaldoCondominioFiltro();
-            reporteSaldoCondominio.ShowDialog();
-        }
-
-        private void saldoDetalladoToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            ReporteSaldoDetalladoFiltro reporteSaldosDetallados = new ReporteSaldoDetalladoFiltro();
-            reporteSaldosDetallados.ShowDialog();
-        }
-
-        private void catalagoClientesToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            Clientes clientes = new Clientes();
-            clientes.ShowDialog();
-        }
-
-        private void disponibilidadToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            ParametrosGenerales parametrosGenerales = new ParametrosGenerales();
-            parametrosGenerales.ShowDialog();
-        }
-
-        private void reservaToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            RegistrarCitas registrarCitas = new RegistrarCitas();
-            registrarCitas.ShowDialog();
-        }
-
-        private void cancelarReservaToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            CancelarCitas cancelar = new CancelarCitas();
-            cancelar.ShowDialog();
+            DateTime FechaSalida = DateTime.Today;
+            string Salida = DateTime.Now.ToString("HH:mm:ss tt");
+            c.RegistroSalida(Login.UsuarioLogin, Login.FechaEntrada, Login.Entrada, FechaSalida, Salida);
         }
 
         private void MenuPrincipal_Activated(object sender, EventArgs e)
@@ -346,2084 +455,105 @@ namespace PuntoVentas
             }
         }
 
-        private void consultaReservaToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            ConsultaFechaNombre consultaFechaNombre = new ConsultaFechaNombre();
-            consultaFechaNombre.ShowDialog();
-        }
-
-        private void avisosToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            Avisos avisos = new Avisos();
-            avisos.ShowDialog();
-        }
-
-        private void ingresosToolStripMenuItem1_Click(object sender, EventArgs e)
-        {
-            ReporteIngresoFormulario reporteIngresos = new ReporteIngresoFormulario();
-            reporteIngresos.ShowDialog();
-        }
-
-        private void estadoDeCuentaToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            ReporteEstadoCuentaFormulario reporteEstadoCuentaFormulario = new ReporteEstadoCuentaFormulario();
-            reporteEstadoCuentaFormulario.ShowDialog();
-        }
-
-        private void almacenesToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            Almacenes almacenes = new Almacenes();
-            almacenes.ShowDialog();
-        }
-
-        private void proveedoresToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            Proveedores proveedores = new Proveedores();
-            proveedores.ShowDialog();
-        }
-
-        private void tipoMovimientosToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            TipoMovimientos mov = new TipoMovimientos();
-
-            mov.StartPosition = FormStartPosition.Manual;
-            mov.Left = 260;
-            mov.Top = 80;
-            mov.ShowDialog();
-
-        
-            
-        }
-
-        private void registrarEntradasToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            string movimiento = "E";
-            RegistrarEntrada2 entrada = new RegistrarEntrada2(movimiento);
-            entrada.StartPosition = FormStartPosition.Manual;
-            entrada.Left = 260;
-            entrada.Top = 80;
-         
-            entrada.ShowDialog();
-        }
-
-        private void registrarSalidaToolStripMenuItem1_Click(object sender, EventArgs e)
-        {
-            string movimiento = "S";
-            RegistrarEntrada2 sald = new RegistrarEntrada2(movimiento);
-            sald.StartPosition = FormStartPosition.Manual;
-            sald.Left = 260;
-            sald.Top = 80;
-            sald.ShowDialog();
-        }
-
-        private void registrarTraspasosToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            string movimiento = "T";
-            RegistrarEntrada2 tras = new RegistrarEntrada2(movimiento);
-            tras.StartPosition = FormStartPosition.Manual;
-            tras.Left = 260;
-            tras.Top = 80;
-            tras.ShowDialog();
-        }
-
-        private void consultaInventariosToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            int Consulta = 0;
-            ConsultaInventario2 consulta = new ConsultaInventario2(Consulta);
-            consulta.StartPosition = FormStartPosition.Manual;
-            consulta.Left = 280;
-            consulta.Top = 80;
-            consulta.ShowDialog();
-        }
-
-        private void ordenesDeCompraToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            OrdenCompra ordenCompra = new OrdenCompra();
-            ordenCompra.ShowDialog();
-        }
-
-        private void recepcionDeProductosToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            RecepcionProductos2 recepcionProductos = new RecepcionProductos2();
-            recepcionProductos.ShowDialog();
-        }
-
-        private void registroDeGastosToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            RegistroGastos registroGastos = new RegistroGastos();
-            registroGastos.ShowDialog();
-        }
-
-        private void egresosToolStripMenuItem1_Click(object sender, EventArgs e)
-        {
-            RegistroEgreso registroEgreso = new RegistroEgreso();
-            registroEgreso.ShowDialog();
-        }
-
-        private void cuentasBancariasToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            CuentasBancarias cuentasBancarias = new CuentasBancarias();
-            cuentasBancarias.ShowDialog();
-        }
-
-        private void requisicionesToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            Requisicion requisicion = new Requisicion();
-            requisicion.ShowDialog();
-        }
-
-        private void reporteKardexToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            FiltroKardex filtroKardex = new FiltroKardex();
-            filtroKardex.ShowDialog();
-        }
-
-        private void reporteExistenciasToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            FiltroExistencias filtroExistencias = new FiltroExistencias();
-            filtroExistencias.ShowDialog();
-        }
-
-        private void reporteCostoPorProductosToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            FiltroValorProducto filtroValorProducto = new FiltroValorProducto();
-            filtroValorProducto.ShowDialog();
-        }
-
-        private void notasDeCargosToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            NotasCargo notasCargo = new NotasCargo();
-            notasCargo.ShowDialog();
-        }
-
-        private void reporteDiarioDeOrdenesDeCompraToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            ReporteDiarioOrdenesComprasFiltro reporteDiarioOrdenesCompra = new ReporteDiarioOrdenesComprasFiltro();
-            reporteDiarioOrdenesCompra.ShowDialog();
-        }
-
-        private void reporteDiarioDeRequisicionesToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            ReporteDiarioRequisicionFiltro reporteDiarioRequisicion = new ReporteDiarioRequisicionFiltro();
-            reporteDiarioRequisicion.ShowDialog();
-        }
-
-        private void reporteDiarioDeComprasToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            ReporteDiarioComprasFiltro reporteDiarioCompras = new ReporteDiarioComprasFiltro();
-            reporteDiarioCompras.ShowDialog();
-        }
-
-        private void reporteDiarioNotasDeCargoToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            ReporteDiarioNotasCargoFiltro reporteDiarioNotasCargo = new ReporteDiarioNotasCargoFiltro();
-            reporteDiarioNotasCargo.ShowDialog();
-        }
-
-        private void reporteDeEgresosToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            ReporteEgresosFiltro reporteEgresos = new ReporteEgresosFiltro();
-            reporteEgresos.ShowDialog();
-        }
-
-        private void reporteSaldoDeComprasToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            ReporteComprasFiltro reporteCompras = new ReporteComprasFiltro();
-            reporteCompras.ShowDialog();
-        }
-
-        private void estadoDeCuentaProveedoresToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            ReporteEstadoCuentaProveedor estadoCuentaProveedor = new ReporteEstadoCuentaProveedor();
-            estadoCuentaProveedor.ShowDialog();
-        }
-
-        private void groupBox1_Enter(object sender, EventArgs e)
-        {
-
-        }
-
-        private void base0ToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            CatalogoPeriodos catalogoPeriodos = new CatalogoPeriodos();
-            catalogoPeriodos.ShowDialog();
-        }
-
-        private void historicoToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            ConceptosPresupuesto conceptosPresupuesto = new ConceptosPresupuesto();
-            conceptosPresupuesto.ShowDialog();
-        }
-
-        private void ingresosToolStripMenuItem2_Click(object sender, EventArgs e)
-        {
-            RegistroPresupuesto registroPresupuesto = new RegistroPresupuesto("Ingreso");
-            registroPresupuesto.ShowDialog();
-        }
-
-        private void egresosToolStripMenuItem2_Click(object sender, EventArgs e)
-        {
-            RegistroPresupuesto registroPresupuesto = new RegistroPresupuesto("Egreso");
-            registroPresupuesto.ShowDialog();
-        }
-
-        private void ingreosToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            PresupuestoHistorico registroPresupuesto = new PresupuestoHistorico("Ingreso");
-            registroPresupuesto.ShowDialog();
-        }
-
-        private void egresosToolStripMenuItem3_Click(object sender, EventArgs e)
-        {
-            PresupuestoHistorico registroPresupuesto = new PresupuestoHistorico("Egreso");
-            registroPresupuesto.ShowDialog();
-        }
-
-        private void cerrarPresupuestoToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            CerrarPresupuesto cerrarPresupuesto = new CerrarPresupuesto();
-            cerrarPresupuesto.ShowDialog();
-        }
-
-        private void registrarAnticipoToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            RegistrarAnticipo registrarAnticipo = new RegistrarAnticipo("Propietario");
-            registrarAnticipo.ShowDialog();
-        }
-
-        private void registrarAnticipoToolStripMenuItem1_Click(object sender, EventArgs e)
-        {
-            RegistrarAnticipo registrarAnticipo = new RegistrarAnticipo("Proveedor");
-            registrarAnticipo.ShowDialog();
-        }
-
-        private void aplicarAnticipoToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            AplicarAnticipo aplicarAnticipo = new AplicarAnticipo();
-            aplicarAnticipo.ShowDialog();
-        }
-
-        private void backupToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            R.ruta();
-            MessageBox.Show( R.Respaldo());
-        }
-
-        private void button2_Click(object sender, EventArgs e)
-        {
-            
-        }
-
-        private void ocupaciónENtradasYSalidasToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            FiltroEntradaSalidaCond filtroEntradaSalidaCond = new FiltroEntradaSalidaCond();
-            filtroEntradaSalidaCond.ShowDialog();
-        }
-
-        private void aplicarAnticipoToolStripMenuItem1_Click(object sender, EventArgs e)
-        {
-            AplicarAnticipoProveedor aplicarAnticipoProveedor = new AplicarAnticipoProveedor();
-            aplicarAnticipoProveedor.ShowDialog();
-        }
-
-        private void anticiposAplicadosToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            ReporteAnticiposAplicadosFiltro reporteAnticiposAplicados = new ReporteAnticiposAplicadosFiltro();
-            reporteAnticiposAplicados.ShowDialog();
-        }
-
-        private void anticiposToolStripMenuItem2_Click(object sender, EventArgs e)
-        {
-            ReporteAnticiposFiltro reporteAnticipos = new ReporteAnticiposFiltro();
-            reporteAnticipos.ShowDialog();
-        }
-
-        private void saldoDetalladoToolStripMenuItem_Click_1(object sender, EventArgs e)
-        {
-            ReporteSaldoDetalladoFiltro reporteSaldoDetalladoFiltro = new ReporteSaldoDetalladoFiltro();
-            reporteSaldoDetalladoFiltro.ShowDialog();
-        }
-
-        private void anticiposToolStripMenuItem4_Click(object sender, EventArgs e)
-        {
-            ReporteAnticipoProveedorFiltro reporteAnticipoProveedorFiltro = new ReporteAnticipoProveedorFiltro();
-            reporteAnticipoProveedorFiltro.ShowDialog();
-        }
-
-        private void anticiposAplicadosToolStripMenuItem1_Click(object sender, EventArgs e)
-        {
-            ReporeteAnticiposProveedorAplicadosFiltro reporeteAnticiposProveedorAplicadosFiltro = new ReporeteAnticiposProveedorAplicadosFiltro();
-            reporeteAnticiposProveedorAplicadosFiltro.ShowDialog();
-        }
-
-        private void estadoDeCuentaProveedoresToolStripMenuItem_Click_1(object sender, EventArgs e)
-        {
-            ReporteEstadoCuentaProveedor estadoCuentaProveedor = new ReporteEstadoCuentaProveedor();
-            estadoCuentaProveedor.ShowDialog();
-        }
-
-        private void saldosProveedoresToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            ReporteSaldoProveedorFiltro reporteSaldosProveedores = new ReporteSaldoProveedorFiltro();
-            reporteSaldosProveedores.ShowDialog();
-        }
-
-        private void detallesDeSaldosToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            ReporteSaldoDetalladoProveedoresFiltro reporteSaldoDetalladoProveedoresFiltro = new ReporteSaldoDetalladoProveedoresFiltro();
-            reporteSaldoDetalladoProveedoresFiltro.ShowDialog();
-        }
-
-        private void notasDeCreditoToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void ingresosToolStripMenuItem3_Click(object sender, EventArgs e)
-        {
-            GraficasIngresos graficasIngresos = new GraficasIngresos();
-            graficasIngresos.ShowDialog();
-        }
-
-        private void almacenesToolStripMenuItem1_Click(object sender, EventArgs e)
-        {
-            Almacenes almacenes = new Almacenes();
-            almacenes.ShowDialog();
-        }
-
-        private void clientesToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            Clientes clientes = new Clientes();
-            clientes.ShowDialog();
-        }
-
-        private void proveedoresToolStripMenuItem2_Click(object sender, EventArgs e)
-        {
-            Proveedores proveedores = new Proveedores();
-            proveedores.ShowDialog();
-        }
-
-        private void movimientosToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void tipoMovimientosToolStripMenuItem_Click_1(object sender, EventArgs e)
-        {
-            TipoMovimientos mov = new TipoMovimientos();
-            mov.ShowDialog();
-        }
-
-        private void registrarEntradasToolStripMenuItem_Click_1(object sender, EventArgs e)
-        {
-            string movimiento = "E";
-            RegistrarEntrada entrada = new RegistrarEntrada(movimiento);
-            entrada.ShowDialog();
-        }
-
-        private void registrarSalidaToolStripMenuItem1_Click_1(object sender, EventArgs e)
-        {
-            string movimiento = "S";
-            RegistrarEntrada sald = new RegistrarEntrada(movimiento);
-            sald.ShowDialog();
-        }
-
-        private void registrarTraspasosToolStripMenuItem_Click_1(object sender, EventArgs e)
-        {
-            string movimiento = "T";
-            RegistrarEntrada2 tras = new RegistrarEntrada2(movimiento);
-            tras.StartPosition = FormStartPosition.Manual;
-            tras.Left = 280;
-            tras.Top = 80;
-            tras.ShowDialog();
-        }
-
-        private void consultaInventariosToolStripMenuItem_Click_1(object sender, EventArgs e)
-        {
-            int Consulta = 0;
-            ConsultaInventario consulta = new ConsultaInventario(Consulta);
-            consulta.ShowDialog();
-        }
-
-        private void reporteKardexToolStripMenuItem_Click_1(object sender, EventArgs e)
-        {
-            FiltroKardex filtroKardex = new FiltroKardex();
-            filtroKardex.ShowDialog();
-        }
-
-        private void reporteExistenciasToolStripMenuItem_Click_1(object sender, EventArgs e)
-        {
-            FiltroExistencias filtroExistencias = new FiltroExistencias();
-            filtroExistencias.ShowDialog();
-        }
-
-        private void reporteCostoPorProductosToolStripMenuItem_Click_1(object sender, EventArgs e)
-        {
-            FiltroValorProducto filtroValorProducto = new FiltroValorProducto();
-            filtroValorProducto.ShowDialog();
-        }
-
-        private void requisicionesToolStripMenuItem_Click_1(object sender, EventArgs e)
-        {
-            /*Requisicion requisicion = new Requisicion();
-            requisicion.ShowDialog();
-            */
-            Requisicion2 requisicion = new Requisicion2();
-            requisicion.ShowDialog();
-        }
-
-        private void comprasToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            //OrdenCompra2 ordenCompra = new OrdenCompra2();
-            //    ordenCompra.ShowDialog();
-            RegistroGastos2 RG = new RegistroGastos2();
-            RG.ShowDialog();
-        }
-
-        private void notasDeCrYCaToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            NotasCargo2 notasCargo = new NotasCargo2();
-            notasCargo.ShowDialog();
-        }
-
-        private void reporteDiarioDeRequisicionesToolStripMenuItem_Click_1(object sender, EventArgs e)
-        {
-            ReporteDiarioRequisicionFiltro reporteDiarioRequisicion = new ReporteDiarioRequisicionFiltro();
-            reporteDiarioRequisicion.ShowDialog();
-        }
-
-        private void reporteDiarioDeOrdenesDeCompraToolStripMenuItem_Click_1(object sender, EventArgs e)
-        {
-            ReporteDiarioOrdenesComprasFiltro reporteDiarioOrdenesCompra = new ReporteDiarioOrdenesComprasFiltro();
-            reporteDiarioOrdenesCompra.ShowDialog();
-        }
-
-        private void reporteDiarioDeComprasToolStripMenuItem_Click_1(object sender, EventArgs e)
-        {
-            ReporteDiarioComprasFiltro reporteDiarioCompras = new ReporteDiarioComprasFiltro();
-            reporteDiarioCompras.ShowDialog();
-        }
-
-        private void reporteDiarioNotasDeCargoToolStripMenuItem_Click_1(object sender, EventArgs e)
-        {
-            ReporteDiarioNotasCargoFiltro reporteDiarioNotasCargo = new ReporteDiarioNotasCargoFiltro();
-            reporteDiarioNotasCargo.ShowDialog();
-        }
-
-        private void reporteDeEgresosToolStripMenuItem_Click_1(object sender, EventArgs e)
-        {
-            ReporteEgresosFiltro reporteEgresos = new ReporteEgresosFiltro();
-            reporteEgresos.ShowDialog();
-        }
-
-        private void reporteSaldoDeComprasToolStripMenuItem_Click_1(object sender, EventArgs e)
-        {
-            ReporteComprasFiltro reporteCompras = new ReporteComprasFiltro();
-            reporteCompras.ShowDialog();
-        }
-
-        private void anticiposToolStripMenuItem3_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void anticiposToolStripMenuItem4_Click_1(object sender, EventArgs e)
-        {
-            ReporteAnticipoProveedorFiltro reporteAnticipoProveedorFiltro = new ReporteAnticipoProveedorFiltro();
-            reporteAnticipoProveedorFiltro.ShowDialog();
-        }
-
-        private void anticiposAplicadosToolStripMenuItem1_Click_1(object sender, EventArgs e)
-        {
-            ReporeteAnticiposProveedorAplicadosFiltro reporeteAnticiposProveedorAplicadosFiltro = new ReporeteAnticiposProveedorAplicadosFiltro();
-            reporeteAnticiposProveedorAplicadosFiltro.ShowDialog();
-        }
-
-        private void estadoDeCuentaProveedoresToolStripMenuItem_Click_2(object sender, EventArgs e)
-        {
-            ReporteEstadoCuentaProveedor estadoCuentaProveedor = new ReporteEstadoCuentaProveedor();
-            estadoCuentaProveedor.ShowDialog();
-        }
-
-        private void serviciosToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            int Consulta = 0;
-            CatalogoServicios catalogoServicios = new CatalogoServicios(Consulta);
-            catalogoServicios.ShowDialog();
-        }
-
-        private void comprasRegistroDeGastosServicioToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            RegistroGastos Rg = new RegistroGastos();
-            Rg.ShowDialog();
-        }
-
-    
-
-        private void DefinepolizaStripMenuItem7_Click(object sender, EventArgs e)
-        {
-            DefinePoliza DP = new DefinePoliza("Definiciones Compras");
-            DefinePoliza.TipopolizaCompras = "Compras";
-            DP.ShowDialog();
-        }
-
-        private void pedidosProveedoresToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            OrdenCompra2 ordenCompra = new OrdenCompra2();
-            ordenCompra.ShowDialog();
-        }
-
-        private void comprasRegistroDeGastosServicioToolStripMenuItem_Click_1(object sender, EventArgs e)
-        {
-            RegistroGastos registroGastos = new RegistroGastos();
-            registroGastos.ShowDialog();
-        }
-
-        private void comprasRecepciónEntradaProductosAlmacénToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            RecepcionProductos2 recepcionProductos = new RecepcionProductos2();
-            recepcionProductos.ShowDialog();
-        }
-
-   
-
-        private void GenerePolizaStripMenuItem7_Click(object sender, EventArgs e)
-        {
-
-            GENERARPOLIZAS GP = new GENERARPOLIZAS("Polizas Compras");
-            GENERARPOLIZAS.TipopolizaCompras = "Compras";
-            GP.ShowDialog();
-        }
-
-        private void guna2GradientButton4_Click(object sender, EventArgs e)
-        {
-            if (GrupoParametros.Visible == true)
+        // Eventos vacíos originales que se mantienen para no romper el Designer
+        private void groupBox1_Enter(object sender, EventArgs e) { }
+        private void button2_Click(object sender, EventArgs e) { }
+        private void toolStripMenuItem6_Click(object sender, EventArgs e) { }
+        private void notasDeCreditoToolStripMenuItem_Click(object sender, EventArgs e) { }
+        private void movimientosToolStripMenuItem_Click(object sender, EventArgs e) { }
+        private void anticiposToolStripMenuItem3_Click(object sender, EventArgs e) { }
+        private void guna2GradientButton49_Click(object sender, EventArgs e) { }
+        private void guna2GradientButton51_Click(object sender, EventArgs e) { }
+    }
+
+    // --- CLASES DE APOYO PARA LA ESTRUCTURA DEL MENÚ ---
+    public class ModuloMenu
+    {
+        public Control BotonIzquierdo { get; set; }
+        public Control BotonDerecho { get; set; }
+        public Guna2GroupBox PanelGrupo { get; set; }
+    }
+
+    public class MenuLayoutController
+    {
+        private readonly List<ModuloMenu> _modulos;
+        private readonly List<Guna2GroupBox> _subgrupos;
+        private readonly ScrollableControl _contenedorPrincipal;
+
+        private const int X_Izquierdo = 9;
+        private const int X_Derecho = 165;
+        private const int Y_Inicial = 4;
+        private const int EspacioEntreBotones = 55;
+        private const int AlturaBoton = 45;
+
+        public MenuLayoutController(ScrollableControl contenedorPrincipal, List<ModuloMenu> modulos, List<Guna2GroupBox> subgrupos)
+        {
+            _contenedorPrincipal = contenedorPrincipal;
+            _modulos = modulos;
+            _subgrupos = subgrupos;
+
+            // SOLUCIÓN: Forzar el anclaje superior e izquierdo para evitar que 
+            // los botones se empujen hacia la izquierda cuando aparece la barra de desplazamiento vertical.
+            foreach (var modulo in _modulos)
             {
-                GrupoParametros.Visible = false;
-
-            }else
-            {
-                GrupoParametros.Visible = true;
-                    }
-        }
-
-
-
-        private void guna2GradientButton6_Click(object sender, EventArgs e)
-        {
-            SubgrupoMovimientos.Visible = false;
-            GrupoTesoreria.Visible = false;
-            SubGrupoReportesMovimientos.Visible = false;
-            SubGrupoReportesCompras.Visible = false;
-            subGrupoGraficasCompras.Visible = false;
-            SubgrupoIngresos.Visible = false;
-
-            if (GrupoCatalogos.Visible == true)           
-            {
-               
-                GrupoCatalogos.Visible = false;
-
-
-                /*Coloca en la posición inicial los botones*/
-                BtnParametros1.Location = new Point(9, 4);
-                BtnParametros2.Location = new Point(165, 4);
-                btncatalogos1.Location = new Point(9, 59);
-                btncatalogos2.Location = new Point(165, 59);
-                btnInventario.Location = new Point(9, 114);
-                BtnInventario1.Location = new Point(165, 114);
-                btnCompras1.Location = new Point(9, 169);
-                btnCompras2.Location = new Point(165, 169);
-                btnventas1.Location = new Point(9, 224);
-                btnventas2.Location = new Point(165, 224);
-                btnTesoreria1.Location = new Point(9, 279);
-                btnTesoreria2.Location = new Point(165, 279);
-                btnPresupuesto1.Location = new Point(9, 334);
-                btnPresupuesto2.Location = new Point(165, 334);
-                btnUtilerias1.Location = new Point(9, 334);
-                btnUtilerias2.Location = new Point(165, 334);
-
-            }
-            else
-            {
-                guna2Panel5.AutoSize = false;
-                guna2Panel5.VerticalScroll.Value = 0;
-                /*oculta las otrasopciones*/
-                GrupoParametros.Visible = false;
-                Grupoinventarios.Visible = false;
-                GrupoCompras.Visible = false;
-                GrupoVentas.Visible = false;
-                GrupoTesoreria.Visible = false;
-                GrupoPresupuesto.Visible = false;
-                GrupoUtilerias.Visible = false;
-
-                guna2Panel5.Controls.Remove(GrupoParametros);
-                guna2Panel5.Controls.Remove(Grupoinventarios);
-                guna2Panel5.Controls.Remove(GrupoCompras);
-                guna2Panel5.Controls.Remove(GrupoVentas);
-                guna2Panel5.Controls.Remove(GrupoTesoreria);
-                guna2Panel5.Controls.Remove(GrupoPresupuesto);
-                guna2Panel5.Controls.Remove(GrupoUtilerias);
-
-
-                BtnParametros1.Location = new Point(9, 4);
-                BtnParametros2.Location = new Point(165, 4);
-                btncatalogos1.Location = new Point(9, 59);
-                btncatalogos2.Location = new Point(165, 59);
-                btnInventario.Location = new Point(9, 114);
-                BtnInventario1.Location = new Point(165, 114);
-                btnCompras1.Location = new Point(9, 169);
-                btnCompras2.Location = new Point(165, 169);
-                btnventas1.Location = new Point(9, 224);
-                btnventas2.Location = new Point(165, 224);
-                btnTesoreria1.Location = new Point(9, 279);
-                btnTesoreria2.Location = new Point(165, 279);
-                btnPresupuesto1.Location = new Point(9, 334);
-                btnPresupuesto2.Location = new Point(165, 334);
-                btnUtilerias1.Location = new Point(9, 334);
-                btnUtilerias2.Location = new Point(165, 334);
-
-                //-------------------------------------//
-
-                guna2Panel5.Controls.Add(GrupoCatalogos);
-                
-
-                GrupoCatalogos.Visible = true;
-                GrupoCatalogos.Location = new Point(9, 114);
-                /*Coloca en la posición Final los botones, cuando se consulta el grupo de catalogos*/
-                btnInventario.Location = new Point(9, 769);
-                BtnInventario1.Location = new Point(165, 769);
-                btnCompras1.Location = new Point(9, 824);
-                btnCompras2.Location = new Point(165, 824);
-                btnventas1.Location = new Point(9, 879);
-                btnventas2.Location = new Point(165, 879);
-
-                btnTesoreria1.Location = new Point(9, 934);
-                btnTesoreria2.Location = new Point(165, 934);
-
-                btnPresupuesto1.Location = new Point(9, 989);
-                btnPresupuesto2.Location = new Point(165, 989);
-
-                btnUtilerias1.Location = new Point(9, 989);
-                btnUtilerias2.Location = new Point(165, 989);
-            }
-          
-
-        }
-
-        private void guna2GradientButton4_Click_1(object sender, EventArgs e)
-        {
-            SubgrupoMovimientos.Visible = false;
-            SubGrupoReportesMovimientos.Visible = false;
-            SubGrupoReportesCompras.Visible = false;
-            subGrupoGraficasCompras.Visible = false;
-            SubgrupoIngresos.Visible = false;
-            GrupoTesoreria.Visible = false;
-
-            if (GrupoParametros.Visible == true)
-            {
-
-                GrupoParametros.Visible = false;
-                /*Coloca en la posición inicial los botones*/
-                BtnParametros1.Location = new Point(9, 4);
-                BtnParametros2.Location = new Point(165, 4);
-                btncatalogos1.Location = new Point(9, 59);
-                btncatalogos2.Location = new Point(165, 59);
-                btnInventario.Location = new Point(9, 114);
-                BtnInventario1.Location = new Point(165, 114);
-                btnCompras1.Location = new Point(9, 169);
-                btnCompras2.Location = new Point(165, 169);
-                btnventas1.Location = new Point(9, 224);
-                btnventas2.Location = new Point(165, 224);
-                btnTesoreria1.Location = new Point(9, 279);
-                btnTesoreria2.Location = new Point(165, 279);
-                btnPresupuesto1.Location = new Point(9, 334);
-                btnPresupuesto2.Location = new Point(165, 334);
-                btnUtilerias1.Location = new Point(9, 334);
-                btnUtilerias2.Location = new Point(165, 334);
-
-
-            }
-            else
-            {
-                guna2Panel5.AutoSize = true;
-                Grupoinventarios.Visible = false;
-                GrupoCatalogos.Visible = false;
-                GrupoCompras.Visible = false;
-                GrupoVentas.Visible = false;
-                GrupoTesoreria.Visible = false;
-                GrupoPresupuesto.Visible = false;
-                GrupoUtilerias.Visible = false;
-                
-
-                guna2Panel5.Controls.Add(GrupoParametros);
-                GrupoParametros.Visible = true;
-                GrupoParametros.Location = new Point(9, 51);
-
-           
-             
-
-                /*Coloca en la posición Final los botones, cuando se consulta el grupo de catalogos*/
-
-                btncatalogos1.Location = new Point(9, 123);
-                btncatalogos2.Location = new Point(165, 123);
-                btnInventario.Location = new Point(9, 178);
-                BtnInventario1.Location = new Point(165, 178);
-                btnCompras1.Location = new Point(9, 233);
-                btnCompras2.Location = new Point(165, 233);
-                btnventas1.Location = new Point(9, 288);
-                btnventas2.Location = new Point(165, 288);
-                btnTesoreria1.Location = new Point(9, 343);
-                btnTesoreria2.Location = new Point(165, 343);
-                btnPresupuesto1.Location = new Point(9, 398);
-                btnPresupuesto2.Location = new Point(165, 398);
-                btnUtilerias1.Location = new Point(9, 398);
-                btnUtilerias2.Location = new Point(165, 398);
-            }
-            
-        }
-
-
-        private void guna2GradientButton21_Click(object sender, EventArgs e)
-        {
-            SubgrupoMovimientos.Visible = false;
-            GrupoTesoreria.Visible = false;
-            SubGrupoReportesMovimientos.Visible = false;
-            SubGrupoReportesCompras.Visible = false;
-            subGrupoGraficasCompras.Visible = false;
-            SubgrupoIngresos.Visible = false;
-
-            if (Grupoinventarios.Visible == true)
-            {
-                Grupoinventarios.Visible = false;
-                ///*Coloca en la posición inicial los botones*/
-                BtnParametros1.Location = new Point(9, 4);
-                BtnParametros2.Location = new Point(165, 4);
-                btncatalogos1.Location = new Point(9, 59);
-               btncatalogos2.Location = new Point(165, 59);
-                btnInventario.Location = new Point(9, 114);
-                BtnInventario1.Location = new Point(165, 114);
-                btnCompras1.Location = new Point(9, 169);
-                btnCompras2.Location = new Point(165, 169);
-                btnventas1.Location = new Point(9, 224);
-                btnventas2.Location = new Point(165, 224);
-                btnTesoreria1.Location = new Point(9, 279);
-                btnTesoreria2.Location = new Point(165, 279);
-                btnPresupuesto1.Location = new Point(9, 334);
-                btnPresupuesto2.Location = new Point(165, 334);
-                btnUtilerias1.Location = new Point(9, 334);
-                btnUtilerias2.Location = new Point(165, 334);
-
-            }
-            else
-            {
-                guna2Panel5.VerticalScroll.Value = 0;
-                
-
-                GrupoParametros.Visible = false;
-                GrupoCatalogos.Visible = false;
-                GrupoCompras.Visible = false;
-                GrupoVentas.Visible = false;
-                GrupoTesoreria.Visible = false;
-                GrupoPresupuesto.Visible = false;
-                GrupoUtilerias.Visible = false;
-
-                guna2Panel5.Controls.Remove(GrupoParametros);
-                guna2Panel5.Controls.Remove(GrupoCatalogos);
-              
-                guna2Panel5.Controls.Remove(GrupoCompras);
-                guna2Panel5.Controls.Remove(GrupoVentas);
-                guna2Panel5.Controls.Remove(GrupoTesoreria);
-                guna2Panel5.Controls.Remove(GrupoPresupuesto);
-                guna2Panel5.Controls.Remove(GrupoUtilerias);
-
-                BtnParametros1.Location = new Point(9, 4);
-                BtnParametros2.Location = new Point(165, 4);
-                btncatalogos1.Location = new Point(9, 59);
-                btncatalogos2.Location = new Point(165, 59);
-                btnInventario.Location = new Point(9, 114);
-                BtnInventario1.Location = new Point(165, 114);
-                btnCompras1.Location = new Point(9, 169);
-                btnCompras2.Location = new Point(165, 169);
-                btnventas1.Location = new Point(9, 224);
-                btnventas2.Location = new Point(165, 224);
-                btnTesoreria1.Location = new Point(9, 279);
-                btnTesoreria2.Location = new Point(165, 279);
-                btnPresupuesto1.Location = new Point(9, 334);
-                btnPresupuesto2.Location = new Point(165, 334);
-                btnUtilerias1.Location = new Point(9, 334);
-                btnUtilerias2.Location = new Point(165, 334);
-
-
-
-                guna2Panel5.Controls.Add(Grupoinventarios);
-                Grupoinventarios.Visible = true;
-                Grupoinventarios.Location = new Point(9, 161);
-
-                /*Coloca en la posición final los botones cuando esta desplegado el inventario*/
-               
-                btnCompras1.Location = new Point(9, 355);
-                btnCompras2.Location = new Point(165, 355);
-                btnventas1.Location = new Point(9, 410);
-                btnventas2.Location = new Point(165, 410);
-
-                btnTesoreria1.Location = new Point(9, 465);
-                btnTesoreria2.Location = new Point(165, 465);
-
-                btnPresupuesto1.Location = new Point(9, 520);
-                btnPresupuesto2.Location = new Point(165, 520);
-
-                btnUtilerias1.Location = new Point(9, 520);
-                btnUtilerias2.Location = new Point(165, 520);
-
+                modulo.BotonIzquierdo.Anchor = AnchorStyles.Top | AnchorStyles.Left;
+                modulo.BotonDerecho.Anchor = AnchorStyles.Top | AnchorStyles.Left;
+                modulo.PanelGrupo.Anchor = AnchorStyles.Top | AnchorStyles.Left;
             }
         }
 
-        private void btnventas2_Click(object sender, EventArgs e)
+        public void OcultarTodosSubgrupos()
         {
-            SubgrupoMovimientos.Visible = false;
-            GrupoTesoreria.Visible = false;
-            SubgrupoIngresos.Visible = false;
-            SubGrupoReportesMovimientos.Visible = false;
-            SubGrupoReportesCompras.Visible = false;
-            subGrupoGraficasCompras.Visible = false;
-
-            if (GrupoVentas.Visible == true)
+            foreach (var subgrupo in _subgrupos)
             {
-           
-                GrupoVentas.Visible = false;
-                /*Coloca en la posición inicial los botones*/
-
-                BtnParametros1.Location = new Point(9, 4);
-                BtnParametros2.Location = new Point(165, 4);
-                btncatalogos1.Location = new Point(9, 59);
-                btncatalogos2.Location = new Point(165, 59);
-                btnInventario.Location = new Point(9, 114);
-                BtnInventario1.Location = new Point(165, 114);
-                btnCompras1.Location = new Point(9, 169);
-                btnCompras2.Location = new Point(165, 169);
-                btnventas1.Location = new Point(9, 224);
-                btnventas2.Location = new Point(165, 224);
-
-                //btnPresupuesto1.Location = new Point(9, 353);
-               // btnPresupuesto2.Location = new Point(165, 353);
-                btnTesoreria1.Location = new Point(9, 279);
-                btnTesoreria2.Location = new Point(165, 279);
-                btnPresupuesto1.Location = new Point(9, 334);
-                btnPresupuesto2.Location = new Point(165, 334);
-                btnUtilerias1.Location = new Point(9, 334);
-                btnUtilerias2.Location = new Point(165, 334); 
-
-            }
-            else
-            {
-
-                guna2Panel5.VerticalScroll.Value = 0;
-
-                GrupoParametros.Visible = false;
-                GrupoCatalogos.Visible = false;
-                Grupoinventarios.Visible = false;
-                GrupoCompras.Visible = false;
-                GrupoTesoreria.Visible = false;
-                GrupoPresupuesto.Visible = false;
-                GrupoUtilerias.Visible = false;
-
-                BtnParametros1.Location = new Point(9, 4);
-                BtnParametros2.Location = new Point(165, 4);
-                btncatalogos1.Location = new Point(9, 59);
-                btncatalogos2.Location = new Point(165, 59);
-                btnInventario.Location = new Point(9, 114);
-                BtnInventario1.Location = new Point(165, 114);
-                btnCompras1.Location = new Point(9, 169);
-                btnCompras2.Location = new Point(165, 169);
-                btnventas1.Location = new Point(9, 224);
-                btnventas2.Location = new Point(165, 224);
-                /* btnTesoreria1.Location = new Point(9, 279);
-                 btnTesoreria2.Location = new Point(165, 279);
-                 btnPresupuesto1.Location = new Point(9, 334);
-                 btnPresupuesto2.Location = new Point(165, 334);
-                 btnUtilerias1.Location = new Point(9, 334);
-                 btnUtilerias2.Location = new Point(165, 334);
-             */
-                btnTesoreria1.Location = new Point(9, 735);
-                btnTesoreria2.Location = new Point(165, 735);
-                btnPresupuesto1.Location = new Point(9, 611);
-                btnPresupuesto2.Location = new Point(165, 611);
-                btnUtilerias1.Location = new Point(9, 780);
-                btnUtilerias2.Location = new Point(165, 780);
-
-                guna2Panel5.Controls.Add(GrupoVentas);
-                GrupoVentas.Visible = true;
-                GrupoVentas.Location = new Point(9, 270);
-
-                /*Coloca en la posición final los botones cuando esta desplegado el inventario*/
+                subgrupo.Visible = false;
             }
         }
 
-        private void btnCompras2_Click(object sender, EventArgs e)
+        public void AlternarGrupo(Guna2GroupBox grupoSeleccionado)
         {
-            SubgrupoMovimientos.Visible = false;
-            SubGrupoReportesMovimientos.Visible = false;
-            GrupoTesoreria.Visible = false;
-            SubGrupoReportesCompras.Visible = false;
-            subGrupoGraficasCompras.Visible = false;
-            SubgrupoIngresos.Visible = false;
-            if (GrupoCompras.Visible == true)
+            OcultarTodosSubgrupos();
+
+            bool mostrar = !grupoSeleccionado.Visible;
+
+            foreach (var modulo in _modulos)
             {
-               
-                GrupoCompras.Visible = false;
-                /*Coloca en la posición inicial los botones*/
-                BtnParametros1.Location = new Point(9, 4);
-                BtnParametros2.Location = new Point(165, 4);
-                btncatalogos1.Location = new Point(9, 59);
-                btncatalogos2.Location = new Point(165, 59);
-                btnInventario.Location = new Point(9, 114);
-                BtnInventario1.Location = new Point(165, 114);
-                btnCompras1.Location = new Point(9, 169);
-                btnCompras2.Location = new Point(165, 169);
-                btnventas1.Location = new Point(9, 224);
-                btnventas2.Location = new Point(165, 224);
-                btnTesoreria1.Location = new Point(9, 279);
-                btnTesoreria2.Location = new Point(165, 279);
-                btnPresupuesto1.Location = new Point(9, 334);
-                btnPresupuesto2.Location = new Point(165, 334);
-                btnUtilerias1.Location = new Point(9, 334);
-                btnUtilerias2.Location = new Point(165, 334);
+                modulo.PanelGrupo.Visible = false;
+                _contenedorPrincipal.Controls.Remove(modulo.PanelGrupo);
             }
-            else
+
+            if (mostrar)
             {
-                guna2Panel5.VerticalScroll.Value = 0;
-
-                GrupoParametros.Visible = false;
-                GrupoCatalogos.Visible = false;
-                Grupoinventarios.Visible = false;
-                GrupoVentas.Visible = false;
-                GrupoTesoreria.Visible = false;
-                GrupoPresupuesto.Visible = false;
-                GrupoUtilerias.Visible = false;
-
-                /*Coloca en la posición inicial los botones*/
-                BtnParametros1.Location = new Point(9, 4);
-                BtnParametros2.Location = new Point(165, 4);
-                btncatalogos1.Location = new Point(9, 59);
-                btncatalogos2.Location = new Point(165, 59);
-                btnInventario.Location = new Point(9, 114);
-                BtnInventario1.Location = new Point(165, 114);
-                btnCompras1.Location = new Point(9, 169);
-                btnCompras2.Location = new Point(165, 169);
-                btnventas1.Location = new Point(9, 224);
-                btnventas2.Location = new Point(165, 224);
-                btnTesoreria1.Location = new Point(9, 279);
-                btnTesoreria2.Location = new Point(165, 279);
-                btnPresupuesto1.Location = new Point(9, 334);
-                btnPresupuesto2.Location = new Point(165, 334);
-                btnUtilerias1.Location = new Point(9, 389);
-                btnUtilerias2.Location = new Point(165, 389);
-
-                guna2Panel5.Controls.Add(GrupoCompras);
-                GrupoCompras.Visible = true;
-                GrupoCompras.Location = new Point(9, 218);
-
-                /*Coloca en la posición final los botones cuando esta desplegado el inventario*/
-                btnventas1.Location = new Point(9, 642);
-                btnventas2.Location = new Point(165, 642);
-                btnTesoreria1.Location = new Point(9, 697);
-                btnTesoreria2.Location = new Point(165, 697);
-                btnPresupuesto1.Location = new Point(9, 752);
-                btnPresupuesto2.Location = new Point(165, 752);
-                btnUtilerias1.Location = new Point(9, 752);
-                btnUtilerias2.Location = new Point(165, 752);
-
+                _contenedorPrincipal.VerticalScroll.Value = 0;
+                _contenedorPrincipal.Controls.Add(grupoSeleccionado);
+                grupoSeleccionado.Visible = true;
             }
+
+            RecalcularPosiciones(grupoSeleccionado, mostrar);
         }
 
-        private void btnPresupuesto2_Click(object sender, EventArgs e)
+        private void RecalcularPosiciones(Guna2GroupBox grupoSeleccionado, bool grupoVisible)
         {
-            SubgrupoMovimientos.Visible = false;
-            SubGrupoReportesCompras.Visible = false;
-            SubGrupoReportesMovimientos.Visible = false;
-            subGrupoGraficasCompras.Visible = false;
-            SubgrupoIngresos.Visible = false;
-            GrupoTesoreria.Visible = false;
+            int yActual = Y_Inicial;
 
-            if (GrupoPresupuesto.Visible == true)
+            foreach (var modulo in _modulos)
             {
-       
-                GrupoPresupuesto.Visible = false;
-                /*Coloca en la posición inicial los botones*/
-                BtnParametros1.Location = new Point(9, 19);
-                BtnParametros2.Location = new Point(165, 19);
-                btncatalogos1.Location = new Point(9, 74);
-                btncatalogos2.Location = new Point(165, 74);
-                btnInventario.Location = new Point(9, 132);
-                BtnInventario1.Location = new Point(165, 132);
-                btnCompras1.Location = new Point(9, 188);
-                btnCompras2.Location = new Point(165, 188);
-                btnventas1.Location = new Point(9, 246);
-                btnventas2.Location = new Point(165, 246);
+                modulo.BotonIzquierdo.Location = new Point(X_Izquierdo, yActual);
+                modulo.BotonDerecho.Location = new Point(X_Derecho, yActual);
 
-                btnTesoreria1.Location = new Point(9, 301);
-                btnTesoreria2.Location = new Point(165, 301);
+                int ySiguiente = yActual + EspacioEntreBotones;
 
-                btnPresupuesto1.Location = new Point(9, 353);
-                btnPresupuesto2.Location = new Point(165, 353);
+                if (grupoVisible && modulo.PanelGrupo == grupoSeleccionado)
+                {
+                    grupoSeleccionado.Location = new Point(X_Izquierdo, yActual + AlturaBoton);
+                    ySiguiente = yActual + AlturaBoton + grupoSeleccionado.Height;
+                }
 
-                btnUtilerias1.Location = new Point(9, 407);
-                btnUtilerias2.Location = new Point(165, 407);
+                if (modulo.BotonIzquierdo.Visible)
+                {
+                    yActual = ySiguiente;
+                }
             }
-            else
-            {
-                guna2Panel5.VerticalScroll.Value = 0;
-
-                GrupoParametros.Visible = false;
-                GrupoCatalogos.Visible = false;
-                Grupoinventarios.Visible = false;
-                GrupoCompras.Visible = false;
-                GrupoVentas.Visible = false;
-                GrupoTesoreria.Visible = false;
-                GrupoUtilerias.Visible = false;
-
-                BtnParametros1.Location = new Point(9, 19);
-                BtnParametros2.Location = new Point(165, 19);
-                btncatalogos1.Location = new Point(9, 74);
-                btncatalogos2.Location = new Point(165, 74);
-                btnInventario.Location = new Point(9, 132);
-                BtnInventario1.Location = new Point(165, 132);
-                btnCompras1.Location = new Point(9, 188);
-                btnCompras2.Location = new Point(165, 188);
-                btnventas1.Location = new Point(9, 246);
-                btnventas2.Location = new Point(165, 246);
-
-                btnTesoreria1.Location = new Point(9, 301);
-                btnTesoreria2.Location = new Point(165, 301);
-
-                btnPresupuesto1.Location = new Point(9, 353);
-                btnPresupuesto2.Location = new Point(165, 353);
-
-                btnUtilerias1.Location = new Point(9, 407);
-                btnUtilerias2.Location = new Point(165, 407);
-
-                guna2Panel5.Controls.Add(GrupoPresupuesto);
-                GrupoPresupuesto.Visible = true;
-                GrupoPresupuesto.Location = new Point(9, 395);
-
-                /*Coloca en la posición final los botones cuando esta desplegado el inventario*/
-
-                btnUtilerias1.Location = new Point(9, 674);
-                btnUtilerias2.Location = new Point(165, 674);
-
-            }
-        }
-
-        private void btnTesoreria2_Click(object sender, EventArgs e)
-        {
-            SubgrupoMovimientos.Visible = false;
-            SubGrupoReportesMovimientos.Visible = false;
-            subGrupoGraficasCompras.Visible = false;
-            SubgrupoIngresos.Visible = false;
-            GrupoTesoreria.Visible = false;
-
-            if (GrupoTesoreria.Visible == true)
-            {
-              
-                GrupoTesoreria.Visible = false;
-                /*Coloca en la posición inicial los botones*/
-
-                BtnParametros1.Location = new Point(9, 19);
-                BtnParametros2.Location = new Point(165, 19);
-                btncatalogos1.Location = new Point(9, 74);
-                btncatalogos2.Location = new Point(165, 74);
-                btnInventario.Location = new Point(9, 132);
-                BtnInventario1.Location = new Point(165, 132);
-                btnCompras1.Location = new Point(9, 188);
-                btnCompras2.Location = new Point(165, 188);
-                btnventas1.Location = new Point(9, 246);
-                btnventas2.Location = new Point(165, 246);
-
-                btnTesoreria1.Location = new Point(9, 301);
-                btnTesoreria2.Location = new Point(165, 301);
-
-                btnPresupuesto1.Location = new Point(9, 400);
-                btnPresupuesto2.Location = new Point(165, 353);
-
-                btnUtilerias1.Location = new Point(9, 353);
-                btnUtilerias2.Location = new Point(165, 353);
-            }
-            else
-            {
-                guna2Panel5.VerticalScroll.Value = 0;
-
-                GrupoParametros.Visible = false;
-                GrupoCatalogos.Visible = false;
-                Grupoinventarios.Visible = false;
-                GrupoCompras.Visible = false;
-                GrupoVentas.Visible = false;
-                GrupoPresupuesto.Visible = false;
-                GrupoUtilerias.Visible = false;
-
-                BtnParametros1.Location = new Point(9, 19);
-                BtnParametros2.Location = new Point(165, 19);
-                btncatalogos1.Location = new Point(9, 74);
-                btncatalogos2.Location = new Point(165, 74);
-                btnInventario.Location = new Point(9, 132);
-                BtnInventario1.Location = new Point(165, 132);
-                btnCompras1.Location = new Point(9, 188);
-                btnCompras2.Location = new Point(165, 188);
-                btnventas1.Location = new Point(9, 246);
-                btnventas2.Location = new Point(165, 246);
-
-                btnTesoreria1.Location = new Point(9, 301);
-                btnTesoreria2.Location = new Point(165, 301);
-
-                btnPresupuesto1.Location = new Point(9, 353);
-                btnPresupuesto2.Location = new Point(165, 353);
-
-                btnUtilerias1.Location = new Point(9, 353);
-                btnUtilerias2.Location = new Point(165, 353);
-
-
-                guna2Panel5.Controls.Add(GrupoTesoreria);
-                GrupoTesoreria.Visible = true;
-                GrupoTesoreria.Location = new Point(9, 345);
-
-                /*Coloca en la posición final los botones cuando esta desplegado el inventario*/
-
-                btnPresupuesto1.Location = new Point(9, 760);
-                btnPresupuesto2.Location = new Point(165, 760);
-                btnUtilerias1.Location = new Point(9, 760);
-                btnUtilerias2.Location = new Point(165, 760);
-            }
-        }
-
-        private void btnUtilerias2_Click(object sender, EventArgs e)
-        {
-            SubgrupoMovimientos.Visible = false;
-            SubGrupoReportesMovimientos.Visible = false;
-            SubGrupoReportesCompras.Visible = false;
-            subGrupoGraficasCompras.Visible = false;
-            SubgrupoIngresos.Visible = false;
-            GrupoTesoreria.Visible = false;
-            if (GrupoUtilerias.Visible == true)
-            {
-              
-                GrupoUtilerias.Visible = false;
-                /*Coloca en la posición inicial los botones*/
-                btnInventario.Location = new Point(9, 132);
-                BtnInventario1.Location = new Point(165, 132);
-                btnCompras1.Location = new Point(9, 188);
-                btnCompras2.Location = new Point(165, 188);
-                btnventas1.Location = new Point(9, 246);
-                btnventas2.Location = new Point(165, 246);
-
-                btnTesoreria1.Location = new Point(9, 301);
-                btnTesoreria2.Location = new Point(165, 301);
-
-                btnPresupuesto1.Location = new Point(9, 353);
-                btnPresupuesto2.Location = new Point(165, 353);
-
-                btnUtilerias1.Location = new Point(9, 353);
-                btnUtilerias2.Location = new Point(165, 353);
-
-            }
-            else
-            {
-                guna2Panel5.VerticalScroll.Value = 0;
-
-                GrupoParametros.Visible = false;
-                GrupoCatalogos.Visible = false;
-                Grupoinventarios.Visible = false;
-                GrupoCompras.Visible = false;
-                GrupoVentas.Visible = false;
-                GrupoTesoreria.Visible = false;
-                GrupoPresupuesto.Visible = false;
-
-                BtnParametros1.Location = new Point(9, 19);
-                BtnParametros2.Location = new Point(165, 19);
-                btncatalogos1.Location = new Point(9, 74);
-                btncatalogos2.Location = new Point(165, 74);
-                btnInventario.Location = new Point(9, 132);
-                BtnInventario1.Location = new Point(165, 132);
-                btnCompras1.Location = new Point(9, 188);
-                btnCompras2.Location = new Point(165, 188);
-                btnventas1.Location = new Point(9, 246);
-                btnventas2.Location = new Point(165, 246);
-
-                btnTesoreria1.Location = new Point(9, 301);
-                btnTesoreria2.Location = new Point(165, 301);
-
-                btnPresupuesto1.Location = new Point(9, 353);
-                btnPresupuesto2.Location = new Point(165, 353);
-
-                btnUtilerias1.Location = new Point(9, 353);
-                btnUtilerias2.Location = new Point(165, 353);
-
-                guna2Panel5.Controls.Add(GrupoUtilerias);
-                GrupoUtilerias.Visible = true;
-                GrupoUtilerias.Location = new Point(9, 390);
-
-                /*Coloca en la posición final los botones cuando esta desplegado el inventario*/
-
-
-            }
-        }
-
-        void OcultarGrupos()
-        {
-          
-            if (GrupoParametros.Visible == true && Seleccion == "Parametros")
-            {
-                GrupoCatalogos.Visible = false;
-                Grupoinventarios.Visible = false;
-                GrupoCompras.Visible = false;
-                GrupoVentas.Visible = false;
-                GrupoTesoreria.Visible = false;
-                GrupoPresupuesto.Visible = false;
-                GrupoUtilerias.Visible = false;
-
-
-                btncatalogos1.Location = new Point(9, 74);
-                btncatalogos2.Location = new Point(165, 74);
-                btnInventario.Location = new Point(9, 132);
-                BtnInventario1.Location = new Point(165, 132);
-                btnCompras1.Location = new Point(9, 188);
-                btnCompras2.Location = new Point(165, 188);
-                btnventas1.Location = new Point(9, 246);
-                btnventas2.Location = new Point(165, 246);
-
-                btnTesoreria1.Location = new Point(9, 301);
-                btnTesoreria2.Location = new Point(165, 301);
-
-                btnPresupuesto1.Location = new Point(9, 353);
-                btnPresupuesto2.Location = new Point(165, 353);
-
-                btnUtilerias1.Location = new Point(9, 407);
-                btnUtilerias2.Location = new Point(165, 407);
-
-            }
-            else if (GrupoCatalogos.Visible == true && Seleccion == "Catalogos")
-            {
-                GrupoParametros.Visible = false;
-                Grupoinventarios.Visible = false;
-                GrupoCompras.Visible = false;
-                GrupoVentas.Visible = false;
-                GrupoTesoreria.Visible = false;
-                GrupoPresupuesto.Visible = false;
-                GrupoUtilerias.Visible = false;
-
-                btncatalogos1.Location = new Point(9, 74);
-                btncatalogos2.Location = new Point(165, 74);
-                btnInventario.Location = new Point(9, 132);
-                BtnInventario1.Location = new Point(165, 132);
-                btnCompras1.Location = new Point(9, 188);
-                btnCompras2.Location = new Point(165, 188);
-                btnventas1.Location = new Point(9, 246);
-                btnventas2.Location = new Point(165, 246);
-
-                btnTesoreria1.Location = new Point(9, 301);
-                btnTesoreria2.Location = new Point(165, 301);
-
-                btnPresupuesto1.Location = new Point(9, 353);
-                btnPresupuesto2.Location = new Point(165, 353);
-
-                btnUtilerias1.Location = new Point(9, 407);
-                btnUtilerias2.Location = new Point(165, 407);
-            }
-            else if (Grupoinventarios.Visible == true && Seleccion == "Inventarios")
-            {
-                GrupoParametros.Visible = false;
-                GrupoCatalogos.Visible = false;
-                GrupoCompras.Visible = false;
-                GrupoVentas.Visible = false;
-                GrupoTesoreria.Visible = false;
-                GrupoPresupuesto.Visible = false;
-                GrupoUtilerias.Visible = false;
-                btncatalogos1.Location = new Point(9, 74);
-                btncatalogos2.Location = new Point(165, 74);
-                btnInventario.Location = new Point(9, 132);
-                BtnInventario1.Location = new Point(165, 132);
-                btnCompras1.Location = new Point(9, 188);
-                btnCompras2.Location = new Point(165, 188);
-                btnventas1.Location = new Point(9, 246);
-                btnventas2.Location = new Point(165, 246);
-
-                btnTesoreria1.Location = new Point(9, 301);
-                btnTesoreria2.Location = new Point(165, 301);
-
-                btnPresupuesto1.Location = new Point(9, 353);
-                btnPresupuesto2.Location = new Point(165, 353);
-
-                btnUtilerias1.Location = new Point(9, 407);
-                btnUtilerias2.Location = new Point(165, 407);
-            }
-            else if (GrupoCompras.Visible == true && Seleccion == "Compras")
-            {
-                GrupoParametros.Visible = false;
-                GrupoCatalogos.Visible = false;
-                Grupoinventarios.Visible = false;
-                GrupoVentas.Visible = false;
-                GrupoTesoreria.Visible = false;
-                GrupoPresupuesto.Visible = false;
-                GrupoUtilerias.Visible = false;
-                btncatalogos1.Location = new Point(9, 74);
-                btncatalogos2.Location = new Point(165, 74);
-                btnInventario.Location = new Point(9, 132);
-                BtnInventario1.Location = new Point(165, 132);
-                btnCompras1.Location = new Point(9, 188);
-                btnCompras2.Location = new Point(165, 188);
-                btnventas1.Location = new Point(9, 246);
-                btnventas2.Location = new Point(165, 246);
-
-                btnTesoreria1.Location = new Point(9, 301);
-                btnTesoreria2.Location = new Point(165, 301);
-
-                btnPresupuesto1.Location = new Point(9, 353);
-                btnPresupuesto2.Location = new Point(165, 353);
-
-                btnUtilerias1.Location = new Point(9, 407);
-                btnUtilerias2.Location = new Point(165, 407);
-            }
-            else if (GrupoVentas.Visible == true && Seleccion == "Ventas")
-            {
-                GrupoParametros.Visible = false;
-                GrupoCatalogos.Visible = false;
-                Grupoinventarios.Visible = false;
-                GrupoCompras.Visible = false;
-                GrupoTesoreria.Visible = false;
-                GrupoPresupuesto.Visible = false;
-                GrupoUtilerias.Visible = false;
-                btncatalogos1.Location = new Point(9, 74);
-                btncatalogos2.Location = new Point(165, 74);
-                btnInventario.Location = new Point(9, 132);
-                BtnInventario1.Location = new Point(165, 132);
-                btnCompras1.Location = new Point(9, 188);
-                btnCompras2.Location = new Point(165, 188);
-                btnventas1.Location = new Point(9, 246);
-                btnventas2.Location = new Point(165, 246);
-
-                btnTesoreria1.Location = new Point(9, 301);
-                btnTesoreria2.Location = new Point(165, 301);
-
-                btnPresupuesto1.Location = new Point(9, 353);
-                btnPresupuesto2.Location = new Point(165, 353);
-
-                btnUtilerias1.Location = new Point(9, 407);
-                btnUtilerias2.Location = new Point(165, 407);
-            }
-            else if (GrupoTesoreria.Visible == true && Seleccion == "Tesoreria")
-            {
-                GrupoParametros.Visible = false;
-                GrupoCatalogos.Visible = false;
-                Grupoinventarios.Visible = false;
-                GrupoCompras.Visible = false;
-                GrupoVentas.Visible = false;
-                GrupoPresupuesto.Visible = false;
-                GrupoUtilerias.Visible = false;
-                btncatalogos1.Location = new Point(9, 74);
-                btncatalogos2.Location = new Point(165, 74);
-                btnInventario.Location = new Point(9, 132);
-                BtnInventario1.Location = new Point(165, 132);
-                btnCompras1.Location = new Point(9, 188);
-                btnCompras2.Location = new Point(165, 188);
-                btnventas1.Location = new Point(9, 246);
-                btnventas2.Location = new Point(165, 246);
-
-                btnTesoreria1.Location = new Point(9, 301);
-                btnTesoreria2.Location = new Point(165, 301);
-
-                btnPresupuesto1.Location = new Point(9, 353);
-                btnPresupuesto2.Location = new Point(165, 353);
-
-                btnUtilerias1.Location = new Point(9, 407);
-                btnUtilerias2.Location = new Point(165, 407);
-            }
-            else if (GrupoPresupuesto.Visible == true && Seleccion == "Presupuesto")
-            {
-                GrupoParametros.Visible = false;
-                GrupoCatalogos.Visible = false;
-                Grupoinventarios.Visible = false;
-                GrupoCompras.Visible = false;
-                GrupoVentas.Visible = false;
-                GrupoTesoreria.Visible = false;
-                GrupoUtilerias.Visible = false;
-                btncatalogos1.Location = new Point(9, 74);
-                btncatalogos2.Location = new Point(165, 74);
-                btnInventario.Location = new Point(9, 132);
-                BtnInventario1.Location = new Point(165, 132);
-                btnCompras1.Location = new Point(9, 188);
-                btnCompras2.Location = new Point(165, 188);
-                btnventas1.Location = new Point(9, 246);
-                btnventas2.Location = new Point(165, 246);
-
-                btnTesoreria1.Location = new Point(9, 301);
-                btnTesoreria2.Location = new Point(165, 301);
-
-                btnPresupuesto1.Location = new Point(9, 353);
-                btnPresupuesto2.Location = new Point(165, 353);
-
-                btnUtilerias1.Location = new Point(9, 407);
-                btnUtilerias2.Location = new Point(165, 407);
-            }
-            else if (GrupoUtilerias.Visible == true && Seleccion == "Utilerias") 
-            {
-                GrupoParametros.Visible = false;
-                GrupoCatalogos.Visible = false;
-                Grupoinventarios.Visible = false;
-                GrupoCompras.Visible = false;
-                GrupoVentas.Visible = false;
-                GrupoTesoreria.Visible = false;
-                GrupoPresupuesto.Visible = false;
-                btncatalogos1.Location = new Point(9, 74);
-                btncatalogos2.Location = new Point(165, 74);
-                btnInventario.Location = new Point(9, 132);
-                BtnInventario1.Location = new Point(165, 132);
-                btnCompras1.Location = new Point(9, 188);
-                btnCompras2.Location = new Point(165, 188);
-                btnventas1.Location = new Point(9, 246);
-                btnventas2.Location = new Point(165, 246);
-
-                btnTesoreria1.Location = new Point(9, 301);
-                btnTesoreria2.Location = new Point(165, 301);
-
-                btnPresupuesto1.Location = new Point(9, 353);
-                btnPresupuesto2.Location = new Point(165, 353);
-
-                btnUtilerias1.Location = new Point(9, 407);
-                btnUtilerias2.Location = new Point(165, 407);
-            }
-           
-        }
-
-    
-        private void btnDatosMmpresa_Click(object sender, EventArgs e)
-        {
-            DatosEmpresas datosEmpresas = new DatosEmpresas();
-            datosEmpresas.ShowDialog();
-        }
-
-        private void BtnUsuarios_Click(object sender, EventArgs e)
-        {
-            Usuarios usuarios = new Usuarios();
-            usuarios.ShowDialog();
-        }
-
-        private void btnDivisas_Click(object sender, EventArgs e)
-        {
-            CatalogoDivisa catalogoDivisa = new CatalogoDivisa();
-            catalogoDivisa.ShowDialog();
-        }
-
-        private void btnAlmacen_Click(object sender, EventArgs e)
-        {
-            Almacenes almacenes = new Almacenes();
-            almacenes.ShowDialog();
-        }
-
-        private void BtnCategorias_Click(object sender, EventArgs e)
-        {
-            CatalogoFamilias catalogoFamilias = new CatalogoFamilias();
-            catalogoFamilias.ShowDialog();
-        }
-
-        private void BtnProductos_Click(object sender, EventArgs e)
-        {
-            int Consulta = 0;
-            CatalogoProductosServicios catalogoProductosServicios = new CatalogoProductosServicios(Consulta);
-            catalogoProductosServicios.ShowDialog();
-        }
-
-        private void BtnServicios_Click(object sender, EventArgs e)
-        {
-            int Consulta = 0;
-            CatalogoServicios catalogoServicios = new CatalogoServicios(Consulta);
-            catalogoServicios.ShowDialog();
-        }
-
-        private void BtnCentroCosto_Click(object sender, EventArgs e)
-        {
-            CentroCostos centroCostos = new CentroCostos();
-            centroCostos.ShowDialog();
-        }
-
-        private void BtnDocumentos_Click(object sender, EventArgs e)
-        {
-            Documentos documento = new Documentos();
-            documento.ShowDialog();
-        }
-
-        private void BtnConceptosGlobales_Click(object sender, EventArgs e)
-        {
-            ConceptosGlobales conceptosGlobales = new ConceptosGlobales();
-            conceptosGlobales.ShowDialog();
-        }
-
-        private void BtnFormaPago_Click(object sender, EventArgs e)
-        {
-            CatalogoFormasPago catalogoFormasPago = new CatalogoFormasPago();
-            catalogoFormasPago.ShowDialog();
-        }
-
-        private void BtnEmpleados_Click(object sender, EventArgs e)
-        {
-            CatalogoPersonal catalogoPersonal = new CatalogoPersonal();
-            catalogoPersonal.ShowDialog();
-        }
-
-        private void BtnTiposZonas_Click(object sender, EventArgs e)
-        {
-            TiposZonas tiposZonas = new TiposZonas();
-            tiposZonas.ShowDialog();
-        }
-
-        private void BtnClientes_Click(object sender, EventArgs e)
-        {
-            Clientes clientes = new Clientes();
-            clientes.ShowDialog();
-        }
-
-        private void BtnProveedores_Click(object sender, EventArgs e)
-        {
-            Proveedores proveedores = new Proveedores();
-            proveedores.ShowDialog();
-        }
-
-        private void BtnCuentasBancarias_Click(object sender, EventArgs e)
-        {
-            CuentasBancarias cuentasBancarias = new CuentasBancarias();
-            cuentasBancarias.ShowDialog();
-        }
-
-        private void BtnMovimientos_Click(object sender, EventArgs e)
-        {
-            SubgrupoMovimientos.Visible = true;
-            SubgrupoMovimientos.Location = new Point(1, 340);
-        }
-
-        private void btnReportesMovimientosInventarios_Click(object sender, EventArgs e)
-        {
-            SubGrupoReportesMovimientos.Visible = true;
-            SubGrupoReportesMovimientos.Location = new Point(202, 575);
-        }
-
-        private void btnTipoMovimientos_Click(object sender, EventArgs e)
-        {
-            
-            SubgrupoMovimientos.Visible = false;
-
-            TipoMovimientos mov = new TipoMovimientos();
-
-            mov.StartPosition = FormStartPosition.Manual;
-            mov.Left = 260;
-            mov.Top = 80;
-            mov.ShowDialog();
-            
-        }
-
-        private void btnRegistrarEntradas_Click(object sender, EventArgs e)
-        {
-            SubgrupoMovimientos.Visible = false;
-
-            string movimiento = "E";
-            RegistrarEntrada2 entrada = new RegistrarEntrada2(movimiento);
-            entrada.StartPosition = FormStartPosition.Manual;
-            entrada.Left = 260;
-            entrada.Top = 80;
-
-            entrada.ShowDialog();
-          
-        }
-
-        private void btnRegistrarSalidas_Click(object sender, EventArgs e)
-        {
-            SubgrupoMovimientos.Visible = false;
-
-            string movimiento = "S";
-            RegistrarEntrada2 sald = new RegistrarEntrada2(movimiento);
-            sald.StartPosition = FormStartPosition.Manual;
-            sald.Left = 260;
-            sald.Top = 80;
-            sald.ShowDialog();
-           
-        }
-
-        private void btnRegistrarTrasnpasos_Click(object sender, EventArgs e)
-        {
-            SubgrupoMovimientos.Visible = true;
-
-
-            string movimiento = "T";
-            RegistrarEntrada2 tras = new RegistrarEntrada2(movimiento);
-            tras.StartPosition = FormStartPosition.Manual;
-            tras.Left = 280;
-            tras.Top = 80;
-            tras.ShowDialog();
-           
-        }
-
-        private void btnConsultaInventarios_Click(object sender, EventArgs e)
-        {
-            SubgrupoMovimientos.Visible = false;
-
-            int Consulta = 0;
-            ConsultaInventario2 consulta = new ConsultaInventario2(Consulta);
-            consulta.StartPosition = FormStartPosition.Manual;
-            consulta.Left = 280;
-            consulta.Top = 80;
-
-            consulta.ShowDialog();
-            
-
-        }
-
-        private void toolStripMenuItem6_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void btnReporteExistencias_Click(object sender, EventArgs e)
-        { 
-            SubgrupoMovimientos.Visible = false;
-            SubGrupoReportesMovimientos.Visible = false;
-
-            FiltroExistencias filtroExistencias = new FiltroExistencias();
-
-            filtroExistencias.ShowDialog();
-          
-        }
-
-        private void btnReporteCostoxProducto_Click(object sender, EventArgs e)
-        {
-            SubgrupoMovimientos.Visible = false;
-            SubGrupoReportesMovimientos.Visible = false;
-
-            FiltroValorProducto filtroValorProducto = new FiltroValorProducto();
-            filtroValorProducto.ShowDialog();
-         
-        }
-
-        private void guna2GradientButton6_Click_1(object sender, EventArgs e)
-        {
-            SubGrupoReportesCompras.Visible = false;
-            SubGrupoReportesProveedores.Visible = false;
-
-            Requisicion2 requisicion = new Requisicion2();
-            requisicion.ShowDialog();
-        }
-
-        private void guna2GradientButton4_Click_2(object sender, EventArgs e)
-        {
-            SubGrupoReportesCompras.Visible = false;
-            SubGrupoReportesProveedores.Visible = false;
-
-            OrdenCompra2 ordenCompra = new OrdenCompra2();
-            ordenCompra.ShowDialog();
-        }
-
-        private void guna2GradientButton3_Click(object sender, EventArgs e)
-        {
-            SubGrupoReportesCompras.Visible = false;
-            SubGrupoReportesProveedores.Visible = false;
-            subGrupoGraficasCompras.Visible = false; 
-            RegistroGastos2 RG = new RegistroGastos2();
-            RG.ShowDialog();
-        }
-
-        private void guna2GradientButton2_Click(object sender, EventArgs e)
-        {
-            SubGrupoReportesCompras.Visible = false;
-            SubGrupoReportesProveedores.Visible = false;
-            NotasCargo2 notasCargo = new NotasCargo2();
-            notasCargo.ShowDialog();
-        }
-
-        private void guna2GradientButton7_Click(object sender, EventArgs e)
-        {
-            SubGrupoReportesCompras.Visible = false;
-            SubGrupoReportesProveedores.Visible = false;
-            DefinePoliza DP = new DefinePoliza("Definiciones Compras");
-            DefinePoliza.TipopolizaCompras = "Compras";
-            DP.ShowDialog();
-        }
-
-        private void guna2GradientButton8_Click(object sender, EventArgs e)
-        {
-            SubGrupoReportesCompras.Visible = false;
-            SubGrupoReportesProveedores.Visible = false;
-            GENERARPOLIZAS GP = new GENERARPOLIZAS("Polizas Compras");
-            GENERARPOLIZAS.TipopolizaCompras = "Compras";
-            GP.ShowDialog();
-        }
-
-        private void guna2GradientButton36_Click(object sender, EventArgs e)
-        {
-            SubGrupoReportesAnticipos.Visible = true;
-            
-            SubGrupoReportesAnticipos.Location = new Point(236, 475);
-
-            SubGrupoReportesProveedores.Visible = false;
-        }
-
-        private void guna2GradientButton35_Click(object sender, EventArgs e)
-        {
-            SubGrupoReportesAnticipos.Visible = false;
-            SubGrupoReportesProveedores.Visible = true;
-            SubGrupoReportesProveedores.Location = new Point(236, 580);
-
-        }
-
-        private void btnReportesCompras_Click(object sender, EventArgs e)
-        {
-            subGrupoGraficasCompras.Visible = false;
-            SubGrupoReportesCompras.Visible = true;
-            SubGrupoReportesCompras.Location = new Point(1, 260);
-        }
-
-        private void guna2GradientButton32_Click(object sender, EventArgs e)
-        {
-            SubGrupoReportesCompras.Visible = false;
-            SubGrupoReportesProveedores.Visible = false;
-
-            ReporteDiarioRequisicionFiltro reporteDiarioRequisicion = new ReporteDiarioRequisicionFiltro();
-            reporteDiarioRequisicion.ShowDialog();
-
-        }
-
-        private void guna2GradientButton40_Click(object sender, EventArgs e)
-        {
-
-            SubGrupoReportesAnticipos.Visible = false;
-            SubGrupoReportesCompras.Visible = false;
-            SubGrupoReportesProveedores.Visible = false;
-
-            ReporteAnticipoProveedorFiltro reporteAnticipoProveedorFiltro = new ReporteAnticipoProveedorFiltro();
-            reporteAnticipoProveedorFiltro.ShowDialog();
-
-        }
-
-        private void guna2GradientButton26_Click(object sender, EventArgs e)
-        {
-            SubGrupoReportesCompras.Visible = false;
-            SubGrupoReportesProveedores.Visible = false;
-
-            ReporteDiarioOrdenesComprasFiltro reporteDiarioOrdenesCompra = new ReporteDiarioOrdenesComprasFiltro();
-            reporteDiarioOrdenesCompra.ShowDialog();
-        }
-
-        private void guna2GradientButton34_Click(object sender, EventArgs e)
-        {
-            SubGrupoReportesCompras.Visible = false;
-            SubGrupoReportesProveedores.Visible = false;
-
-            ReporteDiarioComprasFiltro reporteDiarioCompras = new ReporteDiarioComprasFiltro("Diario Compras");
-            reporteDiarioCompras.ShowDialog();
-        }
-
-        private void guna2GradientButton33_Click(object sender, EventArgs e)
-        {
-            SubGrupoReportesCompras.Visible = false;
-            SubGrupoReportesProveedores.Visible = false;
-
-            ReporteDiarioComprasFiltro reporteDiarioNotasCargo = new ReporteDiarioComprasFiltro("Diario Gastos");
-            reporteDiarioNotasCargo.ShowDialog();
-        }
-
-        private void guna2GradientButton38_Click(object sender, EventArgs e)
-        {
-            SubGrupoReportesCompras.Visible = false;
-            SubGrupoReportesProveedores.Visible = false;
-
-            ReporteEgresosFiltro reporteEgresos = new ReporteEgresosFiltro();
-            reporteEgresos.ShowDialog();
-        }
-
-        private void guna2GradientButton37_Click(object sender, EventArgs e)
-        {
-            SubGrupoReportesCompras.Visible = false;
-            SubGrupoReportesProveedores.Visible = false;
-
-            ReporteComprasFiltro reporteCompras = new ReporteComprasFiltro();
-            reporteCompras.ShowDialog();
-        }
-
-        private void guna2GradientButton5_Click(object sender, EventArgs e)
-        {
-            SubGrupoReportesCompras.Visible = false;
-            SubGrupoReportesProveedores.Visible = false;
-
-        }
-
-        private void guna2GradientButton39_Click(object sender, EventArgs e)
-        {
-            SubGrupoReportesCompras.Visible = false;
-            SubGrupoReportesProveedores.Visible = false;
-        }
-
-        private void guna2GradientButton42_Click(object sender, EventArgs e)
-        {
-            SubGrupoReportesAnticipos.Visible = false;
-            SubGrupoReportesCompras.Visible = false;
-            SubGrupoReportesProveedores.Visible = false;
-
-            ReporteEstadoCuentaProveedor estadoCuentaProveedor = new ReporteEstadoCuentaProveedor();
-            estadoCuentaProveedor.ShowDialog();
-        }
-
-        private void guna2GradientButton41_Click(object sender, EventArgs e)
-        {
-            SubGrupoReportesAnticipos.Visible = false;
-            SubGrupoReportesCompras.Visible = false;
-            SubGrupoReportesProveedores.Visible = false;
-        }
-
-        private void guna2GradientButton43_Click(object sender, EventArgs e)
-        {
-            SubGrupoReportesAnticipos.Visible = false;
-            SubGrupoReportesCompras.Visible = false;
-            SubGrupoReportesProveedores.Visible = false;
-        }
-
-        private void guna2GradientButton25_Click(object sender, EventArgs e)
-        {
-            CatalogoPeriodos catalogoPeriodos = new CatalogoPeriodos();
-            catalogoPeriodos.ShowDialog();
-        }
-
-        private void guna2GradientButton24_Click(object sender, EventArgs e)
-        {
-            ConceptosPresupuesto conceptosPresupuesto = new ConceptosPresupuesto();
-            conceptosPresupuesto.ShowDialog();
-        }
-
-        private void guna2GradientButton21_Click_1(object sender, EventArgs e)
-        {
-            CerrarPresupuesto cerrarPresupuesto = new CerrarPresupuesto();
-            cerrarPresupuesto.ShowDialog();
-        }
-
-     
-
-        private void guna2GradientButton20_Click(object sender, EventArgs e)
-        {
-   
-            subgrupoPresupuesto3.Visible = true;
-            subgrupoPresupuesto3.Location = new Point(2, 555);
-           
-
-        }
-
-     
-
-        private void guna2GradientButton49_Click(object sender, EventArgs e)
-        {
-            SubGrupoReportesCompras.Visible = false;
-            SubGrupoReportesProveedores.Visible = false;
-            //OrdenPedidoCliente RG = new OrdenPedidoCliente();
-            //RG.ShowDialog();
-        }
-
-        private void guna2GradientButton13_Click(object sender, EventArgs e)
-        {
-            OrdenPedidoCliente o = new OrdenPedidoCliente("Remision");
-            o.ShowDialog();
-        }
-
-        private void guna2GradientButton14_Click(object sender, EventArgs e)
-        {
-            OrdenPedidoCliente o = new OrdenPedidoCliente("Pedido");
-            o.ShowDialog();
-        }
-
-        private void guna2GradientButton15_Click(object sender, EventArgs e)
-        {
-            ReporteIngresoFormulario reporteIngresos = new ReporteIngresoFormulario();
-            reporteIngresos.ShowDialog();
-        }
-
-        private void guna2GradientButton50_Click(object sender, EventArgs e)
-        {
-            subGrupoGraficasCompras.Visible = false;
-            RecepcionProductos2 recepcionProductos = new RecepcionProductos2();
-            recepcionProductos.ShowDialog();
-        }
-
-        private void guna2GradientButton51_Click(object sender, EventArgs e)
-        {
-          /*  gbGraficas.Visible = false;
-            RegistroEgreso r =new RegistroEgreso();
-            r.ShowDialog();*/
-        }
-
-        private void guna2GradientButton12_Click(object sender, EventArgs e)
-        {
-            registroIngresos r = new registroIngresos("Remision", "");
-            r.ShowDialog();
-        }
-
-        private void guna2GradientButton11_Click(object sender, EventArgs e)
-        {
-            SubgrupoIngresos.Visible = false;
-
-            RegistrarAnticipo r = new RegistrarAnticipo("Propietario");
-            r.ShowDialog();
-        }
-
-        private void guna2GradientButton10_Click(object sender, EventArgs e)
-        {
-            SubgrupoIngresos.Visible = false;
-
-            AplicarAnticipo aplicarAnticipo = new AplicarAnticipo();
-            aplicarAnticipo.ShowDialog();
-        }
-
-        private void guna2GradientButton52_Click(object sender, EventArgs e)
-        {
-            ReporteAnticiposFiltro reporteAnticipos = new ReporteAnticiposFiltro();
-            reporteAnticipos.ShowDialog();
-        }
-
-        private void guna2GradientButton2_Click_1(object sender, EventArgs e)
-        {
-            FiltroFecha f = new FiltroFecha("Diario Pedidos");
-            f.ShowDialog();
-        }
-
-        private void guna2GradientButton54_Click(object sender, EventArgs e)
-        {
-            FiltroFecha f = new FiltroFecha("Utilidad Pedido");
-            f.ShowDialog();
-        }
-
-        private void guna2GradientButton55_Click(object sender, EventArgs e)
-        {
-            FiltroFecha f = new FiltroFecha("Utilidad Producto");
-            f.ShowDialog();
-        }
-
-        private void guna2GradientButton58_Click(object sender, EventArgs e)
-        {
-            subGrupoGraficasCompras.Visible = false;
-            guna2GradientButton58.Visible = false;
-            GraficaMontoGastosxMes f = new GraficaMontoGastosxMes();
-            f.ShowDialog();
-        }
-
-        private void guna2GradientButton56_Click(object sender, EventArgs e)
-        {
-            subGrupoGraficasCompras.Visible = true;
-            SubGrupoReportesCompras.Visible = false;
-
-            subGrupoGraficasCompras.Location = new Point(1, 260);
-        }
-
-        private void guna2GradientButton17_Click(object sender, EventArgs e)
-        {
-            subGrupoGraficasCompras.Visible = false;
-            SubgrupoIngresos.Visible = false;
-
-            RegistroEgreso r = new RegistroEgreso();
-            r.ShowDialog();
-        }
-
-        private void guna2GradientButton6_Click_2(object sender, EventArgs e)
-        {
-            Requisicion2 Rembolso = new Requisicion2();
-            Rembolso.ShowDialog();
-        }
-
-        private void guna2GradientButton57_Click(object sender, EventArgs e)
-        {
-            RegistroReembolsos Rembolso = new RegistroReembolsos();
-            Rembolso.ShowDialog();
-
-        }
-
-        private void guna2GradientButton59_Click(object sender, EventArgs e)
-        {
-            SubGrupoReportesCompras.Visible = false;
-            SubGrupoReportesProveedores.Visible = false;
-
-            ReporteDiarioComprasFiltro reporteDiarioNotasCargo = new ReporteDiarioComprasFiltro("Diario Reembolsos");
-            reporteDiarioNotasCargo.ShowDialog();
-        }
-
-        private void btnReportesTesoreria_Click(object sender, EventArgs e)
-        {
-            SubgrupoIngresos.Visible = false;
-
-
-            pnReportesEgresos.Visible = true;
-            pnReportesEgresos.Location = new Point(1, 630);
-
-
-        }
-
-
-        private void guna2GradientButton62_Click(object sender, EventArgs e)
-        {
-            ReporteDiarioComprasFiltro reporteDiarioNotasCargo = new ReporteDiarioComprasFiltro("Diario Egresos");
-            reporteDiarioNotasCargo.ShowDialog();
-        }
-
-        private void guna2GradientButton61_Click(object sender, EventArgs e)
-        {
-            ReporteDiarioComprasFiltro reporteDiarioNotasCargo = new ReporteDiarioComprasFiltro("Saldos Proveedor");
-            reporteDiarioNotasCargo.ShowDialog();
-        }
-
-        private void guna2GradientButton60_Click(object sender, EventArgs e)
-        {
-            ReporteEstadoCuentaProveedor reporteDiarioNotasCargo = new ReporteEstadoCuentaProveedor();
-            reporteDiarioNotasCargo.ShowDialog();
-        }
-
-        private void guna2GradientButton73_Click(object sender, EventArgs e)
-        {
-            DefinePolizas DP = new DefinePolizas("Definiciones Compras");
-            DefinePolizas.TipopolizaCompras = "Compras";
-        }
-
-        private void guna2GradientButton10_Click_1(object sender, EventArgs e)
-        {
-            GENERARPOLIZAS GP = new GENERARPOLIZAS("Polizas Compras");
-            GENERARPOLIZAS.TipopolizaCompras = "Egresos";
-            GP.ShowDialog();
-        }
-
-        private void guna2GradientButton73_Click_1(object sender, EventArgs e)
-        {
-            SubgrupoIngresos.Visible = false;
-
-            DefinePolizas DP = new DefinePolizas("Definiciones Compras");
-            DefinePolizas.TipopolizaCompras = "Compras";
-            DP.ShowDialog();
-        }
-
-        private void guna2GradientButton66_Click(object sender, EventArgs e)
-        {
-            SubgrupoIngresos.Visible = false;
-
-            GENERARPOLIZAS GP = new GENERARPOLIZAS("Polizas Compras");
-            GENERARPOLIZAS.TipopolizaCompras = "Egresos";
-            GP.ShowDialog();
-        }
-
-
-
-        private void guna2GradientButton18_Click(object sender, EventArgs e)
-        {
-            SubgrupoIngresos.Visible = true;
-            SubgrupoIngresos.Location = new Point(1, 600);
-        }
-
-
-
-        private void guna2GradientButton19_Click(object sender, EventArgs e)
-        {
-            SubgrupoIngresos.Visible = false;
-        }
-
-        private void guna2GradientButton49_Click_1(object sender, EventArgs e)
-        {
-            SubgrupoIngresos.Visible = false;
-
         }
     }
 }

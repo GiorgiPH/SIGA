@@ -360,6 +360,7 @@
     <Compile Include="Clases\Inventario\DBPartidas.cs" />
     <Compile Include="Clases\Inventario\DBRegistrarEntradas.cs" />
     <Compile Include="Clases\Login\DBLogin.cs" />
+    <Compile Include="Clases\Menu.cs" />
     <Compile Include="Clases\OrdenCompra\DBOrdenCompra.cs" />
     <Compile Include="Clases\OrdenCompra\DBRegistroReembolsos.cs" />
     <Compile Include="Clases\PedidoCliente\DBPedidoCliente.cs" />

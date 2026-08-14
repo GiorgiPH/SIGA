@@ -2565,15 +2565,20 @@ namespace PV.Clases.OrdenCompra
             try
             {
                 using (SqlConnection cn = new SqlConnection(ObtenerCn()))
-                using (SqlCommand cmd = new SqlCommand("Update Proveedor set Saldo= Saldo + " + Saldo + " where IdProveedor=" + Clave + "", cn))
+                using (SqlCommand cmd = new SqlCommand(
+                    "UPDATE Proveedor SET Saldo = Saldo + @Saldo WHERE IdProveedor = @Clave",
+                    cn))
                 {
+                    cmd.Parameters.Add("@Saldo", SqlDbType.Decimal).Value = Saldo;
+                    cmd.Parameters.Add("@Clave", SqlDbType.Int).Value = Convert.ToInt32(Clave);
+
                     cn.Open();
                     cmd.ExecuteNonQuery();
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show("ERROR prov" + ex.ToString());
+                MessageBox.Show("ERROR prov: " + ex.Message);
             }
         }
         public void ValidarDocumentoEPR()

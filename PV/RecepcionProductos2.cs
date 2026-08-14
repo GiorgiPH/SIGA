@@ -189,13 +189,9 @@ namespace PV
                     if (Partida > 0)
                     {
                         c.ActualizarRecepcion(TxtFolio1.Text, Partida.ToString());
-                        //c.ActualizarPartidaOrden(txtOrden.Text, txtPartidaOrden.Text, txtCantidad.Text);
                  
                     }
 
-                  //  this.Close();
-                 //   ConceptosGlobalesPartidaGastos documentoConceptoGlobal = new ConceptosGlobalesPartidaGastos(TxtFolio1.Text, recibo, reciboCol);
-                  //  documentoConceptoGlobal.ShowDialog();
                 }
             }
             else if (txtOrden.Text == "Automatico" && txtPartida.Text != "1")
@@ -264,7 +260,7 @@ namespace PV
             txtConcepto2.Clear();
             txtSubtotal1.Text = "0.00";
             txtDescuento1.Text = "0.00";
-            txtTotal.Text = "0.00";
+            txtTotal1.Text = "0.00";
             txtCantidad.Text = "1";
             txtPrecio.Text = "0.00";
             txtImpuesto1.Text = "0.00";
@@ -794,9 +790,15 @@ namespace PV
 
         private void btnAgregarPartida_Click(object sender, EventArgs e)
         {
+            if (cmbEstatus.Text != "Abierto")
+            {
+                MessageBox.Show("No es posible agregar partidas a una recepción de productos Bloqueada o Cancelada");
+                return;
+            }
+            DesbloquearDetalle();
+            LimpiarDetalle();
             PanelPartidasRecepcion.Visible = true;
             c.ConsultaRecepcion(TxtFolio1.Text, txtPartida);
-            // PanelPartidasRequisicion.Visible = true;
 
         }
 
@@ -1312,9 +1314,8 @@ namespace PV
             txtCantidad.Text = "1";
             txtPrecio.Text = "0.00";
             txtUnidad.Text = string.Empty;
-            txtDivisa1.Text = string.Empty;
-            txtTipoCambio1.Text = string.Empty;
-            txtSubtotal.Text = "0.00";
+            txtDivisa1.Text = "MXN";
+            txtTipoCambio1.Text = "1.00";
             txtImpuesto1.Text = "0.00";
             txtDescuento1.Text = "0.00";
             txtImpuestoIm.Text = "0.00";

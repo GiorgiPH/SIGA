@@ -1635,6 +1635,8 @@ namespace PV
             txtImpuestoIm.Text = "0.00";
             txtTotal1.Text = "0.00";
             txtArchivo1.Text = string.Empty;
+            txtDivisa1.Text = "MXN";
+            txtTipoCambio1.Text = "1.00";
 
             txtSubtotalR.Text = "0.00";
             txtImpuestoR.Text = "0.00";

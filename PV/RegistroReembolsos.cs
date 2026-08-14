@@ -677,6 +677,8 @@ namespace PV
             txtIEPS.Enabled = false;
             txtArchivo1.Text = string.Empty;
             txtUnidad.Text = string.Empty;
+            txtDivisa1.Text = "MXN";
+            txtTipoCambio1.Text = "1.00";
 
             cmbProveedroAlterno.SelectedIndex = -1;
             cmdproyectoalterno.SelectedIndex = -1;
