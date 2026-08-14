@@ -3095,33 +3095,7 @@ namespace PV.Clases.OrdenCompra
             }
         }
 
-        public void Consulta5RegistroGasto(string Folio, Guna.UI2.WinForms.Guna2TextBox txtPartida)
-        {
-            try
-            {
-                using (SqlConnection cn = new SqlConnection(ObtenerCn()))
-                using (SqlCommand cmd = new SqlCommand("Select top 1 * from [PartidaRegistroGastos] where FolioGasto='" + Folio + "' order by Partida Desc", cn))
-                {
-                    cn.Open();
-                    using (SqlDataReader dr = cmd.ExecuteReader())
-                    {
-                        if (dr.Read())
-                        {
-                            int Partida = Convert.ToInt32(dr["Partida"].ToString()) + 1;
-                            txtPartida.Text = Partida.ToString();
-                        }
-                        else
-                        {
-                            txtPartida.Text = "1";
-                        }
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("ERROR" + ex.ToString());
-            }
-        }
+     
         //_______________________________________________________________________________________________________________
         public void ReciboSaldosPartidasGasto(string txtFolio, Guna.UI2.WinForms.Guna2TextBox txtSubtoral, Guna.UI2.WinForms.Guna2TextBox txtDescuento, Guna.UI2.WinForms.Guna2TextBox txtTotal, Guna2TextBox txtImpuesto)
         {

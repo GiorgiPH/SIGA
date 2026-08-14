@@ -203,8 +203,7 @@ namespace PV
                 c.InsertarPartidaRecepcion(TxtFolio1.Text, txtPartida.Text, txtClave1.Text, txtConcepto2.Text, txtCantidad.Text, txtUnidad.Text, txtDivisa1.Text, txtTipoCambio1.Text, Convert.ToDecimal(txtSubtotal1.Text), Convert.ToDecimal(txtDescuento1.Text), Convert.ToDecimal(txtTotal1.Text), Convert.ToDecimal(txtImpuesto1.Text), txtArchivo1.Text);
                 c.ActualizarRecepcion(TxtFolio1.Text, txtPartida.Text);
                
-               // ConceptosGlobalesPartidaGastos documentoConceptoGlobal = new ConceptosGlobalesPartidaGastos(TxtFolio1.Text, recibo, reciboCol);
-               // documentoConceptoGlobal.ShowDialog();
+               
             }
             PanelPartidasRecepcion.Visible = false;
             btnTerminarRecepcion.Visible = true;

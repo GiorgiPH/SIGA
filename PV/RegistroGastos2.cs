@@ -422,19 +422,7 @@ namespace PV
 
         private void RegistroGastos2_Activated(object sender, EventArgs e)
         {
-            if (txtFolio.Text != "X")
-            {
-                txtMatricular.Text = Matricula;
-
-                if (txtPartidas.Text == string.Empty)
-                {
-                    txtPartidas.Text = "0";
-                }
-                else if (txtPartidas.Text != "0" && cmbEstatus.Text == "Abierto")
-                {
-                    button1.BackColor = Color.Red;
-                }
-            }
+            
         }
 
         #endregion
@@ -532,21 +520,20 @@ namespace PV
             guna2TabControl1.SelectedIndex = 1;
 
             // Pasar datos al formulario de partidas
-            TxtFolio1.Text = txtFolio.Text.Trim();
             txtOrden.Text = folioOrden;
 
             // Configurar productos dependiendo de si existe orden de compra
             if (!string.IsNullOrWhiteSpace(txtOrden.Text))
             {
                 c.SeleccionarProductoGasto(cmbConcepto, txtOrden.Text);
-                c.ConsultaGasto(TxtFolio1.Text, txtPartida);
+                c.ConsultaGasto(txtFolio.Text, txtPartida);
 
                 txtPrecio.Enabled = false;
             }
             else
             {
                 c.SeleccionarProductoGasto(cmbConcepto);
-                c.ConsultaGasto(TxtFolio1.Text, txtPartida);
+                c.ConsultaGasto(txtFolio.Text, txtPartida);
 
                 txtPrecio.Enabled = true;
             }
@@ -816,28 +803,39 @@ namespace PV
             }
             PanelPartidasGasto.Visible = true;
             LimpiarDetalle();
-            c.ConsultaGasto(TxtFolio1.Text, txtPartida);
+            if (!string.IsNullOrWhiteSpace(txtOrden.Text))
+            {
+                c.SeleccionarProductoGasto(cmbConcepto, txtOrden.Text);
+                c.ConsultaGasto(txtFolio.Text, txtPartida);
+
+                txtPrecio.Enabled = false;
+            }
+            else
+            {
+                c.SeleccionarProductoGasto(cmbConcepto);
+                c.ConsultaGasto(txtFolio.Text, txtPartida);
+
+                txtPrecio.Enabled = true;
+            }
+            DesbloquearDetalle();
             btnAdjuntarComporbante.Enabled = true;
         }
 
         private void btnConfirmarPartida_Click(object sender, EventArgs e)
         {
-            if (txtTotal1.Text == "0.00" || txtTotal1.Text == "0")
+            if (cmbConcepto.SelectedIndex == -1)
             {
                 if (MessageBox.Show("Si termina la partida sin registrar un importe no se guardara", "Partida", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                 {
                     int Partida = Convert.ToInt32(txtPartida.Text) - 1;
                     if (Partida > 0)
                     {
-                        c.ActualizarGasto(TxtFolio1.Text, Partida.ToString());
+                        c.ActualizarGasto(txtFolio.Text, Partida.ToString());
                         c.ActualizarPartidaOrden(txtOrden.Text, txtPartidaOrden.Text, txtCantidad.Text);
                     }
                 }
             }
-            else if (txtOrden.Text == "Automatico" && txtPartida.Text != "1")
-            {
-                MessageBox.Show("Los conceptos con cargos automaticos deben registrarse en recibos individuales, este recibo ya cuenta con una partida, seleccione otro concepto");
-            }
+           
             else
             {
                 if (cmbProoveedorAlternoSiNo.Text == "Si" && string.IsNullOrEmpty(cmbProveedroAlterno.Text))
@@ -846,7 +844,7 @@ namespace PV
                     return;
                 }
                 c.InsertarPartidaGasto(
-                    TxtFolio1.Text,
+                    txtFolio.Text,
                     txtPartida.Text,
                     txtClave1.Text,
                     txtConcepto2.Text,
@@ -864,43 +862,34 @@ namespace PV
                     txtDescuentoIm.Text.Replace(",", ""),
                     txtImpuestoIm.Text.Replace(",", "")
                 );
-                c.ActualizarGasto(TxtFolio1.Text, txtPartida.Text);
+                c.ActualizarGasto(txtFolio.Text, txtPartida.Text);
                 c.ActualizarPartidaOrden(txtOrden.Text, txtPartidaOrden.Text, txtCantidad.Text);
 
                 Limpiar();
-                c.ConsultaGasto(TxtFolio1.Text, txtPartida);
+                c.ConsultaGasto(txtFolio.Text, txtPartida);
+                PanelPartidasGasto.Visible = false;
+                btnTerminarGasto.Visible = true;
+                c.ReciboSaldosGastos(txtFolio.Text, txtSubtotal, txtDescuento, txtImpuestos, txtTotal, txtPartidas, txtSaldo);
+
+                c.CargarRecibosPartidasGasto(guna2DataGridView1, txtFolio.Text);
+
+                // NUEVO: recalcula los totales visibles de la lista de partidas.
+                SumarColumnasPartida();
+
+                dgvComprobantesPartidas.Rows.Clear();
             }
 
-            PanelPartidasGasto.Visible = false;
-            btnTerminarGasto.Visible = true;
-            c.CargarRecibosPartidasGasto(guna2DataGridView1, TxtFolio1.Text);
-
-            // NUEVO: recalcula los totales visibles de la lista de partidas.
-            SumarColumnasPartida();
-
-            dgvComprobantesPartidas.Rows.Clear();
+            
         }
 
         private void btnSiguientePartida_Click(object sender, EventArgs e)
         {
-            if (cmbConcepto.Text == string.Empty)
+            if (cmbConcepto.SelectedIndex == -1)
             {
                 MessageBox.Show("Registre el Producto para continuar");
                 return;
             }
-            else if (txtTotal1.Text == "0.00" || txtTotal1.Text == "0")
-            {
-                MessageBox.Show("Registre el importe para continuar para continuar");
-                return;
-            }
-            else if (txtOrden.Text == "Automatico")
-            {
-                MessageBox.Show("Los conceptos con cargos automaticos deben registrarse en recibos individuales, termine el registro o cambie el concepto");
-            }
-            else if (txtOrden.Text == "Automatico" && txtPartida.Text != "1")
-            {
-                MessageBox.Show("Los conceptos con cargos automaticos deben registrarse en recibos individuales, este recibo ya cuenta con una partida, seleccione otro concepto");
-            }
+           
             else
             {
                 if (cmbProoveedorAlternoSiNo.Text == "Si" && string.IsNullOrEmpty(cmbProveedroAlterno.Text))
@@ -908,13 +897,11 @@ namespace PV
                     MessageBox.Show("Es necesario seleccionar un proveedor alterno");
                     return;
                 }
-                c.InsertarPartidaGasto(TxtFolio1.Text, txtPartida.Text, txtClave1.Text, txtConcepto2.Text, txtCantidad.Text.Replace(",", ""), txtUnidad.Text, txtDivisa1.Text, txtTipoCambio1.Text.Replace(",", ""), Convert.ToDecimal(txtSubtotal1.Text.Replace(",", "")), Convert.ToDecimal(txtDescuento1.Text.Replace(",", "")), Convert.ToDecimal(txtTotal1.Text.Replace(",", "")), Convert.ToDecimal(txtImpuesto1.Text.Replace(",", "")), rutaCompletaArchivo, cmbProveedroAlterno?.SelectedValue?.ToString(), cmbCentroCostosAlterno?.SelectedValue?.ToString(), txtDescuentoIm.Text.Replace(",", ""), txtImpuestoIm.Text.Replace(",", ""));
+                c.InsertarPartidaGasto(txtFolio.Text, txtPartida.Text, txtClave1.Text, txtConcepto2.Text, txtCantidad.Text.Replace(",", ""), txtUnidad.Text, txtDivisa1.Text, txtTipoCambio1.Text.Replace(",", ""), Convert.ToDecimal(txtSubtotal1.Text.Replace(",", "")), Convert.ToDecimal(txtDescuento1.Text.Replace(",", "")), Convert.ToDecimal(txtTotal1.Text.Replace(",", "")), Convert.ToDecimal(txtImpuesto1.Text.Replace(",", "")), rutaCompletaArchivo, cmbProveedroAlterno?.SelectedValue?.ToString(), cmbCentroCostosAlterno?.SelectedValue?.ToString(), txtDescuentoIm.Text.Replace(",", ""), txtImpuestoIm.Text.Replace(",", ""));
                 c.ActualizarPartidaOrden(txtOrden.Text, txtPartidaOrden.Text, txtCantidad.Text.Replace(",", ""));
-                c.ActualizarGasto(TxtFolio1.Text, txtPartida.Text);
-                c.Consulta5RegistroGasto(TxtFolio1.Text, txtPartida);
-                c.ReciboSaldosPartidasGasto(TxtFolio1.Text, txtSubtotalR, txtDescuentoR, txtTotalR, txtImpuestoR);
+                c.ActualizarGasto(txtFolio.Text, txtPartida.Text);
                 Limpiar();
-                c.ConsultaGasto(TxtFolio1.Text, txtPartida);
+                c.ConsultaGasto(txtFolio.Text, txtPartida);
                 dgvComprobantesPartidas.Rows.Clear();
 
                 // CORREGIDO: "Siguiente Partida" guarda la partida en la base
@@ -923,7 +910,9 @@ namespace PV
                 // guardada no aparecía en pantalla hasta que el usuario
                 // presionaba "Confirmar Partida" al final. Ahora se refresca
                 // igual que en btnConfirmarPartida_Click.
-                c.CargarRecibosPartidasGasto(guna2DataGridView1, TxtFolio1.Text);
+                c.ReciboSaldosGastos(txtFolio.Text, txtSubtotal, txtDescuento, txtImpuestos, txtTotal, txtPartidas, txtSaldo);
+
+                c.CargarRecibosPartidasGasto(guna2DataGridView1, txtFolio.Text);
                 SumarColumnasPartida();
 
                 if (txtOrden.Text != string.Empty)
@@ -953,7 +942,7 @@ namespace PV
             MessageBox.Show(c.EliminarPartidaRegistroGasto(txtFolio.Text, txtPartida.Text));
             string maximo = c.ObtenerTotalPartidaRegistroGasto(txtFolio.Text);
             c.ActualizarGasto(txtFolio.Text, maximo);
-            c.ReciboSaldosGastos(txtFolio.Text, txtSubtotalR, txtDescuentoR, txtImpuestoR, txtTotalR, txtPartidas, txtSaldo);
+            c.ReciboSaldosGastos(txtFolio.Text, txtSubtotal, txtDescuento, txtImpuestos, txtTotal, txtPartidas, txtSaldo);
 
             c.CargarRecibosPartidasGasto(guna2DataGridView1, txtFolio.Text);
 
@@ -1181,26 +1170,7 @@ namespace PV
             Moneda(ref txtTotal1);
         }
 
-        private void txtSubtotalR_TextChanged(object sender, EventArgs e)
-        {
-            Moneda(ref txtSubtotalR);
-        }
-
-        private void txtDescuentoR_TextChanged(object sender, EventArgs e)
-        {
-            Moneda(ref txtDescuentoR);
-        }
-
-        private void txtTotalR_TextChanged(object sender, EventArgs e)
-        {
-            Moneda(ref txtTotalR);
-        }
-
-        private void txtImpuestoR_TextChanged(object sender, EventArgs e)
-        {
-            Moneda(ref txtImpuestoR);
-        }
-
+      
         private void txtImpuestoIm_TextChanged(object sender, EventArgs e)
         {
         }
@@ -1458,13 +1428,13 @@ namespace PV
                 return;
             }
 
-            if (string.IsNullOrWhiteSpace(TxtFolio1.Text))
+            if (string.IsNullOrWhiteSpace(txtFolio.Text))
             {
                 MessageBox.Show("Continue con el registro antes de adjuntar archivos");
                 return;
             }
 
-            string noOrden = TxtFolio1.Text;
+            string noOrden = txtFolio.Text;
             string descripcion = txtPartida.Text;
             string carpetaDestino = Path.Combine(DBOrdenCompra.Ruta, "G" + noOrden);
 
@@ -1496,9 +1466,9 @@ namespace PV
 
                     contenidoArchivo = ArchivoUtil.ConvertirArchivoABase64(archivoSeleccionado);
 
-                    MessageBox.Show(c.insertaArchivos(TxtFolio1.Text, txtPartida.Text, txtClave1.Text, nombreArchivo, extensionArchivo, contenidoArchivo));
+                    MessageBox.Show(c.insertaArchivos(txtFolio.Text, txtPartida.Text, txtClave1.Text, nombreArchivo, extensionArchivo, contenidoArchivo));
 
-                    c.mostrarArchivos(dgvComprobantesPartidas, TxtFolio1.Text, txtPartida.Text);
+                    c.mostrarArchivos(dgvComprobantesPartidas, txtFolio.Text, txtPartida.Text);
                 }
                 catch (IOException ex)
                 {
@@ -1535,7 +1505,7 @@ namespace PV
                         {
                             dgvComprobantesPartidas.Rows.Remove(filaSeleccionada);
                             MessageBox.Show($"Archivo {archivo} eliminado correctamente.");
-                            c.mostrarArchivos(dgvComprobantesPartidas, TxtFolio1.Text, txtPartida.Text);
+                            c.mostrarArchivos(dgvComprobantesPartidas, txtFolio.Text, txtPartida.Text);
                         }
                     }
                 }
@@ -1599,6 +1569,8 @@ namespace PV
             txtCantidad.Text = "1";
             txtPrecio.Text = "0.00";
             txtImpuesto1.Text = "0";
+            txtTipoCambio1.Text = "1.00";
+            txtDivisa1.Text = "MXN";
             txtUnidad.Clear();
             txtArchivo1.Clear();
             rutaCompletaArchivo = string.Empty;
@@ -1638,11 +1610,7 @@ namespace PV
             txtDivisa1.Text = "MXN";
             txtTipoCambio1.Text = "1.00";
 
-            txtSubtotalR.Text = "0.00";
-            txtImpuestoR.Text = "0.00";
-            txtDescuentoR.Text = "0.00";
-            txtImpuestoR.Text = "0.00";
-            txtTotalR.Text = "0.00";
+          
             cmbProveedroAlterno.SelectedIndex = -1;
             cmbCentroCostosAlterno.SelectedIndex = -1;
             cmbCentroCostosAlterno.Text = cmbCentroCostos.Text;
