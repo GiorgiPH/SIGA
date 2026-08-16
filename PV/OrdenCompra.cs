@@ -65,7 +65,6 @@ namespace PV
                 Matricula = string.Empty;
                 DBOrdenCompra.MatriculaC = string.Empty;
                 RecepcionProductos2.Matricula = string.Empty;
-                RegistroGastos.Matricula = string.Empty;
                 RegistroEgreso.matricula = string.Empty;
                 RegistroEgreso.nombre = string.Empty;
                 this.Close();

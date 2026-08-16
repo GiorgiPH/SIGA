@@ -3,6 +3,7 @@ using Microsoft.Reporting.WinForms;
 using PV.Clases.OrdenCompra;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -279,7 +280,7 @@ namespace PV.Clases
                 e.Handled = true;   // Bloquear cualquier otro carácter
             }
         }
-
+       
 
 
 

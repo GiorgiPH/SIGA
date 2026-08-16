@@ -31,25 +31,22 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(registroIngresos));
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             this.panel1 = new System.Windows.Forms.Panel();
             this.dtpFecha = new Guna.UI2.WinForms.Guna2DateTimePicker();
-            this.button6 = new Guna.UI2.WinForms.Guna2Button();
+            this.btnLimpiar = new Guna.UI2.WinForms.Guna2Button();
             this.txtTotal = new Guna.UI2.WinForms.Guna2TextBox();
             this.txtDescuentos = new Guna.UI2.WinForms.Guna2TextBox();
             this.txtRecargos = new Guna.UI2.WinForms.Guna2TextBox();
             this.txtTotalRecibo = new Guna.UI2.WinForms.Guna2TextBox();
             this.txtSubtotal = new Guna.UI2.WinForms.Guna2TextBox();
-            this.btnRecargos = new Guna.UI2.WinForms.Guna2Button();
-            this.button2 = new Guna.UI2.WinForms.Guna2Button();
-            this.button5 = new Guna.UI2.WinForms.Guna2Button();
-            this.button1 = new Guna.UI2.WinForms.Guna2Button();
+            this.btnConfirmar = new Guna.UI2.WinForms.Guna2Button();
+            this.btnPagosRegistrados = new Guna.UI2.WinForms.Guna2Button();
             this.btnBuscar = new Guna.UI2.WinForms.Guna2Button();
             this.txtAlumno = new Guna.UI2.WinForms.Guna2TextBox();
             this.txtMatricula = new Guna.UI2.WinForms.Guna2TextBox();
@@ -99,23 +96,10 @@
             this.Importe = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.SaldoActual = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Vencimiento = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.MasRecargo = new System.Windows.Forms.DataGridViewButtonColumn();
-            this.MenosRecargo = new System.Windows.Forms.DataGridViewButtonColumn();
-            this.Recargos = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.RecargosAcumulados = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.MasDescuentos = new System.Windows.Forms.DataGridViewButtonColumn();
             this.MenosDescuentos = new System.Windows.Forms.DataGridViewButtonColumn();
             this.Descuento = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Saldo = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ImporteEstructura = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ImporteArea = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Area = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.TipoCuota = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ProIndiviso = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.CuotaMantenimiento = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ClaveRecibo = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.FechaRecargo = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Rec = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvPagosPendientes)).BeginInit();
             this.guna2GradientPanel1.SuspendLayout();
@@ -129,16 +113,14 @@
             // 
             this.panel1.BackColor = System.Drawing.Color.White;
             this.panel1.Controls.Add(this.dtpFecha);
-            this.panel1.Controls.Add(this.button6);
+            this.panel1.Controls.Add(this.btnLimpiar);
             this.panel1.Controls.Add(this.txtTotal);
             this.panel1.Controls.Add(this.txtDescuentos);
             this.panel1.Controls.Add(this.txtRecargos);
             this.panel1.Controls.Add(this.txtTotalRecibo);
             this.panel1.Controls.Add(this.txtSubtotal);
-            this.panel1.Controls.Add(this.btnRecargos);
-            this.panel1.Controls.Add(this.button2);
-            this.panel1.Controls.Add(this.button5);
-            this.panel1.Controls.Add(this.button1);
+            this.panel1.Controls.Add(this.btnConfirmar);
+            this.panel1.Controls.Add(this.btnPagosRegistrados);
             this.panel1.Controls.Add(this.btnBuscar);
             this.panel1.Controls.Add(this.txtAlumno);
             this.panel1.Controls.Add(this.txtMatricula);
@@ -193,31 +175,31 @@
             this.dtpFecha.TabIndex = 231;
             this.dtpFecha.Value = new System.DateTime(2024, 11, 11, 21, 47, 21, 59);
             // 
-            // button6
+            // btnLimpiar
             // 
-            this.button6.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.button6.BackColor = System.Drawing.Color.Transparent;
-            this.button6.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(19)))), ((int)(((byte)(35)))), ((int)(((byte)(95)))));
-            this.button6.BorderRadius = 20;
-            this.button6.BorderThickness = 1;
-            this.button6.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
-            this.button6.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
-            this.button6.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.button6.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.button6.FillColor = System.Drawing.Color.Transparent;
-            this.button6.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button6.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(19)))), ((int)(((byte)(35)))), ((int)(((byte)(95)))));
-            this.button6.Image = global::PV.Properties.Resources.cancelar;
-            this.button6.ImageAlign = System.Windows.Forms.HorizontalAlignment.Left;
-            this.button6.Location = new System.Drawing.Point(908, 524);
-            this.button6.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.button6.Name = "button6";
-            this.button6.Size = new System.Drawing.Size(128, 46);
-            this.button6.TabIndex = 230;
-            this.button6.Text = "Cancelar";
-            this.button6.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
-            this.button6.TextOffset = new System.Drawing.Point(10, 0);
-            this.button6.Click += new System.EventHandler(this.button6_Click);
+            this.btnLimpiar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnLimpiar.BackColor = System.Drawing.Color.Transparent;
+            this.btnLimpiar.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(19)))), ((int)(((byte)(35)))), ((int)(((byte)(95)))));
+            this.btnLimpiar.BorderRadius = 20;
+            this.btnLimpiar.BorderThickness = 1;
+            this.btnLimpiar.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.btnLimpiar.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.btnLimpiar.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.btnLimpiar.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.btnLimpiar.FillColor = System.Drawing.Color.Transparent;
+            this.btnLimpiar.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnLimpiar.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(19)))), ((int)(((byte)(35)))), ((int)(((byte)(95)))));
+            this.btnLimpiar.Image = global::PV.Properties.Resources.cancelar;
+            this.btnLimpiar.ImageAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.btnLimpiar.Location = new System.Drawing.Point(908, 524);
+            this.btnLimpiar.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.btnLimpiar.Name = "btnLimpiar";
+            this.btnLimpiar.Size = new System.Drawing.Size(128, 46);
+            this.btnLimpiar.TabIndex = 230;
+            this.btnLimpiar.Text = "Cancelar";
+            this.btnLimpiar.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.btnLimpiar.TextOffset = new System.Drawing.Point(10, 0);
+            this.btnLimpiar.Click += new System.EventHandler(this.btnLimpiar_Click);
             // 
             // txtTotal
             // 
@@ -240,7 +222,6 @@
             this.txtTotal.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.txtTotal.Location = new System.Drawing.Point(1049, 483);
             this.txtTotal.Name = "txtTotal";
-            this.txtTotal.PasswordChar = '\0';
             this.txtTotal.PlaceholderText = "";
             this.txtTotal.SelectedText = "";
             this.txtTotal.Size = new System.Drawing.Size(134, 23);
@@ -269,7 +250,6 @@
             this.txtDescuentos.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.txtDescuentos.Location = new System.Drawing.Point(1049, 456);
             this.txtDescuentos.Name = "txtDescuentos";
-            this.txtDescuentos.PasswordChar = '\0';
             this.txtDescuentos.PlaceholderText = "";
             this.txtDescuentos.SelectedText = "";
             this.txtDescuentos.Size = new System.Drawing.Size(134, 23);
@@ -298,7 +278,6 @@
             this.txtRecargos.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.txtRecargos.Location = new System.Drawing.Point(1049, 430);
             this.txtRecargos.Name = "txtRecargos";
-            this.txtRecargos.PasswordChar = '\0';
             this.txtRecargos.PlaceholderText = "";
             this.txtRecargos.SelectedText = "";
             this.txtRecargos.Size = new System.Drawing.Size(134, 23);
@@ -324,7 +303,6 @@
             this.txtTotalRecibo.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.txtTotalRecibo.Location = new System.Drawing.Point(800, 404);
             this.txtTotalRecibo.Name = "txtTotalRecibo";
-            this.txtTotalRecibo.PasswordChar = '\0';
             this.txtTotalRecibo.PlaceholderText = "";
             this.txtTotalRecibo.SelectedText = "";
             this.txtTotalRecibo.Size = new System.Drawing.Size(134, 23);
@@ -354,7 +332,6 @@
             this.txtSubtotal.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.txtSubtotal.Location = new System.Drawing.Point(1049, 404);
             this.txtSubtotal.Name = "txtSubtotal";
-            this.txtSubtotal.PasswordChar = '\0';
             this.txtSubtotal.PlaceholderText = "";
             this.txtSubtotal.SelectedText = "";
             this.txtSubtotal.Size = new System.Drawing.Size(134, 23);
@@ -363,87 +340,49 @@
             this.txtSubtotal.TextOffset = new System.Drawing.Point(10, 0);
             this.txtSubtotal.TextChanged += new System.EventHandler(this.txtSubtotal_TextChanged);
             // 
-            // btnRecargos
+            // btnConfirmar
             // 
-            this.btnRecargos.AutoRoundedCorners = true;
-            this.btnRecargos.BorderRadius = 13;
-            this.btnRecargos.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
-            this.btnRecargos.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
-            this.btnRecargos.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.btnRecargos.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.btnRecargos.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(19)))), ((int)(((byte)(35)))), ((int)(((byte)(95)))));
-            this.btnRecargos.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnRecargos.ForeColor = System.Drawing.Color.White;
-            this.btnRecargos.Location = new System.Drawing.Point(11, 399);
-            this.btnRecargos.Name = "btnRecargos";
-            this.btnRecargos.Size = new System.Drawing.Size(165, 28);
-            this.btnRecargos.TabIndex = 227;
-            this.btnRecargos.Text = "Recargos Generados";
-            this.btnRecargos.Visible = false;
-            this.btnRecargos.Click += new System.EventHandler(this.btnRecargos_Click);
+            this.btnConfirmar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnConfirmar.BackColor = System.Drawing.Color.Transparent;
+            this.btnConfirmar.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(19)))), ((int)(((byte)(35)))), ((int)(((byte)(95)))));
+            this.btnConfirmar.BorderRadius = 20;
+            this.btnConfirmar.BorderThickness = 1;
+            this.btnConfirmar.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.btnConfirmar.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.btnConfirmar.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.btnConfirmar.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.btnConfirmar.FillColor = System.Drawing.Color.White;
+            this.btnConfirmar.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnConfirmar.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(19)))), ((int)(((byte)(35)))), ((int)(((byte)(95)))));
+            this.btnConfirmar.Image = ((System.Drawing.Image)(resources.GetObject("btnConfirmar.Image")));
+            this.btnConfirmar.ImageAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.btnConfirmar.ImageSize = new System.Drawing.Size(48, 48);
+            this.btnConfirmar.Location = new System.Drawing.Point(1042, 524);
+            this.btnConfirmar.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.btnConfirmar.Name = "btnConfirmar";
+            this.btnConfirmar.Size = new System.Drawing.Size(131, 46);
+            this.btnConfirmar.TabIndex = 225;
+            this.btnConfirmar.Text = "Registrar";
+            this.btnConfirmar.TextOffset = new System.Drawing.Point(23, 0);
+            this.btnConfirmar.Click += new System.EventHandler(this.btnConfirmar_Click);
             // 
-            // button2
+            // btnPagosRegistrados
             // 
-            this.button2.AutoRoundedCorners = true;
-            this.button2.BorderRadius = 13;
-            this.button2.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
-            this.button2.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
-            this.button2.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.button2.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.button2.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(19)))), ((int)(((byte)(35)))), ((int)(((byte)(95)))));
-            this.button2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button2.ForeColor = System.Drawing.Color.White;
-            this.button2.Location = new System.Drawing.Point(182, 399);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(135, 28);
-            this.button2.TabIndex = 227;
-            this.button2.Text = "Consultar Recibo";
-            this.button2.Visible = false;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
-            // 
-            // button5
-            // 
-            this.button5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.button5.BackColor = System.Drawing.Color.Transparent;
-            this.button5.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(19)))), ((int)(((byte)(35)))), ((int)(((byte)(95)))));
-            this.button5.BorderRadius = 20;
-            this.button5.BorderThickness = 1;
-            this.button5.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
-            this.button5.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
-            this.button5.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.button5.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.button5.FillColor = System.Drawing.Color.White;
-            this.button5.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button5.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(19)))), ((int)(((byte)(35)))), ((int)(((byte)(95)))));
-            this.button5.Image = ((System.Drawing.Image)(resources.GetObject("button5.Image")));
-            this.button5.ImageAlign = System.Windows.Forms.HorizontalAlignment.Left;
-            this.button5.ImageSize = new System.Drawing.Size(48, 48);
-            this.button5.Location = new System.Drawing.Point(1042, 524);
-            this.button5.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(131, 46);
-            this.button5.TabIndex = 225;
-            this.button5.Text = "Registrar";
-            this.button5.TextOffset = new System.Drawing.Point(23, 0);
-            this.button5.Click += new System.EventHandler(this.button5_Click);
-            // 
-            // button1
-            // 
-            this.button1.AutoRoundedCorners = true;
-            this.button1.BorderRadius = 13;
-            this.button1.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
-            this.button1.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
-            this.button1.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.button1.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.button1.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(19)))), ((int)(((byte)(35)))), ((int)(((byte)(95)))));
-            this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button1.ForeColor = System.Drawing.Color.White;
-            this.button1.Location = new System.Drawing.Point(1034, 56);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(150, 28);
-            this.button1.TabIndex = 224;
-            this.button1.Text = "Pagos Registrados";
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.btnPagosRegistrados.AutoRoundedCorners = true;
+            this.btnPagosRegistrados.BorderRadius = 13;
+            this.btnPagosRegistrados.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.btnPagosRegistrados.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.btnPagosRegistrados.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.btnPagosRegistrados.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.btnPagosRegistrados.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(19)))), ((int)(((byte)(35)))), ((int)(((byte)(95)))));
+            this.btnPagosRegistrados.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnPagosRegistrados.ForeColor = System.Drawing.Color.White;
+            this.btnPagosRegistrados.Location = new System.Drawing.Point(1034, 56);
+            this.btnPagosRegistrados.Name = "btnPagosRegistrados";
+            this.btnPagosRegistrados.Size = new System.Drawing.Size(150, 28);
+            this.btnPagosRegistrados.TabIndex = 224;
+            this.btnPagosRegistrados.Text = "Pagos Registrados";
+            this.btnPagosRegistrados.Click += new System.EventHandler(this.btnPagosRegistrados_Click);
             // 
             // btnBuscar
             // 
@@ -481,7 +420,6 @@
             this.txtAlumno.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.txtAlumno.Location = new System.Drawing.Point(578, 48);
             this.txtAlumno.Name = "txtAlumno";
-            this.txtAlumno.PasswordChar = '\0';
             this.txtAlumno.PlaceholderText = "";
             this.txtAlumno.SelectedText = "";
             this.txtAlumno.Size = new System.Drawing.Size(430, 23);
@@ -505,7 +443,6 @@
             this.txtMatricula.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.txtMatricula.Location = new System.Drawing.Point(385, 48);
             this.txtMatricula.Name = "txtMatricula";
-            this.txtMatricula.PasswordChar = '\0';
             this.txtMatricula.PlaceholderText = "";
             this.txtMatricula.SelectedText = "";
             this.txtMatricula.Size = new System.Drawing.Size(99, 23);
@@ -530,7 +467,6 @@
             this.txtCaja.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.txtCaja.Location = new System.Drawing.Point(140, 48);
             this.txtCaja.Name = "txtCaja";
-            this.txtCaja.PasswordChar = '\0';
             this.txtCaja.PlaceholderText = "";
             this.txtCaja.SelectedText = "";
             this.txtCaja.Size = new System.Drawing.Size(87, 23);
@@ -573,31 +509,18 @@
             this.Importe,
             this.SaldoActual,
             this.Vencimiento,
-            this.MasRecargo,
-            this.MenosRecargo,
-            this.Recargos,
-            this.RecargosAcumulados,
             this.MasDescuentos,
             this.MenosDescuentos,
             this.Descuento,
-            this.Saldo,
-            this.ImporteEstructura,
-            this.ImporteArea,
-            this.Area,
-            this.TipoCuota,
-            this.ProIndiviso,
-            this.CuotaMantenimiento,
-            this.ClaveRecibo,
-            this.FechaRecargo,
-            this.Rec});
-            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle7.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle7.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle7.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle7.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle7.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgvPagosPendientes.DefaultCellStyle = dataGridViewCellStyle7;
+            this.Saldo});
+            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle6.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvPagosPendientes.DefaultCellStyle = dataGridViewCellStyle6;
             this.dgvPagosPendientes.EnableHeadersVisualStyles = false;
             this.dgvPagosPendientes.Location = new System.Drawing.Point(11, 132);
             this.dgvPagosPendientes.MultiSelect = false;
@@ -1053,47 +976,6 @@
             this.Vencimiento.ReadOnly = true;
             this.Vencimiento.Width = 110;
             // 
-            // MasRecargo
-            // 
-            this.MasRecargo.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader;
-            this.MasRecargo.HeaderText = "+";
-            this.MasRecargo.Name = "MasRecargo";
-            this.MasRecargo.Text = "+";
-            this.MasRecargo.UseColumnTextForButtonValue = true;
-            this.MasRecargo.Visible = false;
-            this.MasRecargo.Width = 21;
-            // 
-            // MenosRecargo
-            // 
-            this.MenosRecargo.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader;
-            this.MenosRecargo.HeaderText = "-";
-            this.MenosRecargo.Name = "MenosRecargo";
-            this.MenosRecargo.Text = "-";
-            this.MenosRecargo.UseColumnTextForButtonValue = true;
-            this.MenosRecargo.Visible = false;
-            this.MenosRecargo.Width = 17;
-            // 
-            // Recargos
-            // 
-            this.Recargos.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
-            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.ControlDarkDark;
-            dataGridViewCellStyle4.ForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle4.Format = "C2";
-            dataGridViewCellStyle4.NullValue = "0.00";
-            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.Recargos.DefaultCellStyle = dataGridViewCellStyle4;
-            this.Recargos.HeaderText = "Recargos";
-            this.Recargos.Name = "Recargos";
-            this.Recargos.ReadOnly = true;
-            this.Recargos.Visible = false;
-            this.Recargos.Width = 95;
-            // 
-            // RecargosAcumulados
-            // 
-            this.RecargosAcumulados.HeaderText = "Recargos Acumulados";
-            this.RecargosAcumulados.Name = "RecargosAcumulados";
-            this.RecargosAcumulados.ReadOnly = true;
-            // 
             // MasDescuentos
             // 
             this.MasDescuentos.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader;
@@ -1119,84 +1001,32 @@
             // Descuento
             // 
             this.Descuento.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
-            dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.ControlDarkDark;
-            dataGridViewCellStyle5.ForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle5.Format = "C2";
-            dataGridViewCellStyle5.NullValue = "0.00";
-            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.Descuento.DefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.ControlDarkDark;
+            dataGridViewCellStyle4.ForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle4.Format = "C2";
+            dataGridViewCellStyle4.NullValue = "0.00";
+            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.Descuento.DefaultCellStyle = dataGridViewCellStyle4;
             this.Descuento.HeaderText = "Descuento";
             this.Descuento.Name = "Descuento";
             this.Descuento.ReadOnly = true;
+            this.Descuento.Visible = false;
             this.Descuento.Width = 102;
             // 
             // Saldo
             // 
             this.Saldo.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
-            dataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.ControlDarkDark;
-            dataGridViewCellStyle6.ForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle6.Format = "C2";
-            dataGridViewCellStyle6.NullValue = "0.00";
-            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.Saldo.DefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.ControlDarkDark;
+            dataGridViewCellStyle5.ForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle5.Format = "C2";
+            dataGridViewCellStyle5.NullValue = "0.00";
+            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.Saldo.DefaultCellStyle = dataGridViewCellStyle5;
             this.Saldo.HeaderText = "Saldo (R + D)";
             this.Saldo.Name = "Saldo";
             this.Saldo.ReadOnly = true;
-            this.Saldo.Width = 85;
-            // 
-            // ImporteEstructura
-            // 
-            this.ImporteEstructura.HeaderText = "ImporteEstructura";
-            this.ImporteEstructura.Name = "ImporteEstructura";
-            this.ImporteEstructura.Visible = false;
-            // 
-            // ImporteArea
-            // 
-            this.ImporteArea.HeaderText = "ImporteArea";
-            this.ImporteArea.Name = "ImporteArea";
-            this.ImporteArea.Visible = false;
-            // 
-            // Area
-            // 
-            this.Area.HeaderText = "Area";
-            this.Area.Name = "Area";
-            this.Area.Visible = false;
-            // 
-            // TipoCuota
-            // 
-            this.TipoCuota.HeaderText = "TipoCuota";
-            this.TipoCuota.Name = "TipoCuota";
-            this.TipoCuota.Visible = false;
-            // 
-            // ProIndiviso
-            // 
-            this.ProIndiviso.HeaderText = "ProIndiviso";
-            this.ProIndiviso.Name = "ProIndiviso";
-            this.ProIndiviso.Visible = false;
-            // 
-            // CuotaMantenimiento
-            // 
-            this.CuotaMantenimiento.HeaderText = "CuotaMantenimiento";
-            this.CuotaMantenimiento.Name = "CuotaMantenimiento";
-            this.CuotaMantenimiento.Visible = false;
-            // 
-            // ClaveRecibo
-            // 
-            this.ClaveRecibo.HeaderText = "ClaveRecibo";
-            this.ClaveRecibo.Name = "ClaveRecibo";
-            this.ClaveRecibo.Visible = false;
-            // 
-            // FechaRecargo
-            // 
-            this.FechaRecargo.HeaderText = "FechaRecargo";
-            this.FechaRecargo.Name = "FechaRecargo";
-            this.FechaRecargo.Visible = false;
-            // 
-            // Rec
-            // 
-            this.Rec.HeaderText = "Rec";
-            this.Rec.Name = "Rec";
-            this.Rec.Visible = false;
+            this.Saldo.Visible = false;
+            this.Saldo.Width = 121;
             // 
             // registroIngresos
             // 
@@ -1255,10 +1085,9 @@
         private System.Windows.Forms.DataGridView dgvPagosPendientes;
         private System.Windows.Forms.Label label4;
         private Guna.UI2.WinForms.Guna2TextBox txtCaja;
-        private Guna.UI2.WinForms.Guna2Button button1;
+        private Guna.UI2.WinForms.Guna2Button btnPagosRegistrados;
         private Guna.UI2.WinForms.Guna2Button btnBuscar;
-        private Guna.UI2.WinForms.Guna2Button button2;
-        private Guna.UI2.WinForms.Guna2Button button5;
+        private Guna.UI2.WinForms.Guna2Button btnConfirmar;
         private Guna.UI2.WinForms.Guna2Elipse guna2Elipse1;
         private Guna.UI2.WinForms.Guna2DragControl guna2DragControl1;
         private Guna.UI2.WinForms.Guna2Elipse guna2Elipse2;
@@ -1267,7 +1096,6 @@
         private Guna.UI2.WinForms.Guna2TextBox txtRecargos;
         private Guna.UI2.WinForms.Guna2TextBox txtSubtotal;
         private Guna.UI2.WinForms.Guna2TextBox txtTotalRecibo;
-        private Guna.UI2.WinForms.Guna2Button btnRecargos;
         public Guna.UI2.WinForms.Guna2TextBox txtAlumno;
         public Guna.UI2.WinForms.Guna2TextBox txtMatricula;
         private Guna.UI2.WinForms.Guna2GradientPanel guna2GradientPanel1;
@@ -1275,7 +1103,7 @@
         private System.Windows.Forms.TextBox txtFolioPedido;
         private System.Windows.Forms.Label label18;
         private Guna.UI2.WinForms.Guna2CircleButton guna2CircleButton1;
-        private Guna.UI2.WinForms.Guna2Button button6;
+        private Guna.UI2.WinForms.Guna2Button btnLimpiar;
         private Guna.UI2.WinForms.Guna2DateTimePicker dtpFecha;
         private System.Windows.Forms.DataGridViewCheckBoxColumn Seleccionar;
         private System.Windows.Forms.DataGridViewTextBoxColumn Documento;
@@ -1287,22 +1115,9 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Importe;
         private System.Windows.Forms.DataGridViewTextBoxColumn SaldoActual;
         private System.Windows.Forms.DataGridViewTextBoxColumn Vencimiento;
-        private System.Windows.Forms.DataGridViewButtonColumn MasRecargo;
-        private System.Windows.Forms.DataGridViewButtonColumn MenosRecargo;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Recargos;
-        private System.Windows.Forms.DataGridViewTextBoxColumn RecargosAcumulados;
         private System.Windows.Forms.DataGridViewButtonColumn MasDescuentos;
         private System.Windows.Forms.DataGridViewButtonColumn MenosDescuentos;
         private System.Windows.Forms.DataGridViewTextBoxColumn Descuento;
         private System.Windows.Forms.DataGridViewTextBoxColumn Saldo;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ImporteEstructura;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ImporteArea;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Area;
-        private System.Windows.Forms.DataGridViewTextBoxColumn TipoCuota;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ProIndiviso;
-        private System.Windows.Forms.DataGridViewTextBoxColumn CuotaMantenimiento;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ClaveRecibo;
-        private System.Windows.Forms.DataGridViewTextBoxColumn FechaRecargo;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Rec;
     }
 }

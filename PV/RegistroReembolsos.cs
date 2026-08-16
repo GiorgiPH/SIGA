@@ -33,29 +33,22 @@
 //    dejaron marcados con "// NOTA:" para que el equipo decida si corregirlos.
 // =====================================================================================
 
-using Condominios;
 using Condominios.Clases.CentroCostos;
-using Guna.UI2.WinForms;
-using PuntoVentas.Clases.FormasPago;
 using PuntoVentas.Clases.Login;
 using PV.Clases;
+using PV.Clases.CentroCostos;
 using PV.Clases.ConceptosGlobalesReembolso;
 using PV.Clases.OrdenCompra;
 using PV.Clases.Proveedores;
+using PV.Clases.Servicios;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
 using System.Diagnostics;
 using System.Drawing;
 using System.IO;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using TheArtOfDevHtmlRenderer.Adapters;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.TextBox;
 
 namespace PV
 {
@@ -87,6 +80,7 @@ namespace PV
         private List<(string clase, string Tipo, decimal Valor)> conceptosAplicadosGlobales = new List<(string clase, string Tipo, decimal Valor)>();
 
         DBRegistroReembolso r = new DBRegistroReembolso();
+        DBServicios s = new DBServicios();
 
         public static string Carpeta = string.Empty;
         string proyecto = string.Empty;
@@ -94,6 +88,7 @@ namespace PV
         DBCentroCostos cc = new DBCentroCostos();
         DBProveedores p = new DBProveedores();
         DBConceptosGloablesReembolso c = new DBConceptosGloablesReembolso();
+        DBDatosProyecto dp  = new DBDatosProyecto();
 
         private string rutaCompletaArchivo = string.Empty;
         private string nombreArchivo = string.Empty;
@@ -131,11 +126,10 @@ namespace PV
             r.SeleccionarConceptoDocumento(cmbFiltroDocumentoC);
             LlenarComboProveedores();
             LlenarComboCentro();
-            LlenarComboProveedores();
             r.ruta();
             r.CargarGasto(dgvReembolsos);
 
-  
+
 
             Limpiarcabezado();
             if (cmbEstatus.Items.Count > 0) cmbEstatus.SelectedIndex = 0;
@@ -477,17 +471,25 @@ namespace PV
         {
             try
             {
+                // Evitamos que el evento se dispare mientras estamos cargando el combo
+                cmbConcepto.SelectedIndexChanged -= cmbConcepto_SelectedIndexChanged;
+
                 DataTable menus = !string.IsNullOrEmpty(txtOrden.Text)
-                    ? r.ObtenerProductosGastoPorOrden(txtOrden.Text)
-                    : r.ObtenerProductosGasto();
+                    ? s.ObtenerProductosGastoPorOrden(txtOrden.Text)
+                    : s.ObtenerProductosGasto();
 
+                cmbConcepto.DataSource = null;
 
-                cmbConcepto.DropDownStyle = ComboBoxStyle.DropDown;
+                // IMPORTANTE:
+                // Primero configuramos DisplayMember y ValueMember
+                // y DESPUÉS asignamos el DataSource.
+                cmbConcepto.DisplayMember = "Descripcion";
+                cmbConcepto.ValueMember = "ClaveServicio";
                 cmbConcepto.DataSource = menus;
-                cmbConcepto.DisplayMember = "Descripcion";  // Verifica que exista esta columna
-                cmbConcepto.ValueMember = "ClaveServicio";  // Verifica que exista esta columna
+
                 cmbConcepto.SelectedIndex = -1;
 
+                cmbConcepto.DropDownStyle = ComboBoxStyle.DropDown;
                 cmbConcepto.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
                 cmbConcepto.AutoCompleteSource = AutoCompleteSource.ListItems;
             }
@@ -495,8 +497,12 @@ namespace PV
             {
                 MostrarError(ex);
             }
+            finally
+            {
+                // Volvemos a conectar el evento
+                cmbConcepto.SelectedIndexChanged += cmbConcepto_SelectedIndexChanged;
+            }
         }
-
         private void LlenarComboProveedores()
         {
             try
@@ -625,13 +631,13 @@ namespace PV
             txtCantidad.Enabled = false;
             txtPrecio.Enabled = false;
             txtImpuesto12.Enabled = false;
+            txtDescuentoIm.Enabled = false;
             txtRFC.Enabled = false;
             cmbProveedroAlterno.Enabled = false;
             cmbCentroCostos.Enabled = false;
             dtpAnio.Enabled = false;
             cmbSemana.Enabled = false;
             cmbProoveedorAlternoSiNo.Enabled = false;
-            cmbproyecto.Enabled = false;
             cmdproyectoalterno.Enabled = false;
             cmbformapago.Enabled = false;
             cmbreferencia.Enabled = false;
@@ -645,8 +651,8 @@ namespace PV
             txtCantidad.Enabled = true;
             txtPrecio.Enabled = true;
             txtImpuesto12.Enabled = true;
+            txtDescuentoIm.Enabled = true;
             cmbProveedroAlterno.Enabled = true;
-            cmbproyecto.Enabled = true;
             cmdproyectoalterno.Enabled = true;
             cmbformapago.Enabled = true;
             dtpFecha.Enabled = true;
@@ -1059,11 +1065,17 @@ namespace PV
             }
             else
             {
-                BuscarListaProveedores buscarListaAlumnos2 = new BuscarListaProveedores();
-                buscarListaAlumnos2.ShowDialog();
+                using (var buscador = new BuscarListaProveedores())
+                {
+                    if (buscador.ShowDialog() == DialogResult.OK)
+                    {
+                        txtMatricular.Text = buscador.Matricula;
+                        txtNombreAlumnno.Text = buscador.Nombre;
+                        Matricula = buscador.Matricula; // sigues alimentando tu campo static si otro código ya depende de él
+                    }
+                }
             }
 
-            txtMatricular.Text = RegistroReembolsos.Matricula;
             CerrarDropdownsYRestaurarColores();
         }
 
@@ -1129,7 +1141,7 @@ namespace PV
 
             LlenarComboGastos();
             DesbloquearDetalle();
-            if (cmbproyecto.SelectedIndex > 0)  LlenarComboFormasPago(cmbCentroCostos.Text, cmbproyecto.Text);
+            if (cmbproyecto.SelectedIndex !=-1) LlenarComboFormasPago(cmbCentroCostos.Text, cmbproyecto.Text);
 
             cmdproyectoalterno.Enabled = false;
         }
@@ -1142,52 +1154,72 @@ namespace PV
         /// </summary>
         private void CargarDatosConceptoSeleccionado(bool actualizarIEPS)
         {
-            if (cmbConcepto.Text == string.Empty) return;
+            if (string.IsNullOrWhiteSpace(cmbConcepto.Text))
+                return;
 
-            string claveConcepto = cmbConcepto.SelectedValue?.ToString();
-            if (string.IsNullOrEmpty(claveConcepto)) return;
+            if (cmbConcepto.SelectedValue == null)
+                return;
 
-            if (txtOrden.Text != string.Empty)
+            string claveConcepto = cmbConcepto.SelectedValue.ToString();
+
+            cmbConcepto.SelectedIndexChanged -= cmbConcepto_SelectedIndexChanged;
+
+            if (!string.IsNullOrWhiteSpace(txtOrden.Text))
             {
-                string[] valores = r.InformacionGastoo(claveConcepto, txtOrden.Text);
-                if (valores == null) return;
+                DataTable dt = r.ObtenerInformacionGasto(
+                    claveConcepto,
+                    txtOrden.Text);
 
-                txtClave1.Text = claveConcepto;
-                txtConcepto.Text = ObtenerValor(valores, 1);
-                txtPrecio.Text = ObtenerValor(valores, 2);
-                txtTotal1.Text = ObtenerValor(valores, 4);
-                txtConcepto2.Text = ObtenerValor(valores, 5);
-                txtPartidaOrden.Text = ObtenerValor(valores, 7);
-                txtCantidadPedido.Text = ObtenerValor(valores, 8);
-                txtCantidad.Text = ObtenerValor(valores, 8);
-                txtImpuesto12.Text = ObtenerValor(valores, 9);
-                txtUnidad.Text = ObtenerValor(valores, 10);
+                if (dt == null || dt.Rows.Count == 0)
+                    return;
+
+                DataRow row = dt.Rows[0];
+
+                txtClave1.Text = row["ClaveProducto"].ToString();
+                txtConcepto.Text = row["Descripcion"].ToString();
+                txtPrecio.Text = row["Precio"].ToString();
+                txtTotal1.Text = row["Total"].ToString();
+                txtConcepto2.Text = row["Concepto2"].ToString();
+                txtPartidaOrden.Text = row["Partida"].ToString();
+                txtCantidadPedido.Text = row["Cantidad"].ToString();
+                txtCantidad.Text = row["Cantidad"].ToString();
+                txtImpuesto12.Text = row["Impuesto"].ToString();
+                txtUnidad.Text = row["Unidad"].ToString();
             }
             else
             {
-                string[] valores = r.InformacionGasto(claveConcepto);
-                if (valores == null) return;
+                DataTable dt = r.InformacionGasto(claveConcepto);
 
-                txtClave1.Text = claveConcepto;
-                txtConcepto.Text = ObtenerValor(valores, 1);
-                txtPrecio.Text = ObtenerValor(valores, 2);
-                txtUnidad.Text = ObtenerValor(valores, 3);
-                txtImpuesto12.Text = ObtenerValor(valores, 4);
+                if (dt == null || dt.Rows.Count == 0)
+                    return;
+
+                DataRow row = dt.Rows[0];
+
+                txtClave1.Text = row["ClaveServicio"].ToString();
+                txtConcepto.Text = row["Descripcion"].ToString();
+                txtPrecio.Text = row["PrecioVenta"].ToString();
+                txtUnidad.Text = row["UnidadMedida"].ToString();
+                txtImpuesto12.Text = row["ImpuestoCant"].ToString();
 
                 if (actualizarIEPS)
                 {
-                    cobraIEPS = ObtenerValor(valores, 7) == "Si";
+                    cobraIEPS = row["IEPS"].ToString() == "Si";
                     txtIEPS.Enabled = cobraIEPS;
                 }
             }
 
-            txtSubtotal.Text = (ParsearDecimal(txtPrecio.Text) * ParsearEntero(txtCantidad.Text)).ToString();
+            decimal precio = ParsearDecimal(txtPrecio.Text);
+            decimal cantidad = ParsearDecimal(txtCantidad.Text);
+
+            txtSubtotal.Text = (precio * cantidad).ToString();
+            cmbConcepto.SelectedIndexChanged += cmbConcepto_SelectedIndexChanged;
+
         }
 
 
         private void cmbConcepto_SelectedIndexChanged(object sender, EventArgs e) => CargarDatosConceptoSeleccionado(actualizarIEPS: true);
 
-     
+
 
 
         private void cmbProveedroAlterno_Click(object sender, EventArgs e)
@@ -1421,7 +1453,7 @@ namespace PV
             btnTerminarReembolso.Visible = true;
 
             r.ActualizarReembolso(txtFolio.Text);
-            r.ReciboSaldosReembolso(txtFolio.Text, txtSubtotal, txtDescuento, txtImpuestos, txtIEPSGlobal, txtTotal, txtPartidas, txtSaldo); 
+            r.ReciboSaldosReembolso(txtFolio.Text, txtSubtotal, txtDescuento, txtImpuestos, txtIEPSGlobal, txtTotal, txtPartidas, txtSaldo);
             r.CargarRecibosPartidasGasto(dgvPartidas, txtFolio.Text);
             SumarColumnasPartida();
 
@@ -1481,13 +1513,13 @@ namespace PV
             if (e.RowIndex == -1) return;
 
             PartidaNuevaConsulta = "SI";
+            cmbConcepto.SelectedIndexChanged -= cmbConcepto_SelectedIndexChanged;
 
             LlenarComboGastos();
 
             string partida = dgvPartidas.Rows[e.RowIndex].Cells["Partida"].Value?.ToString();
             txtPartida.Text = partida;
 
-            cmbConcepto.SelectedIndexChanged -= cmbConcepto_SelectedIndexChanged;
             LlenarComboFormasPago(cmbCentroCostos.Text, cmbproyecto.Text);
 
             r.ConsultaPartidaGasto(
@@ -2145,12 +2177,16 @@ namespace PV
         {
             if (consultaRegistros != "SI")
             {
-                r.SeleccionarCatConceptosGlobales(cmbproyecto, cmbCentroCostos.Text);
+                DataTable dtProyectos = dp.ObtenerProyectosPorCentroCostos(
+           cmbCentroCostos.Text
+                    );
 
-                if (cmbproyecto.Items.Count != 0)
-                {
-                    cmbproyecto.SelectedIndex = 0;
-                }
+                ComboUtil.LlenarComboBox(
+                    cmbproyecto,
+                    dtProyectos,
+                    "Proyecto",
+                    "Proyecto"
+                );
             }
         }
 
@@ -2191,11 +2227,11 @@ namespace PV
                     totalretenciones += retenciones;
             }
 
-            txtSubtotalGrid.Text =Utilerias.FormatearMiles(totalSubtotal.ToString("N2"));
+            txtSubtotalGrid.Text = Utilerias.FormatearMiles(totalSubtotal.ToString("N2"));
             txtDescuentoGrid.Text = Utilerias.FormatearMiles(totalDescuento.ToString("N2"));
-            txtImpuestoGrid.Text =Utilerias.FormatearMiles( totalImpuesto.ToString("N2"));
-            txtIEPSGrid.Text =Utilerias.FormatearMiles( totalIeps.ToString("N2"));
-            txtRetencionesGrid.Text =Utilerias.FormatearMiles(totalretenciones.ToString("N2"));
+            txtImpuestoGrid.Text = Utilerias.FormatearMiles(totalImpuesto.ToString("N2"));
+            txtIEPSGrid.Text = Utilerias.FormatearMiles(totalIeps.ToString("N2"));
+            txtRetencionesGrid.Text = Utilerias.FormatearMiles(totalretenciones.ToString("N2"));
 
             decimal total = totalSubtotal - totalDescuento + totalImpuesto + totalIeps - totalretenciones;
             txtTotalGrid.Text = Utilerias.FormatearMiles(total.ToString());
@@ -2265,6 +2301,11 @@ namespace PV
         #endregion
 
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private void cmdproyectoalterno_SelectedIndexChanged(object sender, EventArgs e)
         {
 
         }

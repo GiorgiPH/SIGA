@@ -30,30 +30,31 @@ namespace PV
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(RegistroGastos2));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle41 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle42 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle43 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle44 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle45 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle46 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle47 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle48 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle49 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle50 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle11 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle12 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle13 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle14 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle15 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle16 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle17 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle18 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle19 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle20 = new System.Windows.Forms.DataGridViewCellStyle();
             this.guna2Panel1 = new Guna.UI2.WinForms.Guna2Panel();
             this.btnTerminarGasto = new Guna.UI2.WinForms.Guna2Button();
             this.guna2TabControl1 = new Guna.UI2.WinForms.Guna2TabControl();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.txttotalretenciones = new Guna.UI2.WinForms.Guna2TextBox();
+            this.label57 = new System.Windows.Forms.Label();
+            this.label80 = new System.Windows.Forms.Label();
+            this.cmbproyecto = new Guna.UI2.WinForms.Guna2ComboBox();
+            this.label74 = new System.Windows.Forms.Label();
             this.guna2Button2 = new Guna.UI2.WinForms.Guna2Button();
             this.guna2Button3 = new Guna.UI2.WinForms.Guna2Button();
-            this.dtpAnio = new System.Windows.Forms.DateTimePicker();
             this.cmbProoveedorAlternoSiNo = new Guna.UI2.WinForms.Guna2ComboBox();
             this.guna2ComboBox1 = new Guna.UI2.WinForms.Guna2ComboBox();
-            this.label68 = new System.Windows.Forms.Label();
-            this.label67 = new System.Windows.Forms.Label();
             this.label66 = new System.Windows.Forms.Label();
             this.label65 = new System.Windows.Forms.Label();
-            this.cmbSemana = new Guna.UI2.WinForms.Guna2ComboBox();
             this.cmbCentroCostos = new Guna.UI2.WinForms.Guna2ComboBox();
             this.label64 = new System.Windows.Forms.Label();
             this.btnBuscarProveedor = new System.Windows.Forms.Button();
@@ -120,6 +121,11 @@ namespace PV
             this.txtNotas = new Guna.UI2.WinForms.Guna2TextBox();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.PanelPartidasGasto = new Guna.UI2.WinForms.Guna2CustomGradientPanel();
+            this.label47 = new System.Windows.Forms.Label();
+            this.txtRetencion = new Guna.UI2.WinForms.Guna2TextBox();
+            this.label56 = new System.Windows.Forms.Label();
+            this.btnDescuentosPartida = new Guna.UI2.WinForms.Guna2Button();
+            this.btnImpuestosPartida = new Guna.UI2.WinForms.Guna2Button();
             this.cmbCentroCostosAlterno = new Guna.UI2.WinForms.Guna2ComboBox();
             this.dgvComprobantesPartidas = new System.Windows.Forms.DataGridView();
             this.secuencia = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -151,9 +157,7 @@ namespace PV
             this.txtUnidad = new Guna.UI2.WinForms.Guna2TextBox();
             this.txtCantidad = new Guna.UI2.WinForms.Guna2TextBox();
             this.cmbProveedroAlterno = new Guna.UI2.WinForms.Guna2ComboBox();
-            this.cmbConcepto = new Guna.UI2.WinForms.Guna2ComboBox();
             this.txtPartidaOrden = new System.Windows.Forms.TextBox();
-            this.txtClave1 = new System.Windows.Forms.TextBox();
             this.txtConcepto = new System.Windows.Forms.TextBox();
             this.txtConcepto2 = new Guna.UI2.WinForms.Guna2TextBox();
             this.txtPartida = new Guna.UI2.WinForms.Guna2TextBox();
@@ -247,6 +251,7 @@ namespace PV
             this.label21 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.guna2GradientPanel2 = new Guna.UI2.WinForms.Guna2GradientPanel();
+            this.cmbConcepto = new System.Windows.Forms.ComboBox();
             this.guna2Panel1.SuspendLayout();
             this.guna2TabControl1.SuspendLayout();
             this.tabPage2.SuspendLayout();
@@ -345,16 +350,17 @@ namespace PV
             // 
             // tabPage2
             // 
+            this.tabPage2.Controls.Add(this.txttotalretenciones);
+            this.tabPage2.Controls.Add(this.label57);
+            this.tabPage2.Controls.Add(this.label80);
+            this.tabPage2.Controls.Add(this.cmbproyecto);
+            this.tabPage2.Controls.Add(this.label74);
             this.tabPage2.Controls.Add(this.guna2Button2);
             this.tabPage2.Controls.Add(this.guna2Button3);
-            this.tabPage2.Controls.Add(this.dtpAnio);
             this.tabPage2.Controls.Add(this.cmbProoveedorAlternoSiNo);
             this.tabPage2.Controls.Add(this.guna2ComboBox1);
-            this.tabPage2.Controls.Add(this.label68);
-            this.tabPage2.Controls.Add(this.label67);
             this.tabPage2.Controls.Add(this.label66);
             this.tabPage2.Controls.Add(this.label65);
-            this.tabPage2.Controls.Add(this.cmbSemana);
             this.tabPage2.Controls.Add(this.cmbCentroCostos);
             this.tabPage2.Controls.Add(this.label64);
             this.tabPage2.Controls.Add(this.btnBuscarProveedor);
@@ -428,6 +434,84 @@ namespace PV
             this.tabPage2.UseVisualStyleBackColor = true;
             this.tabPage2.Click += new System.EventHandler(this.tabPage2_Click);
             // 
+            // txttotalretenciones
+            // 
+            this.txttotalretenciones.AutoRoundedCorners = true;
+            this.txttotalretenciones.BorderColor = System.Drawing.Color.Gray;
+            this.txttotalretenciones.BorderRadius = 11;
+            this.txttotalretenciones.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.txttotalretenciones.DefaultText = "0.00";
+            this.txttotalretenciones.DisabledState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(208)))), ((int)(((byte)(208)))));
+            this.txttotalretenciones.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(226)))), ((int)(((byte)(226)))));
+            this.txttotalretenciones.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
+            this.txttotalretenciones.DisabledState.PlaceholderForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
+            this.txttotalretenciones.Enabled = false;
+            this.txttotalretenciones.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.txttotalretenciones.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.txttotalretenciones.ForeColor = System.Drawing.Color.Black;
+            this.txttotalretenciones.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.txttotalretenciones.Location = new System.Drawing.Point(669, 298);
+            this.txttotalretenciones.Name = "txttotalretenciones";
+            this.txttotalretenciones.PlaceholderText = "";
+            this.txttotalretenciones.SelectedText = "";
+            this.txttotalretenciones.Size = new System.Drawing.Size(100, 25);
+            this.txttotalretenciones.TabIndex = 383;
+            this.txttotalretenciones.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
+            // label57
+            // 
+            this.label57.AutoSize = true;
+            this.label57.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label57.Location = new System.Drawing.Point(646, 303);
+            this.label57.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label57.Name = "label57";
+            this.label57.Size = new System.Drawing.Size(15, 15);
+            this.label57.TabIndex = 382;
+            this.label57.Text = "$";
+            // 
+            // label80
+            // 
+            this.label80.AutoSize = true;
+            this.label80.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label80.Location = new System.Drawing.Point(541, 303);
+            this.label80.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label80.Name = "label80";
+            this.label80.Size = new System.Drawing.Size(91, 15);
+            this.label80.TabIndex = 381;
+            this.label80.Text = "Retenciones:";
+            // 
+            // cmbproyecto
+            // 
+            this.cmbproyecto.AutoRoundedCorners = true;
+            this.cmbproyecto.BackColor = System.Drawing.Color.Transparent;
+            this.cmbproyecto.BorderColor = System.Drawing.Color.Gray;
+            this.cmbproyecto.BorderRadius = 12;
+            this.cmbproyecto.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
+            this.cmbproyecto.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbproyecto.FocusedColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.cmbproyecto.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.cmbproyecto.Font = new System.Drawing.Font("Segoe UI", 10F);
+            this.cmbproyecto.ForeColor = System.Drawing.Color.Black;
+            this.cmbproyecto.IntegralHeight = false;
+            this.cmbproyecto.ItemHeight = 20;
+            this.cmbproyecto.Items.AddRange(new object[] {
+            "Ultima Compra",
+            "Promedio"});
+            this.cmbproyecto.Location = new System.Drawing.Point(458, 234);
+            this.cmbproyecto.Name = "cmbproyecto";
+            this.cmbproyecto.Size = new System.Drawing.Size(165, 26);
+            this.cmbproyecto.TabIndex = 379;
+            // 
+            // label74
+            // 
+            this.label74.AutoSize = true;
+            this.label74.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label74.Location = new System.Drawing.Point(330, 240);
+            this.label74.Name = "label74";
+            this.label74.Size = new System.Drawing.Size(66, 15);
+            this.label74.TabIndex = 378;
+            this.label74.Text = "Proyecto:";
+            // 
             // guna2Button2
             // 
             this.guna2Button2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
@@ -476,16 +560,6 @@ namespace PV
             this.guna2Button3.Visible = false;
             this.guna2Button3.Click += new System.EventHandler(this.guna2Button3_Click);
             // 
-            // dtpAnio
-            // 
-            this.dtpAnio.CustomFormat = "yyyy";
-            this.dtpAnio.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dtpAnio.Location = new System.Drawing.Point(357, 238);
-            this.dtpAnio.Name = "dtpAnio";
-            this.dtpAnio.ShowUpDown = true;
-            this.dtpAnio.Size = new System.Drawing.Size(77, 22);
-            this.dtpAnio.TabIndex = 372;
-            // 
             // cmbProoveedorAlternoSiNo
             // 
             this.cmbProoveedorAlternoSiNo.AutoRoundedCorners = true;
@@ -531,26 +605,6 @@ namespace PV
             this.guna2ComboBox1.TabIndex = 371;
             this.guna2ComboBox1.Visible = false;
             // 
-            // label68
-            // 
-            this.label68.AutoSize = true;
-            this.label68.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label68.Location = new System.Drawing.Point(441, 241);
-            this.label68.Name = "label68";
-            this.label68.Size = new System.Drawing.Size(64, 15);
-            this.label68.TabIndex = 370;
-            this.label68.Text = "Semana:";
-            // 
-            // label67
-            // 
-            this.label67.AutoSize = true;
-            this.label67.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label67.Location = new System.Drawing.Point(309, 241);
-            this.label67.Name = "label67";
-            this.label67.Size = new System.Drawing.Size(39, 15);
-            this.label67.TabIndex = 370;
-            this.label67.Text = "Anio:";
-            // 
             // label66
             // 
             this.label66.AutoSize = true;
@@ -570,25 +624,6 @@ namespace PV
             this.label65.Size = new System.Drawing.Size(93, 15);
             this.label65.TabIndex = 370;
             this.label65.Text = "Centro Costo:";
-            // 
-            // cmbSemana
-            // 
-            this.cmbSemana.AutoRoundedCorners = true;
-            this.cmbSemana.BackColor = System.Drawing.Color.Transparent;
-            this.cmbSemana.BorderColor = System.Drawing.Color.Gray;
-            this.cmbSemana.BorderRadius = 12;
-            this.cmbSemana.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
-            this.cmbSemana.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbSemana.FocusedColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.cmbSemana.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.cmbSemana.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.cmbSemana.ForeColor = System.Drawing.Color.Black;
-            this.cmbSemana.IntegralHeight = false;
-            this.cmbSemana.ItemHeight = 20;
-            this.cmbSemana.Location = new System.Drawing.Point(511, 234);
-            this.cmbSemana.Name = "cmbSemana";
-            this.cmbSemana.Size = new System.Drawing.Size(191, 26);
-            this.cmbSemana.TabIndex = 369;
             // 
             // cmbCentroCostos
             // 
@@ -611,6 +646,7 @@ namespace PV
             this.cmbCentroCostos.Name = "cmbCentroCostos";
             this.cmbCentroCostos.Size = new System.Drawing.Size(143, 26);
             this.cmbCentroCostos.TabIndex = 369;
+            this.cmbCentroCostos.SelectedIndexChanged += new System.EventHandler(this.cmbCentroCostos_SelectedIndexChanged);
             // 
             // label64
             // 
@@ -1636,6 +1672,12 @@ namespace PV
             this.PanelPartidasGasto.BorderColor = System.Drawing.Color.DimGray;
             this.PanelPartidasGasto.BorderRadius = 5;
             this.PanelPartidasGasto.BorderThickness = 2;
+            this.PanelPartidasGasto.Controls.Add(this.cmbConcepto);
+            this.PanelPartidasGasto.Controls.Add(this.label47);
+            this.PanelPartidasGasto.Controls.Add(this.txtRetencion);
+            this.PanelPartidasGasto.Controls.Add(this.label56);
+            this.PanelPartidasGasto.Controls.Add(this.btnDescuentosPartida);
+            this.PanelPartidasGasto.Controls.Add(this.btnImpuestosPartida);
             this.PanelPartidasGasto.Controls.Add(this.cmbCentroCostosAlterno);
             this.PanelPartidasGasto.Controls.Add(this.dgvComprobantesPartidas);
             this.PanelPartidasGasto.Controls.Add(this.label73);
@@ -1658,9 +1700,7 @@ namespace PV
             this.PanelPartidasGasto.Controls.Add(this.txtUnidad);
             this.PanelPartidasGasto.Controls.Add(this.txtCantidad);
             this.PanelPartidasGasto.Controls.Add(this.cmbProveedroAlterno);
-            this.PanelPartidasGasto.Controls.Add(this.cmbConcepto);
             this.PanelPartidasGasto.Controls.Add(this.txtPartidaOrden);
-            this.PanelPartidasGasto.Controls.Add(this.txtClave1);
             this.PanelPartidasGasto.Controls.Add(this.txtConcepto);
             this.PanelPartidasGasto.Controls.Add(this.txtConcepto2);
             this.PanelPartidasGasto.Controls.Add(this.txtPartida);
@@ -1698,6 +1738,91 @@ namespace PV
             this.PanelPartidasGasto.Size = new System.Drawing.Size(805, 520);
             this.PanelPartidasGasto.TabIndex = 104;
             this.PanelPartidasGasto.Visible = false;
+            // 
+            // label47
+            // 
+            this.label47.AutoSize = true;
+            this.label47.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label47.Location = new System.Drawing.Point(134, 345);
+            this.label47.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label47.Name = "label47";
+            this.label47.Size = new System.Drawing.Size(15, 15);
+            this.label47.TabIndex = 389;
+            this.label47.Text = "$";
+            // 
+            // txtRetencion
+            // 
+            this.txtRetencion.AutoRoundedCorners = true;
+            this.txtRetencion.BorderColor = System.Drawing.Color.Gray;
+            this.txtRetencion.BorderRadius = 11;
+            this.txtRetencion.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.txtRetencion.DefaultText = "0.00";
+            this.txtRetencion.DisabledState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(208)))), ((int)(((byte)(208)))));
+            this.txtRetencion.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(226)))), ((int)(((byte)(226)))));
+            this.txtRetencion.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
+            this.txtRetencion.DisabledState.PlaceholderForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
+            this.txtRetencion.Enabled = false;
+            this.txtRetencion.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.txtRetencion.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.txtRetencion.ForeColor = System.Drawing.Color.Black;
+            this.txtRetencion.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.txtRetencion.Location = new System.Drawing.Point(152, 339);
+            this.txtRetencion.Name = "txtRetencion";
+            this.txtRetencion.PlaceholderText = "";
+            this.txtRetencion.SelectedText = "";
+            this.txtRetencion.Size = new System.Drawing.Size(116, 25);
+            this.txtRetencion.TabIndex = 388;
+            this.txtRetencion.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.txtRetencion.TextChanged += new System.EventHandler(this.txtRetencion_TextChanged);
+            // 
+            // label56
+            // 
+            this.label56.AutoSize = true;
+            this.label56.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label56.Location = new System.Drawing.Point(60, 343);
+            this.label56.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label56.Name = "label56";
+            this.label56.Size = new System.Drawing.Size(76, 15);
+            this.label56.TabIndex = 387;
+            this.label56.Text = "Retención:";
+            // 
+            // btnDescuentosPartida
+            // 
+            this.btnDescuentosPartida.BackColor = System.Drawing.Color.Transparent;
+            this.btnDescuentosPartida.BorderRadius = 20;
+            this.btnDescuentosPartida.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.btnDescuentosPartida.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.btnDescuentosPartida.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.btnDescuentosPartida.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.btnDescuentosPartida.FillColor = System.Drawing.Color.Transparent;
+            this.btnDescuentosPartida.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.btnDescuentosPartida.ForeColor = System.Drawing.Color.White;
+            this.btnDescuentosPartida.Image = ((System.Drawing.Image)(resources.GetObject("btnDescuentosPartida.Image")));
+            this.btnDescuentosPartida.ImageSize = new System.Drawing.Size(30, 30);
+            this.btnDescuentosPartida.Location = new System.Drawing.Point(281, 337);
+            this.btnDescuentosPartida.Name = "btnDescuentosPartida";
+            this.btnDescuentosPartida.Size = new System.Drawing.Size(30, 29);
+            this.btnDescuentosPartida.TabIndex = 386;
+            this.btnDescuentosPartida.Click += new System.EventHandler(this.btnDescuentosPartida_Click);
+            // 
+            // btnImpuestosPartida
+            // 
+            this.btnImpuestosPartida.BackColor = System.Drawing.Color.Transparent;
+            this.btnImpuestosPartida.BorderRadius = 20;
+            this.btnImpuestosPartida.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.btnImpuestosPartida.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.btnImpuestosPartida.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.btnImpuestosPartida.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.btnImpuestosPartida.FillColor = System.Drawing.Color.Transparent;
+            this.btnImpuestosPartida.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.btnImpuestosPartida.ForeColor = System.Drawing.Color.White;
+            this.btnImpuestosPartida.Image = ((System.Drawing.Image)(resources.GetObject("btnImpuestosPartida.Image")));
+            this.btnImpuestosPartida.ImageSize = new System.Drawing.Size(30, 30);
+            this.btnImpuestosPartida.Location = new System.Drawing.Point(527, 260);
+            this.btnImpuestosPartida.Name = "btnImpuestosPartida";
+            this.btnImpuestosPartida.Size = new System.Drawing.Size(30, 29);
+            this.btnImpuestosPartida.TabIndex = 383;
+            this.btnImpuestosPartida.Click += new System.EventHandler(this.btnImpuestosPartida_Click);
             // 
             // cmbCentroCostosAlterno
             // 
@@ -2251,27 +2376,6 @@ namespace PV
             this.cmbProveedroAlterno.SelectedIndexChanged += new System.EventHandler(this.cmbProveedroAlterno_SelectedIndexChanged);
             this.cmbProveedroAlterno.Click += new System.EventHandler(this.cmbProveedroAlterno_Click);
             // 
-            // cmbConcepto
-            // 
-            this.cmbConcepto.AutoRoundedCorners = true;
-            this.cmbConcepto.BackColor = System.Drawing.Color.Transparent;
-            this.cmbConcepto.BorderColor = System.Drawing.Color.Gray;
-            this.cmbConcepto.BorderRadius = 12;
-            this.cmbConcepto.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
-            this.cmbConcepto.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbConcepto.FocusedColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.cmbConcepto.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.cmbConcepto.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.cmbConcepto.ForeColor = System.Drawing.Color.Black;
-            this.cmbConcepto.IntegralHeight = false;
-            this.cmbConcepto.ItemHeight = 20;
-            this.cmbConcepto.Location = new System.Drawing.Point(130, 66);
-            this.cmbConcepto.Name = "cmbConcepto";
-            this.cmbConcepto.Size = new System.Drawing.Size(309, 26);
-            this.cmbConcepto.TabIndex = 346;
-            this.cmbConcepto.SelectedIndexChanged += new System.EventHandler(this.cmbConcepto_SelectedIndexChanged);
-            this.cmbConcepto.Click += new System.EventHandler(this.cmbConcepto_Click);
-            // 
             // txtPartidaOrden
             // 
             this.txtPartidaOrden.Enabled = false;
@@ -2281,16 +2385,6 @@ namespace PV
             this.txtPartidaOrden.Size = new System.Drawing.Size(95, 22);
             this.txtPartidaOrden.TabIndex = 345;
             this.txtPartidaOrden.Visible = false;
-            // 
-            // txtClave1
-            // 
-            this.txtClave1.Enabled = false;
-            this.txtClave1.Location = new System.Drawing.Point(502, 17);
-            this.txtClave1.Margin = new System.Windows.Forms.Padding(4);
-            this.txtClave1.Name = "txtClave1";
-            this.txtClave1.Size = new System.Drawing.Size(95, 22);
-            this.txtClave1.TabIndex = 344;
-            this.txtClave1.Visible = false;
             // 
             // txtConcepto
             // 
@@ -2317,7 +2411,7 @@ namespace PV
             this.txtConcepto2.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.txtConcepto2.ForeColor = System.Drawing.Color.Black;
             this.txtConcepto2.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.txtConcepto2.Location = new System.Drawing.Point(130, 100);
+            this.txtConcepto2.Location = new System.Drawing.Point(130, 108);
             this.txtConcepto2.Name = "txtConcepto2";
             this.txtConcepto2.PlaceholderText = "";
             this.txtConcepto2.SelectedText = "";
@@ -2777,17 +2871,17 @@ namespace PV
             // 
             this.guna2DataGridView1.AllowUserToAddRows = false;
             this.guna2DataGridView1.AllowUserToDeleteRows = false;
-            dataGridViewCellStyle41.BackColor = System.Drawing.Color.White;
-            this.guna2DataGridView1.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle41;
+            dataGridViewCellStyle11.BackColor = System.Drawing.Color.White;
+            this.guna2DataGridView1.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle11;
             this.guna2DataGridView1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            dataGridViewCellStyle42.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle42.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(19)))), ((int)(((byte)(35)))), ((int)(((byte)(95)))));
-            dataGridViewCellStyle42.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle42.ForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle42.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle42.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle42.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.guna2DataGridView1.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle42;
+            dataGridViewCellStyle12.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle12.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(19)))), ((int)(((byte)(35)))), ((int)(((byte)(95)))));
+            dataGridViewCellStyle12.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle12.ForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle12.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle12.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle12.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.guna2DataGridView1.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle12;
             this.guna2DataGridView1.ColumnHeadersHeight = 19;
             this.guna2DataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.EnableResizing;
             this.guna2DataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
@@ -2799,32 +2893,32 @@ namespace PV
             this.Descuento,
             this.Impuesto,
             this.Total});
-            dataGridViewCellStyle43.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle43.BackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle43.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle43.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle43.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(99)))), ((int)(((byte)(114)))), ((int)(((byte)(169)))));
-            dataGridViewCellStyle43.SelectionForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle43.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.guna2DataGridView1.DefaultCellStyle = dataGridViewCellStyle43;
+            dataGridViewCellStyle13.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle13.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle13.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle13.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle13.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(99)))), ((int)(((byte)(114)))), ((int)(((byte)(169)))));
+            dataGridViewCellStyle13.SelectionForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle13.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.guna2DataGridView1.DefaultCellStyle = dataGridViewCellStyle13;
             this.guna2DataGridView1.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(229)))), ((int)(((byte)(255)))));
             this.guna2DataGridView1.Location = new System.Drawing.Point(133, 37);
             this.guna2DataGridView1.Name = "guna2DataGridView1";
             this.guna2DataGridView1.ReadOnly = true;
-            dataGridViewCellStyle44.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle44.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle44.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle44.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle44.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle44.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle44.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.guna2DataGridView1.RowHeadersDefaultCellStyle = dataGridViewCellStyle44;
+            dataGridViewCellStyle14.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle14.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle14.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle14.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle14.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle14.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle14.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.guna2DataGridView1.RowHeadersDefaultCellStyle = dataGridViewCellStyle14;
             this.guna2DataGridView1.RowHeadersVisible = false;
-            dataGridViewCellStyle45.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle45.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            dataGridViewCellStyle45.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle45.ForeColor = System.Drawing.Color.Black;
-            this.guna2DataGridView1.RowsDefaultCellStyle = dataGridViewCellStyle45;
+            dataGridViewCellStyle15.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle15.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            dataGridViewCellStyle15.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle15.ForeColor = System.Drawing.Color.Black;
+            this.guna2DataGridView1.RowsDefaultCellStyle = dataGridViewCellStyle15;
             this.guna2DataGridView1.Size = new System.Drawing.Size(802, 418);
             this.guna2DataGridView1.TabIndex = 102;
             this.guna2DataGridView1.ThemeStyle.AlternatingRowsStyle.BackColor = System.Drawing.Color.White;
@@ -3435,16 +3529,16 @@ namespace PV
             // 
             this.dgvGastos.AllowUserToAddRows = false;
             this.dgvGastos.AllowUserToDeleteRows = false;
-            dataGridViewCellStyle46.BackColor = System.Drawing.Color.White;
-            this.dgvGastos.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle46;
-            dataGridViewCellStyle47.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle47.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(19)))), ((int)(((byte)(35)))), ((int)(((byte)(95)))));
-            dataGridViewCellStyle47.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle47.ForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle47.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle47.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle47.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvGastos.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle47;
+            dataGridViewCellStyle16.BackColor = System.Drawing.Color.White;
+            this.dgvGastos.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle16;
+            dataGridViewCellStyle17.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle17.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(19)))), ((int)(((byte)(35)))), ((int)(((byte)(95)))));
+            dataGridViewCellStyle17.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle17.ForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle17.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle17.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle17.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvGastos.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle17;
             this.dgvGastos.ColumnHeadersHeight = 19;
             this.dgvGastos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.EnableResizing;
             this.dgvGastos.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
@@ -3453,32 +3547,32 @@ namespace PV
             this.Documento,
             this.Alumno,
             this.Fecha});
-            dataGridViewCellStyle48.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle48.BackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle48.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle48.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle48.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(99)))), ((int)(((byte)(114)))), ((int)(((byte)(169)))));
-            dataGridViewCellStyle48.SelectionForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle48.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgvGastos.DefaultCellStyle = dataGridViewCellStyle48;
+            dataGridViewCellStyle18.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle18.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle18.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle18.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle18.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(99)))), ((int)(((byte)(114)))), ((int)(((byte)(169)))));
+            dataGridViewCellStyle18.SelectionForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle18.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvGastos.DefaultCellStyle = dataGridViewCellStyle18;
             this.dgvGastos.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(229)))), ((int)(((byte)(255)))));
             this.dgvGastos.Location = new System.Drawing.Point(12, 156);
             this.dgvGastos.Name = "dgvGastos";
             this.dgvGastos.ReadOnly = true;
-            dataGridViewCellStyle49.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle49.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle49.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle49.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle49.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle49.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle49.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvGastos.RowHeadersDefaultCellStyle = dataGridViewCellStyle49;
+            dataGridViewCellStyle19.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle19.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle19.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle19.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle19.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle19.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle19.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvGastos.RowHeadersDefaultCellStyle = dataGridViewCellStyle19;
             this.dgvGastos.RowHeadersVisible = false;
-            dataGridViewCellStyle50.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle50.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            dataGridViewCellStyle50.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle50.ForeColor = System.Drawing.Color.Black;
-            this.dgvGastos.RowsDefaultCellStyle = dataGridViewCellStyle50;
+            dataGridViewCellStyle20.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle20.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            dataGridViewCellStyle20.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle20.ForeColor = System.Drawing.Color.Black;
+            this.dgvGastos.RowsDefaultCellStyle = dataGridViewCellStyle20;
             this.dgvGastos.Size = new System.Drawing.Size(326, 348);
             this.dgvGastos.TabIndex = 241;
             this.dgvGastos.ThemeStyle.AlternatingRowsStyle.BackColor = System.Drawing.Color.White;
@@ -3663,7 +3757,7 @@ namespace PV
             this.guna2GradientPanel2.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(19)))), ((int)(((byte)(35)))), ((int)(((byte)(95)))));
             this.guna2GradientPanel2.FillColor2 = System.Drawing.Color.SteelBlue;
             this.guna2GradientPanel2.GradientMode = System.Drawing.Drawing2D.LinearGradientMode.ForwardDiagonal;
-            this.guna2GradientPanel2.Location = new System.Drawing.Point(697, 80);
+            this.guna2GradientPanel2.Location = new System.Drawing.Point(710, 78);
             this.guna2GradientPanel2.Name = "guna2GradientPanel2";
             this.guna2GradientPanel2.ShadowDecoration.BorderRadius = 1;
             this.guna2GradientPanel2.ShadowDecoration.CustomizableEdges.BottomLeft = false;
@@ -3674,6 +3768,18 @@ namespace PV
             this.guna2GradientPanel2.TabIndex = 168;
             this.guna2GradientPanel2.Visible = false;
             this.guna2GradientPanel2.Paint += new System.Windows.Forms.PaintEventHandler(this.guna2GradientPanel2_Paint);
+            // 
+            // cmbConcepto
+            // 
+            this.cmbConcepto.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cmbConcepto.FormattingEnabled = true;
+            this.cmbConcepto.IntegralHeight = false;
+            this.cmbConcepto.ItemHeight = 25;
+            this.cmbConcepto.Location = new System.Drawing.Point(130, 63);
+            this.cmbConcepto.Name = "cmbConcepto";
+            this.cmbConcepto.Size = new System.Drawing.Size(310, 33);
+            this.cmbConcepto.TabIndex = 390;
+            this.cmbConcepto.SelectedIndexChanged += new System.EventHandler(this.cmbConcepto_SelectedIndexChanged);
             // 
             // RegistroGastos2
             // 
@@ -3817,7 +3923,6 @@ namespace PV
         private Guna.UI2.WinForms.Guna2TextBox txtUnidad;
         private Guna.UI2.WinForms.Guna2TextBox txtCantidad;
         private System.Windows.Forms.TextBox txtPartidaOrden;
-        private System.Windows.Forms.TextBox txtClave1;
         private System.Windows.Forms.TextBox txtConcepto;
         private Guna.UI2.WinForms.Guna2TextBox txtConcepto2;
         private Guna.UI2.WinForms.Guna2TextBox txtPartida;
@@ -3867,10 +3972,6 @@ namespace PV
         private System.Windows.Forms.Label label65;
         private Guna.UI2.WinForms.Guna2ComboBox cmbProoveedorAlternoSiNo;
         private System.Windows.Forms.Label label66;
-        private System.Windows.Forms.Label label68;
-        private System.Windows.Forms.Label label67;
-        private System.Windows.Forms.DateTimePicker dtpAnio;
-        private Guna.UI2.WinForms.Guna2ComboBox cmbSemana;
         private Guna.UI2.WinForms.Guna2ComboBox cmbProveedroAlterno;
         private Guna.UI2.WinForms.Guna2ComboBox cmbCentroCostosAlterno;
         private System.Windows.Forms.Label label70;
@@ -3890,7 +3991,6 @@ namespace PV
         private Guna.UI2.WinForms.Guna2Button guna2Button2;
         private System.Windows.Forms.ToolStripButton toolStripButton4;
         private System.Windows.Forms.ToolStripButton toolStripButton5;
-        public Guna.UI2.WinForms.Guna2ComboBox cmbConcepto;
         private System.Windows.Forms.DataGridViewTextBoxColumn Folio;
         private System.Windows.Forms.DataGridViewTextBoxColumn Consecutivo;
         private System.Windows.Forms.DataGridViewTextBoxColumn Documento;
@@ -3925,5 +4025,16 @@ namespace PV
         private Guna.UI2.WinForms.Guna2TextBox txtImpuestoGrid;
         private Guna.UI2.WinForms.Guna2TextBox txtDescuentoGrid;
         private Guna.UI2.WinForms.Guna2TextBox txtSubtotalGrid;
+        private Guna.UI2.WinForms.Guna2ComboBox cmbproyecto;
+        private System.Windows.Forms.Label label74;
+        private Guna.UI2.WinForms.Guna2Button btnImpuestosPartida;
+        private System.Windows.Forms.Label label47;
+        private Guna.UI2.WinForms.Guna2TextBox txtRetencion;
+        private System.Windows.Forms.Label label56;
+        private Guna.UI2.WinForms.Guna2Button btnDescuentosPartida;
+        private Guna.UI2.WinForms.Guna2TextBox txttotalretenciones;
+        private System.Windows.Forms.Label label57;
+        private System.Windows.Forms.Label label80;
+        public System.Windows.Forms.ComboBox cmbConcepto;
     }
 }

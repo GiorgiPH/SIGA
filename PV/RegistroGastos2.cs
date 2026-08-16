@@ -19,10 +19,14 @@ using Condominios;
 using Condominios.Clases.CentroCostos;
 using PuntoVentas.Clases.Login;
 using PV.Clases;
-
+using PV.Clases.CentroCostos;
+using PV.Clases.ConceptosGlobalesReembolso;
 using PV.Clases.OrdenCompra;
 using PV.Clases.Proveedores;
+using PV.Clases.Servicios;
+using PV.Enums;
 using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Diagnostics;
 using System.Drawing;
@@ -36,13 +40,21 @@ namespace PV
     public partial class RegistroGastos2 : Form
     {
         #region Campos y constructor
+        private List<(string clase, string Tipo, decimal Valor)> conceptosAplicadosImpuestos = new List<(string clase, string Tipo, decimal Valor)>();
+        private List<(string clase, string Tipo, decimal Valor, string clavebase, string clasebase, decimal valorbase)> conceptosAplicadosDescuentos = new List<(string clase, string Tipo, decimal Valor, string clavebase, string clasebase, decimal valorbase)>();
+        private List<(string clase, string Tipo, decimal Valor)> conceptosAplicadosGlobales = new List<(string clase, string Tipo, decimal Valor)>();
+
 
         public static string Matricula = string.Empty;
         DBOrdenCompra c = new DBOrdenCompra();
+        DBConceptosGloablesGasto cg = new DBConceptosGloablesGasto();
+
         public static string Carpeta = string.Empty;
 
         DBCentroCostos cc = new DBCentroCostos();
         DBProveedores p = new DBProveedores();
+        DBDatosProyecto dp = new DBDatosProyecto();
+        DBServicios s = new DBServicios();
 
         string recibo = string.Empty;
         string reciboCol = string.Empty;
@@ -71,10 +83,7 @@ namespace PV
         public RegistroGastos2()
         {
             InitializeComponent();
-            for (int i = 1; i <= 52; i++)
-            {
-                cmbSemana.Items.Add($"Semana {i}");
-            }
+            
         }
 
         #endregion
@@ -139,27 +148,58 @@ namespace PV
             }
         }
 
+    
         private void Calcular()
         {
-            // Validaciones básicas para evitar errores de conversión
-            decimal precio = 0, cantidad = 0, descuentoPorcentaje = 0, impuestoPorcentaje = 0;
+            decimal.TryParse(txtPrecio.Text, out decimal precio);
+            decimal.TryParse(txtCantidad.Text, out decimal cantidad);
 
-            decimal.TryParse(txtPrecio.Text, out precio);
-            decimal.TryParse(txtCantidad.Text, out cantidad);
-            decimal.TryParse(txtDescuento1.Text, out descuentoPorcentaje);
-            decimal.TryParse(txtImpuesto1.Text, out impuestoPorcentaje);
-            decimal sub = (precio * cantidad);
+            // NOTA: en el código original, "descuentoTotal" y "retencion" se leen
+            // de txtDescuentoIm/txtRetencion y luego se reinician a 0 antes de
+            // usarse (posible resultado de una depuración incompleta, ya que hay
+            // un bloque comentado justo arriba que sí las usaba). Se conserva tal
+            // cual porque el cálculo actual es "totalmente funcional" y depende
+            // de este comportamiento.
+            decimal descuentoTotal = 0;
+            decimal retencion = 0;
 
-            decimal descuento = (descuentoPorcentaje / 100) * sub;
-            txtDescuentoIm.Text = descuento.ToString("N2");
-            sub = (precio * cantidad) - descuento;
+            decimal sub = precio * cantidad - descuentoTotal;
 
-            // Calcular impuesto
-            decimal impuesto = (impuestoPorcentaje / 100) * sub;
+            foreach (var concepto in conceptosAplicadosDescuentos)
+            {
+                if (concepto.clase == "Descuento")
+                {
+                    if (concepto.Tipo == "Porcentaje")
+                    {
+                        retencion += (concepto.Valor / 100) * sub;
+                    }
+                    else if (concepto.Tipo == "Importe")
+                    {
+                        retencion += concepto.Valor;
+                    }
+                }
+            }
 
-            // Asignar los valores calculados a los controles de texto
-            txtImpuestoIm.Text = impuesto.ToString("N2");
-            txtTotal1.Text = (sub + impuesto).ToString("N2");
+            txtRetencion.Text = retencion.ToString("N2");
+
+            decimal impuestoTotal = 0;
+            foreach (var concepto in conceptosAplicadosImpuestos)
+            {
+                if (concepto.clase == "Impuesto")
+                {
+                    if (concepto.Tipo == "Porcentaje")
+                    {
+                        impuestoTotal += (concepto.Valor / 100) * sub;
+                    }
+                    else if (concepto.Tipo == "Importe")
+                    {
+                        impuestoTotal += concepto.Valor;
+                    }
+                }
+            }
+
+            txtImpuestoIm.Text = impuestoTotal.ToString("N2");
+            txtTotal1.Text = (sub + impuestoTotal  - retencion).ToString("N2");
             txtSubtotal1.Text = sub.ToString("N2");
         }
 
@@ -238,6 +278,42 @@ namespace PV
         #endregion
 
         #region Carga de catálogos (combos)
+
+        private void LlenarComboGastos()
+        {
+            try
+            {
+                // Evitamos que el evento se dispare mientras estamos cargando el combo
+                cmbConcepto.SelectedIndexChanged -= cmbConcepto_SelectedIndexChanged;
+
+                DataTable menus = !string.IsNullOrEmpty(txtOrden.Text)
+                    ? s.ObtenerProductosGastoPorOrden(txtOrden.Text)
+                    : s.ObtenerProductosGasto();
+
+                cmbConcepto.DataSource = null;
+
+                // IMPORTANTE:
+                // Primero configuramos DisplayMember y ValueMember
+                // y DESPUÉS asignamos el DataSource.
+                cmbConcepto.DisplayMember = "Descripcion";
+                cmbConcepto.ValueMember = "ClaveServicio";
+                cmbConcepto.DataSource = menus;
+
+                cmbConcepto.SelectedIndex = -1;
+
+                cmbConcepto.DropDownStyle = ComboBoxStyle.DropDown;
+                cmbConcepto.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
+                cmbConcepto.AutoCompleteSource = AutoCompleteSource.ListItems;
+            }
+            catch (Exception ex)
+            {
+            }
+            finally
+            {
+                // Volvemos a conectar el evento
+                cmbConcepto.SelectedIndexChanged += cmbConcepto_SelectedIndexChanged;
+            }
+        }
 
         private void LlenarComboCentro()
         {
@@ -395,21 +471,12 @@ namespace PV
             c.SeleccionarConceptoDocumento(cmbFiltroDocumentoC);
             c.ruta();
             c.CargarGasto(dgvGastos);
-
-            cmbEstatus.SelectedIndex = 0;
-            txtFecha.Text = DateTime.Today.ToString("yyyy/MM/dd");
-            txtDivisa.Text = "MXN";
-            txtTipoCambio.Text = "1.00";
-            txtElaborado.Text = DBLogin.usuario;
-            cmbOrdenCompra.Text = txtFiltroOrdenC.Text;
-            txtDiasVence.Text = "0";
-            cmbProoveedorAlternoSiNo.Text = "Si";
+            Limpiarcabezado();
+            
 
             CalcularFechaVencimiento();
 
-            // Preselecciona el año y la semana actual
-            dtpAnio.Value = DateTime.Today;
-            cmbSemana.SelectedIndex = ObtenerNumeroSemanaActual() - 1;
+            
         }
 
         private void RegistroGastos2_Load(object sender, EventArgs e)
@@ -456,11 +523,13 @@ namespace PV
             }
 
             string centroCosto = null;
+            string proyecto = ComboUtil.ObtenerSelectedValue(cmbproyecto);
 
             if (mostrrcentorcosto)
             {
-                if (cmbCentroCostos.SelectedValue == null ||
-                    string.IsNullOrWhiteSpace(cmbCentroCostos.SelectedValue.ToString()))
+                centroCosto = ComboUtil.ObtenerSelectedValue(cmbCentroCostos);
+
+                if (string.IsNullOrWhiteSpace(centroCosto))
                 {
                     MessageBox.Show(
                         "Seleccione un centro de costos antes de continuar.",
@@ -470,25 +539,10 @@ namespace PV
 
                     return;
                 }
-
-                centroCosto = cmbCentroCostos.SelectedValue.ToString();
-            }
-
-            // Validar semana
-            if (cmbSemana.SelectedIndex < 0)
-            {
-                MessageBox.Show(
-                    "Seleccione la semana.",
-                    "Validación",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Warning);
-
-                return;
             }
 
             string folioOrden = txtOrdenCompra.Text.Trim();
 
-            // Si todavía no existe el folio, crear el registro
             if (string.IsNullOrWhiteSpace(txtFolio.Text))
             {
                 c.InsertarRegistroGasto(
@@ -507,12 +561,14 @@ namespace PV
                     txtDiasVence.Text,
                     txtFechaVence.Text,
                     centroCosto,
-                    cmbSemana.SelectedIndex + 1,
-                    dtpAnio.Text,
+                    proyecto,
                     cmbProoveedorAlternoSiNo.Text
                 );
             }
 
+
+
+          
             // Determinar si ya existe un archivo/comprobante
             bool tieneArchivo = !string.IsNullOrWhiteSpace(txtArchivo.Text);
 
@@ -522,17 +578,16 @@ namespace PV
             // Pasar datos al formulario de partidas
             txtOrden.Text = folioOrden;
 
+            LlenarComboGastos();
             // Configurar productos dependiendo de si existe orden de compra
             if (!string.IsNullOrWhiteSpace(txtOrden.Text))
             {
-                c.SeleccionarProductoGasto(cmbConcepto, txtOrden.Text);
                 c.ConsultaGasto(txtFolio.Text, txtPartida);
 
                 txtPrecio.Enabled = false;
             }
             else
             {
-                c.SeleccionarProductoGasto(cmbConcepto);
                 c.ConsultaGasto(txtFolio.Text, txtPartida);
 
                 txtPrecio.Enabled = true;
@@ -682,7 +737,7 @@ namespace PV
             Limpiar();
             string Folio = dgvGastos.Rows[e.RowIndex].Cells["Folio"].Value.ToString();
             txtFolio.Text = "X";
-            c.ConsultaGastos(Folio, txtClave, cmbEstatus, txtFecha, txtDivisa, txtTipoCambio, txtSubtotal, txtDescuento, txtImpuestos, txtTotal, txtPartidas, txtNotas, txtElaborado, txtFolio, txtReciboCol, txtConsecutivo, txtReferencia, txtSaldo, txtDiasVence, txtFechaVence, txtArchivo, cmbCentroCostos, cmbSemana, dtpAnio, cmbProoveedorAlternoSiNo, txtMatricular);
+            c.ConsultaGastos(Folio, txtClave, cmbEstatus, txtFecha, txtDivisa, txtTipoCambio, txtSubtotal, txtDescuento, txtImpuestos, txtTotal, txtPartidas, txtNotas, txtElaborado, txtFolio, txtReciboCol, txtConsecutivo, txtReferencia, txtSaldo, txtDiasVence, txtFechaVence, txtArchivo, cmbCentroCostos, cmbproyecto, cmbProoveedorAlternoSiNo, txtMatricular);
             rutaCompletaArchivo = txtArchivo.Text;
             cmbOrdenCompra.Enabled = false;
             txtNotas.Enabled = false;
@@ -803,16 +858,15 @@ namespace PV
             }
             PanelPartidasGasto.Visible = true;
             LimpiarDetalle();
+            LlenarComboGastos();
             if (!string.IsNullOrWhiteSpace(txtOrden.Text))
             {
-                c.SeleccionarProductoGasto(cmbConcepto, txtOrden.Text);
                 c.ConsultaGasto(txtFolio.Text, txtPartida);
 
                 txtPrecio.Enabled = false;
             }
             else
             {
-                c.SeleccionarProductoGasto(cmbConcepto);
                 c.ConsultaGasto(txtFolio.Text, txtPartida);
 
                 txtPrecio.Enabled = true;
@@ -846,7 +900,7 @@ namespace PV
                 c.InsertarPartidaGasto(
                     txtFolio.Text,
                     txtPartida.Text,
-                    txtClave1.Text,
+                    cmbConcepto.SelectedValue.ToString(),
                     txtConcepto2.Text,
                     txtCantidad.Text.Replace(",", ""),
                     txtUnidad.Text,
@@ -860,7 +914,8 @@ namespace PV
                     cmbProveedroAlterno?.SelectedValue?.ToString(),
                     cmbCentroCostosAlterno?.SelectedValue?.ToString(),
                     txtDescuentoIm.Text.Replace(",", ""),
-                    txtImpuestoIm.Text.Replace(",", "")
+                    txtImpuestoIm.Text.Replace(",", ""),
+                    txtRetencion.Text.Replace(",", "")
                 );
                 c.ActualizarGasto(txtFolio.Text, txtPartida.Text);
                 c.ActualizarPartidaOrden(txtOrden.Text, txtPartidaOrden.Text, txtCantidad.Text);
@@ -869,7 +924,7 @@ namespace PV
                 c.ConsultaGasto(txtFolio.Text, txtPartida);
                 PanelPartidasGasto.Visible = false;
                 btnTerminarGasto.Visible = true;
-                c.ReciboSaldosGastos(txtFolio.Text, txtSubtotal, txtDescuento, txtImpuestos, txtTotal, txtPartidas, txtSaldo);
+                c.ReciboSaldosGastos(txtFolio.Text, txtSubtotal, txtDescuento, txtImpuestos, txtTotal, txtPartidas, txtSaldo, txttotalretenciones);
 
                 c.CargarRecibosPartidasGasto(guna2DataGridView1, txtFolio.Text);
 
@@ -897,7 +952,7 @@ namespace PV
                     MessageBox.Show("Es necesario seleccionar un proveedor alterno");
                     return;
                 }
-                c.InsertarPartidaGasto(txtFolio.Text, txtPartida.Text, txtClave1.Text, txtConcepto2.Text, txtCantidad.Text.Replace(",", ""), txtUnidad.Text, txtDivisa1.Text, txtTipoCambio1.Text.Replace(",", ""), Convert.ToDecimal(txtSubtotal1.Text.Replace(",", "")), Convert.ToDecimal(txtDescuento1.Text.Replace(",", "")), Convert.ToDecimal(txtTotal1.Text.Replace(",", "")), Convert.ToDecimal(txtImpuesto1.Text.Replace(",", "")), rutaCompletaArchivo, cmbProveedroAlterno?.SelectedValue?.ToString(), cmbCentroCostosAlterno?.SelectedValue?.ToString(), txtDescuentoIm.Text.Replace(",", ""), txtImpuestoIm.Text.Replace(",", ""));
+                c.InsertarPartidaGasto(txtFolio.Text, txtPartida.Text, cmbConcepto.SelectedValue.ToString(), txtConcepto2.Text, txtCantidad.Text.Replace(",", ""), txtUnidad.Text, txtDivisa1.Text, txtTipoCambio1.Text.Replace(",", ""), Convert.ToDecimal(txtSubtotal1.Text.Replace(",", "")), Convert.ToDecimal(txtDescuento1.Text.Replace(",", "")), Convert.ToDecimal(txtTotal1.Text.Replace(",", "")), Convert.ToDecimal(txtImpuesto1.Text.Replace(",", "")), rutaCompletaArchivo, cmbProveedroAlterno?.SelectedValue?.ToString(), cmbCentroCostosAlterno?.SelectedValue?.ToString(), txtDescuentoIm.Text.Replace(",", ""), txtImpuestoIm.Text.Replace(",", ""), txtRetencion.Text.Replace(",", ""));
                 c.ActualizarPartidaOrden(txtOrden.Text, txtPartidaOrden.Text, txtCantidad.Text.Replace(",", ""));
                 c.ActualizarGasto(txtFolio.Text, txtPartida.Text);
                 Limpiar();
@@ -910,19 +965,12 @@ namespace PV
                 // guardada no aparecía en pantalla hasta que el usuario
                 // presionaba "Confirmar Partida" al final. Ahora se refresca
                 // igual que en btnConfirmarPartida_Click.
-                c.ReciboSaldosGastos(txtFolio.Text, txtSubtotal, txtDescuento, txtImpuestos, txtTotal, txtPartidas, txtSaldo);
+                c.ReciboSaldosGastos(txtFolio.Text, txtSubtotal, txtDescuento, txtImpuestos, txtTotal, txtPartidas, txtSaldo, txttotalretenciones);
 
                 c.CargarRecibosPartidasGasto(guna2DataGridView1, txtFolio.Text);
                 SumarColumnasPartida();
 
-                if (txtOrden.Text != string.Empty)
-                {
-                    c.SeleccionarProductoGasto(cmbConcepto, txtOrden.Text);
-                }
-                else
-                {
-                    c.SeleccionarProductoGasto(cmbConcepto);
-                }
+                LlenarComboGastos();
             }
         }
 
@@ -942,7 +990,7 @@ namespace PV
             MessageBox.Show(c.EliminarPartidaRegistroGasto(txtFolio.Text, txtPartida.Text));
             string maximo = c.ObtenerTotalPartidaRegistroGasto(txtFolio.Text);
             c.ActualizarGasto(txtFolio.Text, maximo);
-            c.ReciboSaldosGastos(txtFolio.Text, txtSubtotal, txtDescuento, txtImpuestos, txtTotal, txtPartidas, txtSaldo);
+            c.ReciboSaldosGastos(txtFolio.Text, txtSubtotal, txtDescuento, txtImpuestos, txtTotal, txtPartidas, txtSaldo, txttotalretenciones);
 
             c.CargarRecibosPartidasGasto(guna2DataGridView1, txtFolio.Text);
 
@@ -959,8 +1007,7 @@ namespace PV
 
             try
             {
-                // Llenar el combo de conceptos
-                c.SeleccionarProductoGasto(cmbConcepto);
+                LlenarComboGastos();
 
                 // Obtener la partida seleccionada
                 string partida = guna2DataGridView1.Rows[e.RowIndex].Cells["Partida"].Value?.ToString();
@@ -973,7 +1020,6 @@ namespace PV
                 c.ConsultaPartidaGasto(
                     txtFolio.Text,
                     partida,
-                    txtClave1,
                     cmbConcepto,
                     txtConcepto2,
                     txtCantidad,
@@ -1019,7 +1065,6 @@ namespace PV
                 if (txtOrden.Text != string.Empty)
                 {
                     string[] valores = c.InformacionGastoo(cmbConcepto.Text, txtOrden.Text);
-                    txtClave1.Text = valores[0];
                     txtConcepto.Text = valores[1];
                     txtPrecio.Text = valores[2];
                     txtDescuento1.Text = valores[3];
@@ -1034,7 +1079,6 @@ namespace PV
                 else
                 {
                     string[] valores = c.InformacionGasto(cmbConcepto.Text);
-                    txtClave1.Text = valores[0];
                     txtConcepto.Text = valores[1];
                     txtPrecio.Text = valores[2];
                     txtUnidad.Text = valores[3];
@@ -1046,15 +1090,7 @@ namespace PV
             }
         }
 
-        private void cmbConcepto_Click(object sender, EventArgs e)
-        {
-            if (actualizarcombo == "Si")
-            {
-                c.SeleccionarProductoGasto(cmbConcepto);
-                actualizarcombo = string.Empty;
-            }
-        }
-
+       
         private void cmbProveedroAlterno_Click(object sender, EventArgs e)
         {
             if (actualizarproveedor == "Si")
@@ -1211,8 +1247,15 @@ namespace PV
             }
             else
             {
-                BuscarListaProveedores buscarListaAlumnos2 = new BuscarListaProveedores();
-                buscarListaAlumnos2.ShowDialog();
+                using (var buscador = new BuscarListaProveedores())
+                {
+                    if (buscador.ShowDialog() == DialogResult.OK)
+                    {
+                        txtMatricular.Text = buscador.Matricula;
+                        txtNombreAlumnno.Text = buscador.Nombre;
+                        Matricula = buscador.Matricula; // sigues alimentando tu campo static si otro código ya depende de él
+                    }
+                }
             }
 
             cmbDocumento.DroppedDown = false;
@@ -1342,82 +1385,7 @@ namespace PV
 
         private void button3_Click(object sender, EventArgs e)
         {
-            cmbDocumento.DroppedDown = false;
-            cmbFiltroDocumentoC.DroppedDown = false;
-            cmbProveedor.DroppedDown = false;
-            cmbOrdenCompra.DroppedDown = false;
-            btLimpiarOrden.BackColor = Color.Gainsboro;
-            button3.BackColor = Color.Gainsboro;
-            txtReferencia.BackColor = Color.White;
-            txtNotas.BackColor = Color.White;
-            button2.BackColor = Color.Gainsboro;
-            button7.BackColor = Color.Gainsboro;
-            txtDiasVence.BackColor = Color.White;
-
-            if (DBOrdenCompra.Ruta != string.Empty)
-            {
-                string FolioOrden = txtOrdenCompra.Text;
-                int opcion = 0;
-                if (txtFolio.Text == string.Empty)
-                {
-                    c.InsertarRegistroGasto(txtFolio, txtClave.Text, cmbEstatus.Text, txtFecha.Text, txtMatricular.Text, txtDivisa.Text, txtTipoCambio.Text, txtNotas.Text, txtElaborado.Text, FolioOrden, txtConsecutivo.Text, txtReferencia.Text, txtDiasVence.Text, txtFechaVence.Text, cmbCentroCostos.SelectedValue.ToString(), cmbSemana.SelectedIndex + 1, dtpAnio.Text, cmbProoveedorAlternoSiNo.Text);
-                    opcion = 1;
-                }
-
-                if (txtFolio.Text != string.Empty)
-                {
-                    string NoOrdenResl = txtFolio.Text;
-                    string Descripcion = txtClave.Text;
-
-                    Carpeta = DBOrdenCompra.Ruta + @"\" + "EG" + NoOrdenResl;
-
-                    try
-                    {
-                        ArchivoUtil.CrearCarpetaSiNoExiste(Carpeta);
-                    }
-                    catch (Exception)
-                    {
-                        throw;
-                    }
-
-                    Carpeta = DBOrdenCompra.Ruta + @"\" + "EG" + NoOrdenResl;
-
-                    OpenFileDialog open = new OpenFileDialog();
-                    open.Filter = "All Files|*.*";
-
-                    if (open.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-                    {
-                        string archivo = open.FileName;
-                        string ext = Path.GetExtension(archivo);
-                        try
-                        {
-                            ArchivoUtil.CopiarArchivo(archivo, Carpeta + @"\" + Descripcion + ext);
-                            txtArchivo.Text = Descripcion + ext;
-                            c.ModificarExtension5gasto(txtFolio.Text, txtClave.Text, ext);
-                            c.ActualizarRecepcion3gasto(txtFolio.Text, txtClave.Text, txtArchivo.Text);
-
-                            if (opcion == 1)
-                            {
-                                PartidaGastos partidas = new PartidaGastos(txtFolio.Text, txtDocumento.Text, FolioOrden, opcion);
-                                partidas.ShowDialog();
-                            }
-                        }
-                        catch (Exception ex)
-                        {
-                            MessageBox.Show("Ya hay un archivo guardado" + ex.ToString());
-                            return;
-                        }
-                    }
-                }
-                else
-                {
-                    MessageBox.Show("Continue con el registro antes de adjuntar archivos");
-                }
-            }
-            else
-            {
-                MessageBox.Show("No existe una ruta para guardar archivos definida en Parametros->Datos Condominio");
-            }
+            
         }
 
         private void btnAdjuntarComporbante_Click(object sender, EventArgs e)
@@ -1466,7 +1434,7 @@ namespace PV
 
                     contenidoArchivo = ArchivoUtil.ConvertirArchivoABase64(archivoSeleccionado);
 
-                    MessageBox.Show(c.insertaArchivos(txtFolio.Text, txtPartida.Text, txtClave1.Text, nombreArchivo, extensionArchivo, contenidoArchivo));
+                    MessageBox.Show(c.insertaArchivos(txtFolio.Text, txtPartida.Text, cmbConcepto.SelectedValue.ToString(), nombreArchivo, extensionArchivo, contenidoArchivo));
 
                     c.mostrarArchivos(dgvComprobantesPartidas, txtFolio.Text, txtPartida.Text);
                 }
@@ -1598,7 +1566,6 @@ namespace PV
             txtCantidad.Text = "1";
             txtPrecio.Text = "0.00";
             txtUnidad.Text = string.Empty;
-            txtDivisa1.Text = "MXN";
             txtTipoCambio1.Text = "1.00";
             txtSubtotal.Text = "0.00";
             txtImpuesto1.Text = "0.00";
@@ -1608,13 +1575,15 @@ namespace PV
             txtTotal1.Text = "0.00";
             txtArchivo1.Text = string.Empty;
             txtDivisa1.Text = "MXN";
+            txtRetencion.Text = "0.00";
             txtTipoCambio1.Text = "1.00";
 
-          
             cmbProveedroAlterno.SelectedIndex = -1;
             cmbCentroCostosAlterno.SelectedIndex = -1;
             cmbCentroCostosAlterno.Text = cmbCentroCostos.Text;
             dgvComprobantesPartidas.Rows.Clear();
+
+
         }
 
         /// <summary>
@@ -1624,33 +1593,36 @@ namespace PV
         void Limpiarcabezado()
         {
             txtConsecutivo.Text = string.Empty;
-            txtFecha.Text = string.Empty;
-            txtDiasVence.Text = string.Empty;
             txtFechaVence.Text = string.Empty;
-
+            txttotalretenciones.Text = "0.00";
             txtMatricular.Text = string.Empty;
             txtNombreAlumnno.Text = string.Empty;
             txtReferencia.Text = string.Empty;
             txtSubtotal.Text = "0.00";
             txtDescuento.Text = "0.00";
             txtImpuestos.Text = "0.00";
-            txtDivisa.Text = string.Empty;
             txtTipoCambio.Text = "0.00";
             txtTotal.Text = "0.00";
             txtAbono.Text = "0.00";
             txtSaldo.Text = "0.00";
+            txttotalretenciones.Text = "0.00";
             txtPartidas.Text = string.Empty;
             txtNotas.Text = string.Empty;
-            txtElaborado.Text = string.Empty;
             txtArchivo.Text = string.Empty;
             cmbDocumento.SelectedIndex = -1;
             cmbFiltroDocumentoC.SelectedIndex = -1;
             cmbProveedor.SelectedIndex = -1;
             cmbOrdenCompra.SelectedIndex = -1;
             cmbCentroCostos.SelectedIndex = -1;
-            cmbSemana.SelectedIndex = -1;
-            dtpAnio.Value = DateTime.Now;
+            cmbproyecto.SelectedIndex = -1;
             cmbProoveedorAlternoSiNo.SelectedIndex = -1;
+            cmbproyecto.SelectedIndex = -1;
+            cmbEstatus.SelectedIndex = 0;
+            txtFecha.Text = DateTime.Today.ToString("yyyy/MM/dd");
+            txtDivisa.Text = "MXN";
+            txtTipoCambio.Text = "1.00";
+            txtElaborado.Text = DBLogin.usuario;
+            txtDiasVence.Text = "0";
             cmbProoveedorAlternoSiNo.Text = "Si";
         }
 
@@ -1658,7 +1630,7 @@ namespace PV
         {
             cmbDocumento.Enabled = false;
             txtDiasVence.Enabled = false;
-
+            cmbproyecto.Enabled = false;
             cmbFiltroDocumentoC.Enabled = false;
             cmbProveedor.Enabled = false;
             cmbOrdenCompra.Enabled = false;
@@ -1671,13 +1643,14 @@ namespace PV
             button1.Enabled = false;
             button2.Enabled = false;
             button3.Enabled = false;
+            cmbproyecto.Enabled = false;
         }
 
         void DesbloquearEncabezado()
         {
             cmbDocumento.Enabled = true;
             txtDiasVence.Enabled = true;
-
+            cmbproyecto.Enabled = true;
             cmbFiltroDocumentoC.Enabled = true;
             cmbProveedor.Enabled = true;
             cmbOrdenCompra.Enabled = true;
@@ -1691,8 +1664,8 @@ namespace PV
             button2.Enabled = true;
             button3.Enabled = true;
             cmbCentroCostos.Enabled = true;
-            dtpAnio.Enabled = true;
-            cmbSemana.Enabled = true;
+            cmbproyecto.Enabled = true;
+    
             cmbProoveedorAlternoSiNo.Enabled = true;
         }
 
@@ -1706,9 +1679,9 @@ namespace PV
             txtDescuento1.Enabled = false;
             cmbProveedroAlterno.Enabled = false;
             cmbCentroCostosAlterno.Enabled = false;
+            txtRetencion.Enabled = false;
             cmbCentroCostos.Enabled = false;
-            dtpAnio.Enabled = false;
-            cmbSemana.Enabled = false;
+
             cmbProoveedorAlternoSiNo.Enabled = false;
         }
 
@@ -1720,6 +1693,7 @@ namespace PV
             txtPrecio.Enabled = true;
             txtImpuesto1.Enabled = true;
             txtDescuento1.Enabled = true;
+            txtRetencion.Enabled = true;
             cmbProveedroAlterno.Enabled = true;
             cmbCentroCostosAlterno.Enabled = true;
         }
@@ -2066,5 +2040,98 @@ namespace PV
         }
 
         #endregion
+
+        private void btnDescuentosPartida_Click(object sender, EventArgs e)
+        {
+            if (string.IsNullOrEmpty(txtFolio.Text))
+            {
+                MessageBox.Show("Seleccione una Compra Reembolso");
+                return;
+            }
+
+            ConceptosGlobalesPartida cgp = new ConceptosGlobalesPartida(txtFolio.Text, txtPartida.Text, "Descuento", cmbEstatus.Text);
+
+            if (cgp.ShowDialog() == DialogResult.OK)
+            {
+                RecargarDescuentos();
+                Calcular();
+            }
+        }
+
+        private void btnImpuestosPartida_Click(object sender, EventArgs e)
+        {
+            if (string.IsNullOrEmpty(txtFolio.Text))
+            {
+                MessageBox.Show("Seleccione una Compra Reembolso");
+                return;
+            }
+
+            ConceptosGlobalesPartida cgp = new ConceptosGlobalesPartida(txtFolio.Text, txtPartida.Text, "Impuesto", cmbEstatus.Text, TipoDocumentoConcepto.Gasto);
+
+            if (cgp.ShowDialog() == DialogResult.OK)
+            {
+                RecargarImpuestos();
+                Calcular();
+            }
+        }
+        private void RecargarDescuentos()
+        {
+            conceptosAplicadosDescuentos.Clear();
+
+            var dt = cg.CargarConceptosExistentes(txtFolio.Text, txtPartida.Text, "Descuento");
+            foreach (DataRow row in dt.Rows)
+            {
+                string tipo = row["Tipo"].ToString();
+                string clase = row["Clase"].ToString().Trim();
+                decimal valor = ConvertirDecimalSeguro(row["Descuento"]);
+                conceptosAplicadosDescuentos.Add((clase, tipo, valor, "", "", 0.00m));
+            }
+        }
+
+        private void RecargarImpuestos()
+        {
+            conceptosAplicadosImpuestos.Clear();
+
+            var dt = cg.CargarConceptosExistentes(txtFolio.Text, txtPartida.Text, "Impuesto");
+            foreach (DataRow row in dt.Rows)
+            {
+                string tipo = row["Tipo"].ToString();
+                string clase = row["Clase"].ToString().Trim();
+                decimal valor = ConvertirDecimalSeguro(row["Cargo"]);
+                conceptosAplicadosImpuestos.Add((clase, tipo, valor));
+            }
+        }
+        private decimal ConvertirDecimalSeguro(object valor)
+        {
+            if (valor == null || valor == DBNull.Value)
+            {
+                return 0;
+            }
+            decimal.TryParse(valor.ToString(), out decimal resultado);
+            return resultado;
+        }
+
+        private void cmbCentroCostos_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (consultaRegistros != "SI")
+            {
+                DataTable dtProyectos = dp.ObtenerProyectosPorCentroCostos(
+           cmbCentroCostos.Text
+                    );
+
+                ComboUtil.LlenarComboBox(
+                    cmbproyecto,
+                    dtProyectos,
+                    "Proyecto",
+                    "Id"
+                );
+            }
+        }
+
+        private void txtRetencion_TextChanged(object sender, EventArgs e)
+        {
+            Moneda(ref txtRetencion);
+
+        }
     }
 }

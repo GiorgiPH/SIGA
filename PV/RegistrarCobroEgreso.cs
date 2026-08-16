@@ -1,18 +1,29 @@
-﻿using System;
+﻿using Condominios.Clases.CentroCostos;
+using Condominios.Clases.RegistrarIngresos;
+using PV.Clases;
+using PV.Clases.ConceptoPago;
+using PV.Clases.CuentasBancarias;
+using PV.Clases.Egresos;
+using System;
 using System.Collections;
 using System.Data;
 using System.Globalization;
 using System.Windows.Forms;
-using Condominios.Clases.RegistrarIngresos;
 
 namespace PV
 {
     public partial class RegistrarCobroEgreso : Form
     {
-        DBRegistrarIngresos c = new DBRegistrarIngresos();
+        DBEgresos c = new DBEgresos();
+        DBConceptoCobroPago dbConceptoCobroPago = new DBConceptoCobroPago();
+        DBCUentaBancaria dbCuentaBancaria = new DBCUentaBancaria();
+
         ArrayList Lista;
         ArrayList Lista2;
         ArrayList Lista3;
+
+       
+        private const byte IdClaseIngresos = 3;
 
         public RegistrarCobroEgreso(ArrayList ListaConcep, ArrayList ListaConcep2, ArrayList ListaConcep3, string Matricula, string Alumno)
         {
@@ -43,8 +54,7 @@ namespace PV
                     row.Cells["FolioDocumento"].Value = egreso["Folio"];
                     row.Cells["Documento"].Value = egreso["ClaveDocumento"];
                     row.Cells["Concepto"].Value = egreso["Nombre"];
-                    row.Cells["Recargos"].Value = egreso["Recargo"];
-                    row.Cells["Descuento"].Value = egreso["DescuentoPago"];
+                   
                     row.Cells["Saldo"].Value = egreso["Saldo"];
                     row.Cells["Importe"].Value = egreso["Total"];
                     row.Cells["Abono"].Value = 0.00M;
@@ -58,7 +68,18 @@ namespace PV
             this.formasPagoTableAdapter.Fill(this.controlCondominiosDataSet29.FormasPago);
             this.formasPagoTableAdapter.Fill(this.controlCondominiosDataSet29.FormasPago);
             LlenarEgresosSeleccionados();
-            c.SeleccionarCuentaBancaria(cmbCuentaBancaria);
+            DataTable dtProyectos = dbCuentaBancaria.ObtenerCuentasBancarias(
+         
+                   );
+
+            ComboUtil.LlenarComboBox(
+                cmbCuentaBancaria,
+                dtProyectos,
+                "Nombre",
+                "Clave"
+            );
+            DataTable conceptosIngreso = dbConceptoCobroPago.ListarParaCombo(IdClaseIngresos, soloActivos: true);
+            ComboUtil.LlenarComboBox(cmbConceptoIngreso, conceptosIngreso, "Descripcion", "IdConcepto");
         }
 
         private void dgvPagosPendientes_CellEndEdit(object sender, DataGridViewCellEventArgs e)
@@ -150,13 +171,20 @@ namespace PV
                             return;
                         }
                     }
+                    string conceptoSeleccionado = ComboUtil.ObtenerSelectedValue(cmbConceptoIngreso);
+                    if (conceptoSeleccionado == null)
+                    {
+                        MessageBox.Show("Seleccione el concepto de ingreso");
+                        return;
+                    }
+                    int idConceptoCobroPago = Convert.ToInt32(conceptoSeleccionado);
 
                     c.InsertarCobroGeneralEgreso(Convert.ToDecimal(txtTotalPagado.Text), txtFolioGeneral);
 
                     foreach (DataGridViewRow row in dgvPagosPendientes.Rows)
                     {
-                        c.ActualizarEgreso2(row.Cells["Tipo"].Value.ToString(), row.Cells["FolioDocumento"].Value.ToString(), Convert.ToDecimal(row.Cells["Recargos"].Value.ToString()), Convert.ToDecimal(row.Cells["Descuento"].Value.ToString()), Convert.ToDecimal(row.Cells["Saldo"].Value.ToString()));
-                        c.InsertarEgreso(row.Cells["Tipo"].Value.ToString(), row.Cells["FolioDocumento"].Value.ToString(), txtMatricula.Text, dtpFecha.Text, txtObservaciones.Text, row.Cells["FormaPago"].Value.ToString(), Convert.ToDecimal(row.Cells["Abono"].Value.ToString()), txtReferncia.Text, txtNumOperacion.Text, txtNumAutorizacion.Text, txtCuenta.Text, txtFolioGeneral.Text);
+                        c.ActualizarSaldoEgreso(row.Cells["Tipo"].Value.ToString(), row.Cells["FolioDocumento"].Value.ToString(), Convert.ToDecimal(row.Cells["Saldo"].Value.ToString()));
+                        c.InsertarEgreso(row.Cells["Tipo"].Value.ToString(), row.Cells["FolioDocumento"].Value.ToString(), txtMatricula.Text, dtpFecha.Text, txtObservaciones.Text, row.Cells["FormaPago"].Value.ToString(), Convert.ToDecimal(row.Cells["Abono"].Value.ToString()), txtReferncia.Text, txtNumOperacion.Text, txtNumAutorizacion.Text, cmbCuentaBancaria.SelectedValue.ToString(), txtFolioGeneral.Text, idConceptoCobroPago);
                         c.ActualizarSaldoProveedor(txtMatricula.Text, Convert.ToDecimal(row.Cells["Abono"].Value.ToString()));
                     }
                     if (MessageBox.Show("¿Imprimir Recibo?", "Egreso", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
@@ -203,11 +231,7 @@ namespace PV
 
         private void cmbCuentaBancaria_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (cmbCuentaBancaria.Text != string.Empty)
-            {
-                string[] valores = c.InformacionCuenta(cmbCuentaBancaria.Text);
-                txtCuenta.Text = valores[0];
-            }
+           
         }
 
         private void guna2CircleButton1_Click(object sender, EventArgs e)

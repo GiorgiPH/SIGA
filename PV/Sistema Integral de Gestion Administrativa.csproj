@@ -164,6 +164,12 @@
     <Compile Include="AgregarEstructura.Designer.cs">
       <DependentUpon>AgregarEstructura.cs</DependentUpon>
     </Compile>
+    <Compile Include="CatalogoConceptosTesoreria.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CatalogoConceptosTesoreria.Designer.cs">
+      <DependentUpon>CatalogoConceptosTesoreria.cs</DependentUpon>
+    </Compile>
     <Compile Include="Almacenes.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -342,6 +348,10 @@
     <Compile Include="Clases\CentroCostos\DBCentroCostos.cs" />
     <Compile Include="Clases\Clientes\DBClientes.cs" />
     <Compile Include="Clases\colores.cs" />
+    <Compile Include="Clases\ComboUtil.cs" />
+    <Compile Include="Clases\ConceptoPago\DBClaseConcepto.cs" />
+    <Compile Include="Clases\ConceptoPago\DBConceptoCobroPago.cs" />
+    <Compile Include="Clases\ConceptosGlobalesGasto\DBConceptosGloablesGasto.cs" />
     <Compile Include="Clases\ConceptosGlobalesReembolso\DBConceptosGloablesReembolso.cs" />
     <Compile Include="Clases\ConceptosGlobales\DBConceptosGlobales.cs" />
     <Compile Include="Clases\ConceptosIngresos\DBConceptosIngresos.cs" />
@@ -352,6 +362,7 @@
     <Compile Include="Clases\DatosEmpresa\DBDatosEmpresa.cs" />
     <Compile Include="Clases\Divisas\DBDivisas.cs" />
     <Compile Include="Clases\Documentos\DBDocumentos.cs" />
+    <Compile Include="Clases\Egresos\DBEgresos.cs" />
     <Compile Include="Clases\FiltroMovimiento\DBFiltroMovimientos.cs" />
     <Compile Include="Clases\FormasPago\DBFormasPagos.cs" />
     <Compile Include="Clases\GenerarRecibo\DBGenerarRecibo.cs" />
@@ -508,6 +519,7 @@
     <Compile Include="DefinePolizas.Designer.cs">
       <DependentUpon>DefinePolizas.cs</DependentUpon>
     </Compile>
+    <Compile Include="dto\ConceptoCobroPagoData.cs" />
     <Compile Include="DTSPolizaCompra1.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -541,6 +553,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>DTSReporteOrdenesPedidoUtilidad.xsd</DependentUpon>
     </Compile>
+    <Compile Include="Enums\TipoDocumentoConcepto.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -559,6 +572,7 @@
     <Compile Include="GraficaMontoGastosxMes.Designer.cs">
       <DependentUpon>GraficaMontoGastosxMes.cs</DependentUpon>
     </Compile>
+    <Compile Include="Interfaces\IConceptosGlobalesDocumento.cs" />
     <Compile Include="LoginDemo.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -672,6 +686,12 @@
     </Compile>
     <Compile Include="ReporteOrdenPedidoCliente.Designer.cs">
       <DependentUpon>ReporteOrdenPedidoCliente.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ReportePagoEgresoPreeliminar.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ReportePagoEgresoPreeliminar.Designer.cs">
+      <DependentUpon>ReportePagoEgresoPreeliminar.cs</DependentUpon>
     </Compile>
     <Compile Include="ReporteReciboAnticipoAplicado.cs">
       <SubType>Form</SubType>
@@ -1254,12 +1274,6 @@
     <Compile Include="PagosRecibos.Designer.cs">
       <DependentUpon>PagosRecibos.cs</DependentUpon>
     </Compile>
-    <Compile Include="PartidaGastos.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="PartidaGastos.Designer.cs">
-      <DependentUpon>PartidaGastos.cs</DependentUpon>
-    </Compile>
     <Compile Include="PartidaGastoVer.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -1387,12 +1401,6 @@
     </Compile>
     <Compile Include="RegistroEgreso.Designer.cs">
       <DependentUpon>RegistroEgreso.cs</DependentUpon>
-    </Compile>
-    <Compile Include="RegistroGastos.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="RegistroGastos.Designer.cs">
-      <DependentUpon>RegistroGastos.cs</DependentUpon>
     </Compile>
     <Compile Include="registroIngresos.cs">
       <SubType>Form</SubType>
@@ -1883,6 +1891,9 @@
     <EmbeddedResource Include="AgregarEstructura.resx">
       <DependentUpon>AgregarEstructura.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="CatalogoConceptosTesoreria.resx">
+      <DependentUpon>CatalogoConceptosTesoreria.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Almacenes.resx">
       <DependentUpon>Almacenes.cs</DependentUpon>
     </EmbeddedResource>
@@ -2079,6 +2090,10 @@
     <EmbeddedResource Include="ReporteOrdenPedidoCliente.resx">
       <DependentUpon>ReporteOrdenPedidoCliente.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="ReportePagoEgresoPreeliminar.rdlc" />
+    <EmbeddedResource Include="ReportePagoEgresoPreeliminar.resx">
+      <DependentUpon>ReportePagoEgresoPreeliminar.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="ReporteReciboAnticipoAplicado.rdlc" />
     <EmbeddedResource Include="ReporteReciboAnticipoAplicado.resx">
       <DependentUpon>ReporteReciboAnticipoAplicado.cs</DependentUpon>
@@ -2226,9 +2241,6 @@
     <EmbeddedResource Include="PagosRecibos.resx">
       <DependentUpon>PagosRecibos.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="PartidaGastos.resx">
-      <DependentUpon>PartidaGastos.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="PartidaGastoVer.resx">
       <DependentUpon>PartidaGastoVer.cs</DependentUpon>
     </EmbeddedResource>
@@ -2303,9 +2315,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="RegistroEgreso.resx">
       <DependentUpon>RegistroEgreso.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="RegistroGastos.resx">
-      <DependentUpon>RegistroGastos.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="registroIngresos.resx">
       <DependentUpon>registroIngresos.cs</DependentUpon>
@@ -3486,6 +3495,7 @@
   <ItemGroup>
     <None Include="Resources\sigalite_logo.png" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

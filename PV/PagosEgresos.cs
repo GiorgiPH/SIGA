@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Windows.Forms;
 using Condominios.Clases.RegistrarIngresos;
+using PV.Clases.Egresos;
 
 namespace PV
 {
     public partial class PagosEgresos : Form
     {
-        DBRegistrarIngresos c = new DBRegistrarIngresos();
+        DBEgresos c = new DBEgresos();
 
         public PagosEgresos(string Matricula, string Alumno)
         {

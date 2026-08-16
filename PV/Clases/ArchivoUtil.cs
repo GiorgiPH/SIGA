@@ -10,6 +10,15 @@ namespace PV.Clases
     /// (crear carpeta, copiar, abrir, eliminar, convertir a Base64 y detectar tipo).
     /// La lógica de cada operación es exactamente la misma que existía en el formulario,
     /// únicamente se centralizó aquí para evitar duplicidad y facilitar su mantenimiento.
+    ///
+    /// GuardarAdjunto se agregó al revisar RegistrarCobro.cs: ese formulario (y,
+    /// según se comentó, varios otros) copiaba un archivo elegido por el usuario
+    /// hacia una carpeta de "adjuntos" con el mismo patrón (crear carpeta, copiar
+    /// preservando la extensión original, guardar solo el nombre generado). Se
+    /// consolidó ese patrón aquí; la construcción de la ruta de la carpeta en sí
+    /// (base + prefijo + identificador) se dejó en cada formulario porque el
+    /// prefijo/convención puede variar entre pantallas y no lo tengo confirmado
+    /// para las demás.
     /// </summary>
     public static class ArchivoUtil
     {
@@ -32,6 +41,23 @@ namespace PV.Clases
         public static void CopiarArchivo(string origen, string destino, bool sobrescribir = false)
         {
             File.Copy(origen, destino, sobrescribir);
+        }
+
+        /// <summary>
+        /// Copia "archivoOrigen" hacia "carpetaDestino", usando "nombreDestino"
+        /// (sin extensión) + la extensión original del archivo de origen como
+        /// nombre final. Regresa el nombre de archivo generado (el que se debe
+        /// guardar en la base de datos, p. ej. columna Archivo de Cobros).
+        /// No crea la carpeta destino: llamar CrearCarpetaSiNoExiste antes si
+        /// hace falta, igual que hacía el código original.
+        /// </summary>
+        public static string GuardarAdjunto(string archivoOrigen, string carpetaDestino, string nombreDestino)
+        {
+            string extension = Path.GetExtension(archivoOrigen);
+            string nombreArchivo = nombreDestino + extension;
+            string rutaDestino = Path.Combine(carpetaDestino, nombreArchivo);
+            CopiarArchivo(archivoOrigen, rutaDestino);
+            return nombreArchivo;
         }
 
         /// <summary>

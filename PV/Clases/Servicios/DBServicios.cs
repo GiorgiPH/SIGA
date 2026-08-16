@@ -469,5 +469,51 @@ namespace PV.Clases.Servicios
             }
             return mensaje;
         }
+        public DataTable ObtenerProductosGasto()
+        {
+            DataTable dt = new DataTable();
+            try
+            {
+                using (SqlCommand cmd = new SqlCommand("SELECT ClaveServicio, Descripcion FROM Servicios WHERE Estatus = 'Activo' ORDER BY Descripcion", cn))
+                using (SqlDataAdapter da = new SqlDataAdapter(cmd))
+                {
+                    da.Fill(dt);
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al obtener productos de gasto: " + ex.Message);
+            }
+            return dt;
+        }
+
+        public DataTable ObtenerProductosGastoPorOrden(string folioOrden)
+        {
+            DataTable dt = new DataTable();
+            try
+            {
+                string query = @"SELECT P.ClaveProducto AS ClaveServicio, P.Descripcion as Descripcion
+                         FROM PartidaOrden AS PA
+                         INNER JOIN Servicios AS P ON PA.ClaveProducto = P.ClaveProducto
+                         WHERE PA.FolioOrden = @FolioOrden
+                         AND PA.CantidadRecibida > 0
+                         AND P.Estatus = 'Activo'
+                         ORDER BY P.Descripcion";
+
+                using (SqlCommand cmd = new SqlCommand(query, cn))
+                {
+                    cmd.Parameters.AddWithValue("@FolioOrden", folioOrden);
+                    using (SqlDataAdapter da = new SqlDataAdapter(cmd))
+                    {
+                        da.Fill(dt);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al obtener productos por orden: " + ex.Message);
+            }
+            return dt;
+        }
     }
 }

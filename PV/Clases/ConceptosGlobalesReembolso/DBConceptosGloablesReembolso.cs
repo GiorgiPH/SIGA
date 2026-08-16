@@ -1,15 +1,16 @@
-﻿using System;
+﻿using PV.Interfaces;
+using PV.Properties;
+using System;
 using System.Collections.Generic;
-using System.Data.SqlClient;
 using System.Data;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using PV.Properties;
 
 namespace PV.Clases.ConceptosGlobalesReembolso
 {
-    internal class DBConceptosGloablesReembolso
+    internal class DBConceptosGloablesReembolso : IConceptosGlobalesDocumento
     {
         public static string ObtenerCn()
         {
@@ -19,7 +20,7 @@ namespace PV.Clases.ConceptosGlobalesReembolso
         {
             try
             {
-                string query = @"SELECT g.ClaveConceptoG, c.Nombre, c.Tipo, g.Descuento, g.Cargo, c.clase, cg.Clave as clavebase, cg.Clase as clasebase, cg.Importe as importebase FROM ConceptoGlobalesGasto g  " +
+                string query = @"SELECT g.ClaveConceptoG, c.Nombre, c.Tipo, g.Descuento, g.Cargo, c.clase, cg.Clave as clavebase, cg.Clase as clasebase, cg.Importe as importebase FROM ConceptoGlobalesReembolso g  " +
                    "JOIN ConceptosGlobales c ON g.ClaveConceptoG = c.Clave Left Join ConceptosGlobales as cg ON cg.Clave=c.DependeDe WHERE g.Folio = @folio and g.Partida=@Partida";
                 if (!string.IsNullOrEmpty(clase))
                 {
@@ -43,7 +44,7 @@ namespace PV.Clases.ConceptosGlobalesReembolso
         {
             try
             {
-                string query = @"SELECT g.ClaveConceptoG, c.Nombre, c.Tipo, g.descuento, g.cargo, c.clase, g.partida, R.Subtotal FROM ConceptoGlobalesGasto g  " +
+                string query = @"SELECT g.ClaveConceptoG, c.Nombre, c.Tipo, g.descuento, g.cargo, c.clase, g.partida, R.Subtotal FROM ConceptoGlobalesReembolso g  " +
                    " JOIN ConceptosGlobales c ON g.ClaveConceptoG = c.Clave" +
                    " JOIN PartidaRegistroReembolso as R ON R.FolioGasto=g.Folio and R.Partida = g.partida WHERE g.Folio = @Folio order by g.partida";
                 
@@ -63,7 +64,7 @@ namespace PV.Clases.ConceptosGlobalesReembolso
         }
         public void EliminarConceptosGlobales(string folio, string partida, string clase)
         {
-            string query = "DELETE CGG FROM ConceptoGlobalesGasto AS CGG JOIN ConceptosGlobales AS CG ON CGG.ClaveConceptoG = CG.Clave WHERE Folio = @folio and CGG.Partida = @partida";
+            string query = "DELETE CGG FROM ConceptoGlobalesReembolso AS CGG JOIN ConceptosGlobales AS CG ON CGG.ClaveConceptoG = CG.Clave WHERE Folio = @folio and CGG.Partida = @partida";
             if (!string.IsNullOrEmpty(clase))
             {
                 query += " and CG.Clase='" + clase + "'";
@@ -81,7 +82,7 @@ namespace PV.Clases.ConceptosGlobalesReembolso
         public void InsertarDescuento(string clave, string folio, string Partida, decimal valorDescuento, decimal valorCargo)
         {
             using (SqlConnection conn = new SqlConnection(ObtenerCn()))
-            using (SqlCommand cmd = new SqlCommand("INSERT INTO ConceptoGlobalesGasto (ClaveConceptoG, Folio, Partida, Descuento, Cargo) VALUES (@clave, @folio, @partida, @valorDescuento, @valorCargo)", conn))
+            using (SqlCommand cmd = new SqlCommand("INSERT INTO ConceptoGlobalesReembolso (ClaveConceptoG, Folio, Partida, Descuento, Cargo) VALUES (@clave, @folio, @partida, @valorDescuento, @valorCargo)", conn))
             {
                 cmd.Parameters.AddWithValue("@clave", clave);
                 cmd.Parameters.AddWithValue("@folio", folio);

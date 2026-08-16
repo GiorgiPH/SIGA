@@ -75,33 +75,21 @@ namespace PV.Clases.Remision
                 foreach (DataRow item in dt.Rows)
                 {
                     int n = dgv.Rows.Add();
-                    decimal subtotal = Convert.ToDecimal(item["Subtotal"]);
+                    decimal Total = Convert.ToDecimal(item["Total"]);
 
 
                     dgv.Rows[n].Cells[1].Value = item["ClaveDocumento"].ToString();
                     dgv.Rows[n].Cells[2].Value = item["Folio"].ToString();
                     dgv.Rows[n].Cells[3].Value = item["Consecutivo"].ToString();
-                    //dgv.Rows[n].Cells[4].Value = item["PropiedadNombre"].ToString();
                     dgv.Rows[n].Cells[5].Value = item["Nombre"].ToString();
                     dgv.Rows[n].Cells[6].Value = Convert.ToDateTime(item["Fecha"]).ToString("yyyy/MM/dd");
-                    dgv.Rows[n].Cells[7].Value = subtotal;
+                    dgv.Rows[n].Cells[7].Value = Total;
                     dgv.Rows[n].Cells[8].Value = Convert.ToDecimal(item["Saldo"]).ToString("N", formato);
                     dgv.Rows[n].Cells[9].Value = Convert.ToDateTime(item["FechaVence"]).ToString("yyyy/MM/dd");
-                    dgv.Rows[n].Cells[13].Value = Convert.ToDecimal(item["Cargo"]).ToString("N", formato);
-                    //dgv.Rows[n].Cells[26].ReadOnly = Convert.ToDecimal(item["Recargo"]) > 0.00m ? true : false;
-
-                    //dgv.Rows[n].Cells[13].Value = "0.00";
-                    dgv.Rows[n].Cells[16].Value = Convert.ToDecimal(item["Descuento"]).ToString("N", formato);
-                    //dgv.Rows[n].Cells[17].Value = Convert.ToDecimal(0.00).ToString("N", formato);
-                    //dgv.Rows[n].Cells[18].Value = Convert.ToDecimal(item["Importe"]).ToString("N", formato);
-                    //dgv.Rows[n].Cells[19].Value = Convert.ToDecimal(item["ImporteA"]).ToString("N", formato);
-                    //dgv.Rows[n].Cells[20].Value = Convert.ToDecimal(item["Area"]).ToString("N", formato);
-                    //dgv.Rows[n].Cells[21].Value = item["TipoCuota"].ToString();
-                    //dgv.Rows[n].Cells[22].Value = Convert.ToDecimal(item["ProIndiviso"]).ToString();
-                    //dgv.Rows[n].Cells[23].Value = Convert.ToDecimal(item["CuotaMantenimiento"]).ToString("N", formato);
-                    //dgv.Rows[n].Cells[24].Value = item["ClaveRecibo"].ToString();
-                    //dgv.Rows[n].Cells[25].Value = Convert.ToDateTime(item["FechaRecargo"]).ToString("yyyy/MM/dd");
-                    //dgv.Rows[n].Cells[26].Value = Convert.ToDecimal(item["Recargo"]) > 0.00m ? 1 : 0;
+                    //dgv.Rows[n].Cells[13].Value = Convert.ToDecimal(item["Cargo"]).ToString("N", formato);
+          
+                   // dgv.Rows[n].Cells[16].Value = Convert.ToDecimal(item["Descuento"]).ToString("N", formato);
+                   
 
                 }
             }
@@ -136,12 +124,9 @@ namespace PV.Clases.Remision
                         dgv.Rows[n].Cells[1].Value = item["Folio"].ToString();
                         dgv.Rows[n].Cells[2].Value = item["ClaveDocumento"].ToString();
                         dgv.Rows[n].Cells[3].Value = item["Nombre"].ToString();
-                        dgv.Rows[n].Cells[4].Value = Convert.ToDecimal(item["Cargo"]).ToString("N", formato);
-                        dgv.Rows[n].Cells[5].Value = Convert.ToDecimal(item["Descuento"]).ToString("N", formato);
-                        dgv.Rows[n].Cells[6].Value = Convert.ToDecimal(item["Saldo"]).ToString("N", formato);
-                        dgv.Rows[n].Cells[7].Value = (Convert.ToDecimal(item["Saldo"]) + Convert.ToDecimal(item["RecargosAcumulados"])).ToString("N", formato);
-                        dgv.Rows[n].Cells[9].Value = Convert.ToDecimal(0.00).ToString("N", formato);
-                        dgv.Rows[n].Cells[11].Value = Convert.ToDecimal(0.00).ToString("N", formato);
+                        dgv.Rows[n].Cells[4].Value = Convert.ToDecimal(item["Saldo"]).ToString("N", formato);
+                        dgv.Rows[n].Cells[7].Value = Convert.ToDecimal(item["Saldo"]).ToString("N", formato);
+
 
                     }
                 }

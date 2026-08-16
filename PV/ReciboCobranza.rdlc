@@ -596,14 +596,14 @@
                 </TablixCell>
                 <TablixCell>
                   <CellContents>
-                    <Textbox Name="ClavePropietario">
+                    <Textbox Name="IdCliente">
                       <CanGrow>true</CanGrow>
                       <KeepTogether>true</KeepTogether>
                       <Paragraphs>
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>=Fields!ClavePropietario.Value</Value>
+                              <Value>=Fields!IdCliente.Value</Value>
                               <Style />
                             </TextRun>
                           </TextRuns>
@@ -612,7 +612,7 @@
                           </Style>
                         </Paragraph>
                       </Paragraphs>
-                      <rd:DefaultName>ClavePropietario</rd:DefaultName>
+                      <rd:DefaultName>IdCliente</rd:DefaultName>
                       <Style>
                         <Border>
                           <Style>None</Style>
@@ -639,7 +639,7 @@
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>=Fields!RazonSocial.Value</Value>
+                              <Value>=Fields!Nombre.Value</Value>
                               <Style />
                             </TextRun>
                           </TextRuns>
@@ -1228,14 +1228,14 @@
                 </TablixCell>
                 <TablixCell>
                   <CellContents>
-                    <Textbox Name="Nombre">
+                    <Textbox Name="Nombre1">
                       <CanGrow>true</CanGrow>
                       <KeepTogether>true</KeepTogether>
                       <Paragraphs>
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>=Fields!Nombre.Value</Value>
+                              <Value>=Fields!Nombre1.Value</Value>
                               <Style />
                             </TextRun>
                           </TextRuns>
@@ -1244,7 +1244,7 @@
                           </Style>
                         </Paragraph>
                       </Paragraphs>
-                      <rd:DefaultName>Nombre</rd:DefaultName>
+                      <rd:DefaultName>Nombre1</rd:DefaultName>
                       <Style>
                         <Border>
                           <Style>None</Style>
@@ -2266,14 +2266,14 @@
         <TablixRowHierarchy>
           <TablixMembers>
             <TablixMember>
-              <Group Name="ClavePropietario">
+              <Group Name="IdCliente">
                 <GroupExpressions>
-                  <GroupExpression>=Fields!ClavePropietario.Value</GroupExpression>
+                  <GroupExpression>=Fields!IdCliente.Value</GroupExpression>
                 </GroupExpressions>
               </Group>
               <SortExpressions>
                 <SortExpression>
-                  <Value>=Fields!ClavePropietario.Value</Value>
+                  <Value>=Fields!IdCliente.Value</Value>
                 </SortExpression>
               </SortExpressions>
               <TablixMembers>
@@ -2525,7 +2525,7 @@
             <Paragraph>
               <TextRuns>
                 <TextRun>
-                  <Value>Recibo de Pago</Value>
+                  <Value>Recibo de Cobro</Value>
                   <Style>
                     <FontSize>12pt</FontSize>
                     <FontWeight>Bold</FontWeight>
@@ -2723,8 +2723,16 @@
           <DataField>Folio</DataField>
           <rd:TypeName>System.Int32</rd:TypeName>
         </Field>
-        <Field Name="ClavePropietario">
-          <DataField>ClavePropietario</DataField>
+        <Field Name="Importe">
+          <DataField>Importe</DataField>
+          <rd:TypeName>System.Decimal</rd:TypeName>
+        </Field>
+        <Field Name="Folio1">
+          <DataField>Folio1</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="IdCliente">
+          <DataField>IdCliente</DataField>
           <rd:TypeName>System.Int32</rd:TypeName>
         </Field>
         <Field Name="Fecha">
@@ -2759,44 +2767,16 @@
           <DataField>CuentaBancaria</DataField>
           <rd:TypeName>System.Int32</rd:TypeName>
         </Field>
-        <Field Name="RazonSocial">
-          <DataField>RazonSocial</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="Nombre">
-          <DataField>Nombre</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="Nombre1">
-          <DataField>Nombre1</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="TipoCambio">
-          <DataField>TipoCambio</DataField>
-          <rd:TypeName>System.Decimal</rd:TypeName>
-        </Field>
-        <Field Name="Importe">
-          <DataField>Importe</DataField>
-          <rd:TypeName>System.Decimal</rd:TypeName>
-        </Field>
-        <Field Name="Folio1">
-          <DataField>Folio1</DataField>
-          <rd:TypeName>System.Int32</rd:TypeName>
-        </Field>
         <Field Name="FolioGeneral">
           <DataField>FolioGeneral</DataField>
           <rd:TypeName>System.Int32</rd:TypeName>
         </Field>
-        <Field Name="ClaveDocumento">
-          <DataField>ClaveDocumento</DataField>
+        <Field Name="Archivo">
+          <DataField>Archivo</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
-        <Field Name="Total">
-          <DataField>Total</DataField>
-          <rd:TypeName>System.Decimal</rd:TypeName>
-        </Field>
-        <Field Name="Divisa">
-          <DataField>Divisa</DataField>
+        <Field Name="Extension">
+          <DataField>Extension</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
         <Field Name="Recargo">
@@ -2806,14 +2786,6 @@
         <Field Name="DescuentoPago">
           <DataField>DescuentoPago</DataField>
           <rd:TypeName>System.Decimal</rd:TypeName>
-        </Field>
-        <Field Name="Archivo">
-          <DataField>Archivo</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="Extension">
-          <DataField>Extension</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
         </Field>
         <Field Name="SaldoRestante">
           <DataField>SaldoRestante</DataField>
@@ -2825,7 +2797,19 @@
         </Field>
         <Field Name="ConceptoId">
           <DataField>ConceptoId</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="ConceptoCobroPago">
+          <DataField>ConceptoCobroPago</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="RazonSocial">
+          <DataField>RazonSocial</DataField>
           <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Total">
+          <DataField>Total</DataField>
+          <rd:TypeName>System.Decimal</rd:TypeName>
         </Field>
         <Field Name="Recargo1">
           <DataField>Recargo1</DataField>
@@ -2835,10 +2819,30 @@
           <DataField>DescuentoPago1</DataField>
           <rd:TypeName>System.Decimal</rd:TypeName>
         </Field>
+        <Field Name="ClaveDocumento">
+          <DataField>ClaveDocumento</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Nombre">
+          <DataField>Nombre</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Nombre1">
+          <DataField>Nombre1</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Divisa">
+          <DataField>Divisa</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="TipoCambio">
+          <DataField>TipoCambio</DataField>
+          <rd:TypeName>System.Decimal</rd:TypeName>
+        </Field>
       </Fields>
       <rd:DataSetInfo>
         <rd:DataSetName>ControlCondominiosDataSet46</rd:DataSetName>
-        <rd:SchemaPath>C:\Users\jorge\Desktop\SIGA open\PV\ControlCondominiosDataSet46.xsd</rd:SchemaPath>
+        <rd:SchemaPath>C:\Users\Giorgi\Documents\Proyectos .Net\SIGA\PV\ControlCondominiosDataSet46.xsd</rd:SchemaPath>
         <rd:TableName>Cobros</rd:TableName>
         <rd:TableAdapterFillMethod>Fill</rd:TableAdapterFillMethod>
         <rd:TableAdapterGetDataMethod>GetData</rd:TableAdapterGetDataMethod>

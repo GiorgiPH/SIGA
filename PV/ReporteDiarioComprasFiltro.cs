@@ -311,7 +311,6 @@ namespace PV
         {
             c.CerrarConexion();
             p.CerrarConexion();
-            centroCostos.CerrarConexion();
             d.CerrarConexion();
         }
     }

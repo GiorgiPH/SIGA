@@ -6,7 +6,10 @@ namespace PV
 {
     public partial class BuscarListaProveedores : Form
     {
-        DBOrdenCompra c = new DBOrdenCompra();
+        private readonly DBOrdenCompra c = new DBOrdenCompra();
+
+        public string Matricula { get; private set; }
+        public string Nombre { get; private set; }
 
         public BuscarListaProveedores()
         {
@@ -21,43 +24,28 @@ namespace PV
         private void txtFiltro_TextChanged(object sender, EventArgs e)
         {
             if (txtFiltro.Text == string.Empty)
-            {
                 c.BuscarProveedor(dataGridView1);
-            }
             else
-            {
                 c.BuscarAlumnosFiltro(dataGridView1, txtFiltro.Text);
-            }
-        }
-
-        private void button2_Click(object sender, EventArgs e)
-        {
-            this.Close();
         }
 
         private void dataGridView1_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (e.RowIndex != -1)
-            {
-                OrdenCompra.Matricula = dataGridView1.Rows[e.RowIndex].Cells["Matricula"].Value.ToString();
-                RecepcionProductos2.Matricula = dataGridView1.Rows[e.RowIndex].Cells["Matricula"].Value.ToString();
-                RegistroGastos.Matricula = dataGridView1.Rows[e.RowIndex].Cells["Matricula"].Value.ToString();
-                RegistroGastos2.Matricula = dataGridView1.Rows[e.RowIndex].Cells["Matricula"].Value.ToString();
-                RegistroReembolsos.Matricula = dataGridView1.Rows[e.RowIndex].Cells["Matricula"].Value.ToString();
-                RegistroEgreso.matricula = dataGridView1.Rows[e.RowIndex].Cells["Matricula"].Value.ToString();
-                RegistroEgreso.nombre = dataGridView1.Rows[e.RowIndex].Cells["Nombre"].Value.ToString();
-                NotasCargo.Matricula = dataGridView1.Rows[e.RowIndex].Cells["Matricula"].Value.ToString();
-                RegistrarAnticipo.matricula = dataGridView1.Rows[e.RowIndex].Cells["Matricula"].Value.ToString();
-                RegistrarAnticipo.nombre = dataGridView1.Rows[e.RowIndex].Cells["Nombre"].Value.ToString();
-                AplicarAnticipoProveedor.matricula = dataGridView1.Rows[e.RowIndex].Cells["Matricula"].Value.ToString();
-                AplicarAnticipoProveedor.nombre = dataGridView1.Rows[e.RowIndex].Cells["Nombre"].Value.ToString();
-                RegistroReembolsos.Matricula = dataGridView1.Rows[e.RowIndex].Cells["Matricula"].Value.ToString();
-                this.Close();
-            }
-            else
-            {
-                return;
-            }
+            if (e.RowIndex == -1) return;
+
+            Matricula = dataGridView1.Rows[e.RowIndex].Cells["Id"].Value.ToString();
+            Nombre = dataGridView1.Rows[e.RowIndex].Cells["Proveedor"].Value.ToString();
+
+            DialogResult = DialogResult.OK;
+            Close();
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            // Antes solo cerraba sin fijar DialogResult; ahora queda explícito
+            // como Cancel para que "if (frm.ShowDialog() == DialogResult.OK)" funcione bien.
+            DialogResult = DialogResult.Cancel;
+            Close();
         }
     }
 }

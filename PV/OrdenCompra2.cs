@@ -198,8 +198,15 @@ namespace PV
 
         private void guna2Button12_Click(object sender, EventArgs e)
         {
-            c.BuscarProveedor(guna2DataGridView2);
-            guna2GradientPanel5.Visible = true;
+            using (var buscador = new BuscarListaProveedores())
+            {
+                if (buscador.ShowDialog() == DialogResult.OK)
+                {
+                    txtMatricular.Text = buscador.Matricula;
+                    txtNombreAlumnno.Text = buscador.Nombre;
+                    Matricula = buscador.Matricula; // sigues alimentando tu campo static si otro código ya depende de él
+                }
+            }
 
         }
 
@@ -603,127 +610,10 @@ namespace PV
             }
         }
 
-        private void toolStrip2_Move(object sender, EventArgs e)
-        {
+       
+        
 
-        }
-
-        private void toolStrip2_MouseMove(object sender, MouseEventArgs e)
-        {
-
-            /* guna2GradientPanel4.Size = new Size(80, 569);
-             toolStrip2.Size = new Size(112, 569);
-             toolStripButton4.TextDirection = System.Windows.Forms.ToolStripTextDirection.Horizontal;
-             toolStripButton5.TextDirection = System.Windows.Forms.ToolStripTextDirection.Horizontal;
-             toolStripButton1.TextDirection = System.Windows.Forms.ToolStripTextDirection.Horizontal;
-             toolStripButton2.TextDirection = System.Windows.Forms.ToolStripTextDirection.Horizontal;
-             toolStripButton3.TextDirection = System.Windows.Forms.ToolStripTextDirection.Horizontal;
-            */
-            //  toolStripButton1.Size = new Size(50, 60);
-       /*     guna2GradientPanel4.Location = new Point(1013, 83);
-            guna2GradientPanel4.Size = new Size(86, 583);
-            toolStrip1.Size = new Size(112, 569);
-            toolStripButton11.TextDirection = System.Windows.Forms.ToolStripTextDirection.Horizontal;
-            toolStripButton12.TextDirection = System.Windows.Forms.ToolStripTextDirection.Horizontal;
-            toolStripButton13.TextDirection = System.Windows.Forms.ToolStripTextDirection.Horizontal;
-            toolStripButton14.TextDirection = System.Windows.Forms.ToolStripTextDirection.Horizontal;
-            toolStripButton15.TextDirection = System.Windows.Forms.ToolStripTextDirection.Horizontal;
-
-            this.toolStripButton11.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            toolStripButton11.Size = new Size(85, 75);
-            toolStripButton11.AutoSize = false;
-
-            this.toolStripButton12.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            toolStripButton12.Size = new Size(85, 75);
-            toolStripButton12.AutoSize = false;
-
-            this.toolStripButton13.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            toolStripButton13.Size = new Size(85, 75);
-            toolStripButton13.AutoSize = false;
-
-            this.toolStripButton14.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            toolStripButton14.Size = new Size(85, 75);
-            toolStripButton14.AutoSize = false;
-
-            this.toolStripButton15.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            toolStripButton15.Size = new Size(85, 75);
-            toolStripButton15.AutoSize = false;
-
-            */
-        }
-
-        private void toolStrip2_MouseLeave(object sender, EventArgs e)
-        {
-            /*guna2GradientPanel4.Size = new Size(22, 569);
-            toolStrip2.Size = new Size(22, 569);
-            toolStripButton4.TextDirection = System.Windows.Forms.ToolStripTextDirection.Vertical270;
-            toolStripButton5.TextDirection = System.Windows.Forms.ToolStripTextDirection.Vertical270;
-            toolStripButton1.TextDirection = System.Windows.Forms.ToolStripTextDirection.Vertical270;
-            toolStripButton2.TextDirection = System.Windows.Forms.ToolStripTextDirection.Vertical270;
-            toolStripButton3.TextDirection = System.Windows.Forms.ToolStripTextDirection.Vertical270;
-            */
-           /* guna2GradientPanel4.Location = new Point(1076, 83);
-            guna2GradientPanel4.Size = new Size(23, 569);
-
-            toolStrip1.Size = new Size(23, 569);
-            toolStripButton11.TextDirection = System.Windows.Forms.ToolStripTextDirection.Vertical270;
-            toolStripButton12.TextDirection = System.Windows.Forms.ToolStripTextDirection.Vertical270;
-            toolStripButton13.TextDirection = System.Windows.Forms.ToolStripTextDirection.Vertical270;
-            toolStripButton14.TextDirection = System.Windows.Forms.ToolStripTextDirection.Vertical270;
-            toolStripButton15.TextDirection = System.Windows.Forms.ToolStripTextDirection.Vertical270;
-
-            this.toolStripButton11.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            toolStripButton11.Size = new Size(23, 79);
-
-            // toolStrip1.Size = new Size(22, 569);
-            this.toolStripButton12.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            toolStripButton12.Size = new Size(23, 79);
-
-
-            this.toolStripButton13.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            toolStripButton13.Size = new Size(23, 79);
-
-
-            //  toolStrip1.Size = new Size(22, 569);
-            this.toolStripButton14.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            toolStripButton14.Size = new Size(23, 79);
-
-            // toolStrip1.Size = new Size(22, 569);
-            this.toolStripButton15.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            toolStripButton15.Size = new Size(23, 79);*/
-        }
-
-        private void txtFiltro1_TextChanged(object sender, EventArgs e)
-        {
-            if (txtFiltro1.Text == string.Empty)
-            {
-                c.BuscarProveedor(guna2DataGridView2);
-            }
-            else
-            {
-                c.BuscarAlumnosFiltro(guna2DataGridView2, txtFiltro1.Text);
-            }
-        }
-
-        private void guna2DataGridView2_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
-        {
-            if (e.RowIndex != -1)
-            {
-                M2 = guna2DataGridView2.Rows[e.RowIndex].Cells["Matricula1"].Value.ToString();
-                txtMatricular.Text = guna2DataGridView2.Rows[e.RowIndex].Cells["Matricula1"].Value.ToString();
-                guna2GradientPanel5.Visible = false;
-
-            }
-            else
-            {
-                return;
-            }
-        }
-
-        private void guna2Button13_Click(object sender, EventArgs e)
-        {
-            guna2GradientPanel5.Visible = false;
-        }
+      
 
         private void btnLimpuarOrden_Click(object sender, EventArgs e)
         {

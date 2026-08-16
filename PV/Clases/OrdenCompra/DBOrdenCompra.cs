@@ -1,4 +1,5 @@
-﻿using Guna.UI2.WinForms;
+﻿using Condominios;
+using Guna.UI2.WinForms;
 using PV.Properties;
 using System;
 using System.Collections.Generic;
@@ -1505,7 +1506,7 @@ namespace PV.Clases.OrdenCompra
             }
         }
         //______________________________________________________________________________________________
-        public void InsertarRecepcionProducto(TextBox txtFolio, string ClaveDocumento, string Estatus, string Fecha, string ClavePropietario, string Divisa, string TipoCambio, string Notas, string Elaborado, string RecepcionProducto, string Consecutivo, string Almacen, string Referencia, string condominio, string DiasVence, string FechaVence)
+        public void InsertarRecepcionProducto(TextBox txtFolio, string ClaveDocumento, string Estatus, string Fecha, string ClavePropietario, string Divisa, string TipoCambio, string Notas, string Elaborado, string RecepcionProducto, string Consecutivo, string Almacen, string Referencia, string DiasVence, string FechaVence, string CentroCostos)
         {
             try
             {
@@ -1515,23 +1516,34 @@ namespace PV.Clases.OrdenCompra
                 {
                     cn.Open();
                     int folioNuevo;
-                    using (SqlCommand cmd = new SqlCommand("Select top 1 * from RecepcionProducto order by Folio Desc", cn))
-                    using (SqlDataReader dr = cmd.ExecuteReader())
+                    using (SqlCommand cmd = new SqlCommand("SELECT ISNULL(MAX(Folio), 0) + 1 FROM RecepcionProducto", cn))
                     {
-                        if (dr.Read())
-                        {
-                            folioNuevo = Convert.ToInt32(dr["Folio"].ToString()) + 1;
-                        }
-                        else
-                        {
-                            folioNuevo = 1;
-                        }
+                        folioNuevo = (int)cmd.ExecuteScalar();
                     }
 
                     txtFolio.Text = folioNuevo.ToString();
 
-                    using (SqlCommand cmd = new SqlCommand("insert into RecepcionProducto (Folio, ClaveDocumento, Estatus, Fecha, ClaveProveedor, Divisa, TipoCambio, Notas, Elaborado, FolioOrden, Consecutivo, Almacen, Referencia, Condominio, DiasVence, FechaVence) values ('" + folioNuevo + "', '" + ClaveDocumento + "', '" + Estatus + "', '" + Fecha + "', '" + ClavePropietario + "', '" + Divisa + "', '" + TipoCambio + "', '" + Notas + "', '" + Elaborado + "', '" + orden + "', '" + Consecutivo + "', '" + Almacen + "', '" + Referencia + "', '" + condominio + "', '" + DiasVence + "', '" + FechaVence + "')", cn))
+                    using (SqlCommand cmd = new SqlCommand(
+                        "INSERT INTO RecepcionProducto (Folio, ClaveDocumento, Estatus, Fecha, ClaveProveedor, Divisa, TipoCambio, Notas, Elaborado, FolioOrden, Consecutivo, Almacen, Referencia, DiasVence, FechaVence, CentroCostos) " +
+                        "VALUES (@Folio, @ClaveDocumento, @Estatus, @Fecha, @ClaveProveedor, @Divisa, @TipoCambio, @Notas, @Elaborado, @FolioOrden, @Consecutivo, @Almacen, @Referencia, @DiasVence, @FechaVence, @CentroCostos)", cn))
                     {
+                        cmd.Parameters.AddWithValue("@Folio", folioNuevo);
+                        cmd.Parameters.AddWithValue("@ClaveDocumento", string.IsNullOrEmpty(ClaveDocumento) ? (object)DBNull.Value : ClaveDocumento);
+                        cmd.Parameters.AddWithValue("@Estatus", string.IsNullOrEmpty(Estatus) ? (object)DBNull.Value : Estatus);
+                        cmd.Parameters.AddWithValue("@Fecha", string.IsNullOrEmpty(Fecha) ? (object)DBNull.Value : Fecha);
+                        cmd.Parameters.AddWithValue("@ClaveProveedor", string.IsNullOrEmpty(ClavePropietario) ? (object)DBNull.Value : ClavePropietario);
+                        cmd.Parameters.AddWithValue("@Divisa", string.IsNullOrEmpty(Divisa) ? (object)DBNull.Value : Divisa);
+                        cmd.Parameters.AddWithValue("@TipoCambio", string.IsNullOrEmpty(TipoCambio) ? (object)DBNull.Value : TipoCambio);
+                        cmd.Parameters.AddWithValue("@Notas", string.IsNullOrEmpty(Notas) ? (object)DBNull.Value : Notas);
+                        cmd.Parameters.AddWithValue("@Elaborado", string.IsNullOrEmpty(Elaborado) ? (object)DBNull.Value : Elaborado);
+                        cmd.Parameters.AddWithValue("@FolioOrden", string.IsNullOrEmpty(orden) ? (object)DBNull.Value : orden);
+                        cmd.Parameters.AddWithValue("@Consecutivo", string.IsNullOrEmpty(Consecutivo) ? (object)DBNull.Value : Consecutivo);
+                        cmd.Parameters.AddWithValue("@Almacen", string.IsNullOrEmpty(Almacen) ? (object)DBNull.Value : Almacen);
+                        cmd.Parameters.AddWithValue("@Referencia", string.IsNullOrEmpty(Referencia) ? (object)DBNull.Value : Referencia);
+                        cmd.Parameters.AddWithValue("@DiasVence", string.IsNullOrEmpty(DiasVence) ? (object)DBNull.Value : DiasVence);
+                        cmd.Parameters.AddWithValue("@FechaVence", string.IsNullOrEmpty(FechaVence) ? (object)DBNull.Value : FechaVence);
+                        cmd.Parameters.AddWithValue("@CentroCostos", string.IsNullOrEmpty(CentroCostos) ? (object)DBNull.Value : CentroCostos); // Manejo de null
+
                         cmd.ExecuteNonQuery();
                     }
                 }
@@ -1542,7 +1554,7 @@ namespace PV.Clases.OrdenCompra
             }
         }
         //______________________________________________________________________________________________
-        public void InsertarRegistroGasto(TextBox txtFolio, string ClaveDocumento, string Estatus, string Fecha, string ClavePropietario, string Divisa, string TipoCambio, string Notas, string Elaborado, string RecepcionProducto, string Consecutivo, string Referencia, string DiasVence, string FechaVence, string centrocosto, int semana, string anio, string proveedorAlterno)
+        public void InsertarRegistroGasto(TextBox txtFolio, string ClaveDocumento, string Estatus, string Fecha, string ClavePropietario, string Divisa, string TipoCambio, string Notas, string Elaborado, string RecepcionProducto, string Consecutivo, string Referencia, string DiasVence, string FechaVence, string centrocosto, string proyecto, string proveedorAlterno)
         {
             try
             {
@@ -1561,9 +1573,9 @@ namespace PV.Clases.OrdenCompra
                     string orden = string.IsNullOrEmpty(RecepcionProducto) ? "0" : RecepcionProducto;
 
                     string query = @"INSERT INTO RegistroGastos 
-                        (Folio, ClaveDocumento, Estatus, Fecha, ClaveProveedor, Divisa, TipoCambio, Notas, Elaborado, FolioOrden, Consecutivo, Referencia, DiasVence, FechaVence, CentroCostos, Semana, Anio, ProveedorAlterno)
+                        (Folio, ClaveDocumento, Estatus, Fecha, ClaveProveedor, Divisa, TipoCambio, Notas, Elaborado, FolioOrden, Consecutivo, Referencia, DiasVence, FechaVence, CentroCostos, IdProyecto, ProveedorAlterno)
                         VALUES 
-                        (@Folio, @ClaveDocumento, @Estatus, @Fecha, @ClaveProveedor, @Divisa, @TipoCambio, @Notas, @Elaborado, @FolioOrden, @Consecutivo, @Referencia, @DiasVence, @FechaVence, @CentroCostos, @Semana, @Anio, @ProveedorAlterno)";
+                        (@Folio, @ClaveDocumento, @Estatus, @Fecha, @ClaveProveedor, @Divisa, @TipoCambio, @Notas, @Elaborado, @FolioOrden, @Consecutivo, @Referencia, @DiasVence, @FechaVence, @CentroCostos, @IdProyecto, @ProveedorAlterno)";
 
                     using (SqlCommand cmdInsert = new SqlCommand(query, cn))
                     {
@@ -1582,13 +1594,17 @@ namespace PV.Clases.OrdenCompra
                         cmdInsert.Parameters.AddWithValue("@DiasVence", DiasVence);
                         cmdInsert.Parameters.AddWithValue("@FechaVence", FechaVence);
                         cmdInsert.Parameters.AddWithValue(
+                            "@IdProyecto",
+                            string.IsNullOrWhiteSpace(proyecto)
+                                ? (object)DBNull.Value
+                                : proyecto
+                        ); cmdInsert.Parameters.AddWithValue(
                             "@CentroCostos",
                             string.IsNullOrWhiteSpace(centrocosto)
                                 ? (object)DBNull.Value
                                 : centrocosto
                         );
-                        cmdInsert.Parameters.AddWithValue("@Semana", semana);
-                        cmdInsert.Parameters.AddWithValue("@Anio", anio);
+         
                         cmdInsert.Parameters.AddWithValue("@ProveedorAlterno", proveedorAlterno);
 
                         cmdInsert.ExecuteNonQuery();
@@ -1672,22 +1688,7 @@ namespace PV.Clases.OrdenCompra
             }
         }
         //_______________________________________________________________________________________________
-        public void SeleccionarProductoGasto(ComboBox cb)
-        {
-            cb.Items.Clear();
-            using (SqlConnection cn = new SqlConnection(ObtenerCn()))
-            using (SqlCommand cmd = new SqlCommand("Select Descripcion from Servicios where Estatus='Activo'", cn))
-            {
-                cn.Open();
-                using (SqlDataReader dr = cmd.ExecuteReader())
-                {
-                    while (dr.Read())
-                    {
-                        cb.Items.Add(dr[0].ToString());
-                    }
-                }
-            }
-        }
+       
         //_______________________________________________________________________________________________
         public void SeleccionarProductoRecepcion(ComboBox cb, string Orden)
         {
@@ -1706,22 +1707,7 @@ namespace PV.Clases.OrdenCompra
             }
         }
         //_______________________________________________________________________________________________
-        public void SeleccionarProductoGasto(ComboBox cb, string Orden)
-        {
-            cb.Items.Clear();
-            using (SqlConnection cn = new SqlConnection(ObtenerCn()))
-            using (SqlCommand cmd = new SqlCommand("select P.Descripcion from PartidaOrden as PA, Servicios as P where PA.ClaveProducto=P.ClaveProducto and PA.FolioOrden='" + Orden + "' and PA.CantidadRecibida>0 and P.Estatus='Activo'", cn))
-            {
-                cn.Open();
-                using (SqlDataReader dr = cmd.ExecuteReader())
-                {
-                    while (dr.Read())
-                    {
-                        cb.Items.Add(dr[0].ToString());
-                    }
-                }
-            }
-        }
+      
         //___________________________________________________________________________________________
         public void Consulta5(string Folio, Guna.UI2.WinForms.Guna2TextBox txtPartida)
         {
@@ -2182,7 +2168,7 @@ namespace PV.Clases.OrdenCompra
         public void InsertarPartidaGasto(
     string Folio, string Partida, string ClaveRecibo, string Concepto2, string Cantidad,
     string Unidad, string Divisa, string TipoCambio, decimal Subtotal, decimal Descuento,
-    decimal Total, decimal Impuesto, string archivo, string proveedorAlterno, string centroCostosAlterno, string DescuentoImporte, string ImpuestoImporte)
+    decimal Total, decimal Impuesto, string archivo, string proveedorAlterno, string centroCostosAlterno, string DescuentoImporte, string ImpuestoImporte, string RetencionImporte)
         {
             try
             {
@@ -2206,7 +2192,7 @@ namespace PV.Clases.OrdenCompra
                 ClaveProducto = @ClaveRecibo, Concepto2 = @Concepto2, Cantidad = @Cantidad,
                 Unidad = @Unidad, Divisa = @Divisa, TipoCambio = @TipoCambio, Subtotal = @Subtotal,
                 Descuento = @Descuento, Total = @Total, Impuesto = @Impuesto, Archivo = @Archivo,
-                ProveedorAlterno = @ProveedorAlterno, CentroCostosAlterno = @CentroCostosAlterno, DescuentoImporte=@DescuentoImporte, ImpuestoImporte=@ImpuestoImporte
+                ProveedorAlterno = @ProveedorAlterno, CentroCostosAlterno = @CentroCostosAlterno, DescuentoImporte=@DescuentoImporte, ImpuestoImporte=@ImpuestoImporte, Retencion=@RetencionImporte
                 WHERE FolioGasto = @Folio AND Partida = @Partida";
                     }
                     else
@@ -2214,14 +2200,14 @@ namespace PV.Clases.OrdenCompra
                         // Si no existe, inserta
                         query = @"INSERT INTO PartidaRegistroGastos 
                 (FolioGasto, Partida, ClaveProducto, Concepto2, Cantidad, Unidad, Divisa, TipoCambio, 
-                Subtotal, Descuento, Total, Impuesto, Archivo, ProveedorAlterno, CentroCostosAlterno, DescuentoImporte, ImpuestoImporte)
+                Subtotal, Descuento, Total, Impuesto, Archivo, ProveedorAlterno, CentroCostosAlterno, DescuentoImporte, ImpuestoImporte, Retencion)
                 VALUES 
                 (@Folio, @Partida, @ClaveRecibo, @Concepto2, @Cantidad, @Unidad, @Divisa, @TipoCambio, 
-                @Subtotal, @Descuento, @Total, @Impuesto, @Archivo, @ProveedorAlterno, @CentroCostosAlterno,@DescuentoImporte, @ImpuestoImporte)";
+                @Subtotal, @Descuento, @Total, @Impuesto, @Archivo, @ProveedorAlterno, @CentroCostosAlterno,@DescuentoImporte, @ImpuestoImporte, @RetencionImporte)";
                     }
 
                     using (SqlCommand cmd = new SqlCommand(query, cn))
-                    {
+                    {   
                         cmd.Parameters.AddWithValue("@ClaveRecibo", ClaveRecibo);
                         cmd.Parameters.AddWithValue("@Concepto2", Concepto2);
                         cmd.Parameters.AddWithValue("@Cantidad", Cantidad);
@@ -2239,6 +2225,8 @@ namespace PV.Clases.OrdenCompra
                         cmd.Parameters.AddWithValue("@Partida", Partida);
                         cmd.Parameters.AddWithValue("@DescuentoImporte", DescuentoImporte);
                         cmd.Parameters.AddWithValue("@ImpuestoImporte", ImpuestoImporte);
+                        cmd.Parameters.AddWithValue("@RetencionImporte", RetencionImporte);
+
                         cmd.ExecuteNonQuery();
                     }
                 }
@@ -2477,9 +2465,9 @@ namespace PV.Clases.OrdenCompra
                 {
                     cn.Open();
 
-                    string Subtotal = null, Descuentos = null, Total = null, Impuesto = null;
+                    string Subtotal = null, Descuentos = null, Total = null, Impuesto = null, Retenciones=null, TotalPartidas=null;
 
-                    using (SqlCommand cmd = new SqlCommand("select sum(DescuentoImporte) as Descuento, sum(ImpuestoImporte) as Impuesto,sum(Subtotal) as Subtotal, sum(Total) as Total from PartidaRegistroGastos where FolioGasto='" + txtFolio + "'", cn))
+                    using (SqlCommand cmd = new SqlCommand("select sum(DescuentoImporte) as Descuento, sum(ImpuestoImporte) as Impuesto,sum(Subtotal) as Subtotal, sum(Total) as Total, ISNULL(SUM(Retencion), 0) AS Retencion, COUNT(*) AS TotalPartidas from PartidaRegistroGastos where FolioGasto='" + txtFolio + "'", cn))
                     using (SqlDataReader dr = cmd.ExecuteReader())
                     {
                         if (dr.Read())
@@ -2488,12 +2476,14 @@ namespace PV.Clases.OrdenCompra
                             Descuentos = dr["Descuento"].ToString();
                             Total = dr["Total"].ToString();
                             Impuesto = dr["Impuesto"].ToString();
+                            Retenciones = dr["Retencion"].ToString();
+                            TotalPartidas = dr["TotalPartidas"].ToString();
                         }
                     }
 
                     if (Subtotal != null)
                     {
-                        using (SqlCommand cmd = new SqlCommand("Update RegistroGastos set TotalPartidas='" + txtPartida + "', Subtotal='" + Subtotal + "', Descuento='" + Descuentos + "',  Cargo='" + Impuesto + "', Total='" + Total + "', Saldo='" + Total + "' where Folio='" + txtFolio + "'", cn))
+                        using (SqlCommand cmd = new SqlCommand("Update RegistroGastos set TotalPartidas='" + txtPartida + "', Subtotal='" + Subtotal + "', Descuento='" + Descuentos + "',  Cargo='" + Impuesto + "', Total='" + Total + "', Saldo='" + Total + "', TotalRetenciones='"+Retenciones+"' where Folio='" + txtFolio + "'", cn))
                         {
                             cmd.ExecuteNonQuery();
                         }
@@ -3200,12 +3190,12 @@ namespace PV.Clases.OrdenCompra
             }
         }
         //_______________________________________________________________________________________________________________
-        public void ReciboSaldosGastos(string txtFolio, Guna.UI2.WinForms.Guna2TextBox txtSubtoral, Guna.UI2.WinForms.Guna2TextBox txtDescuento, Guna.UI2.WinForms.Guna2TextBox txtRecargo, Guna.UI2.WinForms.Guna2TextBox txtTotal, Guna.UI2.WinForms.Guna2TextBox txtTotalPartidas, Guna.UI2.WinForms.Guna2TextBox txtSaldo)
+        public void ReciboSaldosGastos(string txtFolio, Guna.UI2.WinForms.Guna2TextBox txtSubtoral, Guna.UI2.WinForms.Guna2TextBox txtDescuento, Guna.UI2.WinForms.Guna2TextBox txtRecargo, Guna.UI2.WinForms.Guna2TextBox txtTotal, Guna.UI2.WinForms.Guna2TextBox txtTotalPartidas, Guna.UI2.WinForms.Guna2TextBox txtSaldo, Guna.UI2.WinForms.Guna2TextBox txtRetencion)
         {
             try
             {
                 using (SqlConnection cn = new SqlConnection(ObtenerCn()))
-                using (SqlCommand cmd = new SqlCommand("select Subtotal, Descuento, Cargo, Total, Saldo, TotalPartidas from RegistroGastos where Folio='" + txtFolio + "'", cn))
+                using (SqlCommand cmd = new SqlCommand("select Subtotal, Descuento, Cargo, Total, Saldo, TotalPartidas, TotalRetenciones from RegistroGastos where Folio='" + txtFolio + "'", cn))
                 {
                     cn.Open();
                     using (SqlDataReader dr = cmd.ExecuteReader())
@@ -3218,6 +3208,7 @@ namespace PV.Clases.OrdenCompra
                             txtTotal.Text = dr["Total"].ToString();
                             txtSaldo.Text = dr["Saldo"].ToString();
                             txtTotalPartidas.Text = dr["TotalPartidas"].ToString();
+                            txtRetencion.Text = dr["TotalRetenciones"].ToString();
                         }
                     }
                 }
@@ -3408,7 +3399,7 @@ namespace PV.Clases.OrdenCompra
             }
         }
         //______________________________________________________________________________________________________-
-        public void ConsultaRecepcion(string Folio, TextBox Documento, ComboBox Estatus, Guna2TextBox Fecha, Guna2TextBox Divisa, Guna2TextBox TipoCambio, Guna2TextBox Subtotal, Guna2TextBox Descuentos, Guna2TextBox Cargo, Guna2TextBox Total, Guna2TextBox Partidas, Guna2TextBox Notas, Guna2TextBox Elaborado, TextBox txtFolio, TextBox txtReciboCol, Guna2TextBox txtconsecutivo, TextBox txtAlmacen, Guna2TextBox txtReferencia, Guna2TextBox saldo, Guna2TextBox condominio, Guna2TextBox DiasVence, Guna2TextBox FechaVence, Guna2TextBox Archivo)
+        public void ConsultaRecepcion(string Folio, TextBox Documento, ComboBox Estatus, Guna2TextBox Fecha, Guna2TextBox Divisa, Guna2TextBox TipoCambio, Guna2TextBox Subtotal, Guna2TextBox Descuentos, Guna2TextBox Cargo, Guna2TextBox Total, Guna2TextBox Partidas, Guna2TextBox Notas, Guna2TextBox Elaborado, TextBox txtFolio, TextBox txtReciboCol, Guna2TextBox txtconsecutivo, TextBox txtAlmacen, Guna2TextBox txtReferencia, Guna2TextBox saldo, Guna2TextBox DiasVence, Guna2TextBox FechaVence, Guna2TextBox Archivo, ComboBox CentroCostos)
         {
             try
             {
@@ -3439,10 +3430,18 @@ namespace PV.Clases.OrdenCompra
                             txtconsecutivo.Text = dr["Consecutivo"].ToString();
                             txtAlmacen.Text = dr["Almacen"].ToString();
                             txtReferencia.Text = dr["Referencia"].ToString();
-                            condominio.Text = dr["Condominio"].ToString();
                             DiasVence.Text = dr["DiasVence"].ToString();
                             FechaVence.Text = dr["FechaVence"].ToString();
                             Archivo.Text = dr["Archivo"].ToString();
+                            // CENTRO DE COSTOS
+                            if (dr["CentroCostos"] != DBNull.Value)
+                            {
+                                CentroCostos.SelectedValue = dr["CentroCostos"];
+                            }
+                            else
+                            {
+                                CentroCostos.SelectedIndex = -1;
+                            }
                         }
                     }
                 }
@@ -3476,8 +3475,8 @@ namespace PV.Clases.OrdenCompra
      Guna.UI2.WinForms.Guna2TextBox FechaVence,
      Guna.UI2.WinForms.Guna2TextBox Archivo,
      ComboBox CentroCosto,
-     ComboBox cmbSemana,
-     DateTimePicker dtpAnio,
+     ComboBox cmbProyecto,
+     
      ComboBox pro, Guna.UI2.WinForms.Guna2TextBox IdProveedor)
         {
             try
@@ -3495,7 +3494,7 @@ namespace PV.Clases.OrdenCompra
                             // ESTATUS
                             if (dr["Estatus"] != DBNull.Value)
                             {
-                                Estatus.SelectedValue = dr["Estatus"];
+                                Estatus.Text = dr["Estatus"].ToString();
                             }
                             else
                             {
@@ -3542,24 +3541,9 @@ namespace PV.Clases.OrdenCompra
                                 CentroCosto.SelectedIndex = -1;
                             }
 
-                            // SEMANA
-                            if (dr["Semana"] != DBNull.Value)
-                            {
-                                cmbSemana.SelectedValue = dr["Semana"];
-                            }
-                            else
-                            {
-                                cmbSemana.SelectedIndex = -1;
-                            }
+                            cmbProyecto.ValueMember = dr["IdProyecto"].ToString();
 
-                            // AÑO
-                            if (dr["Anio"] != DBNull.Value)
-                            {
-                                dtpAnio.Value = new DateTime(
-                                    Convert.ToInt32(dr["Anio"]),
-                                    1,
-                                    1);
-                            }
+
 
                             // PROVEEDOR ALTERNO
                             if (dr["ProveedorAlterno"] != DBNull.Value)
@@ -3901,7 +3885,7 @@ namespace PV.Clases.OrdenCompra
         public void ConsultaPartidaGasto(
      string Folio,
      string Partida,
-     TextBox claveconcepto,
+     
      ComboBox Concepto,
      Guna.UI2.WinForms.Guna2TextBox Concepto2,
      Guna.UI2.WinForms.Guna2TextBox cantidad,
@@ -3942,8 +3926,7 @@ namespace PV.Clases.OrdenCompra
                     {
                         if (dr.Read())
                         {
-                            claveconcepto.Text = dr["ClaveProducto"].ToString();
-                            Concepto.Text = dr["Descripcion"].ToString();
+                            Concepto.SelectedValue = dr["ClaveProducto"].ToString();
                             Concepto2.Text = dr["Concepto2"].ToString();
                             cantidad.Text = dr["Cantidad"].ToString();
                             unidad.Text = dr["Unidad"].ToString();

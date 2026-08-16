@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
 using Condominios.Clases.RegistrarIngresos;
+using PV.Clases.Egresos;
 
 namespace PV
 {
@@ -13,7 +14,7 @@ namespace PV
         string proveedor = string.Empty;
         public static int Opcion = 0;
 
-        DBRegistrarIngresos c = new DBRegistrarIngresos();
+        DBEgresos c = new DBEgresos();
 
         public CancelarEgreso(string Clave, string Tipo, string Abono, string Proveedor)
         {

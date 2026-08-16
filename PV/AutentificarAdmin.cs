@@ -9,12 +9,13 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Condominios.Clases.RegistrarIngresos;
 using PuntoVentas;
+using PuntoVentas.Clases.Login;
 
 namespace PV
 {
     public partial class AutentificarAdmin : Form
     {
-        DBRegistrarIngresos c = new DBRegistrarIngresos();
+        DBLogin c = new DBLogin();
 
         public AutentificarAdmin()
         {

@@ -198,7 +198,12 @@ namespace PuntoVentas
         private void guna2GradientButton39_Click(object sender, EventArgs e) => _menuLayout.OcultarTodosSubgrupos();
         private void guna2GradientButton41_Click(object sender, EventArgs e) => _menuLayout.OcultarTodosSubgrupos();
         private void guna2GradientButton43_Click(object sender, EventArgs e) => _menuLayout.OcultarTodosSubgrupos();
-        private void guna2GradientButton19_Click(object sender, EventArgs e) => _menuLayout.OcultarTodosSubgrupos();
+        private void guna2GradientButton19_Click(object sender, EventArgs e)
+        {
+            _menuLayout.OcultarTodosSubgrupos();
+            SubGrupoBancos.Visible = true;
+            SubGrupoBancos.Location = new Point(0, 520);
+        }
         private void guna2GradientButton49_Click_1(object sender, EventArgs e) => _menuLayout.OcultarTodosSubgrupos();
 
         // --- EVENTOS DE APERTURA DE FORMULARIOS INDIVIDUALES ---
@@ -243,7 +248,6 @@ namespace PuntoVentas
         private void proveedoresToolStripMenuItem_Click(object sender, EventArgs e) => AbrirFormulario(() => new Proveedores());
         private void ordenesDeCompraToolStripMenuItem_Click(object sender, EventArgs e) => AbrirFormulario(() => new OrdenCompra());
         private void recepcionDeProductosToolStripMenuItem_Click(object sender, EventArgs e) => AbrirFormulario(() => new RecepcionProductos2());
-        private void registroDeGastosToolStripMenuItem_Click(object sender, EventArgs e) => AbrirFormulario(() => new RegistroGastos());
         private void egresosToolStripMenuItem1_Click(object sender, EventArgs e) => AbrirFormulario(() => new RegistroEgreso());
         private void cuentasBancariasToolStripMenuItem_Click(object sender, EventArgs e) => AbrirFormulario(() => new CuentasBancarias());
         private void requisicionesToolStripMenuItem_Click(object sender, EventArgs e) => AbrirFormulario(() => new Requisicion());
@@ -308,14 +312,12 @@ namespace PuntoVentas
         private void anticiposAplicadosToolStripMenuItem1_Click_1(object sender, EventArgs e) => AbrirFormulario(() => new ReporeteAnticiposProveedorAplicadosFiltro());
         private void estadoDeCuentaProveedoresToolStripMenuItem_Click_2(object sender, EventArgs e) => AbrirFormulario(() => new ReporteEstadoCuentaProveedor());
         private void serviciosToolStripMenuItem_Click(object sender, EventArgs e) => AbrirFormulario(() => new CatalogoServicios(0));
-        private void comprasRegistroDeGastosServicioToolStripMenuItem_Click(object sender, EventArgs e) => AbrirFormulario(() => new RegistroGastos());
         private void DefinepolizaStripMenuItem7_Click(object sender, EventArgs e)
         {
             DefinePoliza.TipopolizaCompras = "Compras";
             AbrirFormulario(() => new DefinePoliza("Definiciones Compras"));
         }
         private void pedidosProveedoresToolStripMenuItem_Click(object sender, EventArgs e) => AbrirFormulario(() => new OrdenCompra2());
-        private void comprasRegistroDeGastosServicioToolStripMenuItem_Click_1(object sender, EventArgs e) => AbrirFormulario(() => new RegistroGastos());
         private void comprasRecepciónEntradaProductosAlmacénToolStripMenuItem_Click(object sender, EventArgs e) => AbrirFormulario(() => new RecepcionProductos2());
         private void GenerePolizaStripMenuItem7_Click(object sender, EventArgs e)
         {
@@ -464,6 +466,11 @@ namespace PuntoVentas
         private void anticiposToolStripMenuItem3_Click(object sender, EventArgs e) { }
         private void guna2GradientButton49_Click(object sender, EventArgs e) { }
         private void guna2GradientButton51_Click(object sender, EventArgs e) { }
+
+        private void btnConceptosCobro_Click(object sender, EventArgs e) => AbrirFormulario(() =>
+        new CatalogoConceptosTesoreria());
+        
+
     }
 
     // --- CLASES DE APOYO PARA LA ESTRUCTURA DEL MENÚ ---

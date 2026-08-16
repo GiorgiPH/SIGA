@@ -10,425 +10,454 @@ namespace Condominios.Clases.CentroCostos
 {
     class DBCentroCostos
     {
-        SqlConnection cn;
-        SqlCommand cmd;
-        SqlDataReader dr;
-        SqlDataAdapter da;
-        DataTable dt;
-
+        // Se eliminan los campos de conexión a nivel de instancia.
+        // Se mantienen los estáticos para compatibilidad.
         public static int Folio = 0;
         public static int Eliminado = 0;
 
-        public static string ObtenerCn()
+        private static string ObtenerCn()
         {
             return Settings.Default.ControlCondominiosConnectionString;
         }
 
-        public DBCentroCostos()
-        {
-            try
-            {
-                cn = new SqlConnection(ObtenerCn());
-                cn.Open();
+      
 
-
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Error de Conexion" + ex.ToString());
-            }
-        }
-        public void CerrarConexion()
-        {
-            try
-            {
-                cn.Close();
-
-            }
-            catch (Exception ex)
-            {
-
-            }
-        }
-        //____________________________________________________________________________________________________________________________________________
-        //Obtener la clave consecutiva
         public int ClaveCentroSiguiente()
         {
-            int contador = 0;
-
             try
             {
-                cmd = new SqlCommand("select max(Clave) from CentroCostos", cn);
-                dr = cmd.ExecuteReader();
-
-                while (dr.Read())
+                string query = "SELECT ISNULL(MAX(Clave), 0) FROM CentroCostos";
+                using (SqlConnection cn = new SqlConnection(ObtenerCn()))
+                using (SqlCommand cmd = new SqlCommand(query, cn))
                 {
-                    contador++;
-                }
-                dr.Close();
-
-                if (contador > 0)
-                {
-
-                    da = new SqlDataAdapter(cmd);
-                    dt = new DataTable();
-                    da.Fill(dt);
-                    if (dt.Rows[0][0].ToString() != string.Empty)
+                    cn.Open();
+                    object result = cmd.ExecuteScalar();
+                    if (result != DBNull.Value && result != null)
                     {
-                        Folio = Convert.ToInt32(dt.Rows[0][0].ToString());
+                        Folio = Convert.ToInt32(result);
+                        return 1; // indica que hay datos
                     }
+                    return 0; // sin datos
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.ToString());
-                dr.Close();
+                MessageBox.Show("Error al obtener clave: " + ex.Message);
+                return 0;
             }
-            return contador;
         }
-        //_________________________________________________________________________________________________________________________--
-        // registrar categorias 
-        public string RegistroCentroCostos(string txtClave, string txtNombre, string cmbEstatus, string txtCuentacontable, string txtDescricpion, ArrayList ListaConceptos, ArrayList ListaConceptos2)
+
+        public string RegistroCentroCostos(string txtClave, string txtNombre, string cmbEstatus,
+            string txtCuentacontable, string txtDescricpion,
+            ArrayList ListaConceptos, ArrayList ListaConceptos2)
         {
-            string ClaveDep = string.Empty;
-            string NombreDep = string.Empty;
             string mensaje = string.Empty;
-            int contador = 0;
 
             try
             {
-                cmd = new SqlCommand("select * from CentroCostos where Clave='" + txtClave + "'", cn);
-                dr = cmd.ExecuteReader();
-
-                while (dr.Read())
+                // Verificar existencia
+                string countQuery = "SELECT COUNT(1) FROM CentroCostos WHERE Clave = @Clave";
+                int count;
+                using (SqlConnection cn = new SqlConnection(ObtenerCn()))
+                using (SqlCommand cmd = new SqlCommand(countQuery, cn))
                 {
-                    contador++;
+                    cmd.Parameters.Add("@Clave", SqlDbType.VarChar, 50).Value = txtClave;
+                    cn.Open();
+                    count = Convert.ToInt32(cmd.ExecuteScalar());
                 }
-                dr.Close();
 
-                if (contador <= 0)
+                if (count == 0)
                 {
+                    // Insertar
+                    string insertQuery = @"
+                        INSERT INTO CentroCostos (Clave, Nombre, Estatus, CuentaContable, Descripcion)
+                        VALUES (@Clave, @Nombre, @Estatus, @CuentaContable, @Descripcion)";
+                    using (SqlConnection cn = new SqlConnection(ObtenerCn()))
+                    using (SqlCommand cmd = new SqlCommand(insertQuery, cn))
+                    {
+                        cmd.Parameters.Add("@Clave", SqlDbType.VarChar, 50).Value = txtClave;
+                        cmd.Parameters.Add("@Nombre", SqlDbType.VarChar, 100).Value = txtNombre;
+                        cmd.Parameters.Add("@Estatus", SqlDbType.VarChar, 20).Value = cmbEstatus;
+                        cmd.Parameters.Add("@CuentaContable", SqlDbType.VarChar, 50).Value = txtCuentacontable;
+                        cmd.Parameters.Add("@Descripcion", SqlDbType.VarChar, 200).Value = txtDescricpion;
+                        cn.Open();
+                        cmd.ExecuteNonQuery();
+                    }
 
-                    cmd = new SqlCommand("Insert into CentroCostos (Clave, Nombre, Estatus, CuentaContable, Descripcion) values ('" + txtClave + "', '" + txtNombre + "', '" + cmbEstatus + "', '" + txtCuentacontable + "', '" + txtDescricpion + "')", cn);
-                    cmd.ExecuteNonQuery();
-
-                    //foreach (object item in ListaConceptos)
-                    //{
-                    //    ClaveDep = item.ToString();
-
-                    //    foreach (object item2 in ListaConceptos2)
-                    //    {
-                    //        NombreDep = item2.ToString();
-                    //        ListaConceptos2.Remove(item2);
-                    //        break;
-                    //    }
-
-                    //    cmd = new SqlCommand("Insert into CentroCostos_Departamentos (Clave, Nombre, CentroCosto) values ('" + ClaveDep + "', '" + NombreDep + "', '" + txtClave + "')", cn);
-                    //    cmd.ExecuteNonQuery();
-                    //}
+                    // (Código comentado de departamentos - se mantiene como estaba)
+                    // foreach (object item in ListaConceptos) { ... }
 
                     mensaje = "Registro guardado.";
-
                 }
-
-                else if (contador > 0)
+                else
                 {
-                    if (MessageBox.Show("¿Desea actualizar el registro actual?", "Centros de Costos", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                    if (MessageBox.Show("¿Desea actualizar el registro actual?", "Centros de Costos",
+                        MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                     {
-                        cmd = new SqlCommand("Update CentroCostos set  Nombre='" + txtNombre + "', Estatus= '" + cmbEstatus + "', CuentaContable= '" + txtCuentacontable + "', Descripcion='" + txtDescricpion + "' where Clave= '" + txtClave + "'", cn);
-                        cmd.ExecuteNonQuery();
-
-                        foreach (object item in ListaConceptos)
+                        // Actualizar centro de costos
+                        string updateQuery = @"
+                            UPDATE CentroCostos 
+                            SET Nombre = @Nombre,
+                                Estatus = @Estatus,
+                                CuentaContable = @CuentaContable,
+                                Descripcion = @Descripcion
+                            WHERE Clave = @Clave";
+                        using (SqlConnection cn = new SqlConnection(ObtenerCn()))
+                        using (SqlCommand cmd = new SqlCommand(updateQuery, cn))
                         {
-                            ClaveDep = item.ToString();
-
-                            foreach (object item2 in ListaConceptos2)
-                            {
-                                NombreDep = item2.ToString();
-                                ListaConceptos2.Remove(item2);
-                                break;
-                            }
-                            cmd = new SqlCommand("if not Exists( Select Departamento from Departamentos_SubDepartamento where Departamento='" + ClaveDep + "') Delete CentroCostos_Departamentos where Clave='" + ClaveDep + "'", cn);
-                            cmd.ExecuteNonQuery();
-
-                            cmd = new SqlCommand("if not Exists( Select Clave from CentroCostos_Departamentos where Clave='" + ClaveDep + "') Insert into CentroCostos_Departamentos (Clave, Nombre, CentroCosto) values ( '" + ClaveDep + "','" + NombreDep + "','" + txtClave + "')", cn);
+                            cmd.Parameters.Add("@Clave", SqlDbType.VarChar, 50).Value = txtClave;
+                            cmd.Parameters.Add("@Nombre", SqlDbType.VarChar, 100).Value = txtNombre;
+                            cmd.Parameters.Add("@Estatus", SqlDbType.VarChar, 20).Value = cmbEstatus;
+                            cmd.Parameters.Add("@CuentaContable", SqlDbType.VarChar, 50).Value = txtCuentacontable;
+                            cmd.Parameters.Add("@Descripcion", SqlDbType.VarChar, 200).Value = txtDescricpion;
+                            cn.Open();
                             cmd.ExecuteNonQuery();
                         }
 
-                        mensaje = "Registro modificado.";
+                        // Procesar departamentos (si las listas tienen elementos)
+                        // Se usa un bucle for para evitar modificar ListaConceptos2 mientras se itera.
+                        int minCount = Math.Min(ListaConceptos.Count, ListaConceptos2.Count);
+                        for (int i = 0; i < minCount; i++)
+                        {
+                            string claveDep = ListaConceptos[i].ToString();
+                            string nombreDep = ListaConceptos2[i].ToString();
 
+                            // Eliminar si no existe en Departamentos_SubDepartamento
+                            string deleteIfNotExists = @"
+                                IF NOT EXISTS (SELECT 1 FROM Departamentos_SubDepartamento WHERE Departamento = @ClaveDep)
+                                    DELETE FROM CentroCostos_Departamentos WHERE Clave = @ClaveDep";
+                            using (SqlConnection cn = new SqlConnection(ObtenerCn()))
+                            using (SqlCommand cmd = new SqlCommand(deleteIfNotExists, cn))
+                            {
+                                cmd.Parameters.Add("@ClaveDep", SqlDbType.VarChar, 50).Value = claveDep;
+                                cn.Open();
+                                cmd.ExecuteNonQuery();
+                            }
+
+                            // Insertar si no existe en CentroCostos_Departamentos
+                            string insertIfNotExists = @"
+                                IF NOT EXISTS (SELECT 1 FROM CentroCostos_Departamentos WHERE Clave = @ClaveDep)
+                                    INSERT INTO CentroCostos_Departamentos (Clave, Nombre, CentroCosto)
+                                    VALUES (@ClaveDep, @NombreDep, @CentroCosto)";
+                            using (SqlConnection cn = new SqlConnection(ObtenerCn()))
+                            using (SqlCommand cmd = new SqlCommand(insertIfNotExists, cn))
+                            {
+                                cmd.Parameters.Add("@ClaveDep", SqlDbType.VarChar, 50).Value = claveDep;
+                                cmd.Parameters.Add("@NombreDep", SqlDbType.VarChar, 100).Value = nombreDep;
+                                cmd.Parameters.Add("@CentroCosto", SqlDbType.VarChar, 50).Value = txtClave;
+                                cn.Open();
+                                cmd.ExecuteNonQuery();
+                            }
+                        }
+
+                        mensaje = "Registro modificado.";
                     }
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error." + ex.ToString());
+                MessageBox.Show("Error: " + ex.Message);
+                mensaje = "Error al guardar.";
             }
             return mensaje;
-
         }
-        //________________________________________________________________________________________________
-        //Categorias Registrados
+
         public void CargarCentros(DataGridView dgv)
         {
             try
             {
                 dgv.Rows.Clear();
-                da = new SqlDataAdapter("Select * from CentroCostos", cn);
-                dt = new DataTable();
-                da.Fill(dt);
-                foreach (DataRow item in dt.Rows)
+                string query = "SELECT Clave, Nombre FROM CentroCostos ORDER BY Clave";
+                DataTable dt = new DataTable();
+                using (SqlConnection cn = new SqlConnection(ObtenerCn()))
+                using (SqlCommand cmd = new SqlCommand(query, cn))
+                using (SqlDataAdapter da = new SqlDataAdapter(cmd))
+                {
+                    da.Fill(dt);
+                }
+                foreach (DataRow row in dt.Rows)
                 {
                     int n = dgv.Rows.Add();
-                    dgv.Rows[n].Cells[0].Value = item["Clave"].ToString();
-                    dgv.Rows[n].Cells[1].Value = item["Nombre"].ToString();
+                    dgv.Rows[n].Cells[0].Value = row["Clave"].ToString();
+                    dgv.Rows[n].Cells[1].Value = row["Nombre"].ToString();
                 }
-
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error" + ex.ToString());
+                MessageBox.Show("Error al cargar centros: " + ex.Message);
             }
         }
-        //_____________________________________________________________________________________________________
-        //Mostrar Usuario seleccionado
-        public void ConsultaCentrosSeleccionada(string txtclave, Guna2TextBox txtNombre, ComboBox cmbEstatus, Guna2TextBox txtCuenta, Guna2TextBox txtDescripcion, DataGridView dgv)
+
+        public void ConsultaCentrosSeleccionada(string txtclave, Guna2TextBox txtNombre,
+            ComboBox cmbEstatus, Guna2TextBox txtCuenta, Guna2TextBox txtDescripcion,
+            DataGridView dgv)
         {
             try
             {
-                cmd = new SqlCommand("Select * from CentroCostos where Clave='" + txtclave + "'", cn);
-                dr = cmd.ExecuteReader();
-                if (dr.Read())
+                string query = "SELECT Nombre, Estatus, CuentaContable, Descripcion FROM CentroCostos WHERE Clave = @Clave";
+                using (SqlConnection cn = new SqlConnection(ObtenerCn()))
+                using (SqlCommand cmd = new SqlCommand(query, cn))
                 {
-                    txtNombre.Text = dr["Nombre"].ToString();
-                    cmbEstatus.Text = dr["Estatus"].ToString();
-                    txtCuenta.Text = dr["CuentaContable"].ToString();
-                    txtDescripcion.Text = dr["Descripcion"].ToString();
+                    cmd.Parameters.Add("@Clave", SqlDbType.VarChar, 50).Value = txtclave;
+                    cn.Open();
+                    using (SqlDataReader dr = cmd.ExecuteReader())
+                    {
+                        if (dr.Read())
+                        {
+                            txtNombre.Text = dr["Nombre"]?.ToString() ?? string.Empty;
+                            cmbEstatus.Text = dr["Estatus"]?.ToString() ?? string.Empty;
+                            txtCuenta.Text = dr["CuentaContable"]?.ToString() ?? string.Empty;
+                            txtDescripcion.Text = dr["Descripcion"]?.ToString() ?? string.Empty;
+                        }
+                        dr.Close();
+                    }
                 }
-                dr.Close();
 
-                //dgv.Rows.Clear();
-                //da = new SqlDataAdapter("Select *, CONVERT(INT, SUBSTRING (Clave, 3,1000)) as Orden from CentroCostos_Departamentos where CentroCosto = '" + txtclave + "' order by Orden asc", cn);
-                //dt = new DataTable();
-                //da.Fill(dt);
-                //foreach (DataRow item in dt.Rows)
-                //{
-                //    int n = dgv.Rows.Add();
-                //    dgv.Rows[n].Cells[0].Value = item["Clave"].ToString();
-                //    dgv.Rows[n].Cells[1].Value = item["Nombre"].ToString();
-                //}
+                // Código comentado para cargar departamentos (se mantiene como estaba)
+                // if (dgv != null) { ... }
             }
             catch (Exception ex)
             {
-                dr.Close();
-                MessageBox.Show("Error" + ex.ToString());
+                MessageBox.Show("Error al consultar centro: " + ex.Message);
             }
         }
-        //_____________________________________________________________________________________________________
-        //Mostrar Usuario seleccionado
+
         public int ConsultaExistencia(string txtclave)
         {
-            int contador = 0;
             try
             {
-                cmd = new SqlCommand("Select * from CentroCostos_Departamentos where Clave='" + txtclave + "'", cn);
-                dr = cmd.ExecuteReader();
-
-                while (dr.Read())
+                string query = "SELECT COUNT(1) FROM CentroCostos_Departamentos WHERE Clave = @Clave";
+                using (SqlConnection cn = new SqlConnection(ObtenerCn()))
+                using (SqlCommand cmd = new SqlCommand(query, cn))
                 {
-                    contador++;
+                    cmd.Parameters.Add("@Clave", SqlDbType.VarChar, 50).Value = txtclave;
+                    cn.Open();
+                    return Convert.ToInt32(cmd.ExecuteScalar());
                 }
-                dr.Close();
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error" + ex.ToString());
+                MessageBox.Show("Error: " + ex.Message);
+                return 0;
             }
-            return contador;
         }
-        //_____________________________________________________________________________________________________
-        //Mostrar Usuario seleccionado
+
         public void ConsultaSubDepartamentoSeleccionada(string txtclave, DataGridView dgv)
         {
             try
             {
                 dgv.Rows.Clear();
-                da = new SqlDataAdapter("Select *, CONVERT(INT, SUBSTRING (Clave, 5,1000)) as Orden from Departamentos_SubDepartamento where Departamento = '" + txtclave + "' order by Orden asc", cn);
-                dt = new DataTable();
-                da.Fill(dt);
-                foreach (DataRow item in dt.Rows)
+                string query = @"
+                    SELECT Clave, Nombre
+                    FROM Departamentos_SubDepartamento
+                    WHERE Departamento = @Departamento
+                    ORDER BY CONVERT(INT, SUBSTRING(Clave, 5, 1000)) ASC";
+                DataTable dt = new DataTable();
+                using (SqlConnection cn = new SqlConnection(ObtenerCn()))
+                using (SqlCommand cmd = new SqlCommand(query, cn))
+                {
+                    cmd.Parameters.Add("@Departamento", SqlDbType.VarChar, 50).Value = txtclave;
+                    using (SqlDataAdapter da = new SqlDataAdapter(cmd))
+                    {
+                        da.Fill(dt);
+                    }
+                }
+                foreach (DataRow row in dt.Rows)
                 {
                     int n = dgv.Rows.Add();
-                    dgv.Rows[n].Cells[0].Value = item["Clave"].ToString();
-                    dgv.Rows[n].Cells[1].Value = item["Nombre"].ToString();
+                    dgv.Rows[n].Cells[0].Value = row["Clave"].ToString();
+                    dgv.Rows[n].Cells[1].Value = row["Nombre"].ToString();
                 }
             }
             catch (Exception ex)
             {
-                dr.Close();
-                MessageBox.Show("Error" + ex.ToString());
+                MessageBox.Show("Error al cargar subdepartamentos: " + ex.Message);
             }
         }
-        //_________________________________________________________________________________________________________________________--
-        // registrar categorias 
+
         public string EliminarDepartamento(string txtClave)
         {
-            int contador = 0;
-            string mensaje = string.Empty;
-
             try
             {
-                cmd = new SqlCommand("select * from Departamentos_SubDepartamento where Departamento='" + txtClave + "'", cn);
-                dr = cmd.ExecuteReader();
-
-                while (dr.Read())
+                // Verificar si tiene subdepartamentos
+                string countQuery = "SELECT COUNT(1) FROM Departamentos_SubDepartamento WHERE Departamento = @Departamento";
+                int count;
+                using (SqlConnection cn = new SqlConnection(ObtenerCn()))
+                using (SqlCommand cmd = new SqlCommand(countQuery, cn))
                 {
-                    contador++;
+                    cmd.Parameters.Add("@Departamento", SqlDbType.VarChar, 50).Value = txtClave;
+                    cn.Open();
+                    count = Convert.ToInt32(cmd.ExecuteScalar());
                 }
-                dr.Close();
 
-                if (contador <= 0)
+                if (count == 0)
                 {
-
-                    cmd = new SqlCommand("Delete CentroCostos_Departamentos where Clave='" + txtClave + "'", cn);
-                    cmd.ExecuteNonQuery();
+                    string deleteQuery = "DELETE FROM CentroCostos_Departamentos WHERE Clave = @Clave";
+                    using (SqlConnection cn = new SqlConnection(ObtenerCn()))
+                    using (SqlCommand cmd = new SqlCommand(deleteQuery, cn))
+                    {
+                        cmd.Parameters.Add("@Clave", SqlDbType.VarChar, 50).Value = txtClave;
+                        cn.Open();
+                        cmd.ExecuteNonQuery();
+                    }
                     Eliminado = 0;
-                    mensaje = "Eliminado";
+                    return "Eliminado";
                 }
                 else
                 {
-                    mensaje = "Elimine los SubDepartamentos para continuar";
                     Eliminado = 1;
+                    return "Elimine los SubDepartamentos para continuar";
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-
+                MessageBox.Show("Error al eliminar departamento: " + ex.Message);
+                Eliminado = 1;
+                return "Error";
             }
-            return mensaje;
         }
-        //_________________________________________________________________________________________________________________________--
-        // registrar categorias 
+
         public void EliminarSubDepartamento(string txtClave)
         {
             try
             {
-                cmd = new SqlCommand("Delete Departamentos_SubDepartamento where Clave='" + txtClave + "'", cn);
-                cmd.ExecuteNonQuery();
-
+                string deleteQuery = "DELETE FROM Departamentos_SubDepartamento WHERE Clave = @Clave";
+                using (SqlConnection cn = new SqlConnection(ObtenerCn()))
+                using (SqlCommand cmd = new SqlCommand(deleteQuery, cn))
+                {
+                    cmd.Parameters.Add("@Clave", SqlDbType.VarChar, 50).Value = txtClave;
+                    cn.Open();
+                    cmd.ExecuteNonQuery();
+                }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-
+                MessageBox.Show("Error al eliminar subdepartamento: " + ex.Message);
             }
-
         }
-        //_________________________________________________________________________________________________________________________--
-        // registrar categorias 
+
         public string RegistroSubDepartamento(string Departamento, ArrayList ListaConceptos, ArrayList ListaConceptos2)
         {
-            string ClaveDep = string.Empty;
-            string NombreDep = string.Empty;
             string mensaje = string.Empty;
-            int contador = 0;
 
             try
             {
-                cmd = new SqlCommand("select * from Departamentos_SubDepartamento where  Departamento='" + Departamento + "'", cn);
-                dr = cmd.ExecuteReader();
-
-                while (dr.Read())
+                // Verificar si ya existen registros para el departamento
+                string countQuery = "SELECT COUNT(1) FROM Departamentos_SubDepartamento WHERE Departamento = @Departamento";
+                int count;
+                using (SqlConnection cn = new SqlConnection(ObtenerCn()))
+                using (SqlCommand cmd = new SqlCommand(countQuery, cn))
                 {
-                    contador++;
-                }
-                dr.Close();
-
-                if (contador <= 0)
-                {
-                    foreach (object item in ListaConceptos)
-                    {
-                        ClaveDep = item.ToString();
-
-                        foreach (object item2 in ListaConceptos2)
-                        {
-                            NombreDep = item2.ToString();
-                            ListaConceptos2.Remove(item2);
-                            break;
-                        }
-
-                        cmd = new SqlCommand("Insert into Departamentos_SubDepartamento (Clave, Nombre, Departamento) values ('" + ClaveDep + "', '" + NombreDep + "', '" + Departamento + "')", cn);
-                        cmd.ExecuteNonQuery();
-                    }
-
-
-                    mensaje = "Registro guardado.";
-
+                    cmd.Parameters.Add("@Departamento", SqlDbType.VarChar, 50).Value = Departamento;
+                    cn.Open();
+                    count = Convert.ToInt32(cmd.ExecuteScalar());
                 }
 
-                else if (contador > 0)
+                if (count == 0)
                 {
-                    if (MessageBox.Show("¿Desea actualizar el registro actual?", "Centro de Costos", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                    // Insertar todos los pares
+                    int minCount = Math.Min(ListaConceptos.Count, ListaConceptos2.Count);
+                    for (int i = 0; i < minCount; i++)
                     {
-                        foreach (object item in ListaConceptos)
+                        string claveDep = ListaConceptos[i].ToString();
+                        string nombreDep = ListaConceptos2[i].ToString();
+
+                        string insertQuery = @"
+                            INSERT INTO Departamentos_SubDepartamento (Clave, Nombre, Departamento)
+                            VALUES (@Clave, @Nombre, @Departamento)";
+                        using (SqlConnection cn = new SqlConnection(ObtenerCn()))
+                        using (SqlCommand cmd = new SqlCommand(insertQuery, cn))
                         {
-                            ClaveDep = item.ToString();
-
-                            foreach (object item2 in ListaConceptos2)
-                            {
-                                NombreDep = item2.ToString();
-                                ListaConceptos2.Remove(item2);
-                                break;
-                            }
-
-                            cmd = new SqlCommand("Update Departamentos_SubDepartamento set Nombre='" + NombreDep + "', Departamento='" + Departamento + "' where Clave= '" + ClaveDep + "'", cn);
+                            cmd.Parameters.Add("@Clave", SqlDbType.VarChar, 50).Value = claveDep;
+                            cmd.Parameters.Add("@Nombre", SqlDbType.VarChar, 100).Value = nombreDep;
+                            cmd.Parameters.Add("@Departamento", SqlDbType.VarChar, 50).Value = Departamento;
+                            cn.Open();
                             cmd.ExecuteNonQuery();
                         }
+                    }
+                    mensaje = "Registro guardado.";
+                }
+                else
+                {
+                    if (MessageBox.Show("¿Desea actualizar el registro actual?", "Centro de Costos",
+                        MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                    {
+                        // Actualizar cada par
+                        int minCount = Math.Min(ListaConceptos.Count, ListaConceptos2.Count);
+                        for (int i = 0; i < minCount; i++)
+                        {
+                            string claveDep = ListaConceptos[i].ToString();
+                            string nombreDep = ListaConceptos2[i].ToString();
 
+                            string updateQuery = @"
+                                UPDATE Departamentos_SubDepartamento
+                                SET Nombre = @Nombre,
+                                    Departamento = @Departamento
+                                WHERE Clave = @Clave";
+                            using (SqlConnection cn = new SqlConnection(ObtenerCn()))
+                            using (SqlCommand cmd = new SqlCommand(updateQuery, cn))
+                            {
+                                cmd.Parameters.Add("@Clave", SqlDbType.VarChar, 50).Value = claveDep;
+                                cmd.Parameters.Add("@Nombre", SqlDbType.VarChar, 100).Value = nombreDep;
+                                cmd.Parameters.Add("@Departamento", SqlDbType.VarChar, 50).Value = Departamento;
+                                cn.Open();
+                                cmd.ExecuteNonQuery();
+                            }
+                        }
                         mensaje = "Registro modificado.";
-
                     }
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error." + ex.ToString());
+                MessageBox.Show("Error: " + ex.Message);
+                mensaje = "Error al guardar.";
             }
             return mensaje;
-
         }
-        //_________________________________________________________________________________________________________________________--
-        // registrar divisa 
+
         public string EliminarDivisa(string txtClaveDivisa)
         {
-            string mensaje = string.Empty;
             try
             {
-                cmd = new SqlCommand("Delete CentroCostos_Departamentos where CentroCosto='" + txtClaveDivisa + "'", cn);
-                cmd.ExecuteNonQuery();
+                // Eliminar dependencias
+                string deleteDep = "DELETE FROM CentroCostos_Departamentos WHERE CentroCosto = @CentroCosto";
+                using (SqlConnection cn = new SqlConnection(ObtenerCn()))
+                using (SqlCommand cmd = new SqlCommand(deleteDep, cn))
+                {
+                    cmd.Parameters.Add("@CentroCosto", SqlDbType.VarChar, 50).Value = txtClaveDivisa;
+                    cn.Open();
+                    cmd.ExecuteNonQuery();
+                }
 
-                cmd = new SqlCommand("Delete CentroCostos where Clave='" + txtClaveDivisa + "'", cn);
-                cmd.ExecuteNonQuery();
-                mensaje = "Registro Eliminado";
+                // Eliminar centro de costos
+                string deleteCentro = "DELETE FROM CentroCostos WHERE Clave = @Clave";
+                using (SqlConnection cn = new SqlConnection(ObtenerCn()))
+                using (SqlCommand cmd = new SqlCommand(deleteCentro, cn))
+                {
+                    cmd.Parameters.Add("@Clave", SqlDbType.VarChar, 50).Value = txtClaveDivisa;
+                    cn.Open();
+                    cmd.ExecuteNonQuery();
+                }
+                return "Registro Eliminado";
             }
             catch (Exception)
             {
-                mensaje="El registro esta en uso, no es posible eliminar";
+                return "El registro esta en uso, no es posible eliminar";
             }
-            return mensaje;
         }
+
         public DataTable ConsultarTodos()
         {
-            string query = "SELECT * FROM CentroCostos";
-            var dataTable = new DataTable();
-
-            using (var connection = new SqlConnection(ObtenerCn()))
+            string query = "SELECT * FROM CentroCostos ORDER BY Clave";
+            DataTable dt = new DataTable();
+            using (SqlConnection cn = new SqlConnection(ObtenerCn()))
+            using (SqlCommand cmd = new SqlCommand(query, cn))
+            using (SqlDataAdapter da = new SqlDataAdapter(cmd))
             {
-                var command = new SqlCommand(query, connection);
-                var adapter = new SqlDataAdapter(command);
-                adapter.Fill(dataTable);
+                da.Fill(dt);
             }
-
-            return dataTable;
+            return dt;
         }
     }
 }

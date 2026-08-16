@@ -1,20 +1,20 @@
-﻿using PuntoVentas.Clases.Login;
+﻿using Condominios.Clases.CentroCostos;
+using PuntoVentas.Clases.Login;
+using PV.Clases;
+using PV.Clases.Almacenes;
+using PV.Clases.Inventario;
 using PV.Clases.OrdenCompra;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-
-using System.Diagnostics;
-using PV.Clases.Almacenes;
-using PV.Clases.Inventario;
-using PV.Clases;
 
 namespace PV
 {
@@ -25,6 +25,7 @@ namespace PV
         DBAlmacenes a = new DBAlmacenes();
         DBRegistrarEntradas r = new DBRegistrarEntradas();
         DBPartidas p = new DBPartidas();
+        DBCentroCostos cc = new DBCentroCostos();
         public static string Carpeta = string.Empty;
 
 
@@ -34,6 +35,8 @@ namespace PV
         int opcion = 0;
 
         int Partidas = 0;
+        private bool mostrrcentorcosto = false;
+
         public RecepcionProductos2()
         {
             InitializeComponent();
@@ -64,14 +67,33 @@ namespace PV
         {
 
         }
+        private void LlenarComboCentro()
+        {
+            try
+            {
+                DataTable menus = cc.ConsultarTodos();
+
+                cmbCentroCostos.DropDownStyle = ComboBoxStyle.DropDown;
+                cmbCentroCostos.DataSource = menus;
+                cmbCentroCostos.DisplayMember = "Nombre";
+                cmbCentroCostos.ValueMember = "Clave";
+                cmbCentroCostos.SelectedIndex = -1;
+
+      
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
 
         private void RegistroGastos2_Load(object sender, EventArgs e)
         {
             c.SeleccionarRecepcionProductos(cmbDocumento);
             c.SeleccionarConceptoDocumento(cmbFiltroDocumentoC);
-            c.SeleccionarCondomini2(cmbCondominio);
             a.SeleccionarAlmacen(cmbAlmacen);
             c.SeleccionarProducto(cmbConcepto);
+            LlenarComboCentro();
             c.ruta();
             //c.SeleccionarOrdenEntrega(cmbOrdenCompra);
             c.CargarRrecepcion(dgvRecepciones, txtFiltro.Text, txtFiltroDocumento.Text, txtFiltroNombre.Text);
@@ -81,7 +103,6 @@ namespace PV
             txtTipoCambio.Text = "1.00";
             txtElaborado.Text = DBLogin.usuario;
             cmbOrdenCompra.Text = txtFiltroOrdenC.Text;
-            cmbCondominio.SelectedIndex = 0;
             txtDiasVence.Text = "0";
             CalcularFechaVencimiento();
 
@@ -108,11 +129,29 @@ namespace PV
             }
             else
             {
+                string centroCosto = null;
+
+                if (mostrrcentorcosto)
+                {
+                    if (cmbCentroCostos.SelectedValue == null ||
+                        string.IsNullOrWhiteSpace(cmbCentroCostos.SelectedValue.ToString()))
+                    {
+                        MessageBox.Show(
+                            "Seleccione un centro de costos antes de continuar.",
+                            "Validación",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Warning);
+
+                        return;
+                    }
+
+                    centroCosto = cmbCentroCostos.SelectedValue.ToString();
+                }
                 string FolioOrden = txtOrdenCompra.Text;
                 string almacen = cmbAlmacen.Text.Split('-')[0];
                 if (txtFolio.Text == string.Empty)
                 {
-                    c.InsertarRecepcionProducto(txtFolio, txtClave.Text, cmbEstatus.Text, txtFecha.Text, txtMatricular.Text, txtDivisa.Text, txtTipoCambio.Text, txtNotas.Text, txtElaborado.Text, FolioOrden, txtConsecutivo.Text, almacen, txtReferencia.Text, txtCondominio.Text, txtDiasVence.Text, txtFechaVence.Text);
+                    c.InsertarRecepcionProducto(txtFolio, txtClave.Text, cmbEstatus.Text, txtFecha.Text, txtMatricular.Text, txtDivisa.Text, txtTipoCambio.Text, txtNotas.Text, txtElaborado.Text, FolioOrden, txtConsecutivo.Text, almacen, txtReferencia.Text, txtDiasVence.Text, txtFechaVence.Text, centroCosto);
                 }
                 int opcion = 0;
                 if (txtArchivo.Text != string.Empty)
@@ -163,7 +202,6 @@ namespace PV
                 }
             }
 
-            cmbCondominio.DroppedDown = false;
             cmbFiltroDocumentoC.DroppedDown = false;
             cmbProveedor.DroppedDown = false;
             cmbOrdenCompra.DroppedDown = false;
@@ -421,7 +459,6 @@ namespace PV
                 cmbOrdenCompra.Text = null;
                 cmbProveedor.Text = null;
 
-                cmbCondominio.DroppedDown = false;
                 cmbFiltroDocumentoC.DroppedDown = false;
                 cmbProveedor.DroppedDown = false;
                 cmbOrdenCompra.DroppedDown = false;
@@ -445,11 +482,17 @@ namespace PV
             }
             else
             {
-                BuscarListaProveedores buscarListaAlumnos2 = new BuscarListaProveedores();
-                buscarListaAlumnos2.ShowDialog();
+                using (var buscador = new BuscarListaProveedores())
+                {
+                    if (buscador.ShowDialog() == DialogResult.OK)
+                    {
+                        txtMatricular.Text = buscador.Matricula;
+                        txtNombreAlumnno.Text = buscador.Nombre;
+                        Matricula = buscador.Matricula; // sigues alimentando tu campo static si otro código ya depende de él
+                    }
+                }
             }
 
-            cmbCondominio.DroppedDown = false;
             cmbFiltroDocumentoC.DroppedDown = false;
             cmbProveedor.DroppedDown = false;
             cmbDocumento.DroppedDown = false;
@@ -465,101 +508,12 @@ namespace PV
 
         private void button3_Click(object sender, EventArgs e)
         {
-            cmbDocumento.DroppedDown = false;
-            cmbCondominio.DroppedDown = false;
-            cmbFiltroDocumentoC.DroppedDown = false;
-            cmbProveedor.DroppedDown = false;
-            cmbOrdenCompra.DroppedDown = false;
-            btLimpiarOrden.BackColor = Color.Gainsboro;
-            button3.BackColor = Color.Gainsboro;
-            txtReferencia.BackColor = Color.White;
-            txtNotas.BackColor = Color.White;
-            button2.BackColor = Color.Gainsboro;
-       //     button6.BackColor = Color.Gainsboro;
-            button7.BackColor = Color.Gainsboro;
-            txtDiasVence.BackColor = Color.White;
-
-            if (DBOrdenCompra.Ruta != string.Empty)
-            {
-                string FolioOrden = txtOrdenCompra.Text;
-                int opcion = 0;
-                if (txtFolio.Text == string.Empty)
-                {
-                    //c.InsertarRegistroGasto(txtFolio, txtClave.Text, cmbEstatus.Text, txtFecha.Text, txtMatricular.Text, txtDivisa.Text, txtTipoCambio.Text, txtNotas.Text, txtElaborado.Text, FolioOrden, txtConsecutivo.Text, txtReferencia.Text, txtCondominio.Text, txtDiasVence.Text, txtFechaVence.Text);
-                    opcion = 1;
-                }
-
-                if (txtFolio.Text != string.Empty)
-                {
-
-                    string NoOrdenResl = txtFolio.Text;
-                    string Descripcion = txtClave.Text;
-
-                    Carpeta = DBOrdenCompra.Ruta + @"\" + "EG" + NoOrdenResl;
-
-                    try
-                    {
-                        if (Directory.Exists(Carpeta))
-                        {
-
-                        }
-                        else
-                        {
-                            Directory.CreateDirectory(Carpeta);
-                        }
-                    }
-                    catch (Exception)
-                    {
-
-                        throw;
-                    }
-
-                    Carpeta = DBOrdenCompra.Ruta + @"\" + "EG" + NoOrdenResl;
-
-                    OpenFileDialog open = new OpenFileDialog();
-                    open.Filter = "All Files|*.*";
-
-                    if (open.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-                    {
-                        string archivo = open.FileName;
-                        string ext = Path.GetExtension(archivo);
-                        try
-                        {
-                            File.Copy(archivo, Carpeta + @"\" + Descripcion + ext);
-                            txtArchivo.Text = Descripcion + ext;
-                            c.ModificarExtension5Recepcion(txtFolio.Text, txtClave.Text, ext);
-                            c.ActualizarRecepcion3recepcion(txtFolio.Text, txtClave.Text, txtArchivo.Text);
-
-                            if (opcion == 1)
-                            {
-
-                                PartidaGastos partidas = new PartidaGastos(txtFolio.Text, txtDocumento.Text, FolioOrden, opcion);
-                                partidas.ShowDialog();
-                            }
-                        }
-                        catch (Exception ex)
-                        {
-                            MessageBox.Show("Ya hay un archivo guardado" + ex.ToString());
-                            return;
-                        }
-
-                    }
-                }
-                else
-                {
-                    MessageBox.Show("Continue con el registro antes de adjuntar archivos");
-                }
-            }
-            else
-            {
-                MessageBox.Show("No existe una ruta para guardar archivos definida en Parametros->Datos Condominio");
-            }
+            
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
             cmbDocumento.DroppedDown = false;
-            cmbCondominio.DroppedDown = false;
             cmbFiltroDocumentoC.DroppedDown = false;
             cmbProveedor.DroppedDown = false;
             cmbOrdenCompra.DroppedDown = false;
@@ -602,7 +556,6 @@ namespace PV
         private void button1_Click(object sender, EventArgs e)
         {
             cmbDocumento.DroppedDown = false;
-            cmbCondominio.DroppedDown = false;
             cmbFiltroDocumentoC.DroppedDown = false;
             cmbProveedor.DroppedDown = false;
             cmbOrdenCompra.DroppedDown = false;
@@ -660,7 +613,6 @@ namespace PV
                 documentoConceptoGlobalVer.ShowDialog();
             }
 
-            cmbCondominio.DroppedDown = false;
             cmbFiltroDocumentoC.DroppedDown = false;
             cmbProveedor.DroppedDown = false;
             cmbOrdenCompra.DroppedDown = false;
@@ -673,7 +625,24 @@ namespace PV
             //button6.BackColor = Color.Gainsboro;
             cmbDocumento.DroppedDown = false;
         }
+        private bool ParsearBooleano(string valor)
+        {
+            if (string.IsNullOrWhiteSpace(valor))
+                return false;
 
+            switch (valor.Trim().ToUpperInvariant())
+            {
+                case "1":
+                case "TRUE":
+                case "SI":
+                case "SÍ":
+                case "S":
+                case "YES":
+                    return true;
+                default:
+                    return false;
+            }
+        }
         private void cmbDocumento_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (txtFolio.Text != "X")
@@ -683,6 +652,8 @@ namespace PV
                     string[] valores = c.InformacionDocumento(cmbDocumento.Text);
                     txtDocumento.Text = valores[0];
                     txtClave.Text = valores[1];
+                    mostrrcentorcosto = ParsearBooleano(valores[2]);
+
 
                     if (txtFolio.Text == string.Empty)
                     {
@@ -694,22 +665,7 @@ namespace PV
             }
         }
 
-        private void cmbCondominio_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (cmbCondominio.Text != string.Empty)
-            {
-                if (cmbCondominio.Text == "GLOBAL")
-                {
-                    txtCondominio.Text = "GLOBAL";
-                }
-                else
-                {
-                    string[] valores = c.InformacionCondominio(cmbCondominio.Text);
-                    txtCondominio.Text = valores[0];
-                }
-
-            }
-        }
+    
 
         private void cmbFiltroDocumentoC_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -746,21 +702,7 @@ namespace PV
 
         private void RegistroGastos2_Activated(object sender, EventArgs e)
         {
-            if (txtFolio.Text != "X")
-            {
-                txtMatricular.Text = Matricula;
-
-                c.ReciboSaldosRecepcion(txtFolio.Text, txtSubtotal, txtDescuento, txtImpuestos, txtTotal, txtPartidas, txtSaldo);
-
-                if (txtPartidas.Text == string.Empty)
-                {
-                    txtPartidas.Text = "0";
-                }
-                else if (txtPartidas.Text != "0" && cmbEstatus.Text == "Abierto")
-                {
-                    button1.BackColor = Color.Red;
-                }
-            }
+           
         }
 
         private void txtMatricular_TextChanged(object sender, EventArgs e)
@@ -1021,20 +963,7 @@ namespace PV
             Moneda(ref txtTotal);
         }
 
-        private void txtSubtotalR_TextChanged(object sender, EventArgs e)
-        {
-            Moneda(ref txtSubtotalR);
-        }
-
-        private void txtDescuentoR_TextChanged(object sender, EventArgs e)
-        {
-            Moneda(ref txtDescuentoR);
-        }
-
-        private void txtTotalR_TextChanged(object sender, EventArgs e)
-        {
-            Moneda(ref txtTotalR);
-        }
+       
         private void Moneda(ref Guna.UI2.WinForms.Guna2TextBox txt)
         {
             string n = string.Empty;
@@ -1194,9 +1123,8 @@ namespace PV
                 Limpiarcabezado();
                 string Folio = dgvRecepciones.Rows[e.RowIndex].Cells["Folio"].Value.ToString();
                 txtFolio.Text = "X";
-                c.ConsultaRecepcion(Folio, txtClave, cmbEstatus, txtFecha, txtDivisa, txtTipoCambio, txtSubtotal, txtDescuento, txtImpuestos, txtTotal, txtPartidas, txtNotas, txtElaborado, txtFolio, txtReciboCol, txtConsecutivo, txtAlmacen, txtReferencia, txtSaldo, txtCondominio, txtDiasVence, txtFechaVence, txtArchivo);
+                c.ConsultaRecepcion(Folio, txtClave, cmbEstatus, txtFecha, txtDivisa, txtTipoCambio, txtSubtotal, txtDescuento, txtImpuestos, txtTotal, txtPartidas, txtNotas, txtElaborado, txtFolio, txtReciboCol, txtConsecutivo, txtAlmacen, txtReferencia, txtSaldo, txtDiasVence, txtFechaVence, txtArchivo, cmbCentroCostos);
                 cmbOrdenCompra.Enabled = false;
-                cmbCondominio.Enabled = false;
                 txtNotas.Enabled = false;
                 button3.Enabled = false;
                 c.ConsultaAbonoGasto(txtFolio.Text, txtAbono);
@@ -1223,15 +1151,6 @@ namespace PV
                     cmbFiltroDocumentoC.Text = txtFiltroOrdenC.Text + " - " + txtDocumentoCol.Text;
                 }
 
-                if (txtCondominio.Text == "GLOBAL")
-                {
-                    cmbCondominio.Text = "GLOBAL";
-                }
-                else if (txtCondominio.Text != "GLOBAL" && txtCondominio.Text != string.Empty)
-                {
-                    string[] valores3 = c.InformacionCondominio2(txtCondominio.Text);
-                    cmbCondominio.Text = valores3[0];
-                }
                 guna2GradientPanel2.Visible = false;
                 guna2GradientPanel2.SendToBack();
                 c.CargarRecibosPartidasRecepcion(dgvPartidas, txtFolio.Text);
@@ -1256,8 +1175,7 @@ namespace PV
             txtDiasVence.Text ="0";
             txtFechaVence.Text = string.Empty;
             cmbEstatus.Text="Abierto";
-            cmbCondominio.Items.Clear();
-            txtCondominio.Text = string.Empty;
+
             txtMatricular.Text = string.Empty;
             txtNombreAlumnno.Text = string.Empty;
             cmbFiltroDocumentoC.SelectedIndex=-1;
@@ -1307,19 +1225,13 @@ namespace PV
             txtArchivo1.Text = string.Empty;
 
         
-            txtSubtotalR.Text = "0.00";
-            txtImpuestoR.Text = "0.00";
-            txtDescuentoR.Text = "0.00";
-            txtImpuestoR.Text = "0.00";
-            txtTotalR.Text = "0.00";
         }
 
         void BloquearEncabezado()
         {
             cmbDocumento.Enabled = false;
             txtDiasVence.Enabled = false;
-            cmbCondominio.Enabled = false;
-            txtCondominio.Enabled = false;
+       
             cmbFiltroDocumentoC.Enabled = false;
             cmbProveedor.Enabled = false;
             cmbOrdenCompra.Enabled = false;
@@ -1333,14 +1245,13 @@ namespace PV
             button2.Enabled = false;
             button3.Enabled = false;
             cmbAlmacen.Enabled = false;
+            cmbCentroCostos.Enabled = false;
 
         }
         void DesbloquearEncabezado()
         {
             cmbDocumento.Enabled = true;
             txtDiasVence.Enabled = true;
-            cmbCondominio.Enabled = true;
-            txtCondominio.Enabled = true;
             cmbFiltroDocumentoC.Enabled = true;
             cmbProveedor.Enabled = true;
             cmbOrdenCompra.Enabled = true;
@@ -1354,6 +1265,7 @@ namespace PV
             button2.Enabled = true;
             cmbAlmacen.Enabled = true;
             button3.Enabled = true;
+            cmbCentroCostos.Enabled = true;
 
         }
 
@@ -1528,7 +1440,6 @@ namespace PV
 
                 c.SeleccionarRecepcionProductos(cmbDocumento);
                 c.SeleccionarConceptoDocumento(cmbFiltroDocumentoC);
-                c.SeleccionarCondomini2(cmbCondominio);
                 c.ruta();
                 //c.SeleccionarOrdenEntrega(cmbOrdenCompra);
                 c.CargarRrecepcion(dgvRecepciones, txtFiltro.Text, txtFiltroDocumento.Text, txtFiltroNombre.Text);
@@ -1538,7 +1449,6 @@ namespace PV
                 txtTipoCambio.Text = "1.00";
                 txtElaborado.Text = DBLogin.usuario;
                 cmbOrdenCompra.Text = txtFiltroOrdenC.Text;
-                cmbCondominio.SelectedIndex = 0;
                 txtDiasVence.Text = "0";
                 int Dias = Convert.ToInt32(txtDiasVence.Text);
                 DateTime FechaVence = Convert.ToDateTime(txtFecha.Text);

@@ -67,7 +67,6 @@ namespace PV
             else
             {
                 Matricula = string.Empty;
-                RegistroGastos.Matricula = string.Empty;
                 DBOrdenCompra.MatriculaC = string.Empty;
                 RecepcionProductos2.Matricula = string.Empty;
                 OrdenCompra.Matricula = string.Empty;
