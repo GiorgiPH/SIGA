@@ -940,6 +940,8 @@ namespace PV {
             
             private global::System.Data.DataColumn columnConcepto;
             
+            private global::System.Data.DataColumn columnDivisa;
+            
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
             public sp_ListaPreliminarPagoProveedoresDataTable() {
@@ -1039,6 +1041,14 @@ namespace PV {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+            public global::System.Data.DataColumn DivisaColumn {
+                get {
+                    return this.columnDivisa;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -1074,7 +1084,7 @@ namespace PV {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
-            public sp_ListaPreliminarPagoProveedoresRow Addsp_ListaPreliminarPagoProveedoresRow(long Clave, string Proveedor, string Docto, System.DateTime Fecha, System.DateTime Vence, decimal Importe, decimal TCambio, string Concepto) {
+            public sp_ListaPreliminarPagoProveedoresRow Addsp_ListaPreliminarPagoProveedoresRow(long Clave, string Proveedor, string Docto, System.DateTime Fecha, System.DateTime Vence, decimal Importe, decimal TCambio, string Concepto, string Divisa) {
                 sp_ListaPreliminarPagoProveedoresRow rowsp_ListaPreliminarPagoProveedoresRow = ((sp_ListaPreliminarPagoProveedoresRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         Clave,
@@ -1084,7 +1094,8 @@ namespace PV {
                         Vence,
                         Importe,
                         TCambio,
-                        Concepto};
+                        Concepto,
+                        Divisa};
                 rowsp_ListaPreliminarPagoProveedoresRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowsp_ListaPreliminarPagoProveedoresRow);
                 return rowsp_ListaPreliminarPagoProveedoresRow;
@@ -1115,6 +1126,7 @@ namespace PV {
                 this.columnImporte = base.Columns["Importe"];
                 this.columnTCambio = base.Columns["TCambio"];
                 this.columnConcepto = base.Columns["Concepto"];
+                this.columnDivisa = base.Columns["Divisa"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -1136,6 +1148,8 @@ namespace PV {
                 base.Columns.Add(this.columnTCambio);
                 this.columnConcepto = new global::System.Data.DataColumn("Concepto", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnConcepto);
+                this.columnDivisa = new global::System.Data.DataColumn("Divisa", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnDivisa);
                 this.columnClave.ReadOnly = true;
                 this.columnProveedor.MaxLength = 100;
                 this.columnDocto.ReadOnly = true;
@@ -1146,6 +1160,8 @@ namespace PV {
                 this.columnTCambio.ReadOnly = true;
                 this.columnConcepto.ReadOnly = true;
                 this.columnConcepto.MaxLength = 3;
+                this.columnDivisa.ReadOnly = true;
+                this.columnDivisa.MaxLength = 10;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -2083,6 +2099,23 @@ namespace PV {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+            public string Divisa {
+                get {
+                    try {
+                        return ((string)(this[this.tablesp_ListaPreliminarPagoProveedores.DivisaColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("El valor de la columna \'Divisa\' de la tabla \'sp_ListaPreliminarPagoProveedores\' e" +
+                                "s DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tablesp_ListaPreliminarPagoProveedores.DivisaColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
             public bool IsClaveNull() {
                 return this.IsNull(this.tablesp_ListaPreliminarPagoProveedores.ClaveColumn);
             }
@@ -2175,6 +2208,18 @@ namespace PV {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
             public void SetConceptoNull() {
                 this[this.tablesp_ListaPreliminarPagoProveedores.ConceptoColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+            public bool IsDivisaNull() {
+                return this.IsNull(this.tablesp_ListaPreliminarPagoProveedores.DivisaColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+            public void SetDivisaNull() {
+                this[this.tablesp_ListaPreliminarPagoProveedores.DivisaColumn] = global::System.Convert.DBNull;
             }
         }
         
@@ -2608,6 +2653,7 @@ namespace PV.ControlCondominiosDataSet49TableAdapters {
             tableMapping.ColumnMappings.Add("Importe", "Importe");
             tableMapping.ColumnMappings.Add("TCambio", "TCambio");
             tableMapping.ColumnMappings.Add("Concepto", "Concepto");
+            tableMapping.ColumnMappings.Add("Divisa", "Divisa");
             this._adapter.TableMappings.Add(tableMapping);
         }
         

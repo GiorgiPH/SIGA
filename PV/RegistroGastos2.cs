@@ -907,9 +907,9 @@ namespace PV
                     txtDivisa1.Text,
                     txtTipoCambio1.Text.Replace(",", ""),
                     Convert.ToDecimal(txtSubtotal1.Text.Replace(",", "")),
-                    Convert.ToDecimal(txtDescuento1.Text.Replace(",", "")),
+                    Convert.ToDecimal(txtDescuentoIm.Text.Replace(",", "")),
                     Convert.ToDecimal(txtTotal1.Text.Replace(",", "")),
-                    Convert.ToDecimal(txtImpuesto1.Text.Replace(",", "")),
+                    Convert.ToDecimal(0.00),
                     rutaCompletaArchivo,
                     cmbProveedroAlterno?.SelectedValue?.ToString(),
                     cmbCentroCostosAlterno?.SelectedValue?.ToString(),
@@ -952,7 +952,7 @@ namespace PV
                     MessageBox.Show("Es necesario seleccionar un proveedor alterno");
                     return;
                 }
-                c.InsertarPartidaGasto(txtFolio.Text, txtPartida.Text, cmbConcepto.SelectedValue.ToString(), txtConcepto2.Text, txtCantidad.Text.Replace(",", ""), txtUnidad.Text, txtDivisa1.Text, txtTipoCambio1.Text.Replace(",", ""), Convert.ToDecimal(txtSubtotal1.Text.Replace(",", "")), Convert.ToDecimal(txtDescuento1.Text.Replace(",", "")), Convert.ToDecimal(txtTotal1.Text.Replace(",", "")), Convert.ToDecimal(txtImpuesto1.Text.Replace(",", "")), rutaCompletaArchivo, cmbProveedroAlterno?.SelectedValue?.ToString(), cmbCentroCostosAlterno?.SelectedValue?.ToString(), txtDescuentoIm.Text.Replace(",", ""), txtImpuestoIm.Text.Replace(",", ""), txtRetencion.Text.Replace(",", ""));
+                c.InsertarPartidaGasto(txtFolio.Text, txtPartida.Text, cmbConcepto.SelectedValue.ToString(), txtConcepto2.Text, txtCantidad.Text.Replace(",", ""), txtUnidad.Text, txtDivisa1.Text, txtTipoCambio1.Text.Replace(",", ""), Convert.ToDecimal(txtSubtotal1.Text.Replace(",", "")), Convert.ToDecimal(txtDescuentoIm.Text.Replace(",", "")), Convert.ToDecimal(txtTotal1.Text.Replace(",", "")), Convert.ToDecimal(0.00), rutaCompletaArchivo, cmbProveedroAlterno?.SelectedValue?.ToString(), cmbCentroCostosAlterno?.SelectedValue?.ToString(), txtDescuentoIm.Text.Replace(",", ""), txtImpuestoIm.Text.Replace(",", ""), txtRetencion.Text.Replace(",", ""));
                 c.ActualizarPartidaOrden(txtOrden.Text, txtPartidaOrden.Text, txtCantidad.Text.Replace(",", ""));
                 c.ActualizarGasto(txtFolio.Text, txtPartida.Text);
                 Limpiar();
@@ -1027,9 +1027,9 @@ namespace PV
                     txtDivisa1,
                     txtTipoCambio1,
                     txtSubtotal1,
-                    txtDescuento1,
+                    txtDescuentoIm,
                     txtTotal1,
-                    txtImpuesto1,
+                    new Guna.UI2.WinForms.Guna2TextBox(),
                     txtArchivo1,
                     cmbProveedroAlterno,
                     cmbCentroCostosAlterno,
@@ -1067,13 +1067,13 @@ namespace PV
                     string[] valores = c.InformacionGastoo(cmbConcepto.Text, txtOrden.Text);
                     txtConcepto.Text = valores[1];
                     txtPrecio.Text = valores[2];
-                    txtDescuento1.Text = valores[3];
+                   //txtDescuento1.Text = valores[3];
                     txtTotal1.Text = valores[4];
                     txtConcepto2.Text = valores[5];
                     txtPartidaOrden.Text = valores[7];
                     txtCantidad2.Text = valores[8];
                     txtCantidad.Text = valores[8];
-                    txtImpuesto1.Text = valores[9];
+                    //txtImpuesto1.Text = valores[9];
                     txtUnidad.Text = valores[10];
                 }
                 else
@@ -1082,7 +1082,7 @@ namespace PV
                     txtConcepto.Text = valores[1];
                     txtPrecio.Text = valores[2];
                     txtUnidad.Text = valores[3];
-                    txtImpuesto1.Text = valores[4];
+                    //txtImpuesto1.Text = valores[4];
                 }
 
                 decimal sub = Convert.ToDecimal(txtPrecio.Text) * Convert.ToInt32(txtCantidad.Text);
@@ -1171,7 +1171,7 @@ namespace PV
 
         private void txtImpuesto1_TextChanged(object sender, EventArgs e)
         {
-            Moneda(ref txtImpuesto1);
+            //Moneda(ref txtImpuesto1);
 
             try
             {
@@ -1185,7 +1185,7 @@ namespace PV
 
         private void txtDescuento1_TextChanged(object sender, EventArgs e)
         {
-            Moneda(ref txtDescuento1);
+           // Moneda(ref txtDescuento1);
 
             try
             {
@@ -1523,7 +1523,7 @@ namespace PV
             txtPartida.Clear();
             txtConcepto2.Clear();
             txtSubtotal1.Text = "0.00";
-            txtDescuento1.Text = "0.00";
+            txtDescuentoIm.Text = "0.00";
 
             // CORREGIDO: aquí se reseteaba "txtTotal" (el total del
             // ENCABEZADO, que refleja la suma de todas las partidas ya
@@ -1536,7 +1536,7 @@ namespace PV
 
             txtCantidad.Text = "1";
             txtPrecio.Text = "0.00";
-            txtImpuesto1.Text = "0";
+           // txtImpuesto1.Text = "0.00";
             txtTipoCambio1.Text = "1.00";
             txtDivisa1.Text = "MXN";
             txtUnidad.Clear();
@@ -1568,8 +1568,8 @@ namespace PV
             txtUnidad.Text = string.Empty;
             txtTipoCambio1.Text = "1.00";
             txtSubtotal.Text = "0.00";
-            txtImpuesto1.Text = "0.00";
-            txtDescuento1.Text = "0.00";
+            //txtImpuesto1.Text = "0.00";
+            txtDescuentoIm.Text = "0.00";
             txtDescuentoIm.Text = "0.00";
             txtImpuestoIm.Text = "0.00";
             txtTotal1.Text = "0.00";
@@ -1675,8 +1675,8 @@ namespace PV
             txtConcepto2.Enabled = false;
             txtCantidad.Enabled = false;
             txtPrecio.Enabled = false;
-            txtImpuesto1.Enabled = false;
-            txtDescuento1.Enabled = false;
+            //txtImpuesto1.Enabled = false;
+            txtDescuentoIm.Enabled = false;
             cmbProveedroAlterno.Enabled = false;
             cmbCentroCostosAlterno.Enabled = false;
             txtRetencion.Enabled = false;
@@ -1691,8 +1691,8 @@ namespace PV
             txtConcepto2.Enabled = true;
             txtCantidad.Enabled = true;
             txtPrecio.Enabled = true;
-            txtImpuesto1.Enabled = true;
-            txtDescuento1.Enabled = true;
+            //txtImpuesto1.Enabled = true;
+            txtDescuentoIm.Enabled = true;
             txtRetencion.Enabled = true;
             cmbProveedroAlterno.Enabled = true;
             cmbCentroCostosAlterno.Enabled = true;
@@ -2132,6 +2132,17 @@ namespace PV
         {
             Moneda(ref txtRetencion);
 
+        }
+
+        private void txtDescuentoIm_TextChanged(object sender, EventArgs e)
+        {
+            Moneda(ref txtDescuentoIm);
+            if (txtCantidad.Text != string.Empty && txtPrecio.Text != string.Empty && txtCantidad2.Text != string.Empty)
+            {
+                Calcular();
+
+            }
+            
         }
     }
 }

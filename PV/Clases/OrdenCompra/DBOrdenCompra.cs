@@ -1506,7 +1506,7 @@ namespace PV.Clases.OrdenCompra
             }
         }
         //______________________________________________________________________________________________
-        public void InsertarRecepcionProducto(TextBox txtFolio, string ClaveDocumento, string Estatus, string Fecha, string ClavePropietario, string Divisa, string TipoCambio, string Notas, string Elaborado, string RecepcionProducto, string Consecutivo, string Almacen, string Referencia, string DiasVence, string FechaVence, string CentroCostos)
+        public void InsertarRecepcionProducto(TextBox txtFolio, string ClaveDocumento, string Estatus, string Fecha, string ClavePropietario, string Divisa, string TipoCambio, string Notas, string Elaborado, string RecepcionProducto, string Consecutivo, string Almacen, string Referencia, string DiasVence, string FechaVence, string CentroCostos, string IdProyecto)
         {
             try
             {
@@ -1524,8 +1524,8 @@ namespace PV.Clases.OrdenCompra
                     txtFolio.Text = folioNuevo.ToString();
 
                     using (SqlCommand cmd = new SqlCommand(
-                        "INSERT INTO RecepcionProducto (Folio, ClaveDocumento, Estatus, Fecha, ClaveProveedor, Divisa, TipoCambio, Notas, Elaborado, FolioOrden, Consecutivo, Almacen, Referencia, DiasVence, FechaVence, CentroCostos) " +
-                        "VALUES (@Folio, @ClaveDocumento, @Estatus, @Fecha, @ClaveProveedor, @Divisa, @TipoCambio, @Notas, @Elaborado, @FolioOrden, @Consecutivo, @Almacen, @Referencia, @DiasVence, @FechaVence, @CentroCostos)", cn))
+                        "INSERT INTO RecepcionProducto (Folio, ClaveDocumento, Estatus, Fecha, ClaveProveedor, Divisa, TipoCambio, Notas, Elaborado, FolioOrden, Consecutivo, Almacen, Referencia, DiasVence, FechaVence, CentroCostos, IdProyecto) " +
+                        "VALUES (@Folio, @ClaveDocumento, @Estatus, @Fecha, @ClaveProveedor, @Divisa, @TipoCambio, @Notas, @Elaborado, @FolioOrden, @Consecutivo, @Almacen, @Referencia, @DiasVence, @FechaVence, @CentroCostos, @IdProyecto)", cn))
                     {
                         cmd.Parameters.AddWithValue("@Folio", folioNuevo);
                         cmd.Parameters.AddWithValue("@ClaveDocumento", string.IsNullOrEmpty(ClaveDocumento) ? (object)DBNull.Value : ClaveDocumento);
@@ -1543,6 +1543,7 @@ namespace PV.Clases.OrdenCompra
                         cmd.Parameters.AddWithValue("@DiasVence", string.IsNullOrEmpty(DiasVence) ? (object)DBNull.Value : DiasVence);
                         cmd.Parameters.AddWithValue("@FechaVence", string.IsNullOrEmpty(FechaVence) ? (object)DBNull.Value : FechaVence);
                         cmd.Parameters.AddWithValue("@CentroCostos", string.IsNullOrEmpty(CentroCostos) ? (object)DBNull.Value : CentroCostos); // Manejo de null
+                        cmd.Parameters.AddWithValue("@IdProyecto", string.IsNullOrEmpty(IdProyecto) ? (object)DBNull.Value : IdProyecto); // Manejo de null
 
                         cmd.ExecuteNonQuery();
                     }
@@ -3399,7 +3400,7 @@ namespace PV.Clases.OrdenCompra
             }
         }
         //______________________________________________________________________________________________________-
-        public void ConsultaRecepcion(string Folio, TextBox Documento, ComboBox Estatus, Guna2TextBox Fecha, Guna2TextBox Divisa, Guna2TextBox TipoCambio, Guna2TextBox Subtotal, Guna2TextBox Descuentos, Guna2TextBox Cargo, Guna2TextBox Total, Guna2TextBox Partidas, Guna2TextBox Notas, Guna2TextBox Elaborado, TextBox txtFolio, TextBox txtReciboCol, Guna2TextBox txtconsecutivo, TextBox txtAlmacen, Guna2TextBox txtReferencia, Guna2TextBox saldo, Guna2TextBox DiasVence, Guna2TextBox FechaVence, Guna2TextBox Archivo, ComboBox CentroCostos)
+        public void ConsultaRecepcion(string Folio, TextBox Documento, ComboBox Estatus, Guna2TextBox Fecha, Guna2TextBox Divisa, Guna2TextBox TipoCambio, Guna2TextBox Subtotal, Guna2TextBox Descuentos, Guna2TextBox Cargo, Guna2TextBox Total, Guna2TextBox Partidas, Guna2TextBox Notas, Guna2TextBox Elaborado, TextBox txtFolio, TextBox txtReciboCol, Guna2TextBox txtconsecutivo, TextBox txtAlmacen, Guna2TextBox txtReferencia, Guna2TextBox saldo, Guna2TextBox DiasVence, Guna2TextBox FechaVence, Guna2TextBox Archivo, ComboBox CentroCostos, ComboBox Proyecto)
         {
             try
             {
@@ -3441,6 +3442,14 @@ namespace PV.Clases.OrdenCompra
                             else
                             {
                                 CentroCostos.SelectedIndex = -1;
+                            }
+                            if (dr["IdProyecto"] != DBNull.Value)
+                            {
+                                Proyecto.SelectedValue = dr["IdProyecto"];
+                            }
+                            else
+                            {
+                                Proyecto.SelectedIndex = -1;
                             }
                         }
                     }
@@ -3949,7 +3958,7 @@ namespace PV.Clases.OrdenCompra
                             }
                             tipocambio.Text = dr["TipoCambio"].ToString();
                             txtPrecio.Text = dr["Subtotal"].ToString();
-                            descuento.Text = dr["Descuento"].ToString();
+                            descuento.Text = dr["DescuentoIm"].ToString();
                             total.Text = dr["Total"].ToString();
                             txtImpuestos.Text = dr["Impuesto"].ToString();
                             archivo.Text = dr["Archivo"].ToString();

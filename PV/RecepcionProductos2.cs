@@ -2,6 +2,7 @@
 using PuntoVentas.Clases.Login;
 using PV.Clases;
 using PV.Clases.Almacenes;
+using PV.Clases.CentroCostos;
 using PV.Clases.Inventario;
 using PV.Clases.OrdenCompra;
 using System;
@@ -26,6 +27,7 @@ namespace PV
         DBRegistrarEntradas r = new DBRegistrarEntradas();
         DBPartidas p = new DBPartidas();
         DBCentroCostos cc = new DBCentroCostos();
+        DBDatosProyecto dp = new DBDatosProyecto();
         public static string Carpeta = string.Empty;
 
 
@@ -130,6 +132,7 @@ namespace PV
             else
             {
                 string centroCosto = null;
+                string proyecto = ComboUtil.ObtenerSelectedValue(cmbproyecto);
 
                 if (mostrrcentorcosto)
                 {
@@ -151,7 +154,7 @@ namespace PV
                 string almacen = cmbAlmacen.Text.Split('-')[0];
                 if (txtFolio.Text == string.Empty)
                 {
-                    c.InsertarRecepcionProducto(txtFolio, txtClave.Text, cmbEstatus.Text, txtFecha.Text, txtMatricular.Text, txtDivisa.Text, txtTipoCambio.Text, txtNotas.Text, txtElaborado.Text, FolioOrden, txtConsecutivo.Text, almacen, txtReferencia.Text, txtDiasVence.Text, txtFechaVence.Text, centroCosto);
+                    c.InsertarRecepcionProducto(txtFolio, txtClave.Text, cmbEstatus.Text, txtFecha.Text, txtMatricular.Text, txtDivisa.Text, txtTipoCambio.Text, txtNotas.Text, txtElaborado.Text, FolioOrden, txtConsecutivo.Text, almacen, txtReferencia.Text, txtDiasVence.Text, txtFechaVence.Text, centroCosto, proyecto);
                 }
                 int opcion = 0;
                 if (txtArchivo.Text != string.Empty)
@@ -1123,7 +1126,7 @@ namespace PV
                 Limpiarcabezado();
                 string Folio = dgvRecepciones.Rows[e.RowIndex].Cells["Folio"].Value.ToString();
                 txtFolio.Text = "X";
-                c.ConsultaRecepcion(Folio, txtClave, cmbEstatus, txtFecha, txtDivisa, txtTipoCambio, txtSubtotal, txtDescuento, txtImpuestos, txtTotal, txtPartidas, txtNotas, txtElaborado, txtFolio, txtReciboCol, txtConsecutivo, txtAlmacen, txtReferencia, txtSaldo, txtDiasVence, txtFechaVence, txtArchivo, cmbCentroCostos);
+                c.ConsultaRecepcion(Folio, txtClave, cmbEstatus, txtFecha, txtDivisa, txtTipoCambio, txtSubtotal, txtDescuento, txtImpuestos, txtTotal, txtPartidas, txtNotas, txtElaborado, txtFolio, txtReciboCol, txtConsecutivo, txtAlmacen, txtReferencia, txtSaldo, txtDiasVence, txtFechaVence, txtArchivo, cmbCentroCostos, cmbproyecto);
                 cmbOrdenCompra.Enabled = false;
                 txtNotas.Enabled = false;
                 button3.Enabled = false;
@@ -1206,6 +1209,7 @@ namespace PV
             txtFolio.Text = string.Empty;
             TxtFolio1.Text = string.Empty;
             guna2TabControl1.SelectedIndex = 0;
+            cmbproyecto.SelectedIndex = -1;
 
         }
         void LimpiarDetalle()
@@ -1246,6 +1250,7 @@ namespace PV
             button3.Enabled = false;
             cmbAlmacen.Enabled = false;
             cmbCentroCostos.Enabled = false;
+            cmbproyecto.Enabled = false;
 
         }
         void DesbloquearEncabezado()
@@ -1266,6 +1271,7 @@ namespace PV
             cmbAlmacen.Enabled = true;
             button3.Enabled = true;
             cmbCentroCostos.Enabled = true;
+            cmbproyecto.Enabled = true;
 
         }
 
@@ -1663,6 +1669,26 @@ namespace PV
             c.ReciboSaldosRecepcion(TxtFolio1.Text, txtSubtotal, txtDescuento, txtImpuestos, txtTotal, txtPartidas, txtSaldo);
 
         }
-    }
+
+        private void cmbCentroCostos_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (cmbCentroCostos.SelectedIndex != -1)
+            {
+                DataTable dtProyectos = dp.ObtenerProyectosPorCentroCostos(
+          cmbCentroCostos.Text
+                   );
+
+                ComboUtil.LlenarComboBox(
+                    cmbproyecto,
+                    dtProyectos,
+                    "Proyecto",
+                    "Id"
+                );
+            }
+        }
+               
+
+        }
+    
     
 }

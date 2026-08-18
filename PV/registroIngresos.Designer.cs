@@ -963,7 +963,7 @@
             dataGridViewCellStyle3.Format = "C2";
             dataGridViewCellStyle3.NullValue = "0.00";
             this.SaldoActual.DefaultCellStyle = dataGridViewCellStyle3;
-            this.SaldoActual.HeaderText = "Saldo Capital";
+            this.SaldoActual.HeaderText = "Saldo";
             this.SaldoActual.Name = "SaldoActual";
             this.SaldoActual.ReadOnly = true;
             this.SaldoActual.Width = 117;

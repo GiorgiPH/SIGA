@@ -29,24 +29,16 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(RegistrarCobro));
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             this.label10 = new System.Windows.Forms.Label();
             this.dgvPagosPendientes = new System.Windows.Forms.DataGridView();
-            this.FormaPago = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.formasPagoBindingSource1 = new System.Windows.Forms.BindingSource(this.components);
             this.controlCondominiosDataSet = new PV.ControlCondominiosDataSet();
-            this.FolioDocumento = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Documento = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Concepto = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Importe = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.MasAbono = new System.Windows.Forms.DataGridViewButtonColumn();
-            this.Abono = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Saldo = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.formasPagoBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.label9 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
@@ -92,6 +84,14 @@
             this.txtFolioPedido = new System.Windows.Forms.TextBox();
             this.label18 = new System.Windows.Forms.Label();
             this.guna2CircleButton1 = new Guna.UI2.WinForms.Guna2CircleButton();
+            this.FormaPago = new System.Windows.Forms.DataGridViewComboBoxColumn();
+            this.FolioDocumento = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Documento = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Concepto = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Importe = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.MasAbono = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.Abono = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Saldo = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dgvPagosPendientes)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.formasPagoBindingSource1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.controlCondominiosDataSet)).BeginInit();
@@ -117,14 +117,14 @@
             this.dgvPagosPendientes.BackgroundColor = System.Drawing.Color.WhiteSmoke;
             this.dgvPagosPendientes.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.dgvPagosPendientes.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle6.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(19)))), ((int)(((byte)(35)))), ((int)(((byte)(95)))));
-            dataGridViewCellStyle6.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle6.ForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(19)))), ((int)(((byte)(35)))), ((int)(((byte)(95)))));
-            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvPagosPendientes.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(19)))), ((int)(((byte)(35)))), ((int)(((byte)(95)))));
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(19)))), ((int)(((byte)(35)))), ((int)(((byte)(95)))));
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvPagosPendientes.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.dgvPagosPendientes.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvPagosPendientes.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.FormaPago,
@@ -135,14 +135,14 @@
             this.MasAbono,
             this.Abono,
             this.Saldo});
-            dataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle10.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle10.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle10.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle10.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle10.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle10.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgvPagosPendientes.DefaultCellStyle = dataGridViewCellStyle10;
+            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle5.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvPagosPendientes.DefaultCellStyle = dataGridViewCellStyle5;
             this.dgvPagosPendientes.EnableHeadersVisualStyles = false;
             this.dgvPagosPendientes.Location = new System.Drawing.Point(22, 88);
             this.dgvPagosPendientes.MultiSelect = false;
@@ -155,15 +155,6 @@
             this.dgvPagosPendientes.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvPagosPendientes_CellClick);
             this.dgvPagosPendientes.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvPagosPendientes_CellEndEdit);
             // 
-            // FormaPago
-            // 
-            this.FormaPago.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.FormaPago.DataSource = this.formasPagoBindingSource1;
-            this.FormaPago.DisplayMember = "Descripcion";
-            this.FormaPago.HeaderText = "Forma de Pago";
-            this.FormaPago.Name = "FormaPago";
-            this.FormaPago.ValueMember = "Descripcion";
-            // 
             // formasPagoBindingSource1
             // 
             this.formasPagoBindingSource1.DataMember = "FormasPago";
@@ -173,75 +164,6 @@
             // 
             this.controlCondominiosDataSet.DataSetName = "ControlCondominiosDataSet";
             this.controlCondominiosDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
-            // 
-            // FolioDocumento
-            // 
-            this.FolioDocumento.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
-            this.FolioDocumento.HeaderText = "Folio";
-            this.FolioDocumento.Name = "FolioDocumento";
-            this.FolioDocumento.ReadOnly = true;
-            this.FolioDocumento.Width = 58;
-            // 
-            // Documento
-            // 
-            this.Documento.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.Documento.HeaderText = "Documento";
-            this.Documento.Name = "Documento";
-            this.Documento.ReadOnly = true;
-            // 
-            // Concepto
-            // 
-            this.Concepto.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
-            this.Concepto.HeaderText = "Concepto";
-            this.Concepto.Name = "Concepto";
-            this.Concepto.ReadOnly = true;
-            this.Concepto.Width = 85;
-            // 
-            // Importe
-            // 
-            this.Importe.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
-            dataGridViewCellStyle7.Format = "C2";
-            dataGridViewCellStyle7.NullValue = "0.00";
-            this.Importe.DefaultCellStyle = dataGridViewCellStyle7;
-            this.Importe.HeaderText = "Importe";
-            this.Importe.Name = "Importe";
-            this.Importe.ReadOnly = true;
-            this.Importe.Width = 73;
-            // 
-            // MasAbono
-            // 
-            this.MasAbono.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader;
-            this.MasAbono.HeaderText = "+";
-            this.MasAbono.Name = "MasAbono";
-            this.MasAbono.Text = "+";
-            this.MasAbono.UseColumnTextForButtonValue = true;
-            this.MasAbono.Width = 19;
-            // 
-            // Abono
-            // 
-            this.Abono.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
-            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle8.BackColor = System.Drawing.SystemColors.ControlDark;
-            dataGridViewCellStyle8.ForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle8.Format = "C2";
-            dataGridViewCellStyle8.NullValue = "0.00";
-            dataGridViewCellStyle8.SelectionBackColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.Abono.DefaultCellStyle = dataGridViewCellStyle8;
-            this.Abono.HeaderText = "Abono Capital";
-            this.Abono.Name = "Abono";
-            this.Abono.ReadOnly = true;
-            this.Abono.Width = 102;
-            // 
-            // Saldo
-            // 
-            this.Saldo.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
-            dataGridViewCellStyle9.Format = "C2";
-            dataGridViewCellStyle9.NullValue = "0.00";
-            this.Saldo.DefaultCellStyle = dataGridViewCellStyle9;
-            this.Saldo.HeaderText = "Saldo";
-            this.Saldo.Name = "Saldo";
-            this.Saldo.ReadOnly = true;
-            this.Saldo.Width = 63;
             // 
             // formasPagoBindingSource
             // 
@@ -927,6 +849,84 @@
             this.guna2CircleButton1.TabIndex = 79;
             this.guna2CircleButton1.Click += new System.EventHandler(this.guna2CircleButton1_Click);
             // 
+            // FormaPago
+            // 
+            this.FormaPago.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.FormaPago.DataSource = this.formasPagoBindingSource1;
+            this.FormaPago.DisplayMember = "Descripcion";
+            this.FormaPago.HeaderText = "Forma de Pago";
+            this.FormaPago.Name = "FormaPago";
+            this.FormaPago.ValueMember = "Descripcion";
+            // 
+            // FolioDocumento
+            // 
+            this.FolioDocumento.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
+            this.FolioDocumento.HeaderText = "Folio";
+            this.FolioDocumento.Name = "FolioDocumento";
+            this.FolioDocumento.ReadOnly = true;
+            this.FolioDocumento.Width = 58;
+            // 
+            // Documento
+            // 
+            this.Documento.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.Documento.HeaderText = "Documento";
+            this.Documento.Name = "Documento";
+            this.Documento.ReadOnly = true;
+            // 
+            // Concepto
+            // 
+            this.Concepto.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
+            this.Concepto.HeaderText = "Concepto";
+            this.Concepto.Name = "Concepto";
+            this.Concepto.ReadOnly = true;
+            this.Concepto.Width = 85;
+            // 
+            // Importe
+            // 
+            this.Importe.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
+            dataGridViewCellStyle2.Format = "C2";
+            dataGridViewCellStyle2.NullValue = "0.00";
+            this.Importe.DefaultCellStyle = dataGridViewCellStyle2;
+            this.Importe.HeaderText = "Importe";
+            this.Importe.Name = "Importe";
+            this.Importe.ReadOnly = true;
+            this.Importe.Width = 73;
+            // 
+            // MasAbono
+            // 
+            this.MasAbono.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader;
+            this.MasAbono.HeaderText = "+";
+            this.MasAbono.Name = "MasAbono";
+            this.MasAbono.Text = "+";
+            this.MasAbono.UseColumnTextForButtonValue = true;
+            this.MasAbono.Width = 19;
+            // 
+            // Abono
+            // 
+            this.Abono.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.ControlDark;
+            dataGridViewCellStyle3.ForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle3.Format = "C2";
+            dataGridViewCellStyle3.NullValue = "0.00";
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.Abono.DefaultCellStyle = dataGridViewCellStyle3;
+            this.Abono.HeaderText = "Abono";
+            this.Abono.Name = "Abono";
+            this.Abono.ReadOnly = true;
+            this.Abono.Width = 67;
+            // 
+            // Saldo
+            // 
+            this.Saldo.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
+            dataGridViewCellStyle4.Format = "C2";
+            dataGridViewCellStyle4.NullValue = "0.00";
+            this.Saldo.DefaultCellStyle = dataGridViewCellStyle4;
+            this.Saldo.HeaderText = "Saldo";
+            this.Saldo.Name = "Saldo";
+            this.Saldo.ReadOnly = true;
+            this.Saldo.Width = 63;
+            // 
             // RegistrarCobro
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1003,6 +1003,8 @@
         private System.Windows.Forms.TextBox txtFolioPedido;
         private System.Windows.Forms.Label label18;
         private Guna.UI2.WinForms.Guna2CircleButton guna2CircleButton1;
+        private System.Windows.Forms.Label label12;
+        private Guna.UI2.WinForms.Guna2ComboBox cmbConceptoIngreso;
         private System.Windows.Forms.DataGridViewComboBoxColumn FormaPago;
         private System.Windows.Forms.DataGridViewTextBoxColumn FolioDocumento;
         private System.Windows.Forms.DataGridViewTextBoxColumn Documento;
@@ -1011,7 +1013,5 @@
         private System.Windows.Forms.DataGridViewButtonColumn MasAbono;
         private System.Windows.Forms.DataGridViewTextBoxColumn Abono;
         private System.Windows.Forms.DataGridViewTextBoxColumn Saldo;
-        private System.Windows.Forms.Label label12;
-        private Guna.UI2.WinForms.Guna2ComboBox cmbConceptoIngreso;
     }
 }
