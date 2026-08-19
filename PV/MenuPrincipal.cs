@@ -54,7 +54,7 @@ namespace PuntoVentas
             {
                 SubgrupoMovimientos, SubGrupoReportesMovimientos, SubGrupoReportesCompras,
                 subGrupoGraficasCompras, SubgrupoIngresos, SubGrupoReportesProveedores,
-                SubGrupoReportesAnticipos, pnReportesEgresos, subgrupoPresupuesto3
+                SubGrupoReportesAnticipos, pnReportesEgresos, subgrupoPresupuesto3, SubGrupoBancos
             };
 
             _menuLayout = new MenuLayoutController(guna2Panel5, modulos, subgrupos);
@@ -469,8 +469,8 @@ namespace PuntoVentas
 
         private void btnConceptosCobro_Click(object sender, EventArgs e) => AbrirFormulario(() =>
         new CatalogoConceptosTesoreria());
-        
 
+        private void btnCxPEgresos_Click(object sender, EventArgs e) => AbrirFormulario(() => new ConsultarEgreso());
     }
 
     // --- CLASES DE APOYO PARA LA ESTRUCTURA DEL MENÚ ---

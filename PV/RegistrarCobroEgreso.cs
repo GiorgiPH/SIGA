@@ -25,7 +25,7 @@ namespace PV
        
         private const byte IdClaseIngresos = 3;
 
-        public RegistrarCobroEgreso(ArrayList ListaConcep, ArrayList ListaConcep2, ArrayList ListaConcep3, string Matricula, string Alumno)
+        public RegistrarCobroEgreso(ArrayList ListaConcep, ArrayList ListaConcep2, ArrayList ListaConcep3, string Matricula, string Alumno, string fecha)
         {
             InitializeComponent();
             txtMatricula.Text = Matricula;
@@ -33,6 +33,8 @@ namespace PV
             Lista = ListaConcep;
             Lista2 = ListaConcep2;
             Lista3 = ListaConcep3;
+            dtpFecha.Text = fecha;
+
         }
         private void LlenarEgresosSeleccionados()
         {
@@ -89,31 +91,31 @@ namespace PV
             formato.CurrencyGroupSeparator = ",";
             formato.NumberDecimalSeparator = ".";
 
-            dgvPagosPendientes.Rows[e.RowIndex].Cells[9].ReadOnly = true;
+            dgvPagosPendientes.Rows[e.RowIndex].Cells[7].ReadOnly = true;
 
             decimal Importe = 0.00M;
             decimal Abono = 0.00M;
             decimal Saldo = 0.00M;
 
+            if (dgvPagosPendientes.Rows[e.RowIndex].Cells[5].Value != null)
+            {
+                Importe = Convert.ToDecimal(dgvPagosPendientes.Rows[e.RowIndex].Cells[5].Value.ToString());
+            }
             if (dgvPagosPendientes.Rows[e.RowIndex].Cells[7].Value != null)
             {
-                Importe = Convert.ToDecimal(dgvPagosPendientes.Rows[e.RowIndex].Cells[7].Value.ToString());
-            }
-            if (dgvPagosPendientes.Rows[e.RowIndex].Cells[9].Value != null)
-            {
-                Abono = Convert.ToDecimal(dgvPagosPendientes.Rows[e.RowIndex].Cells[9].Value.ToString());
+                Abono = Convert.ToDecimal(dgvPagosPendientes.Rows[e.RowIndex].Cells[7].Value.ToString());
 
             }
             else
             {
-                dgvPagosPendientes.Rows[e.RowIndex].Cells[9].Value = 0;
+                dgvPagosPendientes.Rows[e.RowIndex].Cells[7].Value = 0;
             }
 
             Saldo = Importe - Abono;
 
             string saldo = Saldo.ToString("N", formato);
 
-            dgvPagosPendientes.Rows[e.RowIndex].Cells[10].Value = saldo;
+            dgvPagosPendientes.Rows[e.RowIndex].Cells[8].Value = saldo;
 
             decimal TotalImporte = 0.00M;
             decimal TotalAbono = 0.00M;
@@ -129,8 +131,8 @@ namespace PV
 
             }
 
-            decimal abono = Convert.ToDecimal(dgvPagosPendientes.Rows[e.RowIndex].Cells[9].Value);
-            dgvPagosPendientes.Rows[e.RowIndex].Cells[9].Value = abono.ToString("N", formato);
+            decimal abono = Convert.ToDecimal(dgvPagosPendientes.Rows[e.RowIndex].Cells[7].Value);
+            dgvPagosPendientes.Rows[e.RowIndex].Cells[7].Value = abono.ToString("N", formato);
         }
 
         private void button5_Click(object sender, EventArgs e)
@@ -221,8 +223,8 @@ namespace PV
                 }
                 else
                 {
-                    dgvPagosPendientes.Rows[e.RowIndex].Cells[9].ReadOnly = false;
-                    dgvPagosPendientes.Rows[e.RowIndex].Cells[9].Selected = true;
+                    dgvPagosPendientes.Rows[e.RowIndex].Cells[7].ReadOnly = false;
+                    dgvPagosPendientes.Rows[e.RowIndex].Cells[7].Selected = true;
                     dgvPagosPendientes.BeginEdit(true);
                 }
 

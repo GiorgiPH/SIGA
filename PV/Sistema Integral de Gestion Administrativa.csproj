@@ -639,6 +639,12 @@
     <Compile Include="RecepcionProductos2.Designer.cs">
       <DependentUpon>RecepcionProductos2.cs</DependentUpon>
     </Compile>
+    <Compile Include="RegistroEgreso - Copy.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="RegistroEgreso - Copy.Designer.cs">
+      <DependentUpon>RegistroEgreso - Copy.cs</DependentUpon>
+    </Compile>
     <Compile Include="RegistroGastos2.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -656,6 +662,12 @@
     </Compile>
     <Compile Include="ReporteComprasReembolso.Designer.cs">
       <DependentUpon>ReporteComprasReembolso.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ReporteCuentasPorPagar.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ReporteCuentasPorPagar.Designer.cs">
+      <DependentUpon>ReporteCuentasPorPagar.cs</DependentUpon>
     </Compile>
     <Compile Include="ReporteDiarioGastos.cs">
       <SubType>Form</SubType>
@@ -2060,6 +2072,9 @@
     <EmbeddedResource Include="RecepcionProductos2.resx">
       <DependentUpon>RecepcionProductos2.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="RegistroEgreso - Copy.resx">
+      <DependentUpon>RegistroEgreso - Copy.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="RegistroGastos2.resx">
       <DependentUpon>RegistroGastos2.cs</DependentUpon>
     </EmbeddedResource>
@@ -2069,6 +2084,10 @@
     <EmbeddedResource Include="ReporteComprasReembolso.rdlc" />
     <EmbeddedResource Include="ReporteComprasReembolso.resx">
       <DependentUpon>ReporteComprasReembolso.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ReporteCuentasPorPagar.rdlc" />
+    <EmbeddedResource Include="ReporteCuentasPorPagar.resx">
+      <DependentUpon>ReporteCuentasPorPagar.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ReporteDiarioGastos.rdlc" />
     <EmbeddedResource Include="ReporteDiarioGastos.resx">

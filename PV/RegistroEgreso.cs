@@ -201,7 +201,7 @@ namespace PV
                 listaTipos.Add(row.Cells["Tipo"].Value.ToString());
             }
 
-            using (var cobro = new RegistrarCobroEgreso(listaFolios, listaDocumentos, listaTipos, txtMatricula.Text, txtAlumno.Text))
+            using (var cobro = new RegistrarCobroEgreso(listaFolios, listaDocumentos, listaTipos, txtMatricula.Text, txtAlumno.Text, dtpFecha.Text))
             {
                 cobro.ShowDialog();
             }
