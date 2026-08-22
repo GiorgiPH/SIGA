@@ -1,13 +1,8 @@
 ﻿using PV.Properties;
 using System;
-using System;
-using System.Collections.Generic;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace PV.Clases.Facturas
@@ -17,7 +12,14 @@ namespace PV.Clases.Facturas
     /// propio de este dominio: el encabezado [Factura] y el detalle
     /// [PartidaFactura].
     ///
-   
+    /// Deliberadamente NO se duplican aquí los métodos genéricos que ya
+    /// existen en otras clases DB (catálogo de documentos, información de
+    /// producto/existencias, búsqueda de clientes, movimientos de almacén,
+    /// etc.). Esos siguen viviendo en DBPedidoCliente / DBClientes /
+    /// DBAlmacenes tal como ya se usan hoy para Remision, porque son
+    /// genéricos y no dependen de esta tabla. El formulario Facturas los
+    /// sigue consumiendo igual que OrdenPedidoCliente.
+    ///
     /// Convención seguida en todo el archivo:
     ///   - Cada método abre su propia conexión con "using" (nunca se
     ///     mantiene una conexión abierta a nivel de clase/formulario).
@@ -217,27 +219,27 @@ namespace PV.Clases.Facturas
         }
 
         /// <summary>
-        /// Llena una grilla con Facturas. Cuando <paramref name="incluirTodas"/>
-        /// es false trae únicamente las que están "Abierto" (alias de columna
-        /// "Folio"); cuando es true trae todas sin filtrar por estatus (alias
-        /// de columna "Folio2"). Los alias replican los nombres de columna que
-        /// ya consume el code-behind original (Cells["Folio"] / Cells["Folio2"]).
+        /// Llena una grilla de encabezados de Factura. Trae únicamente los
+        /// datos que necesitan las columnas armadas por código en el
+        /// formulario (Facturas.ConfigurarGrillaEncabezado): Folio (interno,
+        /// oculto), Consecutivo (se muestra como "Folio"), Documento,
+        /// Cliente y Fecha. AutoGenerateColumns debe quedar en false en el
+        /// DataGridView para que no se generen columnas extra.
         /// </summary>
         public void CargarFacturas(DataGridView dgv, string filtroFolio, string filtroDocumento,
             string filtroNombre, bool incluirTodas)
         {
-            string colFolio = incluirTodas ? "Folio2" : "Folio";
             string filtroEstatus = incluirTodas ? string.Empty : " AND f.Estatus = 'Abierto'";
 
             string sql = $@"
-                SELECT f.Folio AS [{colFolio}], f.ClaveDocumento AS Documento, f.Fecha,
-                       cli.Nombre AS Cliente, f.Total, f.Saldo, f.UltimoAbono, f.Estatus, f.FechaVence
+                SELECT f.Folio, f.Consecutivo, f.ClaveDocumento AS Documento,
+                       cli.RazonSocial AS Cliente, f.Fecha
                 FROM Factura f
                 LEFT JOIN Clientes cli ON cli.IdCliente = f.ClaveProveedor
                 WHERE 1 = 1 {filtroEstatus}
                   AND (@FiltroFolio = '' OR CAST(f.Folio AS VARCHAR(20)) LIKE '%' + @FiltroFolio + '%')
                   AND (@FiltroDocumento = '' OR f.ClaveDocumento LIKE '%' + @FiltroDocumento + '%')
-                  AND (@FiltroNombre = '' OR cli.Nombre LIKE '%' + @FiltroNombre + '%')
+                  AND (@FiltroNombre = '' OR cli.RazonSocial LIKE '%' + @FiltroNombre + '%')
                 ORDER BY f.Folio DESC";
 
             using (SqlConnection cn = new SqlConnection(ObtenerCn()))
@@ -411,11 +413,16 @@ namespace PV.Clases.Facturas
             }
         }
 
-        /// <summary>Carga una partida existente en los controles del panel de edición.</summary>
-        public void ConsultaPartidaFactura(string folioFactura, string partida, Control cmbConcepto2, Control txtConcepto,
-            Control txtConcepto2, Control txtCantidad, Control txtUnidad, Control txtDivisa, Control txtTipoCambio,
+        /// <summary>
+        /// Carga una partida existente en los controles del panel de edición.
+        /// Selecciona el producto en el combo por Id (SelectedValue) en vez
+        /// de por texto, para que quede exactamente el mismo producto aunque
+        /// existan descripciones repetidas o parecidas.
+        /// </summary>
+        public void ConsultaPartidaFactura(string folioFactura, string partida,
+            Control txtCantidad, Control txtUnidad, Control txtDivisa, Control txtTipoCambio,
             Control txtImporte, Control txtDescuento, Control txtTotal, Control txtPrecio, Control txtImpuesto,
-            Control txtEntregado, Control cmbConcepto)
+            Control txtEntregado, ComboBox cmbConcepto)
         {
             const string sql = @"
                 SELECT ClaveProducto, Concepto2, Cantidad, Unidad, Divisa, TipoCambio, Subtotal, Descuento, Total,
@@ -434,11 +441,14 @@ namespace PV.Clases.Facturas
                     if (!dr.Read())
                         return;
 
-                    string clave = Txt(dr["ClaveProducto"]);
-                    cmbConcepto2.Text = clave;
-                    cmbConcepto.Text = clave;
-                    txtConcepto2.Text = Txt(dr["Concepto2"]);
-                    txtConcepto.Text = Txt(dr["Concepto2"]);
+                    // El ValueMember del combo (ClaveProducto) es numérico:
+                    // hay que convertir antes de asignar SelectedValue, o la
+                    // comparación de tipos falla y no selecciona nada.
+                    if (dr["ClaveProducto"] != DBNull.Value)
+                    {
+                        cmbConcepto.SelectedValue = Convert.ToInt32(dr["ClaveProducto"]);
+                    }
+
                     txtCantidad.Text = Txt(dr["Cantidad"]);
                     txtUnidad.Text = Txt(dr["Unidad"]);
                     txtDivisa.Text = Txt(dr["Divisa"]);
@@ -512,12 +522,18 @@ namespace PV.Clases.Facturas
             }
         }
 
-        /// <summary>Llena la grilla de partidas de una Factura.</summary>
+        /// <summary>
+        /// Llena la grilla de partidas de una Factura. Trae únicamente los
+        /// datos que necesitan las columnas armadas por código en el
+        /// formulario (Facturas.ConfigurarGrillaPartidas): Folio, Partida,
+        /// Producto (Concepto2), Cantidad, Subtotal, Descuento, Impuesto,
+        /// Total.
+        /// </summary>
         public void CargarPartidasFactura(DataGridView dgv, string folioFactura)
         {
             const string sql = @"
-                SELECT Partida, ClaveProducto, Concepto2, Cantidad, Unidad, Precio, Descuento, Impuesto, Total, CantidadRecibida
-                FROM PartidaFactura
+                SELECT FolioFactura, Partida, P.descripcion as Concepto2, Cantidad, Subtotal, Descuento, Impuesto, Total
+                FROM PartidaFactura as PF Join ProductosServicios as p on p.claveProducto = PF.ClaveProducto
                 WHERE FolioFactura = @Folio
                 ORDER BY Partida";
 
@@ -609,6 +625,34 @@ namespace PV.Clases.Facturas
             }
 
             return resultado;
+        }
+
+        /// <summary>
+        /// Llena cmbDocumento con los documentos del catálogo aplicables a
+        /// Factura (Tarea = 'Factura'), mostrando "Clave - Nombre" como texto
+        /// plano de cada item (mismo patrón que SeleccionarCategorias /
+        /// SeleccionarDivisa en DBProductosServicios: un combo de solo texto,
+        /// sin DataSource/ValueMember, porque cmbDocumento.Text ya se usa así
+        /// más adelante en cmbDocumento_SelectedIndexChanged).
+        /// </summary>
+        public void SeleccionarFactura(ComboBox cb)
+        {
+            cb.Items.Clear();
+
+            const string sql = "SELECT (Clave + ' - ' + Nombre) AS Nombre FROM Documento WHERE Tarea = 'Factura'";
+
+            using (SqlConnection cn = new SqlConnection(ObtenerCn()))
+            using (SqlCommand cmd = new SqlCommand(sql, cn))
+            {
+                cn.Open();
+                using (SqlDataReader dr = cmd.ExecuteReader())
+                {
+                    while (dr.Read())
+                    {
+                        cb.Items.Add(dr["Nombre"].ToString());
+                    }
+                }
+            }
         }
 
         #endregion

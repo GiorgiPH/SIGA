@@ -755,5 +755,28 @@ namespace PuntoVentas.Clases.ProductosServicios
             }
             return mensaje;
         }
+
+        //____________________________________________________________________________________________________________________________________________
+        // Catálogo simple para llenar combos vía ComboUtil.LlenarComboBox(cmb, dt, "Descripcion", "ClaveProducto")
+        public DataTable ObtenerProductos()
+        {
+            DataTable dt = new DataTable();
+            try
+            {
+                using (SqlConnection cn = new SqlConnection(ObtenerCn()))
+                using (SqlCommand cmd = new SqlCommand(
+                    "SELECT ClaveProducto, Descripcion FROM ProductosServicios WHERE Estatus = 'Activo' ORDER BY Descripcion", cn))
+                using (SqlDataAdapter da = new SqlDataAdapter(cmd))
+                {
+                    cn.Open();
+                    da.Fill(dt);
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al obtener productos de gasto: " + ex.Message);
+            }
+            return dt;
+        }
     }
 }

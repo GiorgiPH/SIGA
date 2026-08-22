@@ -45,6 +45,7 @@ namespace PV
         DBClientes cl = new DBClientes();
         DBCentroCostos cc = new DBCentroCostos();
         DBDatosProyecto dp = new DBDatosProyecto();
+        DBProductosServicios pServ = new DBProductosServicios();
 
         private bool mostrarCentroCosto = false;
 
@@ -73,10 +74,14 @@ namespace PV
 
         private void Facturas_Load(object sender, EventArgs e)
         {
+            ConfigurarGrillaEncabezado(dataGridView1);
+            ConfigurarGrillaEncabezado(DataGridView2);
+            ConfigurarGrillaPartidas(guna2DataGridView1);
+
             f.CargarFacturas(dataGridView1, txtFiltro.Text, txtFiltroDocumento.Text, txtFiltroNombre.Text, false);
             f.CargarFacturas(DataGridView2, txtFiltro.Text, txtFiltroDocumento.Text, txtFiltroNombre.Text, true);
 
-            c.SeleccionarConceptoDocumentoV(cmbDocumento, "Factura");
+            f.SeleccionarFactura(cmbDocumento);
             a.SeleccionarAlmacen(cmbAlmacen);
 
             cmbEstatus.SelectedIndex = 0;
@@ -90,6 +95,122 @@ namespace PV
 
             ConfigurarToolStripExpandido();
             LlenarComboCentro();
+        }
+
+        /// <summary>
+        /// Arma por código las columnas de las grillas de encabezado
+        /// (dataGridView1 = abiertas / no autorizadas, DataGridView2 =
+        /// autorizadas-bloqueadas). Si el Designer copiado ya traía columnas
+        /// definidas ahí, este método las reemplaza por completo: Folio
+        /// (oculto, el folio real/PK), Folio (visible, en realidad muestra
+        /// el Consecutivo), Documento, Proveedor, Fecha.
+        /// </summary>
+        private void ConfigurarGrillaEncabezado(DataGridView dgv)
+        {
+            dgv.AutoGenerateColumns = false;
+            dgv.Columns.Clear();
+            dgv.ReadOnly = true;
+            dgv.AllowUserToAddRows = false;
+            dgv.AllowUserToDeleteRows = false;
+            dgv.MultiSelect = false;
+            dgv.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+
+            dgv.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                Name = "Folio",
+                DataPropertyName = "Folio",
+                HeaderText = "Folio (interno)",
+                Visible = false
+            });
+            dgv.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                Name = "Consecutivo",
+                DataPropertyName = "Consecutivo",
+                HeaderText = "Folio",
+                Width = 90
+            });
+            dgv.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                Name = "Documento",
+                DataPropertyName = "Documento",
+                HeaderText = "Documento",
+                Width = 110
+            });
+            dgv.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                Name = "Cliente",
+                DataPropertyName = "Cliente",
+                HeaderText = "Proveedor",
+                Width = 220,
+                AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill
+            });
+            dgv.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                Name = "Fecha",
+                DataPropertyName = "Fecha",
+                HeaderText = "Fecha",
+                Width = 100,
+                DefaultCellStyle = new DataGridViewCellStyle { Format = "yyyy/MM/dd" }
+            });
+        }
+
+        /// <summary>
+        /// Arma por código las columnas de la grilla de partidas:
+        /// Folio, Partida, Producto, Cantidad, Subtotal, Descuento, Impuesto, Total.
+        /// </summary>
+        private void ConfigurarGrillaPartidas(DataGridView dgv)
+        {
+            dgv.AutoGenerateColumns = false;
+            dgv.Columns.Clear();
+            dgv.ReadOnly = true;
+            dgv.AllowUserToAddRows = false;
+            dgv.AllowUserToDeleteRows = false;
+            dgv.MultiSelect = false;
+            dgv.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+
+            dgv.Columns.Add(new DataGridViewTextBoxColumn { Name = "Folio", DataPropertyName = "FolioFactura", HeaderText = "Folio", Width = 70 });
+            dgv.Columns.Add(new DataGridViewTextBoxColumn { Name = "Partida", DataPropertyName = "Partida", HeaderText = "Partida", Width = 70 });
+            dgv.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                Name = "Producto",
+                DataPropertyName = "Concepto2",
+                HeaderText = "Producto",
+                Width = 220,
+                AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill
+            });
+            dgv.Columns.Add(new DataGridViewTextBoxColumn { Name = "Cantidad", DataPropertyName = "Cantidad", HeaderText = "Cantidad", Width = 80 });
+            dgv.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                Name = "Subtotal",
+                DataPropertyName = "Subtotal",
+                HeaderText = "Subtotal",
+                Width = 90,
+                DefaultCellStyle = new DataGridViewCellStyle { Format = "N2", Alignment = DataGridViewContentAlignment.MiddleRight }
+            });
+            dgv.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                Name = "Descuento",
+                DataPropertyName = "Descuento",
+                HeaderText = "Descuento",
+                Width = 90,
+                DefaultCellStyle = new DataGridViewCellStyle { Format = "N2", Alignment = DataGridViewContentAlignment.MiddleRight }
+            });
+            dgv.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                Name = "Impuesto",
+                DataPropertyName = "Impuesto",
+                HeaderText = "Impuesto",
+                Width = 90,
+                DefaultCellStyle = new DataGridViewCellStyle { Format = "N2", Alignment = DataGridViewContentAlignment.MiddleRight }
+            });
+            dgv.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                Name = "Total",
+                DataPropertyName = "Total",
+                HeaderText = "Total",
+                Width = 100,
+                DefaultCellStyle = new DataGridViewCellStyle { Format = "N2", Alignment = DataGridViewContentAlignment.MiddleRight }
+            });
         }
 
         private void Facturas_Activated(object sender, EventArgs e)
@@ -276,7 +397,7 @@ namespace PV
             TxtFolio2.Text = txtFolio.Text;
             guna2TabControl1.SelectedIndex = 1;
 
-            c.SeleccionarProducto2(cmbConcepto, TxtFolio2.Text);
+            CargarComboProductos();
             f.Consulta5Factura(TxtFolio2.Text, txtPartida);
 
             txtCantidad.Text = "1";
@@ -396,7 +517,7 @@ namespace PV
             txtDescuento1.Text = "0.00";
             txtImpuesto1.Text = "0";
 
-            c.SeleccionarProducto2(cmbConcepto, TxtFolio2.Text);
+            CargarComboProductos();
             f.Consulta5Factura(TxtFolio2.Text, txtPartida);
         }
 
@@ -501,7 +622,7 @@ namespace PV
                 return;
 
             f.ReciboSaldosPartidas(TxtFolio2.Text, txtSubtotalR, txtDescuentoR, txtTotalR, txtImpuestoR);
-            c.SeleccionarProducto2(cmbConcepto, TxtFolio2.Text);
+            CargarComboProductos();
             CargarPartidas();
             LimpiarPartida();
         }
@@ -509,13 +630,19 @@ namespace PV
         /// <summary>Inserta la partida actualmente capturada y refresca los totales del encabezado.</summary>
         private bool GuardarPartidaActual()
         {
+            if (cmbConcepto.SelectedValue == null || cmbConcepto.SelectedValue == DBNull.Value)
+            {
+                MessageBox.Show("Seleccione un producto válido del catálogo antes de continuar.");
+                return false;
+            }
+
             if (!ValidarExistencias())
                 return false;
 
             f.InsertarPartidaFactura(
                 TxtFolio2.Text,
                 txtPartida.Text,
-                txtConcepto2.Text,
+                cmbConcepto.SelectedValue.ToString(),
                 txtConcepto2.Text,
                 txtCantidad.Text,
                 txtUnidad.Text,
@@ -579,6 +706,17 @@ namespace PV
             f.CargarPartidasFactura(guna2DataGridView1, TxtFolio2.Text);
         }
 
+        /// <summary>
+        /// Llena cmbConcepto con el catálogo de productos activos usando el
+        /// util genérico ComboUtil.LlenarComboBox (mismo patrón que se usa en
+        /// otros formularios, p.ej. cmbCuentaBancaria con ObtenerCuentasBancarias).
+        /// </summary>
+        private void CargarComboProductos()
+        {
+            DataTable dtProductos = pServ.ObtenerProductos();
+            ComboUtil.LlenarComboBox(cmbConcepto, dtProductos, "Descripcion", "ClaveProducto");
+        }
+
         void LimpiarPartida()
         {
             txtCantidad.Text = "1";
@@ -605,7 +743,7 @@ namespace PV
 
             cmbConcepto.SelectedIndexChanged -= cmbConcepto_SelectedIndexChanged;
 
-            f.ConsultaPartidaFactura(TxtFolio2.Text, partida, cmbconcepto2, txtConcepto, txtConcepto2, txtCantidad,
+            f.ConsultaPartidaFactura(TxtFolio2.Text, partida, txtCantidad,
                 txtUnidad, txtDivisa1, txtTipoCambio1, txtImporte1, txtDescuento1, txtTotal1, txtPrecio,
                 txtImpuesto1, txtEntregado, cmbConcepto);
 
@@ -905,7 +1043,7 @@ namespace PV
         private void DataGridView2_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex == -1) return;
-            CargarEncabezadoDesdeGrilla(DataGridView2.Rows[e.RowIndex].Cells["Folio2"].Value.ToString());
+            CargarEncabezadoDesdeGrilla(DataGridView2.Rows[e.RowIndex].Cells["Folio"].Value.ToString());
         }
 
         private void CargarEncabezadoDesdeGrilla(string folio)
@@ -936,7 +1074,7 @@ namespace PV
 
             if (cmbEstatus.Text != "Abierto")
             {
-                c.SeleccionarProducto2(cmbConcepto, "");
+                CargarComboProductos();
             }
         }
 

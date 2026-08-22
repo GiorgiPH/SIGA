@@ -1332,7 +1332,10 @@ VALUES
                             total.Text = dr["Total"].ToString();
                             archivo.Text = dr["Archivo"].ToString();
 
-                            cmbProveedorAlterno.SelectedValue = dr["ProveedorAlterno"].ToString();
+                            if (dr["ProveedorAlterno"] != DBNull.Value)
+                            {
+                                cmbProveedorAlterno.SelectedValue = dr["ProveedorAlterno"].ToString();
+                            }
                             txtDescuentoIm.Text = dr["DescuentoImporte"].ToString();
                             txtImpuestoIm.Text = dr["ImpuestoImporte"].ToString();
 
@@ -1343,7 +1346,10 @@ VALUES
                                 cmdproyectoalterno.SelectedIndex = 0;
                             }
 
-                            cmbformapago.SelectedValue = dr["formadepago"].ToString();
+                            if (dr["formadepago"] != DBNull.Value && dr["formadepago"] != null)
+                            {
+                                cmbformapago.SelectedValue = dr["formadepago"].ToString();
+                            }
                             cmbreferencia.Items.Add(dr["referencia"].ToString());
                             retencion.Text = dr["Retencion"].ToString();
                             IEPS.Text = dr["IEPS"].ToString();
