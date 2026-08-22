@@ -94,6 +94,7 @@
             this.label12 = new System.Windows.Forms.Label();
             this.txtFiltro = new Guna.UI2.WinForms.Guna2TextBox();
             this.PanelUsuario = new System.Windows.Forms.Panel();
+            this.cmbConceptoCobro = new Guna.UI2.WinForms.Guna2ComboBox();
             this.panel1.SuspendLayout();
             this.pnRegistrar.SuspendLayout();
             this.fl.SuspendLayout();
@@ -148,6 +149,7 @@
             this.pnRegistrar.Controls.Add(this.label16);
             this.pnRegistrar.Controls.Add(this.txtimporte);
             this.pnRegistrar.Controls.Add(this.label17);
+            this.pnRegistrar.Controls.Add(this.cmbConceptoCobro);
             this.pnRegistrar.Controls.Add(this.cmbDivisas);
             this.pnRegistrar.Controls.Add(this.label11);
             this.pnRegistrar.Controls.Add(this.cmbCuentaBancaria);
@@ -159,7 +161,6 @@
             this.pnRegistrar.Controls.Add(this.label7);
             this.pnRegistrar.Controls.Add(this.txtReferencia);
             this.pnRegistrar.Controls.Add(this.txtTipoCambio);
-            this.pnRegistrar.Controls.Add(this.txtConcepto);
             this.pnRegistrar.Enabled = false;
             this.pnRegistrar.Location = new System.Drawing.Point(16, 151);
             this.pnRegistrar.Name = "pnRegistrar";
@@ -541,12 +542,13 @@
             this.txtConcepto.Font = new System.Drawing.Font("Arial", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtConcepto.ForeColor = System.Drawing.Color.Black;
             this.txtConcepto.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.txtConcepto.Location = new System.Drawing.Point(156, 85);
+            this.txtConcepto.Location = new System.Drawing.Point(132, 576);
             this.txtConcepto.Name = "txtConcepto";
             this.txtConcepto.PlaceholderText = "";
             this.txtConcepto.SelectedText = "";
             this.txtConcepto.Size = new System.Drawing.Size(350, 23);
             this.txtConcepto.TabIndex = 8;
+            this.txtConcepto.Visible = false;
             this.txtConcepto.TextChanged += new System.EventHandler(this.txtConcepto_TextChanged);
             // 
             // btnBuscar
@@ -1084,6 +1086,27 @@
             this.PanelUsuario.TabIndex = 114;
             this.PanelUsuario.Visible = false;
             // 
+            // cmbConceptoCobro
+            // 
+            this.cmbConceptoCobro.AutoRoundedCorners = true;
+            this.cmbConceptoCobro.BackColor = System.Drawing.Color.Transparent;
+            this.cmbConceptoCobro.BorderColor = System.Drawing.Color.Gray;
+            this.cmbConceptoCobro.BorderRadius = 12;
+            this.cmbConceptoCobro.BorderStyle = System.Drawing.Drawing2D.DashStyle.Custom;
+            this.cmbConceptoCobro.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
+            this.cmbConceptoCobro.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbConceptoCobro.FocusedColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.cmbConceptoCobro.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.cmbConceptoCobro.Font = new System.Drawing.Font("Arial", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cmbConceptoCobro.ForeColor = System.Drawing.Color.Black;
+            this.cmbConceptoCobro.IntegralHeight = false;
+            this.cmbConceptoCobro.ItemHeight = 21;
+            this.cmbConceptoCobro.Location = new System.Drawing.Point(157, 81);
+            this.cmbConceptoCobro.Name = "cmbConceptoCobro";
+            this.cmbConceptoCobro.Size = new System.Drawing.Size(259, 27);
+            this.cmbConceptoCobro.TabIndex = 12;
+            this.cmbConceptoCobro.SelectedIndexChanged += new System.EventHandler(this.cmbDivisas_SelectedIndexChanged);
+            // 
             // RegistrarAnticipo
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1098,6 +1121,7 @@
             this.Controls.Add(this.btnConfirmarAnticipo);
             this.Controls.Add(this.btnCancelarAnticipo);
             this.Controls.Add(this.btnLimpiar);
+            this.Controls.Add(this.txtConcepto);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "RegistrarAnticipo";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
@@ -1180,5 +1204,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Folio;
         private System.Windows.Forms.DataGridViewTextBoxColumn Propietario;
         private System.Windows.Forms.DataGridViewTextBoxColumn Saldo;
+        public Guna.UI2.WinForms.Guna2ComboBox cmbConceptoCobro;
     }
 }

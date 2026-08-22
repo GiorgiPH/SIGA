@@ -17,7 +17,6 @@ namespace PV
     {
 
         public static string Matricula = string.Empty;
-        public static string M2 = string.Empty;
         public static int Opcion = 0;
 
 
@@ -185,13 +184,12 @@ namespace PV
 
         private void txtMatricular_TextChanged(object sender, EventArgs e)
         {
-            txtMatricular.Text = M2;
+            
             if (txtMatricular.Text != string.Empty)
             {
-                string[] valores = c.InformacionPropietarioRecibo(txtMatricular.Text);
-                txtNombreAlumnno.Text = valores[1];
+                string[] valores2 = c.InformacionProveedor(txtMatricular.Text);
+                txtNombreAlumnno.Text = valores2[0];
             }
-
 
 
         }
@@ -202,6 +200,7 @@ namespace PV
             {
                 if (buscador.ShowDialog() == DialogResult.OK)
                 {
+
                     txtMatricular.Text = buscador.Matricula;
                     txtNombreAlumnno.Text = buscador.Nombre;
                     Matricula = buscador.Matricula; // sigues alimentando tu campo static si otro código ya depende de él

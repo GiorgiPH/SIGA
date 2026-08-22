@@ -28,12 +28,13 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(RegistroEgreso));
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(RegistroEgreso));
             this.panel1 = new System.Windows.Forms.Panel();
+            this.btnReportePreeliminar = new Guna.UI2.WinForms.Guna2Button();
             this.dtpFecha = new Guna.UI2.WinForms.Guna2DateTimePicker();
             this.button6 = new Guna.UI2.WinForms.Guna2Button();
             this.button5 = new Guna.UI2.WinForms.Guna2Button();
@@ -70,7 +71,6 @@
             this.guna2GradientPanel1 = new Guna.UI2.WinForms.Guna2GradientPanel();
             this.guna2CircleButton1 = new Guna.UI2.WinForms.Guna2CircleButton();
             this.guna2HtmlLabel1 = new Guna.UI2.WinForms.Guna2HtmlLabel();
-            this.btnReportePreeliminar = new Guna.UI2.WinForms.Guna2Button();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvPagosPendientes)).BeginInit();
             this.guna2GradientPanel1.SuspendLayout();
@@ -108,6 +108,25 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(964, 562);
             this.panel1.TabIndex = 37;
+            // 
+            // btnReportePreeliminar
+            // 
+            this.btnReportePreeliminar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(19)))), ((int)(((byte)(35)))), ((int)(((byte)(95)))));
+            this.btnReportePreeliminar.BorderRadius = 50;
+            this.btnReportePreeliminar.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.btnReportePreeliminar.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.btnReportePreeliminar.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.btnReportePreeliminar.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.btnReportePreeliminar.FillColor = System.Drawing.Color.Transparent;
+            this.btnReportePreeliminar.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.btnReportePreeliminar.ForeColor = System.Drawing.Color.White;
+            this.btnReportePreeliminar.Image = ((System.Drawing.Image)(resources.GetObject("btnReportePreeliminar.Image")));
+            this.btnReportePreeliminar.ImageSize = new System.Drawing.Size(35, 35);
+            this.btnReportePreeliminar.Location = new System.Drawing.Point(11, 488);
+            this.btnReportePreeliminar.Name = "btnReportePreeliminar";
+            this.btnReportePreeliminar.Size = new System.Drawing.Size(65, 65);
+            this.btnReportePreeliminar.TabIndex = 364;
+            this.btnReportePreeliminar.Click += new System.EventHandler(this.btnReportePreeliminar_Click);
             // 
             // dtpFecha
             // 
@@ -638,25 +657,6 @@
             this.guna2HtmlLabel1.Size = new System.Drawing.Size(162, 32);
             this.guna2HtmlLabel1.TabIndex = 78;
             this.guna2HtmlLabel1.Text = "Registrar Egreso";
-            // 
-            // btnReportePreeliminar
-            // 
-            this.btnReportePreeliminar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(19)))), ((int)(((byte)(35)))), ((int)(((byte)(95)))));
-            this.btnReportePreeliminar.BorderRadius = 50;
-            this.btnReportePreeliminar.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
-            this.btnReportePreeliminar.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
-            this.btnReportePreeliminar.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.btnReportePreeliminar.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.btnReportePreeliminar.FillColor = System.Drawing.Color.Transparent;
-            this.btnReportePreeliminar.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.btnReportePreeliminar.ForeColor = System.Drawing.Color.White;
-            this.btnReportePreeliminar.Image = ((System.Drawing.Image)(resources.GetObject("btnReportePreeliminar.Image")));
-            this.btnReportePreeliminar.ImageSize = new System.Drawing.Size(35, 35);
-            this.btnReportePreeliminar.Location = new System.Drawing.Point(11, 488);
-            this.btnReportePreeliminar.Name = "btnReportePreeliminar";
-            this.btnReportePreeliminar.Size = new System.Drawing.Size(65, 65);
-            this.btnReportePreeliminar.TabIndex = 364;
-            this.btnReportePreeliminar.Click += new System.EventHandler(this.btnReportePreeliminar_Click);
             // 
             // RegistroEgreso
             // 

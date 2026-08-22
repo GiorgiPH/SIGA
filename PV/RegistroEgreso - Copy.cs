@@ -38,6 +38,8 @@ namespace PV
         public ConsultarEgreso()
         {
             InitializeComponent();
+            ToolTip T = new ToolTip();
+            T.SetToolTip(btnReportePreeliminar, "Imprimir Seleccionados");
         }
 
         #region Carga inicial
@@ -55,6 +57,8 @@ namespace PV
             ConfigurarColumnasGrid();
             CargarProveedores();
             LimpiarProveedores();
+            dtpVencimiento.
+                Value = DateTime.Now;   
         }
 
         // Llena los combos de proveedor con el catálogo activo, usando el
@@ -177,6 +181,10 @@ namespace PV
         {
             dgvPagosPendientes.Rows.Clear();
 
+            DateTime? vencimiento =  dtpVencimiento.Value;
+            DateTime? fecha1 = chFecha.Checked ? dtpFecha1.Value : (DateTime?)null;
+            DateTime? fecha2 = chFecha.Checked ? dtpFecha2.Value : (DateTime?)null;
+
             var proveedores = new List<(string Id, string Nombre)>();
             if (!string.IsNullOrEmpty(idProveedor1))
                 proveedores.Add((idProveedor1, nombreProveedor1));
@@ -185,18 +193,26 @@ namespace PV
 
             if (proveedores.Count == 0)
             {
-                ActualizarTotales();
-                return;
-            }
+                // Sin proveedor: el filtro se apoya en lo que sí esté puesto
+                // (vencimiento, rango de fechas). Si tampoco hay nada de eso,
+                // trae todo.
+                DataTable dtTodos = dbEgresos.ObtenerEgresos(null, vencimiento, chFecha.Checked, fecha1, fecha2);
 
-            foreach (var proveedor in proveedores)
-            {
-                DataTable dt = dbEgresos.ObtenerEgresos(proveedor.Id);
-
-                foreach (DataRow row in dt.Rows)
+                foreach (DataRow row in dtTodos.Rows)
                 {
-                    if (PasaFiltros(row))
+                    AgregarFilaGrid(row, row["NombreProveedor"].ToString());
+                }
+            }
+            else
+            {
+                foreach (var proveedor in proveedores)
+                {
+                    DataTable dt = dbEgresos.ObtenerEgresos(proveedor.Id, vencimiento, chFecha.Checked, fecha1, fecha2);
+
+                    foreach (DataRow row in dt.Rows)
+                    {
                         AgregarFilaGrid(row, proveedor.Nombre);
+                    }
                 }
             }
 
@@ -231,7 +247,7 @@ namespace PV
             DataGridViewRow fila = dgvPagosPendientes.Rows[i];
 
             fila.Cells["Seleccionar"].Value = false;
-            fila.Cells["Documento"].Value = row["Folio"].ToString();
+            fila.Cells["Documento"].Value = row["ClaveDocumento"].ToString() + " - "+row["Folio"].ToString();
             fila.Cells["Concepto"].Value = row["Nombre"].ToString(); // Nombre del tipo de documento (tabla Documento)
             fila.Cells["Proveedor"].Value = nombreProveedor;
             fila.Cells["Fecha"].Value = Convert.ToDateTime(row["Fecha"]).ToString("yyyy/MM/dd");

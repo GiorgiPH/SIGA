@@ -5,9 +5,11 @@ using PuntoVentas;
 using PV.Clases;
 using PV.Clases.Anticipo;
 using PV.Clases.Clientes;
+using PV.Clases.ConceptoPago;
 using PV.Clases.Divisas;
 
 using System;
+using System.Data;
 using System.Windows.Forms;
 
 namespace PV
@@ -19,6 +21,8 @@ namespace PV
         readonly DBAnticipo c = new DBAnticipo();
         readonly DBDivisas d = new DBDivisas();
         readonly DBClientes cl = new DBClientes();
+        DBConceptoCobroPago dbConceptoCobroPago = new DBConceptoCobroPago();
+
 
         // Estado compartido con otros formularios del módulo (se conserva tal cual).
         public static string matricula = string.Empty;
@@ -29,6 +33,7 @@ namespace PV
 
         // "Propietario" = flujo de anticipos de Clientes; cualquier otro valor = Proveedores.
         readonly string Opcion = string.Empty;
+        private const byte IdClaseIngresos = 2;
 
         #endregion
 
@@ -63,7 +68,6 @@ namespace PV
 
             if (Opcion == "Propietario")
             {
-                c.ConsultaConceptoAnticipo(txtConcepto, txtConceptoClave);
                 c.CargarAnticipoCliente(dgvAnticipos, txtFiltro.Text);
 
                 label12.Text = "CLIENTE";
@@ -75,8 +79,6 @@ namespace PV
             {
                 c.CargarAnticipoProveedor(dgvAnticipos, txtFiltro.Text);
                 lbProv.Visible = true;
-                txtConcepto.Text = "APR - Anticipo Proveedores";
-                txtConceptoClave.Text = "APR";
                 label12.Text = "PROVEEDOR";
                 lbProv.Text = "Proveedor";
                 lblTitulo.Text = "Registro Anticipos Proveedores";
@@ -92,6 +94,19 @@ namespace PV
         private void RegistrarAnticipo_Load(object sender, EventArgs e)
         {
             // Sin acciones adicionales al cargar el formulario.
+            DataTable conceptosIngreso = dbConceptoCobroPago.ListarParaCombo(IdClaseIngresos, soloActivos: true);
+            // Crear columna para mostrar en el ComboBox
+            if (!conceptosIngreso.Columns.Contains("DescripcionCombo"))
+            {
+                conceptosIngreso.Columns.Add("DescripcionCombo", typeof(string));
+            }
+
+            foreach (DataRow row in conceptosIngreso.Rows)
+            {
+                row["DescripcionCombo"] =
+                    $"{row["ClaveConcepto"]} - {row["Descripcion"]}";
+            }
+            ComboUtil.LlenarComboBox(cmbConceptoCobro, conceptosIngreso, "Descripcion", "IdConcepto");
         }
 
         private void RegistrarAnticipo_Activated(object sender, EventArgs e)
@@ -157,6 +172,7 @@ namespace PV
             button11.Enabled = true;
             pnRegistrar.Enabled = false;
             dtpFecha.Enabled = true;
+            cmbConceptoCobro.Enabled = true;
         }
 
         #endregion
@@ -198,18 +214,23 @@ namespace PV
                 MessageBox.Show("El importe en MXN no es válido.");
                 return;
             }
+            if (cmbConceptoCobro.SelectedIndex == -1)
+            {
+                MessageBox.Show("Seleccione un concepto de cobro para continuar.");
+                return;
+            }
 
             if (Opcion == "Propietario")
             {
                 MessageBox.Show(c.RegistroAnticipo(txtFolio.Text, txtMatricula.Text, txtCaja.Text, dtpFecha.Text,
-                    cmbFormaPago.Text, txtConceptoClave.Text, txtReferencia.Text, txtCuenta.Text, txtNumOperacion.Text,
+                    cmbFormaPago.Text, cmbConceptoCobro.SelectedValue.ToString(), txtReferencia.Text, txtCuenta.Text, txtNumOperacion.Text,
                     importeMXN, cmbDivisas.Text, txtTipoCambio.Text, FolioC, FolioCGeneral));
                 c.CargarAnticipo(dgvAnticipos, txtFiltro.Text);
             }
             else
             {
                 MessageBox.Show(c.RegistroAnticipoProveedor(txtFolio.Text, txtMatricula.Text, txtCaja.Text, dtpFecha.Text,
-                    cmbFormaPago.Text, txtConceptoClave.Text, txtReferencia.Text, txtCuenta.Text, txtNumOperacion.Text,
+                    cmbFormaPago.Text, cmbConceptoCobro.SelectedValue.ToString(), txtReferencia.Text, txtCuenta.Text, txtNumOperacion.Text,
                     importeMXN, cmbDivisas.Text, txtTipoCambio.Text));
                 c.CargarAnticipoProveedor(dgvAnticipos, txtFiltro.Text);
             }
@@ -251,6 +272,7 @@ namespace PV
             txtImporteMXN.Clear();
             txtSaldo.Text = "0.00";
             txtimporte.Enabled = true;
+            cmbConceptoCobro.SelectedIndex = -1;
 
             if (Opcion == "Propietario")
             {
@@ -287,14 +309,14 @@ namespace PV
             if (Opcion == "Propietario")
             {
                 string activo = c.ConsultaProductoSeleccionado(clave, txtMatricula, txtCaja, dtpFecha, cmbFormaPago,
-                    txtConceptoClave, txtReferencia, txtCuenta, txtNumOperacion, txtImporteMXN, cmbDivisas,
+                    cmbConceptoCobro, txtReferencia, txtCuenta, txtNumOperacion, txtImporteMXN, cmbDivisas,
                     txtTipoCambio, txtSaldo, txtimporte);
                 lbEstatus.Text = activo == "1" ? "Estatus:  CANCELADO" : " ";
             }
             else
             {
                 c.ConsultaProductoSeleccionadoProveedor(clave, txtMatricula, txtCaja, dtpFecha, cmbFormaPago,
-                    txtConceptoClave, txtReferencia, txtCuenta, txtNumOperacion, txtImporteMXN, cmbDivisas,
+                    cmbConceptoCobro, txtReferencia, txtCuenta, txtNumOperacion, txtImporteMXN, cmbDivisas,
                     txtTipoCambio, txtSaldo, txtimporte);
             }
 
@@ -307,6 +329,7 @@ namespace PV
             button11.Enabled = true;
             txtimporte.Enabled = false;
             btnBuscar.Enabled = false;
+            cmbConceptoCobro.Enabled = false;
 
             if (txtCuenta.Text != string.Empty)
             {

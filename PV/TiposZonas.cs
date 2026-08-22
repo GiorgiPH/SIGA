@@ -14,7 +14,7 @@ namespace Condominios
         {
             InitializeComponent();
             ToolTip T = new ToolTip();
-            
+
             T.SetToolTip(guna2CircleButton1, "Menú Principal");
             T.SetToolTip(button8, "Nuevo");
             T.SetToolTip(button6, "Imprimir");
@@ -28,6 +28,7 @@ namespace Condominios
             //GenerarNoZona();
             c.CargarClientes(dataGridView2);
             c.CargarZonas(dataGridView1);
+            c.CargarProveedores(dgvTipoProveedor);
         }
 
         void GenerarNoCliente()
@@ -62,6 +63,24 @@ namespace Condominios
             {
                 DBTiposZonas.Zona = DBTiposZonas.Zona + 1;
                 txtClaveZona.Text = Convert.ToString(DBTiposZonas.Zona);
+
+            }
+        }
+
+        void GenerarNoProveedor()
+        {
+            DBTiposZonas.Proveedor = 0;
+            c.ClaveProveedorSiguiente();
+            if (DBTiposZonas.Proveedor == 0)
+            {
+                DBTiposZonas.Proveedor = 1;
+                txtClaveTipoProveedor.Text = Convert.ToString(DBTiposZonas.Proveedor);
+
+            }
+            else
+            {
+                DBTiposZonas.Proveedor = DBTiposZonas.Proveedor + 1;
+                txtClaveTipoProveedor.Text = Convert.ToString(DBTiposZonas.Proveedor);
 
             }
         }
@@ -108,6 +127,10 @@ namespace Condominios
             txtDescripcionCliente.Clear();
             txtDescripcionCliente.Enabled = false;
             txtDescripcionZona.Enabled = false;
+
+            txtClaveTipoProveedor.Clear();
+            txtDescripcionTipoProveedor.Clear();
+            txtDescripcionTipoProveedor.Enabled = false;
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -173,10 +196,10 @@ namespace Condominios
 
         private void button7_Click(object sender, EventArgs e)
         {
-                Limpiar();
-                GenerarNoCliente();
+            Limpiar();
+            GenerarNoCliente();
             txtDescripcionCliente.Enabled = true;
-           
+
         }
 
         private void button8_Click(object sender, EventArgs e)
@@ -249,5 +272,86 @@ namespace Condominios
             }
 
         }
+
+        private void btnNuevoTipoProveedor_Click(object sender, EventArgs e)
+        {
+            Limpiar();
+            GenerarNoProveedor();
+            txtDescripcionTipoProveedor.Enabled = true;
+        }
+
+        private void btnImprimirTiposProveedor_Click(object sender, EventArgs e)
+        {
+            // Sigue el mismo patrón de button9_Click / button6_Click cuando tengas el formulario de reporte, p.ej.:
+            // ReporteTipoProveedores reporteTipoProveedores = new ReporteTipoProveedores();
+            // reporteTipoProveedores.ShowDialog();
+        }
+
+        private void btnLimpiarTipoProveedor_Click(object sender, EventArgs e)
+        {
+            Limpiar();
+            GenerarNoProveedor();
+        }
+
+        private void btnConfirmarTipoProveedor_Click(object sender, EventArgs e)
+        {
+            if (txtDescripcionTipoProveedor.Text == string.Empty)
+            {
+                MessageBox.Show("Registre la descripcion del tipo de proveedor para continuar");
+            }
+            else
+            {
+                c.RegistroProveedor(txtClaveTipoProveedor.Text, txtDescripcionTipoProveedor.Text);
+                Limpiar();
+                GenerarNoProveedor();
+                c.CargarProveedores(dgvTipoProveedor);
+            }
+        }
+
+        private void btnEliminarTipoProveedor_Click(object sender, EventArgs e)
+        {
+            if (txtClaveTipoProveedor.Text == string.Empty && txtDescripcionTipoProveedor.Text == string.Empty)
+            {
+                MessageBox.Show("Seleccione un registro para continuar");
+            }
+            else
+            {
+                if (DBLogin.TipoUsuario == "Administrador")
+                {
+                    try
+                    {
+                        MessageBox.Show(c.EliminarProveedor(txtClaveTipoProveedor.Text));
+
+                        c.CargarProveedores(dgvTipoProveedor);
+                        Limpiar();
+
+                    }
+                    catch (Exception)
+                    {
+
+                        MessageBox.Show("El registro esta en uso, no es posible eliminar");
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("No tiene permisos de administrador");
+                }
+            }
+        }
+
+        private void dgvTipoProveedor_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex != -1)
+            {
+                string Clave = dgvTipoProveedor.Rows[e.RowIndex].Cells["ClaveProveedor"].Value.ToString();
+                c.ConsultaProveedorSeleccionado(Clave, txtDescripcionTipoProveedor);
+                txtClaveTipoProveedor.Text = Clave;
+            }
+            else
+            {
+                return;
+            }
+        }
+
     }
 }

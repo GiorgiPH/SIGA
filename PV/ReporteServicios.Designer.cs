@@ -85,7 +85,7 @@ namespace PV
             this.Controls.Add(this.panel2);
             this.Name = "ReporteServicios";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Reporte Servicios";
+            this.Text = "Reporte Catálogo de Servicios";
             this.Load += new System.EventHandler(this.ReporteServicios_Load);
             ((System.ComponentModel.ISupportInitialize)(this.ServiciosBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.ControlCondominiosDataSet58)).EndInit();

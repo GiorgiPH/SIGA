@@ -108,11 +108,11 @@ namespace Condominios
                 {
                     if (dataGridView1.Rows[e.RowIndex].Cells["Nombre"].Value != null)
                     {
-                        string Clave = dataGridView1.Rows[e.RowIndex].Cells["ClaveFamilia"].Value.ToString();
+                        string Clave = dataGridView1.Rows[e.RowIndex].Cells["Id"].Value.ToString();
                         if (d.ActualizarEstatusProyecto(Clave))
                         {
                             MessageBox.Show("Se elimino el poryecto correctamente");
-                            CargarDatosProyecto(Clave);
+                            CargarDatosProyecto(txtNombre.Text);
 
                         }
                         else
@@ -317,6 +317,8 @@ namespace Condominios
             DatosProyecto datosproyecto = new DatosProyecto("","");
             datosproyecto.centrocosto = txtNombre.Text;
             datosproyecto.ShowDialog();
+                // Al cerrar el formulario hijo, se refresca el grid
+                CargarDatosProyecto(txtNombre.Text);
             }
         }
 
@@ -336,8 +338,9 @@ namespace Condominios
                 {
                     int n = dataGridView1.Rows.Add();
                     dataGridView1.Rows[n].Cells[0].Value = pago["Folio"];
-                    dataGridView1.Rows[n].Cells[1].Value = pago["Proyecto"];
-                  
+                    dataGridView1.Rows[n].Cells[1].Value = pago["Id"];
+                    dataGridView1.Rows[n].Cells[2].Value = pago["Proyecto"];
+
 
                 }
 
@@ -357,7 +360,7 @@ namespace Condominios
         {
             if (e.RowIndex != -1)
             {
-                string ClaveCategoria = dataGridView1.Rows[e.RowIndex].Cells["ClaveFamilia"].Value.ToString();
+                string ClaveCategoria = dataGridView1.Rows[e.RowIndex].Cells["Id"].Value.ToString();
                 string nombre = dataGridView1.Rows[e.RowIndex].Cells["Nombre"].Value.ToString();
 
                 DatosProyecto datosproyecto = new DatosProyecto(ClaveCategoria, nombre);

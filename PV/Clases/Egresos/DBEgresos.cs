@@ -40,7 +40,8 @@ namespace PV.Clases.Egresos
         }
 
         //____________________________________________________________________
-        public DataTable ObtenerEgresos(string matricula)
+        public DataTable ObtenerEgresos(string matricula, DateTime? vencimiento = null,
+        bool usarFechas = false, DateTime? fecha1 = null, DateTime? fecha2 = null)
         {
             DataTable dtEgresos = new DataTable();
             try
@@ -78,15 +79,20 @@ namespace PV.Clases.Egresos
                 NULL as Semana,
                 NULL as Anio,
                 NULL as ProveedorAlterno,
-                D.Nombre 
+                D.Nombre,
+                P.RazonSocial as NombreProveedor
             FROM 
                 RecepcionProducto as R, 
-                Documento as D 
+                Documento as D,
+                Proveedor as P
             WHERE 
-                R.ClaveProveedor = @Matricula AND 
-                Saldo != 0 AND 
+                (@Matricula IS NULL OR @Matricula = '' OR R.ClaveProveedor = @Matricula) AND 
+                (@Vencimiento IS NULL OR R.FechaVence < @Vencimiento) AND
+                (@UsarFechas = 0 OR R.Fecha BETWEEN @Fecha1 AND @Fecha2) AND
+                R.Saldo != 0 AND 
                 R.Estatus = 'Bloqueado' AND
-                R.ClaveDocumento = D.Clave)
+                R.ClaveDocumento = D.Clave AND
+                P.IdProveedor = R.ClaveProveedor)
  
             UNION 
  
@@ -122,15 +128,20 @@ namespace PV.Clases.Egresos
                 R.Semana,
                 R.Anio,
                 R.ProveedorAlterno,
-                D.Nombre 
+                D.Nombre,
+                P.RazonSocial as NombreProveedor
             FROM 
                 RegistroGastos as R, 
-                Documento as D 
+                Documento as D,
+                Proveedor as P
             WHERE 
-                R.ClaveProveedor = @Matricula AND 
-                Saldo != 0 AND 
+                (@Matricula IS NULL OR @Matricula = '' OR R.ClaveProveedor = @Matricula) AND 
+                (@Vencimiento IS NULL OR R.FechaVence < @Vencimiento) AND
+                (@UsarFechas = 0 OR R.Fecha BETWEEN @Fecha1 AND @Fecha2) AND
+                R.Saldo != 0 AND 
                 R.Estatus = 'Bloqueado' AND
-                R.ClaveDocumento = D.Clave)
+                R.ClaveDocumento = D.Clave AND
+                P.IdProveedor = R.ClaveProveedor)
  
             UNION 
  
@@ -166,15 +177,20 @@ namespace PV.Clases.Egresos
                 R.Semana,
                 R.Anio,
                 R.ProveedorAlterno,
-                D.Nombre 
+                D.Nombre,
+                P.RazonSocial as NombreProveedor
             FROM 
                 RegistroReembolso as R, 
-                Documento as D 
+                Documento as D,
+                Proveedor as P
             WHERE 
-                R.ClaveProveedor = @Matricula AND 
-                Saldo != 0 AND 
+                (@Matricula IS NULL OR @Matricula = '' OR R.ClaveProveedor = @Matricula) AND 
+                (@Vencimiento IS NULL OR TRY_CONVERT(date, R.FechaVence) < @Vencimiento) AND
+                (@UsarFechas = 0 OR TRY_CONVERT(date, R.Fecha) BETWEEN @Fecha1 AND @Fecha2) AND
+                R.Saldo != 0 AND 
                 R.Estatus = 'Bloqueado' AND
-                R.ClaveDocumento = D.Clave)
+                R.ClaveDocumento = D.Clave AND
+                P.IdProveedor = R.ClaveProveedor)
  
             UNION 
  
@@ -210,20 +226,30 @@ namespace PV.Clases.Egresos
                 NULL as Semana,
                 NULL as Anio,
                 NULL as ProveedorAlterno,
-                D.Nombre 
+                D.Nombre,
+                P.RazonSocial as NombreProveedor
             FROM 
                 NotasGasto as R, 
-                Documento as D 
+                Documento as D,
+                Proveedor as P
             WHERE 
-                R.ClaveProveedor = @Matricula AND 
-                Saldo != 0 AND 
+                (@Matricula IS NULL OR @Matricula = '' OR R.ClaveProveedor = @Matricula) AND 
+                (@UsarFechas = 0 OR R.Fecha BETWEEN @Fecha1 AND @Fecha2) AND
+                R.Saldo != 0 AND 
                 R.Estatus = 'Bloqueado' AND
-                R.ClaveDocumento = D.Clave)";
+                R.ClaveDocumento = D.Clave AND
+                P.IdProveedor = R.ClaveProveedor)";
 
                 using (SqlConnection cn = AbrirConexion())
                 using (SqlCommand cmd = new SqlCommand(sql, cn))
                 {
-                    cmd.Parameters.AddWithValue("@Matricula", matricula);
+                    // Todos opcionales: si vienen null (o "" en el caso de
+                    // matricula), ese filtro no se aplica.
+                    cmd.Parameters.AddWithValue("@Matricula", (object)matricula ?? DBNull.Value);
+                    cmd.Parameters.AddWithValue("@Vencimiento", (object)vencimiento ?? DBNull.Value);
+                    cmd.Parameters.AddWithValue("@UsarFechas", usarFechas);
+                    cmd.Parameters.AddWithValue("@Fecha1", (object)fecha1 ?? DBNull.Value);
+                    cmd.Parameters.AddWithValue("@Fecha2", (object)fecha2 ?? DBNull.Value);
                     using (SqlDataAdapter da = new SqlDataAdapter(cmd))
                     {
                         da.Fill(dtEgresos);
@@ -236,6 +262,7 @@ namespace PV.Clases.Egresos
             }
             return dtEgresos;
         }
+
 
         //_________________________________________________________________________________
         // Antes "ActualizarEgreso2(Tipo, Folio, Recargos, Descuento, Saldo)".

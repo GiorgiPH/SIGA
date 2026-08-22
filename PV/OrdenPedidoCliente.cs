@@ -1,12 +1,15 @@
-﻿using Condominios.Clases.RegistrarIngresos;
+﻿using Condominios.Clases.CentroCostos;
+using Condominios.Clases.RegistrarIngresos;
 using Guna.UI2.WinForms;
 using PuntoVentas.Clases.Login;
 using PuntoVentas.Clases.ProductosServicios;
 using PV.Clases;
 using PV.Clases.Almacenes;
+using PV.Clases.CentroCostos;
 using PV.Clases.Clientes;
 using PV.Clases.OrdenCompra;
 using PV.Clases.PedidoCliente;
+using PV.Clases.Proveedores;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -32,10 +35,14 @@ namespace PV
         DBOrdenCompra o = new DBOrdenCompra();
         DBAlmacenes a = new DBAlmacenes();
         DBClientes cl = new DBClientes();
+        DBCentroCostos cc = new DBCentroCostos();
+        DBDatosProyecto dp = new DBDatosProyecto();
         DBProductosServicios p = new DBProductosServicios();
         string recibo = string.Empty;
         string reciboCol = string.Empty;
         string tipo=string.Empty;
+
+        private bool mostrrcentorcosto = false;
 
         public OrdenPedidoCliente(string tipo)
         {
@@ -213,9 +220,45 @@ namespace PV
 
             this.toolStripButton2.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
             toolStripButton2.Size = new Size(23, 79);
+            LlenarComboCentro();
 
         }
+        private void LlenarComboCentro()
+        {
+            try
+            {
+                DataTable menus = cc.ConsultarTodos();
 
+                cmbCentroCostos.DropDownStyle = ComboBoxStyle.DropDown;
+                cmbCentroCostos.DataSource = menus;
+                cmbCentroCostos.DisplayMember = "Nombre";
+                cmbCentroCostos.ValueMember = "Clave";
+                cmbCentroCostos.SelectedIndex = -1;
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+        private bool ParsearBooleano(string valor)
+        {
+            if (string.IsNullOrWhiteSpace(valor))
+                return false;
+
+            switch (valor.Trim().ToUpperInvariant())
+            {
+                case "1":
+                case "TRUE":
+                case "SI":
+                case "SÍ":
+                case "S":
+                case "YES":
+                    return true;
+                default:
+                    return false;
+            }
+        }
         private void cmbDocumento_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (txtFolio.Text != "X")
@@ -229,6 +272,13 @@ namespace PV
                     {
                         if (tipo == "Remision")
                         {
+
+                            // valores[2] indica si el documento permite capturar Centro de Costos
+                            if (valores.Length > 2)
+                            {
+                                mostrrcentorcosto = ParsearBooleano(valores[2]);
+                                cmbCentroCostos.Enabled = mostrrcentorcosto;
+                            }
                             o.ConsecutivoCompra(txtConsecutivo, txtClave.Text);
 
                         }
@@ -550,7 +600,25 @@ namespace PV
                 {
                     if (tipo.Equals("Remision"))
                     {
-                        o.InsertarRemision(txtFolio, txtClave.Text, cmbEstatus.Text, txtFecha.Text, txtDiasVence.Text, txtFechaVence.Text, txtMatricular.Text, txtDivisa1.Text, txtTipoCambio1.Text, txtNotas.Text, txtElaborado.Text, txtConsecutivo.Text, almacen, txtFolioPedido.Text);
+                        string centroCosto = null;
+                        string proyecto = ComboUtil.ObtenerSelectedValue(cmbproyecto);
+
+                        if (mostrrcentorcosto)
+                        {
+                            centroCosto = ComboUtil.ObtenerSelectedValue(cmbCentroCostos);
+
+                            if (string.IsNullOrWhiteSpace(centroCosto))
+                            {
+                                MessageBox.Show(
+                                    "Seleccione un centro de costos antes de continuar.",
+                                    "Validación",
+                                    MessageBoxButtons.OK,
+                                    MessageBoxIcon.Warning);
+
+                                return;
+                            }
+                        }
+                        o.InsertarRemision(txtFolio, txtClave.Text, cmbEstatus.Text, txtFecha.Text, txtDiasVence.Text, txtFechaVence.Text, txtMatricular.Text, txtDivisa1.Text, txtTipoCambio1.Text, txtNotas.Text, txtElaborado.Text, txtConsecutivo.Text, almacen, txtFolioPedido.Text, centroCosto, proyecto);
 
                     }
                     else
@@ -662,6 +730,8 @@ namespace PV
             guna2DataGridView1.Rows.Clear();
             txtFolioPedido.Text=string.Empty;
             d.Clear();
+            cmbCentroCostos.SelectedIndex = -1;
+            cmbproyecto.SelectedIndex = -1;
         }
 
         private void toolStrip2_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
@@ -1630,7 +1700,7 @@ namespace PV
                 string cliente = string.Empty;
                 if (tipo == "Remision")
                 {
-                    o.ConsultaRemision(Folio, txtClave, cmbEstatus, txtFecha, txtDiasVence, txtFechaVence, txtDivisa, txtTipoCambio, txtSubtotal, txtDescuento, txtRecargo, txtTotal, txtPartidas, txtNotas, txtElaborado, txtFolio, txtConsecutivo, txtAutoriza, txtFechaAuto, cmbAlmacen, txtFolioPedido, d, out cliente);
+                    o.ConsultaRemision(Folio, txtClave, cmbEstatus, txtFecha, txtDiasVence, txtFechaVence, txtDivisa, txtTipoCambio, txtSubtotal, txtDescuento, txtRecargo, txtTotal, txtPartidas, txtNotas, txtElaborado, txtFolio, txtConsecutivo, txtAutoriza, txtFechaAuto, cmbAlmacen, txtFolioPedido, d, out cliente, cmbCentroCostos, cmbproyecto);
                 }
                 else
                 {
@@ -1679,7 +1749,7 @@ namespace PV
                 txtFolio.Text = "X";
                 if (tipo == "Remision")
                 {
-                    o.ConsultaRemision(Folio, txtClave, cmbEstatus, txtFecha, txtDiasVence, txtFechaVence, txtDivisa, txtTipoCambio, txtSubtotal, txtDescuento, txtRecargo, txtTotal, txtPartidas, txtNotas, txtElaborado, txtFolio, txtConsecutivo, txtAutoriza, txtFechaAuto, cmbAlmacen, txtFolioPedido, d, out cliente);
+                    o.ConsultaRemision(Folio, txtClave, cmbEstatus, txtFecha, txtDiasVence, txtFechaVence, txtDivisa, txtTipoCambio, txtSubtotal, txtDescuento, txtRecargo, txtTotal, txtPartidas, txtNotas, txtElaborado, txtFolio, txtConsecutivo, txtAutoriza, txtFechaAuto, cmbAlmacen, txtFolioPedido, d, out cliente, cmbCentroCostos, cmbproyecto);
                 }
                 else
                 {
@@ -2157,6 +2227,27 @@ namespace PV
         private void OrdenPedidoCliente_FormClosing(object sender, FormClosingEventArgs e)
         {
             o.CerrarConexion();
+        }
+
+        private void cmbCentroCostos_SelectedIndexChanged(object sender, EventArgs e)
+        {
+           
+                DataTable dtProyectos = dp.ObtenerProyectosPorCentroCostos(
+           cmbCentroCostos.Text
+                    );
+
+                ComboUtil.LlenarComboBox(
+                    cmbproyecto,
+                    dtProyectos,
+                    "Proyecto",
+                    "Id"
+                );
+            
+        }
+
+        private void label49_Click(object sender, EventArgs e)
+        {
+
         }
     }
 

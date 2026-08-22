@@ -1270,7 +1270,7 @@ namespace PV.Clases.OrdenCompra
                 MessageBox.Show("ERROR" + ex.ToString());
             }
         }
-        public void InsertarRemision(TextBox txtFolio, string ClaveDocumento, string Estatus, string Fecha, string DiasVencen, string FechaVence, string ClavePropietario, string Divisa, string TipoCambio, string Notas, string Elaborado, string Consecutivo, string almacen, string FolioOrdenPedidoCliente)
+        public void InsertarRemision(TextBox txtFolio, string ClaveDocumento, string Estatus, string Fecha, string DiasVencen, string FechaVence, string ClavePropietario, string Divisa, string TipoCambio, string Notas, string Elaborado, string Consecutivo, string almacen, string FolioOrdenPedidoCliente, string CentroCostos, string IdProyecto)
         {
             try
             {
@@ -1298,14 +1298,14 @@ namespace PV.Clases.OrdenCompra
 
                     if (existiaFolio)
                     {
-                        using (SqlCommand cmd = new SqlCommand("insert into Remision (Folio, ClaveDocumento, Estatus, Fecha, DiasVence, FechaVence, ClaveProveedor, Divisa, TipoCambio, Notas, Elaborado, Consecutivo, almacen, FolioOrdenPedidoCliente) values ('" + folioNuevo + "', '" + ClaveDocumento + "', '" + Estatus + "', '" + Fecha + "', '" + DiasVencen + "', '" + FechaVence + "', '" + ClavePropietario + "', '" + Divisa + "', '" + TipoCambio + "', '" + Notas + "', '" + Elaborado + "', '" + Consecutivo + "','" + almacen + "', '" + FolioOrdenPedidoCliente + "')", cn))
+                        using (SqlCommand cmd = new SqlCommand("insert into Remision (Folio, ClaveDocumento, Estatus, Fecha, DiasVence, FechaVence, ClaveProveedor, Divisa, TipoCambio, Notas, Elaborado, Consecutivo, almacen, FolioOrdenPedidoCliente, CentroCostos, IdProyecto) values ('" + folioNuevo + "', '" + ClaveDocumento + "', '" + Estatus + "', '" + Fecha + "', '" + DiasVencen + "', '" + FechaVence + "', '" + ClavePropietario + "', '" + Divisa + "', '" + TipoCambio + "', '" + Notas + "', '" + Elaborado + "', '" + Consecutivo + "','" + almacen + "', '" + FolioOrdenPedidoCliente + "', '" + CentroCostos + "', '" + IdProyecto + "')", cn))
                         {
                             cmd.ExecuteNonQuery();
                         }
                     }
                     else
                     {
-                        using (SqlCommand cmd = new SqlCommand("insert into Remision (Folio, ClaveDocumento, Estatus, Fecha, DiasVence, FechaVence, ClaveProveedor, Divisa, TipoCambio, Notas, Elaborado, Consecutivo, almacen) values (1, '" + ClaveDocumento + "', '" + Estatus + "', '" + Fecha + "', '" + DiasVencen + "', '" + FechaVence + "', '" + ClavePropietario + "', '" + Divisa + "', '" + TipoCambio + "', '" + Notas + "', '" + Elaborado + "', '" + Consecutivo + "', '" + almacen + "')", cn))
+                        using (SqlCommand cmd = new SqlCommand("insert into Remision (Folio, ClaveDocumento, Estatus, Fecha, DiasVence, FechaVence, ClaveProveedor, Divisa, TipoCambio, Notas, Elaborado, Consecutivo, almacen, CentroCostos, IdProyecto) values (1, '" + ClaveDocumento + "', '" + Estatus + "', '" + Fecha + "', '" + DiasVencen + "', '" + FechaVence + "', '" + ClavePropietario + "', '" + Divisa + "', '" + TipoCambio + "', '" + Notas + "', '" + Elaborado + "', '" + Consecutivo + "', '" + almacen + "', '"+ CentroCostos + "', '"+ IdProyecto + "')", cn))
                         {
                             cmd.ExecuteNonQuery();
                         }
@@ -5938,7 +5938,8 @@ namespace PV.Clases.OrdenCompra
                 MessageBox.Show(ex.ToString());
             }
         }
-        public void ConsultaRemision(string Folio, TextBox Documento, ComboBox Estatus, Guna2DateTimePicker Fecha, Guna.UI2.WinForms.Guna2TextBox Dias, Guna.UI2.WinForms.Guna2TextBox FechaVence, Guna.UI2.WinForms.Guna2TextBox Divisa, Guna.UI2.WinForms.Guna2TextBox TipoCambio, Guna.UI2.WinForms.Guna2TextBox Subtotal, Guna.UI2.WinForms.Guna2TextBox Descuentos, Guna.UI2.WinForms.Guna2TextBox Cargo, Guna.UI2.WinForms.Guna2TextBox Total, Guna.UI2.WinForms.Guna2TextBox Partidas, Guna.UI2.WinForms.Guna2TextBox Notas, Guna.UI2.WinForms.Guna2TextBox Elaborado, TextBox txtFolio, Guna.UI2.WinForms.Guna2TextBox txtConsecutivo, Guna.UI2.WinForms.Guna2TextBox txtAutoriza, Guna.UI2.WinForms.Guna2TextBox txtFechaAutoriza, ComboBox cmbAlmacen, TextBox txtFolioPedido, Guna.UI2.WinForms.Guna2TextBox txtPedidoCliente, out string cliente)
+        public void ConsultaRemision(string Folio, TextBox Documento, ComboBox Estatus, Guna2DateTimePicker Fecha, Guna.UI2.WinForms.Guna2TextBox Dias, Guna.UI2.WinForms.Guna2TextBox FechaVence, Guna.UI2.WinForms.Guna2TextBox Divisa, Guna.UI2.WinForms.Guna2TextBox TipoCambio, Guna.UI2.WinForms.Guna2TextBox Subtotal, Guna.UI2.WinForms.Guna2TextBox Descuentos, Guna.UI2.WinForms.Guna2TextBox Cargo, Guna.UI2.WinForms.Guna2TextBox Total, Guna.UI2.WinForms.Guna2TextBox Partidas, Guna.UI2.WinForms.Guna2TextBox Notas, Guna.UI2.WinForms.Guna2TextBox Elaborado, TextBox txtFolio, Guna.UI2.WinForms.Guna2TextBox txtConsecutivo, Guna.UI2.WinForms.Guna2TextBox txtAutoriza, Guna.UI2.WinForms.Guna2TextBox txtFechaAutoriza, ComboBox cmbAlmacen, TextBox txtFolioPedido, Guna.UI2.WinForms.Guna2TextBox txtPedidoCliente, out string cliente, ComboBox CentroCosto,
+     ComboBox cmbProyecto)
         {
             cliente = string.Empty;
             try
@@ -5980,6 +5981,17 @@ namespace PV.Clases.OrdenCompra
                             txtPedidoCliente.Text = dr["FolioOrdenPedido"].ToString();
                             cliente = dr["ClaveProveedor"].ToString();
                             Partidas.Text = dr["TotalPartidas"].ToString();
+                            // CENTRO DE COSTOS
+                            if (dr["CentroCostos"] != DBNull.Value)
+                            {
+                                CentroCosto.SelectedValue = dr["CentroCostos"];
+                            }
+                            else
+                            {
+                                CentroCosto.SelectedIndex = -1;
+                            }
+
+                            cmbProyecto.ValueMember = dr["IdProyecto"].ToString();
                         }
                     }
                 }

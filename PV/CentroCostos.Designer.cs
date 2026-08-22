@@ -64,14 +64,15 @@
             this.txtNombre = new Guna.UI2.WinForms.Guna2TextBox();
             this.groupBox2 = new Guna.UI2.WinForms.Guna2Panel();
             this.dataGridView1 = new Guna.UI2.WinForms.Guna2DataGridView();
-            this.ClaveFamilia = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Nombre = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Dependen = new System.Windows.Forms.DataGridViewButtonColumn();
-            this.Eliminar = new System.Windows.Forms.DataGridViewButtonColumn();
             this.guna2Button2 = new Guna.UI2.WinForms.Guna2Button();
             this.guna2Button1 = new Guna.UI2.WinForms.Guna2Button();
             this.guna2Button3 = new Guna.UI2.WinForms.Guna2Button();
             this.button6 = new Guna.UI2.WinForms.Guna2Button();
+            this.ClaveFamilia = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Id = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Nombre = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Dependen = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.Eliminar = new System.Windows.Forms.DataGridViewButtonColumn();
             this.PanelUsuario.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
             this.guna2GradientPanel1.SuspendLayout();
@@ -385,7 +386,6 @@
             this.txtDescripcion.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.txtDescripcion.Location = new System.Drawing.Point(170, 78);
             this.txtDescripcion.Name = "txtDescripcion";
-            this.txtDescripcion.PasswordChar = '\0';
             this.txtDescripcion.PlaceholderText = "";
             this.txtDescripcion.SelectedText = "";
             this.txtDescripcion.Size = new System.Drawing.Size(515, 49);
@@ -408,7 +408,6 @@
             this.txtCuenta.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.txtCuenta.Location = new System.Drawing.Point(170, 47);
             this.txtCuenta.Name = "txtCuenta";
-            this.txtCuenta.PasswordChar = '\0';
             this.txtCuenta.PlaceholderText = "";
             this.txtCuenta.SelectedText = "";
             this.txtCuenta.Size = new System.Drawing.Size(403, 25);
@@ -432,7 +431,6 @@
             this.txtClaveCategoria.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.txtClaveCategoria.Location = new System.Drawing.Point(170, 14);
             this.txtClaveCategoria.Name = "txtClaveCategoria";
-            this.txtClaveCategoria.PasswordChar = '\0';
             this.txtClaveCategoria.PlaceholderText = "";
             this.txtClaveCategoria.SelectedText = "";
             this.txtClaveCategoria.Size = new System.Drawing.Size(69, 25);
@@ -500,7 +498,6 @@
             this.txtNombre.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.txtNombre.Location = new System.Drawing.Point(315, 14);
             this.txtNombre.Name = "txtNombre";
-            this.txtNombre.PasswordChar = '\0';
             this.txtNombre.PlaceholderText = "";
             this.txtNombre.SelectedText = "";
             this.txtNombre.Size = new System.Drawing.Size(403, 25);
@@ -539,6 +536,7 @@
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.EnableResizing;
             this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.ClaveFamilia,
+            this.Id,
             this.Nombre,
             this.Dependen,
             this.Eliminar});
@@ -593,41 +591,9 @@
             this.dataGridView1.ThemeStyle.RowsStyle.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(229)))), ((int)(((byte)(255)))));
             this.dataGridView1.ThemeStyle.RowsStyle.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(71)))), ((int)(((byte)(69)))), ((int)(((byte)(94)))));
             this.dataGridView1.CellBeginEdit += new System.Windows.Forms.DataGridViewCellCancelEventHandler(this.dataGridView1_CellBeginEdit);
+            this.dataGridView1.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellClick);
             this.dataGridView1.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellDoubleClick);
             this.dataGridView1.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellEndEdit);
-            // 
-            // ClaveFamilia
-            // 
-            this.ClaveFamilia.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader;
-            this.ClaveFamilia.HeaderText = "Clave";
-            this.ClaveFamilia.Name = "ClaveFamilia";
-            this.ClaveFamilia.ReadOnly = true;
-            this.ClaveFamilia.Width = 65;
-            // 
-            // Nombre
-            // 
-            this.Nombre.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.Nombre.HeaderText = "Nombre";
-            this.Nombre.Name = "Nombre";
-            this.Nombre.ReadOnly = true;
-            // 
-            // Dependen
-            // 
-            this.Dependen.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader;
-            this.Dependen.HeaderText = "Dependen";
-            this.Dependen.Name = "Dependen";
-            this.Dependen.ReadOnly = true;
-            this.Dependen.Visible = false;
-            this.Dependen.Width = 77;
-            // 
-            // Eliminar
-            // 
-            this.Eliminar.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader;
-            this.Eliminar.HeaderText = "Eliminar";
-            this.Eliminar.Name = "Eliminar";
-            this.Eliminar.ReadOnly = true;
-            this.Eliminar.UseColumnTextForButtonValue = true;
-            this.Eliminar.Width = 65;
             // 
             // guna2Button2
             // 
@@ -731,6 +697,46 @@
             this.button6.TextOffset = new System.Drawing.Point(23, 0);
             this.button6.Click += new System.EventHandler(this.button6_Click);
             // 
+            // ClaveFamilia
+            // 
+            this.ClaveFamilia.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader;
+            this.ClaveFamilia.HeaderText = "Clave";
+            this.ClaveFamilia.Name = "ClaveFamilia";
+            this.ClaveFamilia.ReadOnly = true;
+            this.ClaveFamilia.Width = 65;
+            // 
+            // Id
+            // 
+            this.Id.HeaderText = "Id";
+            this.Id.Name = "Id";
+            this.Id.ReadOnly = true;
+            this.Id.Visible = false;
+            // 
+            // Nombre
+            // 
+            this.Nombre.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.Nombre.HeaderText = "Nombre";
+            this.Nombre.Name = "Nombre";
+            this.Nombre.ReadOnly = true;
+            // 
+            // Dependen
+            // 
+            this.Dependen.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader;
+            this.Dependen.HeaderText = "Dependen";
+            this.Dependen.Name = "Dependen";
+            this.Dependen.ReadOnly = true;
+            this.Dependen.Visible = false;
+            this.Dependen.Width = 77;
+            // 
+            // Eliminar
+            // 
+            this.Eliminar.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader;
+            this.Eliminar.HeaderText = "Eliminar";
+            this.Eliminar.Name = "Eliminar";
+            this.Eliminar.ReadOnly = true;
+            this.Eliminar.UseColumnTextForButtonValue = true;
+            this.Eliminar.Width = 65;
+            // 
             // CentroCostos
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -796,10 +802,11 @@
         private Guna.UI2.WinForms.Guna2Panel groupBox2;
         private Guna.UI2.WinForms.Guna2DataGridView dataGridView1;
         private Guna.UI2.WinForms.Guna2Separator guna2Separator1;
+        private Guna.UI2.WinForms.Guna2Button guna2Button2;
         private System.Windows.Forms.DataGridViewTextBoxColumn ClaveFamilia;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Id;
         private System.Windows.Forms.DataGridViewTextBoxColumn Nombre;
         private System.Windows.Forms.DataGridViewButtonColumn Dependen;
         private System.Windows.Forms.DataGridViewButtonColumn Eliminar;
-        private Guna.UI2.WinForms.Guna2Button guna2Button2;
     }
 }

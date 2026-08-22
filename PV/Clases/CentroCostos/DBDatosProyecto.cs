@@ -242,34 +242,81 @@ namespace PV.Clases.CentroCostos
             }
         }
 
-        public string RegistroDatosproyecto(string Folio, string centrocosto, string proyecto, string Caracteristicas,
-            string Area, string Encargado, string iva, string CuentaContable)
+        public string RegistroDatosproyecto(string folio, string centrocosto, string proyecto, string Caracteristicas,
+     string Area, string Encargado, string iva, string CuentaContable)
         {
             try
             {
-                // Verificar si existe el proyecto para ese centro de costos
-                string countQuery = "SELECT COUNT(1) FROM DatosProyecto WHERE CentroCostos = @CentroCostos AND Proyecto = @Proyecto";
-                int count;
-                using (SqlConnection cn = new SqlConnection(ObtenerCn()))
-                using (SqlCommand cmd = new SqlCommand(countQuery, cn))
+                // Si no viene folio, es un proyecto nuevo -> INSERT
+                // Si viene folio, es un proyecto existente -> UPDATE (identificado por Folio + CentroCostos)
+                if (string.IsNullOrWhiteSpace(folio))
                 {
-                    cmd.Parameters.Add("@CentroCostos", SqlDbType.VarChar, 50).Value = centrocosto;
-                    cmd.Parameters.Add("@Proyecto", SqlDbType.VarChar, 100).Value = proyecto;
-                    cn.Open();
-                    count = Convert.ToInt32(cmd.ExecuteScalar());
-                }
-
-                if (count == 0)
-                {
-                    string insertQuery = @"
-                        INSERT INTO DatosProyecto 
-                            (Folio, CentroCostos, Proyecto, Caracteristicas, Area, Encargado, Iva, CuentaContable) 
-                        VALUES 
-                            (@Folio, @CentroCostos, @Proyecto, @Caracteristicas, @Area, @Encargado, @Iva, @CuentaContable)";
                     using (SqlConnection cn = new SqlConnection(ObtenerCn()))
-                    using (SqlCommand cmd = new SqlCommand(insertQuery, cn))
                     {
-                        cmd.Parameters.Add("@Folio", SqlDbType.VarChar, 20).Value = Folio;
+                        cn.Open();
+                        using (SqlTransaction tx = cn.BeginTransaction())
+                        {
+                            try
+                            {
+                                // Calcula el siguiente folio SOLO para ese centro de costos.
+                                // UPDLOCK+HOLDLOCK evita que dos inserciones simultáneas
+                                // obtengan el mismo folio (condición de carrera).
+                                string folioQuery = @"
+                            SELECT ISNULL(MAX(Folio), 0) + 1
+                            FROM DatosProyecto WITH (UPDLOCK, HOLDLOCK)
+                            WHERE CentroCostos = @CentroCostos and Estatus=1";
+                                int nuevoFolio;
+                                using (SqlCommand cmdFolio = new SqlCommand(folioQuery, cn, tx))
+                                {
+                                    cmdFolio.Parameters.Add("@CentroCostos", SqlDbType.VarChar, 50).Value = centrocosto;
+                                    nuevoFolio = Convert.ToInt32(cmdFolio.ExecuteScalar());
+                                }
+
+                                string insertQuery = @"
+                            INSERT INTO DatosProyecto 
+                                (Folio, CentroCostos, Proyecto, Caracteristicas, Area, Encargado, Iva, CuentaContable) 
+                            VALUES 
+                                (@Folio, @CentroCostos, @Proyecto, @Caracteristicas, @Area, @Encargado, @Iva, @CuentaContable)";
+                                using (SqlCommand cmdInsert = new SqlCommand(insertQuery, cn, tx))
+                                {
+                                    cmdInsert.Parameters.Add("@Folio", SqlDbType.Int).Value = nuevoFolio;
+                                    cmdInsert.Parameters.Add("@CentroCostos", SqlDbType.VarChar, 50).Value = centrocosto;
+                                    cmdInsert.Parameters.Add("@Proyecto", SqlDbType.VarChar, 100).Value = proyecto;
+                                    cmdInsert.Parameters.Add("@Caracteristicas", SqlDbType.VarChar, 500).Value = Caracteristicas;
+                                    cmdInsert.Parameters.Add("@Area", SqlDbType.VarChar, 100).Value = Area;
+                                    cmdInsert.Parameters.Add("@Encargado", SqlDbType.VarChar, 100).Value = Encargado;
+                                    cmdInsert.Parameters.Add("@Iva", SqlDbType.VarChar, 20).Value = iva;
+                                    cmdInsert.Parameters.Add("@CuentaContable", SqlDbType.VarChar, 50).Value = CuentaContable;
+                                    cmdInsert.ExecuteNonQuery();
+                                }
+
+                                tx.Commit();
+                            }
+                            catch
+                            {
+                                tx.Rollback();
+                                throw;
+                            }
+                        }
+                    }
+                    return "Registro guardado.";
+                }
+                else
+                {
+                    // UPDATE - el proyecto ya existe, se localiza por Folio + CentroCostos (combinación única)
+                    string updateQuery = @"
+                UPDATE DatosProyecto 
+                SET Proyecto = @Proyecto,
+                    Caracteristicas = @Caracteristicas,
+                    Area = @Area,
+                    Encargado = @Encargado,
+                    Iva = @Iva,
+                    CuentaContable = @CuentaContable
+                WHERE Folio = @Folio AND CentroCostos = @CentroCostos";
+                    using (SqlConnection cn = new SqlConnection(ObtenerCn()))
+                    using (SqlCommand cmd = new SqlCommand(updateQuery, cn))
+                    {
+                        cmd.Parameters.Add("@Folio", SqlDbType.Int).Value = Convert.ToInt32(folio);
                         cmd.Parameters.Add("@CentroCostos", SqlDbType.VarChar, 50).Value = centrocosto;
                         cmd.Parameters.Add("@Proyecto", SqlDbType.VarChar, 100).Value = proyecto;
                         cmd.Parameters.Add("@Caracteristicas", SqlDbType.VarChar, 500).Value = Caracteristicas;
@@ -280,37 +327,7 @@ namespace PV.Clases.CentroCostos
                         cn.Open();
                         cmd.ExecuteNonQuery();
                     }
-                    return "Registro guardado.";
-                }
-                else
-                {
-                    if (MessageBox.Show("¿Desea actualizar el registro actual?", "Datos de Proyecto",
-                        MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
-                    {
-                        string updateQuery = @"
-                            UPDATE DatosProyecto 
-                            SET Caracteristicas = @Caracteristicas,
-                                Area = @Area,
-                                Encargado = @Encargado,
-                                Iva = @Iva,
-                                CuentaContable = @CuentaContable
-                            WHERE CentroCostos = @CentroCostos AND Proyecto = @Proyecto";
-                        using (SqlConnection cn = new SqlConnection(ObtenerCn()))
-                        using (SqlCommand cmd = new SqlCommand(updateQuery, cn))
-                        {
-                            cmd.Parameters.Add("@CentroCostos", SqlDbType.VarChar, 50).Value = centrocosto;
-                            cmd.Parameters.Add("@Proyecto", SqlDbType.VarChar, 100).Value = proyecto;
-                            cmd.Parameters.Add("@Caracteristicas", SqlDbType.VarChar, 500).Value = Caracteristicas;
-                            cmd.Parameters.Add("@Area", SqlDbType.VarChar, 100).Value = Area;
-                            cmd.Parameters.Add("@Encargado", SqlDbType.VarChar, 100).Value = Encargado;
-                            cmd.Parameters.Add("@Iva", SqlDbType.VarChar, 20).Value = iva;
-                            cmd.Parameters.Add("@CuentaContable", SqlDbType.VarChar, 50).Value = CuentaContable;
-                            cn.Open();
-                            cmd.ExecuteNonQuery();
-                        }
-                        return "Registro modificado.";
-                    }
-                    return "Operación cancelada.";
+                    return "Registro modificado.";
                 }
             }
             catch (Exception ex)
@@ -342,16 +359,14 @@ namespace PV.Clases.CentroCostos
                         D.CuentaContable
                     FROM DatosProyecto D
                     LEFT JOIN FormaPagoProyecto F ON D.Folio = F.Folio
-                    WHERE D.CentroCostos = @CentroCostos 
-                      AND D.Proyecto = @Proyecto 
-                      AND D.Folio = @Folio";
+                    WHERE 
+                       D.Id = @Folio";
 
                 DataTable dt = new DataTable();
                 using (SqlConnection cn = new SqlConnection(ObtenerCn()))
                 using (SqlCommand cmd = new SqlCommand(consulta, cn))
                 {
-                    cmd.Parameters.Add("@CentroCostos", SqlDbType.VarChar, 50).Value = centrocostos;
-                    cmd.Parameters.Add("@Proyecto", SqlDbType.VarChar, 100).Value = proyecto;
+       
                     cmd.Parameters.Add("@Folio", SqlDbType.VarChar, 20).Value = folio;
                     cn.Open();
                     using (SqlDataAdapter da = new SqlDataAdapter(cmd))
@@ -430,7 +445,7 @@ namespace PV.Clases.CentroCostos
         {
             try
             {
-                string consulta = "SELECT Proyecto, Folio FROM DatosProyecto WHERE CentroCostos = @CentroCostos AND Estatus = 1 ORDER BY Proyecto";
+                string consulta = "SELECT Id,Proyecto, Folio FROM DatosProyecto WHERE CentroCostos = @CentroCostos AND Estatus = 1 ORDER BY Proyecto";
                 DataTable dt = new DataTable();
                 using (SqlConnection cn = new SqlConnection(ObtenerCn()))
                 using (SqlCommand cmd = new SqlCommand(consulta, cn))
@@ -455,7 +470,7 @@ namespace PV.Clases.CentroCostos
         {
             try
             {
-                string updateQuery = "UPDATE DatosProyecto SET Estatus = 0 WHERE Folio = @Folio";
+                string updateQuery = "UPDATE DatosProyecto SET Estatus = 0 WHERE Id = @Folio";
                 using (SqlConnection cn = new SqlConnection(ObtenerCn()))
                 using (SqlCommand cmd = new SqlCommand(updateQuery, cn))
                 {

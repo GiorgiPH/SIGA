@@ -1,13 +1,17 @@
-﻿using System;
+﻿using Condominios.Clases.TiposZonas;
+using PV.Clases;
+using PV.Clases.Proveedores;
+using System;
+using System.Data;
 using System.Drawing;
 using System.Windows.Forms;
-using PV.Clases.Proveedores;
 
 namespace PV
 {
     public partial class Proveedores : Form
     {
         DBProveedores c = new DBProveedores();
+        DBTiposZonas dbTiposZonas = new DBTiposZonas();
 
         public Proveedores()
         {
@@ -28,6 +32,15 @@ namespace PV
             c.SeleccionarZona(cmbZona);
             c.SeleccionarDivisa(cmbDivisaOperacion);
             cmbEstatus.SelectedIndex = 0;
+
+            DataTable dtTiposProveedor = dbTiposZonas.ObtenerTiposProveedor();
+
+            ComboUtil.LlenarComboBox(
+                cmbTipoProveedor,
+                dtTiposProveedor,
+                "Descripcion",
+                "Clave"
+            );
         }
 
         void GenerarNoCliente()
@@ -92,6 +105,7 @@ namespace PV
             rdSi2.Checked = false;
             rdNo2.Checked = false;
             PanelUsuario.Visible = false;
+            cmbTipoProveedor.SelectedIndex = -1;
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -110,7 +124,12 @@ namespace PV
             }
             else
             {
-                MessageBox.Show(c.RegistroCliente(txtClaveCliente.Text, txtRazonSocial.Text, txtRFC.Text, txtCalle.Text, txtNoExterior.Text, txtNoInterior.Text, txtColonia.Text, txtMunicipio.Text, txtCodigoPostal.Text, txtCiudad.Text, txtPais.Text, txtReferencia.Text, cmbMetodoPago.Text, cmbFormaPago.Text, cmbCFDI.Text, cmbListaPrecios.Text, dtpDel.Text, dtpAl.Text, cmbZona.Text, txtContacto.Text, txtFormaEmbarque.Text, cmbDivisaOperacion.Text, txtDiasCredito.Text, txtLimiteCredito.Text, txtPorcentajeDescuento.Text, txtBancoPago.Text, txtDomicilioFiscal.Text, txtRegimenFiscal.Text, txtEstado.Text, txtTelefono.Text, txtCelular.Text, txtCorreo.Text, txtCorreo2.Text, cmbEstatus.Text));
+                if (cmbTipoProveedor.SelectedIndex == -1)
+                {
+                    MessageBox.Show("Seleccione un tipo de proveedor para continuar.");
+                    return;
+                }
+                MessageBox.Show(c.RegistroCliente(txtClaveCliente.Text, txtRazonSocial.Text, txtRFC.Text, txtCalle.Text, txtNoExterior.Text, txtNoInterior.Text, txtColonia.Text, txtMunicipio.Text, txtCodigoPostal.Text, txtCiudad.Text, txtPais.Text, txtReferencia.Text, cmbMetodoPago.Text, cmbFormaPago.Text, cmbCFDI.Text, cmbListaPrecios.Text, dtpDel.Text, dtpAl.Text, cmbZona.Text, txtContacto.Text, txtFormaEmbarque.Text, cmbDivisaOperacion.Text, txtDiasCredito.Text, txtLimiteCredito.Text, txtPorcentajeDescuento.Text, txtBancoPago.Text, txtDomicilioFiscal.Text, txtRegimenFiscal.Text, txtEstado.Text, txtTelefono.Text, txtCelular.Text, txtCorreo.Text, txtCorreo2.Text, cmbEstatus.Text, cmbTipoProveedor.SelectedValue.ToString()));
                 Limpiar();
                 c.CargarClientes(dataGridView1);
             }
@@ -143,7 +162,7 @@ namespace PV
             if (e.RowIndex != -1)
             {
                 string Clave = dataGridView1.Rows[e.RowIndex].Cells["ClaveCliente"].Value.ToString();
-                c.ConsultaClienteSeleccionado(Clave, txtRazonSocial, txtRFC, txtCalle, txtNoExterior, txtNoInterior, txtColonia, txtMunicipio, txtCodigoPostal, txtCiudad, txtPais, txtReferencia, cmbMetodoPago, cmbFormaPago, cmbCFDI, cmbListaPrecios, dtpDel, dtpAl, cmbZona, txtContacto, txtFormaEmbarque, cmbDivisaOperacion, txtDiasCredito, txtLimiteCredito, txtPorcentajeDescuento, txtBancoPago, txtDomicilioFiscal, txtRegimenFiscal, txtEstado, txtTelefono, txtCelular, txtCorreo, rdSi, rdNo, txtCorreo2, rdSi2, rdNo2, cmbEstatus, txtSaldo, txtAnticipo);
+                c.ConsultaClienteSeleccionado(Clave, txtRazonSocial, txtRFC, txtCalle, txtNoExterior, txtNoInterior, txtColonia, txtMunicipio, txtCodigoPostal, txtCiudad, txtPais, txtReferencia, cmbMetodoPago, cmbFormaPago, cmbCFDI, cmbListaPrecios, dtpDel, dtpAl, cmbZona, txtContacto, txtFormaEmbarque, cmbDivisaOperacion, txtDiasCredito, txtLimiteCredito, txtPorcentajeDescuento, txtBancoPago, txtDomicilioFiscal, txtRegimenFiscal, txtEstado, txtTelefono, txtCelular, txtCorreo, rdSi, rdNo, txtCorreo2, rdSi2, rdNo2, cmbEstatus, txtSaldo, txtAnticipo, cmbTipoProveedor);
                 txtClaveCliente.Text = Clave;
                 PanelUsuario.Visible = false;
                 groupBox1.Enabled = true;

@@ -79,6 +79,7 @@ namespace PV
             //rbAdministradorSupervisor.Checked = _conceptoActual.TipoAutorizacion == 1;
             //rbOtro.Checked = _conceptoActual.TipoAutorizacion == 2;
             txtNotas.Text = _conceptoActual.Notas;
+            PanelUsuario.Visible = false;
         }
 
         private void btnConfirmarConcepto_Click(object sender, EventArgs e)
@@ -261,12 +262,14 @@ namespace PV
         private void button8_Click(object sender, EventArgs e)
         {
             // TODO: confirmar la función real de este botón antes de programarlo.
-            dgvConceptos.Visible = !dgvConceptos.Visible;
+            PanelUsuario.Visible = !PanelUsuario.Visible;
         }
 
         private void btnImrimirConceptos_Click(object sender, EventArgs e)
         {
             // TODO: generar el reporte del catálogo de conceptos.
+            ReporteConceptosCobroPago r = new ReporteConceptosCobroPago();
+            r.ShowDialog();
         }
     }
 }

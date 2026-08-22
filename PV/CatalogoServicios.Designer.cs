@@ -30,11 +30,11 @@ namespace PV
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CatalogoServicios));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
             this.guna2GradientPanel1 = new Guna.UI2.WinForms.Guna2GradientPanel();
             this.guna2CircleButton1 = new Guna.UI2.WinForms.Guna2CircleButton();
             this.guna2HtmlLabel1 = new Guna.UI2.WinForms.Guna2HtmlLabel();
@@ -56,6 +56,7 @@ namespace PV
             this.txtCostoUnitario = new Guna.UI2.WinForms.Guna2TextBox();
             this.cmbTipoCosteo = new Guna.UI2.WinForms.Guna2ComboBox();
             this.txtConcepto = new System.Windows.Forms.TextBox();
+            this.label7 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label18 = new System.Windows.Forms.Label();
             this.label20 = new System.Windows.Forms.Label();
@@ -72,6 +73,7 @@ namespace PV
             this.cmbFamilia = new Guna.UI2.WinForms.Guna2ComboBox();
             this.cmbCategorias = new Guna.UI2.WinForms.Guna2ComboBox();
             this.cmbEstatus = new Guna.UI2.WinForms.Guna2ComboBox();
+            this.txtCuentaContable = new Guna.UI2.WinForms.Guna2TextBox();
             this.txtDescripcion = new Guna.UI2.WinForms.Guna2TextBox();
             this.txtAlias = new Guna.UI2.WinForms.Guna2TextBox();
             this.txtClaveProducto = new Guna.UI2.WinForms.Guna2TextBox();
@@ -102,8 +104,10 @@ namespace PV
             this.toolStripButton3 = new System.Windows.Forms.ToolStripButton();
             this.toolStripButton4 = new System.Windows.Forms.ToolStripButton();
             this.guna2PictureBox1 = new Guna.UI2.WinForms.Guna2PictureBox();
-            this.txtCuentaContable = new Guna.UI2.WinForms.Guna2TextBox();
-            this.label7 = new System.Windows.Forms.Label();
+            this.tgCompras = new Guna.UI2.WinForms.Guna2ToggleSwitch();
+            this.label8 = new System.Windows.Forms.Label();
+            this.label9 = new System.Windows.Forms.Label();
+            this.tgVentas = new Guna.UI2.WinForms.Guna2ToggleSwitch();
             this.guna2GradientPanel1.SuspendLayout();
             this.guna2Panel2.SuspendLayout();
             this.groupBox4.SuspendLayout();
@@ -266,6 +270,8 @@ namespace PV
             | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox4.BackColor = System.Drawing.Color.Transparent;
             this.groupBox4.BorderRadius = 20;
+            this.groupBox4.Controls.Add(this.tgVentas);
+            this.groupBox4.Controls.Add(this.tgCompras);
             this.groupBox4.Controls.Add(this.cmbIEPS);
             this.groupBox4.Controls.Add(this.label1);
             this.groupBox4.Controls.Add(this.txtPrecioVenta);
@@ -306,6 +312,8 @@ namespace PV
             this.groupBox4.Controls.Add(this.label4);
             this.groupBox4.Controls.Add(this.label5);
             this.groupBox4.Controls.Add(this.label2);
+            this.groupBox4.Controls.Add(this.label9);
+            this.groupBox4.Controls.Add(this.label8);
             this.groupBox4.Controls.Add(this.label28);
             this.groupBox4.Controls.Add(this.label27);
             this.groupBox4.CustomizableEdges.TopLeft = false;
@@ -366,7 +374,6 @@ namespace PV
             this.txtPrecioVenta.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.txtPrecioVenta.Location = new System.Drawing.Point(848, 481);
             this.txtPrecioVenta.Name = "txtPrecioVenta";
-            this.txtPrecioVenta.PasswordChar = '\0';
             this.txtPrecioVenta.PlaceholderText = "";
             this.txtPrecioVenta.SelectedText = "";
             this.txtPrecioVenta.Size = new System.Drawing.Size(128, 25);
@@ -430,9 +437,8 @@ namespace PV
             this.txtImpuestoPorc.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.txtImpuestoPorc.ForeColor = System.Drawing.Color.Black;
             this.txtImpuestoPorc.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.txtImpuestoPorc.Location = new System.Drawing.Point(157, 349);
+            this.txtImpuestoPorc.Location = new System.Drawing.Point(157, 363);
             this.txtImpuestoPorc.Name = "txtImpuestoPorc";
-            this.txtImpuestoPorc.PasswordChar = '\0';
             this.txtImpuestoPorc.PlaceholderText = "";
             this.txtImpuestoPorc.SelectedText = "";
             this.txtImpuestoPorc.Size = new System.Drawing.Size(62, 25);
@@ -455,9 +461,8 @@ namespace PV
             this.txtDescuentoPorc.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.txtDescuentoPorc.ForeColor = System.Drawing.Color.Black;
             this.txtDescuentoPorc.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.txtDescuentoPorc.Location = new System.Drawing.Point(157, 322);
+            this.txtDescuentoPorc.Location = new System.Drawing.Point(157, 336);
             this.txtDescuentoPorc.Name = "txtDescuentoPorc";
-            this.txtDescuentoPorc.PasswordChar = '\0';
             this.txtDescuentoPorc.PlaceholderText = "";
             this.txtDescuentoPorc.SelectedText = "";
             this.txtDescuentoPorc.Size = new System.Drawing.Size(62, 25);
@@ -480,9 +485,8 @@ namespace PV
             this.txtImpuestoCant.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.txtImpuestoCant.ForeColor = System.Drawing.Color.Black;
             this.txtImpuestoCant.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.txtImpuestoCant.Location = new System.Drawing.Point(273, 348);
+            this.txtImpuestoCant.Location = new System.Drawing.Point(273, 362);
             this.txtImpuestoCant.Name = "txtImpuestoCant";
-            this.txtImpuestoCant.PasswordChar = '\0';
             this.txtImpuestoCant.PlaceholderText = "";
             this.txtImpuestoCant.SelectedText = "";
             this.txtImpuestoCant.Size = new System.Drawing.Size(130, 25);
@@ -505,9 +509,8 @@ namespace PV
             this.txtDescuentoCant.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.txtDescuentoCant.ForeColor = System.Drawing.Color.Black;
             this.txtDescuentoCant.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.txtDescuentoCant.Location = new System.Drawing.Point(275, 322);
+            this.txtDescuentoCant.Location = new System.Drawing.Point(275, 336);
             this.txtDescuentoCant.Name = "txtDescuentoCant";
-            this.txtDescuentoCant.PasswordChar = '\0';
             this.txtDescuentoCant.PlaceholderText = "";
             this.txtDescuentoCant.SelectedText = "";
             this.txtDescuentoCant.Size = new System.Drawing.Size(128, 25);
@@ -530,9 +533,8 @@ namespace PV
             this.txtCostoUnitario.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.txtCostoUnitario.ForeColor = System.Drawing.Color.Black;
             this.txtCostoUnitario.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.txtCostoUnitario.Location = new System.Drawing.Point(157, 290);
+            this.txtCostoUnitario.Location = new System.Drawing.Point(157, 304);
             this.txtCostoUnitario.Name = "txtCostoUnitario";
-            this.txtCostoUnitario.PasswordChar = '\0';
             this.txtCostoUnitario.PlaceholderText = "";
             this.txtCostoUnitario.SelectedText = "";
             this.txtCostoUnitario.Size = new System.Drawing.Size(176, 25);
@@ -556,7 +558,7 @@ namespace PV
             this.cmbTipoCosteo.Items.AddRange(new object[] {
             "Ultima Compra",
             "Promedio"});
-            this.cmbTipoCosteo.Location = new System.Drawing.Point(157, 247);
+            this.cmbTipoCosteo.Location = new System.Drawing.Point(157, 267);
             this.cmbTipoCosteo.Name = "cmbTipoCosteo";
             this.cmbTipoCosteo.Size = new System.Drawing.Size(143, 26);
             this.cmbTipoCosteo.TabIndex = 287;
@@ -570,6 +572,17 @@ namespace PV
             this.txtConcepto.Size = new System.Drawing.Size(57, 20);
             this.txtConcepto.TabIndex = 286;
             this.txtConcepto.Visible = false;
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.BackColor = System.Drawing.Color.White;
+            this.label7.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label7.Location = new System.Drawing.Point(15, 486);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(117, 15);
+            this.label7.TabIndex = 285;
+            this.label7.Text = "CUENTA CONTABLE:";
             // 
             // label3
             // 
@@ -587,7 +600,7 @@ namespace PV
             this.label18.AutoSize = true;
             this.label18.BackColor = System.Drawing.Color.White;
             this.label18.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label18.Location = new System.Drawing.Point(12, 251);
+            this.label18.Location = new System.Drawing.Point(12, 271);
             this.label18.Name = "label18";
             this.label18.Size = new System.Drawing.Size(101, 15);
             this.label18.TabIndex = 284;
@@ -621,7 +634,7 @@ namespace PV
             this.label19.AutoSize = true;
             this.label19.BackColor = System.Drawing.Color.White;
             this.label19.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label19.Location = new System.Drawing.Point(13, 294);
+            this.label19.Location = new System.Drawing.Point(13, 308);
             this.label19.Name = "label19";
             this.label19.Size = new System.Drawing.Size(104, 15);
             this.label19.TabIndex = 279;
@@ -633,7 +646,7 @@ namespace PV
             this.label25.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(31)))), ((int)(((byte)(59)))), ((int)(((byte)(163)))));
             this.label25.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label25.ForeColor = System.Drawing.Color.White;
-            this.label25.Location = new System.Drawing.Point(222, 353);
+            this.label25.Location = new System.Drawing.Point(222, 367);
             this.label25.Name = "label25";
             this.label25.Size = new System.Drawing.Size(18, 15);
             this.label25.TabIndex = 282;
@@ -644,7 +657,7 @@ namespace PV
             this.label22.AutoSize = true;
             this.label22.BackColor = System.Drawing.Color.White;
             this.label22.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label22.Location = new System.Drawing.Point(12, 354);
+            this.label22.Location = new System.Drawing.Point(12, 368);
             this.label22.Name = "label22";
             this.label22.Size = new System.Drawing.Size(66, 15);
             this.label22.TabIndex = 281;
@@ -655,7 +668,7 @@ namespace PV
             this.label21.AutoSize = true;
             this.label21.BackColor = System.Drawing.Color.White;
             this.label21.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label21.Location = new System.Drawing.Point(12, 328);
+            this.label21.Location = new System.Drawing.Point(12, 342);
             this.label21.Name = "label21";
             this.label21.Size = new System.Drawing.Size(76, 15);
             this.label21.TabIndex = 280;
@@ -667,7 +680,7 @@ namespace PV
             this.label24.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(31)))), ((int)(((byte)(59)))), ((int)(((byte)(163)))));
             this.label24.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label24.ForeColor = System.Drawing.Color.White;
-            this.label24.Location = new System.Drawing.Point(222, 327);
+            this.label24.Location = new System.Drawing.Point(222, 341);
             this.label24.Name = "label24";
             this.label24.Size = new System.Drawing.Size(18, 15);
             this.label24.TabIndex = 277;
@@ -802,6 +815,28 @@ namespace PV
             this.cmbEstatus.Size = new System.Drawing.Size(161, 26);
             this.cmbEstatus.TabIndex = 228;
             // 
+            // txtCuentaContable
+            // 
+            this.txtCuentaContable.AutoRoundedCorners = true;
+            this.txtCuentaContable.BorderColor = System.Drawing.Color.Gray;
+            this.txtCuentaContable.BorderRadius = 11;
+            this.txtCuentaContable.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.txtCuentaContable.DefaultText = "";
+            this.txtCuentaContable.DisabledState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(208)))), ((int)(((byte)(208)))));
+            this.txtCuentaContable.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(226)))), ((int)(((byte)(226)))));
+            this.txtCuentaContable.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
+            this.txtCuentaContable.DisabledState.PlaceholderForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
+            this.txtCuentaContable.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.txtCuentaContable.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.txtCuentaContable.ForeColor = System.Drawing.Color.Black;
+            this.txtCuentaContable.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.txtCuentaContable.Location = new System.Drawing.Point(152, 481);
+            this.txtCuentaContable.Name = "txtCuentaContable";
+            this.txtCuentaContable.PlaceholderText = "";
+            this.txtCuentaContable.SelectedText = "";
+            this.txtCuentaContable.Size = new System.Drawing.Size(325, 25);
+            this.txtCuentaContable.TabIndex = 227;
+            // 
             // txtDescripcion
             // 
             this.txtDescripcion.AutoRoundedCorners = true;
@@ -819,7 +854,6 @@ namespace PV
             this.txtDescripcion.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.txtDescripcion.Location = new System.Drawing.Point(149, 81);
             this.txtDescripcion.Name = "txtDescripcion";
-            this.txtDescripcion.PasswordChar = '\0';
             this.txtDescripcion.PlaceholderText = "";
             this.txtDescripcion.SelectedText = "";
             this.txtDescripcion.Size = new System.Drawing.Size(390, 25);
@@ -842,7 +876,6 @@ namespace PV
             this.txtAlias.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.txtAlias.Location = new System.Drawing.Point(149, 50);
             this.txtAlias.Name = "txtAlias";
-            this.txtAlias.PasswordChar = '\0';
             this.txtAlias.PlaceholderText = "";
             this.txtAlias.SelectedText = "";
             this.txtAlias.Size = new System.Drawing.Size(268, 25);
@@ -866,7 +899,6 @@ namespace PV
             this.txtClaveProducto.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.txtClaveProducto.Location = new System.Drawing.Point(149, 20);
             this.txtClaveProducto.Name = "txtClaveProducto";
-            this.txtClaveProducto.PasswordChar = '\0';
             this.txtClaveProducto.PlaceholderText = "";
             this.txtClaveProducto.SelectedText = "";
             this.txtClaveProducto.Size = new System.Drawing.Size(86, 25);
@@ -953,6 +985,7 @@ namespace PV
             this.label28.Size = new System.Drawing.Size(54, 15);
             this.label28.TabIndex = 203;
             this.label28.Text = "FAMILIA:";
+            this.label28.Click += new System.EventHandler(this.label28_Click);
             // 
             // label27
             // 
@@ -989,48 +1022,48 @@ namespace PV
             // 
             this.dataGridView2.AllowUserToAddRows = false;
             this.dataGridView2.AllowUserToDeleteRows = false;
-            dataGridViewCellStyle1.BackColor = System.Drawing.Color.White;
-            this.dataGridView2.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(19)))), ((int)(((byte)(35)))), ((int)(((byte)(95)))));
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridView2.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle6.BackColor = System.Drawing.Color.White;
+            this.dataGridView2.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle7.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(19)))), ((int)(((byte)(35)))), ((int)(((byte)(95)))));
+            dataGridViewCellStyle7.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle7.ForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle7.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle7.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridView2.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle7;
             this.dataGridView2.ColumnHeadersHeight = 19;
             this.dataGridView2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.EnableResizing;
             this.dataGridView2.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Clave,
             this.Descripcion,
             this.Estatus});
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle3.BackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(99)))), ((int)(((byte)(114)))), ((int)(((byte)(169)))));
-            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dataGridView2.DefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle8.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle8.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle8.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle8.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(99)))), ((int)(((byte)(114)))), ((int)(((byte)(169)))));
+            dataGridViewCellStyle8.SelectionForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dataGridView2.DefaultCellStyle = dataGridViewCellStyle8;
             this.dataGridView2.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(229)))), ((int)(((byte)(255)))));
             this.dataGridView2.Location = new System.Drawing.Point(8, 47);
             this.dataGridView2.Name = "dataGridView2";
             this.dataGridView2.ReadOnly = true;
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridView2.RowHeadersDefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle9.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle9.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle9.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle9.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle9.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle9.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridView2.RowHeadersDefaultCellStyle = dataGridViewCellStyle9;
             this.dataGridView2.RowHeadersVisible = false;
-            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            dataGridViewCellStyle5.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle5.ForeColor = System.Drawing.Color.Black;
-            this.dataGridView2.RowsDefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle10.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            dataGridViewCellStyle10.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle10.ForeColor = System.Drawing.Color.Black;
+            this.dataGridView2.RowsDefaultCellStyle = dataGridViewCellStyle10;
             this.dataGridView2.Size = new System.Drawing.Size(279, 469);
             this.dataGridView2.TabIndex = 241;
             this.dataGridView2.ThemeStyle.AlternatingRowsStyle.BackColor = System.Drawing.Color.White;
@@ -1319,39 +1352,61 @@ namespace PV
             this.guna2PictureBox1.UseTransparentBackground = true;
             this.guna2PictureBox1.Click += new System.EventHandler(this.guna2PictureBox1_Click);
             // 
-            // txtCuentaContable
+            // tgCompras
             // 
-            this.txtCuentaContable.AutoRoundedCorners = true;
-            this.txtCuentaContable.BorderColor = System.Drawing.Color.Gray;
-            this.txtCuentaContable.BorderRadius = 11;
-            this.txtCuentaContable.Cursor = System.Windows.Forms.Cursors.IBeam;
-            this.txtCuentaContable.DefaultText = "";
-            this.txtCuentaContable.DisabledState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(208)))), ((int)(((byte)(208)))));
-            this.txtCuentaContable.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(226)))), ((int)(((byte)(226)))));
-            this.txtCuentaContable.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
-            this.txtCuentaContable.DisabledState.PlaceholderForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
-            this.txtCuentaContable.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.txtCuentaContable.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.txtCuentaContable.ForeColor = System.Drawing.Color.Black;
-            this.txtCuentaContable.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.txtCuentaContable.Location = new System.Drawing.Point(152, 481);
-            this.txtCuentaContable.Name = "txtCuentaContable";
-            this.txtCuentaContable.PasswordChar = '\0';
-            this.txtCuentaContable.PlaceholderText = "";
-            this.txtCuentaContable.SelectedText = "";
-            this.txtCuentaContable.Size = new System.Drawing.Size(325, 25);
-            this.txtCuentaContable.TabIndex = 227;
+            this.tgCompras.BackColor = System.Drawing.Color.Transparent;
+            this.tgCompras.CheckedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.tgCompras.CheckedState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.tgCompras.CheckedState.InnerBorderColor = System.Drawing.Color.White;
+            this.tgCompras.CheckedState.InnerColor = System.Drawing.Color.White;
+            this.tgCompras.Location = new System.Drawing.Point(152, 211);
+            this.tgCompras.Name = "tgCompras";
+            this.tgCompras.Size = new System.Drawing.Size(35, 20);
+            this.tgCompras.TabIndex = 298;
+            this.tgCompras.UncheckedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(137)))), ((int)(((byte)(149)))));
+            this.tgCompras.UncheckedState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(137)))), ((int)(((byte)(149)))));
+            this.tgCompras.UncheckedState.InnerBorderColor = System.Drawing.Color.White;
+            this.tgCompras.UncheckedState.InnerColor = System.Drawing.Color.White;
             // 
-            // label7
+            // label8
             // 
-            this.label7.AutoSize = true;
-            this.label7.BackColor = System.Drawing.Color.White;
-            this.label7.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.Location = new System.Drawing.Point(15, 486);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(117, 15);
-            this.label7.TabIndex = 285;
-            this.label7.Text = "CUENTA CONTABLE:";
+            this.label8.AutoSize = true;
+            this.label8.BackColor = System.Drawing.Color.White;
+            this.label8.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label8.Location = new System.Drawing.Point(4, 214);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(66, 15);
+            this.label8.TabIndex = 203;
+            this.label8.Text = "COMPRAS:";
+            this.label8.Click += new System.EventHandler(this.label28_Click);
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.BackColor = System.Drawing.Color.White;
+            this.label9.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label9.Location = new System.Drawing.Point(4, 242);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(52, 15);
+            this.label9.TabIndex = 203;
+            this.label9.Text = "VENTAS:";
+            this.label9.Click += new System.EventHandler(this.label28_Click);
+            // 
+            // tgVentas
+            // 
+            this.tgVentas.BackColor = System.Drawing.Color.Transparent;
+            this.tgVentas.CheckedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.tgVentas.CheckedState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.tgVentas.CheckedState.InnerBorderColor = System.Drawing.Color.White;
+            this.tgVentas.CheckedState.InnerColor = System.Drawing.Color.White;
+            this.tgVentas.Location = new System.Drawing.Point(152, 239);
+            this.tgVentas.Name = "tgVentas";
+            this.tgVentas.Size = new System.Drawing.Size(35, 20);
+            this.tgVentas.TabIndex = 298;
+            this.tgVentas.UncheckedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(137)))), ((int)(((byte)(149)))));
+            this.tgVentas.UncheckedState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(137)))), ((int)(((byte)(149)))));
+            this.tgVentas.UncheckedState.InnerBorderColor = System.Drawing.Color.White;
+            this.tgVentas.UncheckedState.InnerColor = System.Drawing.Color.White;
             // 
             // CatalogoServicios
             // 
@@ -1462,5 +1517,9 @@ namespace PV
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label7;
         private Guna.UI2.WinForms.Guna2TextBox txtCuentaContable;
+        private Guna.UI2.WinForms.Guna2ToggleSwitch tgCompras;
+        private Guna.UI2.WinForms.Guna2ToggleSwitch tgVentas;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.Label label8;
     }
 }

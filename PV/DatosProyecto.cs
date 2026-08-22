@@ -48,7 +48,7 @@ namespace PV
         private void DatosProyecto_Load(object sender, EventArgs e)
         {
             //txtfolio.Text = folio;
-            c.ConsultaFolio(txtfolio);
+            //c.ConsultaFolio(txtfolio);
             txtcentrocosto.Text = centrocosto;
          //   c.SeleccionarCentroCostos(cmbCentroCostos);
             c.SeleccionarUsuario(cmencargado);

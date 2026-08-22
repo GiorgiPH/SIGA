@@ -108,6 +108,7 @@
             this.SubgrupoIngresos = new Guna.UI2.WinForms.Guna2GroupBox();
             this.btnRegistrarINgresos = new Guna.UI2.WinForms.Guna2GradientButton();
             this.GrupoVentas = new Guna.UI2.WinForms.Guna2GroupBox();
+            this.btnFacturas = new Guna.UI2.WinForms.Guna2GradientButton();
             this.btnRemisiones = new Guna.UI2.WinForms.Guna2GradientButton();
             this.btnPedidos = new Guna.UI2.WinForms.Guna2GradientButton();
             this.btnReporteUtilidadProducto = new Guna.UI2.WinForms.Guna2GradientButton();
@@ -977,6 +978,7 @@
             this.btnRegistraMovimientosBancos.TabIndex = 3;
             this.btnRegistraMovimientosBancos.Text = "Registra Movimientos a Bancos";
             this.btnRegistraMovimientosBancos.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.btnRegistraMovimientosBancos.Click += new System.EventHandler(this.btnRegistraMovimientosBancos_Click);
             // 
             // GrupoTesoreria
             // 
@@ -1516,6 +1518,7 @@
             this.GrupoVentas.BackColor = System.Drawing.Color.DodgerBlue;
             this.GrupoVentas.BorderColor = System.Drawing.Color.White;
             this.GrupoVentas.BorderThickness = 0;
+            this.GrupoVentas.Controls.Add(this.btnFacturas);
             this.GrupoVentas.Controls.Add(this.btnRemisiones);
             this.GrupoVentas.Controls.Add(this.btnPedidos);
             this.GrupoVentas.Controls.Add(this.btnReporteUtilidadProducto);
@@ -1525,11 +1528,33 @@
             this.GrupoVentas.FillColor = System.Drawing.Color.DodgerBlue;
             this.GrupoVentas.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.GrupoVentas.ForeColor = System.Drawing.Color.DodgerBlue;
-            this.GrupoVentas.Location = new System.Drawing.Point(216, 231);
+            this.GrupoVentas.Location = new System.Drawing.Point(216, 198);
             this.GrupoVentas.Name = "GrupoVentas";
-            this.GrupoVentas.Size = new System.Drawing.Size(195, 239);
+            this.GrupoVentas.Size = new System.Drawing.Size(195, 293);
             this.GrupoVentas.TabIndex = 65;
             this.GrupoVentas.Visible = false;
+            // 
+            // btnFacturas
+            // 
+            this.btnFacturas.BorderColor = System.Drawing.Color.White;
+            this.btnFacturas.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.btnFacturas.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.btnFacturas.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.btnFacturas.DisabledState.FillColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.btnFacturas.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.btnFacturas.FillColor = System.Drawing.Color.Empty;
+            this.btnFacturas.FillColor2 = System.Drawing.Color.Empty;
+            this.btnFacturas.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnFacturas.ForeColor = System.Drawing.Color.White;
+            this.btnFacturas.HoverState.FillColor = System.Drawing.Color.DimGray;
+            this.btnFacturas.HoverState.FillColor2 = System.Drawing.Color.DimGray;
+            this.btnFacturas.Location = new System.Drawing.Point(2, 57);
+            this.btnFacturas.Name = "btnFacturas";
+            this.btnFacturas.Size = new System.Drawing.Size(180, 45);
+            this.btnFacturas.TabIndex = 5;
+            this.btnFacturas.Text = "Facturas (CFDI)";
+            this.btnFacturas.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.btnFacturas.Click += new System.EventHandler(this.btnFacturas_Click);
             // 
             // btnRemisiones
             // 
@@ -1545,7 +1570,7 @@
             this.btnRemisiones.ForeColor = System.Drawing.Color.White;
             this.btnRemisiones.HoverState.FillColor = System.Drawing.Color.DimGray;
             this.btnRemisiones.HoverState.FillColor2 = System.Drawing.Color.DimGray;
-            this.btnRemisiones.Location = new System.Drawing.Point(6, 54);
+            this.btnRemisiones.Location = new System.Drawing.Point(3, 102);
             this.btnRemisiones.Name = "btnRemisiones";
             this.btnRemisiones.Size = new System.Drawing.Size(180, 45);
             this.btnRemisiones.TabIndex = 5;
@@ -1589,7 +1614,7 @@
             this.btnReporteUtilidadProducto.ForeColor = System.Drawing.Color.White;
             this.btnReporteUtilidadProducto.HoverState.FillColor = System.Drawing.Color.DimGray;
             this.btnReporteUtilidadProducto.HoverState.FillColor2 = System.Drawing.Color.DimGray;
-            this.btnReporteUtilidadProducto.Location = new System.Drawing.Point(5, 189);
+            this.btnReporteUtilidadProducto.Location = new System.Drawing.Point(2, 237);
             this.btnReporteUtilidadProducto.Name = "btnReporteUtilidadProducto";
             this.btnReporteUtilidadProducto.Size = new System.Drawing.Size(180, 45);
             this.btnReporteUtilidadProducto.TabIndex = 3;
@@ -1611,7 +1636,7 @@
             this.btnReporteUtilidadPedido.ForeColor = System.Drawing.Color.White;
             this.btnReporteUtilidadPedido.HoverState.FillColor = System.Drawing.Color.DimGray;
             this.btnReporteUtilidadPedido.HoverState.FillColor2 = System.Drawing.Color.DimGray;
-            this.btnReporteUtilidadPedido.Location = new System.Drawing.Point(5, 144);
+            this.btnReporteUtilidadPedido.Location = new System.Drawing.Point(2, 192);
             this.btnReporteUtilidadPedido.Name = "btnReporteUtilidadPedido";
             this.btnReporteUtilidadPedido.Size = new System.Drawing.Size(180, 45);
             this.btnReporteUtilidadPedido.TabIndex = 3;
@@ -1633,7 +1658,7 @@
             this.btnReporteRemisiones.ForeColor = System.Drawing.Color.White;
             this.btnReporteRemisiones.HoverState.FillColor = System.Drawing.Color.DimGray;
             this.btnReporteRemisiones.HoverState.FillColor2 = System.Drawing.Color.DimGray;
-            this.btnReporteRemisiones.Location = new System.Drawing.Point(5, 99);
+            this.btnReporteRemisiones.Location = new System.Drawing.Point(2, 147);
             this.btnReporteRemisiones.Name = "btnReporteRemisiones";
             this.btnReporteRemisiones.Size = new System.Drawing.Size(180, 45);
             this.btnReporteRemisiones.TabIndex = 3;
@@ -3084,7 +3109,7 @@
             this.guna2Button2.Image = ((System.Drawing.Image)(resources.GetObject("guna2Button2.Image")));
             this.guna2Button2.ImageAlign = System.Windows.Forms.HorizontalAlignment.Left;
             this.guna2Button2.ImageSize = new System.Drawing.Size(35, 35);
-            this.guna2Button2.Location = new System.Drawing.Point(225, 576);
+            this.guna2Button2.Location = new System.Drawing.Point(154, 682);
             this.guna2Button2.Name = "guna2Button2";
             this.guna2Button2.Size = new System.Drawing.Size(161, 44);
             this.guna2Button2.TabIndex = 42;
@@ -3738,5 +3763,6 @@
         private Guna.UI2.WinForms.Guna2GradientButton btnReporteFlujoSaldos;
         private Guna.UI2.WinForms.Guna2GradientButton btnRegistraMovimientosBancos;
         private Guna.UI2.WinForms.Guna2GradientButton btnCxPEgresos;
+        private Guna.UI2.WinForms.Guna2GradientButton btnFacturas;
     }
 }

@@ -21,6 +21,9 @@ namespace PV
         public RegistroEgreso()
         {
             InitializeComponent();
+            ToolTip T = new ToolTip();
+            T.SetToolTip(btnReportePreeliminar, "Imprimir Seleccionados");
+           
         }
 
         private void RegistroEgreso_Load(object sender, EventArgs e)

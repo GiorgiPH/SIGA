@@ -257,6 +257,7 @@ namespace PV.Clases.PedidoCliente
                         {
                             dr[3].ToString(),
                             dr[2].ToString(),
+                            dr["MostrarCentroCosto"].ToString(),
                         };
                         resultado = valores;
                     }

@@ -17,6 +17,7 @@ namespace Condominios.Clases.TiposZonas
 
         public static int Cliente = 0;
         public static int Zona = 0;
+        public static int Proveedor = 0;
 
         public static string ObtenerCn()
         {
@@ -109,6 +110,42 @@ namespace Condominios.Clases.TiposZonas
             }
             return contador;
         }
+        //____________________________________________________________________________________________________________________________________________
+        //Obtener la clave consecutiva
+        public int ClaveProveedorSiguiente()
+        {
+            int contador = 0;
+
+            try
+            {
+                cmd = new SqlCommand("select max(Clave) from TipoProveedor", cn);
+                dr = cmd.ExecuteReader();
+
+                while (dr.Read())
+                {
+                    contador++;
+                }
+                dr.Close();
+
+                if (contador > 0)
+                {
+
+                    da = new SqlDataAdapter(cmd);
+                    dt = new DataTable();
+                    da.Fill(dt);
+                    if (dt.Rows[0][0].ToString() != string.Empty)
+                    {
+                        Proveedor = Convert.ToInt32(dt.Rows[0][0].ToString());
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+                dr.Close();
+            }
+            return contador;
+        }
         //_________________________________________________________________________________________________________________________--
         // registrar forma pago 
         public string RegistroCliente(string txtClaveCliente, string txtDescripcion)
@@ -140,7 +177,7 @@ namespace Condominios.Clases.TiposZonas
                 {
                     if (MessageBox.Show("¿Desea actualizar el registro actual?", "Tipo de CLientes y Zonas", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                     {
-                       
+
                         cmd = new SqlCommand("Update TipoCliente set Descripcion='" + txtDescripcion + "' where Clave= '" + txtClaveCliente + "'", cn);
                         cmd.ExecuteNonQuery();
 
@@ -203,6 +240,53 @@ namespace Condominios.Clases.TiposZonas
             return mensaje;
 
         }
+        //_________________________________________________________________________________________________________________________--
+        // registrar tipo proveedor 
+        public string RegistroProveedor(string txtClaveProveedor, string txtDescripcion)
+        {
+            string mensaje = "";
+            int contador = 0;
+
+            try
+            {
+                cmd = new SqlCommand("select * from TipoProveedor where Clave='" + txtClaveProveedor + "'", cn);
+                dr = cmd.ExecuteReader();
+
+                while (dr.Read())
+                {
+                    contador++;
+                }
+                dr.Close();
+
+                if (contador <= 0)
+                {
+
+                    cmd = new SqlCommand("Insert into TipoProveedor (Clave, Descripcion) values ('" + txtClaveProveedor + "', '" + txtDescripcion + "')", cn);
+                    cmd.ExecuteNonQuery();
+                    mensaje = "Registro guardado.";
+
+                }
+
+                else if (contador > 0)
+                {
+                    if (MessageBox.Show("¿Desea actualizar el registro actual?", "Tipo de Proveedores", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                    {
+
+                        cmd = new SqlCommand("Update TipoProveedor set Descripcion='" + txtDescripcion + "' where Clave= '" + txtClaveProveedor + "'", cn);
+                        cmd.ExecuteNonQuery();
+
+                        mensaje = "Registro modificado.";
+
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error." + ex.ToString());
+            }
+            return mensaje;
+
+        }
         //________________________________________________________________________________________________
         //formas pago Registrados
         public void CargarClientes(DataGridView dgv)
@@ -251,6 +335,30 @@ namespace Condominios.Clases.TiposZonas
                 MessageBox.Show("Error" + ex.ToString());
             }
         }
+        //________________________________________________________________________________________________
+        //Tipos de proveedor registrados
+        public void CargarProveedores(DataGridView dgv)
+        {
+            try
+            {
+                dgv.Rows.Clear();
+                da = new SqlDataAdapter("Select * from TipoProveedor", cn);
+                dt = new DataTable();
+                da.Fill(dt);
+                foreach (DataRow item in dt.Rows)
+                {
+                    int n = dgv.Rows.Add();
+                    dgv.Rows[n].Cells[0].Value = item["Clave"].ToString();
+                    dgv.Rows[n].Cells[1].Value = item["Descripcion"].ToString();
+
+                }
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error" + ex.ToString());
+            }
+        }
 
         //_____________________________________________________________________________________________________
         //Mostrar formas seleccionado
@@ -263,7 +371,7 @@ namespace Condominios.Clases.TiposZonas
                 if (dr.Read())
                 {
                     txtDescripcion.Text = dr["Descripcion"].ToString();
-                    
+
                 }
                 dr.Close();
             }
@@ -280,6 +388,27 @@ namespace Condominios.Clases.TiposZonas
             try
             {
                 cmd = new SqlCommand("Select * from Zona where Clave='" + Clave + "'", cn);
+                dr = cmd.ExecuteReader();
+                if (dr.Read())
+                {
+                    txtDescripcion.Text = dr["Descripcion"].ToString();
+
+                }
+                dr.Close();
+            }
+            catch (Exception ex)
+            {
+                dr.Close();
+                MessageBox.Show("Error" + ex.ToString());
+            }
+        }
+        //_____________________________________________________________________________________________________
+        //Mostrar proveedor seleccionado
+        public void ConsultaProveedorSeleccionado(string Clave, Guna2TextBox txtDescripcion)
+        {
+            try
+            {
+                cmd = new SqlCommand("Select * from TipoProveedor where Clave='" + Clave + "'", cn);
                 dr = cmd.ExecuteReader();
                 if (dr.Read())
                 {
@@ -327,6 +456,73 @@ namespace Condominios.Clases.TiposZonas
                 mensaje = "El registro esta en uso, no es posible eliminar";
             }
             return mensaje;
+        }
+        //_________________________________________________________________________________________________________________________--
+        // eliminar tipo proveedor 
+        public string EliminarProveedor(string txtClaveProveedor)
+        {
+            string mensaje = string.Empty;
+            try
+            {
+                cmd = new SqlCommand("Delete TipoProveedor where Clave='" + txtClaveProveedor + "'", cn);
+                cmd.ExecuteNonQuery();
+                mensaje = "Registro Eliminado";
+            }
+            catch (Exception)
+            {
+                mensaje = "El registro esta en uso, no es posible eliminar";
+            }
+            return mensaje;
+        }
+        //________________________________________________________________________________________________
+        //Obtener tipos de cliente (para combos)
+        public DataTable ObtenerTiposCliente()
+        {
+            dt = new DataTable();
+            try
+            {
+                da = new SqlDataAdapter("Select * from TipoCliente", cn);
+                da.Fill(dt);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error" + ex.ToString());
+            }
+            return dt;
+        }
+
+        //________________________________________________________________________________________________
+        //Obtener zonas (para combos)
+        public DataTable ObtenerZonas()
+        {
+            dt = new DataTable();
+            try
+            {
+                da = new SqlDataAdapter("Select * from Zona", cn);
+                da.Fill(dt);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error" + ex.ToString());
+            }
+            return dt;
+        }
+
+        //________________________________________________________________________________________________
+        //Obtener tipos de proveedor (para combos)
+        public DataTable ObtenerTiposProveedor()
+        {
+            dt = new DataTable();
+            try
+            {
+                da = new SqlDataAdapter("Select * from TipoProveedor", cn);
+                da.Fill(dt);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error" + ex.ToString());
+            }
+            return dt;
         }
     }
 }

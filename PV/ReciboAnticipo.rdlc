@@ -876,7 +876,6 @@
                       </Style>
                     </Textbox>
                     <ColSpan>2</ColSpan>
-                    <rd:Selected>true</rd:Selected>
                   </CellContents>
                 </TablixCell>
                 <TablixCell />
@@ -1009,6 +1008,7 @@
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
                     </Textbox>
+                    <rd:Selected>true</rd:Selected>
                   </CellContents>
                 </TablixCell>
                 <TablixCell>
@@ -2732,7 +2732,7 @@
         </Field>
         <Field Name="Concepto">
           <DataField>Concepto</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
+          <rd:TypeName>System.Int32</rd:TypeName>
         </Field>
         <Field Name="Referencia">
           <DataField>Referencia</DataField>
@@ -2754,6 +2754,42 @@
           <DataField>Saldo</DataField>
           <rd:TypeName>System.Decimal</rd:TypeName>
         </Field>
+        <Field Name="Divisa">
+          <DataField>Divisa</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="TipoCambio">
+          <DataField>TipoCambio</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="ImporteMxn">
+          <DataField>ImporteMxn</DataField>
+          <rd:TypeName>System.Decimal</rd:TypeName>
+        </Field>
+        <Field Name="SaldoMxn">
+          <DataField>SaldoMxn</DataField>
+          <rd:TypeName>System.Decimal</rd:TypeName>
+        </Field>
+        <Field Name="DescuentoPago">
+          <DataField>DescuentoPago</DataField>
+          <rd:TypeName>System.Decimal</rd:TypeName>
+        </Field>
+        <Field Name="SaldoRestante">
+          <DataField>SaldoRestante</DataField>
+          <rd:TypeName>System.Decimal</rd:TypeName>
+        </Field>
+        <Field Name="Activo">
+          <DataField>Activo</DataField>
+          <rd:TypeName>System.Boolean</rd:TypeName>
+        </Field>
+        <Field Name="FolioC">
+          <DataField>FolioC</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="FolioCGeneral">
+          <DataField>FolioCGeneral</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
         <Field Name="RazonSocial">
           <DataField>RazonSocial</DataField>
           <rd:TypeName>System.String</rd:TypeName>
@@ -2769,7 +2805,7 @@
       </Fields>
       <rd:DataSetInfo>
         <rd:DataSetName>ControlCondominiosDataSet50</rd:DataSetName>
-        <rd:SchemaPath>C:\Users\LUIS TREVINO\Desktop\Condominios\PV\ControlCondominiosDataSet50.xsd</rd:SchemaPath>
+        <rd:SchemaPath>C:\Users\Giorgi\Documents\Proyectos .Net\SIGA\PV\ControlCondominiosDataSet50.xsd</rd:SchemaPath>
         <rd:TableName>Anticipo</rd:TableName>
         <rd:TableAdapterFillMethod>Fill</rd:TableAdapterFillMethod>
         <rd:TableAdapterGetDataMethod>GetData</rd:TableAdapterGetDataMethod>

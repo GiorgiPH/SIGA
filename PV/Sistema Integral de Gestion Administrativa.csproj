@@ -164,6 +164,14 @@
     <Compile Include="AgregarEstructura.Designer.cs">
       <DependentUpon>AgregarEstructura.cs</DependentUpon>
     </Compile>
+    <Compile Include="Clases\Facturas\DBFacturas.cs" />
+    <Compile Include="Clases\MovimientosBanco\DBMovimientosBanco.cs" />
+    <Compile Include="RegistroMovimientoBancos.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="RegistroMovimientoBancos.Designer.cs">
+      <DependentUpon>RegistroMovimientoBancos.cs</DependentUpon>
+    </Compile>
     <Compile Include="CatalogoConceptosTesoreria.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -469,6 +477,9 @@
     <Compile Include="ControlCondominiosDataSet36.cs">
       <DependentUpon>ControlCondominiosDataSet36.xsd</DependentUpon>
     </Compile>
+    <Compile Include="ControlCondominiosDataSet50.cs">
+      <DependentUpon>ControlCondominiosDataSet50.xsd</DependentUpon>
+    </Compile>
     <Compile Include="ControlCondominiosDataSet58.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -520,6 +531,11 @@
       <DependentUpon>DefinePolizas.cs</DependentUpon>
     </Compile>
     <Compile Include="dto\ConceptoCobroPagoData.cs" />
+    <Compile Include="DTSConceptosCobroPago.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DTSConceptosCobroPago.xsd</DependentUpon>
+    </Compile>
     <Compile Include="DTSPolizaCompra1.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -603,6 +619,12 @@
     <Compile Include="OrdenCompra2.Designer.cs">
       <DependentUpon>OrdenCompra2.cs</DependentUpon>
     </Compile>
+    <Compile Include="Facturas.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Facturas.Designer.cs">
+      <DependentUpon>Facturas.cs</DependentUpon>
+    </Compile>
     <Compile Include="OrdenPedidoCliente.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -663,6 +685,12 @@
     <Compile Include="ReporteComprasReembolso.Designer.cs">
       <DependentUpon>ReporteComprasReembolso.cs</DependentUpon>
     </Compile>
+    <Compile Include="ReporteConceptosCobroPago.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ReporteConceptosCobroPago.Designer.cs">
+      <DependentUpon>ReporteConceptosCobroPago.cs</DependentUpon>
+    </Compile>
     <Compile Include="ReporteCuentasPorPagar.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -686,6 +714,12 @@
     </Compile>
     <Compile Include="ReporteDiarioReembolsos.Designer.cs">
       <DependentUpon>ReporteDiarioReembolsos.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ReporteFactura.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ReporteFactura.Designer.cs">
+      <DependentUpon>ReporteFactura.cs</DependentUpon>
     </Compile>
     <Compile Include="ReporteMovimientoInventario.cs">
       <SubType>Form</SubType>
@@ -1903,6 +1937,9 @@
     <EmbeddedResource Include="AgregarEstructura.resx">
       <DependentUpon>AgregarEstructura.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="RegistroMovimientoBancos.resx">
+      <DependentUpon>RegistroMovimientoBancos.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="CatalogoConceptosTesoreria.resx">
       <DependentUpon>CatalogoConceptosTesoreria.cs</DependentUpon>
     </EmbeddedResource>
@@ -2053,6 +2090,9 @@
     <EmbeddedResource Include="OrdenCompra2.resx">
       <DependentUpon>OrdenCompra2.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Facturas.resx">
+      <DependentUpon>Facturas.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="OrdenPedidoCliente.resx">
       <DependentUpon>OrdenPedidoCliente.cs</DependentUpon>
     </EmbeddedResource>
@@ -2085,6 +2125,10 @@
     <EmbeddedResource Include="ReporteComprasReembolso.resx">
       <DependentUpon>ReporteComprasReembolso.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="ReporteConceptosCobroPago.rdlc" />
+    <EmbeddedResource Include="ReporteConceptosCobroPago.resx">
+      <DependentUpon>ReporteConceptosCobroPago.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="ReporteCuentasPorPagar.rdlc" />
     <EmbeddedResource Include="ReporteCuentasPorPagar.resx">
       <DependentUpon>ReporteCuentasPorPagar.cs</DependentUpon>
@@ -2100,6 +2144,9 @@
     <EmbeddedResource Include="ReporteDiarioReembolsos.rdlc" />
     <EmbeddedResource Include="ReporteDiarioReembolsos.resx">
       <DependentUpon>ReporteDiarioReembolsos.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ReporteFactura.resx">
+      <DependentUpon>ReporteFactura.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ReporteMovimientoInventario.rdlc" />
     <EmbeddedResource Include="ReporteMovimientoInventario.resx">
@@ -3326,6 +3373,17 @@
     </None>
     <None Include="ControlCondominiosDataSet9.xss">
       <DependentUpon>ControlCondominiosDataSet9.xsd</DependentUpon>
+    </None>
+    <None Include="DTSConceptosCobroPago.xsc">
+      <DependentUpon>DTSConceptosCobroPago.xsd</DependentUpon>
+    </None>
+    <None Include="DTSConceptosCobroPago.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>DTSConceptosCobroPago.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="DTSConceptosCobroPago.xss">
+      <DependentUpon>DTSConceptosCobroPago.xsd</DependentUpon>
     </None>
     <None Include="DTSPolizaCompra1.xsc">
       <DependentUpon>DTSPolizaCompra1.xsd</DependentUpon>

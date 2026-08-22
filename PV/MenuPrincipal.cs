@@ -471,6 +471,11 @@ namespace PuntoVentas
         new CatalogoConceptosTesoreria());
 
         private void btnCxPEgresos_Click(object sender, EventArgs e) => AbrirFormulario(() => new ConsultarEgreso());
+
+        private void btnFacturas_Click(object sender, EventArgs e)
+        => AbrirFormulario(() => new Facturas());
+
+        private void btnRegistraMovimientosBancos_Click(object sender, EventArgs e) => AbrirFormulario(() => new RegistroMovimientoBancos());
     }
 
     // --- CLASES DE APOYO PARA LA ESTRUCTURA DEL MENÚ ---

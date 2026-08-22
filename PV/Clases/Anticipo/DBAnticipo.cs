@@ -482,7 +482,7 @@ namespace PV.Clases.Anticipo
         // el mismo conjunto de columnas y asignaciones que el original (incluyendo
         // que ImporteMXN se llena con "Importe", no con la columna calculada ImporteMXN).
         public string ConsultaProductoSeleccionado(string txtfolio, Guna2TextBox txtClavePropietario, Guna2TextBox txtCaja,
-            Guna2DateTimePicker txtFecha, ComboBox txtFormaPago, TextBox txtConcepto, Guna2TextBox txtReferencia,
+            Guna2DateTimePicker txtFecha, ComboBox txtFormaPago, ComboBox txtConcepto, Guna2TextBox txtReferencia,
             TextBox txtCuentaBancaria, Guna2TextBox txtNumeroOperacion, Guna2TextBox importe, ComboBox Divisa,
             Guna2TextBox TipoCambio, Guna2TextBox Saldo, Guna2TextBox ImporteMXN)
         {
@@ -505,7 +505,7 @@ namespace PV.Clases.Anticipo
                             txtCaja.Text = dr["Caja"].ToString();
                             txtFecha.Text = Convert.ToDateTime(dr["Fecha"]).ToString("yyyy/MM/dd");
                             txtFormaPago.Text = dr["FormaPago"].ToString();
-                            txtConcepto.Text = dr["Concepto"].ToString();
+                            txtConcepto.SelectedValue= dr["Concepto"].ToString();
                             txtReferencia.Text = dr["Referencia"].ToString();
                             txtCuentaBancaria.Text = dr["CuentaBancaria"].ToString();
                             txtNumeroOperacion.Text = dr["NumeroOperacion"].ToString();
@@ -527,7 +527,7 @@ namespace PV.Clases.Anticipo
         }
 
         public void ConsultaProductoSeleccionadoProveedor(string txtfolio, Guna2TextBox txtClaveProveedor, Guna2TextBox txtCaja,
-            Guna2DateTimePicker txtFecha, ComboBox txtFormaPago, TextBox txtConcepto, Guna2TextBox txtReferencia,
+            Guna2DateTimePicker txtFecha, ComboBox txtFormaPago, ComboBox txtConcepto, Guna2TextBox txtReferencia,
             TextBox txtCuentaBancaria, Guna2TextBox txtNumeroOperacion, Guna2TextBox importe, ComboBox Divisa,
             Guna2TextBox TipoCambio, Guna2TextBox saldo, Guna2TextBox ImporteMXN)
         {
@@ -548,7 +548,7 @@ namespace PV.Clases.Anticipo
                             txtCaja.Text = dr["Caja"].ToString();
                             txtFecha.Text = Convert.ToDateTime(dr["Fecha"]).ToString("yyyy/MM/dd");
                             txtFormaPago.Text = dr["FormaPago"].ToString();
-                            txtConcepto.Text = dr["Concepto"].ToString();
+                            txtConcepto.SelectedValue = dr["Concepto"].ToString();
                             txtReferencia.Text = dr["Referencia"].ToString();
                             txtCuentaBancaria.Text = dr["CuentaBancaria"].ToString();
                             txtNumeroOperacion.Text = dr["NumeroOperacion"].ToString();

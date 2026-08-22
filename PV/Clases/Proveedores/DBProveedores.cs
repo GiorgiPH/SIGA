@@ -87,7 +87,7 @@ namespace PV.Clases.Proveedores
         }
         //_________________________________________________________________________________________________________________________--
         // registrar Empleado 
-        public string RegistroCliente(string IdCliente, string RazonSocial, string RFC, string Calle, string NoExterior, string NoInterior, string Colonia, string Municipio, string CodigoPostal, string Ciudad, string Pais, string Referencias, string MetodoPago, string FormaPago, string CFDI, string ListaPrecio, string Del, string Al, string Zona, string Contacto, string FormaEmbarque,  string DivisaOperacion, string DiasCredito, string LimiteCredito, string PorcentajeDescuentos, string BancoPagar, string DomicilioFiscal, string RegimelFiscal, string Estado, string Telefono, string Celular, string Correo, string txtCorreo2, string Estatus)
+        public string RegistroCliente(string IdCliente, string RazonSocial, string RFC, string Calle, string NoExterior, string NoInterior, string Colonia, string Municipio, string CodigoPostal, string Ciudad, string Pais, string Referencias, string MetodoPago, string FormaPago, string CFDI, string ListaPrecio, string Del, string Al, string Zona, string Contacto, string FormaEmbarque,  string DivisaOperacion, string DiasCredito, string LimiteCredito, string PorcentajeDescuentos, string BancoPagar, string DomicilioFiscal, string RegimelFiscal, string Estado, string Telefono, string Celular, string Correo, string txtCorreo2, string Estatus, string TipoProveedor)
         {
             string mensaje = "";
             int contador = 0;
@@ -105,14 +105,14 @@ namespace PV.Clases.Proveedores
 
                 if (contador <= 0)
                 {
-                    cmd = new SqlCommand("Insert into Proveedor (IdProveedor, RazonSocial, RFC, Calle, NoExterior, NoInterior, Colonia, Municipio, CodigoPostal, Ciudad, Pais, Referencias, MetodoPago, FormaPago, CFDI, ListaPrecios, FechaDel, FechaAl, Zona, Contacto, FormaEmbarque, DivisaOperacion, DiasCredito, LimiteCredito, PorcentajeDescuentos, BancoPago, DomicilioFiscal, RegimenFiscal, Estado, Telefono, Celular, Correo,  Correo2, Estatus, Saldo) values ('" + IdCliente + "','" + RazonSocial + "','" + RFC + "','" + Calle + "','" + NoExterior + "','" + NoInterior + "','" + Colonia + "','" + Municipio + "','" + CodigoPostal + "','" + Ciudad + "','" + Pais + "','" + Referencias + "','" + MetodoPago + "','" + FormaPago + "','" + CFDI + "', '" + ListaPrecio + "',  '" + Del + "',  '" + Al + "',  '" + Zona + "',  '" + Contacto + "',  '" + FormaEmbarque + "', '" + DivisaOperacion + "',  '" + DiasCredito + "',  '" + LimiteCredito + "',  '" + PorcentajeDescuentos + "', '" + BancoPagar + "',  '" + DomicilioFiscal + "',  '" + RegimelFiscal + "', '" + Estado + "', '" + Telefono + "', '" + Celular + "', '" + Correo + "', '" + txtCorreo2 + "','" + Estatus + "', '0.00')", cn);
+                    cmd = new SqlCommand("Insert into Proveedor (IdProveedor, RazonSocial, RFC, Calle, NoExterior, NoInterior, Colonia, Municipio, CodigoPostal, Ciudad, Pais, Referencias, MetodoPago, FormaPago, CFDI, ListaPrecios, FechaDel, FechaAl, Zona, Contacto, FormaEmbarque, DivisaOperacion, DiasCredito, LimiteCredito, PorcentajeDescuentos, BancoPago, DomicilioFiscal, RegimenFiscal, Estado, Telefono, Celular, Correo,  Correo2, Estatus, Saldo, TipoProveedor) values ('" + IdCliente + "','" + RazonSocial + "','" + RFC + "','" + Calle + "','" + NoExterior + "','" + NoInterior + "','" + Colonia + "','" + Municipio + "','" + CodigoPostal + "','" + Ciudad + "','" + Pais + "','" + Referencias + "','" + MetodoPago + "','" + FormaPago + "','" + CFDI + "', '" + ListaPrecio + "',  '" + Del + "',  '" + Al + "',  '" + Zona + "',  '" + Contacto + "',  '" + FormaEmbarque + "', '" + DivisaOperacion + "',  '" + DiasCredito + "',  '" + LimiteCredito + "',  '" + PorcentajeDescuentos + "', '" + BancoPagar + "',  '" + DomicilioFiscal + "',  '" + RegimelFiscal + "', '" + Estado + "', '" + Telefono + "', '" + Celular + "', '" + Correo + "', '" + txtCorreo2 + "','" + Estatus + "', '0.00', '"+TipoProveedor+"')", cn);
                     cmd.ExecuteNonQuery();
                     mensaje = "Registro guardado.";
                 }
 
                 else if (contador > 0)
                 {
-                    cmd = new SqlCommand("Update Proveedor set RazonSocial='" + RazonSocial + "', RFC='" + RFC + "', Calle='" + Calle + "', NoExterior='" + NoExterior + "', NoInterior='" + NoInterior + "', Colonia='" + Colonia + "', Municipio='" + Municipio + "', CodigoPostal='" + CodigoPostal + "', Ciudad='" + Ciudad + "', Pais='" + Pais + "', Referencias='" + Referencias + "', MetodoPago='" + MetodoPago + "', FormaPago='" + FormaPago + "', CFDI='" + CFDI + "', ListaPrecios='" + ListaPrecio + "', FechaDel='" + Del + "', FechaAl='" + Al + "', Zona='" + Zona + "', Contacto='" + Contacto + "', FormaEmbarque='" + FormaEmbarque + "', DivisaOperacion='" + DivisaOperacion + "', DiasCredito='" + DiasCredito + "', LimiteCredito= '" + LimiteCredito + "', PorcentajeDescuentos='" + PorcentajeDescuentos + "', BancoPago='" + BancoPagar + "', DomicilioFiscal='" + DomicilioFiscal + "', RegimenFiscal='" + RegimelFiscal + "', Estado='" + Estado + "', Telefono='" + Telefono + "', Celular='" + Celular + "', Correo='" + Correo + "', Correo2='" + txtCorreo2 + "', Estatus='" + Estatus + "' where IdProveedor='" + IdCliente + "'", cn);
+                    cmd = new SqlCommand("Update Proveedor set RazonSocial='" + RazonSocial + "', RFC='" + RFC + "', Calle='" + Calle + "', NoExterior='" + NoExterior + "', NoInterior='" + NoInterior + "', Colonia='" + Colonia + "', Municipio='" + Municipio + "', CodigoPostal='" + CodigoPostal + "', Ciudad='" + Ciudad + "', Pais='" + Pais + "', Referencias='" + Referencias + "', MetodoPago='" + MetodoPago + "', FormaPago='" + FormaPago + "', CFDI='" + CFDI + "', ListaPrecios='" + ListaPrecio + "', FechaDel='" + Del + "', FechaAl='" + Al + "', Zona='" + Zona + "', Contacto='" + Contacto + "', FormaEmbarque='" + FormaEmbarque + "', DivisaOperacion='" + DivisaOperacion + "', DiasCredito='" + DiasCredito + "', LimiteCredito= '" + LimiteCredito + "', PorcentajeDescuentos='" + PorcentajeDescuentos + "', BancoPago='" + BancoPagar + "', DomicilioFiscal='" + DomicilioFiscal + "', RegimenFiscal='" + RegimelFiscal + "', Estado='" + Estado + "', Telefono='" + Telefono + "', Celular='" + Celular + "', Correo='" + Correo + "', Correo2='" + txtCorreo2 + "', Estatus='" + Estatus + "', TipoProveedor='"+ TipoProveedor + "' where IdProveedor='" + IdCliente + "'", cn);
                     cmd.ExecuteNonQuery();
 
                     mensaje = "Registro modificado.";
@@ -175,7 +175,7 @@ namespace PV.Clases.Proveedores
         }
         //_____________________________________________________________________________________________________
         //Mostrar Usuario seleccionado
-        public void ConsultaClienteSeleccionado(string IdCliente, Guna2TextBox RazonSocial, Guna2TextBox RFC, TextBox Calle, TextBox NoExterior, TextBox NoInterior, TextBox Colonia, TextBox Municipio, TextBox CodigoPostal, TextBox Ciudad, TextBox Pais, TextBox Referencias, ComboBox MetodoPago, ComboBox FormaPago, ComboBox CFDI, ComboBox ListaPrecio, DateTimePicker Del, DateTimePicker Al, ComboBox Zona, TextBox Contacto, TextBox FormaEmbarque, ComboBox DivisaOperacion, TextBox DiasCredito, TextBox LimiteCredito, TextBox PorcentajeDescuentos, TextBox BancoPagar, TextBox DomicilioFiscal, TextBox RegimelFiscal, TextBox Estado, TextBox Telefono, TextBox Celular, TextBox Correo, RadioButton Si, RadioButton No, TextBox txtCorreo2, RadioButton Si2, RadioButton No2, ComboBox Estatus, TextBox Saldo, TextBox Anticipo)
+        public void ConsultaClienteSeleccionado(string IdCliente, Guna2TextBox RazonSocial, Guna2TextBox RFC, TextBox Calle, TextBox NoExterior, TextBox NoInterior, TextBox Colonia, TextBox Municipio, TextBox CodigoPostal, TextBox Ciudad, TextBox Pais, TextBox Referencias, ComboBox MetodoPago, ComboBox FormaPago, ComboBox CFDI, ComboBox ListaPrecio, DateTimePicker Del, DateTimePicker Al, ComboBox Zona, TextBox Contacto, TextBox FormaEmbarque, ComboBox DivisaOperacion, TextBox DiasCredito, TextBox LimiteCredito, TextBox PorcentajeDescuentos, TextBox BancoPagar, TextBox DomicilioFiscal, TextBox RegimelFiscal, TextBox Estado, TextBox Telefono, TextBox Celular, TextBox Correo, RadioButton Si, RadioButton No, TextBox txtCorreo2, RadioButton Si2, RadioButton No2, ComboBox Estatus, TextBox Saldo, TextBox Anticipo, ComboBox cmbTipoProveedor)
         {
             try
             {
@@ -235,6 +235,14 @@ namespace PV.Clases.Proveedores
                     txtCorreo2.Text = dr["Correo2"].ToString();
                     Estatus.Text = dr["Estatus"].ToString();
                     Saldo.Text = dr["Saldo"].ToString();
+                    if (!dr.IsDBNull(dr.GetOrdinal("TipoProveedor")))
+                    {
+                        cmbTipoProveedor.SelectedValue = dr["TipoProveedor"].ToString();
+                    }
+                    else
+                    {
+                        cmbTipoProveedor.SelectedIndex = -1;
+                    }
                 }
                 dr.Close();
 
@@ -322,5 +330,6 @@ namespace PV.Clases.Proveedores
             return dataTable;
 
         }
+
     }
 }

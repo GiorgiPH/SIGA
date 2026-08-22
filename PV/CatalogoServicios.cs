@@ -34,7 +34,7 @@ RegistroGastos2 RG2 = new RegistroGastos2();
             ToolTip T = new ToolTip();
             T.SetToolTip(button7, "Nuevo");
             T.SetToolTip(guna2CircleButton1, "Menú Principal");
-            T.SetToolTip(button8, "Consultar Productos");
+            T.SetToolTip(button8, "Consultar Servicios");
             T.SetToolTip(button6, "Consultar Categorias");
             T.SetToolTip(button9, "Imprimir");
             Consulta = consulta;
@@ -661,6 +661,11 @@ RegistroGastos2 RG2 = new RegistroGastos2();
         private void CatalogoServicios_FormClosed(object sender, FormClosedEventArgs e)
         {
             
+        }
+
+        private void label28_Click(object sender, EventArgs e)
+        {
+
         }
     }
     
