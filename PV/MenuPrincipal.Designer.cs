@@ -905,7 +905,7 @@
             this.SubGrupoBancos.FillColor = System.Drawing.Color.DodgerBlue;
             this.SubGrupoBancos.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.SubGrupoBancos.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(19)))), ((int)(((byte)(35)))), ((int)(((byte)(95)))));
-            this.SubGrupoBancos.Location = new System.Drawing.Point(216, 514);
+            this.SubGrupoBancos.Location = new System.Drawing.Point(222, 658);
             this.SubGrupoBancos.Name = "SubGrupoBancos";
             this.SubGrupoBancos.Size = new System.Drawing.Size(195, 144);
             this.SubGrupoBancos.TabIndex = 64;
@@ -1485,7 +1485,7 @@
             this.SubgrupoIngresos.FillColor = System.Drawing.Color.DodgerBlue;
             this.SubgrupoIngresos.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.SubgrupoIngresos.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(19)))), ((int)(((byte)(35)))), ((int)(((byte)(95)))));
-            this.SubgrupoIngresos.Location = new System.Drawing.Point(219, 531);
+            this.SubgrupoIngresos.Location = new System.Drawing.Point(225, 675);
             this.SubgrupoIngresos.Name = "SubgrupoIngresos";
             this.SubgrupoIngresos.Size = new System.Drawing.Size(195, 45);
             this.SubgrupoIngresos.TabIndex = 64;

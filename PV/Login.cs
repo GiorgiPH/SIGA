@@ -41,7 +41,7 @@ namespace PuntoVentas
 
                     this.Hide();
 
-                    MenuPrincipal menu = new MenuPrincipal();
+                    MenuPrincipal_v2 menu = new MenuPrincipal_v2();
                     //MenuDemo menu = new MenuDemo();
 
                     menu.Show();
