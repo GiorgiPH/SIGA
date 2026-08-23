@@ -57,7 +57,7 @@ namespace PV
             this.label18 = new System.Windows.Forms.Label();
             this.guna2CircleButton1 = new Guna.UI2.WinForms.Guna2CircleButton();
             this.guna2Panel1 = new Guna.UI2.WinForms.Guna2Panel();
-            this.guna2Button9 = new Guna.UI2.WinForms.Guna2Button();
+            this.btnTerminarFactura = new Guna.UI2.WinForms.Guna2Button();
             this.guna2TabControl1 = new Guna.UI2.WinForms.Guna2TabControl();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.txtSaldo = new Guna.UI2.WinForms.Guna2TextBox();
@@ -111,7 +111,6 @@ namespace PV
             this.txtCantidadP = new System.Windows.Forms.TextBox();
             this.txtDocumentoInsc = new System.Windows.Forms.TextBox();
             this.txtDocumentoCol = new System.Windows.Forms.TextBox();
-            this.cmbAlmacen = new Guna.UI2.WinForms.Guna2ComboBox();
             this.cmbEstatus = new Guna.UI2.WinForms.Guna2ComboBox();
             this.cmbDocumento = new Guna.UI2.WinForms.Guna2ComboBox();
             this.txtNotas = new Guna.UI2.WinForms.Guna2TextBox();
@@ -123,7 +122,7 @@ namespace PV
             this.txtConsecutivo = new Guna.UI2.WinForms.Guna2TextBox();
             this.guna2Button4 = new Guna.UI2.WinForms.Guna2Button();
             this.guna2Button1 = new Guna.UI2.WinForms.Guna2Button();
-            this.guna2Button3 = new Guna.UI2.WinForms.Guna2Button();
+            this.btnRegistrarFactura = new Guna.UI2.WinForms.Guna2Button();
             this.label8 = new System.Windows.Forms.Label();
             this.label19 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
@@ -131,7 +130,6 @@ namespace PV
             this.label17 = new System.Windows.Forms.Label();
             this.label31 = new System.Windows.Forms.Label();
             this.label14 = new System.Windows.Forms.Label();
-            this.label57 = new System.Windows.Forms.Label();
             this.label15 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.txtDocumento = new System.Windows.Forms.TextBox();
@@ -144,17 +142,7 @@ namespace PV
             this.label49 = new System.Windows.Forms.Label();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.PanelPartidasRequisicion = new Guna.UI2.WinForms.Guna2CustomGradientPanel();
-            this.guna2Button7 = new Guna.UI2.WinForms.Guna2Button();
-            this.guna2Panel2 = new Guna.UI2.WinForms.Guna2Panel();
-            this.label58 = new System.Windows.Forms.Label();
-            this.lblPedidosProveedor = new System.Windows.Forms.Label();
-            this.lblDisponible = new System.Windows.Forms.Label();
-            this.lblExistencias = new System.Windows.Forms.Label();
-            this.lblPedidosCliente = new System.Windows.Forms.Label();
-            this.label61 = new System.Windows.Forms.Label();
-            this.label62 = new System.Windows.Forms.Label();
-            this.label60 = new System.Windows.Forms.Label();
-            this.label59 = new System.Windows.Forms.Label();
+            this.btnConfirmarPartida = new Guna.UI2.WinForms.Guna2Button();
             this.guna2PictureBox4 = new Guna.UI2.WinForms.Guna2PictureBox();
             this.cmbconcepto2 = new System.Windows.Forms.TextBox();
             this.txtEntregado = new Guna.UI2.WinForms.Guna2TextBox();
@@ -200,15 +188,15 @@ namespace PV
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.txtConcepto = new System.Windows.Forms.TextBox();
             this.guna2Button11 = new Guna.UI2.WinForms.Guna2Button();
-            this.btnSiguiente = new Guna.UI2.WinForms.Guna2Button();
+            this.btnSiguientePartids = new Guna.UI2.WinForms.Guna2Button();
             this.cmbConcepto = new Guna.UI2.WinForms.Guna2ComboBox();
             this.txtPrecio = new Guna.UI2.WinForms.Guna2TextBox();
             this.txtCantidad = new Guna.UI2.WinForms.Guna2TextBox();
             this.txtUnidad = new Guna.UI2.WinForms.Guna2TextBox();
             this.txtConcepto2 = new Guna.UI2.WinForms.Guna2TextBox();
             this.txtPartida = new Guna.UI2.WinForms.Guna2TextBox();
-            this.guna2Button5 = new Guna.UI2.WinForms.Guna2Button();
-            this.guna2Button6 = new Guna.UI2.WinForms.Guna2Button();
+            this.btnEliminarPartida = new Guna.UI2.WinForms.Guna2Button();
+            this.btnLimpiarPartida = new Guna.UI2.WinForms.Guna2Button();
             this.label16 = new System.Windows.Forms.Label();
             this.label20 = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
@@ -250,7 +238,7 @@ namespace PV
             this.button11 = new Guna.UI2.WinForms.Guna2Button();
             this.button10 = new Guna.UI2.WinForms.Guna2Button();
             this.guna2Button16 = new Guna.UI2.WinForms.Guna2Button();
-            this.guna2Button15 = new Guna.UI2.WinForms.Guna2Button();
+            this.btnBuevaFactura = new Guna.UI2.WinForms.Guna2Button();
             this.guna2GradientPanel1.SuspendLayout();
             this.guna2Panel1.SuspendLayout();
             this.guna2TabControl1.SuspendLayout();
@@ -259,7 +247,6 @@ namespace PV
             ((System.ComponentModel.ISupportInitialize)(this.guna2DataGridView2)).BeginInit();
             this.tabPage3.SuspendLayout();
             this.PanelPartidasRequisicion.SuspendLayout();
-            this.guna2Panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.guna2PictureBox4)).BeginInit();
             this.guna2GradientPanel3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.guna2DataGridView1)).BeginInit();
@@ -378,7 +365,7 @@ namespace PV
             | System.Windows.Forms.AnchorStyles.Right)));
             this.guna2Panel1.BackColor = System.Drawing.Color.Transparent;
             this.guna2Panel1.BorderRadius = 20;
-            this.guna2Panel1.Controls.Add(this.guna2Button9);
+            this.guna2Panel1.Controls.Add(this.btnTerminarFactura);
             this.guna2Panel1.Controls.Add(this.guna2TabControl1);
             this.guna2Panel1.Controls.Add(this.guna2Separator1);
             this.guna2Panel1.Controls.Add(this.guna2Separator6);
@@ -389,32 +376,32 @@ namespace PV
             this.guna2Panel1.Size = new System.Drawing.Size(1010, 620);
             this.guna2Panel1.TabIndex = 98;
             // 
-            // guna2Button9
+            // btnTerminarFactura
             // 
-            this.guna2Button9.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.guna2Button9.BackColor = System.Drawing.Color.Transparent;
-            this.guna2Button9.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(19)))), ((int)(((byte)(35)))), ((int)(((byte)(95)))));
-            this.guna2Button9.BorderRadius = 20;
-            this.guna2Button9.BorderThickness = 1;
-            this.guna2Button9.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
-            this.guna2Button9.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
-            this.guna2Button9.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.guna2Button9.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.guna2Button9.FillColor = System.Drawing.Color.Transparent;
-            this.guna2Button9.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold);
-            this.guna2Button9.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(19)))), ((int)(((byte)(35)))), ((int)(((byte)(95)))));
-            this.guna2Button9.Image = ((System.Drawing.Image)(resources.GetObject("guna2Button9.Image")));
-            this.guna2Button9.ImageAlign = System.Windows.Forms.HorizontalAlignment.Left;
-            this.guna2Button9.ImageSize = new System.Drawing.Size(48, 48);
-            this.guna2Button9.Location = new System.Drawing.Point(844, 563);
-            this.guna2Button9.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.guna2Button9.Name = "guna2Button9";
-            this.guna2Button9.Size = new System.Drawing.Size(128, 46);
-            this.guna2Button9.TabIndex = 18;
-            this.guna2Button9.Text = "Terminar";
-            this.guna2Button9.TextOffset = new System.Drawing.Point(23, 0);
-            this.guna2Button9.Visible = false;
-            this.guna2Button9.Click += new System.EventHandler(this.guna2Button9_Click);
+            this.btnTerminarFactura.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnTerminarFactura.BackColor = System.Drawing.Color.Transparent;
+            this.btnTerminarFactura.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(19)))), ((int)(((byte)(35)))), ((int)(((byte)(95)))));
+            this.btnTerminarFactura.BorderRadius = 20;
+            this.btnTerminarFactura.BorderThickness = 1;
+            this.btnTerminarFactura.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.btnTerminarFactura.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.btnTerminarFactura.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.btnTerminarFactura.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.btnTerminarFactura.FillColor = System.Drawing.Color.Transparent;
+            this.btnTerminarFactura.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold);
+            this.btnTerminarFactura.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(19)))), ((int)(((byte)(35)))), ((int)(((byte)(95)))));
+            this.btnTerminarFactura.Image = ((System.Drawing.Image)(resources.GetObject("btnTerminarFactura.Image")));
+            this.btnTerminarFactura.ImageAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.btnTerminarFactura.ImageSize = new System.Drawing.Size(48, 48);
+            this.btnTerminarFactura.Location = new System.Drawing.Point(844, 563);
+            this.btnTerminarFactura.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.btnTerminarFactura.Name = "btnTerminarFactura";
+            this.btnTerminarFactura.Size = new System.Drawing.Size(128, 46);
+            this.btnTerminarFactura.TabIndex = 18;
+            this.btnTerminarFactura.Text = "Terminar";
+            this.btnTerminarFactura.TextOffset = new System.Drawing.Point(23, 0);
+            this.btnTerminarFactura.Visible = false;
+            this.btnTerminarFactura.Click += new System.EventHandler(this.btnTerminarFactura_Click);
             // 
             // guna2TabControl1
             // 
@@ -454,8 +441,8 @@ namespace PV
             this.tabPage2.Controls.Add(this.txtAbono);
             this.tabPage2.Controls.Add(this.label44);
             this.tabPage2.Controls.Add(this.label70);
-            this.tabPage2.Controls.Add(this.label71);
             this.tabPage2.Controls.Add(this.guna2GradientPanel5);
+            this.tabPage2.Controls.Add(this.label71);
             this.tabPage2.Controls.Add(this.cmbproyecto);
             this.tabPage2.Controls.Add(this.label74);
             this.tabPage2.Controls.Add(this.cmbCentroCostos);
@@ -494,7 +481,6 @@ namespace PV
             this.tabPage2.Controls.Add(this.txtCantidadP);
             this.tabPage2.Controls.Add(this.txtDocumentoInsc);
             this.tabPage2.Controls.Add(this.txtDocumentoCol);
-            this.tabPage2.Controls.Add(this.cmbAlmacen);
             this.tabPage2.Controls.Add(this.cmbEstatus);
             this.tabPage2.Controls.Add(this.cmbDocumento);
             this.tabPage2.Controls.Add(this.txtNotas);
@@ -506,7 +492,7 @@ namespace PV
             this.tabPage2.Controls.Add(this.txtConsecutivo);
             this.tabPage2.Controls.Add(this.guna2Button4);
             this.tabPage2.Controls.Add(this.guna2Button1);
-            this.tabPage2.Controls.Add(this.guna2Button3);
+            this.tabPage2.Controls.Add(this.btnRegistrarFactura);
             this.tabPage2.Controls.Add(this.label8);
             this.tabPage2.Controls.Add(this.label19);
             this.tabPage2.Controls.Add(this.label9);
@@ -514,7 +500,6 @@ namespace PV
             this.tabPage2.Controls.Add(this.label17);
             this.tabPage2.Controls.Add(this.label31);
             this.tabPage2.Controls.Add(this.label14);
-            this.tabPage2.Controls.Add(this.label57);
             this.tabPage2.Controls.Add(this.label15);
             this.tabPage2.Controls.Add(this.label1);
             this.tabPage2.Controls.Add(this.txtDocumento);
@@ -628,7 +613,7 @@ namespace PV
             this.guna2GradientPanel5.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(19)))), ((int)(((byte)(35)))), ((int)(((byte)(95)))));
             this.guna2GradientPanel5.FillColor2 = System.Drawing.Color.SteelBlue;
             this.guna2GradientPanel5.GradientMode = System.Drawing.Drawing2D.LinearGradientMode.ForwardDiagonal;
-            this.guna2GradientPanel5.Location = new System.Drawing.Point(194, 33);
+            this.guna2GradientPanel5.Location = new System.Drawing.Point(199, 9);
             this.guna2GradientPanel5.Name = "guna2GradientPanel5";
             this.guna2GradientPanel5.ShadowDecoration.BorderRadius = 1;
             this.guna2GradientPanel5.ShadowDecoration.CustomizableEdges.BottomLeft = false;
@@ -1388,31 +1373,6 @@ namespace PV
             this.txtDocumentoCol.TabStop = false;
             this.txtDocumentoCol.Visible = false;
             // 
-            // cmbAlmacen
-            // 
-            this.cmbAlmacen.AutoRoundedCorners = true;
-            this.cmbAlmacen.BackColor = System.Drawing.Color.Transparent;
-            this.cmbAlmacen.BorderColor = System.Drawing.Color.Gray;
-            this.cmbAlmacen.BorderRadius = 12;
-            this.cmbAlmacen.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
-            this.cmbAlmacen.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbAlmacen.Enabled = false;
-            this.cmbAlmacen.FocusedColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.cmbAlmacen.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.cmbAlmacen.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.cmbAlmacen.ForeColor = System.Drawing.Color.Black;
-            this.cmbAlmacen.IntegralHeight = false;
-            this.cmbAlmacen.ItemHeight = 20;
-            this.cmbAlmacen.Items.AddRange(new object[] {
-            "Abierto",
-            "Bloqueado",
-            "Cancelado"});
-            this.cmbAlmacen.Location = new System.Drawing.Point(564, 356);
-            this.cmbAlmacen.Name = "cmbAlmacen";
-            this.cmbAlmacen.Size = new System.Drawing.Size(254, 26);
-            this.cmbAlmacen.TabIndex = 235;
-            this.cmbAlmacen.SelectedIndexChanged += new System.EventHandler(this.cmbAlmacen_SelectedIndexChanged);
-            // 
             // cmbEstatus
             // 
             this.cmbEstatus.AutoRoundedCorners = true;
@@ -1679,31 +1639,31 @@ namespace PV
             this.guna2Button1.TextOffset = new System.Drawing.Point(10, 0);
             this.guna2Button1.Click += new System.EventHandler(this.guna2Button1_Click);
             // 
-            // guna2Button3
+            // btnRegistrarFactura
             // 
-            this.guna2Button3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.guna2Button3.BackColor = System.Drawing.Color.Transparent;
-            this.guna2Button3.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(19)))), ((int)(((byte)(35)))), ((int)(((byte)(95)))));
-            this.guna2Button3.BorderRadius = 20;
-            this.guna2Button3.BorderThickness = 1;
-            this.guna2Button3.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
-            this.guna2Button3.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
-            this.guna2Button3.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.guna2Button3.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.guna2Button3.FillColor = System.Drawing.Color.Transparent;
-            this.guna2Button3.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold);
-            this.guna2Button3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(19)))), ((int)(((byte)(35)))), ((int)(((byte)(95)))));
-            this.guna2Button3.Image = global::PV.Properties.Resources.Guardar;
-            this.guna2Button3.ImageAlign = System.Windows.Forms.HorizontalAlignment.Left;
-            this.guna2Button3.ImageSize = new System.Drawing.Size(48, 48);
-            this.guna2Button3.Location = new System.Drawing.Point(802, 440);
-            this.guna2Button3.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.guna2Button3.Name = "guna2Button3";
-            this.guna2Button3.Size = new System.Drawing.Size(128, 46);
-            this.guna2Button3.TabIndex = 5;
-            this.guna2Button3.Text = "Confirmar";
-            this.guna2Button3.TextOffset = new System.Drawing.Point(23, 0);
-            this.guna2Button3.Click += new System.EventHandler(this.guna2Button3_Click);
+            this.btnRegistrarFactura.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnRegistrarFactura.BackColor = System.Drawing.Color.Transparent;
+            this.btnRegistrarFactura.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(19)))), ((int)(((byte)(35)))), ((int)(((byte)(95)))));
+            this.btnRegistrarFactura.BorderRadius = 20;
+            this.btnRegistrarFactura.BorderThickness = 1;
+            this.btnRegistrarFactura.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.btnRegistrarFactura.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.btnRegistrarFactura.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.btnRegistrarFactura.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.btnRegistrarFactura.FillColor = System.Drawing.Color.Transparent;
+            this.btnRegistrarFactura.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold);
+            this.btnRegistrarFactura.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(19)))), ((int)(((byte)(35)))), ((int)(((byte)(95)))));
+            this.btnRegistrarFactura.Image = global::PV.Properties.Resources.Guardar;
+            this.btnRegistrarFactura.ImageAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.btnRegistrarFactura.ImageSize = new System.Drawing.Size(48, 48);
+            this.btnRegistrarFactura.Location = new System.Drawing.Point(802, 440);
+            this.btnRegistrarFactura.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.btnRegistrarFactura.Name = "btnRegistrarFactura";
+            this.btnRegistrarFactura.Size = new System.Drawing.Size(128, 46);
+            this.btnRegistrarFactura.TabIndex = 5;
+            this.btnRegistrarFactura.Text = "Confirmar";
+            this.btnRegistrarFactura.TextOffset = new System.Drawing.Point(23, 0);
+            this.btnRegistrarFactura.Click += new System.EventHandler(this.btnRegistrarFactura_Click);
             // 
             // label8
             // 
@@ -1777,16 +1737,6 @@ namespace PV
             this.label14.Size = new System.Drawing.Size(48, 15);
             this.label14.TabIndex = 28;
             this.label14.Text = "Notas:";
-            // 
-            // label57
-            // 
-            this.label57.AutoSize = true;
-            this.label57.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label57.Location = new System.Drawing.Point(500, 362);
-            this.label57.Name = "label57";
-            this.label57.Size = new System.Drawing.Size(66, 15);
-            this.label57.TabIndex = 30;
-            this.label57.Text = "Almacen:";
             // 
             // label15
             // 
@@ -1907,8 +1857,7 @@ namespace PV
             this.PanelPartidasRequisicion.BorderColor = System.Drawing.Color.DimGray;
             this.PanelPartidasRequisicion.BorderRadius = 5;
             this.PanelPartidasRequisicion.BorderThickness = 2;
-            this.PanelPartidasRequisicion.Controls.Add(this.guna2Button7);
-            this.PanelPartidasRequisicion.Controls.Add(this.guna2Panel2);
+            this.PanelPartidasRequisicion.Controls.Add(this.btnConfirmarPartida);
             this.PanelPartidasRequisicion.Controls.Add(this.guna2PictureBox4);
             this.PanelPartidasRequisicion.Controls.Add(this.cmbconcepto2);
             this.PanelPartidasRequisicion.Controls.Add(this.txtEntregado);
@@ -1954,15 +1903,15 @@ namespace PV
             this.PanelPartidasRequisicion.Controls.Add(this.textBox1);
             this.PanelPartidasRequisicion.Controls.Add(this.txtConcepto);
             this.PanelPartidasRequisicion.Controls.Add(this.guna2Button11);
-            this.PanelPartidasRequisicion.Controls.Add(this.btnSiguiente);
+            this.PanelPartidasRequisicion.Controls.Add(this.btnSiguientePartids);
             this.PanelPartidasRequisicion.Controls.Add(this.cmbConcepto);
             this.PanelPartidasRequisicion.Controls.Add(this.txtPrecio);
             this.PanelPartidasRequisicion.Controls.Add(this.txtCantidad);
             this.PanelPartidasRequisicion.Controls.Add(this.txtUnidad);
             this.PanelPartidasRequisicion.Controls.Add(this.txtConcepto2);
             this.PanelPartidasRequisicion.Controls.Add(this.txtPartida);
-            this.PanelPartidasRequisicion.Controls.Add(this.guna2Button5);
-            this.PanelPartidasRequisicion.Controls.Add(this.guna2Button6);
+            this.PanelPartidasRequisicion.Controls.Add(this.btnEliminarPartida);
+            this.PanelPartidasRequisicion.Controls.Add(this.btnLimpiarPartida);
             this.PanelPartidasRequisicion.Controls.Add(this.label16);
             this.PanelPartidasRequisicion.Controls.Add(this.label20);
             this.PanelPartidasRequisicion.Controls.Add(this.label12);
@@ -1974,145 +1923,31 @@ namespace PV
             this.PanelPartidasRequisicion.Visible = false;
             this.PanelPartidasRequisicion.Paint += new System.Windows.Forms.PaintEventHandler(this.PanelPartidasRequisicion_Paint);
             // 
-            // guna2Button7
+            // btnConfirmarPartida
             // 
-            this.guna2Button7.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.guna2Button7.BackColor = System.Drawing.Color.Transparent;
-            this.guna2Button7.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(19)))), ((int)(((byte)(35)))), ((int)(((byte)(95)))));
-            this.guna2Button7.BorderRadius = 20;
-            this.guna2Button7.BorderThickness = 1;
-            this.guna2Button7.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
-            this.guna2Button7.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
-            this.guna2Button7.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.guna2Button7.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.guna2Button7.FillColor = System.Drawing.Color.Transparent;
-            this.guna2Button7.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.guna2Button7.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(19)))), ((int)(((byte)(35)))), ((int)(((byte)(95)))));
-            this.guna2Button7.Image = ((System.Drawing.Image)(resources.GetObject("guna2Button7.Image")));
-            this.guna2Button7.ImageAlign = System.Windows.Forms.HorizontalAlignment.Left;
-            this.guna2Button7.ImageSize = new System.Drawing.Size(48, 48);
-            this.guna2Button7.Location = new System.Drawing.Point(503, 430);
-            this.guna2Button7.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.guna2Button7.Name = "guna2Button7";
-            this.guna2Button7.Size = new System.Drawing.Size(128, 46);
-            this.guna2Button7.TabIndex = 284;
-            this.guna2Button7.Text = "Confirmar";
-            this.guna2Button7.TextOffset = new System.Drawing.Point(23, 0);
-            this.guna2Button7.Click += new System.EventHandler(this.btnConfirmar_Click);
-            // 
-            // guna2Panel2
-            // 
-            this.guna2Panel2.Controls.Add(this.label58);
-            this.guna2Panel2.Controls.Add(this.lblPedidosProveedor);
-            this.guna2Panel2.Controls.Add(this.lblDisponible);
-            this.guna2Panel2.Controls.Add(this.lblExistencias);
-            this.guna2Panel2.Controls.Add(this.lblPedidosCliente);
-            this.guna2Panel2.Controls.Add(this.label61);
-            this.guna2Panel2.Controls.Add(this.label62);
-            this.guna2Panel2.Controls.Add(this.label60);
-            this.guna2Panel2.Controls.Add(this.label59);
-            this.guna2Panel2.Location = new System.Drawing.Point(113, 386);
-            this.guna2Panel2.Name = "guna2Panel2";
-            this.guna2Panel2.Size = new System.Drawing.Size(588, 40);
-            this.guna2Panel2.TabIndex = 283;
-            // 
-            // label58
-            // 
-            this.label58.AutoSize = true;
-            this.label58.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label58.Location = new System.Drawing.Point(210, 1);
-            this.label58.Name = "label58";
-            this.label58.Size = new System.Drawing.Size(134, 15);
-            this.label58.TabIndex = 247;
-            this.label58.Text = "Análisis Existencias";
-            // 
-            // lblPedidosProveedor
-            // 
-            this.lblPedidosProveedor.AutoSize = true;
-            this.lblPedidosProveedor.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblPedidosProveedor.Location = new System.Drawing.Point(551, 19);
-            this.lblPedidosProveedor.Name = "lblPedidosProveedor";
-            this.lblPedidosProveedor.Size = new System.Drawing.Size(14, 15);
-            this.lblPedidosProveedor.TabIndex = 246;
-            this.lblPedidosProveedor.Text = "0";
-            this.lblPedidosProveedor.Click += new System.EventHandler(this.label37_Click);
-            // 
-            // lblDisponible
-            // 
-            this.lblDisponible.AutoSize = true;
-            this.lblDisponible.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblDisponible.Location = new System.Drawing.Point(378, 19);
-            this.lblDisponible.Name = "lblDisponible";
-            this.lblDisponible.Size = new System.Drawing.Size(14, 15);
-            this.lblDisponible.TabIndex = 246;
-            this.lblDisponible.Text = "0";
-            this.lblDisponible.Click += new System.EventHandler(this.label37_Click);
-            // 
-            // lblExistencias
-            // 
-            this.lblExistencias.AutoSize = true;
-            this.lblExistencias.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblExistencias.Location = new System.Drawing.Point(109, 19);
-            this.lblExistencias.Name = "lblExistencias";
-            this.lblExistencias.Size = new System.Drawing.Size(14, 15);
-            this.lblExistencias.TabIndex = 246;
-            this.lblExistencias.Text = "0";
-            this.lblExistencias.Click += new System.EventHandler(this.label37_Click);
-            // 
-            // lblPedidosCliente
-            // 
-            this.lblPedidosCliente.AutoSize = true;
-            this.lblPedidosCliente.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblPedidosCliente.Location = new System.Drawing.Point(259, 19);
-            this.lblPedidosCliente.Name = "lblPedidosCliente";
-            this.lblPedidosCliente.Size = new System.Drawing.Size(14, 15);
-            this.lblPedidosCliente.TabIndex = 246;
-            this.lblPedidosCliente.Text = "0";
-            this.lblPedidosCliente.Click += new System.EventHandler(this.label37_Click);
-            // 
-            // label61
-            // 
-            this.label61.AutoSize = true;
-            this.label61.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label61.Location = new System.Drawing.Point(304, 19);
-            this.label61.Name = "label61";
-            this.label61.Size = new System.Drawing.Size(66, 15);
-            this.label61.TabIndex = 246;
-            this.label61.Text = "Disponible";
-            this.label61.Click += new System.EventHandler(this.label37_Click);
-            // 
-            // label62
-            // 
-            this.label62.AutoSize = true;
-            this.label62.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label62.Location = new System.Drawing.Point(442, 19);
-            this.label62.Name = "label62";
-            this.label62.Size = new System.Drawing.Size(105, 15);
-            this.label62.TabIndex = 246;
-            this.label62.Text = "Pedido Proveedor";
-            this.label62.Click += new System.EventHandler(this.label37_Click);
-            // 
-            // label60
-            // 
-            this.label60.AutoSize = true;
-            this.label60.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label60.Location = new System.Drawing.Point(166, 19);
-            this.label60.Name = "label60";
-            this.label60.Size = new System.Drawing.Size(87, 15);
-            this.label60.TabIndex = 246;
-            this.label60.Text = "Pedido Cliente";
-            this.label60.Click += new System.EventHandler(this.label37_Click);
-            // 
-            // label59
-            // 
-            this.label59.AutoSize = true;
-            this.label59.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label59.Location = new System.Drawing.Point(5, 19);
-            this.label59.Name = "label59";
-            this.label59.Size = new System.Drawing.Size(81, 15);
-            this.label59.TabIndex = 246;
-            this.label59.Text = "Exis Almacén";
-            this.label59.Click += new System.EventHandler(this.label37_Click);
+            this.btnConfirmarPartida.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnConfirmarPartida.BackColor = System.Drawing.Color.Transparent;
+            this.btnConfirmarPartida.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(19)))), ((int)(((byte)(35)))), ((int)(((byte)(95)))));
+            this.btnConfirmarPartida.BorderRadius = 20;
+            this.btnConfirmarPartida.BorderThickness = 1;
+            this.btnConfirmarPartida.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.btnConfirmarPartida.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.btnConfirmarPartida.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.btnConfirmarPartida.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.btnConfirmarPartida.FillColor = System.Drawing.Color.Transparent;
+            this.btnConfirmarPartida.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnConfirmarPartida.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(19)))), ((int)(((byte)(35)))), ((int)(((byte)(95)))));
+            this.btnConfirmarPartida.Image = ((System.Drawing.Image)(resources.GetObject("btnConfirmarPartida.Image")));
+            this.btnConfirmarPartida.ImageAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.btnConfirmarPartida.ImageSize = new System.Drawing.Size(48, 48);
+            this.btnConfirmarPartida.Location = new System.Drawing.Point(503, 430);
+            this.btnConfirmarPartida.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.btnConfirmarPartida.Name = "btnConfirmarPartida";
+            this.btnConfirmarPartida.Size = new System.Drawing.Size(128, 46);
+            this.btnConfirmarPartida.TabIndex = 284;
+            this.btnConfirmarPartida.Text = "Confirmar";
+            this.btnConfirmarPartida.TextOffset = new System.Drawing.Point(23, 0);
+            this.btnConfirmarPartida.Click += new System.EventHandler(this.btnConfirmarPartida_Click);
             // 
             // guna2PictureBox4
             // 
@@ -2124,7 +1959,6 @@ namespace PV
             this.guna2PictureBox4.TabIndex = 282;
             this.guna2PictureBox4.TabStop = false;
             this.guna2PictureBox4.Visible = false;
-            this.guna2PictureBox4.Click += new System.EventHandler(this.guna2PictureBox4_Click);
             // 
             // cmbconcepto2
             // 
@@ -2791,31 +2625,31 @@ namespace PV
             this.guna2Button11.Text = "X";
             this.guna2Button11.Click += new System.EventHandler(this.guna2Button11_Click);
             // 
-            // btnSiguiente
+            // btnSiguientePartids
             // 
-            this.btnSiguiente.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnSiguiente.BackColor = System.Drawing.Color.Transparent;
-            this.btnSiguiente.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(19)))), ((int)(((byte)(35)))), ((int)(((byte)(95)))));
-            this.btnSiguiente.BorderRadius = 20;
-            this.btnSiguiente.BorderThickness = 1;
-            this.btnSiguiente.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
-            this.btnSiguiente.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
-            this.btnSiguiente.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.btnSiguiente.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.btnSiguiente.FillColor = System.Drawing.Color.Transparent;
-            this.btnSiguiente.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnSiguiente.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(19)))), ((int)(((byte)(35)))), ((int)(((byte)(95)))));
-            this.btnSiguiente.Image = ((System.Drawing.Image)(resources.GetObject("btnSiguiente.Image")));
-            this.btnSiguiente.ImageAlign = System.Windows.Forms.HorizontalAlignment.Left;
-            this.btnSiguiente.ImageSize = new System.Drawing.Size(35, 35);
-            this.btnSiguiente.Location = new System.Drawing.Point(644, 430);
-            this.btnSiguiente.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.btnSiguiente.Name = "btnSiguiente";
-            this.btnSiguiente.Size = new System.Drawing.Size(128, 46);
-            this.btnSiguiente.TabIndex = 15;
-            this.btnSiguiente.Text = "Siguiente";
-            this.btnSiguiente.TextOffset = new System.Drawing.Point(23, 0);
-            this.btnSiguiente.Click += new System.EventHandler(this.btnSiguiente_Click);
+            this.btnSiguientePartids.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnSiguientePartids.BackColor = System.Drawing.Color.Transparent;
+            this.btnSiguientePartids.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(19)))), ((int)(((byte)(35)))), ((int)(((byte)(95)))));
+            this.btnSiguientePartids.BorderRadius = 20;
+            this.btnSiguientePartids.BorderThickness = 1;
+            this.btnSiguientePartids.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.btnSiguientePartids.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.btnSiguientePartids.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.btnSiguientePartids.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.btnSiguientePartids.FillColor = System.Drawing.Color.Transparent;
+            this.btnSiguientePartids.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnSiguientePartids.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(19)))), ((int)(((byte)(35)))), ((int)(((byte)(95)))));
+            this.btnSiguientePartids.Image = ((System.Drawing.Image)(resources.GetObject("btnSiguientePartids.Image")));
+            this.btnSiguientePartids.ImageAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.btnSiguientePartids.ImageSize = new System.Drawing.Size(35, 35);
+            this.btnSiguientePartids.Location = new System.Drawing.Point(644, 430);
+            this.btnSiguientePartids.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.btnSiguientePartids.Name = "btnSiguientePartids";
+            this.btnSiguientePartids.Size = new System.Drawing.Size(128, 46);
+            this.btnSiguientePartids.TabIndex = 15;
+            this.btnSiguientePartids.Text = "Siguiente";
+            this.btnSiguientePartids.TextOffset = new System.Drawing.Point(23, 0);
+            this.btnSiguientePartids.Click += new System.EventHandler(this.btnSiguientePartida_Click);
             // 
             // cmbConcepto
             // 
@@ -2956,57 +2790,57 @@ namespace PV
             this.txtPartida.Size = new System.Drawing.Size(119, 25);
             this.txtPartida.TabIndex = 167;
             // 
-            // guna2Button5
+            // btnEliminarPartida
             // 
-            this.guna2Button5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.guna2Button5.BackColor = System.Drawing.Color.Transparent;
-            this.guna2Button5.BorderRadius = 20;
-            this.guna2Button5.BorderThickness = 1;
-            this.guna2Button5.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
-            this.guna2Button5.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
-            this.guna2Button5.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.guna2Button5.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.guna2Button5.FillColor = System.Drawing.Color.Transparent;
-            this.guna2Button5.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.guna2Button5.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(19)))), ((int)(((byte)(35)))), ((int)(((byte)(95)))));
-            this.guna2Button5.Image = global::PV.Properties.Resources.Borrar;
-            this.guna2Button5.ImageAlign = System.Windows.Forms.HorizontalAlignment.Left;
-            this.guna2Button5.ImageSize = new System.Drawing.Size(48, 48);
-            this.guna2Button5.Location = new System.Drawing.Point(32, 430);
-            this.guna2Button5.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.guna2Button5.Name = "guna2Button5";
-            this.guna2Button5.Size = new System.Drawing.Size(121, 46);
-            this.guna2Button5.TabIndex = 17;
-            this.guna2Button5.Text = "Eliminar";
-            this.guna2Button5.TextOffset = new System.Drawing.Point(23, 0);
-            this.guna2Button5.Visible = false;
-            this.guna2Button5.Click += new System.EventHandler(this.guna2Button5_Click);
+            this.btnEliminarPartida.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnEliminarPartida.BackColor = System.Drawing.Color.Transparent;
+            this.btnEliminarPartida.BorderRadius = 20;
+            this.btnEliminarPartida.BorderThickness = 1;
+            this.btnEliminarPartida.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.btnEliminarPartida.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.btnEliminarPartida.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.btnEliminarPartida.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.btnEliminarPartida.FillColor = System.Drawing.Color.Transparent;
+            this.btnEliminarPartida.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnEliminarPartida.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(19)))), ((int)(((byte)(35)))), ((int)(((byte)(95)))));
+            this.btnEliminarPartida.Image = global::PV.Properties.Resources.Borrar;
+            this.btnEliminarPartida.ImageAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.btnEliminarPartida.ImageSize = new System.Drawing.Size(48, 48);
+            this.btnEliminarPartida.Location = new System.Drawing.Point(32, 430);
+            this.btnEliminarPartida.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.btnEliminarPartida.Name = "btnEliminarPartida";
+            this.btnEliminarPartida.Size = new System.Drawing.Size(121, 46);
+            this.btnEliminarPartida.TabIndex = 17;
+            this.btnEliminarPartida.Text = "Eliminar";
+            this.btnEliminarPartida.TextOffset = new System.Drawing.Point(23, 0);
+            this.btnEliminarPartida.Visible = false;
+            this.btnEliminarPartida.Click += new System.EventHandler(this.btnEliminarPartida_Click);
             // 
-            // guna2Button6
+            // btnLimpiarPartida
             // 
-            this.guna2Button6.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.guna2Button6.BackColor = System.Drawing.Color.Transparent;
-            this.guna2Button6.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(19)))), ((int)(((byte)(35)))), ((int)(((byte)(95)))));
-            this.guna2Button6.BorderRadius = 20;
-            this.guna2Button6.BorderThickness = 1;
-            this.guna2Button6.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
-            this.guna2Button6.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
-            this.guna2Button6.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.guna2Button6.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.guna2Button6.FillColor = System.Drawing.Color.Transparent;
-            this.guna2Button6.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.guna2Button6.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(19)))), ((int)(((byte)(35)))), ((int)(((byte)(95)))));
-            this.guna2Button6.Image = global::PV.Properties.Resources.cancelar;
-            this.guna2Button6.ImageAlign = System.Windows.Forms.HorizontalAlignment.Left;
-            this.guna2Button6.Location = new System.Drawing.Point(355, 430);
-            this.guna2Button6.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.guna2Button6.Name = "guna2Button6";
-            this.guna2Button6.Size = new System.Drawing.Size(128, 46);
-            this.guna2Button6.TabIndex = 16;
-            this.guna2Button6.Text = "Cancelar";
-            this.guna2Button6.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
-            this.guna2Button6.TextOffset = new System.Drawing.Point(10, 0);
-            this.guna2Button6.Click += new System.EventHandler(this.guna2Button6_Click);
+            this.btnLimpiarPartida.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnLimpiarPartida.BackColor = System.Drawing.Color.Transparent;
+            this.btnLimpiarPartida.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(19)))), ((int)(((byte)(35)))), ((int)(((byte)(95)))));
+            this.btnLimpiarPartida.BorderRadius = 20;
+            this.btnLimpiarPartida.BorderThickness = 1;
+            this.btnLimpiarPartida.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.btnLimpiarPartida.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.btnLimpiarPartida.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.btnLimpiarPartida.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.btnLimpiarPartida.FillColor = System.Drawing.Color.Transparent;
+            this.btnLimpiarPartida.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnLimpiarPartida.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(19)))), ((int)(((byte)(35)))), ((int)(((byte)(95)))));
+            this.btnLimpiarPartida.Image = global::PV.Properties.Resources.cancelar;
+            this.btnLimpiarPartida.ImageAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.btnLimpiarPartida.Location = new System.Drawing.Point(355, 430);
+            this.btnLimpiarPartida.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.btnLimpiarPartida.Name = "btnLimpiarPartida";
+            this.btnLimpiarPartida.Size = new System.Drawing.Size(128, 46);
+            this.btnLimpiarPartida.TabIndex = 16;
+            this.btnLimpiarPartida.Text = "Cancelar";
+            this.btnLimpiarPartida.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.btnLimpiarPartida.TextOffset = new System.Drawing.Point(10, 0);
+            this.btnLimpiarPartida.Click += new System.EventHandler(this.btnLimpiarPartida_Click);
             // 
             // label16
             // 
@@ -3744,7 +3578,7 @@ namespace PV
             this.guna2GradientPanel4.Controls.Add(this.button11);
             this.guna2GradientPanel4.Controls.Add(this.button10);
             this.guna2GradientPanel4.Controls.Add(this.guna2Button16);
-            this.guna2GradientPanel4.Controls.Add(this.guna2Button15);
+            this.guna2GradientPanel4.Controls.Add(this.btnBuevaFactura);
             this.guna2GradientPanel4.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(19)))), ((int)(((byte)(35)))), ((int)(((byte)(95)))));
             this.guna2GradientPanel4.FillColor2 = System.Drawing.Color.SteelBlue;
             this.guna2GradientPanel4.GradientMode = System.Drawing.Drawing2D.LinearGradientMode.ForwardDiagonal;
@@ -3816,26 +3650,26 @@ namespace PV
             this.guna2Button16.TabIndex = 301;
             this.guna2Button16.Click += new System.EventHandler(this.guna2Button16_Click);
             // 
-            // guna2Button15
+            // btnBuevaFactura
             // 
-            this.guna2Button15.Animated = true;
-            this.guna2Button15.BackColor = System.Drawing.Color.Transparent;
-            this.guna2Button15.BorderRadius = 20;
-            this.guna2Button15.CheckedState.FillColor = System.Drawing.Color.Black;
-            this.guna2Button15.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
-            this.guna2Button15.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
-            this.guna2Button15.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.guna2Button15.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.guna2Button15.FillColor = System.Drawing.Color.Transparent;
-            this.guna2Button15.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.guna2Button15.ForeColor = System.Drawing.Color.White;
-            this.guna2Button15.Image = ((System.Drawing.Image)(resources.GetObject("guna2Button15.Image")));
-            this.guna2Button15.ImageSize = new System.Drawing.Size(35, 35);
-            this.guna2Button15.Location = new System.Drawing.Point(6, 25);
-            this.guna2Button15.Name = "guna2Button15";
-            this.guna2Button15.Size = new System.Drawing.Size(65, 65);
-            this.guna2Button15.TabIndex = 88;
-            this.guna2Button15.Click += new System.EventHandler(this.guna2Button15_Click);
+            this.btnBuevaFactura.Animated = true;
+            this.btnBuevaFactura.BackColor = System.Drawing.Color.Transparent;
+            this.btnBuevaFactura.BorderRadius = 20;
+            this.btnBuevaFactura.CheckedState.FillColor = System.Drawing.Color.Black;
+            this.btnBuevaFactura.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.btnBuevaFactura.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.btnBuevaFactura.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.btnBuevaFactura.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.btnBuevaFactura.FillColor = System.Drawing.Color.Transparent;
+            this.btnBuevaFactura.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.btnBuevaFactura.ForeColor = System.Drawing.Color.White;
+            this.btnBuevaFactura.Image = ((System.Drawing.Image)(resources.GetObject("btnBuevaFactura.Image")));
+            this.btnBuevaFactura.ImageSize = new System.Drawing.Size(35, 35);
+            this.btnBuevaFactura.Location = new System.Drawing.Point(6, 25);
+            this.btnBuevaFactura.Name = "btnBuevaFactura";
+            this.btnBuevaFactura.Size = new System.Drawing.Size(65, 65);
+            this.btnBuevaFactura.TabIndex = 88;
+            this.btnBuevaFactura.Click += new System.EventHandler(this.btnBuevaFactura_Click);
             // 
             // Facturas
             // 
@@ -3867,8 +3701,6 @@ namespace PV
             this.tabPage3.ResumeLayout(false);
             this.PanelPartidasRequisicion.ResumeLayout(false);
             this.PanelPartidasRequisicion.PerformLayout();
-            this.guna2Panel2.ResumeLayout(false);
-            this.guna2Panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.guna2PictureBox4)).EndInit();
             this.guna2GradientPanel3.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.guna2DataGridView1)).EndInit();
@@ -3896,7 +3728,7 @@ namespace PV
         private Guna.UI2.WinForms.Guna2GradientPanel guna2GradientPanel1;
         private Guna.UI2.WinForms.Guna2CircleButton guna2CircleButton1;
         private Guna.UI2.WinForms.Guna2Panel guna2Panel1;
-        private Guna.UI2.WinForms.Guna2Button guna2Button9;
+        private Guna.UI2.WinForms.Guna2Button btnTerminarFactura;
         private Guna.UI2.WinForms.Guna2TabControl guna2TabControl1;
         private System.Windows.Forms.TabPage tabPage2;
         private Guna.UI2.WinForms.Guna2ComboBox cmbEstatus;
@@ -3910,7 +3742,7 @@ namespace PV
         private Guna.UI2.WinForms.Guna2TextBox txtConsecutivo;
         private Guna.UI2.WinForms.Guna2Button guna2Button4;
         private Guna.UI2.WinForms.Guna2Button guna2Button1;
-        private Guna.UI2.WinForms.Guna2Button guna2Button3;
+        private Guna.UI2.WinForms.Guna2Button btnRegistrarFactura;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label19;
         private System.Windows.Forms.Label label9;
@@ -3997,14 +3829,14 @@ namespace PV
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.TextBox txtConcepto;
         private Guna.UI2.WinForms.Guna2Button guna2Button11;
-        private Guna.UI2.WinForms.Guna2Button btnSiguiente;
+        private Guna.UI2.WinForms.Guna2Button btnSiguientePartids;
         private Guna.UI2.WinForms.Guna2TextBox txtPrecio;
         private Guna.UI2.WinForms.Guna2TextBox txtCantidad;
         private Guna.UI2.WinForms.Guna2TextBox txtUnidad;
         private Guna.UI2.WinForms.Guna2TextBox txtConcepto2;
         private Guna.UI2.WinForms.Guna2TextBox txtPartida;
-        private Guna.UI2.WinForms.Guna2Button guna2Button5;
-        private Guna.UI2.WinForms.Guna2Button guna2Button6;
+        private Guna.UI2.WinForms.Guna2Button btnEliminarPartida;
+        private Guna.UI2.WinForms.Guna2Button btnLimpiarPartida;
         private System.Windows.Forms.Label label16;
         private System.Windows.Forms.Label label20;
         private System.Windows.Forms.Label label12;
@@ -4026,19 +3858,7 @@ namespace PV
         private System.Windows.Forms.ToolStripButton toolStripButton4;
         private System.Windows.Forms.ToolStripButton toolStripButton5;
         private System.Windows.Forms.Label label18;
-        private Guna.UI2.WinForms.Guna2ComboBox cmbAlmacen;
-        private System.Windows.Forms.Label label57;
-        private Guna.UI2.WinForms.Guna2Panel guna2Panel2;
-        private System.Windows.Forms.Label label58;
-        private System.Windows.Forms.Label label60;
-        private System.Windows.Forms.Label label59;
         private Guna.UI2.WinForms.Guna2PictureBox guna2PictureBox4;
-        private System.Windows.Forms.Label label61;
-        private System.Windows.Forms.Label label62;
-        private System.Windows.Forms.Label lblPedidosProveedor;
-        private System.Windows.Forms.Label lblDisponible;
-        private System.Windows.Forms.Label lblExistencias;
-        private System.Windows.Forms.Label lblPedidosCliente;
         private Guna.UI2.WinForms.Guna2Button btnDocumento;
         private Guna.UI2.WinForms.Guna2TextBox d;
         private System.Windows.Forms.TextBox txtFolioPedido;
@@ -4050,10 +3870,10 @@ namespace PV
         private Guna.UI2.WinForms.Guna2HtmlLabel guna2HtmlLabel8;
         private Guna.UI2.WinForms.Guna2Button guna2Button14;
         private Guna.UI2.WinForms.Guna2GradientPanel guna2GradientPanel4;
-        private Guna.UI2.WinForms.Guna2Button guna2Button15;
+        private Guna.UI2.WinForms.Guna2Button btnBuevaFactura;
         private Guna.UI2.WinForms.Guna2ComboBox cmbConcepto;
         private Guna.UI2.WinForms.Guna2Button guna2Button16;
-        private Guna.UI2.WinForms.Guna2Button guna2Button7;
+        private Guna.UI2.WinForms.Guna2Button btnConfirmarPartida;
         private System.Windows.Forms.Label label66;
         private Guna.UI2.WinForms.Guna2Button button10;
         private Guna.UI2.WinForms.Guna2TextBox txtSubtotal1;

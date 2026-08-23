@@ -13,12 +13,10 @@ namespace PV.Clases.Facturas
     /// [PartidaFactura].
     ///
     /// Deliberadamente NO se duplican aquí los métodos genéricos que ya
-    /// existen en otras clases DB (catálogo de documentos, información de
-    /// producto/existencias, búsqueda de clientes, movimientos de almacén,
-    /// etc.). Esos siguen viviendo en DBPedidoCliente / DBClientes /
-    /// DBAlmacenes tal como ya se usan hoy para Remision, porque son
-    /// genéricos y no dependen de esta tabla. El formulario Facturas los
-    /// sigue consumiendo igual que OrdenPedidoCliente.
+    /// existen en otras clases DB (catálogo de documentos, búsqueda de
+    /// clientes, etc.). Esos siguen viviendo en DBPedidoCliente / DBClientes
+    /// tal como ya se usan hoy, porque son genéricos y no dependen de esta
+    /// tabla. El formulario Facturas los sigue consumiendo igual.
     ///
     /// Convención seguida en todo el archivo:
     ///   - Cada método abre su propia conexión con "using" (nunca se
@@ -144,14 +142,14 @@ namespace PV.Clases.Facturas
             Control txtDiasVence, Control txtFechaVence, Control txtDivisa, Control txtTipoCambio,
             Control txtSubtotal, Control txtDescuento, Control txtRecargo, Control txtTotal, Control txtPartidas,
             Control txtNotas, Control txtElaborado, Control txtFolio, Control txtConsecutivo, Control txtAutoriza,
-            Control txtFechaAuto, Control cmbAlmacen, out string cliente, Control cmbCentroCostos, Control cmbProyecto)
+            Control txtFechaAuto, out string cliente, Control cmbCentroCostos, Control cmbProyecto)
         {
             cliente = string.Empty;
 
             const string sql = @"
                 SELECT ClaveDocumento, Estatus, Fecha, Divisa, TipoCambio, Subtotal, Descuento, Recargo, Total,
-                       TotalPartidas, Notas, Elaborado, Consecutivo, Autorizado, FechaAutoriza, UsuarioAutoriza,
-                       Almacen, ClaveProveedor, CentroCostos, IdProyecto, DiasVence, FechaVence
+                       TotalPartidas, Notas, Elaborado, Consecutivo, Autorizado, FechaAutoriza, UsuarioAutoriza
+                       , ClaveProveedor, CentroCostos, IdProyecto, DiasVence, FechaVence
                 FROM Factura
                 WHERE Folio = @Folio";
 
@@ -182,7 +180,6 @@ namespace PV.Clases.Facturas
                     txtFechaAuto.Text = dr["FechaAutoriza"] == DBNull.Value ? string.Empty : Convert.ToDateTime(dr["FechaAutoriza"]).ToString("yyyy/MM/dd");
                     txtDiasVence.Text = Txt(dr["DiasVence"]);
                     txtFechaVence.Text = dr["FechaVence"] == DBNull.Value ? string.Empty : Convert.ToDateTime(dr["FechaVence"]).ToString("yyyy/MM/dd");
-                    cmbAlmacen.Text = Txt(dr["Almacen"]);
                     cmbCentroCostos.Text = Txt(dr["CentroCostos"]);
                     cmbProyecto.Text = Txt(dr["IdProyecto"]);
 
@@ -257,15 +254,20 @@ namespace PV.Clases.Facturas
         }
 
         /// <summary>
-        /// Recalcula Subtotal/Descuento/Recargo(impuesto)/Total a partir del
-        /// detalle [PartidaFactura] y actualiza el encabezado, incluyendo
-        /// TotalPartidas. El Saldo se iguala al Total porque en este alcance
-        /// no existe todavía un módulo de abonos: cuando se implemente el
-        /// registro de abonos, ese proceso deberá ajustar Saldo = Total -
+        /// Recalcula Subtotal/Descuento/Recargo(impuesto)/Total y también
+        /// TotalPartidas a partir del detalle real [PartidaFactura], y
+        /// actualiza el encabezado. TotalPartidas ya NO se recibe como
+        /// parámetro: se calcula aquí mismo con COUNT(*) contra
+        /// PartidaFactura, igual que los demás totales, para que nunca quede
+        /// desincronizado de lo que el formulario le pase.
+        ///
+        /// El Saldo se iguala al Total porque en este alcance no existe
+        /// todavía un módulo de abonos: cuando se implemente el registro de
+        /// abonos, ese proceso deberá ajustar Saldo = Total -
         /// SUM(abonos) y UltimoAbono con el último pago, en vez de este
         /// método recalcularlo aquí.
         /// </summary>
-        public void ActualizarTotalesFactura(string folioFactura, string totalPartidas)
+        public void ActualizarTotalesFactura(string folioFactura)
         {
             const string sql = @"
                 UPDATE Factura SET
@@ -273,7 +275,7 @@ namespace PV.Clases.Facturas
                     Descuento = ISNULL((SELECT SUM(Descuento) FROM PartidaFactura WHERE FolioFactura = @Folio), 0),
                     Recargo = ISNULL((SELECT SUM(Impuesto) FROM PartidaFactura WHERE FolioFactura = @Folio), 0),
                     Total = ISNULL((SELECT SUM(Total) FROM PartidaFactura WHERE FolioFactura = @Folio), 0),
-                    TotalPartidas = @TotalPartidas
+                    TotalPartidas = ISNULL((SELECT COUNT(*) FROM PartidaFactura WHERE FolioFactura = @Folio), 0)
                 WHERE Folio = @Folio;
 
                 UPDATE Factura SET Saldo = Total WHERE Folio = @Folio;";
@@ -282,7 +284,6 @@ namespace PV.Clases.Facturas
             using (SqlCommand cmd = new SqlCommand(sql, cn))
             {
                 cmd.Parameters.AddWithValue("@Folio", Convert.ToInt32(folioFactura));
-                cmd.Parameters.AddWithValue("@TotalPartidas", string.IsNullOrWhiteSpace(totalPartidas) ? 0 : Convert.ToInt32(totalPartidas));
                 cn.Open();
                 cmd.ExecuteNonQuery();
             }
@@ -303,10 +304,11 @@ namespace PV.Clases.Facturas
         }
 
         /// <summary>
-        /// Sobrecarga usada al confirmar/bloquear la Factura y generar la
-        /// salida de almacén: además del estatus, guarda el Folio del
-        /// movimiento de inventario generado (FolioMovimiento) y, si aplica,
-        /// una referencia/comentario.
+        /// Sobrecarga usada al confirmar/bloquear la Factura: además del
+        /// estatus, guarda una referencia/comentario y el Folio de un
+        /// movimiento relacionado si lo hubiera (histórico de cuando existía
+        /// la salida de almacén; hoy Facturas.cs siempre manda este último
+        /// valor vacío porque ya no maneja inventario).
         /// </summary>
         public void ActualizarFacturaEstatus(string folioFactura, string estatus, string referencia, string folioMovimiento)
         {
@@ -441,7 +443,7 @@ namespace PV.Clases.Facturas
                     if (!dr.Read())
                         return;
 
-                    // El ValueMember del combo (ClaveProducto) es numérico:
+                    // El ValueMember del combo (ClaveServicio) es numérico:
                     // hay que convertir antes de asignar SelectedValue, o la
                     // comparación de tipos falla y no selecciona nada.
                     if (dr["ClaveProducto"] != DBNull.Value)
@@ -509,7 +511,12 @@ namespace PV.Clases.Facturas
             }
         }
 
-        /// <summary>Regresa el total de partidas restantes (usado para refrescar TotalPartidas tras eliminar).</summary>
+        /// <summary>
+        /// Regresa el total de partidas restantes. Ya NO la usa
+        /// btnEliminarPartida_Click en Facturas.cs (ActualizarTotalesFactura
+        /// calcula TotalPartidas por sí sola), pero se conserva por si algún
+        /// otro punto de la solución la necesita.
+        /// </summary>
         public string ObtenerTotalPartidasFactura(string folioFactura)
         {
             const string sql = "SELECT COUNT(*) FROM PartidaFactura WHERE FolioFactura = @Folio";
@@ -528,12 +535,19 @@ namespace PV.Clases.Facturas
         /// formulario (Facturas.ConfigurarGrillaPartidas): Folio, Partida,
         /// Producto (Concepto2), Cantidad, Subtotal, Descuento, Impuesto,
         /// Total.
+        ///
+        /// OJO: antes esta consulta hacía JOIN contra ProductosServicios
+        /// para traer la descripción; se quitó porque (a) ya no aplica,
+        /// Facturas solo captura contra el catálogo de Servicios, y (b) era
+        /// innecesario: Concepto2 ya se guarda directo en PartidaFactura al
+        /// insertar la partida (ver InsertarPartidaFactura), así que no hace
+        /// falta ningún JOIN para mostrarlo en la grilla.
         /// </summary>
         public void CargarPartidasFactura(DataGridView dgv, string folioFactura)
         {
             const string sql = @"
-                SELECT FolioFactura, Partida, P.descripcion as Concepto2, Cantidad, Subtotal, Descuento, Impuesto, Total
-                FROM PartidaFactura as PF Join ProductosServicios as p on p.claveProducto = PF.ClaveProducto
+                SELECT FolioFactura, Partida, Concepto2, Cantidad, Subtotal, Descuento, Impuesto, Total
+                FROM PartidaFactura
                 WHERE FolioFactura = @Folio
                 ORDER BY Partida";
 
@@ -578,17 +592,13 @@ namespace PV.Clases.Facturas
 
         /// <summary>
         /// Regresa las partidas de la Factura en el formato
-        /// [ClaveProducto, Cantidad, Costeo, Precio, Partida, Unidad, Total]
-        /// requerido por la salida de almacén (mismo formato que consumía
-        /// IngresarAlmacen en OrdenPedidoCliente).
+        /// [ClaveProducto, Cantidad, Costeo, Precio, Partida, Unidad, Total].
         ///
-        /// NOTA/TODO: el costo unitario ("Costeo") no se guarda en
-        /// PartidaFactura (igual que no se guardaba en PartidaRemision); en
-        /// el formulario original se tomaba de la tabla de Producto al
-        /// momento de capturar la partida. Aquí se regresa "0" como
-        /// marcador de posición — ajusta el JOIN de abajo con tu tabla
-        /// Producto real (por ejemplo Producto.CostoUnitario) si necesitas
-        /// el costeo real para el movimiento de inventario.
+        /// NOTA: ya no la usa Facturas.cs (se quitó la salida de almacén al
+        /// confirmar la factura, así que no hay nada que consuma este
+        /// formato hoy). Se conserva por si la necesitas para algún reporte
+        /// o proceso futuro; si no, es candidata a eliminarse junto con este
+        /// comentario.
         /// </summary>
         public List<List<string>> ObtenerPartidas(string folioFactura)
         {
@@ -611,9 +621,9 @@ namespace PV.Clases.Facturas
                     {
                         List<string> fila = new List<string>
                         {
-                            Txt(dr["ClaveProducto"]),   // [0] clave
+                            Txt(dr["ClaveProducto"]),   // [0] clave (ahora ClaveServicio)
                             Txt(dr["Cantidad"]),        // [1] cantidad
-                            "0",                        // [2] costeo (TODO: ver nota arriba)
+                            "0",                        // [2] costeo (no aplica a Servicios)
                             Txt(dr["Precio"]),          // [3] precio
                             Txt(dr["Partida"]),         // [4] partida
                             Txt(dr["Unidad"]),          // [5] unidad
@@ -630,10 +640,9 @@ namespace PV.Clases.Facturas
         /// <summary>
         /// Llena cmbDocumento con los documentos del catálogo aplicables a
         /// Factura (Tarea = 'Factura'), mostrando "Clave - Nombre" como texto
-        /// plano de cada item (mismo patrón que SeleccionarCategorias /
-        /// SeleccionarDivisa en DBProductosServicios: un combo de solo texto,
-        /// sin DataSource/ValueMember, porque cmbDocumento.Text ya se usa así
-        /// más adelante en cmbDocumento_SelectedIndexChanged).
+        /// plano de cada item (un combo de solo texto, sin
+        /// DataSource/ValueMember, porque cmbDocumento.Text ya se usa así más
+        /// adelante en cmbDocumento_SelectedIndexChanged).
         /// </summary>
         public void SeleccionarFactura(ComboBox cb)
         {

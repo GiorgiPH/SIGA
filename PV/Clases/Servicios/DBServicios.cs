@@ -96,7 +96,7 @@ namespace PV.Clases.Servicios
 
                 if (contador <= 0)
                 {
-                   
+
 
                     if (Foto.Image == null)
                     {
@@ -169,7 +169,7 @@ namespace PV.Clases.Servicios
                         // Ejecutar el comando
                         cmd.ExecuteNonQuery();
 
-                        
+
                     }
                     mensaje = "Registro guardado.";
                 }
@@ -180,16 +180,16 @@ namespace PV.Clases.Servicios
                     {
                         string Inventariable = string.Empty;
 
-                        
+
 
                         if (Foto.Image == null)
                         {
-                            cmd = new SqlCommand("Update Servicios set Alias='" + txtAlias + "', Descripcion='" + txtDescripcion + "', Estatus='" + cmbEstatus + "', Inventariable='" + Inventariable + "', Categoria= '" + txtCategoria + "', Familia= '" + txtFamilia + "', TipoCosteo='" + cmbTipoCosteo + "', CostoUnitario='" + txtCostoUnitario + "', Divisa='" + cmbDivisa + "', DescuentoPorc='" + txtDescuentoPorc + "', DescuentoCant='" + txtDescuentoCant + "', ImpuestoPorc='" + txtImpuestoPorc + "', ImpuestoCant='" + txtImpuestoCant + "', PrecioVenta='" + txtPrecioVenta + "', ConceptoGlobales='" + Concepto + "', IEPS = '"+IEPS+"', CuentaContable='"+CuentaContable+"' where ClaveServicio= '" + txtClaveProducto + "'", cn);
+                            cmd = new SqlCommand("Update Servicios set Alias='" + txtAlias + "', Descripcion='" + txtDescripcion + "', Estatus='" + cmbEstatus + "', Inventariable='" + Inventariable + "', Categoria= '" + txtCategoria + "', Familia= '" + txtFamilia + "', TipoCosteo='" + cmbTipoCosteo + "', CostoUnitario='" + txtCostoUnitario + "', Divisa='" + cmbDivisa + "', DescuentoPorc='" + txtDescuentoPorc + "', DescuentoCant='" + txtDescuentoCant + "', ImpuestoPorc='" + txtImpuestoPorc + "', ImpuestoCant='" + txtImpuestoCant + "', PrecioVenta='" + txtPrecioVenta + "', ConceptoGlobales='" + Concepto + "', IEPS = '" + IEPS + "', CuentaContable='" + CuentaContable + "' where ClaveServicio= '" + txtClaveProducto + "'", cn);
                             cmd.ExecuteNonQuery();
                         }
                         else
                         {
-                            cmd = new SqlCommand("Update Servicios set Alias='" + txtAlias + "', Descripcion='" + txtDescripcion + "', Estatus='" + cmbEstatus + "', Inventariable='" + Inventariable + "', Categoria= '" + txtCategoria + "', Familia= '" + txtFamilia + "', TipoCosteo='" + cmbTipoCosteo + "', CostoUnitario='" + txtCostoUnitario + "', Divisa='" + cmbDivisa + "', DescuentoPorc='" + txtDescuentoPorc + "', DescuentoCant='" + txtDescuentoCant + "', ImpuestoPorc='" + txtImpuestoPorc + "', ImpuestoCant='" + txtImpuestoCant + "', PrecioVenta='" + txtPrecioVenta + "', Foto=@Foto, ConceptoGlobales='" + Concepto + "', IEPS = '"+IEPS+"', CuentaContable='"+CuentaContable+"' where ClaveServicio= '" + txtClaveProducto + "'", cn);
+                            cmd = new SqlCommand("Update Servicios set Alias='" + txtAlias + "', Descripcion='" + txtDescripcion + "', Estatus='" + cmbEstatus + "', Inventariable='" + Inventariable + "', Categoria= '" + txtCategoria + "', Familia= '" + txtFamilia + "', TipoCosteo='" + cmbTipoCosteo + "', CostoUnitario='" + txtCostoUnitario + "', Divisa='" + cmbDivisa + "', DescuentoPorc='" + txtDescuentoPorc + "', DescuentoCant='" + txtDescuentoCant + "', ImpuestoPorc='" + txtImpuestoPorc + "', ImpuestoCant='" + txtImpuestoCant + "', PrecioVenta='" + txtPrecioVenta + "', Foto=@Foto, ConceptoGlobales='" + Concepto + "', IEPS = '" + IEPS + "', CuentaContable='" + CuentaContable + "' where ClaveServicio= '" + txtClaveProducto + "'", cn);
                             cmd.Parameters.Add("@Foto", SqlDbType.Image);
                             System.IO.MemoryStream ms = new System.IO.MemoryStream();
                             Foto.Image.Save(ms, System.Drawing.Imaging.ImageFormat.Jpeg);
@@ -514,6 +514,63 @@ namespace PV.Clases.Servicios
                 throw new Exception("Error al obtener productos por orden: " + ex.Message);
             }
             return dt;
+        }
+
+        //_________________________________________________________________________________________________________________________--
+        // Información de un servicio para precargar la captura de partidas
+        // (usado por Facturas.cs). Sustituye a DBPedidoCliente.InformacionRecibo,
+        // que consultaba Productos/Servicios + Almacenes; aquí se consulta
+        // únicamente la tabla Servicios, sin existencias ni pedidos de
+        // almacén, ya que Facturas dejó de manejar esa lógica.
+        //
+        // Se busca por Descripcion porque así es como cmbConcepto expone su
+        // .Text (DisplayMember = "Descripcion"). Se usa un SqlDataReader
+        // local (no el campo de clase "dr") para no interferir con otros
+        // métodos de esta clase que reutilizan ese campo.
+        //
+        // Índices del arreglo devuelto:
+        //   [0] Descripcion  (concepto amplio -> txtConcepto2)
+        //   [1] ClaveServicio(clave           -> txtConcepto)
+        //   [2] PrecioVenta  (precio unitario  -> txtPrecio)
+        //   [3] Unidad       (fija "Servicio", la tabla Servicios no maneja unidad)
+        //   [4] ImpuestoPorc (%                -> txtImpuesto1)
+        //   [5] DescuentoPorc(%                -> txtDescuento1)
+        // Devuelve null si no encuentra el servicio o si ocurre un error.
+        public string[] InformacionServicio(string descripcion)
+        {
+            string[] resultado = null;
+
+            try
+            {
+                using (SqlCommand comando = new SqlCommand(
+                    "SELECT ClaveServicio, Descripcion, PrecioVenta, ImpuestoPorc, DescuentoPorc " +
+                    "FROM Servicios WHERE Descripcion = @Descripcion", cn))
+                {
+                    comando.Parameters.AddWithValue("@Descripcion", descripcion);
+
+                    using (SqlDataReader lector = comando.ExecuteReader())
+                    {
+                        if (lector.Read())
+                        {
+                            resultado = new string[]
+                            {
+                                lector["Descripcion"].ToString(),
+                                lector["ClaveServicio"].ToString(),
+                                lector["PrecioVenta"].ToString(),
+                                "Servicio",
+                                lector["ImpuestoPorc"].ToString(),
+                                lector["DescuentoPorc"].ToString()
+                            };
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al obtener la información del servicio: " + ex.ToString());
+            }
+
+            return resultado;
         }
     }
 }

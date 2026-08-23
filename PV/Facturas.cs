@@ -2,15 +2,13 @@
 using Condominios.Clases.RegistrarIngresos;
 using Guna.UI2.WinForms;
 using PuntoVentas.Clases.Login;
-using PuntoVentas.Clases.ProductosServicios;
 using PV.Clases;
-using PV.Clases.Almacenes;
 using PV.Clases.CentroCostos;
 using PV.Clases.Clientes;
 using PV.Clases.Facturas;
 using PV.Clases.PedidoCliente;
+using PV.Clases.Servicios;
 using System;
-using System.Collections.Generic;
 using System.Data;
 using System.Drawing;
 using System.Windows.Forms;
@@ -23,9 +21,21 @@ namespace PV
     /// parecido casi total en nombres de método/control), y retirando por
     /// completo la vinculación a Pedido a Cliente (txtFolioPedido, el botón
     /// de documento vinculado "d"/btnDocumento/label66, y la validación de
-    /// cantidad pendiente contra un pedido). Si tu Designer copiado todavía
-    /// tiene esos controles, esta clase simplemente no los referencia; puedes
-    /// dejarlos ocultos o quitarlos del diseñador cuando gustes.
+    /// cantidad pendiente contra un pedido).
+    ///
+    /// Ajuste posterior: Facturas ya NO trabaja contra el catálogo de
+    /// Productos y Servicios ni contra Almacenes/Inventario. El concepto de
+    /// la partida se toma únicamente del catálogo de Servicios (DBServicios),
+    /// y se retiró toda la lógica de existencias, selección de almacén y
+    /// movimiento de salida de inventario al confirmar la factura.
+    ///
+    /// Ajuste posterior 2: cada acción que inserta, edita o elimina una
+    /// PartidaFactura vuelve a llamar a DBFacturas.ActualizarTotalesFactura
+    /// (que ahora recalcula TotalPartidas por sí sola, vía COUNT(*), y ya no
+    /// recibe ese valor como parámetro) seguido de DBFacturas.ReciboSaldos,
+    /// para que los campos globales del encabezado (Subtotal, Descuento,
+    /// Recargo, Total, Partidas) se vean actualizados de inmediato sin
+    /// esperar a que el formulario reciba el evento Activated.
     /// </summary>
     public partial class Facturas : Form
     {
@@ -38,14 +48,14 @@ namespace PV
 
         // Compartidas/genéricas: se siguen usando igual que en OrdenPedidoCliente
         // porque no dependen de la tabla Remision/Factura (catálogo de
-        // documentos, información de producto, movimientos de almacén,
-        // búsqueda de clientes, etc.)
+        // documentos, búsqueda de clientes, etc.)
         DBPedidoCliente c = new DBPedidoCliente();
-        DBAlmacenes a = new DBAlmacenes();
         DBClientes cl = new DBClientes();
         DBCentroCostos cc = new DBCentroCostos();
         DBDatosProyecto dp = new DBDatosProyecto();
-        DBProductosServicios pServ = new DBProductosServicios();
+
+        // Facturas ahora solo trabaja contra el catálogo de Servicios.
+        DBServicios srv = new DBServicios();
 
         private bool mostrarCentroCosto = false;
 
@@ -55,7 +65,7 @@ namespace PV
 
             ToolTip T = new ToolTip();
             label18.Text = "Factura";
-            T.SetToolTip(guna2Button15, "Nueva Factura");
+            T.SetToolTip(btnBuevaFactura, "Nueva Factura");
             T.SetToolTip(guna2Button16, "Consultar Factura");
             T.SetToolTip(button10, "Imprimir Factura");
             T.SetToolTip(btnCliente, "Buscar Cliente");
@@ -66,6 +76,8 @@ namespace PV
             if (d != null) d.Visible = false;
             if (btnDocumento != null) btnDocumento.Visible = false;
             if (label66 != null) label66.Visible = false;
+
+
 
             c.BuscarProveedor(guna2DataGridView2);
         }
@@ -82,7 +94,6 @@ namespace PV
             f.CargarFacturas(DataGridView2, txtFiltro.Text, txtFiltroDocumento.Text, txtFiltroNombre.Text, true);
 
             f.SeleccionarFactura(cmbDocumento);
-            a.SeleccionarAlmacen(cmbAlmacen);
 
             cmbEstatus.SelectedIndex = 0;
             txtFecha.Text = DateTime.Today.ToString("yyyy/MM/dd");
@@ -341,7 +352,7 @@ namespace PV
 
         #region Encabezado - alta / limpieza
 
-        private void guna2Button3_Click(object sender, EventArgs e)
+        private void btnRegistrarFactura_Click(object sender, EventArgs e)
         {
             if (txtDiasVence.Text == string.Empty)
             {
@@ -363,13 +374,6 @@ namespace PV
                 MessageBox.Show("Registre el Documento para continuar");
                 return;
             }
-            if (string.IsNullOrEmpty(cmbAlmacen.Text))
-            {
-                MessageBox.Show("Selecciona un almacén");
-                return;
-            }
-
-            string almacen = cmbAlmacen.Text.Split('-')[0];
 
             if (string.IsNullOrEmpty(txtFolio.Text))
             {
@@ -388,12 +392,16 @@ namespace PV
                     }
                 }
 
+                // Facturas ya no maneja almacenes: se conserva el parámetro
+                // por compatibilidad con la firma de DBFacturas.InsertarFactura,
+                // pero se envía vacío en vez del almacén seleccionado (la
+                // columna Almacen acepta NULL vía IntOrNull, así que esto es
+                // seguro).
                 f.InsertarFactura(txtFolio, txtClave.Text, cmbEstatus.Text, txtFecha.Text, txtDiasVence.Text,
                     txtFechaVence.Text, txtMatricular.Text, txtDivisa1.Text, txtTipoCambio1.Text, txtNotas.Text,
-                    txtElaborado.Text, txtConsecutivo.Text, almacen, centroCosto, proyecto);
+                    txtElaborado.Text, txtConsecutivo.Text, string.Empty, centroCosto, proyecto);
             }
 
-            cmbAlmacen.Enabled = false;
             TxtFolio2.Text = txtFolio.Text;
             guna2TabControl1.SelectedIndex = 1;
 
@@ -429,7 +437,6 @@ namespace PV
             cmbDocumento.Text = null;
             cmbDocumento.Enabled = false;
             txtDiasVence.Enabled = false;
-            cmbAlmacen.Enabled = false;
             txtFecha.Enabled = false;
             btnCliente.Enabled = false;
             txtNotas.Enabled = false;
@@ -444,13 +451,12 @@ namespace PV
             txtNotas.BackColor = Color.White;
 
             cmbConcepto.SelectedIndex = -1;
-            cmbAlmacen.SelectedIndex = -1;
             cmbCentroCostos.SelectedIndex = -1;
             cmbproyecto.SelectedIndex = -1;
 
             PanelPartidasRequisicion.Visible = false;
             guna2TabControl1.SelectedIndex = 0;
-            guna2DataGridView1.Rows.Clear();
+            guna2DataGridView1.DataSource = null;
         }
 
         private void guna2Button1_Click(object sender, EventArgs e)
@@ -466,15 +472,14 @@ namespace PV
         {
             LimpiarPartida();
             Limpiar();
-            guna2DataGridView1.Rows.Clear();
+            guna2DataGridView1.DataSource = null;
             cmbDocumento.Enabled = true;
             txtDiasVence.Enabled = true;
             txtNotas.Enabled = true;
-            cmbAlmacen.Enabled = true;
             cmbDocumento.Focus();
         }
 
-        private void guna2Button15_Click(object sender, EventArgs e)
+        private void btnBuevaFactura_Click(object sender, EventArgs e)
         {
             if (!string.IsNullOrEmpty(TxtFolio2.Text) && cmbEstatus.Text == "Abierto")
             {
@@ -487,7 +492,6 @@ namespace PV
 
             Limpiar();
             cmbDocumento.Enabled = true;
-            cmbAlmacen.Enabled = true;
             txtDiasVence.Enabled = true;
             txtFecha.Enabled = true;
             txtNotas.Enabled = true;
@@ -526,56 +530,26 @@ namespace PV
             if (cmbConcepto.Text == string.Empty)
                 return;
 
-            // Facturas no maneja vinculación a Pedido a Cliente: siempre se
-            // usa la consulta genérica de producto (equivalente a la rama
-            // "sin folio de pedido" del formulario original).
-            string[] valores = c.InformacionRecibo(cmbConcepto.Text, string.Empty);
+            // Facturas ahora trabaja únicamente contra el catálogo de
+            // Servicios (ya no contra Productos/Servicios + Almacenes), así
+            // que la información se obtiene de DBServicios en vez de
+            // DBPedidoCliente.InformacionRecibo.
+            string[] valores = srv.InformacionServicio(cmbConcepto.Text);
+            if (valores == null)
+                return;
+
             txtConcepto2.Text = valores[0];
             txtConcepto.Text = valores[1];
-            txtPrecio.Text = valores[11];
+            txtPrecio.Text = valores[2];
             txtUnidad.Text = valores[3];
             txtImpuesto1.Text = valores[4];
-            txtDescuento1.Text = valores[12];
-            lblExistencias.Text = valores[5];
-            lblPedidosProveedor.Text = valores[7];
-            lblPedidosCliente.Text = valores[8];
+            txtDescuento1.Text = valores[5];
             txtCantidad.Text = "1";
 
             Calcular();
         }
 
-        private bool ValidarExistencias()
-        {
-            decimal existencias;
-            decimal cantidad;
-
-            if (!decimal.TryParse(lblExistencias.Text, out existencias))
-            {
-                MessageBox.Show("No fue posible obtener las existencias del producto seleccionado.", "Error",
-                    MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return false;
-            }
-
-            if (!decimal.TryParse(txtCantidad.Text, out cantidad))
-            {
-                MessageBox.Show("La cantidad capturada no es válida.", "Error",
-                    MessageBoxButtons.OK, MessageBoxIcon.Error);
-                txtCantidad.Focus();
-                return false;
-            }
-
-            if (cantidad > existencias)
-            {
-                MessageBox.Show("No hay suficiente inventario del producto seleccionado.", "Inventario insuficiente",
-                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                txtCantidad.Focus();
-                return false;
-            }
-
-            return true;
-        }
-
-        private void btnConfirmar_Click(object sender, EventArgs e)
+        private void btnConfirmarPartida_Click(object sender, EventArgs e)
         {
             if (cmbConcepto.Text == string.Empty)
             {
@@ -602,10 +576,10 @@ namespace PV
 
             CargarPartidas();
             PanelPartidasRequisicion.Visible = false;
-            guna2Button9.Visible = true;
+            btnTerminarFactura.Visible = true;
         }
 
-        private void btnSiguiente_Click(object sender, EventArgs e)
+        private void btnSiguientePartida_Click(object sender, EventArgs e)
         {
             if (cmbConcepto.Text == string.Empty)
             {
@@ -627,17 +601,22 @@ namespace PV
             LimpiarPartida();
         }
 
-        /// <summary>Inserta la partida actualmente capturada y refresca los totales del encabezado.</summary>
+        /// <summary>
+        /// Inserta la partida actualmente capturada. Toda inserción de
+        /// partida es una modificación a PartidaFactura, así que aquí mismo
+        /// se recalculan los totales del encabezado
+        /// (ActualizarTotalesFactura, que ahora también recalcula
+        /// TotalPartidas por sí sola vía COUNT(*)) y se refrescan los campos
+        /// globales del encabezado (ReciboSaldos), sin esperar a que el
+        /// formulario reciba Activated.
+        /// </summary>
         private bool GuardarPartidaActual()
         {
             if (cmbConcepto.SelectedValue == null || cmbConcepto.SelectedValue == DBNull.Value)
             {
-                MessageBox.Show("Seleccione un producto válido del catálogo antes de continuar.");
+                MessageBox.Show("Seleccione un servicio válido del catálogo antes de continuar.");
                 return false;
             }
-
-            if (!ValidarExistencias())
-                return false;
 
             f.InsertarPartidaFactura(
                 TxtFolio2.Text,
@@ -654,7 +633,9 @@ namespace PV
                 Convert.ToDecimal(txtPrecio.Text),
                 Convert.ToDecimal(txtImpuesto1.Text));
 
-            f.ActualizarTotalesFactura(TxtFolio2.Text, txtPartida.Text);
+            f.ActualizarTotalesFactura(TxtFolio2.Text);
+            f.ReciboSaldos(TxtFolio2.Text, txtSubtotal, txtDescuento, txtRecargo, txtTotal, txtPartidas);
+
             return true;
         }
 
@@ -663,7 +644,8 @@ namespace PV
             int partida = Convert.ToInt32(txtPartida.Text) - 1;
             if (partida > 0)
             {
-                f.ActualizarTotalesFactura(TxtFolio2.Text, partida.ToString());
+                f.ActualizarTotalesFactura(TxtFolio2.Text);
+                f.ReciboSaldos(TxtFolio2.Text, txtSubtotal, txtDescuento, txtRecargo, txtTotal, txtPartidas);
             }
             PanelPartidasRequisicion.Visible = false;
         }
@@ -673,12 +655,12 @@ namespace PV
             PanelPartidasRequisicion.Visible = false;
         }
 
-        private void guna2Button6_Click(object sender, EventArgs e)
+        private void btnLimpiarPartida_Click(object sender, EventArgs e)
         {
             LimpiarPartida();
         }
 
-        private void guna2Button5_Click(object sender, EventArgs e)
+        private void btnEliminarPartida_Click(object sender, EventArgs e)
         {
             if (string.IsNullOrEmpty(txtPartida.Text))
             {
@@ -692,8 +674,15 @@ namespace PV
                 MessageBox.Show(mensaje);
             }
 
-            string totalPartidas = f.ObtenerTotalPartidasFactura(TxtFolio2.Text);
-            f.ActualizarTotalesFactura(TxtFolio2.Text, totalPartidas);
+            // Eliminar una partida también es una modificación a
+            // PartidaFactura: se recalculan los totales del encabezado
+            // (TotalPartidas ya se autocalcula dentro de
+            // ActualizarTotalesFactura, ya no se le pasa por parámetro) y se
+            // refrescan tanto los campos globales del encabezado
+            // (ReciboSaldos) como el panel de totales "en vivo" de la
+            // captura de partidas (ReciboSaldosPartidas).
+            f.ActualizarTotalesFactura(TxtFolio2.Text);
+            f.ReciboSaldos(TxtFolio2.Text, txtSubtotal, txtDescuento, txtRecargo, txtTotal, txtPartidas);
             f.ReciboSaldosPartidas(TxtFolio2.Text, txtSubtotalR, txtDescuentoR, txtTotalR, txtImpuestoR);
 
             ConfigurarPartida(true);
@@ -707,14 +696,16 @@ namespace PV
         }
 
         /// <summary>
-        /// Llena cmbConcepto con el catálogo de productos activos usando el
-        /// util genérico ComboUtil.LlenarComboBox (mismo patrón que se usa en
-        /// otros formularios, p.ej. cmbCuentaBancaria con ObtenerCuentasBancarias).
+        /// Llena cmbConcepto con el catálogo de Servicios activos usando el
+        /// util genérico ComboUtil.LlenarComboBox. Antes se usaba
+        /// DBProductosServicios.ObtenerProductos(); ahora se usa
+        /// DBServicios.ObtenerProductosGasto(), que ya filtra
+        /// Estatus = 'Activo' y expone las columnas ClaveServicio/Descripcion.
         /// </summary>
         private void CargarComboProductos()
         {
-            DataTable dtProductos = pServ.ObtenerProductos();
-            ComboUtil.LlenarComboBox(cmbConcepto, dtProductos, "Descripcion", "ClaveProducto");
+            DataTable dtServicios = srv.ObtenerProductosGasto();
+            ComboUtil.LlenarComboBox(cmbConcepto, dtServicios, "Descripcion", "ClaveServicio");
         }
 
         void LimpiarPartida()
@@ -727,10 +718,6 @@ namespace PV
             txtImpuesto1.Text = "0.00";
             txtImpuestoIm.Text = "0.00";
             cmbConcepto.SelectedIndex = -1;
-            lblExistencias.Text = "0";
-            lblPedidosCliente.Text = "0.00";
-            lblPedidosProveedor.Text = "0.00";
-            lblDisponible.Text = "0.00";
             txtCostoUnitario.Text = "0.00";
             txtConcepto2.Text = string.Empty;
         }
@@ -747,13 +734,7 @@ namespace PV
                 txtUnidad, txtDivisa1, txtTipoCambio1, txtImporte1, txtDescuento1, txtTotal1, txtPrecio,
                 txtImpuesto1, txtEntregado, cmbConcepto);
 
-            string[] valores = c.InformacionRecibo(cmbConcepto.Text, string.Empty);
-
             cmbConcepto.SelectedIndexChanged += cmbConcepto_SelectedIndexChanged;
-
-            lblExistencias.Text = valores[5];
-            lblPedidosProveedor.Text = valores[7];
-            lblPedidosCliente.Text = valores[8];
 
             PanelPartidasRequisicion.Visible = true;
             txtPartida.Text = partida;
@@ -766,10 +747,10 @@ namespace PV
             label56.Visible = bloquear;
             txtEntregado.Visible = bloquear;
 
-            guna2Button5.Visible = !bloquear;
-            guna2Button6.Visible = !bloquear;
-            guna2Button7.Visible = !bloquear;
-            btnSiguiente.Visible = !bloquear;
+            btnEliminarPartida.Visible = !bloquear;
+            btnLimpiarPartida.Visible = !bloquear;
+            btnConfirmarPartida.Visible = !bloquear;
+            btnSiguientePartids.Visible = !bloquear;
 
             txtCantidad.Enabled = !bloquear;
             txtUnidad.Enabled = !bloquear;
@@ -923,9 +904,9 @@ namespace PV
 
         #endregion
 
-        #region Confirmación (bloqueo) + salida de almacén
+        #region Confirmación (bloqueo)
 
-        private void guna2Button9_Click(object sender, EventArgs e)
+        private void btnTerminarFactura_Click(object sender, EventArgs e)
         {
             if (txtDiasVence.Text == string.Empty)
             {
@@ -951,18 +932,21 @@ namespace PV
             Matricula = string.Empty;
             cmbEstatus.Text = "Bloqueado";
 
-            string almacen = cmbAlmacen.Text.Split('-')[0];
-            List<List<string>> lista = f.ObtenerPartidas(TxtFolio2.Text);
-            string folioMovimiento = IngresarAlmacen(lista, almacen);
-            f.ActualizarFacturaEstatus(TxtFolio2.Text, "Bloqueado", "", folioMovimiento);
+            // Facturas ya no genera movimiento de salida de almacén (no
+            // maneja inventario): solo se actualiza el estatus del
+            // encabezado. Se conserva el parámetro de folio de movimiento
+            // vacío por compatibilidad con la firma de
+            // DBFacturas.ActualizarFacturaEstatus (la columna FolioMovimiento
+            // acepta NULL vía IntOrNull, así que esto es seguro).
+            f.ActualizarFacturaEstatus(TxtFolio2.Text, "Bloqueado", "", string.Empty);
 
-            MessageBox.Show("Se realizo exitosamente la salida");
+            MessageBox.Show("La factura se confirmó exitosamente");
 
-            if (MessageBox.Show("¿Imprimir Documento?", "Documento", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+            /*if (MessageBox.Show("¿Imprimir Documento?", "Documento", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
             {
                 ReporteFactura r = new ReporteFactura(txtFolio.Text, txtMatricular.Text);
                 r.ShowDialog();
-            }
+            }*/
 
             Limpiar();
             LimpiarPartida();
@@ -971,42 +955,7 @@ namespace PV
             f.CargarFacturas(DataGridView2, txtFiltro.Text, txtFiltroDocumento.Text, txtFiltroNombre.Text, true);
 
             guna2TabControl1.SelectedIndex = 0;
-            guna2Button9.Visible = false;
-        }
-
-        /// <summary>
-        /// Genera el movimiento de salida de almacén para la Factura
-        /// confirmada. Se reutiliza tal cual la infraestructura genérica de
-        /// movimientos (ValidarDocumentoSPR / RegistroMovimientoInventario /
-        /// RegistroProductoSalidas / RegistroPartida / ActualizarMovimientoJ)
-        /// que ya usa OrdenPedidoCliente para Remision, únicamente cambiando
-        /// el origen de las partidas a f.ObtenerPartidas (PartidaFactura).
-        /// </summary>
-        private string IngresarAlmacen(List<List<string>> lista, string almacen)
-        {
-            TextBox t = new TextBox();
-            c.ValidarDocumentoSPR();
-
-            string folio = c.RegistroMovimientoInventario("", "S", "SPR", txtFecha.Text, cmbEstatus.Text, "",
-                almacen, lista.Count.ToString(), txtDivisa.Text, txtTipoCambio.Text.Replace(",", ""),
-                txtTotal.Text.Replace(",", ""), txtNotas.Text, txtElaborado.Text, t, "", "", "", "", "");
-
-            for (int i = 0; i < lista.Count; i++)
-            {
-                string clave = lista[i][0];
-                string cantidad = lista[i][1];
-                string precio = lista[i][3];
-                string unidad = lista[i][5];
-                string total = lista[i][6];
-
-                c.RegistroProductoSalidas(clave, cantidad.Replace(",", ""), almacen);
-                c.RegistroPartida(t.Text, "S", "SPR", (i + 1).ToString(), clave, cantidad.Replace(",", ""), unidad,
-                    Convert.ToDecimal(precio.Replace(",", "")), txtDivisa.Text, txtTipoCambio.Text,
-                    Convert.ToDecimal(total.Replace(",", "")), "");
-            }
-
-            c.ActualizarMovimientoJ(folio, "S", "SPR", "");
-            return folio;
+            btnTerminarFactura.Visible = false;
         }
 
         private void guna2Button4_Click(object sender, EventArgs e)
@@ -1052,13 +1001,12 @@ namespace PV
 
             f.ConsultaFactura(folio, txtClave, cmbEstatus, txtFecha, txtDiasVence, txtFechaVence, txtDivisa,
                 txtTipoCambio, txtSubtotal, txtDescuento, txtRecargo, txtTotal, txtPartidas, txtNotas, txtElaborado,
-                txtFolio, txtConsecutivo, txtAutoriza, txtFechaAuto, cmbAlmacen, out string cliente,
+                txtFolio, txtConsecutivo, txtAutoriza, txtFechaAuto, out string cliente,
                 cmbCentroCostos, cmbproyecto);
 
             cmbDocumento.Enabled = false;
             txtDiasVence.Enabled = false;
             txtNotas.Enabled = false;
-            cmbAlmacen.Enabled = false;
             TxtFolio2.Text = txtFolio.Text;
 
             txtMatricular.Text = cliente;
@@ -1094,14 +1042,14 @@ namespace PV
 
         private void button10_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrEmpty(txtFolio.Text))
+           /* if (string.IsNullOrEmpty(txtFolio.Text))
             {
                 MessageBox.Show("Es necesario seleccionar una factura");
                 return;
             }
 
             ReporteFactura r = new ReporteFactura(txtFolio.Text, txtMatricular.Text);
-            r.ShowDialog();
+            r.ShowDialog();*/
         }
 
         private void button11_Click(object sender, EventArgs e)
@@ -1221,16 +1169,16 @@ namespace PV
             guna2TabControl1.Enabled = true;
 
             guna2Button2.Visible = true;
-            guna2Button5.Visible = true;
-            guna2Button6.Visible = true;
-            guna2Button7.Visible = true;
-            btnSiguiente.Visible = true;
+            btnEliminarPartida.Visible = true;
+            btnLimpiarPartida.Visible = true;
+            btnConfirmarPartida.Visible = true;
+            btnSiguientePartids.Visible = true;
 
             guna2Button2.Enabled = true;
-            guna2Button5.Enabled = true;
-            guna2Button6.Enabled = true;
-            guna2Button7.Enabled = true;
-            btnSiguiente.Enabled = true;
+            btnEliminarPartida.Enabled = true;
+            btnLimpiarPartida.Enabled = true;
+            btnConfirmarPartida.Enabled = true;
+            btnSiguientePartids.Enabled = true;
 
             f.CargarPartidasFactura(guna2DataGridView1, TxtFolio2.Text);
         }
@@ -1238,16 +1186,16 @@ namespace PV
         private void ConfigurarConsulta()
         {
             cmbDocumento.Enabled = false;
-            guna2Button5.Visible = true;
-            guna2Button6.Visible = true;
-            guna2Button7.Visible = true;
-            btnSiguiente.Visible = true;
+            btnEliminarPartida.Visible = true;
+            btnLimpiarPartida.Visible = true;
+            btnConfirmarPartida.Visible = true;
+            btnSiguientePartids.Visible = true;
 
             guna2Button2.Enabled = false;
-            guna2Button5.Enabled = false;
-            guna2Button6.Enabled = false;
-            guna2Button7.Enabled = false;
-            btnSiguiente.Enabled = false;
+            btnEliminarPartida.Enabled = false;
+            btnLimpiarPartida.Enabled = false;
+            btnConfirmarPartida.Enabled = false;
+            btnSiguientePartids.Enabled = false;
         }
 
         /// <summary>
@@ -1331,16 +1279,12 @@ namespace PV
             }
         }
 
-        private void guna2PictureBox4_Click(object sender, EventArgs e)
-        {
-            guna2Panel2.Visible = !guna2Panel2.Visible;
-        }
 
         private void txtPartidas_TextChanged(object sender, EventArgs e)
         {
             if (cmbEstatus.Text == "Abierto" && !string.IsNullOrEmpty(txtPartidas.Text) && txtPartidas.Text != "0")
             {
-                guna2Button9.Visible = true;
+                btnTerminarFactura.Visible = true;
             }
         }
 
@@ -1352,10 +1296,10 @@ namespace PV
         // OrdenPedidoCliente.Designer.cs, así que sigue enganchando eventos a
         // nombres de método que aquí renombramos o que ya no hacen nada
         // (porque eran no-ops en el original, o dependían de la lógica de
-        // Pedido a Cliente que se retiró). En vez de editar el .Designer.cs
-        // a mano (generado por el diseñador, fácil de romper si luego abres
-        // el formulario en modo diseño), se agregan aquí los métodos que el
-        // Designer espera encontrar.
+        // Pedido a Cliente / Almacenes-Inventario que se retiró). En vez de
+        // editar el .Designer.cs a mano (generado por el diseñador, fácil de
+        // romper si luego abres el formulario en modo diseño), se agregan
+        // aquí los métodos que el Designer espera encontrar.
 
         // Eventos del formulario que renombramos:
         private void OrdenCompra2_Load(object sender, EventArgs e) => Facturas_Load(sender, e);
@@ -1372,6 +1316,10 @@ namespace PV
         private void PanelPartidasRequisicion_Paint(object sender, PaintEventArgs e) { }
         private void txtNombreAlumnno_TextChanged(object sender, EventArgs e) { }
         private void txtTipoCambio_TextChanged(object sender, EventArgs e) { }
+
+        // cmbAlmacen queda oculto y sin lógica de negocio (Facturas ya no
+        // maneja almacenes), pero el Designer copiado puede seguir teniendo
+        // el evento enganchado; se deja vacío para que compile.
         private void cmbAlmacen_SelectedIndexChanged(object sender, EventArgs e) { }
 
         // El Designer registró el TextChanged de txtSubtotal1 dos veces con
