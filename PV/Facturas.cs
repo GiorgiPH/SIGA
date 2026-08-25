@@ -86,11 +86,9 @@ namespace PV
 
         private void Facturas_Load(object sender, EventArgs e)
         {
-            ConfigurarGrillaEncabezado(dataGridView1);
             ConfigurarGrillaEncabezado(DataGridView2);
             ConfigurarGrillaPartidas(guna2DataGridView1);
 
-            f.CargarFacturas(dataGridView1, txtFiltro.Text, txtFiltroDocumento.Text, txtFiltroNombre.Text, false);
             f.CargarFacturas(DataGridView2, txtFiltro.Text, txtFiltroDocumento.Text, txtFiltroNombre.Text, true);
 
             f.SeleccionarFactura(cmbDocumento);
@@ -244,7 +242,6 @@ namespace PV
                 MessageBox.Show("Factura Autorizada");
                 Limpiar();
 
-                f.CargarFacturas(dataGridView1, txtFiltro.Text, txtFiltroDocumento.Text, txtFiltroNombre.Text, false);
                 f.CargarFacturas(DataGridView2, txtFiltro.Text, txtFiltroDocumento.Text, txtFiltroNombre.Text, true);
             }
         }
@@ -951,7 +948,6 @@ namespace PV
             Limpiar();
             LimpiarPartida();
 
-            f.CargarFacturas(dataGridView1, txtFiltro.Text, txtFiltroDocumento.Text, txtFiltroNombre.Text, false);
             f.CargarFacturas(DataGridView2, txtFiltro.Text, txtFiltroDocumento.Text, txtFiltroNombre.Text, true);
 
             guna2TabControl1.SelectedIndex = 0;
@@ -983,12 +979,7 @@ namespace PV
 
         #region Consulta / filtros / grillas de encabezado
 
-        private void dataGridView1_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
-        {
-            if (e.RowIndex == -1) return;
-            CargarEncabezadoDesdeGrilla(dataGridView1.Rows[e.RowIndex].Cells["Folio"].Value.ToString());
-        }
-
+      
         private void DataGridView2_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex == -1) return;
@@ -1032,7 +1023,6 @@ namespace PV
 
         private void RecargarGrillasFacturas()
         {
-            f.CargarFacturas(dataGridView1, txtFiltro.Text, txtFiltroDocumento.Text, txtFiltroNombre.Text, false);
             f.CargarFacturas(DataGridView2, txtFiltro.Text, txtFiltroDocumento.Text, txtFiltroNombre.Text, true);
         }
 

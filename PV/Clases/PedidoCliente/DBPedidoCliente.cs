@@ -365,7 +365,7 @@ namespace PV.Clases.PedidoCliente
         {
             cb.Items.Clear();
             using (SqlConnection cn = new SqlConnection(ObtenerCn()))
-            using (SqlCommand cmd = new SqlCommand("Select Descripcion from ProductosServicios where ClaveProducto not in (Select ClaveProducto from PartidaOrdenPedidoCliente where FolioOrden='" + Folio + "') and inventariable='Si'", cn))
+            using (SqlCommand cmd = new SqlCommand("Select Descripcion from ProductosServicios where ClaveProducto not in (Select ClaveProducto from PartidaOrdenPedidoCliente where FolioOrden='" + Folio + "')", cn))
             {
                 cn.Open();
                 using (SqlDataReader dr = cmd.ExecuteReader())

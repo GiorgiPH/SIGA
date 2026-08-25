@@ -28,12 +28,12 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(RegistroMovimientoBancos));
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle11 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle12 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle13 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle14 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle15 = new System.Windows.Forms.DataGridViewCellStyle();
             this.groupBox1 = new Guna.UI2.WinForms.Guna2GroupBox();
             this.txtImporte = new Guna.UI2.WinForms.Guna2TextBox();
             this.txtNotas = new Guna.UI2.WinForms.Guna2TextBox();
@@ -50,15 +50,15 @@
             this.label2 = new System.Windows.Forms.Label();
             this.guna2HtmlLabel1 = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.guna2GradientPanel1 = new Guna.UI2.WinForms.Guna2GradientPanel();
+            this.guna2CircleButton1 = new Guna.UI2.WinForms.Guna2CircleButton();
             this.guna2Panel1 = new Guna.UI2.WinForms.Guna2Panel();
-            this.PanelUsuario = new System.Windows.Forms.Panel();
-            this.dgvMovimientosRecientes = new Guna.UI2.WinForms.Guna2DataGridView();
-            this.btnLimpiarMovimiento = new Guna.UI2.WinForms.Guna2Button();
             this.btnConsultarMovimeintosRecientes = new Guna.UI2.WinForms.Guna2Button();
             this.btnReporteMovimientos = new Guna.UI2.WinForms.Guna2Button();
             this.btnNuevoMovimiento = new Guna.UI2.WinForms.Guna2Button();
+            this.PanelUsuario = new System.Windows.Forms.Panel();
+            this.dgvMovimientosRecientes = new Guna.UI2.WinForms.Guna2DataGridView();
+            this.btnLimpiarMovimiento = new Guna.UI2.WinForms.Guna2Button();
             this.btnConfirmarMovimiento = new Guna.UI2.WinForms.Guna2Button();
-            this.guna2CircleButton1 = new Guna.UI2.WinForms.Guna2CircleButton();
             this.groupBox1.SuspendLayout();
             this.guna2GradientPanel1.SuspendLayout();
             this.guna2Panel1.SuspendLayout();
@@ -167,6 +167,7 @@
             this.cmbTipo.Name = "cmbTipo";
             this.cmbTipo.Size = new System.Drawing.Size(261, 27);
             this.cmbTipo.TabIndex = 353;
+            this.cmbTipo.SelectedIndexChanged += new System.EventHandler(this.cmbTipo_SelectedIndexChanged);
             // 
             // cmbCuentaBancaria
             // 
@@ -207,6 +208,7 @@
             this.cmbConcepto.Name = "cmbConcepto";
             this.cmbConcepto.Size = new System.Drawing.Size(282, 27);
             this.cmbConcepto.TabIndex = 353;
+            this.cmbConcepto.SelectedIndexChanged += new System.EventHandler(this.cmbConcepto_SelectedIndexChanged);
             // 
             // dtpFecha
             // 
@@ -336,6 +338,26 @@
             this.guna2GradientPanel1.Size = new System.Drawing.Size(867, 75);
             this.guna2GradientPanel1.TabIndex = 81;
             // 
+            // guna2CircleButton1
+            // 
+            this.guna2CircleButton1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.guna2CircleButton1.BackColor = System.Drawing.Color.Transparent;
+            this.guna2CircleButton1.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.guna2CircleButton1.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.guna2CircleButton1.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.guna2CircleButton1.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.guna2CircleButton1.FillColor = System.Drawing.Color.Transparent;
+            this.guna2CircleButton1.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.guna2CircleButton1.ForeColor = System.Drawing.Color.White;
+            this.guna2CircleButton1.Image = global::PV.Properties.Resources.home;
+            this.guna2CircleButton1.ImageSize = new System.Drawing.Size(60, 60);
+            this.guna2CircleButton1.Location = new System.Drawing.Point(783, 5);
+            this.guna2CircleButton1.Name = "guna2CircleButton1";
+            this.guna2CircleButton1.ShadowDecoration.Mode = Guna.UI2.WinForms.Enums.ShadowMode.Circle;
+            this.guna2CircleButton1.Size = new System.Drawing.Size(70, 70);
+            this.guna2CircleButton1.TabIndex = 79;
+            this.guna2CircleButton1.Click += new System.EventHandler(this.guna2CircleButton1_Click);
+            // 
             // guna2Panel1
             // 
             this.guna2Panel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -350,112 +372,6 @@
             this.guna2Panel1.Name = "guna2Panel1";
             this.guna2Panel1.Size = new System.Drawing.Size(65, 339);
             this.guna2Panel1.TabIndex = 87;
-            // 
-            // PanelUsuario
-            // 
-            this.PanelUsuario.Anchor = System.Windows.Forms.AnchorStyles.Right;
-            this.PanelUsuario.BackColor = System.Drawing.Color.White;
-            this.PanelUsuario.Controls.Add(this.dgvMovimientosRecientes);
-            this.PanelUsuario.Location = new System.Drawing.Point(220, 106);
-            this.PanelUsuario.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.PanelUsuario.Name = "PanelUsuario";
-            this.PanelUsuario.Size = new System.Drawing.Size(557, 339);
-            this.PanelUsuario.TabIndex = 88;
-            this.PanelUsuario.Visible = false;
-            // 
-            // dgvMovimientosRecientes
-            // 
-            this.dgvMovimientosRecientes.AllowUserToAddRows = false;
-            this.dgvMovimientosRecientes.AllowUserToDeleteRows = false;
-            this.dgvMovimientosRecientes.AllowUserToResizeColumns = false;
-            this.dgvMovimientosRecientes.AllowUserToResizeRows = false;
-            dataGridViewCellStyle1.BackColor = System.Drawing.Color.White;
-            this.dgvMovimientosRecientes.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(19)))), ((int)(((byte)(35)))), ((int)(((byte)(95)))));
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvMovimientosRecientes.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
-            this.dgvMovimientosRecientes.ColumnHeadersHeight = 19;
-            this.dgvMovimientosRecientes.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.EnableResizing;
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle3.BackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(99)))), ((int)(((byte)(114)))), ((int)(((byte)(169)))));
-            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgvMovimientosRecientes.DefaultCellStyle = dataGridViewCellStyle3;
-            this.dgvMovimientosRecientes.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dgvMovimientosRecientes.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(229)))), ((int)(((byte)(255)))));
-            this.dgvMovimientosRecientes.Location = new System.Drawing.Point(0, 0);
-            this.dgvMovimientosRecientes.Name = "dgvMovimientosRecientes";
-            this.dgvMovimientosRecientes.ReadOnly = true;
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle4.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvMovimientosRecientes.RowHeadersDefaultCellStyle = dataGridViewCellStyle4;
-            this.dgvMovimientosRecientes.RowHeadersVisible = false;
-            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            dataGridViewCellStyle5.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle5.ForeColor = System.Drawing.Color.Black;
-            this.dgvMovimientosRecientes.RowsDefaultCellStyle = dataGridViewCellStyle5;
-            this.dgvMovimientosRecientes.Size = new System.Drawing.Size(557, 339);
-            this.dgvMovimientosRecientes.TabIndex = 0;
-            this.dgvMovimientosRecientes.ThemeStyle.AlternatingRowsStyle.BackColor = System.Drawing.Color.White;
-            this.dgvMovimientosRecientes.ThemeStyle.AlternatingRowsStyle.Font = null;
-            this.dgvMovimientosRecientes.ThemeStyle.AlternatingRowsStyle.ForeColor = System.Drawing.Color.Empty;
-            this.dgvMovimientosRecientes.ThemeStyle.AlternatingRowsStyle.SelectionBackColor = System.Drawing.Color.Empty;
-            this.dgvMovimientosRecientes.ThemeStyle.AlternatingRowsStyle.SelectionForeColor = System.Drawing.Color.Empty;
-            this.dgvMovimientosRecientes.ThemeStyle.BackColor = System.Drawing.Color.White;
-            this.dgvMovimientosRecientes.ThemeStyle.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(229)))), ((int)(((byte)(255)))));
-            this.dgvMovimientosRecientes.ThemeStyle.HeaderStyle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(88)))), ((int)(((byte)(255)))));
-            this.dgvMovimientosRecientes.ThemeStyle.HeaderStyle.BorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
-            this.dgvMovimientosRecientes.ThemeStyle.HeaderStyle.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.dgvMovimientosRecientes.ThemeStyle.HeaderStyle.ForeColor = System.Drawing.Color.White;
-            this.dgvMovimientosRecientes.ThemeStyle.HeaderStyle.HeaightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.EnableResizing;
-            this.dgvMovimientosRecientes.ThemeStyle.HeaderStyle.Height = 19;
-            this.dgvMovimientosRecientes.ThemeStyle.ReadOnly = true;
-            this.dgvMovimientosRecientes.ThemeStyle.RowsStyle.BackColor = System.Drawing.Color.White;
-            this.dgvMovimientosRecientes.ThemeStyle.RowsStyle.BorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal;
-            this.dgvMovimientosRecientes.ThemeStyle.RowsStyle.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.dgvMovimientosRecientes.ThemeStyle.RowsStyle.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(71)))), ((int)(((byte)(69)))), ((int)(((byte)(94)))));
-            this.dgvMovimientosRecientes.ThemeStyle.RowsStyle.Height = 22;
-            this.dgvMovimientosRecientes.ThemeStyle.RowsStyle.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(229)))), ((int)(((byte)(255)))));
-            this.dgvMovimientosRecientes.ThemeStyle.RowsStyle.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(71)))), ((int)(((byte)(69)))), ((int)(((byte)(94)))));
-            // 
-            // btnLimpiarMovimiento
-            // 
-            this.btnLimpiarMovimiento.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnLimpiarMovimiento.BackColor = System.Drawing.Color.Transparent;
-            this.btnLimpiarMovimiento.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(19)))), ((int)(((byte)(35)))), ((int)(((byte)(95)))));
-            this.btnLimpiarMovimiento.BorderRadius = 20;
-            this.btnLimpiarMovimiento.BorderThickness = 1;
-            this.btnLimpiarMovimiento.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
-            this.btnLimpiarMovimiento.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
-            this.btnLimpiarMovimiento.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.btnLimpiarMovimiento.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.btnLimpiarMovimiento.FillColor = System.Drawing.Color.Transparent;
-            this.btnLimpiarMovimiento.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnLimpiarMovimiento.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(19)))), ((int)(((byte)(35)))), ((int)(((byte)(95)))));
-            this.btnLimpiarMovimiento.Image = global::PV.Properties.Resources.cancelar;
-            this.btnLimpiarMovimiento.ImageAlign = System.Windows.Forms.HorizontalAlignment.Left;
-            this.btnLimpiarMovimiento.Location = new System.Drawing.Point(479, 466);
-            this.btnLimpiarMovimiento.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.btnLimpiarMovimiento.Name = "btnLimpiarMovimiento";
-            this.btnLimpiarMovimiento.Size = new System.Drawing.Size(128, 46);
-            this.btnLimpiarMovimiento.TabIndex = 109;
-            this.btnLimpiarMovimiento.Text = "Cancelar";
-            this.btnLimpiarMovimiento.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
-            this.btnLimpiarMovimiento.TextOffset = new System.Drawing.Point(10, 0);
             // 
             // btnConsultarMovimeintosRecientes
             // 
@@ -511,6 +427,112 @@
             this.btnNuevoMovimiento.Size = new System.Drawing.Size(65, 65);
             this.btnNuevoMovimiento.TabIndex = 87;
             // 
+            // PanelUsuario
+            // 
+            this.PanelUsuario.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.PanelUsuario.BackColor = System.Drawing.Color.White;
+            this.PanelUsuario.Controls.Add(this.dgvMovimientosRecientes);
+            this.PanelUsuario.Location = new System.Drawing.Point(220, 106);
+            this.PanelUsuario.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.PanelUsuario.Name = "PanelUsuario";
+            this.PanelUsuario.Size = new System.Drawing.Size(557, 339);
+            this.PanelUsuario.TabIndex = 88;
+            this.PanelUsuario.Visible = false;
+            // 
+            // dgvMovimientosRecientes
+            // 
+            this.dgvMovimientosRecientes.AllowUserToAddRows = false;
+            this.dgvMovimientosRecientes.AllowUserToDeleteRows = false;
+            this.dgvMovimientosRecientes.AllowUserToResizeColumns = false;
+            this.dgvMovimientosRecientes.AllowUserToResizeRows = false;
+            dataGridViewCellStyle11.BackColor = System.Drawing.Color.White;
+            this.dgvMovimientosRecientes.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle11;
+            dataGridViewCellStyle12.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle12.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(19)))), ((int)(((byte)(35)))), ((int)(((byte)(95)))));
+            dataGridViewCellStyle12.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle12.ForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle12.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle12.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle12.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvMovimientosRecientes.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle12;
+            this.dgvMovimientosRecientes.ColumnHeadersHeight = 19;
+            this.dgvMovimientosRecientes.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.EnableResizing;
+            dataGridViewCellStyle13.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle13.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle13.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle13.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle13.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(99)))), ((int)(((byte)(114)))), ((int)(((byte)(169)))));
+            dataGridViewCellStyle13.SelectionForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle13.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvMovimientosRecientes.DefaultCellStyle = dataGridViewCellStyle13;
+            this.dgvMovimientosRecientes.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dgvMovimientosRecientes.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(229)))), ((int)(((byte)(255)))));
+            this.dgvMovimientosRecientes.Location = new System.Drawing.Point(0, 0);
+            this.dgvMovimientosRecientes.Name = "dgvMovimientosRecientes";
+            this.dgvMovimientosRecientes.ReadOnly = true;
+            dataGridViewCellStyle14.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle14.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle14.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle14.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle14.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle14.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle14.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvMovimientosRecientes.RowHeadersDefaultCellStyle = dataGridViewCellStyle14;
+            this.dgvMovimientosRecientes.RowHeadersVisible = false;
+            dataGridViewCellStyle15.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle15.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            dataGridViewCellStyle15.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle15.ForeColor = System.Drawing.Color.Black;
+            this.dgvMovimientosRecientes.RowsDefaultCellStyle = dataGridViewCellStyle15;
+            this.dgvMovimientosRecientes.Size = new System.Drawing.Size(557, 339);
+            this.dgvMovimientosRecientes.TabIndex = 0;
+            this.dgvMovimientosRecientes.ThemeStyle.AlternatingRowsStyle.BackColor = System.Drawing.Color.White;
+            this.dgvMovimientosRecientes.ThemeStyle.AlternatingRowsStyle.Font = null;
+            this.dgvMovimientosRecientes.ThemeStyle.AlternatingRowsStyle.ForeColor = System.Drawing.Color.Empty;
+            this.dgvMovimientosRecientes.ThemeStyle.AlternatingRowsStyle.SelectionBackColor = System.Drawing.Color.Empty;
+            this.dgvMovimientosRecientes.ThemeStyle.AlternatingRowsStyle.SelectionForeColor = System.Drawing.Color.Empty;
+            this.dgvMovimientosRecientes.ThemeStyle.BackColor = System.Drawing.Color.White;
+            this.dgvMovimientosRecientes.ThemeStyle.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(229)))), ((int)(((byte)(255)))));
+            this.dgvMovimientosRecientes.ThemeStyle.HeaderStyle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(88)))), ((int)(((byte)(255)))));
+            this.dgvMovimientosRecientes.ThemeStyle.HeaderStyle.BorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
+            this.dgvMovimientosRecientes.ThemeStyle.HeaderStyle.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dgvMovimientosRecientes.ThemeStyle.HeaderStyle.ForeColor = System.Drawing.Color.White;
+            this.dgvMovimientosRecientes.ThemeStyle.HeaderStyle.HeaightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.EnableResizing;
+            this.dgvMovimientosRecientes.ThemeStyle.HeaderStyle.Height = 19;
+            this.dgvMovimientosRecientes.ThemeStyle.ReadOnly = true;
+            this.dgvMovimientosRecientes.ThemeStyle.RowsStyle.BackColor = System.Drawing.Color.White;
+            this.dgvMovimientosRecientes.ThemeStyle.RowsStyle.BorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal;
+            this.dgvMovimientosRecientes.ThemeStyle.RowsStyle.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dgvMovimientosRecientes.ThemeStyle.RowsStyle.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(71)))), ((int)(((byte)(69)))), ((int)(((byte)(94)))));
+            this.dgvMovimientosRecientes.ThemeStyle.RowsStyle.Height = 22;
+            this.dgvMovimientosRecientes.ThemeStyle.RowsStyle.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(229)))), ((int)(((byte)(255)))));
+            this.dgvMovimientosRecientes.ThemeStyle.RowsStyle.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(71)))), ((int)(((byte)(69)))), ((int)(((byte)(94)))));
+            // 
+            // btnLimpiarMovimiento
+            // 
+            this.btnLimpiarMovimiento.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnLimpiarMovimiento.BackColor = System.Drawing.Color.Transparent;
+            this.btnLimpiarMovimiento.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(19)))), ((int)(((byte)(35)))), ((int)(((byte)(95)))));
+            this.btnLimpiarMovimiento.BorderRadius = 20;
+            this.btnLimpiarMovimiento.BorderThickness = 1;
+            this.btnLimpiarMovimiento.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.btnLimpiarMovimiento.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.btnLimpiarMovimiento.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.btnLimpiarMovimiento.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.btnLimpiarMovimiento.FillColor = System.Drawing.Color.Transparent;
+            this.btnLimpiarMovimiento.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnLimpiarMovimiento.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(19)))), ((int)(((byte)(35)))), ((int)(((byte)(95)))));
+            this.btnLimpiarMovimiento.Image = global::PV.Properties.Resources.cancelar;
+            this.btnLimpiarMovimiento.ImageAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.btnLimpiarMovimiento.Location = new System.Drawing.Point(479, 466);
+            this.btnLimpiarMovimiento.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.btnLimpiarMovimiento.Name = "btnLimpiarMovimiento";
+            this.btnLimpiarMovimiento.Size = new System.Drawing.Size(128, 46);
+            this.btnLimpiarMovimiento.TabIndex = 109;
+            this.btnLimpiarMovimiento.Text = "Cancelar";
+            this.btnLimpiarMovimiento.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.btnLimpiarMovimiento.TextOffset = new System.Drawing.Point(10, 0);
+            // 
             // btnConfirmarMovimiento
             // 
             this.btnConfirmarMovimiento.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
@@ -535,26 +557,6 @@
             this.btnConfirmarMovimiento.TabIndex = 108;
             this.btnConfirmarMovimiento.Text = "Confirmar";
             this.btnConfirmarMovimiento.TextOffset = new System.Drawing.Point(23, 0);
-            // 
-            // guna2CircleButton1
-            // 
-            this.guna2CircleButton1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.guna2CircleButton1.BackColor = System.Drawing.Color.Transparent;
-            this.guna2CircleButton1.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
-            this.guna2CircleButton1.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
-            this.guna2CircleButton1.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.guna2CircleButton1.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.guna2CircleButton1.FillColor = System.Drawing.Color.Transparent;
-            this.guna2CircleButton1.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.guna2CircleButton1.ForeColor = System.Drawing.Color.White;
-            this.guna2CircleButton1.Image = global::PV.Properties.Resources.home;
-            this.guna2CircleButton1.ImageSize = new System.Drawing.Size(60, 60);
-            this.guna2CircleButton1.Location = new System.Drawing.Point(783, 5);
-            this.guna2CircleButton1.Name = "guna2CircleButton1";
-            this.guna2CircleButton1.ShadowDecoration.Mode = Guna.UI2.WinForms.Enums.ShadowMode.Circle;
-            this.guna2CircleButton1.Size = new System.Drawing.Size(70, 70);
-            this.guna2CircleButton1.TabIndex = 79;
-            this.guna2CircleButton1.Click += new System.EventHandler(this.guna2CircleButton1_Click);
             // 
             // RegistroMovimientoBancos
             // 

@@ -172,5 +172,10 @@ namespace PV
         {
             Utilerias.Moneda2(ref txtImporte);
         }
+
+        private void cmbConcepto_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }

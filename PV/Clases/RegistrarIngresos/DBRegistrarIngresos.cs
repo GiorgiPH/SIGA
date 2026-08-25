@@ -104,52 +104,7 @@ namespace Condominios.Clases.RegistrarIngresos
             return mensaje;
         }
 
-        //____________________________________________________________________________________________________
-        public void CargarReciboAlumno2(DataGridView dgv, string Matricula, ArrayList ListaConcep)
-        {
-            try
-            {
-                dgv.Rows.Clear();
-
-                using (SqlConnection cn = AbrirConexion())
-                {
-                    foreach (object item2 in ListaConcep)
-                    {
-                        string concepto = item2.ToString();
-
-                        using (SqlCommand cmd = new SqlCommand(
-                            "select R.*, D.Nombre from Recibo as R, Documento as D where ClavePropietario=@Matricula and R.Folio=@Folio and R.ClaveDocumento=D.Clave", cn))
-                        {
-                            cmd.Parameters.AddWithValue("@Matricula", Matricula);
-                            cmd.Parameters.AddWithValue("@Folio", concepto);
-
-                            DataTable dt = new DataTable();
-                            using (SqlDataAdapter da = new SqlDataAdapter(cmd))
-                            {
-                                da.Fill(dt);
-                            }
-
-                            foreach (DataRow item in dt.Rows)
-                            {
-                                int n = dgv.Rows.Add();
-                                dgv.Rows[n].Cells[1].Value = item["Folio"].ToString();
-                                dgv.Rows[n].Cells[2].Value = item["ClaveDocumento"].ToString();
-                                dgv.Rows[n].Cells[3].Value = item["Nombre"].ToString();
-                                dgv.Rows[n].Cells[4].Value = Utilerias.FormatearMiles(item["Recargo"].ToString());
-                                dgv.Rows[n].Cells[5].Value = Utilerias.FormatearMiles(item["DescuentoPago"].ToString());
-                                dgv.Rows[n].Cells[6].Value = Utilerias.FormatearMiles(item["Saldo"].ToString());
-                                dgv.Rows[n].Cells[7].Value = Utilerias.FormatearMiles("0");
-                                dgv.Rows[n].Cells[8].Value = Utilerias.FormatearMiles("0");
-                            }
-                        }
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Error al cargar Conceptos1" + ex.ToString());
-            }
-        }
+       
 
         //____________________________________________________________________________________________________
         public void CargarPagosRemisiones(DataGridView dgv, string Matricula)

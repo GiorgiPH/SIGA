@@ -54,8 +54,8 @@ namespace PV.Clases.MovimientosBanco
                     WHERE CC.Estatus = 1
                       AND CL.Activo = 1
                       AND (
-                            (@Tipo = 'E' AND CL.Clave IN ('CARGO', 'TRASPASO', 'OTRO'))
-                         OR (@Tipo = 'I' AND CL.Clave IN ('ABONO', 'TRASPASO', 'OTRO'))
+                            (@Tipo = 'E' AND CL.IdClase = 3)
+                         OR (@Tipo = 'I' AND CL.IdClase = 2)
                           )
                     ORDER BY CC.Descripcion";
 
