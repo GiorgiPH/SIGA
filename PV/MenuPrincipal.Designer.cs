@@ -999,7 +999,7 @@
             this.GrupoTesoreria.FillColor = System.Drawing.Color.DodgerBlue;
             this.GrupoTesoreria.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.GrupoTesoreria.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(19)))), ((int)(((byte)(35)))), ((int)(((byte)(95)))));
-            this.GrupoTesoreria.Location = new System.Drawing.Point(298, 204);
+            this.GrupoTesoreria.Location = new System.Drawing.Point(625, 128);
             this.GrupoTesoreria.Name = "GrupoTesoreria";
             this.GrupoTesoreria.Size = new System.Drawing.Size(195, 460);
             this.GrupoTesoreria.TabIndex = 64;

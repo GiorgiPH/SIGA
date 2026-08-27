@@ -341,7 +341,7 @@ namespace Condominios.Clases.Documentos
             }
         }
 
-        public DataTable ConsultarDocumento(string tipo = null, string clase = null)
+        public DataTable ConsultarDocumento(string tipo = null, string clase = null, string tarea =null)
         {
             string query = "SELECT * FROM Documento WHERE 1=1";
             var parametros = new List<SqlParameter>();
@@ -355,6 +355,11 @@ namespace Condominios.Clases.Documentos
             {
                 query += " AND clase = @Clase";
                 parametros.Add(new SqlParameter("@Clase", clase));
+            }
+            if (!string.IsNullOrEmpty(tarea))
+            {
+                query += " AND tarea = @Tarea";
+                parametros.Add(new SqlParameter("@Tarea", tarea));
             }
 
             var dataTable = new DataTable();

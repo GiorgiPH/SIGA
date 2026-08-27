@@ -293,7 +293,7 @@ namespace PV
                     cmbCentroCostos.Enabled = mostrarCentroCosto;
                 }
 
-                c.ConsecutivoCompra(txtConsecutivo, txtClave.Text);
+                f.ConsecutivoFactura(txtConsecutivo, txtClave.Text);
             }
 
             txtDiasVence.Focus();

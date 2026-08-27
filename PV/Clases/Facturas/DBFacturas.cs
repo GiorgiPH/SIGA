@@ -1,8 +1,11 @@
-﻿using PV.Properties;
+﻿using Condominios;
+using PV.Properties;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
+using System.Globalization;
 using System.Windows.Forms;
 
 namespace PV.Clases.Facturas
@@ -13,10 +16,12 @@ namespace PV.Clases.Facturas
     /// [PartidaFactura].
     ///
     /// Deliberadamente NO se duplican aquí los métodos genéricos que ya
-    /// existen en otras clases DB (catálogo de documentos, búsqueda de
-    /// clientes, etc.). Esos siguen viviendo en DBPedidoCliente / DBClientes
-    /// tal como ya se usan hoy, porque son genéricos y no dependen de esta
-    /// tabla. El formulario Facturas los sigue consumiendo igual.
+    /// existen en otras clases DB (catálogo de documentos, información de
+    /// producto/existencias, búsqueda de clientes, movimientos de almacén,
+    /// etc.). Esos siguen viviendo en DBPedidoCliente / DBClientes /
+    /// DBAlmacenes tal como ya se usan hoy para Remision, porque son
+    /// genéricos y no dependen de esta tabla. El formulario Facturas los
+    /// sigue consumiendo igual que OrdenPedidoCliente.
     ///
     /// Convención seguida en todo el archivo:
     ///   - Cada método abre su propia conexión con "using" (nunca se
@@ -142,14 +147,14 @@ namespace PV.Clases.Facturas
             Control txtDiasVence, Control txtFechaVence, Control txtDivisa, Control txtTipoCambio,
             Control txtSubtotal, Control txtDescuento, Control txtRecargo, Control txtTotal, Control txtPartidas,
             Control txtNotas, Control txtElaborado, Control txtFolio, Control txtConsecutivo, Control txtAutoriza,
-            Control txtFechaAuto, out string cliente, Control cmbCentroCostos, Control cmbProyecto)
+            Control txtFechaAuto, out string cliente, ComboBox cmbCentroCostos, ComboBox cmbProyecto)
         {
             cliente = string.Empty;
 
             const string sql = @"
                 SELECT ClaveDocumento, Estatus, Fecha, Divisa, TipoCambio, Subtotal, Descuento, Recargo, Total,
-                       TotalPartidas, Notas, Elaborado, Consecutivo, Autorizado, FechaAutoriza, UsuarioAutoriza
-                       , ClaveProveedor, CentroCostos, IdProyecto, DiasVence, FechaVence
+                       TotalPartidas, Notas, Elaborado, Consecutivo, Autorizado, FechaAutoriza, UsuarioAutoriza,
+                       ClaveProveedor, CentroCostos, IdProyecto, DiasVence, FechaVence
                 FROM Factura
                 WHERE Folio = @Folio";
 
@@ -180,9 +185,19 @@ namespace PV.Clases.Facturas
                     txtFechaAuto.Text = dr["FechaAutoriza"] == DBNull.Value ? string.Empty : Convert.ToDateTime(dr["FechaAutoriza"]).ToString("yyyy/MM/dd");
                     txtDiasVence.Text = Txt(dr["DiasVence"]);
                     txtFechaVence.Text = dr["FechaVence"] == DBNull.Value ? string.Empty : Convert.ToDateTime(dr["FechaVence"]).ToString("yyyy/MM/dd");
-                    cmbCentroCostos.Text = Txt(dr["CentroCostos"]);
-                    cmbProyecto.Text = Txt(dr["IdProyecto"]);
-
+                    // CENTRO DE COSTOS
+                    if (dr["CentroCostos"] != DBNull.Value)
+                    {
+                        cmbCentroCostos.SelectedValue = dr["CentroCostos"];
+                    }
+                    else
+                    {
+                        cmbCentroCostos.SelectedIndex = -1;
+                    }
+                    if (dr["IdProyecto"] != DBNull.Value)
+                    {
+                        cmbProyecto.SelectedValue = dr["IdProyecto"];
+                    }
                     cliente = Txt(dr["ClaveProveedor"]);
                 }
             }
@@ -254,16 +269,11 @@ namespace PV.Clases.Facturas
         }
 
         /// <summary>
-        /// Recalcula Subtotal/Descuento/Recargo(impuesto)/Total y también
-        /// TotalPartidas a partir del detalle real [PartidaFactura], y
-        /// actualiza el encabezado. TotalPartidas ya NO se recibe como
-        /// parámetro: se calcula aquí mismo con COUNT(*) contra
-        /// PartidaFactura, igual que los demás totales, para que nunca quede
-        /// desincronizado de lo que el formulario le pase.
-        ///
-        /// El Saldo se iguala al Total porque en este alcance no existe
-        /// todavía un módulo de abonos: cuando se implemente el registro de
-        /// abonos, ese proceso deberá ajustar Saldo = Total -
+        /// Recalcula Subtotal/Descuento/Recargo(impuesto)/Total a partir del
+        /// detalle [PartidaFactura] y actualiza el encabezado, incluyendo
+        /// TotalPartidas. El Saldo se iguala al Total porque en este alcance
+        /// no existe todavía un módulo de abonos: cuando se implemente el
+        /// registro de abonos, ese proceso deberá ajustar Saldo = Total -
         /// SUM(abonos) y UltimoAbono con el último pago, en vez de este
         /// método recalcularlo aquí.
         /// </summary>
@@ -275,7 +285,7 @@ namespace PV.Clases.Facturas
                     Descuento = ISNULL((SELECT SUM(Descuento) FROM PartidaFactura WHERE FolioFactura = @Folio), 0),
                     Recargo = ISNULL((SELECT SUM(Impuesto) FROM PartidaFactura WHERE FolioFactura = @Folio), 0),
                     Total = ISNULL((SELECT SUM(Total) FROM PartidaFactura WHERE FolioFactura = @Folio), 0),
-                    TotalPartidas = ISNULL((SELECT COUNT(*) FROM PartidaFactura WHERE FolioFactura = @Folio), 0)
+                    TotalPartidas = ISNULL((SELECT count(*) FROM PartidaFactura WHERE FolioFactura = @Folio), 0)
                 WHERE Folio = @Folio;
 
                 UPDATE Factura SET Saldo = Total WHERE Folio = @Folio;";
@@ -304,11 +314,10 @@ namespace PV.Clases.Facturas
         }
 
         /// <summary>
-        /// Sobrecarga usada al confirmar/bloquear la Factura: además del
-        /// estatus, guarda una referencia/comentario y el Folio de un
-        /// movimiento relacionado si lo hubiera (histórico de cuando existía
-        /// la salida de almacén; hoy Facturas.cs siempre manda este último
-        /// valor vacío porque ya no maneja inventario).
+        /// Sobrecarga usada al confirmar/bloquear la Factura y generar la
+        /// salida de almacén: además del estatus, guarda el Folio del
+        /// movimiento de inventario generado (FolioMovimiento) y, si aplica,
+        /// una referencia/comentario.
         /// </summary>
         public void ActualizarFacturaEstatus(string folioFactura, string estatus, string referencia, string folioMovimiento)
         {
@@ -443,7 +452,7 @@ namespace PV.Clases.Facturas
                     if (!dr.Read())
                         return;
 
-                    // El ValueMember del combo (ClaveServicio) es numérico:
+                    // El ValueMember del combo (ClaveProducto) es numérico:
                     // hay que convertir antes de asignar SelectedValue, o la
                     // comparación de tipos falla y no selecciona nada.
                     if (dr["ClaveProducto"] != DBNull.Value)
@@ -511,12 +520,7 @@ namespace PV.Clases.Facturas
             }
         }
 
-        /// <summary>
-        /// Regresa el total de partidas restantes. Ya NO la usa
-        /// btnEliminarPartida_Click en Facturas.cs (ActualizarTotalesFactura
-        /// calcula TotalPartidas por sí sola), pero se conserva por si algún
-        /// otro punto de la solución la necesita.
-        /// </summary>
+        /// <summary>Regresa el total de partidas restantes (usado para refrescar TotalPartidas tras eliminar).</summary>
         public string ObtenerTotalPartidasFactura(string folioFactura)
         {
             const string sql = "SELECT COUNT(*) FROM PartidaFactura WHERE FolioFactura = @Folio";
@@ -535,13 +539,6 @@ namespace PV.Clases.Facturas
         /// formulario (Facturas.ConfigurarGrillaPartidas): Folio, Partida,
         /// Producto (Concepto2), Cantidad, Subtotal, Descuento, Impuesto,
         /// Total.
-        ///
-        /// OJO: antes esta consulta hacía JOIN contra ProductosServicios
-        /// para traer la descripción; se quitó porque (a) ya no aplica,
-        /// Facturas solo captura contra el catálogo de Servicios, y (b) era
-        /// innecesario: Concepto2 ya se guarda directo en PartidaFactura al
-        /// insertar la partida (ver InsertarPartidaFactura), así que no hace
-        /// falta ningún JOIN para mostrarlo en la grilla.
         /// </summary>
         public void CargarPartidasFactura(DataGridView dgv, string folioFactura)
         {
@@ -592,13 +589,17 @@ namespace PV.Clases.Facturas
 
         /// <summary>
         /// Regresa las partidas de la Factura en el formato
-        /// [ClaveProducto, Cantidad, Costeo, Precio, Partida, Unidad, Total].
+        /// [ClaveProducto, Cantidad, Costeo, Precio, Partida, Unidad, Total]
+        /// requerido por la salida de almacén (mismo formato que consumía
+        /// IngresarAlmacen en OrdenPedidoCliente).
         ///
-        /// NOTA: ya no la usa Facturas.cs (se quitó la salida de almacén al
-        /// confirmar la factura, así que no hay nada que consuma este
-        /// formato hoy). Se conserva por si la necesitas para algún reporte
-        /// o proceso futuro; si no, es candidata a eliminarse junto con este
-        /// comentario.
+        /// NOTA/TODO: el costo unitario ("Costeo") no se guarda en
+        /// PartidaFactura (igual que no se guardaba en PartidaRemision); en
+        /// el formulario original se tomaba de la tabla de Producto al
+        /// momento de capturar la partida. Aquí se regresa "0" como
+        /// marcador de posición — ajusta el JOIN de abajo con tu tabla
+        /// Producto real (por ejemplo Producto.CostoUnitario) si necesitas
+        /// el costeo real para el movimiento de inventario.
         /// </summary>
         public List<List<string>> ObtenerPartidas(string folioFactura)
         {
@@ -621,9 +622,9 @@ namespace PV.Clases.Facturas
                     {
                         List<string> fila = new List<string>
                         {
-                            Txt(dr["ClaveProducto"]),   // [0] clave (ahora ClaveServicio)
+                            Txt(dr["ClaveProducto"]),   // [0] clave
                             Txt(dr["Cantidad"]),        // [1] cantidad
-                            "0",                        // [2] costeo (no aplica a Servicios)
+                            "0",                        // [2] costeo (TODO: ver nota arriba)
                             Txt(dr["Precio"]),          // [3] precio
                             Txt(dr["Partida"]),         // [4] partida
                             Txt(dr["Unidad"]),          // [5] unidad
@@ -640,9 +641,10 @@ namespace PV.Clases.Facturas
         /// <summary>
         /// Llena cmbDocumento con los documentos del catálogo aplicables a
         /// Factura (Tarea = 'Factura'), mostrando "Clave - Nombre" como texto
-        /// plano de cada item (un combo de solo texto, sin
-        /// DataSource/ValueMember, porque cmbDocumento.Text ya se usa así más
-        /// adelante en cmbDocumento_SelectedIndexChanged).
+        /// plano de cada item (mismo patrón que SeleccionarCategorias /
+        /// SeleccionarDivisa en DBProductosServicios: un combo de solo texto,
+        /// sin DataSource/ValueMember, porque cmbDocumento.Text ya se usa así
+        /// más adelante en cmbDocumento_SelectedIndexChanged).
         /// </summary>
         public void SeleccionarFactura(ComboBox cb)
         {
@@ -661,6 +663,209 @@ namespace PV.Clases.Facturas
                         cb.Items.Add(dr["Nombre"].ToString());
                     }
                 }
+            }
+        }
+
+        /// <summary>
+        /// Carga las Facturas con saldo pendiente (Saldo != 0) de un
+        /// cliente, en el MISMO formato de celdas por índice que
+        /// DBRemiision.CargarRemisionCobro (columnas 1..9: ClaveDocumento,
+        /// Folio, Consecutivo, -, Nombre, Fecha, Total, Saldo, FechaVence),
+        /// para poder mostrarse en la misma grilla "dgvPagosPendientes"
+        /// junto con las Remisiones.
+        ///
+        /// Cada fila agregada queda marcada en su .Tag con la cadena
+        /// "Factura". Esto es necesario porque Factura.Folio y
+        /// Remision.Folio son secuencias independientes y pueden coincidir
+        /// — sin este marcador, al seleccionar filas para pagar no habría
+        /// forma de saber a qué tabla pertenece cada Folio.
+        ///
+        /// <param name="limpiarPrimero">
+        /// Si es true (default), limpia el grid antes de cargar — úsalo
+        /// cuando esta sea la única fuente de datos del grid. Si vas a
+        /// combinar con CargarRemisionCobro en el mismo grid, limpia una
+        /// sola vez desde el formulario y llama a ambos métodos con
+        /// limpiarPrimero=false.
+        /// </param>
+        /// </summary>
+        public void CargarFacturaCobro(DataGridView dgv, string matricula, bool limpiarPrimero = true)
+        {
+            try
+            {
+                NumberFormatInfo formato = new CultureInfo("en-US").NumberFormat;
+                formato.CurrencyGroupSeparator = ",";
+                formato.NumberDecimalSeparator = ".";
+
+                if (limpiarPrimero)
+                {
+                    dgv.Rows.Clear();
+                }
+
+                const string sql = @"
+                    SELECT F.*, D.Nombre
+                    FROM Factura AS F
+                    INNER JOIN Documento AS D ON F.ClaveDocumento = D.Clave
+                    WHERE F.ClaveProveedor = @Matricula AND F.Saldo <> 0";
+
+                using (SqlConnection cn = new SqlConnection(ObtenerCn()))
+                using (SqlCommand cmd = new SqlCommand(sql, cn))
+                using (SqlDataAdapter da = new SqlDataAdapter(cmd))
+                {
+                    cmd.Parameters.AddWithValue("@Matricula", matricula);
+
+                    DataTable dt = new DataTable();
+                    da.Fill(dt);
+
+                    foreach (DataRow item in dt.Rows)
+                    {
+                        int n = dgv.Rows.Add();
+                        decimal total = Convert.ToDecimal(item["Total"]);
+
+                        dgv.Rows[n].Cells[1].Value = item["ClaveDocumento"].ToString();
+                        dgv.Rows[n].Cells[2].Value = item["Folio"].ToString();
+                        dgv.Rows[n].Cells[3].Value = item["Consecutivo"].ToString();
+                        dgv.Rows[n].Cells[5].Value = item["Nombre"].ToString();
+                        dgv.Rows[n].Cells[6].Value = Convert.ToDateTime(item["Fecha"]).ToString("yyyy/MM/dd");
+                        dgv.Rows[n].Cells[7].Value = total;
+                        dgv.Rows[n].Cells[8].Value = Convert.ToDecimal(item["Saldo"]).ToString("N", formato);
+                        dgv.Rows[n].Cells[9].Value = Convert.ToDateTime(item["FechaVence"]).ToString("yyyy/MM/dd");
+
+                        dgv.Rows[n].Tag = "Factura";
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al cargar Facturas pendientes: " + ex.ToString());
+            }
+        }
+
+        /// <summary>
+        /// Equivalente a DBRemiision.CargarReciboCobroById pero para
+        /// Factura: carga en la grilla de RegistrarCobro (columnas por
+        /// índice: 1=FolioDocumento, 2=Documento(clave), 3=Concepto(nombre
+        /// del tipo de documento), 4 y 7=Importe/Saldo inicial) los folios
+        /// de Factura que el usuario seleccionó en registroIngresos.
+        ///
+        /// Cada fila agregada queda marcada con .Tag = "Factura", para que
+        /// RegistrarCobro sepa, al confirmar el cobro, que a esa fila le
+        /// corresponde actualizar Factura (no Remision) y guardar
+        /// TipoConcepto = "Factura" en Cobros.
+        /// </summary>
+        /// <param name="limpiarPrimero">
+        /// Si es true (default), limpia el grid antes de cargar. Si vas a
+        /// combinar con DBRemiision.CargarReciboCobroById en el mismo grid,
+        /// limpia una sola vez desde el formulario y llama a ambos con
+        /// limpiarPrimero=false.
+        /// </param>
+        public void CargarFacturaCobroById(DataGridView dgv, string matricula, ArrayList listaFolios, bool limpiarPrimero = true)
+        {
+            try
+            {
+                NumberFormatInfo formato = new CultureInfo("en-US").NumberFormat;
+                formato.CurrencyGroupSeparator = ",";
+                formato.NumberDecimalSeparator = ".";
+
+                if (limpiarPrimero)
+                {
+                    dgv.Rows.Clear();
+                }
+
+                using (SqlConnection cn = new SqlConnection(ObtenerCn()))
+                {
+                    cn.Open();
+
+                    const string sql = @"
+                        SELECT F.*, 0.00 AS DescuentoPago, 0.00 AS RecargosAcumulados, D.Nombre
+                        FROM Factura AS F, Documento AS D
+                        WHERE F.ClaveProveedor = @Matricula AND F.Folio = @Folio AND F.ClaveDocumento = D.Clave";
+
+                    foreach (object item2 in listaFolios)
+                    {
+                        string folio = item2.ToString();
+
+                        using (SqlCommand cmd = new SqlCommand(sql, cn))
+                        using (SqlDataAdapter da = new SqlDataAdapter(cmd))
+                        {
+                            cmd.Parameters.AddWithValue("@Matricula", matricula);
+                            cmd.Parameters.AddWithValue("@Folio", folio);
+
+                            DataTable dt = new DataTable();
+                            da.Fill(dt);
+
+                            foreach (DataRow item in dt.Rows)
+                            {
+                                int n = dgv.Rows.Add();
+                                dgv.Rows[n].Cells[1].Value = item["Folio"].ToString();
+                                dgv.Rows[n].Cells[2].Value = item["ClaveDocumento"].ToString();
+                                dgv.Rows[n].Cells[3].Value = item["Nombre"].ToString();
+                                dgv.Rows[n].Cells[4].Value = Convert.ToDecimal(item["Saldo"]).ToString("N", formato);
+                                dgv.Rows[n].Cells[7].Value = Convert.ToDecimal(item["Saldo"]).ToString("N", formato);
+
+                                dgv.Rows[n].Tag = "Factura";
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al cargar Conceptos1" + ex.ToString());
+            }
+        }
+
+        /// <summary>
+        /// Aplica un abono a una Factura: reduce el Saldo, registra el
+        /// Descuento de pago (igual semántica que DBRemiision.ActualizarRemision)
+        /// y además guarda UltimoAbono — el campo que agregamos al esquema
+        /// de Factura y que quedaba pendiente de llenar hasta que existiera
+        /// un flujo real de abonos. Este es ese flujo.
+        /// </summary>
+        public void ActualizarFacturaAbono(string folio, decimal descuento, decimal abono)
+        {
+            const string sql = @"
+                UPDATE Factura
+                SET DescuentoPago = @Descuento,
+                    Saldo = Saldo - @Abono,
+                    UltimoAbono = @Abono
+                WHERE Folio = @Folio";
+
+            using (SqlConnection cn = new SqlConnection(ObtenerCn()))
+            using (SqlCommand cmd = new SqlCommand(sql, cn))
+            {
+                cmd.Parameters.AddWithValue("@Descuento", descuento);
+                cmd.Parameters.AddWithValue("@Abono", abono);
+                cmd.Parameters.AddWithValue("@Folio", Convert.ToInt32(folio));
+                cn.Open();
+                cmd.ExecuteNonQuery();
+            }
+        }
+        public void ConsecutivoFactura(Guna.UI2.WinForms.Guna2TextBox txtConsecutivo, string ClaveDocumento)
+        {
+            try
+            {
+                using (SqlConnection cn = new SqlConnection(ObtenerCn()))
+                using (SqlCommand cmd = new SqlCommand("Select top 1 * from Factura where ClaveDocumento='" + ClaveDocumento + "' order by Consecutivo Desc", cn))
+                {
+                    cn.Open();
+                    using (SqlDataReader dr = cmd.ExecuteReader())
+                    {
+                        if (dr.Read())
+                        {
+                            int Folio = Convert.ToInt32(dr["Consecutivo"].ToString());
+                            Folio++;
+                            txtConsecutivo.Text = Folio.ToString();
+                        }
+                        else
+                        {
+                            txtConsecutivo.Text = "1";
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("ERROR" + ex.ToString());
             }
         }
 

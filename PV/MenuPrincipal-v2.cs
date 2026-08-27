@@ -10,6 +10,8 @@ namespace PV
 {
     public partial class MenuPrincipal_v2 : Form
     {
+        public static int Opcion = 0;
+        private FavoritosMenu favoritosMenu;
         public MenuPrincipal_v2()
         {
             InitializeComponent();
@@ -189,7 +191,9 @@ namespace PV
             SidebarMenuItem reportesVentas = ventas.AgregarSubMenu("Reportes");
             reportesVentas.AgregarSubMenu("Reporte diario de Pedidos Clientes");
             reportesVentas.AgregarSubMenu("Reporte diario de Remisiones", "REPORTE_DIARIO_REMISIONES");
-            reportesVentas.AgregarSubMenu("Reporte diario Facturas");
+            reportesVentas.AgregarSubMenu("Reporte diario Facturas", "REPORTE_DIARIO_FACTURAS");
+            reportesVentas.AgregarSubMenu("Reporte diario Ingresos", "REPORTE_DIARIO_INGRESOS");
+
             reportesVentas.AgregarSubMenu("Reporte diario Notas Crédito");
             reportesVentas.AgregarSubMenu("Reporte diario Notas Cargo");
             reportesVentas.AgregarSubMenu("Reporte Analítico Pedidos");
@@ -323,7 +327,26 @@ namespace PV
             flpMenu.Controls.Add(utilerias);
             flpMenu.Controls.Add(presupuesto);
 
+            favoritosMenu = new FavoritosMenu();
+            favoritosMenu.Margin = new Padding(0, 12, 0, 0);
+            favoritosMenu.Width = flpMenu.ClientSize.Width;
+            flpMenu.Controls.Add(favoritosMenu);
+
+            parametros.RegistrarFavoritos(favoritosMenu);
+            catalogos.RegistrarFavoritos(favoritosMenu);
+            inventarios.RegistrarFavoritos(favoritosMenu);
+            compras.RegistrarFavoritos(favoritosMenu);
+            ventas.RegistrarFavoritos(favoritosMenu);
+            tesoreria.RegistrarFavoritos(favoritosMenu);
+            utilerias.RegistrarFavoritos(favoritosMenu);
+            presupuesto.RegistrarFavoritos(favoritosMenu);
+
             AjustarAnchoMenu();
+
+            // El control necesita conocer al usuario antes de intentar
+            // cargar o guardar cualquier favorito.
+            favoritosMenu.UsuarioActual = DBLogin.usuario;
+            favoritosMenu.CargarFavoritosUsuario();
         }
 
         private void flpMenu_SizeChanged(object sender, EventArgs e)
@@ -346,6 +369,16 @@ namespace PV
                     opcion.Width = Math.Max(
                         0,
                         anchoDisponible - opcion.Margin.Horizontal
+                    );
+                }
+
+                FavoritosMenu favoritos = control as FavoritosMenu;
+
+                if (favoritos != null)
+                {
+                    favoritos.Width = Math.Max(
+                        0,
+                        anchoDisponible - favoritos.Margin.Horizontal
                     );
                 }
             }
@@ -528,8 +561,11 @@ namespace PV
                     case "EGRESOS_COMPRAS":
                         AbrirFormulario(new ReporteEgresosFiltro());
                         break;
+                case "REPORTE_DIARIO_INGRESOS":
+                    AbrirFormulario(new ReporteDiarioComprasFiltro("Diario Ingresos"));
+                    break;
 
-                    case "SALDO_COMPRAS":
+                case "SALDO_COMPRAS":
                         AbrirFormulario(new ReporteComprasFiltro());
                         break;
 
@@ -572,8 +608,10 @@ namespace PV
                     break;
 
                 case "REPORTE_DIARIO_REMISIONES":
-                    AbrirFormulario(new FiltroFecha("Diario Pedidos"));
+                    AbrirFormulario(new ReporteDiarioComprasFiltro("Diario Remisiones"));
                     break;
+              
+                    
 
                 case "REPORTE_UTILIDAD_PEDIDO":
                     AbrirFormulario(new FiltroFecha("Utilidad Pedido"));
@@ -585,6 +623,10 @@ namespace PV
                 case "FACTURAS":
                     AbrirFormulario(new Facturas());
                     break;
+                case "REPORTE_DIARIO_FACTURAS":
+                    AbrirFormulario(new ReporteDiarioComprasFiltro("Diario Facturas"));
+                    break;
+               
 
 
                 // TESORERÍA

@@ -165,7 +165,19 @@
       <DependentUpon>AgregarEstructura.cs</DependentUpon>
     </Compile>
     <Compile Include="Clases\Facturas\DBFacturas.cs" />
+    <Compile Include="Clases\MenuPrincipal\DBFavoritos.cs" />
     <Compile Include="Clases\MovimientosBanco\DBMovimientosBanco.cs" />
+    <Compile Include="DTSFactura.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DTSFactura.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="FavoritosMenu.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="FavoritosMenu.Designer.cs">
+      <DependentUpon>FavoritosMenu.cs</DependentUpon>
+    </Compile>
     <Compile Include="MenuPrincipal-v2.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -703,11 +715,23 @@
     <Compile Include="ReporteCuentasPorPagar.Designer.cs">
       <DependentUpon>ReporteCuentasPorPagar.cs</DependentUpon>
     </Compile>
+    <Compile Include="ReporteDiarioFacturas.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ReporteDiarioFacturas.Designer.cs">
+      <DependentUpon>ReporteDiarioFacturas.cs</DependentUpon>
+    </Compile>
     <Compile Include="ReporteDiarioGastos.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="ReporteDiarioGastos.Designer.cs">
       <DependentUpon>ReporteDiarioGastos.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ReporteDiarioIngresos.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ReporteDiarioIngresos.Designer.cs">
+      <DependentUpon>ReporteDiarioIngresos.cs</DependentUpon>
     </Compile>
     <Compile Include="ReporteDiarioP.cs">
       <SubType>Form</SubType>
@@ -720,6 +744,12 @@
     </Compile>
     <Compile Include="ReporteDiarioReembolsos.Designer.cs">
       <DependentUpon>ReporteDiarioReembolsos.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ReporteDiarioRemisiones.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ReporteDiarioRemisiones.Designer.cs">
+      <DependentUpon>ReporteDiarioRemisiones.cs</DependentUpon>
     </Compile>
     <Compile Include="ReporteFactura.cs">
       <SubType>Form</SubType>
@@ -1949,6 +1979,9 @@
     <EmbeddedResource Include="AgregarEstructura.resx">
       <DependentUpon>AgregarEstructura.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="FavoritosMenu.resx">
+      <DependentUpon>FavoritosMenu.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="MenuPrincipal-v2.resx">
       <DependentUpon>MenuPrincipal-v2.cs</DependentUpon>
     </EmbeddedResource>
@@ -2148,9 +2181,17 @@
     <EmbeddedResource Include="ReporteCuentasPorPagar.resx">
       <DependentUpon>ReporteCuentasPorPagar.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="ReporteDiarioFacturas.rdlc" />
+    <EmbeddedResource Include="ReporteDiarioFacturas.resx">
+      <DependentUpon>ReporteDiarioFacturas.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="ReporteDiarioGastos.rdlc" />
     <EmbeddedResource Include="ReporteDiarioGastos.resx">
       <DependentUpon>ReporteDiarioGastos.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ReporteDiarioIngresos.rdlc" />
+    <EmbeddedResource Include="ReporteDiarioIngresos.resx">
+      <DependentUpon>ReporteDiarioIngresos.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ReporteDiarioP.rdlc" />
     <EmbeddedResource Include="ReporteDiarioP.resx">
@@ -2159,6 +2200,10 @@
     <EmbeddedResource Include="ReporteDiarioReembolsos.rdlc" />
     <EmbeddedResource Include="ReporteDiarioReembolsos.resx">
       <DependentUpon>ReporteDiarioReembolsos.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ReporteDiarioRemisiones.rdlc" />
+    <EmbeddedResource Include="ReporteDiarioRemisiones.resx">
+      <DependentUpon>ReporteDiarioRemisiones.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ReporteFactura.resx">
       <DependentUpon>ReporteFactura.cs</DependentUpon>
@@ -3402,6 +3447,17 @@
     </None>
     <None Include="DTSConceptosCobroPago.xss">
       <DependentUpon>DTSConceptosCobroPago.xsd</DependentUpon>
+    </None>
+    <None Include="DTSFactura.xsc">
+      <DependentUpon>DTSFactura.xsd</DependentUpon>
+    </None>
+    <None Include="DTSFactura.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>DTSFactura.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="DTSFactura.xss">
+      <DependentUpon>DTSFactura.xsd</DependentUpon>
     </None>
     <None Include="DTSPolizaCompra1.xsc">
       <DependentUpon>DTSPolizaCompra1.xsd</DependentUpon>

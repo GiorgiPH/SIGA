@@ -21,15 +21,13 @@ namespace PV
     public partial class ReciboCobranza : Form
     {
         DBOrdenCompra c = new DBOrdenCompra();
-        DBClientes cl= new DBClientes();
-        DBRemiision r = new DBRemiision();
+        DBClientes cl = new DBClientes();
         string folio = string.Empty;
         string Correo = string.Empty;
         string Correo2 = string.Empty;
         string cliente = string.Empty;
         public static string Carpeta = string.Empty;
         string[] valores = null;
-        string[] valoresR = null;
 
         public ReciboCobranza(string Folio, string propietario)
         {
@@ -43,6 +41,11 @@ namespace PV
             // TODO: esta línea de código carga datos en la tabla 'ControlCondominiosDataSet31.DatosEmpresa' Puede moverla o quitarla según sea necesario.
             this.DatosEmpresaTableAdapter.Fill(this.ControlCondominiosDataSet31.DatosEmpresa);
             // TODO: esta línea de código carga datos en la tabla 'ControlCondominiosDataSet46.Cobros' Puede moverla o quitarla según sea necesario.
+            // NOTA: la consulta de este TableAdapter (Configure... en el
+            // diseñador del dataset) ahora hace UNION ALL entre Remision y
+            // Factura según Cobros.TipoConcepto, para que un recibo con
+            // ambos tipos de documento (o solo Facturas) muestre todos los
+            // renglones correctamente. Ver conversación anterior.
             this.CobrosTableAdapter.Fill(this.ControlCondominiosDataSet46.Cobros, Convert.ToInt32(folio));
 
             this.reportViewer1.RefreshReport();
@@ -59,7 +62,6 @@ namespace PV
 
             c.ruta();
             valores = cl.InformacionCliente(cliente);
-            valoresR = r.InformacionRemision(folio);
 
             Correo = txtcorreo.Text;
             Correo2 = txtcorreo2.Text;
@@ -87,12 +89,20 @@ namespace PV
             //    return;
             //}
 
-            string carpeta = Utilerias.SavePDF(reportViewer1, "Pagos", valoresR[1], valoresR[4]);
+            // Antes se armaba el nombre del PDF con datos de UNA Remisión
+            // (valoresR[1]/valoresR[4], vía DBRemiision.InformacionRemision),
+            // buscándola por "folio" — pero "folio" aquí es el folio del
+            // LOTE de cobro (Cobro_General), no el folio de un documento, así
+            // que ese lookup ya era frágil, y directamente falla (null) en
+            // cuanto el cobro incluye una Factura o varios documentos: no
+            // hay "un solo documento" al que amarrar el nombre. El propio
+            // folio del lote (único por recibo) es el dato correcto a usar.
+            string carpeta = Utilerias.SavePDF(reportViewer1, "Pagos", "Cobro", folio);
             bool enviado = CorreosMasivos.EnviarCorreos(
-                        "Pago Remision",
+                        "Pago",
                         "",
                         Utilerias.ConvertirReportViewerAPdf(reportViewer1),
-                        "Pago-Remision-" + valoresR[4] + ".pdf",
+                        "Pago-" + folio + ".pdf",
                         valores[5]);
 
             if (enviado)

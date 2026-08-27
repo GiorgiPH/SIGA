@@ -3550,8 +3550,10 @@ namespace PV.Clases.OrdenCompra
                                 CentroCosto.SelectedIndex = -1;
                             }
 
-                            cmbProyecto.ValueMember = dr["IdProyecto"].ToString();
-
+                            if (dr["IdProyecto"] != DBNull.Value)
+                            {
+                                cmbProyecto.SelectedValue = dr["IdProyecto"];
+                            }
 
 
                             // PROVEEDOR ALTERNO
@@ -5990,8 +5992,15 @@ namespace PV.Clases.OrdenCompra
                             {
                                 CentroCosto.SelectedIndex = -1;
                             }
+                            if (dr["IdProyecto"] != DBNull.Value)
+                            {
+                                cmbProyecto.SelectedValue = dr["IdProyecto"].ToString();
+                            }
+                            else
+                            {
+                                cmbProyecto.SelectedIndex = -1;
+                            }
 
-                            cmbProyecto.ValueMember = dr["IdProyecto"].ToString();
                         }
                     }
                 }

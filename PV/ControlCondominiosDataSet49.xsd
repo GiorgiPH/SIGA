@@ -51,7 +51,7 @@ UNION
 
 UNION
 
-(SELECT CG.*, C.*, P.RazonSocial, RC.Total, RC.Recargo, RC.DescuentoPago, RC.ClaveDocumento, D.Nombre, CB.Nombre, RC.Divisa, DI.TipoCambio
+(SELECT CG.*, C.*, P.RazonSocial, RC.Total, 0.00 as Recargo, 0.00 as DescuentoPago, RC.ClaveDocumento, D.Nombre, CB.Nombre, RC.Divisa, DI.TipoCambio
  FROM Egreso_General AS CG, Egreso AS C, Proveedor AS P, RegistroReembolso AS RC, Documento AS D, CuentasBancarias AS CB, Divisas AS DI
  WHERE CG.Folio = C.FolioGeneral
    AND C.ClaveProveedor = P.IdProveedor
@@ -92,6 +92,7 @@ UNION
               <Mapping SourceColumn="Nombre1" DataSetColumn="Nombre1" />
               <Mapping SourceColumn="Divisa" DataSetColumn="Divisa" />
               <Mapping SourceColumn="TipoCambio" DataSetColumn="TipoCambio" />
+              <Mapping SourceColumn="ConceptoCobroPago" DataSetColumn="ConceptoCobroPago" />
             </Mappings>
             <Sources />
           </TableAdapter>
@@ -254,6 +255,7 @@ UNION
                 </xs:simpleType>
               </xs:element>
               <xs:element name="TipoCambio" msdata:ReadOnly="true" msprop:Generator_ColumnPropNameInTable="TipoCambioColumn" msprop:Generator_ColumnPropNameInRow="TipoCambio" msprop:Generator_UserColumnName="TipoCambio" msprop:Generator_ColumnVarNameInTable="columnTipoCambio" type="xs:decimal" minOccurs="0" />
+              <xs:element name="ConceptoCobroPago" msdata:ReadOnly="true" msprop:Generator_ColumnPropNameInRow="ConceptoCobroPago" msprop:Generator_ColumnPropNameInTable="ConceptoCobroPagoColumn" msprop:Generator_ColumnVarNameInTable="columnConceptoCobroPago" msprop:Generator_UserColumnName="ConceptoCobroPago" type="xs:int" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -286,7 +288,7 @@ UNION
                   </xs:restriction>
                 </xs:simpleType>
               </xs:element>
-              <xs:element name="Divisa" msdata:ReadOnly="true" msprop:Generator_UserColumnName="Divisa" msprop:Generator_ColumnPropNameInTable="DivisaColumn" msprop:Generator_ColumnPropNameInRow="Divisa" msprop:Generator_ColumnVarNameInTable="columnDivisa" minOccurs="0">
+              <xs:element name="Divisa" msdata:ReadOnly="true" msprop:Generator_ColumnPropNameInTable="DivisaColumn" msprop:Generator_ColumnPropNameInRow="Divisa" msprop:Generator_UserColumnName="Divisa" msprop:Generator_ColumnVarNameInTable="columnDivisa" minOccurs="0">
                 <xs:simpleType>
                   <xs:restriction base="xs:string">
                     <xs:maxLength value="10" />
@@ -296,30 +298,30 @@ UNION
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="sp_CuentasPorPagar" msprop:Generator_RowEvHandlerName="sp_CuentasPorPagarRowChangeEventHandler" msprop:Generator_RowDeletedName="sp_CuentasPorPagarRowDeleted" msprop:Generator_RowDeletingName="sp_CuentasPorPagarRowDeleting" msprop:Generator_RowEvArgName="sp_CuentasPorPagarRowChangeEvent" msprop:Generator_TablePropName="sp_CuentasPorPagar" msprop:Generator_RowChangedName="sp_CuentasPorPagarRowChanged" msprop:Generator_RowChangingName="sp_CuentasPorPagarRowChanging" msprop:Generator_TableClassName="sp_CuentasPorPagarDataTable" msprop:Generator_RowClassName="sp_CuentasPorPagarRow" msprop:Generator_TableVarName="tablesp_CuentasPorPagar" msprop:Generator_UserTableName="sp_CuentasPorPagar">
+        <xs:element name="sp_CuentasPorPagar" msprop:Generator_RowClassName="sp_CuentasPorPagarRow" msprop:Generator_RowEvHandlerName="sp_CuentasPorPagarRowChangeEventHandler" msprop:Generator_RowDeletedName="sp_CuentasPorPagarRowDeleted" msprop:Generator_RowDeletingName="sp_CuentasPorPagarRowDeleting" msprop:Generator_RowEvArgName="sp_CuentasPorPagarRowChangeEvent" msprop:Generator_TablePropName="sp_CuentasPorPagar" msprop:Generator_RowChangedName="sp_CuentasPorPagarRowChanged" msprop:Generator_UserTableName="sp_CuentasPorPagar" msprop:Generator_RowChangingName="sp_CuentasPorPagarRowChanging" msprop:Generator_TableClassName="sp_CuentasPorPagarDataTable" msprop:Generator_TableVarName="tablesp_CuentasPorPagar">
           <xs:complexType>
             <xs:sequence>
-              <xs:element name="ClaveProveedor" msprop:Generator_ColumnPropNameInRow="ClaveProveedor" msprop:Generator_ColumnPropNameInTable="ClaveProveedorColumn" msprop:Generator_ColumnVarNameInTable="columnClaveProveedor" msprop:Generator_UserColumnName="ClaveProveedor" type="xs:int" />
-              <xs:element name="RazonSocial" msprop:Generator_ColumnPropNameInRow="RazonSocial" msprop:Generator_ColumnPropNameInTable="RazonSocialColumn" msprop:Generator_ColumnVarNameInTable="columnRazonSocial" msprop:Generator_UserColumnName="RazonSocial" minOccurs="0">
+              <xs:element name="ClaveProveedor" msprop:Generator_UserColumnName="ClaveProveedor" msprop:Generator_ColumnPropNameInTable="ClaveProveedorColumn" msprop:Generator_ColumnPropNameInRow="ClaveProveedor" msprop:Generator_ColumnVarNameInTable="columnClaveProveedor" type="xs:int" />
+              <xs:element name="RazonSocial" msprop:Generator_UserColumnName="RazonSocial" msprop:Generator_ColumnPropNameInTable="RazonSocialColumn" msprop:Generator_ColumnPropNameInRow="RazonSocial" msprop:Generator_ColumnVarNameInTable="columnRazonSocial" minOccurs="0">
                 <xs:simpleType>
                   <xs:restriction base="xs:string">
                     <xs:maxLength value="100" />
                   </xs:restriction>
                 </xs:simpleType>
               </xs:element>
-              <xs:element name="Dcto" msdata:ReadOnly="true" msprop:Generator_ColumnPropNameInRow="Dcto" msprop:Generator_ColumnPropNameInTable="DctoColumn" msprop:Generator_ColumnVarNameInTable="columnDcto" msprop:Generator_UserColumnName="Dcto" minOccurs="0">
+              <xs:element name="Dcto" msdata:ReadOnly="true" msprop:Generator_UserColumnName="Dcto" msprop:Generator_ColumnPropNameInTable="DctoColumn" msprop:Generator_ColumnPropNameInRow="Dcto" msprop:Generator_ColumnVarNameInTable="columnDcto" minOccurs="0">
                 <xs:simpleType>
                   <xs:restriction base="xs:string">
                     <xs:maxLength value="57" />
                   </xs:restriction>
                 </xs:simpleType>
               </xs:element>
-              <xs:element name="Fecha" msdata:ReadOnly="true" msprop:Generator_ColumnPropNameInRow="Fecha" msprop:Generator_ColumnPropNameInTable="FechaColumn" msprop:Generator_ColumnVarNameInTable="columnFecha" msprop:Generator_UserColumnName="Fecha" type="xs:dateTime" minOccurs="0" />
-              <xs:element name="Vence" msdata:ReadOnly="true" msprop:Generator_ColumnPropNameInRow="Vence" msprop:Generator_ColumnPropNameInTable="VenceColumn" msprop:Generator_ColumnVarNameInTable="columnVence" msprop:Generator_UserColumnName="Vence" type="xs:dateTime" minOccurs="0" />
-              <xs:element name="Subtotal" msdata:ReadOnly="true" msprop:Generator_ColumnPropNameInRow="Subtotal" msprop:Generator_ColumnPropNameInTable="SubtotalColumn" msprop:Generator_ColumnVarNameInTable="columnSubtotal" msprop:Generator_UserColumnName="Subtotal" type="xs:decimal" minOccurs="0" />
-              <xs:element name="Descuento" msdata:ReadOnly="true" msprop:Generator_ColumnPropNameInRow="Descuento" msprop:Generator_ColumnPropNameInTable="DescuentoColumn" msprop:Generator_ColumnVarNameInTable="columnDescuento" msprop:Generator_UserColumnName="Descuento" type="xs:decimal" minOccurs="0" />
-              <xs:element name="Impuesto" msdata:ReadOnly="true" msprop:Generator_ColumnPropNameInRow="Impuesto" msprop:Generator_ColumnPropNameInTable="ImpuestoColumn" msprop:Generator_ColumnVarNameInTable="columnImpuesto" msprop:Generator_UserColumnName="Impuesto" type="xs:decimal" minOccurs="0" />
-              <xs:element name="Total" msdata:ReadOnly="true" msprop:Generator_ColumnPropNameInRow="Total" msprop:Generator_ColumnPropNameInTable="TotalColumn" msprop:Generator_ColumnVarNameInTable="columnTotal" msprop:Generator_UserColumnName="Total" type="xs:decimal" minOccurs="0" />
+              <xs:element name="Fecha" msdata:ReadOnly="true" msprop:Generator_UserColumnName="Fecha" msprop:Generator_ColumnPropNameInTable="FechaColumn" msprop:Generator_ColumnPropNameInRow="Fecha" msprop:Generator_ColumnVarNameInTable="columnFecha" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="Vence" msdata:ReadOnly="true" msprop:Generator_UserColumnName="Vence" msprop:Generator_ColumnPropNameInTable="VenceColumn" msprop:Generator_ColumnPropNameInRow="Vence" msprop:Generator_ColumnVarNameInTable="columnVence" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="Subtotal" msdata:ReadOnly="true" msprop:Generator_UserColumnName="Subtotal" msprop:Generator_ColumnPropNameInTable="SubtotalColumn" msprop:Generator_ColumnPropNameInRow="Subtotal" msprop:Generator_ColumnVarNameInTable="columnSubtotal" type="xs:decimal" minOccurs="0" />
+              <xs:element name="Descuento" msdata:ReadOnly="true" msprop:Generator_UserColumnName="Descuento" msprop:Generator_ColumnPropNameInTable="DescuentoColumn" msprop:Generator_ColumnPropNameInRow="Descuento" msprop:Generator_ColumnVarNameInTable="columnDescuento" type="xs:decimal" minOccurs="0" />
+              <xs:element name="Impuesto" msdata:ReadOnly="true" msprop:Generator_UserColumnName="Impuesto" msprop:Generator_ColumnPropNameInTable="ImpuestoColumn" msprop:Generator_ColumnPropNameInRow="Impuesto" msprop:Generator_ColumnVarNameInTable="columnImpuesto" type="xs:decimal" minOccurs="0" />
+              <xs:element name="Total" msdata:ReadOnly="true" msprop:Generator_UserColumnName="Total" msprop:Generator_ColumnPropNameInTable="TotalColumn" msprop:Generator_ColumnPropNameInRow="Total" msprop:Generator_ColumnVarNameInTable="columnTotal" type="xs:decimal" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>

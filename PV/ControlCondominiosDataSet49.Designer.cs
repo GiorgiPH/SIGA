@@ -395,6 +395,8 @@ namespace PV {
             
             private global::System.Data.DataColumn columnTipoCambio;
             
+            private global::System.Data.DataColumn columnConceptoCobroPago;
+            
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
             public Egreso_GeneralDataTable() {
@@ -614,6 +616,14 @@ namespace PV {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+            public global::System.Data.DataColumn ConceptoCobroPagoColumn {
+                get {
+                    return this.columnConceptoCobroPago;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -672,7 +682,8 @@ namespace PV {
                         string Nombre, 
                         string Nombre1, 
                         string Divisa, 
-                        decimal TipoCambio) {
+                        decimal TipoCambio, 
+                        int ConceptoCobroPago) {
                 Egreso_GeneralRow rowEgreso_GeneralRow = ((Egreso_GeneralRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         Folio,
@@ -697,7 +708,8 @@ namespace PV {
                         Nombre,
                         Nombre1,
                         Divisa,
-                        TipoCambio};
+                        TipoCambio,
+                        ConceptoCobroPago};
                 rowEgreso_GeneralRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowEgreso_GeneralRow);
                 return rowEgreso_GeneralRow;
@@ -743,6 +755,7 @@ namespace PV {
                 this.columnNombre1 = base.Columns["Nombre1"];
                 this.columnDivisa = base.Columns["Divisa"];
                 this.columnTipoCambio = base.Columns["TipoCambio"];
+                this.columnConceptoCobroPago = base.Columns["ConceptoCobroPago"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -794,6 +807,8 @@ namespace PV {
                 base.Columns.Add(this.columnDivisa);
                 this.columnTipoCambio = new global::System.Data.DataColumn("TipoCambio", typeof(decimal), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnTipoCambio);
+                this.columnConceptoCobroPago = new global::System.Data.DataColumn("ConceptoCobroPago", typeof(int), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnConceptoCobroPago);
                 this.columnTipo.ReadOnly = true;
                 this.columnTipo.MaxLength = 5;
                 this.columnFolio1.ReadOnly = true;
@@ -826,6 +841,7 @@ namespace PV {
                 this.columnDivisa.ReadOnly = true;
                 this.columnDivisa.MaxLength = 10;
                 this.columnTipoCambio.ReadOnly = true;
+                this.columnConceptoCobroPago.ReadOnly = true;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -2086,6 +2102,23 @@ namespace PV {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+            public int ConceptoCobroPago {
+                get {
+                    try {
+                        return ((int)(this[this.tableEgreso_General.ConceptoCobroPagoColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("El valor de la columna \'ConceptoCobroPago\' de la tabla \'Egreso_General\' es DBNull" +
+                                ".", e);
+                    }
+                }
+                set {
+                    this[this.tableEgreso_General.ConceptoCobroPagoColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
             public bool IsFolioNull() {
                 return this.IsNull(this.tableEgreso_General.FolioColumn);
             }
@@ -2358,6 +2391,18 @@ namespace PV {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
             public void SetTipoCambioNull() {
                 this[this.tableEgreso_General.TipoCambioColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+            public bool IsConceptoCobroPagoNull() {
+                return this.IsNull(this.tableEgreso_General.ConceptoCobroPagoColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+            public void SetConceptoCobroPagoNull() {
+                this[this.tableEgreso_General.ConceptoCobroPagoColumn] = global::System.Convert.DBNull;
             }
         }
         
@@ -3137,6 +3182,7 @@ namespace PV.ControlCondominiosDataSet49TableAdapters {
             tableMapping.ColumnMappings.Add("Nombre1", "Nombre1");
             tableMapping.ColumnMappings.Add("Divisa", "Divisa");
             tableMapping.ColumnMappings.Add("TipoCambio", "TipoCambio");
+            tableMapping.ColumnMappings.Add("ConceptoCobroPago", "ConceptoCobroPago");
             this._adapter.TableMappings.Add(tableMapping);
         }
         
@@ -3173,14 +3219,14 @@ namespace PV.ControlCondominiosDataSet49TableAdapters {
                 "HERE CG.Folio = C.FolioGeneral\r\n   AND C.ClaveProveedor = P.IdProveedor\r\n   AND " +
                 "C.Folio = RC.Folio\r\n   AND RC.ClaveDocumento = D.Clave\r\n   AND C.CuentaBancaria " +
                 "= CB.Clave\r\n   AND RC.Divisa = DI.Nombre\r\n   AND C.FolioGeneral = @Folio\r\n   AND" +
-                " C.Tipo = \'NCG\')\r\n\r\nUNION\r\n\r\n(SELECT CG.*, C.*, P.RazonSocial, RC.Total, RC.Reca" +
-                "rgo, RC.DescuentoPago, RC.ClaveDocumento, D.Nombre, CB.Nombre, RC.Divisa, DI.Tip" +
-                "oCambio\r\n FROM Egreso_General AS CG, Egreso AS C, Proveedor AS P, RegistroReembo" +
-                "lso AS RC, Documento AS D, CuentasBancarias AS CB, Divisas AS DI\r\n WHERE CG.Foli" +
-                "o = C.FolioGeneral\r\n   AND C.ClaveProveedor = P.IdProveedor\r\n   AND C.Folio = RC" +
-                ".Folio\r\n   AND RC.ClaveDocumento = D.Clave\r\n   AND C.CuentaBancaria = CB.Clave\r\n" +
-                "   AND RC.Divisa = DI.Nombre\r\n   AND C.FolioGeneral = @Folio\r\n   AND C.Tipo = \'R" +
-                "R\')";
+                " C.Tipo = \'NCG\')\r\n\r\nUNION\r\n\r\n(SELECT CG.*, C.*, P.RazonSocial, RC.Total, 0.00 as" +
+                " Recargo, 0.00 as DescuentoPago, RC.ClaveDocumento, D.Nombre, CB.Nombre, RC.Divi" +
+                "sa, DI.TipoCambio\r\n FROM Egreso_General AS CG, Egreso AS C, Proveedor AS P, Regi" +
+                "stroReembolso AS RC, Documento AS D, CuentasBancarias AS CB, Divisas AS DI\r\n WHE" +
+                "RE CG.Folio = C.FolioGeneral\r\n   AND C.ClaveProveedor = P.IdProveedor\r\n   AND C." +
+                "Folio = RC.Folio\r\n   AND RC.ClaveDocumento = D.Clave\r\n   AND C.CuentaBancaria = " +
+                "CB.Clave\r\n   AND RC.Divisa = DI.Nombre\r\n   AND C.FolioGeneral = @Folio\r\n   AND C" +
+                ".Tipo = \'RR\')";
             this._commandCollection[0].CommandType = global::System.Data.CommandType.Text;
             this._commandCollection[0].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Folio", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.Input, 0, 0, "FolioGeneral", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
         }

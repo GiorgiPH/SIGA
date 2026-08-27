@@ -5,6 +5,7 @@ using PuntoVentas.Clases.DatosEmpresa;
 using PV;
 using PV.Clases;
 using PV.Clases.ConceptoPago;
+using PV.Clases.Facturas;
 using PV.Clases.Remision;
 using System;
 using System.Collections;
@@ -20,6 +21,13 @@ namespace PV
     {
         DBRegistrarIngresos c = new DBRegistrarIngresos();
         DBRemiision r = new DBRemiision();
+
+        // Facturas y Remisiones comparten esta misma pantalla de cobro. El
+        // tipo real de cada folio (para saber a qué tabla pertenece) viaja
+        // en el .Tag de cada fila del grid, marcado al cargarlas — ver
+        // RegistrarCobro_Load y button5_Click.
+        DBFacturas f = new DBFacturas();
+
         DBConceptoCobroPago dbConceptoCobroPago = new DBConceptoCobroPago();
         ArrayList Lista;
         DBDatosEmpresa d = new DBDatosEmpresa();
@@ -63,7 +71,7 @@ namespace PV
             this.formasPagoTableAdapter.Fill(this.controlCondominiosDataSet.FormasPago);
             // TODO: esta línea de código carga datos en la tabla 'controlAcademicoDataSet14.FormasPago' Puede moverla o quitarla según sea necesario.
 
-            r.CargarReciboCobroById(dgvPagosPendientes, txtMatricula.Text, Lista);
+            CargarPagosPendientesPorTipo();
             c.SeleccionarCuentaBancaria(cmbCuentaBancaria);
 
             // Nombre asumido para el combo agregado en el diseñador
@@ -72,6 +80,67 @@ namespace PV
             DataTable conceptosIngreso = dbConceptoCobroPago.ListarParaCombo(IdClaseIngresos, soloActivos: true);
             ComboUtil.LlenarComboBox(cmbConceptoIngreso, conceptosIngreso, "Descripcion", "IdConcepto");
 
+        }
+
+        /// <summary>
+        /// "Lista" llega desde registroIngresos con cada elemento en formato
+        /// "TipoDocumento|Folio" (p.ej. "Remision|123", "Factura|45") —
+        /// ver registroIngresos.ObtenerListaConceptosSeleccionados. Aquí se
+        /// separa por tipo y se carga cada grupo con su loader
+        /// correspondiente (DBRemiision para Remision, DBFacturas para
+        /// Factura), limpiando el grid una sola vez para que no se borren
+        /// entre sí.
+        ///
+        /// Compatibilidad: si algún elemento no trae el separador "|" (por
+        /// si algo más en el sistema sigue construyendo RegistrarCobro con
+        /// una lista de folios "planos"), se asume "Remision" — que era el
+        /// único tipo que existía antes de este cambio.
+        /// </summary>
+        private void CargarPagosPendientesPorTipo()
+        {
+            ArrayList foliosRemision = new ArrayList();
+            ArrayList foliosFactura = new ArrayList();
+
+            foreach (object item in Lista)
+            {
+                string raw = item.ToString();
+                string[] partes = raw.Split('|');
+
+                string tipoDocumento = partes.Length > 1 ? partes[0] : "Remision";
+                string folio = partes.Length > 1 ? partes[1] : partes[0];
+
+                if (tipoDocumento == "Factura")
+                {
+                    foliosFactura.Add(folio);
+                }
+                else
+                {
+                    foliosRemision.Add(folio);
+                }
+            }
+
+            dgvPagosPendientes.Rows.Clear();
+
+            if (foliosRemision.Count > 0)
+            {
+                r.CargarReciboCobroById(dgvPagosPendientes, txtMatricula.Text, foliosRemision, false);
+            }
+
+            if (foliosFactura.Count > 0)
+            {
+                f.CargarFacturaCobroById(dgvPagosPendientes, txtMatricula.Text, foliosFactura, false);
+            }
+        }
+
+        /// <summary>
+        /// Regresa el tipo de documento de una fila del grid ("Remision" o
+        /// "Factura"), marcado en su .Tag por CargarPagosPendientesPorTipo.
+        /// Si por algún motivo no trae Tag, se asume "Remision" (mismo
+        /// criterio de respaldo usado en toda esta pantalla).
+        /// </summary>
+        private static string TipoDocumentoDeFila(DataGridViewRow row)
+        {
+            return row.Tag as string ?? "Remision";
         }
 
         /// <summary>
@@ -107,79 +176,105 @@ namespace PV
         /// Recalcula los totales del encabezado (Importe total y total
         /// pagado) recorriendo todas las filas.
         /// </summary>
+
         private void RecalcularTotalesEncabezado(NumberFormatInfo formato)
         {
-            decimal totalImporte = 0.00M;
-            decimal totalAbono = 0.00M;
+            decimal totalImporte = 0m;
+            decimal totalAbono = 0m;
 
             foreach (DataGridViewRow row in dgvPagosPendientes.Rows)
             {
-                totalImporte += Convert.ToDecimal(row.Cells["Importe"].Value.ToString());
-                txtImporteTotal.Text = totalImporte.ToString("N", formato);
+                if (row.IsNewRow)
+                    continue;
 
-                totalAbono += Convert.ToDecimal(row.Cells["Abono"].Value.ToString());
-                txtTotalPagado.Text = totalAbono.ToString("N", formato);
+                decimal importe = 0m;
+                decimal abono = 0m;
+
+                decimal.TryParse(
+                    Convert.ToString(row.Cells["Importe"].Value),
+                    NumberStyles.Any,
+                    formato,
+                    out importe
+                );
+
+                decimal.TryParse(
+                    Convert.ToString(row.Cells["Abono"].Value),
+                    NumberStyles.Any,
+                    formato,
+                    out abono
+                );
+
+                totalImporte += importe;
+                totalAbono += abono;
             }
+
+            txtImporteTotal.Text = totalImporte.ToString("N", formato);
+            txtTotalPagado.Text = totalAbono.ToString("N", formato);
         }
 
         private void dgvPagosPendientes_CellEndEdit(object sender, DataGridViewCellEventArgs e)
         {
             NumberFormatInfo formato = new CultureInfo("en-US").NumberFormat;
-
             formato.CurrencyGroupSeparator = ",";
             formato.NumberDecimalSeparator = ".";
 
-            dgvPagosPendientes.Rows[e.RowIndex].Cells["Abono"].ReadOnly = true;
+            if (e.RowIndex < 0 || e.ColumnIndex < 0)
+                return;
 
-            if (this.dgvPagosPendientes.Columns[e.ColumnIndex].Name == "Abono")
+            DataGridViewRow row = dgvPagosPendientes.Rows[e.RowIndex];
+
+            row.Cells["Abono"].ReadOnly = true;
+
+            decimal importeDocumento = 0m;
+            decimal abonoCapital = 0m;
+
+            // Importe
+            decimal.TryParse(
+                Convert.ToString(row.Cells["Importe"].Value),
+                NumberStyles.Any,
+                formato,
+                out importeDocumento
+            );
+
+            // Abono
+            decimal.TryParse(
+                Convert.ToString(row.Cells["Abono"].Value),
+                NumberStyles.Any,
+                formato,
+                out abonoCapital
+            );
+
+            // Si estamos editando Abono, validar el monto
+            if (dgvPagosPendientes.Columns[e.ColumnIndex].Name == "Abono")
             {
                 ValidarMontoPermitido(e.RowIndex);
 
-                // Ya no existe una columna separada de "saldo capital" (el
-                // diseñador solo tiene FormaPago, FolioDocumento, Documento,
-                // Concepto, Importe, MasAbono, Abono, Saldo). El tope para
-                // el abono pasa a ser el Importe del documento, que en este
-                // grid ("Lista de Pagos" pendientes) ya representa lo
-                // pendiente por pagar. Avísame si Importe no es el pendiente
-                // real y hay que traer otro dato desde DBRemiision.
-                decimal importeDocumento = Convert.ToDecimal(dgvPagosPendientes.Rows[e.RowIndex].Cells["Importe"].Value.ToString());
-                decimal abonoCapital = Convert.ToDecimal(dgvPagosPendientes.Rows[e.RowIndex].Cells["Abono"].Value.ToString());
-
                 if (importeDocumento < abonoCapital)
                 {
-                    MessageBox.Show("El abono a capital no puede ser mayor al saldo capital");
-                    dgvPagosPendientes.Rows[e.RowIndex].Cells["Abono"].Value = 0.00m;
-                    return;
+                    MessageBox.Show(
+                        "El abono a capital no puede ser mayor al saldo capital",
+                        "Validación",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Warning
+                    );
+
+                    abonoCapital = 0m;
+                    row.Cells["Abono"].Value = "0.00";
                 }
             }
 
-            decimal Importe = 0.00M;
-            decimal Abono = 0.00M;
-            decimal Saldo = 0.00M;
+            // Calcular saldo
+            decimal saldo = importeDocumento - abonoCapital;
 
-            if (dgvPagosPendientes.Rows[e.RowIndex].Cells["Importe"].Value != null)
-            {
-                Importe = Convert.ToDecimal(dgvPagosPendientes.Rows[e.RowIndex].Cells["Importe"].Value.ToString());
-            }
-            if (dgvPagosPendientes.Rows[e.RowIndex].Cells["Abono"].Value != null)
-            {
-                Abono = Convert.ToDecimal(dgvPagosPendientes.Rows[e.RowIndex].Cells["Abono"].Value.ToString());
-            }
-            else
-            {
-                dgvPagosPendientes.Rows[e.RowIndex].Cells["Abono"].Value = 0;
-            }
+            row.Cells["Saldo"].Value = saldo.ToString("N", formato);
 
-            Saldo = Importe - Abono;
-
-            string saldo = Saldo.ToString("N", formato);
-            dgvPagosPendientes.Rows[e.RowIndex].Cells["Saldo"].Value = saldo.ToString();
-
+            // Recalcular totales
             RecalcularTotalesEncabezado(formato);
 
-            decimal abono = Convert.ToDecimal(dgvPagosPendientes.Rows[e.RowIndex].Cells["Abono"].Value);
-            dgvPagosPendientes.Rows[e.RowIndex].Cells["Abono"].Value = abono.ToString("N", formato);
+            // Formatear abono
+            row.Cells["Abono"].Value = abonoCapital.ToString("N", formato);
         }
+
 
         private void button5_Click(object sender, EventArgs e)
         {
@@ -263,19 +358,33 @@ namespace PV
                     int cont = 0;
                     foreach (DataGridViewRow row in dgvPagosPendientes.Rows)
                     {
+                        // TipoConcepto/ConceptoId por fila: "Remision" o
+                        // "Factura" según de dónde vino el folio (row.Tag),
+                        // y el Folio del documento correspondiente — ya NO
+                        // se usa el "tipo" genérico del formulario para esto
+                        // (ese "tipo" es el modo de la pantalla: "M" para
+                        // traspaso con monto límite, no el tipo de documento).
+                        string tipoDocumentoFila = TipoDocumentoDeFila(row);
+                        string folioDocumento = row.Cells["FolioDocumento"].Value.ToString();
+                        decimal abonoFila = Convert.ToDecimal(row.Cells["Abono"].Value.ToString());
 
-                    
                         if (Convert.ToDecimal(row.Cells["Saldo"].Value.ToString()) < 0)
                         {
                             row.Cells["Saldo"].Value = "0.00";
                         }
 
                         // Recargo y Descuento ya no se manejan desde esta pantalla
-                        // (columnas retiradas del grid); se mandan en 0.00 para no
-                        // cambiar la firma de ActualizarRemision/InsertarCobro sin
-                        // ver DBRemiision.cs primero.
-                        r.ActualizarRemision(row.Cells["FolioDocumento"].Value.ToString(), 0.00m, 0.00m, Convert.ToDecimal(row.Cells["Abono"].Value.ToString()));
-                        c.InsertarCobro(row.Cells["FolioDocumento"].Value.ToString(), txtMatricula.Text, dtpFecha.Text, txtObservaciones.Text, row.Cells["FormaPago"].Value.ToString(), Convert.ToDecimal(row.Cells["Abono"].Value.ToString()), txtReferncia.Text, txtNumOperacion.Text, txtNumAutorizacion.Text, txtCuenta.Text, txtFolioGeneral.Text, 0.00m, DescuentoPago, Convert.ToDecimal(row.Cells["Saldo"].Value.ToString()), tipo, idConceptoCobroPago);
+                        // (columnas retiradas del grid); se mandan en 0.00.
+                        if (tipoDocumentoFila == "Factura")
+                        {
+                            f.ActualizarFacturaAbono(folioDocumento, 0.00m, abonoFila);
+                        }
+                        else
+                        {
+                            r.ActualizarRemision(folioDocumento, 0.00m, 0.00m, abonoFila);
+                        }
+
+                        c.InsertarCobro(folioDocumento, txtMatricula.Text, dtpFecha.Text, txtObservaciones.Text, row.Cells["FormaPago"].Value.ToString(), abonoFila, txtReferncia.Text, txtNumOperacion.Text, txtNumAutorizacion.Text, txtCuenta.Text, txtFolioGeneral.Text, 0.00m, DescuentoPago, Convert.ToDecimal(row.Cells["Saldo"].Value.ToString()), tipoDocumentoFila, idConceptoCobroPago);
                         c.ModificarExtension(txtFolioGeneral.Text, ext);
                         c.ActualizarArchivoCobro(txtFolioGeneral.Text, txtArchivo.Text);
                         //````````````c.insertLogcobros(Login.UsuarioLogin, DateTime.Now.ToString("yyyy/MM/dd"), row.Cells["FolioDocumento"].Value.ToString(), row.Cells["Documento"].Value.ToString(), "", Convert.ToDecimal(row.Cells["Importe"].Value).ToString(), "0.00", "0.00", "0.00", "0.00", DescuentoPago.ToString(), Convert.ToDecimal(row.Cells["Saldo"].Value).ToString());

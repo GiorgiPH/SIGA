@@ -1,11 +1,12 @@
-﻿using System;
+﻿using Condominios.Clases.CentroCostos;
+using Condominios.Clases.Documentos;
+using PV.Clases.Clientes;
+using PV.Clases.Proveedores;
+using PV.Clases.ReporteCompras;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Windows.Forms;
-using Condominios.Clases.CentroCostos;
-using Condominios.Clases.Documentos;
-using PV.Clases.Proveedores;
-using PV.Clases.ReporteCompras;
 
 namespace PV
 {
@@ -14,6 +15,8 @@ namespace PV
         DBReporteCompras c = new DBReporteCompras();
         DBProveedores p = new DBProveedores();
         DBDocumentos d = new DBDocumentos();
+        DBClientes clientes = new DBClientes();
+
         DBCentroCostos centroCostos = new DBCentroCostos();
 
         string provedor = string.Empty;
@@ -58,7 +61,34 @@ namespace PV
 
 
             }
-            
+            else if (tipo == "Diario Facturas")
+            {
+                // Usa Cliente en vez de Proveedor
+                pnProveedor.Visible = false;
+                panel1.Visible = true;
+                pnCentroCostos.Visible = false;
+                pnAnioSemana.Visible = false;
+                pnTipoDocumento.Visible = true;
+            }
+            else if (tipo == "Diario Remisiones")
+            {
+                // Usa Cliente en vez de Proveedor
+                pnProveedor.Visible = false;
+                panel1.Visible = true;
+                pnCentroCostos.Visible = false;
+                pnAnioSemana.Visible = false;
+                pnTipoDocumento.Visible = true;
+            }
+            else if (tipo == "Diario Ingresos")
+            {
+                // Cobros: solo Cliente y Fechas, sin tipo de documento propio
+                pnProveedor.Visible = false;
+                panel1.Visible = true;
+                pnCentroCostos.Visible = false;
+                pnAnioSemana.Visible = false;
+                pnTipoDocumento.Visible = false;
+            }
+
         }
 
 
@@ -92,11 +122,64 @@ namespace PV
                 MessageBox.Show($"Error: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+        private void LlenarComboClientes()
+        {
+            try
+            {
+                DataTable menus = clientes.CargarClientes("");
+                // Crear fila "TODOS"
+                DataRow filaTodos = menus.NewRow();
+                filaTodos["IdCliente"] = "0"; // Asegúrate de que la columna "Clave" exista
+                filaTodos["RazonSocial"] = "TODOS"; // Asegúrate de que la columna "Clave" exista
+
+                menus.Rows.InsertAt(filaTodos, 0); // Insertar al principio
+                // Evitar eventos mientras actualizas la fuente de datos
+
+                // Configurar estilo y autocompletado
+                cmbCliente.DropDownStyle = ComboBoxStyle.DropDown; // Cambiar a DropDown
+                cmbCliente.DataSource = menus;
+                cmbCliente.DisplayMember = "RazonSocial"; // Campo visible
+                cmbCliente.ValueMember = "IdCliente";   // Campo interno
+                cmbCliente.SelectedIndex = -1;     // Ningún elemento seleccionado al inicio
+
+                //cmbCentroCostos.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
+                //cmbCentroCostos.AutoCompleteSource = AutoCompleteSource.ListItems;
+
+                // Reanudar eventos
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
         private void LlenarComboDocumentos()
         {
             try
             {
-                DataTable menus = d.ConsultarDocumento("Compra", "Compra");
+                // Para Facturas / Remisiones se consulta el catálogo de documentos de Venta;
+                // para el resto de tipos (Compras/Gastos/Reembolsos/Egresos) se mantiene "Compra".
+                string filtroDocumento = (tipo == "Diario Facturas" || tipo == "Diario Remisiones") ? "Venta" : "Compra";
+                string tarea = null;
+                if (filtroDocumento == "Venta")
+                {
+                    if (tipo == "Diario Facturas")
+                    {
+                        tarea = "Factura";
+
+                    }
+                    else if (tipo == "Diario Remisiones")
+                    {
+                        tarea = "Remisiones";
+                    }
+                }   
+                DataTable menus = d.ConsultarDocumento(filtroDocumento, filtroDocumento);
+                if (!string.IsNullOrEmpty(tarea))
+                {
+                    menus = null;
+                     menus = d.ConsultarDocumento(tarea: tarea);
+
+                }
                 // Crear fila "TODOS"
                 DataRow filaTodos = menus.NewRow();
                 filaTodos["Clave"] = ""; // Asegúrate de que la columna "Clave" exista
@@ -187,38 +270,35 @@ namespace PV
 
         private void ReporteDiarioComprasFiltro_Load(object sender, EventArgs e)
         {
-            LlenarComboDocumentos();
-            LlenarComboProveedores();
             LlenarComboCentroCostos();
             LlenarComboSemanas();
-           
-            cmbPropietario1.SelectedIndex = 0;
-            cmbTipo.SelectedIndex = 0;
-            cmbCentroCostos.SelectedIndex = 0;
 
-            provedor = cmbPropietario1.Text;
-            cuentaBancaria = cmbTipo.Text;
-        }
+            bool usaCliente = (tipo == "Diario Facturas" || tipo == "Diario Remisiones" || tipo == "Diario Ingresos");
 
-        private void cbFechas_CheckedChanged(object sender, EventArgs e)
-        {
-            if (cbFechas.Checked == true)
+            if (usaCliente)
             {
-                dtFecha1.Enabled = true;
-                dtFecha2.Enabled = true;
-                fecha = "Si";
-                fecha1 = dtFecha1.Text;
-                fecha2 = dtFecha2.Text;
+                LlenarComboClientes();
+                cmbCliente.SelectedIndex = 0;
+                provedor = cmbCliente.Text;
             }
             else
             {
-                dtFecha1.Enabled = false;
-                dtFecha2.Enabled = false;
-                fecha = string.Empty;
-                fecha1 = string.Empty;
-                fecha2 = string.Empty;
+                LlenarComboProveedores();
+                cmbPropietario1.SelectedIndex = 0;
+                provedor = cmbPropietario1.Text;
             }
+
+            if (pnTipoDocumento.Visible)
+            {
+                LlenarComboDocumentos();
+                cmbTipo.SelectedIndex = 0;
+                cuentaBancaria = cmbTipo.Text;
+            }
+
+            cmbCentroCostos.SelectedIndex = 0;
         }
+
+       
 
         private void dtFecha1_ValueChanged(object sender, EventArgs e)
         {
@@ -271,6 +351,37 @@ namespace PV
             {
                 ReporteSaldosProveedores reporteDiarioCompras = new ReporteSaldosProveedores(cmbPropietario1?.SelectedValue?.ToString(), cmbTipo?.SelectedValue?.ToString(), fecha == "Si" ? dtFecha1.Value.ToString("yyyy-MM-dd") : "", fecha == "Si" ? dtFecha2.Value.ToString("yyyy-MM-dd") : "", "");
                 reporteDiarioCompras.ShowDialog();
+            }
+            else if (tipo == "Diario Facturas")
+            {
+                // sp_ReporteDiarioFacturas: @ClaveProveedor (IdCliente), @FechaInicio, @FechaFin, @ClaveDocumento
+                ReporteDiarioFacturas reporteDiarioFacturas = new ReporteDiarioFacturas(
+                    cmbCliente?.SelectedValue?.ToString(),
+                    cmbTipo?.SelectedValue?.ToString(),
+                    fecha == "Si" ? dtFecha1.Value.ToString("yyyy-MM-dd") : "",
+                    fecha == "Si" ? dtFecha2.Value.ToString("yyyy-MM-dd") : "");
+                reporteDiarioFacturas.ShowDialog();
+            }
+            else if (tipo == "Diario Remisiones")
+            {
+                // sp_ReporteDiarioRemisiones: @ClaveProveedor (IdCliente), @FechaInicio, @FechaFin, @ClaveDocumento
+                ReporteDiarioRemisiones reporteDiarioRemisiones = new ReporteDiarioRemisiones(
+                    cmbCliente?.SelectedValue?.ToString(),
+                    cmbTipo?.SelectedValue?.ToString(),
+                    fecha == "Si" ? dtFecha1.Value.ToString("yyyy-MM-dd") : "",
+                    fecha == "Si" ? dtFecha2.Value.ToString("yyyy-MM-dd") : "");
+                reporteDiarioRemisiones.ShowDialog();
+            }
+            else if (tipo == "Diario Ingresos")
+            {
+                // sp_ReporteDiarioIngresos: @ClaveProveedor (IdCliente), @FechaInicio, @FechaFin, @ClaveDocumento
+                // No hay combo de tipo de documento propio para Cobros, se manda vacio/null.
+                ReporteDiarioIngresos reporteDiarioIngresos = new ReporteDiarioIngresos(
+                    cmbCliente?.SelectedValue?.ToString(),
+                    null,
+                    fecha == "Si" ? dtFecha1.Value.ToString("yyyy-MM-dd") : "",
+                    fecha == "Si" ? dtFecha2.Value.ToString("yyyy-MM-dd") : "");
+                reporteDiarioIngresos.ShowDialog();
             }
 
         }

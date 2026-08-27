@@ -3,6 +3,7 @@ using Condominios.Clases.RegistrarIngresos;
 using ControlAcademico;
 using PuntoVentas.Clases.Login;
 using PV;
+using PV.Clases.Facturas;
 using PV.Clases.Remision;
 using System;
 using System.Collections;
@@ -17,6 +18,11 @@ namespace PV
     {
         DBRegistrarIngresos c = new DBRegistrarIngresos();
         DBRemiision r = new DBRemiision();
+
+        // Facturas se muestra junto con Remisiones en dgvPagosPendientes:
+        // ambas tablas comparten exactamente la misma estructura de saldo
+        // pendiente, así que este formulario ahora carga ambas fuentes.
+        DBFacturas f = new DBFacturas();
 
         public static string matricula = string.Empty;
         public static string nombre = string.Empty;
@@ -51,11 +57,21 @@ namespace PV
             this.Close();
         }
 
+        /// <summary>
+        /// Carga en dgvPagosPendientes tanto las Remisiones como las
+        /// Facturas con saldo pendiente del cliente. Se limpia el grid una
+        /// sola vez aquí y ambos métodos se llaman con limpiarPrimero:false
+        /// para que no se borren entre sí. Cada fila queda marcada en su
+        /// .Tag ("Remision" o "Factura") — ver la nota en
+        /// DBFacturas.CargarFacturaCobro sobre por qué es necesario.
+        /// </summary>
         private void CargarPagos()
         {
             if (Tipo == "Remision")
             {
-                r.CargarRemisionCobro(dgvPagosPendientes, txtMatricula.Text);
+                dgvPagosPendientes.Rows.Clear();
+                r.CargarRemisionCobro(dgvPagosPendientes, txtMatricula.Text, false);
+                f.CargarFacturaCobro(dgvPagosPendientes, txtMatricula.Text, false);
             }
         }
 
@@ -220,6 +236,16 @@ namespace PV
         // private void ActualizarRecibos(string hoy) { }
         // private void InsertarRecargos() { }
 
+        /// <summary>
+        /// Regresa los folios seleccionados marcados con su tipo de
+        /// documento, en el formato "TipoDocumento|Folio" (p.ej.
+        /// "Remision|123" o "Factura|45"). El tipo sale de row.Tag, que
+        /// CargarRemisionCobro/CargarFacturaCobro ya dejan marcado al
+        /// cargar el grid. RegistrarCobro separa esta lista por tipo y usa
+        /// el tipo real de cada folio para actualizar la tabla correcta y
+        /// guardar el TipoConcepto correcto en Cobros — ya no se apoya en
+        /// un único "Tipo" de formulario para todo el lote.
+        /// </summary>
         private ArrayList ObtenerListaConceptosSeleccionados()
         {
             ArrayList listaConcept = new ArrayList();
@@ -227,7 +253,9 @@ namespace PV
             {
                 if (EsFilaSeleccionada(row))
                 {
-                    listaConcept.Add(row.Cells["FolioDocumento"].Value.ToString());
+                    string tipoDocumento = row.Tag as string ?? "Remision";
+                    string folio = row.Cells["FolioDocumento"].Value.ToString();
+                    listaConcept.Add(tipoDocumento + "|" + folio);
                 }
             }
             return listaConcept;

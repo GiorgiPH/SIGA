@@ -29,9 +29,6 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ReporteDiarioComprasFiltro));
-            this.button2 = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
-            this.cbFechas = new System.Windows.Forms.CheckBox();
             this.dtFecha2 = new System.Windows.Forms.DateTimePicker();
             this.label4 = new System.Windows.Forms.Label();
             this.dtFecha1 = new System.Windows.Forms.DateTimePicker();
@@ -62,6 +59,9 @@
             this.guna2Button3 = new Guna.UI2.WinForms.Guna2Button();
             this.guna2Button9 = new Guna.UI2.WinForms.Guna2Button();
             this.guna2Separator1 = new Guna.UI2.WinForms.Guna2Separator();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.cmbCliente = new Guna.UI2.WinForms.Guna2ComboBox();
+            this.label9 = new System.Windows.Forms.Label();
             this.guna2GradientPanel1.SuspendLayout();
             this.guna2Panel1.SuspendLayout();
             this.flowLayoutPanel1.SuspendLayout();
@@ -70,40 +70,8 @@
             this.pnCentroCostos.SuspendLayout();
             this.pnAnioSemana.SuspendLayout();
             this.pnFechas.SuspendLayout();
+            this.panel1.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // button2
-            // 
-            this.button2.Location = new System.Drawing.Point(64, 242);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(75, 23);
-            this.button2.TabIndex = 109;
-            this.button2.Text = "Cancelar";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Visible = false;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
-            // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(145, 244);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 108;
-            this.button1.Text = "Confirmar";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Visible = false;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
-            // 
-            // cbFechas
-            // 
-            this.cbFechas.AutoSize = true;
-            this.cbFechas.Location = new System.Drawing.Point(22, 253);
-            this.cbFechas.Name = "cbFechas";
-            this.cbFechas.Size = new System.Drawing.Size(15, 14);
-            this.cbFechas.TabIndex = 105;
-            this.cbFechas.UseVisualStyleBackColor = true;
-            this.cbFechas.Visible = false;
-            this.cbFechas.CheckedChanged += new System.EventHandler(this.cbFechas_CheckedChanged);
             // 
             // dtFecha2
             // 
@@ -203,10 +171,7 @@
             this.guna2Panel1.BackColor = System.Drawing.Color.Transparent;
             this.guna2Panel1.BorderRadius = 20;
             this.guna2Panel1.Controls.Add(this.flowLayoutPanel1);
-            this.guna2Panel1.Controls.Add(this.button2);
-            this.guna2Panel1.Controls.Add(this.button1);
             this.guna2Panel1.Controls.Add(this.guna2Button1);
-            this.guna2Panel1.Controls.Add(this.cbFechas);
             this.guna2Panel1.Controls.Add(this.guna2Button3);
             this.guna2Panel1.Controls.Add(this.guna2Button9);
             this.guna2Panel1.Controls.Add(this.guna2Separator1);
@@ -221,6 +186,7 @@
             // flowLayoutPanel1
             // 
             this.flowLayoutPanel1.Controls.Add(this.pnProveedor);
+            this.flowLayoutPanel1.Controls.Add(this.panel1);
             this.flowLayoutPanel1.Controls.Add(this.pnTipoDocumento);
             this.flowLayoutPanel1.Controls.Add(this.pnCentroCostos);
             this.flowLayoutPanel1.Controls.Add(this.pnAnioSemana);
@@ -228,7 +194,7 @@
             this.flowLayoutPanel1.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
             this.flowLayoutPanel1.Location = new System.Drawing.Point(18, 26);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(503, 212);
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(503, 238);
             this.flowLayoutPanel1.TabIndex = 262;
             this.flowLayoutPanel1.WrapContents = false;
             // 
@@ -279,7 +245,7 @@
             // 
             this.pnTipoDocumento.Controls.Add(this.cmbTipo);
             this.pnTipoDocumento.Controls.Add(this.label5);
-            this.pnTipoDocumento.Location = new System.Drawing.Point(3, 45);
+            this.pnTipoDocumento.Location = new System.Drawing.Point(3, 87);
             this.pnTipoDocumento.Name = "pnTipoDocumento";
             this.pnTipoDocumento.Size = new System.Drawing.Size(495, 36);
             this.pnTipoDocumento.TabIndex = 263;
@@ -322,7 +288,7 @@
             // 
             this.pnCentroCostos.Controls.Add(this.cmbCentroCostos);
             this.pnCentroCostos.Controls.Add(this.label6);
-            this.pnCentroCostos.Location = new System.Drawing.Point(3, 87);
+            this.pnCentroCostos.Location = new System.Drawing.Point(3, 129);
             this.pnCentroCostos.Name = "pnCentroCostos";
             this.pnCentroCostos.Size = new System.Drawing.Size(495, 36);
             this.pnCentroCostos.TabIndex = 263;
@@ -367,7 +333,7 @@
             this.pnAnioSemana.Controls.Add(this.label8);
             this.pnAnioSemana.Controls.Add(this.label7);
             this.pnAnioSemana.Controls.Add(this.dtpAnio);
-            this.pnAnioSemana.Location = new System.Drawing.Point(3, 129);
+            this.pnAnioSemana.Location = new System.Drawing.Point(3, 171);
             this.pnAnioSemana.Name = "pnAnioSemana";
             this.pnAnioSemana.Size = new System.Drawing.Size(495, 36);
             this.pnAnioSemana.TabIndex = 263;
@@ -437,7 +403,7 @@
             this.pnFechas.Controls.Add(this.label2);
             this.pnFechas.Controls.Add(this.guna2ToggleSwitch1);
             this.pnFechas.Controls.Add(this.label3);
-            this.pnFechas.Location = new System.Drawing.Point(3, 171);
+            this.pnFechas.Location = new System.Drawing.Point(3, 213);
             this.pnFechas.Name = "pnFechas";
             this.pnFechas.Size = new System.Drawing.Size(495, 36);
             this.pnFechas.TabIndex = 263;
@@ -556,6 +522,48 @@
             this.guna2Separator1.Size = new System.Drawing.Size(283, 10);
             this.guna2Separator1.TabIndex = 253;
             // 
+            // panel1
+            // 
+            this.panel1.Controls.Add(this.cmbCliente);
+            this.panel1.Controls.Add(this.label9);
+            this.panel1.Location = new System.Drawing.Point(3, 45);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(495, 36);
+            this.panel1.TabIndex = 264;
+            // 
+            // cmbCliente
+            // 
+            this.cmbCliente.AutoRoundedCorners = true;
+            this.cmbCliente.BackColor = System.Drawing.Color.Transparent;
+            this.cmbCliente.BorderColor = System.Drawing.Color.Gray;
+            this.cmbCliente.BorderRadius = 12;
+            this.cmbCliente.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
+            this.cmbCliente.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbCliente.FocusedColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.cmbCliente.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.cmbCliente.Font = new System.Drawing.Font("Segoe UI", 10F);
+            this.cmbCliente.ForeColor = System.Drawing.Color.Black;
+            this.cmbCliente.IntegralHeight = false;
+            this.cmbCliente.ItemHeight = 20;
+            this.cmbCliente.Items.AddRange(new object[] {
+            "Activo",
+            "Inactivo"});
+            this.cmbCliente.Location = new System.Drawing.Point(89, 5);
+            this.cmbCliente.Name = "cmbCliente";
+            this.cmbCliente.Size = new System.Drawing.Size(393, 26);
+            this.cmbCliente.TabIndex = 257;
+            this.cmbCliente.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label9.Location = new System.Drawing.Point(14, 12);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(50, 13);
+            this.label9.TabIndex = 114;
+            this.label9.Text = "Cliente:";
+            // 
             // ReporteDiarioComprasFiltro
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -573,7 +581,6 @@
             this.guna2GradientPanel1.ResumeLayout(false);
             this.guna2GradientPanel1.PerformLayout();
             this.guna2Panel1.ResumeLayout(false);
-            this.guna2Panel1.PerformLayout();
             this.flowLayoutPanel1.ResumeLayout(false);
             this.pnProveedor.ResumeLayout(false);
             this.pnProveedor.PerformLayout();
@@ -585,15 +592,13 @@
             this.pnAnioSemana.PerformLayout();
             this.pnFechas.ResumeLayout(false);
             this.pnFechas.PerformLayout();
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
             this.ResumeLayout(false);
 
         }
 
         #endregion
-
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.CheckBox cbFechas;
         private System.Windows.Forms.DateTimePicker dtFecha2;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.DateTimePicker dtFecha1;
@@ -624,5 +629,8 @@
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.DateTimePicker dtpAnio;
+        private System.Windows.Forms.Panel panel1;
+        private Guna.UI2.WinForms.Guna2ComboBox cmbCliente;
+        private System.Windows.Forms.Label label9;
     }
 }
