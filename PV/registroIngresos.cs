@@ -1,4 +1,5 @@
 ﻿using Condominios;
+using Condominios.Clases.CentroCostos;
 using Condominios.Clases.RegistrarIngresos;
 using ControlAcademico;
 using PuntoVentas.Clases.Login;
@@ -8,6 +9,7 @@ using PV.Clases.Remision;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Data;
 using System.Drawing;
 using System.Globalization;
 using System.Windows.Forms;
@@ -18,6 +20,7 @@ namespace PV
     {
         DBRegistrarIngresos c = new DBRegistrarIngresos();
         DBRemiision r = new DBRemiision();
+        DBCentroCostos centroCostos = new DBCentroCostos();
 
         // Facturas se muestra junto con Remisiones en dgvPagosPendientes:
         // ambas tablas comparten exactamente la misma estructura de saldo
@@ -31,6 +34,53 @@ namespace PV
         public static decimal DescuentoPago = 0;
         string Tipo = string.Empty;
         string Monto = string.Empty;
+
+        private void LlenarComboCentroCostos()
+        {
+            try
+            {
+                DataTable menus = centroCostos.ConsultarTodos();
+                // Crear fila "TODOS"
+                DataRow filaTodos = menus.NewRow();
+                filaTodos["Clave"] = "0"; // Asegúrate de que la columna "Clave" exista
+                filaTodos["Nombre"] = "TODOS"; // Asegúrate de que la columna "Clave" exista
+
+                menus.Rows.InsertAt(filaTodos, 0); // Insertar al principio
+                // Evitar eventos mientras actualizas la fuente de datos
+
+                // Configurar estilo y autocompletado
+                cmbCentroCostos.DropDownStyle = ComboBoxStyle.DropDown; // Cambiar a DropDown
+                cmbCentroCostos.DataSource = menus;
+                cmbCentroCostos.DisplayMember = "Nombre"; // Campo visible
+                cmbCentroCostos.ValueMember = "Clave";   // Campo interno
+                cmbCentroCostos.SelectedIndex = -1;     // Ningún elemento seleccionado al inicio
+
+                //cmbCentroCostos.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
+                //cmbCentroCostos.AutoCompleteSource = AutoCompleteSource.ListItems;
+
+                // Reanudar eventos
+
+                // Se suscribe aqui (en vez de en el Designer) para no depender
+                // de que el evento ya este cableado ahi. Al cambiar de Centro
+                // de Costos se vuelve a cargar el grid de pagos pendientes:
+                // "TODOS" (Clave = "0") trae todo sin filtrar; cualquier otra
+                // seleccion filtra Remisiones/Facturas a ese Centro de Costos.
+                cmbCentroCostos.SelectedIndexChanged -= cmbCentroCostos_SelectedIndexChanged;
+                cmbCentroCostos.SelectedIndexChanged += cmbCentroCostos_SelectedIndexChanged;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void cmbCentroCostos_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (!string.IsNullOrWhiteSpace(txtMatricula.Text))
+            {
+                CargarPagos();
+            }
+        }
 
         public registroIngresos(string tipo, string monto)
         {
@@ -64,14 +114,21 @@ namespace PV
         /// para que no se borren entre sí. Cada fila queda marcada en su
         /// .Tag ("Remision" o "Factura") — ver la nota en
         /// DBFacturas.CargarFacturaCobro sobre por qué es necesario.
+        ///
+        /// El Centro de Costos seleccionado en cmbCentroCostos se manda a
+        /// ambos metodos: si es "TODOS" (Clave = "0") o no hay seleccion,
+        /// no se filtra; si se elige uno especifico, solo se traen los
+        /// documentos de ese Centro de Costos.
         /// </summary>
         private void CargarPagos()
         {
             if (Tipo == "Remision")
             {
+                string claveCentroCostos = cmbCentroCostos?.SelectedValue?.ToString();
+
                 dgvPagosPendientes.Rows.Clear();
-                r.CargarRemisionCobro(dgvPagosPendientes, txtMatricula.Text, false);
-                f.CargarFacturaCobro(dgvPagosPendientes, txtMatricula.Text, false);
+                r.CargarRemisionCobro(dgvPagosPendientes, txtMatricula.Text, false, claveCentroCostos);
+                f.CargarFacturaCobro(dgvPagosPendientes, txtMatricula.Text, false, claveCentroCostos);
             }
         }
 
@@ -83,6 +140,7 @@ namespace PV
             dtpFecha.MaxDate = DateTime.Now;
             txtCaja.Text = "1";
             btnBuscar.Enabled = Tipo == "M" ? false : true;
+            LlenarComboCentroCostos();
 
             if (txtFecha.Text == "No")
             {
@@ -193,7 +251,7 @@ namespace PV
 
                 ArrayList ListaConcept = ObtenerListaConceptosSeleccionados();
 
-                RegistrarCobro cobro = new RegistrarCobro(ListaConcept, txtMatricula.Text, txtAlumno.Text, dtpFecha.Text, Tipo, Monto)
+                RegistrarCobro cobro = new RegistrarCobro(ListaConcept, txtMatricula.Text, txtAlumno.Text, dtpFecha.Text, Tipo, Monto, cmbCentroCostos?.SelectedValue?.ToString())
                 {
                     // DescuentoPago se asigna desde el cálculo de totales
                 };

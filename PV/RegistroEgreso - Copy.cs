@@ -1,4 +1,5 @@
 ﻿using Condominios;
+using Condominios.Clases.CentroCostos;
 using PuntoVentas;
 using PV.Clases;
 using PV.Clases.Egresos;
@@ -13,11 +14,12 @@ using System.Windows.Forms;
 
 namespace PV
 {
-  
+
     public partial class ConsultarEgreso : Form
     {
         private readonly DBEgresos dbEgresos = new DBEgresos();
         private readonly DBProveedores dbProveedores = new DBProveedores();
+        private readonly DBCentroCostos centroCostos = new DBCentroCostos();
 
         // Proveedor(es) elegidos en cmbpropietario1 / cmbpropietario2.
         private string idProveedor1 = string.Empty;
@@ -29,7 +31,7 @@ namespace PV
         // CargarPagosPendientes() varias veces al tocar los combos por código.
         private bool suprimiendoEventos = false;
 
-  
+
         public static string matricula = string.Empty;
         public static string nombre = string.Empty;
 
@@ -43,6 +45,51 @@ namespace PV
         }
 
         #region Carga inicial
+        private void LlenarComboCentroCostos()
+        {
+            try
+            {
+                DataTable menus = centroCostos.ConsultarTodos();
+                // Crear fila "TODOS"
+                DataRow filaTodos = menus.NewRow();
+                filaTodos["Clave"] = "0"; // Asegúrate de que la columna "Clave" exista
+                filaTodos["Nombre"] = "TODOS"; // Asegúrate de que la columna "Clave" exista
+
+                menus.Rows.InsertAt(filaTodos, 0); // Insertar al principio
+                // Evitar eventos mientras actualizas la fuente de datos
+
+                // Configurar estilo y autocompletado
+                cmbCentroCostos.DropDownStyle = ComboBoxStyle.DropDown; // Cambiar a DropDown
+                cmbCentroCostos.DataSource = menus;
+                cmbCentroCostos.DisplayMember = "Nombre"; // Campo visible
+                cmbCentroCostos.ValueMember = "Clave";   // Campo interno
+                cmbCentroCostos.SelectedIndex = -1;     // Ningún elemento seleccionado al inicio
+
+                //cmbCentroCostos.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
+                //cmbCentroCostos.AutoCompleteSource = AutoCompleteSource.ListItems;
+
+                // Reanudar eventos
+
+                // Se suscribe aqui (en vez de en el Designer) para no depender
+                // de que el evento ya este cableado ahi. Al cambiar de Centro
+                // de Costos se vuelve a cargar el grid de pagos pendientes:
+                // "TODOS" (Clave = "0") trae todo sin filtrar; cualquier otra
+                // seleccion filtra a ese Centro de Costos (y excluye "P"/"NCG",
+                // que no tienen esa columna — ver nota en DBEgresos.ObtenerEgresos).
+                cmbCentroCostos.SelectedIndexChanged -= cmbCentroCostos_SelectedIndexChanged;
+                cmbCentroCostos.SelectedIndexChanged += cmbCentroCostos_SelectedIndexChanged;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void cmbCentroCostos_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            CargarPagosPendientes();
+        }
+
 
         private void RegistroEgreso_Load(object sender, EventArgs e)
         {
@@ -57,8 +104,9 @@ namespace PV
             ConfigurarColumnasGrid();
             CargarProveedores();
             LimpiarProveedores();
+            LlenarComboCentroCostos();
             dtpVencimiento.
-                Value = DateTime.Now;   
+                Value = DateTime.Now;
         }
 
         // Llena los combos de proveedor con el catálogo activo, usando el
@@ -181,9 +229,10 @@ namespace PV
         {
             dgvPagosPendientes.Rows.Clear();
 
-            DateTime? vencimiento =  dtpVencimiento.Value;
+            DateTime? vencimiento = dtpVencimiento.Value;
             DateTime? fecha1 = chFecha.Checked ? dtpFecha1.Value : (DateTime?)null;
             DateTime? fecha2 = chFecha.Checked ? dtpFecha2.Value : (DateTime?)null;
+            string claveCentroCostos = cmbCentroCostos?.SelectedValue?.ToString();
 
             var proveedores = new List<(string Id, string Nombre)>();
             if (!string.IsNullOrEmpty(idProveedor1))
@@ -194,9 +243,9 @@ namespace PV
             if (proveedores.Count == 0)
             {
                 // Sin proveedor: el filtro se apoya en lo que sí esté puesto
-                // (vencimiento, rango de fechas). Si tampoco hay nada de eso,
-                // trae todo.
-                DataTable dtTodos = dbEgresos.ObtenerEgresos(null, vencimiento, chFecha.Checked, fecha1, fecha2);
+                // (vencimiento, rango de fechas, centro de costos). Si tampoco
+                // hay nada de eso, trae todo.
+                DataTable dtTodos = dbEgresos.ObtenerEgresos(null, vencimiento, chFecha.Checked, fecha1, fecha2, claveCentroCostos);
 
                 foreach (DataRow row in dtTodos.Rows)
                 {
@@ -207,7 +256,7 @@ namespace PV
             {
                 foreach (var proveedor in proveedores)
                 {
-                    DataTable dt = dbEgresos.ObtenerEgresos(proveedor.Id, vencimiento, chFecha.Checked, fecha1, fecha2);
+                    DataTable dt = dbEgresos.ObtenerEgresos(proveedor.Id, vencimiento, chFecha.Checked, fecha1, fecha2, claveCentroCostos);
 
                     foreach (DataRow row in dt.Rows)
                     {
@@ -247,7 +296,7 @@ namespace PV
             DataGridViewRow fila = dgvPagosPendientes.Rows[i];
 
             fila.Cells["Seleccionar"].Value = false;
-            fila.Cells["Documento"].Value = row["ClaveDocumento"].ToString() + " - "+row["Folio"].ToString();
+            fila.Cells["Documento"].Value = row["ClaveDocumento"].ToString() + " - " + row["Folio"].ToString();
             fila.Cells["Concepto"].Value = row["Nombre"].ToString(); // Nombre del tipo de documento (tabla Documento)
             fila.Cells["Proveedor"].Value = nombreProveedor;
             fila.Cells["Fecha"].Value = Convert.ToDateTime(row["Fecha"]).ToString("yyyy/MM/dd");
@@ -372,7 +421,8 @@ namespace PV
             using (var cobro = new RegistrarCobroEgreso(
                        folios, documentos, tipos,
                        idProveedorSeleccionado, nombreProveedorSeleccionado,
-                       DateTime.Now.ToString("yyyy/MM/dd")))
+                       DateTime.Now.ToString("yyyy/MM/dd"),
+                       cmbCentroCostos?.SelectedValue?.ToString()))
             {
                 cobro.ShowDialog();
             }

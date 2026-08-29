@@ -192,7 +192,6 @@ namespace PV
             reportesVentas.AgregarSubMenu("Reporte diario de Pedidos Clientes");
             reportesVentas.AgregarSubMenu("Reporte diario de Remisiones", "REPORTE_DIARIO_REMISIONES");
             reportesVentas.AgregarSubMenu("Reporte diario Facturas", "REPORTE_DIARIO_FACTURAS");
-            reportesVentas.AgregarSubMenu("Reporte diario Ingresos", "REPORTE_DIARIO_INGRESOS");
 
             reportesVentas.AgregarSubMenu("Reporte diario Notas Crédito");
             reportesVentas.AgregarSubMenu("Reporte diario Notas Cargo");
@@ -238,7 +237,7 @@ namespace PV
 
             // sub menu de tercer nivel
             SidebarMenuItem reportesCxc = cxcIngresos.AgregarSubMenu("Reportes CxC Ingresos");
-            reportesCxc.AgregarSubMenu("Diario de Ingresos", "REPORTE_INGRESOS_TESORERIA");
+            reportesCxc.AgregarSubMenu("Diario de Ingresos", "REPORTE_DIARIO_INGRESOS");
             reportesCxc.AgregarSubMenu("Saldos Clientes");
             reportesCxc.AgregarSubMenu("Saldos Clientes Detalle");
             reportesCxc.AgregarSubMenu("Antigüedad Saldos");
@@ -763,7 +762,7 @@ namespace PV
             if (e.Button == MouseButtons.Left)
             {
                 ReleaseCapture();
-
+                
                 SendMessage(
                     Handle,
                     WM_NCLBUTTONDOWN,

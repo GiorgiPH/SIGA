@@ -17,6 +17,8 @@ namespace PV
         private string _claveDocumento;
         private string _fechaInicio;
         private string _fechaFin;
+        private string _claveCentroCostos;
+        private string _claveCuentaBancaria;
 
         public ReporteDiarioIngresos()
         {
@@ -27,12 +29,16 @@ namespace PV
         // claveDocumento -> @ClaveDocumento (Cobros no tiene combo propio; normalmente llega null)
         // fechaInicio -> @FechaInicio
         // fechaFin -> @FechaFin
-        public ReporteDiarioIngresos(string idCliente, string claveDocumento, string fechaInicio, string fechaFin) : this()
+        // claveCentroCostos -> @ClaveCentroCostos
+        // claveCuentaBancaria -> @ClaveCuentaBancaria
+        public ReporteDiarioIngresos(string idCliente, string claveDocumento, string fechaInicio, string fechaFin, string claveCentroCostos, string claveCuentaBancaria) : this()
         {
             _idCliente = idCliente;
             _claveDocumento = claveDocumento;
             _fechaInicio = fechaInicio;
             _fechaFin = fechaFin;
+            _claveCentroCostos = claveCentroCostos;
+            _claveCuentaBancaria = claveCuentaBancaria;
         }
 
         private void ReporteDiarioIngresos_Load(object sender, EventArgs e)
@@ -61,12 +67,26 @@ namespace PV
 
             string claveDocumento = string.IsNullOrWhiteSpace(_claveDocumento) ? null : _claveDocumento;
 
+            int? claveCentroCostos = null;
+            if (!string.IsNullOrWhiteSpace(_claveCentroCostos) && _claveCentroCostos != "0")
+            {
+                claveCentroCostos = Convert.ToInt32(_claveCentroCostos);
+            }
+
+            int? claveCuentaBancaria = null;
+            if (!string.IsNullOrWhiteSpace(_claveCuentaBancaria) && _claveCuentaBancaria != "0")
+            {
+                claveCuentaBancaria = Convert.ToInt32(_claveCuentaBancaria);
+            }
+
             this.sp_ReporteDiarioIngresosTableAdapter.Fill(
                 this.controlCondominiosDataSet46.sp_ReporteDiarioIngresos,
                 claveProveedor,
                 fechaInicio,
                 fechaFin,
-                claveDocumento);
+                claveDocumento,
+                claveCentroCostos,
+                claveCuentaBancaria);
 
             this.reportViewer1.RefreshReport();
         }

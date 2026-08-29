@@ -41,17 +41,21 @@
             this.pnProveedor = new System.Windows.Forms.Panel();
             this.cmbPropietario1 = new Guna.UI2.WinForms.Guna2ComboBox();
             this.label1 = new System.Windows.Forms.Label();
+            this.pnCuentaBancaria = new System.Windows.Forms.Panel();
+            this.cmbCuentaBancaria = new Guna.UI2.WinForms.Guna2ComboBox();
+            this.label11 = new System.Windows.Forms.Label();
+            this.pnCliente = new System.Windows.Forms.Panel();
+            this.cmbCliente = new Guna.UI2.WinForms.Guna2ComboBox();
+            this.label9 = new System.Windows.Forms.Label();
             this.pnTipoDocumento = new System.Windows.Forms.Panel();
             this.cmbTipo = new Guna.UI2.WinForms.Guna2ComboBox();
             this.label5 = new System.Windows.Forms.Label();
             this.pnCentroCostos = new System.Windows.Forms.Panel();
             this.cmbCentroCostos = new Guna.UI2.WinForms.Guna2ComboBox();
             this.label6 = new System.Windows.Forms.Label();
-            this.pnAnioSemana = new System.Windows.Forms.Panel();
-            this.cmbSemana = new Guna.UI2.WinForms.Guna2ComboBox();
-            this.label8 = new System.Windows.Forms.Label();
-            this.label7 = new System.Windows.Forms.Label();
-            this.dtpAnio = new System.Windows.Forms.DateTimePicker();
+            this.pnProyecto = new System.Windows.Forms.Panel();
+            this.cmbProyecto = new Guna.UI2.WinForms.Guna2ComboBox();
+            this.label10 = new System.Windows.Forms.Label();
             this.pnFechas = new System.Windows.Forms.Panel();
             this.label2 = new System.Windows.Forms.Label();
             this.guna2ToggleSwitch1 = new Guna.UI2.WinForms.Guna2ToggleSwitch();
@@ -59,18 +63,16 @@
             this.guna2Button3 = new Guna.UI2.WinForms.Guna2Button();
             this.guna2Button9 = new Guna.UI2.WinForms.Guna2Button();
             this.guna2Separator1 = new Guna.UI2.WinForms.Guna2Separator();
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.cmbCliente = new Guna.UI2.WinForms.Guna2ComboBox();
-            this.label9 = new System.Windows.Forms.Label();
             this.guna2GradientPanel1.SuspendLayout();
             this.guna2Panel1.SuspendLayout();
             this.flowLayoutPanel1.SuspendLayout();
             this.pnProveedor.SuspendLayout();
+            this.pnCuentaBancaria.SuspendLayout();
+            this.pnCliente.SuspendLayout();
             this.pnTipoDocumento.SuspendLayout();
             this.pnCentroCostos.SuspendLayout();
-            this.pnAnioSemana.SuspendLayout();
+            this.pnProyecto.SuspendLayout();
             this.pnFechas.SuspendLayout();
-            this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // dtFecha2
@@ -129,7 +131,7 @@
             this.guna2GradientPanel1.GradientMode = System.Drawing.Drawing2D.LinearGradientMode.Vertical;
             this.guna2GradientPanel1.Location = new System.Drawing.Point(0, 0);
             this.guna2GradientPanel1.Name = "guna2GradientPanel1";
-            this.guna2GradientPanel1.Size = new System.Drawing.Size(587, 75);
+            this.guna2GradientPanel1.Size = new System.Drawing.Size(589, 75);
             this.guna2GradientPanel1.TabIndex = 112;
             // 
             // guna2CircleButton1
@@ -145,7 +147,7 @@
             this.guna2CircleButton1.ForeColor = System.Drawing.Color.White;
             this.guna2CircleButton1.Image = global::PV.Properties.Resources.home;
             this.guna2CircleButton1.ImageSize = new System.Drawing.Size(60, 60);
-            this.guna2CircleButton1.Location = new System.Drawing.Point(496, 2);
+            this.guna2CircleButton1.Location = new System.Drawing.Point(498, 2);
             this.guna2CircleButton1.Name = "guna2CircleButton1";
             this.guna2CircleButton1.ShadowDecoration.Mode = Guna.UI2.WinForms.Enums.ShadowMode.Circle;
             this.guna2CircleButton1.Size = new System.Drawing.Size(70, 70);
@@ -179,22 +181,23 @@
             this.guna2Panel1.FillColor = System.Drawing.Color.White;
             this.guna2Panel1.Location = new System.Drawing.Point(18, 81);
             this.guna2Panel1.Name = "guna2Panel1";
-            this.guna2Panel1.Size = new System.Drawing.Size(548, 324);
+            this.guna2Panel1.Size = new System.Drawing.Size(550, 402);
             this.guna2Panel1.TabIndex = 113;
             this.guna2Panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.guna2Panel1_Paint);
             // 
             // flowLayoutPanel1
             // 
             this.flowLayoutPanel1.Controls.Add(this.pnProveedor);
-            this.flowLayoutPanel1.Controls.Add(this.panel1);
+            this.flowLayoutPanel1.Controls.Add(this.pnCuentaBancaria);
+            this.flowLayoutPanel1.Controls.Add(this.pnCliente);
             this.flowLayoutPanel1.Controls.Add(this.pnTipoDocumento);
             this.flowLayoutPanel1.Controls.Add(this.pnCentroCostos);
-            this.flowLayoutPanel1.Controls.Add(this.pnAnioSemana);
+            this.flowLayoutPanel1.Controls.Add(this.pnProyecto);
             this.flowLayoutPanel1.Controls.Add(this.pnFechas);
             this.flowLayoutPanel1.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
             this.flowLayoutPanel1.Location = new System.Drawing.Point(18, 26);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(503, 238);
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(503, 299);
             this.flowLayoutPanel1.TabIndex = 262;
             this.flowLayoutPanel1.WrapContents = false;
             // 
@@ -241,11 +244,95 @@
             this.label1.TabIndex = 114;
             this.label1.Text = "Proveedor:";
             // 
+            // pnCuentaBancaria
+            // 
+            this.pnCuentaBancaria.Controls.Add(this.cmbCuentaBancaria);
+            this.pnCuentaBancaria.Controls.Add(this.label11);
+            this.pnCuentaBancaria.Location = new System.Drawing.Point(3, 45);
+            this.pnCuentaBancaria.Name = "pnCuentaBancaria";
+            this.pnCuentaBancaria.Size = new System.Drawing.Size(495, 36);
+            this.pnCuentaBancaria.TabIndex = 265;
+            // 
+            // cmbCuentaBancaria
+            // 
+            this.cmbCuentaBancaria.AutoRoundedCorners = true;
+            this.cmbCuentaBancaria.BackColor = System.Drawing.Color.Transparent;
+            this.cmbCuentaBancaria.BorderColor = System.Drawing.Color.Gray;
+            this.cmbCuentaBancaria.BorderRadius = 12;
+            this.cmbCuentaBancaria.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
+            this.cmbCuentaBancaria.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbCuentaBancaria.FocusedColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.cmbCuentaBancaria.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.cmbCuentaBancaria.Font = new System.Drawing.Font("Segoe UI", 10F);
+            this.cmbCuentaBancaria.ForeColor = System.Drawing.Color.Black;
+            this.cmbCuentaBancaria.IntegralHeight = false;
+            this.cmbCuentaBancaria.ItemHeight = 20;
+            this.cmbCuentaBancaria.Items.AddRange(new object[] {
+            "Activo",
+            "Inactivo"});
+            this.cmbCuentaBancaria.Location = new System.Drawing.Point(110, 5);
+            this.cmbCuentaBancaria.Name = "cmbCuentaBancaria";
+            this.cmbCuentaBancaria.Size = new System.Drawing.Size(372, 26);
+            this.cmbCuentaBancaria.TabIndex = 257;
+            this.cmbCuentaBancaria.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label11.Location = new System.Drawing.Point(14, 12);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(101, 13);
+            this.label11.TabIndex = 114;
+            this.label11.Text = "Cuenta Bancaria";
+            // 
+            // pnCliente
+            // 
+            this.pnCliente.Controls.Add(this.cmbCliente);
+            this.pnCliente.Controls.Add(this.label9);
+            this.pnCliente.Location = new System.Drawing.Point(3, 87);
+            this.pnCliente.Name = "pnCliente";
+            this.pnCliente.Size = new System.Drawing.Size(495, 36);
+            this.pnCliente.TabIndex = 264;
+            // 
+            // cmbCliente
+            // 
+            this.cmbCliente.AutoRoundedCorners = true;
+            this.cmbCliente.BackColor = System.Drawing.Color.Transparent;
+            this.cmbCliente.BorderColor = System.Drawing.Color.Gray;
+            this.cmbCliente.BorderRadius = 12;
+            this.cmbCliente.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
+            this.cmbCliente.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbCliente.FocusedColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.cmbCliente.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.cmbCliente.Font = new System.Drawing.Font("Segoe UI", 10F);
+            this.cmbCliente.ForeColor = System.Drawing.Color.Black;
+            this.cmbCliente.IntegralHeight = false;
+            this.cmbCliente.ItemHeight = 20;
+            this.cmbCliente.Items.AddRange(new object[] {
+            "Activo",
+            "Inactivo"});
+            this.cmbCliente.Location = new System.Drawing.Point(89, 5);
+            this.cmbCliente.Name = "cmbCliente";
+            this.cmbCliente.Size = new System.Drawing.Size(393, 26);
+            this.cmbCliente.TabIndex = 257;
+            this.cmbCliente.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label9.Location = new System.Drawing.Point(14, 12);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(50, 13);
+            this.label9.TabIndex = 114;
+            this.label9.Text = "Cliente:";
+            // 
             // pnTipoDocumento
             // 
             this.pnTipoDocumento.Controls.Add(this.cmbTipo);
             this.pnTipoDocumento.Controls.Add(this.label5);
-            this.pnTipoDocumento.Location = new System.Drawing.Point(3, 87);
+            this.pnTipoDocumento.Location = new System.Drawing.Point(3, 129);
             this.pnTipoDocumento.Name = "pnTipoDocumento";
             this.pnTipoDocumento.Size = new System.Drawing.Size(495, 36);
             this.pnTipoDocumento.TabIndex = 263;
@@ -288,7 +375,7 @@
             // 
             this.pnCentroCostos.Controls.Add(this.cmbCentroCostos);
             this.pnCentroCostos.Controls.Add(this.label6);
-            this.pnCentroCostos.Location = new System.Drawing.Point(3, 129);
+            this.pnCentroCostos.Location = new System.Drawing.Point(3, 171);
             this.pnCentroCostos.Name = "pnCentroCostos";
             this.pnCentroCostos.Size = new System.Drawing.Size(495, 36);
             this.pnCentroCostos.TabIndex = 263;
@@ -315,7 +402,7 @@
             this.cmbCentroCostos.Size = new System.Drawing.Size(372, 26);
             this.cmbCentroCostos.TabIndex = 257;
             this.cmbCentroCostos.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.cmbCentroCostos.SelectedIndexChanged += new System.EventHandler(this.cmbPropietario1_SelectedIndexChanged);
+            this.cmbCentroCostos.SelectedIndexChanged += new System.EventHandler(this.cmbCentroCostos_SelectedIndexChanged);
             // 
             // label6
             // 
@@ -327,73 +414,47 @@
             this.label6.TabIndex = 114;
             this.label6.Text = "Centro Costos:";
             // 
-            // pnAnioSemana
+            // pnProyecto
             // 
-            this.pnAnioSemana.Controls.Add(this.cmbSemana);
-            this.pnAnioSemana.Controls.Add(this.label8);
-            this.pnAnioSemana.Controls.Add(this.label7);
-            this.pnAnioSemana.Controls.Add(this.dtpAnio);
-            this.pnAnioSemana.Location = new System.Drawing.Point(3, 171);
-            this.pnAnioSemana.Name = "pnAnioSemana";
-            this.pnAnioSemana.Size = new System.Drawing.Size(495, 36);
-            this.pnAnioSemana.TabIndex = 263;
-            this.pnAnioSemana.Visible = false;
+            this.pnProyecto.Controls.Add(this.cmbProyecto);
+            this.pnProyecto.Controls.Add(this.label10);
+            this.pnProyecto.Location = new System.Drawing.Point(3, 213);
+            this.pnProyecto.Name = "pnProyecto";
+            this.pnProyecto.Size = new System.Drawing.Size(495, 36);
+            this.pnProyecto.TabIndex = 264;
             // 
-            // cmbSemana
+            // cmbProyecto
             // 
-            this.cmbSemana.AutoRoundedCorners = true;
-            this.cmbSemana.BackColor = System.Drawing.Color.Transparent;
-            this.cmbSemana.BorderColor = System.Drawing.Color.Gray;
-            this.cmbSemana.BorderRadius = 12;
-            this.cmbSemana.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
-            this.cmbSemana.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbSemana.FocusedColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.cmbSemana.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.cmbSemana.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.cmbSemana.ForeColor = System.Drawing.Color.Black;
-            this.cmbSemana.IntegralHeight = false;
-            this.cmbSemana.ItemHeight = 20;
-            this.cmbSemana.Items.AddRange(new object[] {
+            this.cmbProyecto.AutoRoundedCorners = true;
+            this.cmbProyecto.BackColor = System.Drawing.Color.Transparent;
+            this.cmbProyecto.BorderColor = System.Drawing.Color.Gray;
+            this.cmbProyecto.BorderRadius = 12;
+            this.cmbProyecto.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
+            this.cmbProyecto.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbProyecto.FocusedColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.cmbProyecto.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.cmbProyecto.Font = new System.Drawing.Font("Segoe UI", 10F);
+            this.cmbProyecto.ForeColor = System.Drawing.Color.Black;
+            this.cmbProyecto.IntegralHeight = false;
+            this.cmbProyecto.ItemHeight = 20;
+            this.cmbProyecto.Items.AddRange(new object[] {
             "Activo",
             "Inactivo"});
-            this.cmbSemana.Location = new System.Drawing.Point(293, 5);
-            this.cmbSemana.Name = "cmbSemana";
-            this.cmbSemana.Size = new System.Drawing.Size(189, 26);
-            this.cmbSemana.TabIndex = 257;
-            this.cmbSemana.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.cmbSemana.SelectedIndexChanged += new System.EventHandler(this.cmbPropietario1_SelectedIndexChanged);
+            this.cmbProyecto.Location = new System.Drawing.Point(110, 5);
+            this.cmbProyecto.Name = "cmbProyecto";
+            this.cmbProyecto.Size = new System.Drawing.Size(372, 26);
+            this.cmbProyecto.TabIndex = 257;
+            this.cmbProyecto.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
-            // label8
+            // label10
             // 
-            this.label8.AutoSize = true;
-            this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label8.Location = new System.Drawing.Point(231, 12);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(56, 13);
-            this.label8.TabIndex = 114;
-            this.label8.Text = "Semana:";
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.Location = new System.Drawing.Point(14, 12);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(36, 13);
-            this.label7.TabIndex = 114;
-            this.label7.Text = "Anio:";
-            // 
-            // dtpAnio
-            // 
-            this.dtpAnio.CustomFormat = "yyyy";
-            this.dtpAnio.Enabled = false;
-            this.dtpAnio.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dtpAnio.Location = new System.Drawing.Point(56, 8);
-            this.dtpAnio.Name = "dtpAnio";
-            this.dtpAnio.ShowUpDown = true;
-            this.dtpAnio.Size = new System.Drawing.Size(106, 20);
-            this.dtpAnio.TabIndex = 102;
-            this.dtpAnio.ValueChanged += new System.EventHandler(this.dtFecha1_ValueChanged);
+            this.label10.AutoSize = true;
+            this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label10.Location = new System.Drawing.Point(14, 12);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(57, 13);
+            this.label10.TabIndex = 114;
+            this.label10.Text = "Proyecto";
             // 
             // pnFechas
             // 
@@ -403,7 +464,7 @@
             this.pnFechas.Controls.Add(this.label2);
             this.pnFechas.Controls.Add(this.guna2ToggleSwitch1);
             this.pnFechas.Controls.Add(this.label3);
-            this.pnFechas.Location = new System.Drawing.Point(3, 213);
+            this.pnFechas.Location = new System.Drawing.Point(3, 255);
             this.pnFechas.Name = "pnFechas";
             this.pnFechas.Size = new System.Drawing.Size(495, 36);
             this.pnFechas.TabIndex = 263;
@@ -450,7 +511,7 @@
             this.guna2Button1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(19)))), ((int)(((byte)(35)))), ((int)(((byte)(95)))));
             this.guna2Button1.Image = global::PV.Properties.Resources.cancelar;
             this.guna2Button1.ImageAlign = System.Windows.Forms.HorizontalAlignment.Left;
-            this.guna2Button1.Location = new System.Drawing.Point(259, 264);
+            this.guna2Button1.Location = new System.Drawing.Point(259, 342);
             this.guna2Button1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.guna2Button1.Name = "guna2Button1";
             this.guna2Button1.Size = new System.Drawing.Size(128, 46);
@@ -477,7 +538,7 @@
             this.guna2Button3.Image = ((System.Drawing.Image)(resources.GetObject("guna2Button3.Image")));
             this.guna2Button3.ImageAlign = System.Windows.Forms.HorizontalAlignment.Left;
             this.guna2Button3.ImageSize = new System.Drawing.Size(48, 48);
-            this.guna2Button3.Location = new System.Drawing.Point(393, 264);
+            this.guna2Button3.Location = new System.Drawing.Point(393, 342);
             this.guna2Button3.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.guna2Button3.Name = "guna2Button3";
             this.guna2Button3.Size = new System.Drawing.Size(128, 46);
@@ -503,7 +564,7 @@
             this.guna2Button9.Image = ((System.Drawing.Image)(resources.GetObject("guna2Button9.Image")));
             this.guna2Button9.ImageAlign = System.Windows.Forms.HorizontalAlignment.Left;
             this.guna2Button9.ImageSize = new System.Drawing.Size(48, 48);
-            this.guna2Button9.Location = new System.Drawing.Point(829, 273);
+            this.guna2Button9.Location = new System.Drawing.Point(829, 351);
             this.guna2Button9.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.guna2Button9.Name = "guna2Button9";
             this.guna2Button9.Size = new System.Drawing.Size(128, 46);
@@ -522,53 +583,11 @@
             this.guna2Separator1.Size = new System.Drawing.Size(283, 10);
             this.guna2Separator1.TabIndex = 253;
             // 
-            // panel1
-            // 
-            this.panel1.Controls.Add(this.cmbCliente);
-            this.panel1.Controls.Add(this.label9);
-            this.panel1.Location = new System.Drawing.Point(3, 45);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(495, 36);
-            this.panel1.TabIndex = 264;
-            // 
-            // cmbCliente
-            // 
-            this.cmbCliente.AutoRoundedCorners = true;
-            this.cmbCliente.BackColor = System.Drawing.Color.Transparent;
-            this.cmbCliente.BorderColor = System.Drawing.Color.Gray;
-            this.cmbCliente.BorderRadius = 12;
-            this.cmbCliente.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
-            this.cmbCliente.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbCliente.FocusedColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.cmbCliente.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.cmbCliente.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.cmbCliente.ForeColor = System.Drawing.Color.Black;
-            this.cmbCliente.IntegralHeight = false;
-            this.cmbCliente.ItemHeight = 20;
-            this.cmbCliente.Items.AddRange(new object[] {
-            "Activo",
-            "Inactivo"});
-            this.cmbCliente.Location = new System.Drawing.Point(89, 5);
-            this.cmbCliente.Name = "cmbCliente";
-            this.cmbCliente.Size = new System.Drawing.Size(393, 26);
-            this.cmbCliente.TabIndex = 257;
-            this.cmbCliente.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            // 
-            // label9
-            // 
-            this.label9.AutoSize = true;
-            this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label9.Location = new System.Drawing.Point(14, 12);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(50, 13);
-            this.label9.TabIndex = 114;
-            this.label9.Text = "Cliente:";
-            // 
             // ReporteDiarioComprasFiltro
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(587, 417);
+            this.ClientSize = new System.Drawing.Size(589, 495);
             this.ControlBox = false;
             this.Controls.Add(this.guna2GradientPanel1);
             this.Controls.Add(this.guna2Panel1);
@@ -584,16 +603,18 @@
             this.flowLayoutPanel1.ResumeLayout(false);
             this.pnProveedor.ResumeLayout(false);
             this.pnProveedor.PerformLayout();
+            this.pnCuentaBancaria.ResumeLayout(false);
+            this.pnCuentaBancaria.PerformLayout();
+            this.pnCliente.ResumeLayout(false);
+            this.pnCliente.PerformLayout();
             this.pnTipoDocumento.ResumeLayout(false);
             this.pnTipoDocumento.PerformLayout();
             this.pnCentroCostos.ResumeLayout(false);
             this.pnCentroCostos.PerformLayout();
-            this.pnAnioSemana.ResumeLayout(false);
-            this.pnAnioSemana.PerformLayout();
+            this.pnProyecto.ResumeLayout(false);
+            this.pnProyecto.PerformLayout();
             this.pnFechas.ResumeLayout(false);
             this.pnFechas.PerformLayout();
-            this.panel1.ResumeLayout(false);
-            this.panel1.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -619,18 +640,19 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
         private System.Windows.Forms.Panel pnProveedor;
+        private System.Windows.Forms.Panel pnTipoDocumento;
+        private System.Windows.Forms.Panel pnFechas;
+        private System.Windows.Forms.Panel pnCliente;
+        private Guna.UI2.WinForms.Guna2ComboBox cmbCliente;
+        private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Panel pnCentroCostos;
         private Guna.UI2.WinForms.Guna2ComboBox cmbCentroCostos;
         private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.Panel pnTipoDocumento;
-        private System.Windows.Forms.Panel pnFechas;
-        private System.Windows.Forms.Panel pnAnioSemana;
-        private Guna.UI2.WinForms.Guna2ComboBox cmbSemana;
-        private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.DateTimePicker dtpAnio;
-        private System.Windows.Forms.Panel panel1;
-        private Guna.UI2.WinForms.Guna2ComboBox cmbCliente;
-        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.Panel pnProyecto;
+        private Guna.UI2.WinForms.Guna2ComboBox cmbProyecto;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.Panel pnCuentaBancaria;
+        private Guna.UI2.WinForms.Guna2ComboBox cmbCuentaBancaria;
+        private System.Windows.Forms.Label label11;
     }
 }

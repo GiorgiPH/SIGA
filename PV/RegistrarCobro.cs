@@ -5,6 +5,7 @@ using PuntoVentas.Clases.DatosEmpresa;
 using PV;
 using PV.Clases;
 using PV.Clases.ConceptoPago;
+using PV.Clases.CuentasBancarias;
 using PV.Clases.Facturas;
 using PV.Clases.Remision;
 using System;
@@ -30,6 +31,7 @@ namespace PV
 
         DBConceptoCobroPago dbConceptoCobroPago = new DBConceptoCobroPago();
         ArrayList Lista;
+        DBCUentaBancaria dbCuentaBancaria = new DBCUentaBancaria();
         DBDatosEmpresa d = new DBDatosEmpresa();
         public static string Carpeta = string.Empty;
         public static int CobroRealizado = 0;
@@ -45,7 +47,13 @@ namespace PV
         string monto = string.Empty;
         string[] datosE = null;
 
-        public RegistrarCobro(ArrayList ListaConcep, string Matricula, string Alumno, string Fecha, string tipo, string monto)
+        // Centro de Costos elegido en registroIngresos (cmbCentroCostos):
+        // filtra que solo se muestren en cmbCuentaBancaria las cuentas
+        // bancarias de ese Centro de Costos. Si viene null, vacio o "0"
+        // ("TODOS"), se muestran todas las cuentas bancarias sin filtrar.
+        string claveCentroCostos = string.Empty;
+
+        public RegistrarCobro(ArrayList ListaConcep, string Matricula, string Alumno, string Fecha, string tipo, string monto, string claveCentroCostos = null)
         {
             InitializeComponent();
             txtMatricula.Text = Matricula;
@@ -54,6 +62,7 @@ namespace PV
             dtpFecha.Text = Fecha;
             this.tipo = tipo;
             this.monto = monto;
+            this.claveCentroCostos = claveCentroCostos;
             datosE = d.CorreoContra();
             if (tipo == "M")
             {
@@ -72,7 +81,14 @@ namespace PV
             // TODO: esta línea de código carga datos en la tabla 'controlAcademicoDataSet14.FormasPago' Puede moverla o quitarla según sea necesario.
 
             CargarPagosPendientesPorTipo();
-            c.SeleccionarCuentaBancaria(cmbCuentaBancaria);
+            DataTable dtProyectos = dbCuentaBancaria.ObtenerCuentasBancarias(claveCentroCostos);
+
+            ComboUtil.LlenarComboBox(
+                cmbCuentaBancaria,
+                dtProyectos,
+                "Nombre",
+                "Clave"
+            );
 
             // Nombre asumido para el combo agregado en el diseñador
             // ("cmbConceptoIngreso"): si le pusiste otro nombre, ajusta
@@ -384,7 +400,7 @@ namespace PV
                             r.ActualizarRemision(folioDocumento, 0.00m, 0.00m, abonoFila);
                         }
 
-                        c.InsertarCobro(folioDocumento, txtMatricula.Text, dtpFecha.Text, txtObservaciones.Text, row.Cells["FormaPago"].Value.ToString(), abonoFila, txtReferncia.Text, txtNumOperacion.Text, txtNumAutorizacion.Text, txtCuenta.Text, txtFolioGeneral.Text, 0.00m, DescuentoPago, Convert.ToDecimal(row.Cells["Saldo"].Value.ToString()), tipoDocumentoFila, idConceptoCobroPago);
+                        c.InsertarCobro(folioDocumento, txtMatricula.Text, dtpFecha.Text, txtObservaciones.Text, row.Cells["FormaPago"].Value.ToString(), abonoFila, txtReferncia.Text, txtNumOperacion.Text, txtNumAutorizacion.Text, cmbCuentaBancaria?.SelectedValue?.ToString(), txtFolioGeneral.Text, 0.00m, DescuentoPago, Convert.ToDecimal(row.Cells["Saldo"].Value.ToString()), tipoDocumentoFila, idConceptoCobroPago);
                         c.ModificarExtension(txtFolioGeneral.Text, ext);
                         c.ActualizarArchivoCobro(txtFolioGeneral.Text, txtArchivo.Text);
                         //````````````c.insertLogcobros(Login.UsuarioLogin, DateTime.Now.ToString("yyyy/MM/dd"), row.Cells["FolioDocumento"].Value.ToString(), row.Cells["Documento"].Value.ToString(), "", Convert.ToDecimal(row.Cells["Importe"].Value).ToString(), "0.00", "0.00", "0.00", "0.00", DescuentoPago.ToString(), Convert.ToDecimal(row.Cells["Saldo"].Value).ToString());
@@ -486,11 +502,7 @@ namespace PV
 
         private void cmbCuentaBancaria_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (cmbCuentaBancaria.Text != string.Empty)
-            {
-                string[] valores = c.InformacionCuenta(cmbCuentaBancaria.Text);
-                txtCuenta.Text = valores[0];
-            }
+
         }
 
         private void txtTotalPagado_TextChanged(object sender, EventArgs e)

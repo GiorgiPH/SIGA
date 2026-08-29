@@ -503,7 +503,6 @@
             this.guna2Panel2.Controls.Add(this.GrupoVentas);
             this.guna2Panel2.Controls.Add(this.SubGrupoReportesProveedores);
             this.guna2Panel2.Controls.Add(this.SubGrupoReportesAnticipos);
-            this.guna2Panel2.Controls.Add(this.SubGrupoReportesCompras);
             this.guna2Panel2.Controls.Add(this.SubGrupoReportesMovimientos);
             this.guna2Panel2.Controls.Add(this.GrupoUtilerias);
             this.guna2Panel2.Controls.Add(this.GrupoPresupuesto);
@@ -995,11 +994,12 @@
             this.GrupoTesoreria.Controls.Add(this.btnConceptosCobro);
             this.GrupoTesoreria.Controls.Add(this.guna2GradientButton18);
             this.GrupoTesoreria.Controls.Add(this.guna2GradientButton19);
+            this.GrupoTesoreria.Controls.Add(this.SubGrupoReportesCompras);
             this.GrupoTesoreria.CustomBorderColor = System.Drawing.Color.DodgerBlue;
             this.GrupoTesoreria.FillColor = System.Drawing.Color.DodgerBlue;
             this.GrupoTesoreria.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.GrupoTesoreria.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(19)))), ((int)(((byte)(35)))), ((int)(((byte)(95)))));
-            this.GrupoTesoreria.Location = new System.Drawing.Point(625, 128);
+            this.GrupoTesoreria.Location = new System.Drawing.Point(718, 255);
             this.GrupoTesoreria.Name = "GrupoTesoreria";
             this.GrupoTesoreria.Size = new System.Drawing.Size(195, 460);
             this.GrupoTesoreria.TabIndex = 64;
@@ -1833,7 +1833,7 @@
             this.SubGrupoReportesCompras.FillColor = System.Drawing.Color.DodgerBlue;
             this.SubGrupoReportesCompras.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.SubGrupoReportesCompras.ForeColor = System.Drawing.Color.DodgerBlue;
-            this.SubGrupoReportesCompras.Location = new System.Drawing.Point(617, 282);
+            this.SubGrupoReportesCompras.Location = new System.Drawing.Point(89, 457);
             this.SubGrupoReportesCompras.Name = "SubGrupoReportesCompras";
             this.SubGrupoReportesCompras.Size = new System.Drawing.Size(236, 433);
             this.SubGrupoReportesCompras.TabIndex = 66;

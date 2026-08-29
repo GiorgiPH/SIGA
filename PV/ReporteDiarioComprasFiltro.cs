@@ -1,6 +1,9 @@
 ﻿using Condominios.Clases.CentroCostos;
 using Condominios.Clases.Documentos;
+using PV.Clases;
+using PV.Clases.CentroCostos;
 using PV.Clases.Clientes;
+using PV.Clases.CuentasBancarias;
 using PV.Clases.Proveedores;
 using PV.Clases.ReporteCompras;
 using System;
@@ -18,6 +21,8 @@ namespace PV
         DBClientes clientes = new DBClientes();
 
         DBCentroCostos centroCostos = new DBCentroCostos();
+        DBDatosProyecto datosProyecto = new DBDatosProyecto();
+        DBCUentaBancaria cuentaBancaria1 = new DBCUentaBancaria();
 
         string provedor = string.Empty;
         string cuentaBancaria = string.Empty;
@@ -26,38 +31,44 @@ namespace PV
         string fecha2 = string.Empty;
         string tipo = "";
 
-        public ReporteDiarioComprasFiltro(string tipo="")
+        public ReporteDiarioComprasFiltro(string tipo = "")
         {
             InitializeComponent();
             this.tipo = tipo;
             if (tipo == "Diario Gastos")
             {
-               
+                // Ahora tambien filtra por Centro de Costos (con cascada a Proyecto)
+                pnCuentaBancaria.Visible = false;
+                pnCliente.Visible = false;
+                pnProyecto.Visible = false;
             }
             else if (tipo == "Diario Reembolsos")
             {
-                pnAnioSemana.Visible = true;
-                pnCentroCostos.Visible = true;
-
+                pnCuentaBancaria.Visible = false;
+                pnCliente.Visible = false;
+                pnProyecto.Visible = false;
             }
             else if (tipo == "Diario Compras")
             {
-                pnCentroCostos.Visible = false;
+                pnCuentaBancaria.Visible = false;
+                pnCliente.Visible = false;
+                pnProyecto.Visible = false;
 
             }
             else if (tipo == "Diario Egresos")
             {
                 pnCentroCostos.Visible = false;
-                pnAnioSemana.Visible = false;
                 pnTipoDocumento.Visible = false;
-                
+                pnProyecto.Visible = false;
+                pnCliente.Visible = false;
 
             }
             else if (tipo == "Saldos Proveedor")
             {
                 pnCentroCostos.Visible = false;
-                pnAnioSemana.Visible = false;
                 pnTipoDocumento.Visible = false;
+                pnCliente.Visible = false;
+                pnProyecto.Visible = false;
 
 
             }
@@ -65,28 +76,31 @@ namespace PV
             {
                 // Usa Cliente en vez de Proveedor
                 pnProveedor.Visible = false;
-                panel1.Visible = true;
-                pnCentroCostos.Visible = false;
-                pnAnioSemana.Visible = false;
+                pnCliente.Visible = true;
+                pnCentroCostos.Visible = true;
                 pnTipoDocumento.Visible = true;
+                pnCuentaBancaria.Visible = false;
+                pnProyecto.Visible = false;
             }
             else if (tipo == "Diario Remisiones")
             {
                 // Usa Cliente en vez de Proveedor
                 pnProveedor.Visible = false;
-                panel1.Visible = true;
-                pnCentroCostos.Visible = false;
-                pnAnioSemana.Visible = false;
+                pnCliente.Visible = true;
+                pnCentroCostos.Visible = true;
                 pnTipoDocumento.Visible = true;
+                pnCuentaBancaria.Visible = false;
+                pnProyecto.Visible = false;
             }
             else if (tipo == "Diario Ingresos")
             {
-                // Cobros: solo Cliente y Fechas, sin tipo de documento propio
+                // Cobros: Cliente, Fechas, Centro de Costos y Cuenta Bancaria; sin tipo de documento propio
                 pnProveedor.Visible = false;
-                panel1.Visible = true;
-                pnCentroCostos.Visible = false;
-                pnAnioSemana.Visible = false;
+                pnCliente.Visible = true;
+                pnCentroCostos.Visible = true;
                 pnTipoDocumento.Visible = false;
+                pnCuentaBancaria.Visible = true;
+                pnProyecto.Visible = false;
             }
 
         }
@@ -111,6 +125,36 @@ namespace PV
                 cmbPropietario1.DisplayMember = "RazonSocial"; // Campo visible
                 cmbPropietario1.ValueMember = "IdProveedor";   // Campo interno
                 cmbPropietario1.SelectedIndex = -1;     // Ningún elemento seleccionado al inicio
+
+                //cmbCentroCostos.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
+                //cmbCentroCostos.AutoCompleteSource = AutoCompleteSource.ListItems;
+
+                // Reanudar eventos
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+        private void LlenarComboCuentasBancarias()
+        {
+            try
+            {
+                DataTable menus = cuentaBancaria1.ObtenerCuentasBancarias();
+                // Crear fila "TODOS"
+                DataRow filaTodos = menus.NewRow();
+                filaTodos["Clave"] = "0"; // Asegúrate de que la columna "Clave" exista
+                filaTodos["Nombre"] = "TODOS"; // Asegúrate de que la columna "Clave" exista
+
+                menus.Rows.InsertAt(filaTodos, 0); // Insertar al principio
+                // Evitar eventos mientras actualizas la fuente de datos
+
+                // Configurar estilo y autocompletado
+                cmbCuentaBancaria.DropDownStyle = ComboBoxStyle.DropDown; // Cambiar a DropDown
+                cmbCuentaBancaria.DataSource = menus;
+                cmbCuentaBancaria.DisplayMember = "Nombre"; // Campo visible
+                cmbCuentaBancaria.ValueMember = "Clave";   // Campo interno
+                cmbCuentaBancaria.SelectedIndex = -1;     // Ningún elemento seleccionado al inicio
 
                 //cmbCentroCostos.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
                 //cmbCentroCostos.AutoCompleteSource = AutoCompleteSource.ListItems;
@@ -166,19 +210,19 @@ namespace PV
                     if (tipo == "Diario Facturas")
                     {
                         tarea = "Factura";
-
                     }
                     else if (tipo == "Diario Remisiones")
                     {
                         tarea = "Remisiones";
                     }
-                }   
+                }
+
                 DataTable menus = d.ConsultarDocumento(filtroDocumento, filtroDocumento);
                 if (!string.IsNullOrEmpty(tarea))
                 {
                     menus = null;
-                     menus = d.ConsultarDocumento(tarea: tarea);
 
+                    menus = d.ConsultarDocumento(tarea: tarea);
                 }
                 // Crear fila "TODOS"
                 DataRow filaTodos = menus.NewRow();
@@ -209,7 +253,7 @@ namespace PV
         {
             try
             {
-                DataTable menus =  centroCostos.ConsultarTodos();
+                DataTable menus = centroCostos.ConsultarTodos();
                 // Crear fila "TODOS"
                 DataRow filaTodos = menus.NewRow();
                 filaTodos["Clave"] = "0"; // Asegúrate de que la columna "Clave" exista
@@ -235,43 +279,9 @@ namespace PV
                 MessageBox.Show($"Error: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-        private void LlenarComboSemanas()
-        {
-            try
-            {
-                List<SemanaItem> semanas = new List<SemanaItem>();
-
-                // Agrega primero la opción "TODOS"
-                semanas.Add(new SemanaItem
-                {
-                    Valor = 0, // o usa -1 si prefieres indicar que no es una semana válida
-                    Texto = "TODOS"
-                });
-
-                // Agrega las semanas 1 a 52
-                for (int i = 1; i <= 52; i++)
-                {
-                    semanas.Add(new SemanaItem
-                    {
-                        Valor = i,
-                        Texto = $"Semana {i}"
-                    });
-                }
-
-                cmbSemana.DataSource = semanas;
-                cmbSemana.DisplayMember = "Texto";
-                cmbSemana.ValueMember = "Valor";
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Error: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
-
+     
         private void ReporteDiarioComprasFiltro_Load(object sender, EventArgs e)
         {
-            LlenarComboCentroCostos();
-            LlenarComboSemanas();
 
             bool usaCliente = (tipo == "Diario Facturas" || tipo == "Diario Remisiones" || tipo == "Diario Ingresos");
 
@@ -295,19 +305,31 @@ namespace PV
                 cuentaBancaria = cmbTipo.Text;
             }
 
-            cmbCentroCostos.SelectedIndex = 0;
+            if (pnCentroCostos.Visible)
+            {
+                LlenarComboCentroCostos();
+                // Para Gastos/Facturas/Remisiones, seleccionar "TODOS" aqui dispara la cascada de Proyecto
+                // (ver cmbCentroCostos_SelectedIndexChanged). Para Ingresos no hay combo de Proyecto.
+                cmbCentroCostos.SelectedIndex = 0;
+            }
+
+            if (pnCuentaBancaria.Visible)
+            {
+                LlenarComboCuentasBancarias();
+                cmbCuentaBancaria.SelectedIndex = 0;
+            }
         }
 
-       
+
 
         private void dtFecha1_ValueChanged(object sender, EventArgs e)
         {
-           
+
         }
 
         private void dtFecha2_ValueChanged(object sender, EventArgs e)
         {
-           
+
         }
 
         private void cmbPropietario1_SelectedIndexChanged(object sender, EventArgs e)
@@ -327,14 +349,21 @@ namespace PV
 
         private void button1_Click(object sender, EventArgs e)
         {
-            if(tipo=="Diario Gastos")
+            if (tipo == "Diario Gastos")
             {
-                ReporteDiarioGastos r = new ReporteDiarioGastos(cmbPropietario1?.SelectedValue?.ToString(), cmbTipo?.SelectedValue?.ToString(), fecha == "Si" ? dtFecha1.Value.ToString("yyyy-MM-dd") : "", fecha == "Si" ? dtFecha2.Value.ToString("yyyy-MM-dd") : "");
+                // sp_ReporteDiarioGastos: @ClaveProveedor, @FechaInicio, @FechaFin, @ClaveDocumento, @ClaveCentroCostos, @ClaveProyecto
+                ReporteDiarioGastos r = new ReporteDiarioGastos(
+                    cmbPropietario1?.SelectedValue?.ToString(),
+                    cmbTipo?.SelectedValue?.ToString(),
+                    fecha == "Si" ? dtFecha1.Value.ToString("yyyy-MM-dd") : "",
+                    fecha == "Si" ? dtFecha2.Value.ToString("yyyy-MM-dd") : "",
+                    cmbCentroCostos?.SelectedValue?.ToString(),
+                    cmbProyecto?.SelectedValue?.ToString());
                 r.ShowDialog();
             }
             else if (tipo == "Diario Reembolsos")
             {
-                ReporteDiarioReembolsos reporteDiarioCompras = new ReporteDiarioReembolsos(cmbPropietario1?.SelectedValue?.ToString(), cmbTipo?.SelectedValue?.ToString(), cmbCentroCostos?.SelectedValue?.ToString(), dtpAnio.Text, cmbSemana?.SelectedValue?.ToString(), fecha == "Si" ? dtFecha1.Value.ToString("yyyy-MM-dd") : "", fecha == "Si" ? dtFecha2.Value.ToString("yyyy-MM-dd") : "");
+                ReporteDiarioReembolsos reporteDiarioCompras = new ReporteDiarioReembolsos(cmbPropietario1?.SelectedValue?.ToString(), cmbTipo?.SelectedValue?.ToString(), cmbCentroCostos?.SelectedValue?.ToString(), null, null, fecha == "Si" ? dtFecha1.Value.ToString("yyyy-MM-dd") : "", fecha == "Si" ? dtFecha2.Value.ToString("yyyy-MM-dd") : "");
                 reporteDiarioCompras.ShowDialog();
             }
             else if (tipo == "Diario Compras")
@@ -354,33 +383,39 @@ namespace PV
             }
             else if (tipo == "Diario Facturas")
             {
-                // sp_ReporteDiarioFacturas: @ClaveProveedor (IdCliente), @FechaInicio, @FechaFin, @ClaveDocumento
+                // sp_ReporteDiarioFacturas: @ClaveProveedor (IdCliente), @FechaInicio, @FechaFin, @ClaveDocumento, @ClaveCentroCostos, @ClaveProyecto
                 ReporteDiarioFacturas reporteDiarioFacturas = new ReporteDiarioFacturas(
                     cmbCliente?.SelectedValue?.ToString(),
                     cmbTipo?.SelectedValue?.ToString(),
                     fecha == "Si" ? dtFecha1.Value.ToString("yyyy-MM-dd") : "",
-                    fecha == "Si" ? dtFecha2.Value.ToString("yyyy-MM-dd") : "");
+                    fecha == "Si" ? dtFecha2.Value.ToString("yyyy-MM-dd") : "",
+                    cmbCentroCostos?.SelectedValue?.ToString(),
+                    cmbProyecto?.SelectedValue?.ToString());
                 reporteDiarioFacturas.ShowDialog();
             }
             else if (tipo == "Diario Remisiones")
             {
-                // sp_ReporteDiarioRemisiones: @ClaveProveedor (IdCliente), @FechaInicio, @FechaFin, @ClaveDocumento
+                // sp_ReporteDiarioRemisiones: @ClaveProveedor (IdCliente), @FechaInicio, @FechaFin, @ClaveDocumento, @ClaveCentroCostos, @ClaveProyecto
                 ReporteDiarioRemisiones reporteDiarioRemisiones = new ReporteDiarioRemisiones(
                     cmbCliente?.SelectedValue?.ToString(),
                     cmbTipo?.SelectedValue?.ToString(),
                     fecha == "Si" ? dtFecha1.Value.ToString("yyyy-MM-dd") : "",
-                    fecha == "Si" ? dtFecha2.Value.ToString("yyyy-MM-dd") : "");
+                    fecha == "Si" ? dtFecha2.Value.ToString("yyyy-MM-dd") : "",
+                    cmbCentroCostos?.SelectedValue?.ToString(),
+                    cmbProyecto?.SelectedValue?.ToString());
                 reporteDiarioRemisiones.ShowDialog();
             }
             else if (tipo == "Diario Ingresos")
             {
-                // sp_ReporteDiarioIngresos: @ClaveProveedor (IdCliente), @FechaInicio, @FechaFin, @ClaveDocumento
+                // sp_ReporteDiarioIngresos: @ClaveProveedor (IdCliente), @FechaInicio, @FechaFin, @ClaveDocumento, @ClaveCentroCostos, @ClaveCuentaBancaria
                 // No hay combo de tipo de documento propio para Cobros, se manda vacio/null.
                 ReporteDiarioIngresos reporteDiarioIngresos = new ReporteDiarioIngresos(
                     cmbCliente?.SelectedValue?.ToString(),
                     null,
                     fecha == "Si" ? dtFecha1.Value.ToString("yyyy-MM-dd") : "",
-                    fecha == "Si" ? dtFecha2.Value.ToString("yyyy-MM-dd") : "");
+                    fecha == "Si" ? dtFecha2.Value.ToString("yyyy-MM-dd") : "",
+                    cmbCentroCostos?.SelectedValue?.ToString(),
+                    cmbCuentaBancaria?.SelectedValue?.ToString());
                 reporteDiarioIngresos.ShowDialog();
             }
 
@@ -423,6 +458,16 @@ namespace PV
             c.CerrarConexion();
             p.CerrarConexion();
             d.CerrarConexion();
+        }
+
+        private void cmbCentroCostos_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            // Gastos/Facturas/Remisiones tienen combo de Proyecto en cascada.
+            if (cmbCentroCostos.SelectedIndex != -1 && (tipo == "Diario Gastos" || tipo == "Diario Facturas" || tipo == "Diario Remisiones"))
+            {
+                DataTable dtProyectos = datosProyecto.ObtenerProyectosPorCentroCostos(cmbCentroCostos.Text);
+                ComboUtil.LlenarComboBox(cmbProyecto, dtProyectos, "Proyecto", "Id");
+            }
         }
     }
     public class SemanaItem

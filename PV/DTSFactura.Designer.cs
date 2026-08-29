@@ -327,6 +327,12 @@ namespace PV {
             
             private global::System.Data.DataColumn columnNombreCentroCostos;
             
+            private global::System.Data.DataColumn columnClaveCentroCostos;
+            
+            private global::System.Data.DataColumn columnIdProyecto;
+            
+            private global::System.Data.DataColumn columnNombreProyecto;
+            
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
             public sp_ReporteDiarioFacturasDataTable() {
@@ -554,6 +560,30 @@ namespace PV {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+            public global::System.Data.DataColumn ClaveCentroCostosColumn {
+                get {
+                    return this.columnClaveCentroCostos;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+            public global::System.Data.DataColumn IdProyectoColumn {
+                get {
+                    return this.columnIdProyecto;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+            public global::System.Data.DataColumn NombreProyectoColumn {
+                get {
+                    return this.columnNombreProyecto;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -613,7 +643,10 @@ namespace PV {
                         int ClaveServicio, 
                         string Descripcion, 
                         int IdCliente, 
-                        string NombreCentroCostos) {
+                        string NombreCentroCostos, 
+                        int ClaveCentroCostos, 
+                        int IdProyecto, 
+                        string NombreProyecto) {
                 sp_ReporteDiarioFacturasRow rowsp_ReporteDiarioFacturasRow = ((sp_ReporteDiarioFacturasRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         Folio,
@@ -639,7 +672,10 @@ namespace PV {
                         ClaveServicio,
                         Descripcion,
                         IdCliente,
-                        NombreCentroCostos};
+                        NombreCentroCostos,
+                        ClaveCentroCostos,
+                        IdProyecto,
+                        NombreProyecto};
                 rowsp_ReporteDiarioFacturasRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowsp_ReporteDiarioFacturasRow);
                 return rowsp_ReporteDiarioFacturasRow;
@@ -686,6 +722,9 @@ namespace PV {
                 this.columnDescripcion = base.Columns["Descripcion"];
                 this.columnIdCliente = base.Columns["IdCliente"];
                 this.columnNombreCentroCostos = base.Columns["NombreCentroCostos"];
+                this.columnClaveCentroCostos = base.Columns["ClaveCentroCostos"];
+                this.columnIdProyecto = base.Columns["IdProyecto"];
+                this.columnNombreProyecto = base.Columns["NombreProyecto"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -739,6 +778,12 @@ namespace PV {
                 base.Columns.Add(this.columnIdCliente);
                 this.columnNombreCentroCostos = new global::System.Data.DataColumn("NombreCentroCostos", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnNombreCentroCostos);
+                this.columnClaveCentroCostos = new global::System.Data.DataColumn("ClaveCentroCostos", typeof(int), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnClaveCentroCostos);
+                this.columnIdProyecto = new global::System.Data.DataColumn("IdProyecto", typeof(int), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnIdProyecto);
+                this.columnNombreProyecto = new global::System.Data.DataColumn("NombreProyecto", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnNombreProyecto);
                 this.columnFolio.AllowDBNull = false;
                 this.columnClaveDocumento.MaxLength = 10;
                 this.columnNombreDocumento.MaxLength = 100;
@@ -751,11 +796,10 @@ namespace PV {
                 this.columnPartida.AllowDBNull = false;
                 this.columnConcepto2.MaxLength = 50;
                 this.columnSubtotal1.AllowDBNull = false;
-                this.columnDescuento1.AllowDBNull = false;
-                this.columnImpuesto.AllowDBNull = false;
                 this.columnTotal1.AllowDBNull = false;
                 this.columnDescripcion.MaxLength = 100;
                 this.columnNombreCentroCostos.MaxLength = 100;
+                this.columnNombreProyecto.MaxLength = 100;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -1146,7 +1190,13 @@ namespace PV {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
             public decimal Descuento1 {
                 get {
-                    return ((decimal)(this[this.tablesp_ReporteDiarioFacturas.Descuento1Column]));
+                    try {
+                        return ((decimal)(this[this.tablesp_ReporteDiarioFacturas.Descuento1Column]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("El valor de la columna \'Descuento1\' de la tabla \'sp_ReporteDiarioFacturas\' es DBN" +
+                                "ull.", e);
+                    }
                 }
                 set {
                     this[this.tablesp_ReporteDiarioFacturas.Descuento1Column] = value;
@@ -1157,7 +1207,13 @@ namespace PV {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
             public decimal Impuesto {
                 get {
-                    return ((decimal)(this[this.tablesp_ReporteDiarioFacturas.ImpuestoColumn]));
+                    try {
+                        return ((decimal)(this[this.tablesp_ReporteDiarioFacturas.ImpuestoColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("El valor de la columna \'Impuesto\' de la tabla \'sp_ReporteDiarioFacturas\' es DBNul" +
+                                "l.", e);
+                    }
                 }
                 set {
                     this[this.tablesp_ReporteDiarioFacturas.ImpuestoColumn] = value;
@@ -1240,6 +1296,57 @@ namespace PV {
                 }
                 set {
                     this[this.tablesp_ReporteDiarioFacturas.NombreCentroCostosColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+            public int ClaveCentroCostos {
+                get {
+                    try {
+                        return ((int)(this[this.tablesp_ReporteDiarioFacturas.ClaveCentroCostosColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("El valor de la columna \'ClaveCentroCostos\' de la tabla \'sp_ReporteDiarioFacturas\'" +
+                                " es DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tablesp_ReporteDiarioFacturas.ClaveCentroCostosColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+            public int IdProyecto {
+                get {
+                    try {
+                        return ((int)(this[this.tablesp_ReporteDiarioFacturas.IdProyectoColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("El valor de la columna \'IdProyecto\' de la tabla \'sp_ReporteDiarioFacturas\' es DBN" +
+                                "ull.", e);
+                    }
+                }
+                set {
+                    this[this.tablesp_ReporteDiarioFacturas.IdProyectoColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+            public string NombreProyecto {
+                get {
+                    try {
+                        return ((string)(this[this.tablesp_ReporteDiarioFacturas.NombreProyectoColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("El valor de la columna \'NombreProyecto\' de la tabla \'sp_ReporteDiarioFacturas\' es" +
+                                " DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tablesp_ReporteDiarioFacturas.NombreProyectoColumn] = value;
                 }
             }
             
@@ -1365,6 +1472,30 @@ namespace PV {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+            public bool IsDescuento1Null() {
+                return this.IsNull(this.tablesp_ReporteDiarioFacturas.Descuento1Column);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+            public void SetDescuento1Null() {
+                this[this.tablesp_ReporteDiarioFacturas.Descuento1Column] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+            public bool IsImpuestoNull() {
+                return this.IsNull(this.tablesp_ReporteDiarioFacturas.ImpuestoColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+            public void SetImpuestoNull() {
+                this[this.tablesp_ReporteDiarioFacturas.ImpuestoColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
             public bool IsClaveServicioNull() {
                 return this.IsNull(this.tablesp_ReporteDiarioFacturas.ClaveServicioColumn);
             }
@@ -1409,6 +1540,42 @@ namespace PV {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
             public void SetNombreCentroCostosNull() {
                 this[this.tablesp_ReporteDiarioFacturas.NombreCentroCostosColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+            public bool IsClaveCentroCostosNull() {
+                return this.IsNull(this.tablesp_ReporteDiarioFacturas.ClaveCentroCostosColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+            public void SetClaveCentroCostosNull() {
+                this[this.tablesp_ReporteDiarioFacturas.ClaveCentroCostosColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+            public bool IsIdProyectoNull() {
+                return this.IsNull(this.tablesp_ReporteDiarioFacturas.IdProyectoColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+            public void SetIdProyectoNull() {
+                this[this.tablesp_ReporteDiarioFacturas.IdProyectoColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+            public bool IsNombreProyectoNull() {
+                return this.IsNull(this.tablesp_ReporteDiarioFacturas.NombreProyectoColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+            public void SetNombreProyectoNull() {
+                this[this.tablesp_ReporteDiarioFacturas.NombreProyectoColumn] = global::System.Convert.DBNull;
             }
         }
         
@@ -1595,6 +1762,9 @@ namespace PV.DTSFacturaTableAdapters {
             tableMapping.ColumnMappings.Add("Descripcion", "Descripcion");
             tableMapping.ColumnMappings.Add("IdCliente", "IdCliente");
             tableMapping.ColumnMappings.Add("NombreCentroCostos", "NombreCentroCostos");
+            tableMapping.ColumnMappings.Add("ClaveCentroCostos", "ClaveCentroCostos");
+            tableMapping.ColumnMappings.Add("IdProyecto", "IdProyecto");
+            tableMapping.ColumnMappings.Add("NombreProyecto", "NombreProyecto");
             this._adapter.TableMappings.Add(tableMapping);
         }
         
@@ -1618,13 +1788,15 @@ namespace PV.DTSFacturaTableAdapters {
             this._commandCollection[0].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@FechaInicio", global::System.Data.SqlDbType.Date, 3, global::System.Data.ParameterDirection.Input, 10, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._commandCollection[0].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@FechaFin", global::System.Data.SqlDbType.Date, 3, global::System.Data.ParameterDirection.Input, 10, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._commandCollection[0].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@ClaveDocumento", global::System.Data.SqlDbType.VarChar, 10, global::System.Data.ParameterDirection.Input, 0, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._commandCollection[0].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@ClaveCentroCostos", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.Input, 10, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._commandCollection[0].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@ClaveProyecto", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.Input, 10, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Fill, true)]
-        public virtual int Fill(DTSFactura.sp_ReporteDiarioFacturasDataTable dataTable, global::System.Nullable<int> ClaveProveedor, global::System.Nullable<global::System.DateTime> FechaInicio, global::System.Nullable<global::System.DateTime> FechaFin, string ClaveDocumento) {
+        public virtual int Fill(DTSFactura.sp_ReporteDiarioFacturasDataTable dataTable, global::System.Nullable<int> ClaveProveedor, global::System.Nullable<global::System.DateTime> FechaInicio, global::System.Nullable<global::System.DateTime> FechaFin, string ClaveDocumento, global::System.Nullable<int> ClaveCentroCostos, global::System.Nullable<int> ClaveProyecto) {
             this.Adapter.SelectCommand = this.CommandCollection[0];
             if ((ClaveProveedor.HasValue == true)) {
                 this.Adapter.SelectCommand.Parameters[1].Value = ((int)(ClaveProveedor.Value));
@@ -1649,6 +1821,18 @@ namespace PV.DTSFacturaTableAdapters {
             }
             else {
                 this.Adapter.SelectCommand.Parameters[4].Value = ((string)(ClaveDocumento));
+            }
+            if ((ClaveCentroCostos.HasValue == true)) {
+                this.Adapter.SelectCommand.Parameters[5].Value = ((int)(ClaveCentroCostos.Value));
+            }
+            else {
+                this.Adapter.SelectCommand.Parameters[5].Value = global::System.DBNull.Value;
+            }
+            if ((ClaveProyecto.HasValue == true)) {
+                this.Adapter.SelectCommand.Parameters[6].Value = ((int)(ClaveProyecto.Value));
+            }
+            else {
+                this.Adapter.SelectCommand.Parameters[6].Value = global::System.DBNull.Value;
             }
             if ((this.ClearBeforeFill == true)) {
                 dataTable.Clear();
@@ -1661,7 +1845,7 @@ namespace PV.DTSFacturaTableAdapters {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Select, true)]
-        public virtual DTSFactura.sp_ReporteDiarioFacturasDataTable GetData(global::System.Nullable<int> ClaveProveedor, global::System.Nullable<global::System.DateTime> FechaInicio, global::System.Nullable<global::System.DateTime> FechaFin, string ClaveDocumento) {
+        public virtual DTSFactura.sp_ReporteDiarioFacturasDataTable GetData(global::System.Nullable<int> ClaveProveedor, global::System.Nullable<global::System.DateTime> FechaInicio, global::System.Nullable<global::System.DateTime> FechaFin, string ClaveDocumento, global::System.Nullable<int> ClaveCentroCostos, global::System.Nullable<int> ClaveProyecto) {
             this.Adapter.SelectCommand = this.CommandCollection[0];
             if ((ClaveProveedor.HasValue == true)) {
                 this.Adapter.SelectCommand.Parameters[1].Value = ((int)(ClaveProveedor.Value));
@@ -1686,6 +1870,18 @@ namespace PV.DTSFacturaTableAdapters {
             }
             else {
                 this.Adapter.SelectCommand.Parameters[4].Value = ((string)(ClaveDocumento));
+            }
+            if ((ClaveCentroCostos.HasValue == true)) {
+                this.Adapter.SelectCommand.Parameters[5].Value = ((int)(ClaveCentroCostos.Value));
+            }
+            else {
+                this.Adapter.SelectCommand.Parameters[5].Value = global::System.DBNull.Value;
+            }
+            if ((ClaveProyecto.HasValue == true)) {
+                this.Adapter.SelectCommand.Parameters[6].Value = ((int)(ClaveProyecto.Value));
+            }
+            else {
+                this.Adapter.SelectCommand.Parameters[6].Value = global::System.DBNull.Value;
             }
             DTSFactura.sp_ReporteDiarioFacturasDataTable dataTable = new DTSFactura.sp_ReporteDiarioFacturasDataTable();
             this.Adapter.Fill(dataTable);

@@ -1,14 +1,18 @@
-﻿using System;
-using System.Windows.Forms;
-using PV.Clases.CuentasBancarias;
+﻿using Condominios;
+using Condominios.Clases.CentroCostos;
 using PuntoVentas.Clases.Login;
 using PV;
+using PV.Clases.CuentasBancarias;
+using System;
+using System.Data;
+using System.Windows.Forms;
 
 namespace PV
 {
     public partial class CuentasBancarias : Form
     {
         DBCUentaBancaria c = new DBCUentaBancaria();
+        DBCentroCostos centroCostos = new DBCentroCostos();
         DBLogin s = new DBLogin();
 
         public CuentasBancarias()
@@ -26,6 +30,32 @@ namespace PV
         {
             c.CargarCuentas(dataGridView1);
             cmbEstatus.Text = "Activo";
+            LlenarComboCentroCostos();
+        }
+        private void LlenarComboCentroCostos()
+        {
+            try
+            {
+                DataTable menus = centroCostos.ConsultarTodos();
+                // Crear fila "TODOS"
+
+
+                // Configurar estilo y autocompletado
+                cmbCentroCostos.DropDownStyle = ComboBoxStyle.DropDown; // Cambiar a DropDown
+                cmbCentroCostos.DataSource = menus;
+                cmbCentroCostos.DisplayMember = "Nombre"; // Campo visible
+                cmbCentroCostos.ValueMember = "Clave";   // Campo interno
+                cmbCentroCostos.SelectedIndex = -1;     // Ningún elemento seleccionado al inicio
+
+                //cmbCentroCostos.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
+                //cmbCentroCostos.AutoCompleteSource = AutoCompleteSource.ListItems;
+
+                // Reanudar eventos
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         void GenerarNoDivisa()
@@ -55,6 +85,7 @@ namespace PV
             txtNotas.Clear();
             txtcuentaSat.Clear();
             txtCuentaContable.Clear();
+            cmbCentroCostos.SelectedIndex = -1;
             groupBox1.Enabled = false;
             PanelUsuario.Visible = false;
         }
@@ -73,9 +104,21 @@ namespace PV
             {
                 MessageBox.Show("Registre el estatus de la cuenta bancaria para continuar.");
             }
+            else if (cmbCentroCostos.SelectedIndex == -1)
+            {
+                MessageBox.Show("Seleccione el Centro de Costos para continuar.");
+            }
             else
             {
-                MessageBox.Show(c.RegistroCuenta(txtClaveDivisa.Text, txtNombre.Text, cmbEstatus.Text, dtpFechaCambio.Text, txtNotas.Text, txtcuentaSat.Text, txtCuentaContable.Text));
+                MessageBox.Show(c.RegistroCuenta(
+                    txtClaveDivisa.Text,
+                    txtNombre.Text,
+                    cmbEstatus.Text,
+                    dtpFechaCambio.Text,
+                    txtNotas.Text,
+                    txtcuentaSat.Text,
+                    txtCuentaContable.Text,
+                    cmbCentroCostos.SelectedValue?.ToString()));
                 Limpiar();
                 //GenerarNoDivisa();
                 c.CargarCuentas(dataGridView1);
@@ -92,7 +135,7 @@ namespace PV
             if (e.RowIndex != -1)
             {
                 string ClaveDivisa = dataGridView1.Rows[e.RowIndex].Cells["ClaveDivisa"].Value.ToString();
-                c.ConsultaCuentaSeleccionado(ClaveDivisa, txtNombre, cmbEstatus, dtpFechaCambio, txtNotas, txtcuentaSat, txtCuentaContable);
+                c.ConsultaCuentaSeleccionado(ClaveDivisa, txtNombre, cmbEstatus, dtpFechaCambio, txtNotas, txtcuentaSat, txtCuentaContable, cmbCentroCostos);
                 txtClaveDivisa.Text = ClaveDivisa;
                 PanelUsuario.Visible = false;
                 groupBox1.Enabled = true;
@@ -167,6 +210,11 @@ namespace PV
         }
 
         private void guna2Panel1_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void label1_Click(object sender, EventArgs e)
         {
 
         }

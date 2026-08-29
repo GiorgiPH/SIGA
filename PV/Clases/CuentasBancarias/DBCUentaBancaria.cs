@@ -98,10 +98,15 @@ namespace PV.Clases.CuentasBancarias
         }
         //_________________________________________________________________________________________________________________________--
         // registrar divisa 
-        public string RegistroCuenta(string txtClaveDivisa, string txtNombre, string cmdEstatus, string dtpFecha, string txtCuenta, string cuentasat, string cuentacontable)
+        public string RegistroCuenta(string txtClaveDivisa, string txtNombre, string cmdEstatus, string dtpFecha, string txtCuenta, string cuentasat, string cuentacontable, string claveCentroCostos)
         {
             string mensaje = "";
             int contador = 0;
+
+            // Clave de Centro de Costos: NULL si viene vacia o es "0" (sin seleccion / "TODOS")
+            object valorCentroCostos = (string.IsNullOrWhiteSpace(claveCentroCostos) || claveCentroCostos == "0")
+                ? (object)DBNull.Value
+                : Convert.ToInt32(claveCentroCostos);
 
             try
             {
@@ -117,7 +122,15 @@ namespace PV.Clases.CuentasBancarias
                 if (contador <= 0)
                 {
 
-                    cmd = new SqlCommand("Insert into CuentasBancarias (Clave, Nombre, Estatus, Fecha, Cuenta, CuentaSat, CuentaContable) values ('" + txtClaveDivisa + "', '" + txtNombre + "', '" + cmdEstatus + "', '" + dtpFecha+ "', '" + txtCuenta + "', '"+cuentasat+"', '"+cuentacontable+"')", cn);
+                    cmd = new SqlCommand("Insert into CuentasBancarias (Clave, Nombre, Estatus, Fecha, Cuenta, CuentaSat, CuentaContable, CentroCostos) values (@Clave, @Nombre, @Estatus, @Fecha, @Cuenta, @CuentaSat, @CuentaContable, @CentroCostos)", cn);
+                    cmd.Parameters.AddWithValue("@Clave", txtClaveDivisa);
+                    cmd.Parameters.AddWithValue("@Nombre", txtNombre);
+                    cmd.Parameters.AddWithValue("@Estatus", cmdEstatus);
+                    cmd.Parameters.AddWithValue("@Fecha", dtpFecha);
+                    cmd.Parameters.AddWithValue("@Cuenta", txtCuenta);
+                    cmd.Parameters.AddWithValue("@CuentaSat", cuentasat);
+                    cmd.Parameters.AddWithValue("@CuentaContable", cuentacontable);
+                    cmd.Parameters.AddWithValue("@CentroCostos", valorCentroCostos);
                     cmd.ExecuteNonQuery();
                     mensaje = "Registro guardado.";
 
@@ -128,7 +141,15 @@ namespace PV.Clases.CuentasBancarias
                     if (MessageBox.Show("¿Desea actualizar el registro actual?", "Cuentas Bancarias", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                     {
 
-                        cmd = new SqlCommand("Update CuentasBancarias set Nombre='" + txtNombre + "', Estatus='" + cmdEstatus + "', Fecha='" + dtpFecha + "', Cuenta='" + txtCuenta + "' where Clave= '" + txtClaveDivisa + "'", cn);
+                        cmd = new SqlCommand("Update CuentasBancarias set Nombre=@Nombre, Estatus=@Estatus, Fecha=@Fecha, Cuenta=@Cuenta, CuentaSat=@CuentaSat, CuentaContable=@CuentaContable, CentroCostos=@CentroCostos where Clave=@Clave", cn);
+                        cmd.Parameters.AddWithValue("@Nombre", txtNombre);
+                        cmd.Parameters.AddWithValue("@Estatus", cmdEstatus);
+                        cmd.Parameters.AddWithValue("@Fecha", dtpFecha);
+                        cmd.Parameters.AddWithValue("@Cuenta", txtCuenta);
+                        cmd.Parameters.AddWithValue("@CuentaSat", cuentasat);
+                        cmd.Parameters.AddWithValue("@CuentaContable", cuentacontable);
+                        cmd.Parameters.AddWithValue("@CentroCostos", valorCentroCostos);
+                        cmd.Parameters.AddWithValue("@Clave", txtClaveDivisa);
                         cmd.ExecuteNonQuery();
 
                         mensaje = "Registro modificado.";
@@ -145,7 +166,7 @@ namespace PV.Clases.CuentasBancarias
         }
         //_____________________________________________________________________________________________________
         //Mostrar Usuario seleccionado
-        public void ConsultaCuentaSeleccionado(string txtClaveDivisa, Guna2TextBox txtNombre, ComboBox cmdEstatus, Guna2DateTimePicker dtpFecha, Guna2TextBox txtcuenta, Guna2TextBox txtcuentaSAT, Guna2TextBox txtcuentaContable)
+        public void ConsultaCuentaSeleccionado(string txtClaveDivisa, Guna2TextBox txtNombre, ComboBox cmdEstatus, Guna2DateTimePicker dtpFecha, Guna2TextBox txtcuenta, Guna2TextBox txtcuentaSAT, Guna2TextBox txtcuentaContable, ComboBox cmbCentroCostos)
         {
             try
             {
@@ -159,6 +180,15 @@ namespace PV.Clases.CuentasBancarias
                     txtcuenta.Text = dr["Cuenta"].ToString();
                     txtcuentaSAT.Text = dr["CuentaSat"].ToString();
                     txtcuentaContable.Text = dr["CuentaContable"].ToString();
+
+                    if (dr["CentroCostos"] != DBNull.Value)
+                    {
+                        cmbCentroCostos.SelectedValue = Convert.ToInt32(dr["CentroCostos"]);
+                    }
+                    else
+                    {
+                        cmbCentroCostos.SelectedIndex = -1;
+                    }
                 }
                 dr.Close();
             }
@@ -176,7 +206,7 @@ namespace PV.Clases.CuentasBancarias
             int contador = 0;
             try
             {
-                cmd = new SqlCommand("select D.* from CuentasBancarias as D where D.Clave='"+txtClaveDivisa+"' and not exists (select CuentaBancaria from Egreso as DE where D.Clave=DE.CuentaBancaria) and not exists (select CuentaBancaria from Cobros as R where D.Clave=R.CuentaBancaria) ", cn);
+                cmd = new SqlCommand("select D.* from CuentasBancarias as D where D.Clave='" + txtClaveDivisa + "' and not exists (select CuentaBancaria from Egreso as DE where D.Clave=DE.CuentaBancaria) and not exists (select CuentaBancaria from Cobros as R where D.Clave=R.CuentaBancaria) ", cn);
                 dr = cmd.ExecuteReader();
 
                 while (dr.Read())
@@ -205,13 +235,21 @@ namespace PV.Clases.CuentasBancarias
             return mensaje;
         }
         // En la capa de datos
-        public DataTable ObtenerCuentasBancarias()
+        // claveCentroCostos: si viene null, vacio o "0" ("TODOS"), no se
+        // filtra y se regresan todas las cuentas bancarias.
+        public DataTable ObtenerCuentasBancarias(string claveCentroCostos = null)
         {
             var dataTable = new DataTable();
 
             using (var cn = new SqlConnection(ObtenerCn()))
-            using (var cmd = new SqlCommand("SELECT Clave, Nombre FROM CuentasBancarias", cn))
+            using (var cmd = new SqlCommand(
+                "SELECT Clave, Nombre FROM CuentasBancarias WHERE (@CentroCostos IS NULL OR CentroCostos = @CentroCostos)", cn))
             {
+                object valorCentroCostos = (string.IsNullOrWhiteSpace(claveCentroCostos) || claveCentroCostos == "0")
+                    ? (object)DBNull.Value
+                    : Convert.ToInt32(claveCentroCostos);
+                cmd.Parameters.AddWithValue("@CentroCostos", valorCentroCostos);
+
                 cn.Open();
                 var adapter = new SqlDataAdapter(cmd);
                 adapter.Fill(dataTable);

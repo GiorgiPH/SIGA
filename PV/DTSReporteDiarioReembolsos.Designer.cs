@@ -384,6 +384,10 @@ namespace PV {
             
             private global::System.Data.DataColumn columnProyectoDetalle;
             
+            private global::System.Data.DataColumn columnClaveProveedorAlternoPartida;
+            
+            private global::System.Data.DataColumn columnProveedorAlternoPartida;
+            
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
             public sp_ReporteDiarioReembolsosDataTable() {
@@ -699,6 +703,22 @@ namespace PV {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+            public global::System.Data.DataColumn ClaveProveedorAlternoPartidaColumn {
+                get {
+                    return this.columnClaveProveedorAlternoPartida;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+            public global::System.Data.DataColumn ProveedorAlternoPartidaColumn {
+                get {
+                    return this.columnProveedorAlternoPartida;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -769,7 +789,9 @@ namespace PV {
                         decimal IEPSPartida, 
                         string FormaDePago, 
                         string ProyectoEncabezado, 
-                        string ProyectoDetalle) {
+                        string ProyectoDetalle, 
+                        int ClaveProveedorAlternoPartida, 
+                        string ProveedorAlternoPartida) {
                 sp_ReporteDiarioReembolsosRow rowsp_ReporteDiarioReembolsosRow = ((sp_ReporteDiarioReembolsosRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         Folio,
@@ -806,7 +828,9 @@ namespace PV {
                         IEPSPartida,
                         FormaDePago,
                         ProyectoEncabezado,
-                        ProyectoDetalle};
+                        ProyectoDetalle,
+                        ClaveProveedorAlternoPartida,
+                        ProveedorAlternoPartida};
                 rowsp_ReporteDiarioReembolsosRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowsp_ReporteDiarioReembolsosRow);
                 return rowsp_ReporteDiarioReembolsosRow;
@@ -864,6 +888,8 @@ namespace PV {
                 this.columnFormaDePago = base.Columns["FormaDePago"];
                 this.columnProyectoEncabezado = base.Columns["ProyectoEncabezado"];
                 this.columnProyectoDetalle = base.Columns["ProyectoDetalle"];
+                this.columnClaveProveedorAlternoPartida = base.Columns["ClaveProveedorAlternoPartida"];
+                this.columnProveedorAlternoPartida = base.Columns["ProveedorAlternoPartida"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -939,6 +965,10 @@ namespace PV {
                 base.Columns.Add(this.columnProyectoEncabezado);
                 this.columnProyectoDetalle = new global::System.Data.DataColumn("ProyectoDetalle", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnProyectoDetalle);
+                this.columnClaveProveedorAlternoPartida = new global::System.Data.DataColumn("ClaveProveedorAlternoPartida", typeof(int), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnClaveProveedorAlternoPartida);
+                this.columnProveedorAlternoPartida = new global::System.Data.DataColumn("ProveedorAlternoPartida", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnProveedorAlternoPartida);
                 this.columnFolio.AllowDBNull = false;
                 this.columnClaveDocumento.MaxLength = 50;
                 this.columnNombreDocumento.MaxLength = 100;
@@ -970,6 +1000,7 @@ namespace PV {
                 this.columnFormaDePago.MaxLength = 50;
                 this.columnProyectoEncabezado.MaxLength = 100;
                 this.columnProyectoDetalle.MaxLength = 100;
+                this.columnProveedorAlternoPartida.MaxLength = 100;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -2409,6 +2440,40 @@ namespace PV {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+            public int ClaveProveedorAlternoPartida {
+                get {
+                    try {
+                        return ((int)(this[this.tablesp_ReporteDiarioReembolsos.ClaveProveedorAlternoPartidaColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("El valor de la columna \'ClaveProveedorAlternoPartida\' de la tabla \'sp_ReporteDiar" +
+                                "ioReembolsos\' es DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tablesp_ReporteDiarioReembolsos.ClaveProveedorAlternoPartidaColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+            public string ProveedorAlternoPartida {
+                get {
+                    try {
+                        return ((string)(this[this.tablesp_ReporteDiarioReembolsos.ProveedorAlternoPartidaColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("El valor de la columna \'ProveedorAlternoPartida\' de la tabla \'sp_ReporteDiarioRee" +
+                                "mbolsos\' es DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tablesp_ReporteDiarioReembolsos.ProveedorAlternoPartidaColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
             public bool IsConsecutivoNull() {
                 return this.IsNull(this.tablesp_ReporteDiarioReembolsos.ConsecutivoColumn);
             }
@@ -2621,6 +2686,30 @@ namespace PV {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
             public void SetProyectoDetalleNull() {
                 this[this.tablesp_ReporteDiarioReembolsos.ProyectoDetalleColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+            public bool IsClaveProveedorAlternoPartidaNull() {
+                return this.IsNull(this.tablesp_ReporteDiarioReembolsos.ClaveProveedorAlternoPartidaColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+            public void SetClaveProveedorAlternoPartidaNull() {
+                this[this.tablesp_ReporteDiarioReembolsos.ClaveProveedorAlternoPartidaColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+            public bool IsProveedorAlternoPartidaNull() {
+                return this.IsNull(this.tablesp_ReporteDiarioReembolsos.ProveedorAlternoPartidaColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+            public void SetProveedorAlternoPartidaNull() {
+                this[this.tablesp_ReporteDiarioReembolsos.ProveedorAlternoPartidaColumn] = global::System.Convert.DBNull;
             }
         }
         
@@ -3902,6 +3991,8 @@ namespace PV.DTSReporteDiarioReembolsosTableAdapters {
             tableMapping.ColumnMappings.Add("FormaDePago", "FormaDePago");
             tableMapping.ColumnMappings.Add("ProyectoEncabezado", "ProyectoEncabezado");
             tableMapping.ColumnMappings.Add("ProyectoDetalle", "ProyectoDetalle");
+            tableMapping.ColumnMappings.Add("ClaveProveedorAlternoPartida", "ClaveProveedorAlternoPartida");
+            tableMapping.ColumnMappings.Add("ProveedorAlternoPartida", "ProveedorAlternoPartida");
             this._adapter.TableMappings.Add(tableMapping);
         }
         

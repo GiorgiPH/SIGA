@@ -70,7 +70,12 @@ namespace PV.Clases.Remision
         /// sola vez desde el formulario y llama a ambos con
         /// limpiarPrimero=false.
         /// </param>
-        public void CargarRemisionCobro(DataGridView dgv, string Matricula, bool limpiarPrimero = true)
+        /// <param name="claveCentroCostos">
+        /// Clave de Centro de Costos para filtrar (int como string). Si
+        /// viene null, vacio, o "0" (fila "TODOS" del combo), no se filtra
+        /// y se traen las Remisiones de todos los centros de costos.
+        /// </param>
+        public void CargarRemisionCobro(DataGridView dgv, string Matricula, bool limpiarPrimero = true, string claveCentroCostos = null)
         {
             try
             {
@@ -86,13 +91,19 @@ namespace PV.Clases.Remision
                 const string sql = @"
                     SELECT R.*, D.Nombre
                     FROM Remision AS R, Documento AS D
-                    WHERE ClaveProveedor = @Matricula AND Saldo <> 0 AND R.ClaveDocumento = D.Clave";
+                    WHERE ClaveProveedor = @Matricula AND Saldo <> 0 AND R.ClaveDocumento = D.Clave
+                      AND (@CentroCostos IS NULL OR R.CentroCostos = @CentroCostos)";
 
                 using (SqlConnection cn = new SqlConnection(ObtenerCn()))
                 using (SqlCommand cmd = new SqlCommand(sql, cn))
                 using (SqlDataAdapter da = new SqlDataAdapter(cmd))
                 {
                     cmd.Parameters.AddWithValue("@Matricula", Matricula);
+
+                    object valorCentroCostos = (string.IsNullOrWhiteSpace(claveCentroCostos) || claveCentroCostos == "0")
+                        ? (object)DBNull.Value
+                        : Convert.ToInt32(claveCentroCostos);
+                    cmd.Parameters.AddWithValue("@CentroCostos", valorCentroCostos);
 
                     DataTable dt = new DataTable();
                     da.Fill(dt);

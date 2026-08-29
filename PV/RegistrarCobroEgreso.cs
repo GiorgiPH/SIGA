@@ -22,10 +22,19 @@ namespace PV
         ArrayList Lista2;
         ArrayList Lista3;
 
-       
+
         private const byte IdClaseIngresos = 3;
 
-        public RegistrarCobroEgreso(ArrayList ListaConcep, ArrayList ListaConcep2, ArrayList ListaConcep3, string Matricula, string Alumno, string fecha)
+        // Centro de Costos elegido en la pantalla que abre este form
+        // (ConsultarEgreso.cmbCentroCostos): filtra que solo se muestren en
+        // cmbCuentaBancaria las cuentas bancarias de ese Centro de Costos.
+        // Si viene null, vacio o "0" ("TODOS"), se muestran todas las
+        // cuentas bancarias sin filtrar. Es opcional (default null) porque
+        // RegistroEgreso.cs (la pantalla mas simple, sin Centro de Costos)
+        // sigue llamando a este constructor con 6 argumentos.
+        string claveCentroCostos = string.Empty;
+
+        public RegistrarCobroEgreso(ArrayList ListaConcep, ArrayList ListaConcep2, ArrayList ListaConcep3, string Matricula, string Alumno, string fecha, string claveCentroCostos = null)
         {
             InitializeComponent();
             txtMatricula.Text = Matricula;
@@ -34,6 +43,7 @@ namespace PV
             Lista2 = ListaConcep2;
             Lista3 = ListaConcep3;
             dtpFecha.Text = fecha;
+            this.claveCentroCostos = claveCentroCostos;
 
         }
         private void LlenarEgresosSeleccionados()
@@ -56,7 +66,7 @@ namespace PV
                     row.Cells["FolioDocumento"].Value = egreso["Folio"];
                     row.Cells["Documento"].Value = egreso["ClaveDocumento"];
                     row.Cells["Concepto"].Value = egreso["Nombre"];
-                   
+
                     row.Cells["Saldo"].Value = egreso["Saldo"];
                     row.Cells["Importe"].Value = egreso["Total"];
                     row.Cells["Abono"].Value = 0.00M;
@@ -70,9 +80,7 @@ namespace PV
             this.formasPagoTableAdapter.Fill(this.controlCondominiosDataSet29.FormasPago);
             this.formasPagoTableAdapter.Fill(this.controlCondominiosDataSet29.FormasPago);
             LlenarEgresosSeleccionados();
-            DataTable dtProyectos = dbCuentaBancaria.ObtenerCuentasBancarias(
-         
-                   );
+            DataTable dtProyectos = dbCuentaBancaria.ObtenerCuentasBancarias(claveCentroCostos);
 
             ComboUtil.LlenarComboBox(
                 cmbCuentaBancaria,
@@ -139,7 +147,7 @@ namespace PV
         {
             if (MessageBox.Show("¿Finalizar pago?", "Registrar Cobro", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
             {
-                if (cmbCuentaBancaria.Text!= string.Empty)
+                if (cmbCuentaBancaria.Text != string.Empty)
                 {
 
                     foreach (DataGridViewRow row in dgvPagosPendientes.Rows)
@@ -233,7 +241,7 @@ namespace PV
 
         private void cmbCuentaBancaria_SelectedIndexChanged(object sender, EventArgs e)
         {
-           
+
         }
 
         private void guna2CircleButton1_Click(object sender, EventArgs e)

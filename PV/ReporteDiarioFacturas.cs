@@ -17,6 +17,8 @@ namespace PV
         private string _claveDocumento;
         private string _fechaInicio;
         private string _fechaFin;
+        private string _claveCentroCostos;
+        private string _claveProyecto;
 
         public ReporteDiarioFacturas()
         {
@@ -27,12 +29,16 @@ namespace PV
         // claveDocumento -> @ClaveDocumento
         // fechaInicio -> @FechaInicio
         // fechaFin -> @FechaFin
-        public ReporteDiarioFacturas(string idCliente, string claveDocumento, string fechaInicio, string fechaFin) : this()
+        // claveCentroCostos -> @ClaveCentroCostos
+        // claveProyecto -> @ClaveProyecto
+        public ReporteDiarioFacturas(string idCliente, string claveDocumento, string fechaInicio, string fechaFin, string claveCentroCostos, string claveProyecto) : this()
         {
             _idCliente = idCliente;
             _claveDocumento = claveDocumento;
             _fechaInicio = fechaInicio;
             _fechaFin = fechaFin;
+            _claveCentroCostos = claveCentroCostos;
+            _claveProyecto = claveProyecto;
         }
 
         private void ReporteDiarioFacturas_Load(object sender, EventArgs e)
@@ -61,12 +67,26 @@ namespace PV
 
             string claveDocumento = string.IsNullOrWhiteSpace(_claveDocumento) ? null : _claveDocumento;
 
+            int? claveCentroCostos = null;
+            if (!string.IsNullOrWhiteSpace(_claveCentroCostos) && _claveCentroCostos != "0")
+            {
+                claveCentroCostos = Convert.ToInt32(_claveCentroCostos);
+            }
+
+            int? claveProyecto = null;
+            if (!string.IsNullOrWhiteSpace(_claveProyecto) && _claveProyecto != "0")
+            {
+                claveProyecto = Convert.ToInt32(_claveProyecto);
+            }
+
             this.sp_ReporteDiarioFacturasTableAdapter.Fill(
                 this.dTSFactura.sp_ReporteDiarioFacturas,
                 claveProveedor,
                 fechaInicio,
                 fechaFin,
-                claveDocumento);
+                claveDocumento,
+                claveCentroCostos,
+                claveProyecto);
 
             this.reportViewer1.RefreshReport();
         }

@@ -40,8 +40,20 @@ namespace PV.Clases.Egresos
         }
 
         //____________________________________________________________________
+        /// <param name="claveCentroCostos">
+        /// Clave de Centro de Costos para filtrar (int como string). Si viene
+        /// null, vacio, o "0" (fila "TODOS" del combo), no se filtra y se
+        /// traen los egresos de todos los centros de costos.
+        ///
+        /// OJO: RecepcionProducto ('P') y NotasGasto ('NCG') no tienen columna
+        /// CentroCostos propia (el SELECT ya las regresaba como NULL antes de
+        /// este cambio). Por eso, cuando SÍ se elige un Centro de Costos
+        /// especifico, esas dos ramas quedan excluidas del resultado — no hay
+        /// forma de saber a que centro de costos pertenecen. Solo aparecen
+        /// cuando el filtro esta en "TODOS" (@CentroCostos IS NULL).
+        /// </param>
         public DataTable ObtenerEgresos(string matricula, DateTime? vencimiento = null,
-        bool usarFechas = false, DateTime? fecha1 = null, DateTime? fecha2 = null)
+        bool usarFechas = false, DateTime? fecha1 = null, DateTime? fecha2 = null, string claveCentroCostos = null)
         {
             DataTable dtEgresos = new DataTable();
             try
@@ -92,7 +104,8 @@ namespace PV.Clases.Egresos
                 R.Saldo != 0 AND 
                 R.Estatus = 'Bloqueado' AND
                 R.ClaveDocumento = D.Clave AND
-                P.IdProveedor = R.ClaveProveedor)
+                P.IdProveedor = R.ClaveProveedor AND
+                (@CentroCostos IS NULL))
  
             UNION 
  
@@ -141,7 +154,8 @@ namespace PV.Clases.Egresos
                 R.Saldo != 0 AND 
                 R.Estatus = 'Bloqueado' AND
                 R.ClaveDocumento = D.Clave AND
-                P.IdProveedor = R.ClaveProveedor)
+                P.IdProveedor = R.ClaveProveedor AND
+                (@CentroCostos IS NULL OR R.CentroCostos = @CentroCostos))
  
             UNION 
  
@@ -190,7 +204,8 @@ namespace PV.Clases.Egresos
                 R.Saldo != 0 AND 
                 R.Estatus = 'Bloqueado' AND
                 R.ClaveDocumento = D.Clave AND
-                P.IdProveedor = R.ClaveProveedor)
+                P.IdProveedor = R.ClaveProveedor AND
+                (@CentroCostos IS NULL OR R.CentroCostos = @CentroCostos))
  
             UNION 
  
@@ -238,7 +253,8 @@ namespace PV.Clases.Egresos
                 R.Saldo != 0 AND 
                 R.Estatus = 'Bloqueado' AND
                 R.ClaveDocumento = D.Clave AND
-                P.IdProveedor = R.ClaveProveedor)";
+                P.IdProveedor = R.ClaveProveedor AND
+                (@CentroCostos IS NULL))";
 
                 using (SqlConnection cn = AbrirConexion())
                 using (SqlCommand cmd = new SqlCommand(sql, cn))
@@ -250,6 +266,12 @@ namespace PV.Clases.Egresos
                     cmd.Parameters.AddWithValue("@UsarFechas", usarFechas);
                     cmd.Parameters.AddWithValue("@Fecha1", (object)fecha1 ?? DBNull.Value);
                     cmd.Parameters.AddWithValue("@Fecha2", (object)fecha2 ?? DBNull.Value);
+
+                    object valorCentroCostos = (string.IsNullOrWhiteSpace(claveCentroCostos) || claveCentroCostos == "0")
+                        ? (object)DBNull.Value
+                        : Convert.ToInt32(claveCentroCostos);
+                    cmd.Parameters.AddWithValue("@CentroCostos", valorCentroCostos);
+
                     using (SqlDataAdapter da = new SqlDataAdapter(cmd))
                     {
                         da.Fill(dtEgresos);

@@ -687,8 +687,13 @@ namespace PV.Clases.Facturas
         /// sola vez desde el formulario y llama a ambos métodos con
         /// limpiarPrimero=false.
         /// </param>
+        /// <param name="claveCentroCostos">
+        /// Clave de Centro de Costos para filtrar (int como string). Si
+        /// viene null, vacio, o "0" (fila "TODOS" del combo), no se filtra
+        /// y se traen las Facturas de todos los centros de costos.
+        /// </param>
         /// </summary>
-        public void CargarFacturaCobro(DataGridView dgv, string matricula, bool limpiarPrimero = true)
+        public void CargarFacturaCobro(DataGridView dgv, string matricula, bool limpiarPrimero = true, string claveCentroCostos = null)
         {
             try
             {
@@ -705,13 +710,19 @@ namespace PV.Clases.Facturas
                     SELECT F.*, D.Nombre
                     FROM Factura AS F
                     INNER JOIN Documento AS D ON F.ClaveDocumento = D.Clave
-                    WHERE F.ClaveProveedor = @Matricula AND F.Saldo <> 0";
+                    WHERE F.ClaveProveedor = @Matricula AND F.Saldo <> 0
+                      AND (@CentroCostos IS NULL OR F.CentroCostos = @CentroCostos)";
 
                 using (SqlConnection cn = new SqlConnection(ObtenerCn()))
                 using (SqlCommand cmd = new SqlCommand(sql, cn))
                 using (SqlDataAdapter da = new SqlDataAdapter(cmd))
                 {
                     cmd.Parameters.AddWithValue("@Matricula", matricula);
+
+                    object valorCentroCostos = (string.IsNullOrWhiteSpace(claveCentroCostos) || claveCentroCostos == "0")
+                        ? (object)DBNull.Value
+                        : Convert.ToInt32(claveCentroCostos);
+                    cmd.Parameters.AddWithValue("@CentroCostos", valorCentroCostos);
 
                     DataTable dt = new DataTable();
                     da.Fill(dt);

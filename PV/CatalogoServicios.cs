@@ -21,7 +21,7 @@ namespace PV
     {
         DBServicios c = new DBServicios();
         DBLogin s = new DBLogin();
-RegistroGastos2 RG2 = new RegistroGastos2();
+        RegistroGastos2 RG2 = new RegistroGastos2();
         DBOrdenCompra O = new DBOrdenCompra();
 
         int Consulta = 0;
@@ -39,13 +39,13 @@ RegistroGastos2 RG2 = new RegistroGastos2();
             T.SetToolTip(button9, "Imprimir");
             Consulta = consulta;
 
-      
+
             T.SetToolTip(guna2PictureBox1, "Clic para Desplegar");
             T.SetToolTip(guna2PictureBox2, "Clic para Ocultar");
-       
+
         }
 
-       
+
 
         private void Servicios_Load(object sender, EventArgs e)
         {
@@ -113,7 +113,7 @@ RegistroGastos2 RG2 = new RegistroGastos2();
                 }
                 else
                 {
-                    MessageBox.Show(c.RegistroProducto(txtClaveProducto.Text, txtAlias.Text, txtDescripcion.Text, cmbEstatus.Text, txtCategoria.Text, txtFamilia.Text, cmbTipoCosteo.Text, txtCostoUnitario.Text, cmbDivisa.Text, txtDescuentoPorc.Text, txtDescuentoCant.Text, txtImpuestoPorc.Text, txtImpuestoCant.Text, txtPrecioVenta.Text, Foto, txtConcepto.Text, cmbIEPS.Text, txtCuentaContable.Text));
+                    MessageBox.Show(c.RegistroProducto(txtClaveProducto.Text, txtAlias.Text, txtDescripcion.Text, cmbEstatus.Text, txtCategoria.Text, txtFamilia.Text, cmbTipoCosteo.Text, txtCostoUnitario.Text, cmbDivisa.Text, txtDescuentoPorc.Text, txtDescuentoCant.Text, txtImpuestoPorc.Text, txtImpuestoCant.Text, txtPrecioVenta.Text, Foto, txtConcepto.Text, cmbIEPS.Text, txtCuentaContable.Text, tgCompras.Checked, tgVentas.Checked));
                     Limpiar();
                     c.CargarProductos(dataGridView2);
                 }
@@ -227,9 +227,9 @@ RegistroGastos2 RG2 = new RegistroGastos2();
             txtAlias.Clear();
             txtDescripcion.Clear();
             cmbEstatus.Text = "Activo";
-           
+
             cmbCategorias.Text = null;
-            
+
             cmbTipoCosteo.Text = null;
             txtCostoUnitario.Clear();
             cmbDivisa.Text = null;
@@ -249,6 +249,8 @@ RegistroGastos2 RG2 = new RegistroGastos2();
             txtConcepto.Clear();
             cmbIEPS.Text = "No";
             txtCuentaContable.Clear();
+            tgCompras.Checked = false;
+            tgVentas.Checked = false;
         }
         private void button5_Click(object sender, EventArgs e)
         {
@@ -274,9 +276,9 @@ RegistroGastos2 RG2 = new RegistroGastos2();
             if (e.RowIndex != -1)
             {
                 string Clave = dataGridView2.Rows[e.RowIndex].Cells["Clave"].Value.ToString();
-                c.ConsultaProductoSeleccionado(Clave, txtAlias, txtDescripcion, cmbEstatus, txtCategoria, txtFamilia, cmbCategorias, cmbFamilia, cmbTipoCosteo, txtCostoUnitario, cmbDivisa, txtDescuentoPorc, txtDescuentoCant, txtImpuestoPorc, txtImpuestoCant, txtPrecioVenta, Foto, txtConcepto, cmbConcepto, cmbIEPS, txtCuentaContable);
+                c.ConsultaProductoSeleccionado(Clave, txtAlias, txtDescripcion, cmbEstatus, txtCategoria, txtFamilia, cmbCategorias, cmbFamilia, cmbTipoCosteo, txtCostoUnitario, cmbDivisa, txtDescuentoPorc, txtDescuentoCant, txtImpuestoPorc, txtImpuestoCant, txtPrecioVenta, Foto, txtConcepto, cmbConcepto, cmbIEPS, txtCuentaContable, tgCompras, tgVentas);
                 groupBox4.Enabled = true;
-                
+
                 txtClaveProducto.Text = Clave;
                 PanelUsuario.Visible = false;
             }
@@ -660,7 +662,7 @@ RegistroGastos2 RG2 = new RegistroGastos2();
 
         private void CatalogoServicios_FormClosed(object sender, FormClosedEventArgs e)
         {
-            
+
         }
 
         private void label28_Click(object sender, EventArgs e)
@@ -668,5 +670,5 @@ RegistroGastos2 RG2 = new RegistroGastos2();
 
         }
     }
-    
+
 }
