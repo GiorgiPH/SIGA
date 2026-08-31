@@ -87,7 +87,7 @@
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>=First(Fields!RazonSocial.Value, "DataSet2")</Value>
+                              <Value>=Fields!RazonSocial.Value</Value>
                               <Style>
                                 <FontWeight>Bold</FontWeight>
                               </Style>
@@ -2760,6 +2760,7 @@
       </rd:DataSetInfo>
     </DataSet>
   </DataSets>
+  <Language>es-MX</Language>
   <rd:ReportUnitType>Cm</rd:ReportUnitType>
   <rd:ReportID>ecf06913-9307-4046-81b1-08e2ca9932c0</rd:ReportID>
 </Report>

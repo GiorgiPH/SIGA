@@ -155,21 +155,20 @@ namespace PV
             reportesCompras.AgregarSubMenu("Diario de compras inventariables", "DIARIO_COMPRAS_INVENTARIABLES");
             reportesCompras.AgregarSubMenu("Diario de reembolsos", "DIARIO_REEMBOLSOS");
             reportesCompras.AgregarSubMenu("Diario de gastos", "DIARIO_GASTOS");
-            reportesCompras.AgregarSubMenu("Egresos", "EGRESOS_COMPRAS");
             reportesCompras.AgregarSubMenu("Saldo de compras", "SALDO_COMPRAS");
 
             // sub menu de tercer nivel
             SidebarMenuItem anticiposCompras = reportesCompras.AgregarSubMenu("Anticipos");
 
-            anticiposCompras.AgregarSubMenu("Anticipos", "ANTICIPOS_COMPRAS_REGISTRO");
+            //anticiposCompras.AgregarSubMenu("Anticipos", "ANTICIPOS_COMPRAS_REGISTRO");
             anticiposCompras.AgregarSubMenu("Anticipos Aplicados", "ANTICIPOS_COMPRAS_APLICADOS");
 
             // sub menu tercer nivel
             SidebarMenuItem proveedoresCompras = reportesCompras.AgregarSubMenu("Proveedores");
 
-            proveedoresCompras.AgregarSubMenu("Estado de cuenta proveedores", "ESTADO_CUENTA_PROVEEDORES");
-            proveedoresCompras.AgregarSubMenu("Saldos proveedores", "SALDOS_PROVEEDORES");
-            proveedoresCompras.AgregarSubMenu("Detalle de saldos", "DETALLE_SALDOS_PROVEEDORES");
+           // proveedoresCompras.AgregarSubMenu("Estado de cuenta proveedores", "ESTADO_CUENTA_PROVEEDORES");
+            //proveedoresCompras.AgregarSubMenu("Saldos proveedores", "SALDOS_PROVEEDORES");
+            //proveedoresCompras.AgregarSubMenu("Detalle de saldos", "DETALLE_SALDOS_PROVEEDORES");
 
             compras.AgregarSubMenu("Gráficas", "GRAFICAS_COMPRAS");
 
@@ -272,7 +271,8 @@ namespace PV
 
             // sub menu de segundo nivel
             SidebarMenuItem finanzas = tesoreria.AgregarSubMenu("Finanzas");
-            finanzas.AgregarSubMenu("Reporte de Resultados Global");
+            finanzas.AgregarSubMenu("Reporte Resultados Global", "REPORTE_RESULTADOS_GLOBAL");
+
             finanzas.AgregarSubMenu("Reporte Resultados CC");
             finanzas.AgregarSubMenu("Reporte Flujo Real");
             finanzas.AgregarSubMenu("Reporte Flujo Saldos");
@@ -436,10 +436,11 @@ namespace PV
                 case "DOCUMENTOS":
                     AbrirFormulario(new Documentos());
                     break;
-
                 case "CONCEPTOS_GLOBALES":
                     AbrirFormulario(new ConceptosGlobales());
                     break;
+
+              
 
                 case "FORMAS_PAGO":
                     AbrirFormulario(new CatalogoFormasPago());
@@ -696,7 +697,9 @@ namespace PV
                 case "GENERAR_POLIZAS_EGRESOS":
                     AbrirFormulario(new GENERARPOLIZAS("Polizas Compras"));
                     break;
-
+                case "REPORTE_RESULTADOS_GLOBAL":
+                    AbrirFormulario(new FiltrarReporteResultadosGlobal());
+                    break;
 
                 // UTILIDADES
                 //case "CONTABILIDAD":

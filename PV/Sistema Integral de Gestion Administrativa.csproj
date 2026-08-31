@@ -152,6 +152,17 @@
     <Compile Include="ActivoFijo.Designer.cs">
       <DependentUpon>ActivoFijo.cs</DependentUpon>
     </Compile>
+    <Compile Include="AdministracionDataSet1.cs">
+      <DependentUpon>AdministracionDataSet1.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="AdministracionDataSet1.Designer.cs">
+      <DependentUpon>AdministracionDataSet1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AdministracionDataSet2.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>AdministracionDataSet2.xsd</DependentUpon>
+    </Compile>
     <Compile Include="AgregarConceptoPresProdc.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -167,6 +178,7 @@
     <Compile Include="Clases\Facturas\DBFacturas.cs" />
     <Compile Include="Clases\MenuPrincipal\DBFavoritos.cs" />
     <Compile Include="Clases\MovimientosBanco\DBMovimientosBanco.cs" />
+    <Compile Include="Clases\NumericHelper.cs" />
     <Compile Include="DTSFactura.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -177,6 +189,12 @@
     </Compile>
     <Compile Include="FavoritosMenu.Designer.cs">
       <DependentUpon>FavoritosMenu.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FiltrarReporteResultadosGlobal.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FiltrarReporteResultadosGlobal.Designer.cs">
+      <DependentUpon>FiltrarReporteResultadosGlobal.cs</DependentUpon>
     </Compile>
     <Compile Include="MenuPrincipal-v2.cs">
       <SubType>Form</SubType>
@@ -786,6 +804,12 @@
     </Compile>
     <Compile Include="ReporteRemision.Designer.cs">
       <DependentUpon>ReporteRemision.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ReporteResultadosGlobal.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ReporteResultadosGlobal.Designer.cs">
+      <DependentUpon>ReporteResultadosGlobal.cs</DependentUpon>
     </Compile>
     <Compile Include="ReporteServicios.cs">
       <SubType>Form</SubType>
@@ -1982,6 +2006,9 @@
     <EmbeddedResource Include="FavoritosMenu.resx">
       <DependentUpon>FavoritosMenu.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="FiltrarReporteResultadosGlobal.resx">
+      <DependentUpon>FiltrarReporteResultadosGlobal.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="MenuPrincipal-v2.resx">
       <DependentUpon>MenuPrincipal-v2.cs</DependentUpon>
     </EmbeddedResource>
@@ -2227,6 +2254,10 @@
     <EmbeddedResource Include="ReporteRemision.rdlc" />
     <EmbeddedResource Include="ReporteRemision.resx">
       <DependentUpon>ReporteRemision.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ReporteResultadosGlobal.rdlc" />
+    <EmbeddedResource Include="ReporteResultadosGlobal.resx">
+      <DependentUpon>ReporteResultadosGlobal.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ReporteServicios.rdlc" />
     <EmbeddedResource Include="ReporteServicios.resx">
@@ -2733,6 +2764,28 @@
     <EmbeddedResource Include="Usuarios.resx">
       <DependentUpon>Usuarios.cs</DependentUpon>
     </EmbeddedResource>
+    <None Include="AdministracionDataSet1.xsc">
+      <DependentUpon>AdministracionDataSet1.xsd</DependentUpon>
+    </None>
+    <None Include="AdministracionDataSet1.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>AdministracionDataSet11.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="AdministracionDataSet1.xss">
+      <DependentUpon>AdministracionDataSet1.xsd</DependentUpon>
+    </None>
+    <None Include="AdministracionDataSet2.xsc">
+      <DependentUpon>AdministracionDataSet2.xsd</DependentUpon>
+    </None>
+    <None Include="AdministracionDataSet2.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>AdministracionDataSet2.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="AdministracionDataSet2.xss">
+      <DependentUpon>AdministracionDataSet2.xsd</DependentUpon>
+    </None>
     <None Include="CajaRDataSet.xsc">
       <DependentUpon>CajaRDataSet.xsd</DependentUpon>
     </None>

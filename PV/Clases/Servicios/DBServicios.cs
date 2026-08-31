@@ -486,7 +486,7 @@ namespace PV.Clases.Servicios
             DataTable dt = new DataTable();
             try
             {
-                using (SqlCommand cmd = new SqlCommand("SELECT ClaveServicio, Descripcion FROM Servicios WHERE Estatus = 'Activo' and Ventas=1 ORDER BY Descripcion", cn))
+                using (SqlCommand cmd = new SqlCommand("SELECT ClaveServicio, Descripcion FROM Servicios WHERE Estatus = 'Activo' and Compras=1 ORDER BY Descripcion", cn))
                 using (SqlDataAdapter da = new SqlDataAdapter(cmd))
                 {
                     da.Fill(dt);

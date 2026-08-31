@@ -669,6 +669,11 @@ namespace PV
         {
 
         }
+
+        private void PanelUsuario_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
     }
 
 }

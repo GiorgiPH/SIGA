@@ -94,31 +94,65 @@ namespace PuntoVentas
             }
             else
             {
-                 if (tgInventariable.Checked == true)
+                try
                 {
-                    if (cmbTipoCosteo.Text == string.Empty || cmbDivisa.Text == string.Empty)
+                    // Limpieza/normalización de los campos numéricos usando el helper
+                    string exMinimo = NumericHelper.ToInvariantString(txtExMinimo.Text, "Existencia Mínima");
+                    string exMaximo = NumericHelper.ToInvariantString(txtExMaximo.Text, "Existencia Máxima");
+                    string exActual = NumericHelper.ToInvariantString(txtExActual.Text, "Existencia Actual");
+                    string costoUnitario = NumericHelper.ToInvariantString(txtCostoUnitario.Text, "Costo Unitario");
+                    string descuentoPorc = NumericHelper.ToInvariantString(txtDescuentoPorc.Text, "Descuento %");
+                    string descuentoCant = NumericHelper.ToInvariantString(txtDescuentoCant.Text, "Descuento Cantidad");
+                    string impuestoPorc = NumericHelper.ToInvariantString(txtImpuestoPorc.Text, "Impuesto %");
+                    string impuestoCant = NumericHelper.ToInvariantString(txtImpuestoCant.Text, "Impuesto Cantidad");
+                    string precioVenta = NumericHelper.ToInvariantString(txtPrecioVenta.Text, "Precio de Venta");
+
+                    if (tgInventariable.Checked == true)
                     {
-                        MessageBox.Show("El tipo de costeo y divisa son obligatorios para productos inventariables");
+                        if (cmbTipoCosteo.Text == string.Empty || cmbDivisa.Text == string.Empty)
+                        {
+                            MessageBox.Show("El tipo de costeo y divisa son obligatorios para productos inventariables");
+                        }
+                        else
+                        {
+                            MessageBox.Show(c.RegistroProducto(
+                                txtClaveProducto.Text, txtAlias.Text, txtDescripcion.Text, cmbEstatus.Text,
+                                txtMarca.Text, txtUnidadMedida.Text, txtPresentacion.Text, tgInventariable,
+                                txtCaducidad.Text, txtCategoria.Text, txtFamilia.Text, txtProveedor.Text,
+                                exMinimo, exMaximo, exActual, txtUbicacion.Text,
+                                cmbTipoCosteo.Text, costoUnitario, cmbDivisa.Text,
+                                descuentoPorc, descuentoCant, impuestoPorc, impuestoCant,
+                                precioVenta, Foto, txtConcepto.Text));
+
+                            Limpiar();
+                            c.CargarProductos(dataGridView2, txtFiltro.Text);
+                        }
                     }
-                    else
+                    else if (tgInventariable.Checked == false)
                     {
-                        MessageBox.Show(c.RegistroProducto(txtClaveProducto.Text, txtAlias.Text, txtDescripcion.Text, cmbEstatus.Text, txtMarca.Text, txtUnidadMedida.Text, txtPresentacion.Text, tgInventariable,txtCaducidad.Text, txtCategoria.Text, txtFamilia.Text, txtProveedor.Text, txtExMinimo.Text, txtExMaximo.Text, txtExActual.Text, txtUbicacion.Text, cmbTipoCosteo.Text, txtCostoUnitario.Text, cmbDivisa.Text, txtDescuentoPorc.Text, txtDescuentoCant.Text, txtImpuestoPorc.Text, txtImpuestoCant.Text, txtPrecioVenta.Text, Foto, txtConcepto.Text));
-                        Limpiar();
-                        c.CargarProductos(dataGridView2, txtFiltro.Text);
+                        if (cmbDivisa.Text == string.Empty)
+                        {
+                            MessageBox.Show("Registre la divisa para continuar");
+                        }
+                        else
+                        {
+                            MessageBox.Show(c.RegistroProducto(
+                                txtClaveProducto.Text, txtAlias.Text, txtDescripcion.Text, cmbEstatus.Text,
+                                txtMarca.Text, txtUnidadMedida.Text, txtPresentacion.Text, tgInventariable,
+                                txtCaducidad.Text, txtCategoria.Text, txtFamilia.Text, txtProveedor.Text,
+                                exMinimo, exMaximo, exActual, txtUbicacion.Text,
+                                cmbTipoCosteo.Text, costoUnitario, cmbDivisa.Text,
+                                descuentoPorc, descuentoCant, impuestoPorc, impuestoCant,
+                                precioVenta, Foto, txtConcepto.Text));
+
+                            Limpiar();
+                            c.CargarProductos(dataGridView2, txtFiltro.Text);
+                        }
                     }
                 }
-                else if (tgInventariable.Checked == false)
+                catch (FormatException ex)
                 {
-                    if (cmbDivisa.Text == string.Empty)
-                    {
-                        MessageBox.Show("Registre la divisa para continuar");
-                    }
-                    else
-                    {
-                        MessageBox.Show(c.RegistroProducto(txtClaveProducto.Text, txtAlias.Text, txtDescripcion.Text, cmbEstatus.Text, txtMarca.Text, txtUnidadMedida.Text, txtPresentacion.Text, tgInventariable, txtCaducidad.Text, txtCategoria.Text, txtFamilia.Text, txtProveedor.Text, txtExMinimo.Text, txtExMaximo.Text, txtExActual.Text, txtUbicacion.Text, cmbTipoCosteo.Text, txtCostoUnitario.Text, cmbDivisa.Text, txtDescuentoPorc.Text, txtDescuentoCant.Text, txtImpuestoPorc.Text, txtImpuestoCant.Text, txtPrecioVenta.Text, Foto, txtConcepto.Text));
-                        Limpiar();
-                        c.CargarProductos(dataGridView2, txtFiltro.Text);
-                    }
+                    MessageBox.Show(ex.Message);
                 }
             }
         }
