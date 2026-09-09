@@ -540,36 +540,7 @@ namespace PV.Clases.OrdenCompra
             }
         }
         //_______________________________________________________________________________________________________________
-        public void ActualizarRegistroRecepcion3(string Folio, string Estatus, string Almacen)
-        {
-            try
-            {
-                using (SqlConnection cn = new SqlConnection(ObtenerCn()))
-                {
-                    cn.Open();
-                    using (SqlCommand cmd = new SqlCommand("Update RecepcionProducto set Saldo= 0.00, Estatus='" + Estatus + "' where Folio='" + Folio + "'", cn))
-                    {
-                        cmd.ExecuteNonQuery();
-                    }
-                    using (SqlCommand cmd = new SqlCommand("update ProductosServicios set ProductosServicios.ExActual = ProductosServicios.ExActual - PartidaRecepcion.Cantidad from PartidaRecepcion where ProductosServicios.ClaveProducto=PartidaRecepcion.ClaveProducto and PartidaRecepcion.FolioRecepcion='" + Folio + "'", cn))
-                    {
-                        cmd.ExecuteNonQuery();
-                    }
-                    using (SqlCommand cmd = new SqlCommand("update AlmacenProducto set AlmacenProducto.Entradas = AlmacenProducto.Entradas - PartidaRecepcion.Cantidad from PartidaRecepcion where AlmacenProducto.ClaveProducto=PartidaRecepcion.ClaveProducto and PartidaRecepcion.FolioRecepcion='" + Folio + "' and AlmacenProducto.ClaveAlmacen='" + Almacen + "'", cn))
-                    {
-                        cmd.ExecuteNonQuery();
-                    }
-                    using (SqlCommand cmd = new SqlCommand("Delete PartidaRecepcion where FolioRecepcion='" + Folio + "'", cn))
-                    {
-                        cmd.ExecuteNonQuery();
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("ERROR" + ex.ToString());
-            }
-        }
+      
         //__________________________________________________________________________________________________________-
         public void CargarGasto(DataGridView dgv)
         {
@@ -706,32 +677,8 @@ namespace PV.Clases.OrdenCompra
             }
         }
         //__________________________________________________________________________________________________________-
-        public void CargarRecibosFiltroRecep(DataGridView dgv, string Filtro)
-        {
-            try
-            {
-                dgv.Rows.Clear();
-                using (SqlConnection cn = new SqlConnection(ObtenerCn()))
-                using (SqlDataAdapter da = new SqlDataAdapter("select O.*, P.RazonSocial from RecepcionProducto as O, Proveedor as P where O.Folio like '%" + Filtro + "%' and O.ClaveProveedor=P.IdProveedor", cn))
-                {
-                    DataTable dt = new DataTable();
-                    da.Fill(dt);
-                    foreach (DataRow item in dt.Rows)
-                    {
-                        int n = dgv.Rows.Add();
-                        dgv.Rows[n].Cells[0].Value = item["Folio"].ToString();
-                        dgv.Rows[n].Cells[1].Value = item["Consecutivo"].ToString();
-                        dgv.Rows[n].Cells[2].Value = item["ClaveDocumento"].ToString();
-                        dgv.Rows[n].Cells[3].Value = item["RazonSocial"].ToString();
-                        dgv.Rows[n].Cells[4].Value = Convert.ToDateTime(item["Fecha"]).ToString("yyyy-MM-dd");
-                    }
-                }
-            }
-            catch (Exception)
-            {
-                MessageBox.Show("Error al cargar");
-            }
-        }
+    
+        
         //__________________________________________________________________________________________________________-
         public void CargarRecibosFiltroGasto(DataGridView dgv, string Filtro)
         {
@@ -975,60 +922,7 @@ namespace PV.Clases.OrdenCompra
                 MessageBox.Show("Error al cargar");
             }
         }
-        //__________________________________________________________________________________________________________-
-        public void CargarRecibosFiltroPRecep(DataGridView dgv, string Filtro)
-        {
-            try
-            {
-                dgv.Rows.Clear();
-                using (SqlConnection cn = new SqlConnection(ObtenerCn()))
-                using (SqlDataAdapter da = new SqlDataAdapter("select O.*, P.RazonSocial from RecepcionProducto as O, Proveedor as P where P.RazonSocial like '%" + Filtro + "%' and O.ClaveProveedor=P.IdProveedor", cn))
-                {
-                    DataTable dt = new DataTable();
-                    da.Fill(dt);
-                    foreach (DataRow item in dt.Rows)
-                    {
-                        int n = dgv.Rows.Add();
-                        dgv.Rows[n].Cells[0].Value = item["Folio"].ToString();
-                        dgv.Rows[n].Cells[1].Value = item["Consecutivo"].ToString();
-                        dgv.Rows[n].Cells[2].Value = item["ClaveDocumento"].ToString();
-                        dgv.Rows[n].Cells[3].Value = item["RazonSocial"].ToString();
-                        dgv.Rows[n].Cells[4].Value = Convert.ToDateTime(item["Fecha"]).ToString("yyyy-MM-dd");
-                    }
-                }
-            }
-            catch (Exception)
-            {
-                MessageBox.Show("Error al cargar");
-            }
-        }
-        //__________________________________________________________________________________________________________-
-        public void CargarRecibosFiltroDocumentoRecep(DataGridView dgv, string Filtro)
-        {
-            try
-            {
-                dgv.Rows.Clear();
-                using (SqlConnection cn = new SqlConnection(ObtenerCn()))
-                using (SqlDataAdapter da = new SqlDataAdapter("select O.*, P.RazonSocial from RecepcionProducto as O, Proveedor as P where O.ClaveDocumento like '%" + Filtro + "%' and O.ClaveProveedor=P.IdProveedor", cn))
-                {
-                    DataTable dt = new DataTable();
-                    da.Fill(dt);
-                    foreach (DataRow item in dt.Rows)
-                    {
-                        int n = dgv.Rows.Add();
-                        dgv.Rows[n].Cells[0].Value = item["Folio"].ToString();
-                        dgv.Rows[n].Cells[1].Value = item["Consecutivo"].ToString();
-                        dgv.Rows[n].Cells[2].Value = item["ClaveDocumento"].ToString();
-                        dgv.Rows[n].Cells[3].Value = item["RazonSocial"].ToString();
-                        dgv.Rows[n].Cells[4].Value = Convert.ToDateTime(item["Fecha"]).ToString("yyyy-MM-dd");
-                    }
-                }
-            }
-            catch (Exception)
-            {
-                MessageBox.Show("Error al cargar");
-            }
-        }
+    
         //__________________________________________________________________________________________________________-
         public void CargarRecibosFiltroPGasto(DataGridView dgv, string Filtro)
         {
@@ -1737,34 +1631,7 @@ namespace PV.Clases.OrdenCompra
                 MessageBox.Show("ERROR" + ex.ToString());
             }
         }
-        //___________________________________________________________________________________________
-        public void ConsultaRequisicion5(string Folio, Guna.UI2.WinForms.Guna2TextBox txtPartida)
-        {
-            try
-            {
-                using (SqlConnection cn = new SqlConnection(ObtenerCn()))
-                using (SqlCommand cmd = new SqlCommand("Select top 1 * from PartidaRequisicion where FolioRequisicion='" + Folio + "' order by Partida Desc", cn))
-                {
-                    cn.Open();
-                    using (SqlDataReader dr = cmd.ExecuteReader())
-                    {
-                        if (dr.Read())
-                        {
-                            int Partida = Convert.ToInt32(dr["Partida"].ToString()) + 1;
-                            txtPartida.Text = Partida.ToString();
-                        }
-                        else
-                        {
-                            txtPartida.Text = "1";
-                        }
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("ERROR" + ex.ToString());
-            }
-        }
+       
         //___________________________________________________________________________________________
         public void Consultapropicorreo(string Folio, TextBox txtcorreo, TextBox txtcorreo2)
         {
@@ -1897,38 +1764,7 @@ namespace PV.Clases.OrdenCompra
                 MessageBox.Show("ERROR" + ex.ToString());
             }
         }
-        //___________________________________________________________________________________________
-        public int ConsultaConceptoPartidasGasto(string Folio, string Documento, Guna.UI2.WinForms.Guna2TextBox txtImpuesto)
-        {
-            int contador = 0;
-            decimal total = 0;
-            decimal porcentaje = 0;
-            decimal impuesto = 0;
-            try
-            {
-                using (SqlConnection cn = new SqlConnection(ObtenerCn()))
-                using (SqlCommand cmd = new SqlCommand("Select PG.*,  P.ConceptoGlobales from PartidaRegistroGastos as PG, ProductosServicios as P where PG.FolioGasto='" + Folio + "' and P.ConceptoGlobales='" + Documento + "' and PG.ClaveProducto=P.ClaveProducto order by PG.Partida Desc", cn))
-                {
-                    cn.Open();
-                    using (SqlDataReader dr = cmd.ExecuteReader())
-                    {
-                        while (dr.Read())
-                        {
-                            contador++;
-                            total = Convert.ToDecimal(dr["Subtotal"].ToString());
-                            porcentaje = Convert.ToDecimal(dr["Impuesto"].ToString());
-                            impuesto = impuesto + ((Convert.ToDecimal(porcentaje) / 100) * Convert.ToDecimal(total));
-                        }
-                    }
-                }
-                txtImpuesto.Text = impuesto.ToString("N2");
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("ERROR" + ex.ToString());
-            }
-            return contador;
-        }
+      
         //___________________________________________________________________________________________
         public int ConsultaConceptoPartidasRecepcion(string Folio, string Documento, TextBox txtImpuesto)
         {
@@ -2496,43 +2332,7 @@ namespace PV.Clases.OrdenCompra
                 MessageBox.Show("ERROR" + ex.ToString());
             }
         }
-        //____________________________________________________________________________________________
-        public void ActualizarNotaCargo(string txtFolio, string txtPartida)
-        {
-            try
-            {
-                using (SqlConnection cn = new SqlConnection(ObtenerCn()))
-                {
-                    cn.Open();
-
-                    string Subtotal = null, Descuentos = null, Cargo = null, Total = null;
-
-                    using (SqlCommand cmd = new SqlCommand("select sum(Descuento) as Descuento, sum(Cargo) as Cargo, sum(Subtotal) as Subtotal, sum(Total) as Total from ConceptoGlobalesNotasGasto where Folio='" + txtFolio + "'", cn))
-                    using (SqlDataReader dr = cmd.ExecuteReader())
-                    {
-                        if (dr.Read())
-                        {
-                            Subtotal = dr["Subtotal"].ToString();
-                            Descuentos = dr["Descuento"].ToString();
-                            Cargo = dr["Cargo"].ToString();
-                            Total = dr["Total"].ToString();
-                        }
-                    }
-
-                    if (Subtotal != null)
-                    {
-                        using (SqlCommand cmd = new SqlCommand("Update NotasGasto set TotalPartidas='" + txtPartida + "', Subtotal='" + Subtotal + "', Descuento='" + Descuentos + "',  Cargo='" + Cargo + "', Total='" + Total + "', Saldo='" + Total + "' where Folio='" + txtFolio + "'", cn))
-                        {
-                            cmd.ExecuteNonQuery();
-                        }
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("ERROR" + ex.ToString());
-            }
-        }
+       
         //____________________________________________________________________________________________
         public void ActualizarSaldoProveedor(string Clave, decimal Saldo)
         {
@@ -2572,28 +2372,7 @@ namespace PV.Clases.OrdenCompra
                 MessageBox.Show("ERROR prov: " + ex.Message);
             }
         }
-        public void ValidarDocumentoEPR()
-        {
-            try
-            {
-                using (SqlConnection cn = new SqlConnection(ObtenerCn()))
-                {
-                    cn.Open();
-
-                    using (SqlCommand cmd = new SqlCommand("IF NOT EXISTS (SELECT * FROM TipoMovimiento WHERE Documento = 'EPR' AND TipoMovimiento = 'E') " +
-                                                     "BEGIN " +
-                                                     "    INSERT INTO TipoMovimiento VALUES ('E', 'EPR', 'ENTRADA POR RECEPCIÓN', 'Activo', '0', 'Si', 'Si', '', '') " +
-                                                     "END", cn))
-                    {
-                        cmd.ExecuteNonQuery();
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Error: " + ex.Message);
-            }
-        }
+       
         public List<List<string>> ObtenerPartidas(string Folio)
         {
             List<List<string>> listam = new List<List<string>>();
@@ -2726,28 +2505,7 @@ namespace PV.Clases.OrdenCompra
             }
             return resultado;
         }
-        //_________________________________________________________________________________________________________
-        public string[] InformacionCondominio2(string Matricula)
-        {
-            string[] resultado = null;
-            using (SqlConnection cn = new SqlConnection(ObtenerCn()))
-            using (SqlCommand cmd = new SqlCommand("Select Descripcion  from Condominio where ClaveCondominio= '" + Matricula + "'", cn))
-            {
-                cn.Open();
-                using (SqlDataReader dr = cmd.ExecuteReader())
-                {
-                    while (dr.Read())
-                    {
-                        string[] valores =
-                        {
-                            dr[0].ToString(),
-                        };
-                        resultado = valores;
-                    }
-                }
-            }
-            return resultado;
-        }
+      
         //_______________________________________________________________________________________________________________
         public void ActualizarReciboEstatus(string Folio, string Estatus, string MatriculaAlumno, string FolioMovimiento)
         {
@@ -2833,40 +2591,7 @@ namespace PV.Clases.OrdenCompra
                 MessageBox.Show("ERROR" + ex.ToString());
             }
         }
-        //_______________________________________________________________________________________________________________
-        public void ActualizarRecepcion3gasto(string Folio, string Partida, string Archivo)
-        {
-            try
-            {
-                using (SqlConnection cn = new SqlConnection(ObtenerCn()))
-                using (SqlCommand cmd = new SqlCommand("Update RegistroGastos set Archivo='" + Archivo + "' where Folio='" + Folio + "'", cn))
-                {
-                    cn.Open();
-                    cmd.ExecuteNonQuery();
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("ERROR" + ex.ToString());
-            }
-        }
-        //_______________________________________________________________________________________________________________
-        public void ActualizarRecepcion3recepcion(string Folio, string Partida, string Archivo)
-        {
-            try
-            {
-                using (SqlConnection cn = new SqlConnection(ObtenerCn()))
-                using (SqlCommand cmd = new SqlCommand("Update RecepcionProducto set Archivo='" + Archivo + "' where Folio='" + Folio + "'", cn))
-                {
-                    cn.Open();
-                    cmd.ExecuteNonQuery();
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("ERROR" + ex.ToString());
-            }
-        }
+   
         //_______________________________________________________________________________________________________________
         public void ActualizarGasto(string Folio, string Estatus, string MatriculaAlumno)
         {
@@ -2884,23 +2609,7 @@ namespace PV.Clases.OrdenCompra
                 MessageBox.Show("ERROR" + ex.ToString());
             }
         }
-        //_______________________________________________________________________________________________________________
-        public void ActualizarGasto2(string Folio, string Archivo)
-        {
-            try
-            {
-                using (SqlConnection cn = new SqlConnection(ObtenerCn()))
-                using (SqlCommand cmd = new SqlCommand("Update RegistroGastos set Archivo='" + Archivo + "' where Folio='" + Folio + "'", cn))
-                {
-                    cn.Open();
-                    cmd.ExecuteNonQuery();
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("ERROR" + ex.ToString());
-            }
-        }
+      
         //_______________________________________________________________________________________________________________
         public void ActualizarNotaCargo(string Folio, string Estatus, string MatriculaAlumno)
         {
@@ -3032,63 +2741,7 @@ namespace PV.Clases.OrdenCompra
                 MessageBox.Show("ERROR" + ex.ToString());
             }
         }
-        //_______________________________________________________________________________________________________________
-        public void ReciboSaldosPartidasOrden2(string txtFolio, Guna.UI2.WinForms.Guna2TextBox Impuesto)
-        {
-            NumberFormatInfo formato = new CultureInfo("US-AR").NumberFormat;
-            formato.CurrencyGroupSeparator = ",";
-            formato.NumberDecimalSeparator = ".";
-
-            try
-            {
-                using (SqlConnection cn = new SqlConnection(ObtenerCn()))
-                using (SqlCommand cmd = new SqlCommand("select sum(convert(decimal,(Impuesto / 100) * Subtotal)) as Impuesto from PartidaOrden where FolioOrden='" + txtFolio + "'", cn))
-                {
-                    cn.Open();
-                    using (SqlDataReader dr = cmd.ExecuteReader())
-                    {
-                        if (dr.Read())
-                        {
-                            Impuesto.Text = Convert.ToDecimal(dr["Impuesto"]).ToString("N", formato);
-                        }
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("ERROR" + ex.ToString());
-            }
-        }
-
-     
-        //_______________________________________________________________________________________________________________
-        public void ReciboSaldosPartidasGasto(string txtFolio, Guna.UI2.WinForms.Guna2TextBox txtSubtoral, Guna.UI2.WinForms.Guna2TextBox txtDescuento, Guna.UI2.WinForms.Guna2TextBox txtTotal, Guna2TextBox txtImpuesto)
-        {
-            try
-            {
-                using (SqlConnection cn = new SqlConnection(ObtenerCn()))
-                using (SqlCommand cmd = new SqlCommand("select sum(Subtotal) as Subtotal, sum(DescuentoImporte) as Descuento,sum(ImpuestoImporte) as Impuesto, sum(Total) as Total from PartidaRegistroGastos where FolioGasto='" + txtFolio + "'", cn))
-                {
-                    cn.Open();
-                    using (SqlDataReader dr = cmd.ExecuteReader())
-                    {
-                        if (dr.Read())
-                        {
-                            txtSubtoral.Text = dr["Subtotal"].ToString();
-                            txtDescuento.Text = dr["Descuento"].ToString();
-                            txtTotal.Text = dr["Total"].ToString();
-                            txtImpuesto.Text = dr["Impuesto"].ToString();
-                        }
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("ERROR" + ex.ToString());
-            }
-        }
-        //_______________________________________________________________________________________________________________
-       
+  
         //_______________________________________________________________________________________________________________
         public void ReciboSaldos(string txtFolio, Guna.UI2.WinForms.Guna2TextBox txtSubtoral, Guna.UI2.WinForms.Guna2TextBox txtDescuento, Guna.UI2.WinForms.Guna2TextBox txtRecargo, Guna.UI2.WinForms.Guna2TextBox txtTotal, Guna.UI2.WinForms.Guna2TextBox txtTotalPartidas)
         {
@@ -3295,30 +2948,7 @@ namespace PV.Clases.OrdenCompra
                 MessageBox.Show(ex.ToString());
             }
         }
-        //___________________________________________________________________________
-        //............................................................................................................
-        public void ConsultaAbonoRecepcion(string Folio, TextBox txtAbono)
-        {
-            try
-            {
-                using (SqlConnection cn = new SqlConnection(ObtenerCn()))
-                using (SqlCommand cmd = new SqlCommand("select top 1 * from Egreso where Folio='" + Folio + "' and Tipo='P' order by Fecha desc", cn))
-                {
-                    cn.Open();
-                    using (SqlDataReader dr = cmd.ExecuteReader())
-                    {
-                        if (dr.Read())
-                        {
-                            txtAbono.Text = dr["Pago"].ToString();
-                        }
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.ToString());
-            }
-        }
+       
         //______________________________________________________________________________________________________-
         public void ConsultaRecibo(string Folio, TextBox Documento, ComboBox Estatus, Guna.UI2.WinForms.Guna2TextBox Fecha, Guna.UI2.WinForms.Guna2TextBox Dias, Guna.UI2.WinForms.Guna2TextBox FechaVence, Guna.UI2.WinForms.Guna2TextBox Divisa, Guna.UI2.WinForms.Guna2TextBox TipoCambio, Guna.UI2.WinForms.Guna2TextBox Subtotal, Guna.UI2.WinForms.Guna2TextBox Descuentos, Guna.UI2.WinForms.Guna2TextBox Cargo, Guna.UI2.WinForms.Guna2TextBox Total, Guna.UI2.WinForms.Guna2TextBox Partidas, Guna.UI2.WinForms.Guna2TextBox Notas, Guna.UI2.WinForms.Guna2TextBox Elaborado, TextBox txtFolio, Guna.UI2.WinForms.Guna2TextBox txtConsecutivo, Guna.UI2.WinForms.Guna2TextBox txtAutoriza, Guna.UI2.WinForms.Guna2TextBox txtFechaAutoriza)
         {
@@ -3366,39 +2996,7 @@ namespace PV.Clases.OrdenCompra
             }
         }
         //______________________________________________________________________________________________________-
-        public void ConsultaRequisicion(string Folio, TextBox Documento, ComboBox Estatus, Guna.UI2.WinForms.Guna2TextBox Fecha, Guna.UI2.WinForms.Guna2TextBox Dias, Guna.UI2.WinForms.Guna2TextBox FechaVence, TextBox CentroCosto, TextBox Departamento, Guna.UI2.WinForms.Guna2TextBox Partidas, Guna.UI2.WinForms.Guna2TextBox Notas, Guna.UI2.WinForms.Guna2TextBox Elaborado, TextBox txtFolio, Guna.UI2.WinForms.Guna2TextBox txtConsecutivo)
-        {
-            try
-            {
-                using (SqlConnection cn = new SqlConnection(ObtenerCn()))
-                using (SqlCommand cmd = new SqlCommand("Select * from Requisicion where Folio='" + Folio + "'", cn))
-                {
-                    cn.Open();
-                    using (SqlDataReader dr = cmd.ExecuteReader())
-                    {
-                        if (dr.Read())
-                        {
-                            Documento.Text = dr["ClaveDocumento"].ToString();
-                            Estatus.Text = dr["Estatus"].ToString();
-                            Fecha.Text = Convert.ToDateTime(dr["Fecha"]).ToString("yyyy-MM-dd");
-                            Dias.Text = dr["DiasVencen"].ToString();
-                            FechaVence.Text = Convert.ToDateTime(dr["FechaVence"]).ToString("yyyy-MM-dd");
-                            CentroCosto.Text = dr["CentroCosto"].ToString();
-                            Departamento.Text = dr["Departamento"].ToString();
-                            Partidas.Text = dr["TotalPartidas"].ToString();
-                            Notas.Text = dr["Notas"].ToString();
-                            Elaborado.Text = dr["Elaborado"].ToString();
-                            txtFolio.Text = dr["Folio"].ToString();
-                            txtConsecutivo.Text = dr["Consecutivo"].ToString();
-                        }
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.ToString());
-            }
-        }
+  
         //______________________________________________________________________________________________________-
         public void ConsultaRecepcion(string Folio, TextBox Documento, ComboBox Estatus, Guna2TextBox Fecha, Guna2TextBox Divisa, Guna2TextBox TipoCambio, Guna2TextBox Subtotal, Guna2TextBox Descuentos, Guna2TextBox Cargo, Guna2TextBox Total, Guna2TextBox Partidas, Guna2TextBox Notas, Guna2TextBox Elaborado, TextBox txtFolio, TextBox txtReciboCol, Guna2TextBox txtconsecutivo, TextBox txtAlmacen, Guna2TextBox txtReferencia, Guna2TextBox saldo, Guna2TextBox DiasVence, Guna2TextBox FechaVence, Guna2TextBox Archivo, ComboBox CentroCostos, ComboBox Proyecto)
         {
@@ -4196,23 +3794,7 @@ namespace PV.Clases.OrdenCompra
                 //MessageBox.Show("ERROR" + ex.ToString());
             }
         }
-        //___________________________________________________________________________________________
-        public void InsertarReciboConceptoGlobalGastos3(string ClaveConceptoG, string Folio)
-        {
-            try
-            {
-                using (SqlConnection cn = new SqlConnection(ObtenerCn()))
-                using (SqlCommand cmd = new SqlCommand("insert into ConceptoGlobalesGasto (ClaveConceptoG, Folio, Subtotal, Cargo, Total) values ('" + ClaveConceptoG + "','" + Folio + "', '0.00', '0.00', '0.00')", cn))
-                {
-                    cn.Open();
-                    cmd.ExecuteNonQuery();
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("ERROR" + ex.ToString());
-            }
-        }
+      
         //___________________________________________________________________________________________
         public void InsertarReciboConceptoGlobalNotaCargo3(string ClaveConceptoG, string Folio)
         {
@@ -4632,49 +4214,8 @@ namespace PV.Clases.OrdenCompra
                 MessageBox.Show("ERROR act" + ex.ToString());
             }
         }
-        //____________________________________________________________________________________________
-        public void ActualizarReciboConceptoGlobalGasto2(int txtFolio, decimal txtTotal)
-        {
-            try
-            {
-                using (SqlConnection cn = new SqlConnection(ObtenerCn()))
-                {
-                    cn.Open();
-
-                    string Descuento = null, Cargo = null;
-                    using (SqlCommand cmd = new SqlCommand("select sum(Descuento) as Descuento, sum(Cargo) as Cargo from ConceptoGlobalesGasto where Folio=" + txtFolio + "", cn))
-                    using (SqlDataReader dr = cmd.ExecuteReader())
-                    {
-                        if (dr.Read())
-                        {
-                            Descuento = dr["Descuento"].ToString();
-                            Cargo = dr["Cargo"].ToString();
-                        }
-                    }
-
-                    if (Descuento != null)
-                    {
-                        if (Descuento == string.Empty)
-                        {
-                            Descuento = "0.00";
-                        }
-                        if (Cargo == string.Empty)
-                        {
-                            Cargo = "0.00";
-                        }
-
-                        using (SqlCommand cmd = new SqlCommand("Update RegistroGastos set Descuento= Descuento + '" + Descuento + "', Cargo= '" + Cargo + "', Total='" + txtTotal + "', Saldo = '" + txtTotal + "' where Folio='" + txtFolio + "'", cn))
-                        {
-                            cmd.ExecuteNonQuery();
-                        }
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("ERROR act" + ex.ToString());
-            }
-        }
+        
+     
         //____________________________________________________________________________________________
         public void ActualizarReciboConceptoGlobalNotaCargo2(int txtFolio, decimal subtotal, decimal txtTotal, string Partida)
         {
@@ -4924,63 +4465,7 @@ namespace PV.Clases.OrdenCompra
                 MessageBox.Show("ERROR act" + ex.ToString());
             }
         }
-        public void ActualizarPartidaReciboConceptoGlobalRemision(int txtFolio, decimal Porcentaje, string txtClase)
-        {
-            try
-            {
-                string query;
-
-                if (txtClase == "Impuesto" || txtClase == "Cargo")
-                {
-                    query = "Update P set " +
-                            "P.Impuesto = (Case when CG.Tipo = 'Porcentaje' Then (P.Subtotal * (CG.Importe / 100)) Else CGG.Cargo End), " +
-                            "P.Total = P.Subtotal + (Case when CG.Tipo = 'Porcentaje' Then (P.Subtotal * (CG.Importe / 100)) Else CGG.Cargo End) " +
-                            "from PartidaRemision as P " +
-                            "Join ConceptoGlobalesRemision as CGG On P.FolioRemision=CGG.Folio " +
-                            "Join ConceptosGlobales as CG On CGG.ClaveConceptoG = CG.Clave " +
-                            "where P.FolioRemision = @Folio";
-                }
-                else
-                {
-                    query = "Update P set " +
-                            "P.Descuento = (Case when CG.Tipo = 'Porcentaje' Then (P.Subtotal * (CG.Importe / 100)) Else CGG.Descuento End), " +
-                            "P.Total = P.Subtotal - (Case when CG.Tipo = 'Porcentaje' Then (P.Subtotal * (CG.Importe / 100)) Else CGG.Descuento End) " +
-                            "from PartidaRemision as P " +
-                            "Join ConceptoGlobalesRemision as CGG On P.FolioRemision=CGG.Folio " +
-                            "Join ConceptosGlobales as CG On CGG.ClaveConceptoG = CG.Clave " +
-                            "where P.FolioRemision = @Folio";
-                }
-
-                using (SqlConnection cn = new SqlConnection(ObtenerCn()))
-                using (SqlCommand cmd = new SqlCommand(query, cn))
-                {
-                    cn.Open();
-                    cmd.Parameters.AddWithValue("@Folio", txtFolio);
-                    cmd.ExecuteNonQuery();
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("ERROR act" + ex.ToString());
-            }
-        }
-        //___________________________________________________________________________________________
-        public void EliminarReciboConceptoGlobalGastos3(string Folio)
-        {
-            try
-            {
-                using (SqlConnection cn = new SqlConnection(ObtenerCn()))
-                using (SqlCommand cmd = new SqlCommand("delete ConceptoGlobalesGasto where Folio='" + Folio + "' and Total= '0.00'", cn))
-                {
-                    cn.Open();
-                    cmd.ExecuteNonQuery();
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("ERROR" + ex.ToString());
-            }
-        }
+     
         public void EliminarReciboConceptoGlobalRemision3(string Folio)
         {
             try
@@ -5363,45 +4848,7 @@ namespace PV.Clases.OrdenCompra
             }
             return resultado;
         }
-        //______________________________________________________________________________________________________________________________
-        public string[] InformacionAlmacen2(string Documento)
-        {
-            string[] resultado = null;
-            using (SqlConnection cn = new SqlConnection(ObtenerCn()))
-            using (SqlCommand cmd = new SqlCommand("Select (convert(varchar, Clave) + ' - ' + Nombre) from Almacenes where  Clave= '" + Documento + "'", cn))
-            {
-                cn.Open();
-                using (SqlDataReader dr = cmd.ExecuteReader())
-                {
-                    while (dr.Read())
-                    {
-                        string[] valores =
-                        {
-                            dr[0].ToString(),
-                        };
-                        resultado = valores;
-                    }
-                }
-            }
-            return resultado;
-        }
-        //_________________________________________________________________________________________
-        public void eliminarPartidaRequisicion(string Folio, string partida)
-        {
-            try
-            {
-                using (SqlConnection cn = new SqlConnection(ObtenerCn()))
-                using (SqlCommand cmd = new SqlCommand("delete PartidaRequisicion where FolioRequisicion='" + Folio + "' and Partida='" + partida + "'", cn))
-                {
-                    cn.Open();
-                    cmd.ExecuteNonQuery();
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("ERROR" + ex.ToString());
-            }
-        }
+      
         //_________________________________________________________________________________________
         public int ruta()
         {
@@ -5427,74 +4874,8 @@ namespace PV.Clases.OrdenCompra
             }
             return contador;
         }
-        //_______________________________________________________________________________________________________________________________------
-        //Registrar datos del aviso
-        public void ModificarExtension(string Folio, string Extension)
-        {
-            try
-            {
-                using (SqlConnection cn = new SqlConnection(ObtenerCn()))
-                {
-                    cn.Open();
-
-                    int contador = 0;
-                    using (SqlCommand cmd = new SqlCommand("select * from RegistroGastos where Folio=" + Folio + "", cn))
-                    using (SqlDataReader dr = cmd.ExecuteReader())
-                    {
-                        while (dr.Read())
-                        {
-                            contador++;
-                        }
-                    }
-
-                    if (contador > 0)
-                    {
-                        using (SqlCommand cmd = new SqlCommand("Update RegistroGastos set Extension='" + Extension + "' where Folio=" + Folio + "", cn))
-                        {
-                            cmd.ExecuteNonQuery();
-                        }
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Error." + ex.ToString());
-            }
-        }
-        //_______________________________________________________________________________________________________________________________------
-        //Registrar datos del aviso
-        public void ModificarExtension2(string Folio)
-        {
-            try
-            {
-                using (SqlConnection cn = new SqlConnection(ObtenerCn()))
-                {
-                    cn.Open();
-
-                    int contador = 0;
-                    using (SqlCommand cmd = new SqlCommand("select * from RegistroGastos where Folio=" + Folio + "", cn))
-                    using (SqlDataReader dr = cmd.ExecuteReader())
-                    {
-                        while (dr.Read())
-                        {
-                            contador++;
-                        }
-                    }
-
-                    if (contador > 0)
-                    {
-                        using (SqlCommand cmd = new SqlCommand("Update RegistroGastos set Extension='', Archivo='' where Folio=" + Folio + "", cn))
-                        {
-                            cmd.ExecuteNonQuery();
-                        }
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Error." + ex.ToString());
-            }
-        }
+      
+      
         //_______________________________________________________________________________________________________________________________------
         //Registrar datos del aviso
         public void ModificarExtension3(string Folio, string Partida)
@@ -5699,74 +5080,8 @@ namespace PV.Clases.OrdenCompra
                 MessageBox.Show("Error." + ex.ToString());
             }
         }
-        //_______________________________________________________________________________________________________________________________------
-        //Registrar datos del aviso
-        public void ModificarExtension5gasto(string Folio, string Partida, string Extension)
-        {
-            try
-            {
-                using (SqlConnection cn = new SqlConnection(ObtenerCn()))
-                {
-                    cn.Open();
-
-                    int contador = 0;
-                    using (SqlCommand cmd = new SqlCommand("select * from RegistroGastos where Folio=" + Folio + "", cn))
-                    using (SqlDataReader dr = cmd.ExecuteReader())
-                    {
-                        while (dr.Read())
-                        {
-                            contador++;
-                        }
-                    }
-
-                    if (contador > 0)
-                    {
-                        using (SqlCommand cmd = new SqlCommand("Update RegistroGastos set Extension='" + Extension + "' where Folio=" + Folio + "", cn))
-                        {
-                            cmd.ExecuteNonQuery();
-                        }
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Error." + ex.ToString());
-            }
-        }
-        //_______________________________________________________________________________________________________________________________------
-        //Registrar datos del aviso
-        public void ModificarExtension5Recepcion(string Folio, string Partida, string Extension)
-        {
-            try
-            {
-                using (SqlConnection cn = new SqlConnection(ObtenerCn()))
-                {
-                    cn.Open();
-
-                    int contador = 0;
-                    using (SqlCommand cmd = new SqlCommand("select * from RecepcionProducto where Folio=" + Folio + "", cn))
-                    using (SqlDataReader dr = cmd.ExecuteReader())
-                    {
-                        while (dr.Read())
-                        {
-                            contador++;
-                        }
-                    }
-
-                    if (contador > 0)
-                    {
-                        using (SqlCommand cmd = new SqlCommand("Update RecepcionProducto set Extension='" + Extension + "' where Folio=" + Folio + "", cn))
-                        {
-                            cmd.ExecuteNonQuery();
-                        }
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Error." + ex.ToString());
-            }
-        }
+      
+      
         //____________________________________________________________________________________________________________________________________________
         //obtener correo y contraseña del sitema
         public int CorreoContra()
@@ -5880,31 +5195,7 @@ namespace PV.Clases.OrdenCompra
                 MessageBox.Show("Error al cargar");
             }
         }
-        public void CargarRemisionPartidas(DataGridView dgv, string Folio)
-        {
-            try
-            {
-                dgv.Rows.Clear();
-                using (SqlConnection cn = new SqlConnection(ObtenerCn()))
-                using (SqlDataAdapter da = new SqlDataAdapter("select PO.*, PS.Descripcion from [PartidaOrden] as PO, ProductosServicios as PS where FolioOrden='" + Folio + "' and PO.ClaveProducto=PS.ClaveProducto order by Partida asc", cn))
-                {
-                    DataTable dt = new DataTable();
-                    da.Fill(dt);
-                    foreach (DataRow item in dt.Rows)
-                    {
-                        int n = dgv.Rows.Add();
-                        dgv.Rows[n].Cells[0].Value = item["FolioOrden"].ToString();
-                        dgv.Rows[n].Cells[1].Value = item["Partida"].ToString();
-                        dgv.Rows[n].Cells[2].Value = item["Descripcion"].ToString();
-                        dgv.Rows[n].Cells[3].Value = item["Concepto2"].ToString();
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.ToString());
-            }
-        }
+  
         public void ConsultaPartidaOrden(string Folio, string Partida, TextBox claveconcepto, TextBox Concepto, Guna.UI2.WinForms.Guna2TextBox Concepto2, Guna.UI2.WinForms.Guna2TextBox cantidad, Guna.UI2.WinForms.Guna2TextBox unidad, Guna.UI2.WinForms.Guna2TextBox divisa, Guna.UI2.WinForms.Guna2TextBox tipocambio, Guna.UI2.WinForms.Guna2TextBox subtotal, Guna.UI2.WinForms.Guna2TextBox descuento, Guna.UI2.WinForms.Guna2TextBox total, Guna.UI2.WinForms.Guna2TextBox TxtPrecio, Guna.UI2.WinForms.Guna2TextBox txtImpuesto, Guna.UI2.WinForms.Guna2TextBox txtEntregado, ComboBox cmbConcepto2)
         {
             try
@@ -6010,48 +5301,7 @@ namespace PV.Clases.OrdenCompra
                 MessageBox.Show(ex.ToString());
             }
         }
-        public List<List<string>> ObtenerPartidasRemision(string Folio)
-        {
-            List<List<string>> listam = new List<List<string>>();
-            using (SqlConnection cn = new SqlConnection(ObtenerCn()))
-            using (SqlCommand cmd = new SqlCommand("Select PS.ClaveProducto, PR.Cantidad, PS.TipoCosteo, (PR.Subtotal/PR.Cantidad), PR.Partida, PS.UnidadMedida, PR.Total from PartidaOrden as PR Join OrdenCompra as R On R.Folio=PR.FolioOrden Join ProductosServicios as PS On PR.ClaveProducto=PS.ClaveProducto where FolioOrden=@Folio and PR.ClaveProducto=PS.ClaveProducto", cn))
-            {
-                cn.Open();
-                cmd.Parameters.AddWithValue("@Folio", Folio);
-                using (SqlDataReader dr = cmd.ExecuteReader())
-                {
-                    while (dr.Read())
-                    {
-                        List<string> lista = new List<string>();
-                        lista.Add(dr[0].ToString());
-                        lista.Add(dr[1].ToString());
-                        lista.Add(dr[2].ToString());
-                        lista.Add(dr[3].ToString());
-                        lista.Add(dr[4].ToString());
-                        lista.Add(dr[5].ToString());
-                        lista.Add(dr[6].ToString());
-                        listam.Add(lista);
-                    }
-                }
-            }
-            return listam;
-        }
-        public void ActualizarRemision(string Folio, string Estatus)
-        {
-            try
-            {
-                using (SqlConnection cn = new SqlConnection(ObtenerCn()))
-                using (SqlCommand cmd = new SqlCommand("Update OrdenCompra set Estatus='" + Estatus + "' where Folio='" + Folio + "'", cn))
-                {
-                    cn.Open();
-                    cmd.ExecuteNonQuery();
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("ERROR" + ex.ToString());
-            }
-        }
+   
         public void CancelarOrdenPedidoCliente(string Folio)
         {
             try

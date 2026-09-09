@@ -10,6 +10,7 @@ using PV.Clases.Clientes;
 using PV.Clases.OrdenCompra;
 using PV.Clases.PedidoCliente;
 using PV.Clases.Proveedores;
+using PV.Clases.Remision;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -56,6 +57,8 @@ namespace PV
                 T.SetToolTip(guna2Button15, "Nueva Remisión");
                 T.SetToolTip(guna2Button16, "Consultar Remisión");
                 T.SetToolTip(button10, "Imprimir Remisión");
+                T.SetToolTip(btnRemisionXML, "generar XML");
+
 
             }
             else
@@ -126,11 +129,13 @@ namespace PV
             {
                 o.CargarRemisiones(dataGridView1, tipo, txtFiltro.Text, txtFiltroDocumento.Text, txtFiltroNombre.Text, false);
                 o.CargarRemisiones(DataGridView2, tipo, txtFiltro.Text, txtFiltroDocumento.Text, txtFiltroNombre.Text, true);
+                
             }
             else
             {
                 c.CargarRecibos(dataGridView1, tipo, txtFiltro.Text, txtFiltroDocumento.Text, txtFiltroNombre.Text);
                 c.CargarRecibos2(DataGridView2, tipo, txtFiltro.Text, txtFiltroDocumento.Text, txtFiltroNombre.Text);
+                btnRemisionXML.Visible = false;
             }
             c.SeleccionarConceptoDocumentoV(cmbDocumento, tipo);
             
@@ -2248,6 +2253,45 @@ namespace PV
         private void label49_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void btnRemisionXML_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                string folio = txtFolio.Text.Trim(); // ajusta al control real donde tienes el folio
+
+                if (string.IsNullOrWhiteSpace(folio))
+                {
+                    MessageBox.Show("Debes indicar el folio de la remisión.");
+                    return;
+                }
+
+                DBRemiision db = new DBRemiision();
+                string xml = db.GenerarXmlRemision(folio);
+
+                if (string.IsNullOrEmpty(xml))
+                {
+                    MessageBox.Show("No se encontró la remisión con ese folio.");
+                    return;
+                }
+
+                using (SaveFileDialog sfd = new SaveFileDialog())
+                {
+                    sfd.Filter = "Archivo XML (*.xml)|*.xml";
+                    sfd.FileName = $"Remision_{folio}.xml";
+
+                    if (sfd.ShowDialog() == DialogResult.OK)
+                    {
+                        System.IO.File.WriteAllText(sfd.FileName, xml, System.Text.Encoding.UTF8);
+                        MessageBox.Show("XML generado correctamente.");
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al generar XML: " + ex.ToString());
+            }
         }
     }
 

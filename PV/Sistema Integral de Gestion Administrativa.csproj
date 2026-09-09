@@ -179,6 +179,10 @@
     <Compile Include="Clases\MenuPrincipal\DBFavoritos.cs" />
     <Compile Include="Clases\MovimientosBanco\DBMovimientosBanco.cs" />
     <Compile Include="Clases\NumericHelper.cs" />
+    <Compile Include="Clases\Requisicion\DBRequisicion.cs" />
+    <Compile Include="ControlCondominiosDataSet34.cs">
+      <DependentUpon>ControlCondominiosDataSet34.xsd</DependentUpon>
+    </Compile>
     <Compile Include="DTSFactura.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -721,6 +725,24 @@
     <Compile Include="ReporteComprasReembolso.Designer.cs">
       <DependentUpon>ReporteComprasReembolso.cs</DependentUpon>
     </Compile>
+    <Compile Include="ReporteComprobanteFactura.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ReporteComprobanteFactura.Designer.cs">
+      <DependentUpon>ReporteComprobanteFactura.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ReporteComprobanteGasto.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ReporteComprobanteGasto.Designer.cs">
+      <DependentUpon>ReporteComprobanteGasto.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ReporteComprobanteOrdenCompra.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ReporteComprobanteOrdenCompra.Designer.cs">
+      <DependentUpon>ReporteComprobanteOrdenCompra.cs</DependentUpon>
+    </Compile>
     <Compile Include="ReporteConceptosCobroPago.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -768,12 +790,6 @@
     </Compile>
     <Compile Include="ReporteDiarioRemisiones.Designer.cs">
       <DependentUpon>ReporteDiarioRemisiones.cs</DependentUpon>
-    </Compile>
-    <Compile Include="ReporteFactura.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="ReporteFactura.Designer.cs">
-      <DependentUpon>ReporteFactura.cs</DependentUpon>
     </Compile>
     <Compile Include="ReporteMovimientoInventario.cs">
       <SubType>Form</SubType>
@@ -2200,6 +2216,18 @@
     <EmbeddedResource Include="ReporteComprasReembolso.resx">
       <DependentUpon>ReporteComprasReembolso.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="ReporteComprobanteFactura.rdlc" />
+    <EmbeddedResource Include="ReporteComprobanteFactura.resx">
+      <DependentUpon>ReporteComprobanteFactura.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ReporteComprobanteGasto.rdlc" />
+    <EmbeddedResource Include="ReporteComprobanteGasto.resx">
+      <DependentUpon>ReporteComprobanteGasto.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ReporteComprobanteOrdenCompra.rdlc" />
+    <EmbeddedResource Include="ReporteComprobanteOrdenCompra.resx">
+      <DependentUpon>ReporteComprobanteOrdenCompra.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="ReporteConceptosCobroPago.rdlc" />
     <EmbeddedResource Include="ReporteConceptosCobroPago.resx">
       <DependentUpon>ReporteConceptosCobroPago.cs</DependentUpon>
@@ -2231,9 +2259,6 @@
     <EmbeddedResource Include="ReporteDiarioRemisiones.rdlc" />
     <EmbeddedResource Include="ReporteDiarioRemisiones.resx">
       <DependentUpon>ReporteDiarioRemisiones.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="ReporteFactura.resx">
-      <DependentUpon>ReporteFactura.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ReporteMovimientoInventario.rdlc" />
     <EmbeddedResource Include="ReporteMovimientoInventario.resx">

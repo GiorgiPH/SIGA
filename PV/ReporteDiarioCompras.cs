@@ -26,9 +26,7 @@ namespace PV
 
         private void ReporteDiarioCompras_Load(object sender, EventArgs e)
         {
-            c.SeleccionarProveedor(cmbPropietario1);
-            cmbPropietario1.SelectedIndex = 0;
-            cmbTipo.SelectedIndex = 0;
+
             this.DatosEmpresaTableAdapter.Fill(this.ControlCondominiosDataSet31.DatosEmpresa);
             int? claveProveedor = (string.IsNullOrWhiteSpace(IdProveedor) || IdProveedor == "0") ? (int?)null : Convert.ToInt32(IdProveedor);
             DateTime? fechaInicio = string.IsNullOrWhiteSpace(FechaInicio) ? (DateTime?)null : Convert.ToDateTime(FechaInicio);

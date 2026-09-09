@@ -34,7 +34,6 @@
             this.OrdenCompraBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.ControlCondominiosDataSet27 = new PV.ControlCondominiosDataSet27();
             this.reportViewer1 = new Microsoft.Reporting.WinForms.ReportViewer();
-            this.OrdenCompraTableAdapter = new PV.ControlCondominiosDataSet27TableAdapters.OrdenCompraTableAdapter();
             ((System.ComponentModel.ISupportInitialize)(this.OrdenCompraBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ControlCondominiosDataSet27)).BeginInit();
             this.SuspendLayout();
@@ -64,7 +63,6 @@
             // 
             // OrdenCompraTableAdapter
             // 
-            this.OrdenCompraTableAdapter.ClearBeforeFill = true;
             // 
             // ReporteOrdenCompra
             // 
@@ -88,6 +86,5 @@
         private Microsoft.Reporting.WinForms.ReportViewer reportViewer1;
         private System.Windows.Forms.BindingSource OrdenCompraBindingSource;
         private ControlCondominiosDataSet27 ControlCondominiosDataSet27;
-        private ControlCondominiosDataSet27TableAdapters.OrdenCompraTableAdapter OrdenCompraTableAdapter;
     }
 }

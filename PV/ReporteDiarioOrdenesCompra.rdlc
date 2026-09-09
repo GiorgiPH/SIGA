@@ -1850,40 +1850,25 @@
     <Height>1.3826in</Height>
     <Style />
   </Body>
-  <Width>14.3151in</Width>
+  <Width>14.18093in</Width>
   <Page>
     <PageHeader>
-      <Height>3.12208cm</Height>
+      <Height>3.86423cm</Height>
       <PrintOnFirstPage>true</PrintOnFirstPage>
       <PrintOnLastPage>true</PrintOnLastPage>
       <ReportItems>
-        <Image Name="Image1">
-          <Source>Database</Source>
-          <Value>=First(Fields!Foto.Value, "DataSet2")</Value>
-          <MIMEType>image/jpeg</MIMEType>
-          <Sizing>FitProportional</Sizing>
-          <Top>0.26141cm</Top>
-          <Left>0.79375cm</Left>
-          <Height>2.50542cm</Height>
-          <Width>4.00812cm</Width>
-          <Style>
-            <Border>
-              <Style>None</Style>
-            </Border>
-          </Style>
-        </Image>
-        <Textbox Name="Textbox1">
+        <Textbox Name="Textbox4">
           <CanGrow>true</CanGrow>
           <KeepTogether>true</KeepTogether>
           <Paragraphs>
             <Paragraph>
               <TextRuns>
                 <TextRun>
-                  <Value>REPORTE DIARIO DE ORDENES DE COMPRAS</Value>
+                  <Value>=First(Fields!NombreComercial.Value, "DataSet2")</Value>
                   <Style>
-                    <FontSize>16pt</FontSize>
+                    <FontSize>14pt</FontSize>
                     <FontWeight>Bold</FontWeight>
-                    <Color>White</Color>
+                    <Color>Navy</Color>
                   </Style>
                 </TextRun>
               </TextRuns>
@@ -1893,19 +1878,211 @@
             </Paragraph>
           </Paragraphs>
           <rd:DefaultName>Textbox1</rd:DefaultName>
-          <Top>1.12875cm</Top>
-          <Left>13.05625cm</Left>
-          <Height>1.18208cm</Height>
-          <Width>12.63355cm</Width>
+          <Left>11.92502cm</Left>
+          <Height>0.65292cm</Height>
+          <Width>13.38872cm</Width>
+          <Style>
+            <Border>
+              <Style>None</Style>
+            </Border>
+            <PaddingLeft>2pt</PaddingLeft>
+            <PaddingRight>2pt</PaddingRight>
+            <PaddingTop>2pt</PaddingTop>
+            <PaddingBottom>2pt</PaddingBottom>
+          </Style>
+        </Textbox>
+        <Image Name="Image4">
+          <Source>Database</Source>
+          <Value>=First(Fields!Foto.Value, "DataSet2")</Value>
+          <MIMEType>image/jpeg</MIMEType>
+          <Sizing>FitProportional</Sizing>
+          <Top>0.53838cm</Top>
+          <Left>2.79161cm</Left>
+          <Height>3.00827cm</Height>
+          <Width>3.54663cm</Width>
           <ZIndex>1</ZIndex>
           <Style>
             <Border>
               <Style>None</Style>
             </Border>
-            <BottomBorder>
-              <Style>Solid</Style>
-            </BottomBorder>
-            <VerticalAlign>Middle</VerticalAlign>
+          </Style>
+        </Image>
+        <Textbox Name="Textbox7">
+          <CanGrow>true</CanGrow>
+          <KeepTogether>true</KeepTogether>
+          <Paragraphs>
+            <Paragraph>
+              <TextRuns>
+                <TextRun>
+                  <Value>RFC: </Value>
+                  <Style>
+                    <FontSize>12pt</FontSize>
+                    <FontWeight>Bold</FontWeight>
+                    <Color>Navy</Color>
+                  </Style>
+                </TextRun>
+                <TextRun>
+                  <Value>=First(Fields!RFC.Value, "DataSet2")</Value>
+                  <Style>
+                    <FontSize>12pt</FontSize>
+                    <FontWeight>Bold</FontWeight>
+                    <Color>Navy</Color>
+                  </Style>
+                </TextRun>
+              </TextRuns>
+              <Style>
+                <TextAlign>Center</TextAlign>
+              </Style>
+            </Paragraph>
+          </Paragraphs>
+          <rd:DefaultName>Textbox1</rd:DefaultName>
+          <Top>0.82931cm</Top>
+          <Left>14.97701cm</Left>
+          <Height>0.65292cm</Height>
+          <Width>7.46205cm</Width>
+          <ZIndex>2</ZIndex>
+          <Style>
+            <Border>
+              <Style>None</Style>
+            </Border>
+            <PaddingLeft>2pt</PaddingLeft>
+            <PaddingRight>2pt</PaddingRight>
+            <PaddingTop>2pt</PaddingTop>
+            <PaddingBottom>2pt</PaddingBottom>
+          </Style>
+        </Textbox>
+        <Textbox Name="Textbox13">
+          <CanGrow>true</CanGrow>
+          <KeepTogether>true</KeepTogether>
+          <Paragraphs>
+            <Paragraph>
+              <TextRuns>
+                <TextRun>
+                  <Value>Domicilio fiscal:</Value>
+                  <Style>
+                    <FontWeight>Bold</FontWeight>
+                  </Style>
+                </TextRun>
+              </TextRuns>
+              <Style />
+            </Paragraph>
+            <Paragraph>
+              <TextRuns>
+                <TextRun>
+                  <Value>Calle:</Value>
+                  <Style />
+                </TextRun>
+                <TextRun>
+                  <Value>=First(Fields!CalleNumero.Value, "DataSet2")</Value>
+                  <Style />
+                </TextRun>
+                <TextRun>
+                  <Value>, Col.</Value>
+                  <Style />
+                </TextRun>
+                <TextRun>
+                  <Value>=First(Fields!Colonia.Value, "DataSet2")</Value>
+                  <Style />
+                </TextRun>
+                <TextRun>
+                  <Value> C.P. </Value>
+                  <Style />
+                </TextRun>
+                <TextRun>
+                  <Value>=First(Fields!CodigoPostal.Value, "DataSet2")</Value>
+                  <Style />
+                </TextRun>
+                <TextRun>
+                  <Value>, </Value>
+                  <Style />
+                </TextRun>
+                <TextRun>
+                  <Value>=First(Fields!Municipio.Value, "DataSet2")</Value>
+                  <Style />
+                </TextRun>
+                <TextRun>
+                  <Value>, </Value>
+                  <Style />
+                </TextRun>
+                <TextRun>
+                  <Value>=First(Fields!Estado.Value, "DataSet2")</Value>
+                  <Style />
+                </TextRun>
+                <TextRun>
+                  <Value>, </Value>
+                  <Style />
+                </TextRun>
+                <TextRun>
+                  <Value>=First(Fields!Pais.Value, "DataSet2")</Value>
+                  <Style />
+                </TextRun>
+                <TextRun>
+                  <Value>, Teléfono: </Value>
+                  <Style />
+                </TextRun>
+                <TextRun>
+                  <Value>=First(Fields!Telefono1.Value, "DataSet2")</Value>
+                  <Style />
+                </TextRun>
+              </TextRuns>
+              <Style />
+            </Paragraph>
+            <Paragraph>
+              <TextRuns>
+                <TextRun>
+                  <Value />
+                  <Style />
+                </TextRun>
+              </TextRuns>
+              <Style />
+            </Paragraph>
+          </Paragraphs>
+          <rd:DefaultName>Textbox7</rd:DefaultName>
+          <Top>1.55278cm</Top>
+          <Left>11.92502cm</Left>
+          <Height>1.46939cm</Height>
+          <Width>13.38872cm</Width>
+          <ZIndex>3</ZIndex>
+          <Style>
+            <Border>
+              <Style>None</Style>
+            </Border>
+            <PaddingLeft>2pt</PaddingLeft>
+            <PaddingRight>2pt</PaddingRight>
+            <PaddingTop>2pt</PaddingTop>
+            <PaddingBottom>2pt</PaddingBottom>
+          </Style>
+        </Textbox>
+        <Textbox Name="Textbox17">
+          <CanGrow>true</CanGrow>
+          <KeepTogether>true</KeepTogether>
+          <Paragraphs>
+            <Paragraph>
+              <TextRuns>
+                <TextRun>
+                  <Value>REPORTE DIARIO DE PEDIDOS PROVEEDOR</Value>
+                  <Style>
+                    <FontSize>12pt</FontSize>
+                    <FontWeight>Bold</FontWeight>
+                    <Color>Navy</Color>
+                  </Style>
+                </TextRun>
+              </TextRuns>
+              <Style>
+                <TextAlign>Center</TextAlign>
+              </Style>
+            </Paragraph>
+          </Paragraphs>
+          <rd:DefaultName>Textbox1</rd:DefaultName>
+          <Top>3.17603cm</Top>
+          <Left>13.69114cm</Left>
+          <Height>0.65292cm</Height>
+          <Width>10.29969cm</Width>
+          <ZIndex>4</ZIndex>
+          <Style>
+            <Border>
+              <Style>None</Style>
+            </Border>
             <PaddingLeft>2pt</PaddingLeft>
             <PaddingRight>2pt</PaddingRight>
             <PaddingTop>2pt</PaddingTop>
@@ -1917,7 +2094,6 @@
         <Border>
           <Style>None</Style>
         </Border>
-        <BackgroundColor>#13235f</BackgroundColor>
       </Style>
     </PageHeader>
     <PageHeight>29.7cm</PageHeight>

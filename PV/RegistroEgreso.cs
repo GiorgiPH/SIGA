@@ -56,6 +56,8 @@ namespace PV
                 dgRow.Cells["Documento"].Value = row["ClaveDocumento"];
                 dgRow.Cells["Concepto"].Value = row["Nombre"];
                 dgRow.Cells["Fecha"].Value = Convert.ToDateTime(row["Fecha"]).ToString("yyyy/MM/dd");
+                dgRow.Cells["FechaVence"].Value = Convert.ToDateTime(row["FechaVence"]).ToString("yyyy/MM/dd");
+
                 dgRow.Cells["Importe"].Value = row["Total"];
                 dgRow.Cells["SaldoActual"].Value = row["Saldo"];
             }

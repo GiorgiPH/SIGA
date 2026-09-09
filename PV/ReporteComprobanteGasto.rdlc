@@ -12,13 +12,10 @@
               <Width>1.33296cm</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>4.19752cm</Width>
+              <Width>5.83375cm</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>3.50542cm</Width>
-            </TablixColumn>
-            <TablixColumn>
-              <Width>2.08078cm</Width>
+              <Width>2.47258cm</Width>
             </TablixColumn>
             <TablixColumn>
               <Width>2.10313cm</Width>
@@ -27,10 +24,7 @@
               <Width>2.11877cm</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>2.12882cm</Width>
-            </TablixColumn>
-            <TablixColumn>
-              <Width>2.23542cm</Width>
+              <Width>2.96695cm</Width>
             </TablixColumn>
           </TablixColumns>
           <TablixRows>
@@ -167,45 +161,6 @@
                 </TablixCell>
                 <TablixCell>
                   <CellContents>
-                    <Textbox Name="Textbox26">
-                      <CanGrow>true</CanGrow>
-                      <KeepTogether>true</KeepTogether>
-                      <Paragraphs>
-                        <Paragraph>
-                          <TextRuns>
-                            <TextRun>
-                              <Value>Proveedor Alterno</Value>
-                              <Style>
-                                <FontWeight>Bold</FontWeight>
-                              </Style>
-                            </TextRun>
-                          </TextRuns>
-                          <Style>
-                            <TextAlign>Center</TextAlign>
-                          </Style>
-                        </Paragraph>
-                      </Paragraphs>
-                      <rd:DefaultName>Textbox26</rd:DefaultName>
-                      <Style>
-                        <Border>
-                          <Style>None</Style>
-                        </Border>
-                        <TopBorder>
-                          <Style>Solid</Style>
-                        </TopBorder>
-                        <BottomBorder>
-                          <Style>Solid</Style>
-                        </BottomBorder>
-                        <PaddingLeft>2pt</PaddingLeft>
-                        <PaddingRight>2pt</PaddingRight>
-                        <PaddingTop>2pt</PaddingTop>
-                        <PaddingBottom>2pt</PaddingBottom>
-                      </Style>
-                    </Textbox>
-                  </CellContents>
-                </TablixCell>
-                <TablixCell>
-                  <CellContents>
                     <Textbox Name="Textbox120">
                       <CanGrow>true</CanGrow>
                       <KeepTogether>true</KeepTogether>
@@ -316,45 +271,6 @@
                         </Paragraph>
                       </Paragraphs>
                       <rd:DefaultName>Textbox3</rd:DefaultName>
-                      <Style>
-                        <Border>
-                          <Style>None</Style>
-                        </Border>
-                        <TopBorder>
-                          <Style>Solid</Style>
-                        </TopBorder>
-                        <BottomBorder>
-                          <Style>Solid</Style>
-                        </BottomBorder>
-                        <PaddingLeft>2pt</PaddingLeft>
-                        <PaddingRight>2pt</PaddingRight>
-                        <PaddingTop>2pt</PaddingTop>
-                        <PaddingBottom>2pt</PaddingBottom>
-                      </Style>
-                    </Textbox>
-                  </CellContents>
-                </TablixCell>
-                <TablixCell>
-                  <CellContents>
-                    <Textbox Name="Textbox27">
-                      <CanGrow>true</CanGrow>
-                      <KeepTogether>true</KeepTogether>
-                      <Paragraphs>
-                        <Paragraph>
-                          <TextRuns>
-                            <TextRun>
-                              <Value>IEPS</Value>
-                              <Style>
-                                <FontWeight>Bold</FontWeight>
-                              </Style>
-                            </TextRun>
-                          </TextRuns>
-                          <Style>
-                            <TextAlign>Center</TextAlign>
-                          </Style>
-                        </Paragraph>
-                      </Paragraphs>
-                      <rd:DefaultName>Textbox27</rd:DefaultName>
                       <Style>
                         <Border>
                           <Style>None</Style>
@@ -515,38 +431,6 @@
                 </TablixCell>
                 <TablixCell>
                   <CellContents>
-                    <Textbox Name="NombreProveedorAlterno">
-                      <CanGrow>true</CanGrow>
-                      <KeepTogether>true</KeepTogether>
-                      <Paragraphs>
-                        <Paragraph>
-                          <TextRuns>
-                            <TextRun>
-                              <Value>=Fields!NombreProveedorAlterno.Value</Value>
-                              <Style />
-                            </TextRun>
-                          </TextRuns>
-                          <Style>
-                            <TextAlign>Center</TextAlign>
-                          </Style>
-                        </Paragraph>
-                      </Paragraphs>
-                      <rd:DefaultName>NombreProveedorAlterno</rd:DefaultName>
-                      <Style>
-                        <Border>
-                          <Color>White</Color>
-                          <Style>None</Style>
-                        </Border>
-                        <PaddingLeft>2pt</PaddingLeft>
-                        <PaddingRight>2pt</PaddingRight>
-                        <PaddingTop>2pt</PaddingTop>
-                        <PaddingBottom>2pt</PaddingBottom>
-                      </Style>
-                    </Textbox>
-                  </CellContents>
-                </TablixCell>
-                <TablixCell>
-                  <CellContents>
                     <Textbox Name="Subtotal1">
                       <CanGrow>true</CanGrow>
                       <KeepTogether>true</KeepTogether>
@@ -554,11 +438,8 @@
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>=Fields!Subtotal1.Value/Fields!Cantidad.Value</Value>
-                              <Style>
-                                <Format>'$'#,0.00;('$'#,0.00)</Format>
-                                <rd:FormatSymbolCulture>es-MX</rd:FormatSymbolCulture>
-                              </Style>
+                              <Value>=Fields!SubtotalPartida.Value/Fields!Cantidad.Value</Value>
+                              <Style />
                             </TextRun>
                           </TextRuns>
                           <Style>
@@ -651,14 +532,14 @@
                 </TablixCell>
                 <TablixCell>
                   <CellContents>
-                    <Textbox Name="IEPSPartida">
+                    <Textbox Name="TotalPartida">
                       <CanGrow>true</CanGrow>
                       <KeepTogether>true</KeepTogether>
                       <Paragraphs>
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>=Fields!IEPSPartida.Value</Value>
+                              <Value>=Fields!TotalPartida.Value</Value>
                               <Style>
                                 <Format>'$'#,0.00;('$'#,0.00)</Format>
                                 <rd:FormatSymbolCulture>es-MX</rd:FormatSymbolCulture>
@@ -670,42 +551,7 @@
                           </Style>
                         </Paragraph>
                       </Paragraphs>
-                      <rd:DefaultName>IEPSPartida</rd:DefaultName>
-                      <Style>
-                        <Border>
-                          <Color>White</Color>
-                          <Style>None</Style>
-                        </Border>
-                        <PaddingLeft>2pt</PaddingLeft>
-                        <PaddingRight>2pt</PaddingRight>
-                        <PaddingTop>2pt</PaddingTop>
-                        <PaddingBottom>2pt</PaddingBottom>
-                      </Style>
-                    </Textbox>
-                  </CellContents>
-                </TablixCell>
-                <TablixCell>
-                  <CellContents>
-                    <Textbox Name="Total1">
-                      <CanGrow>true</CanGrow>
-                      <KeepTogether>true</KeepTogether>
-                      <Paragraphs>
-                        <Paragraph>
-                          <TextRuns>
-                            <TextRun>
-                              <Value>=Fields!Total1.Value</Value>
-                              <Style>
-                                <Format>'$'#,0.00;('$'#,0.00)</Format>
-                                <rd:FormatSymbolCulture>es-MX</rd:FormatSymbolCulture>
-                              </Style>
-                            </TextRun>
-                          </TextRuns>
-                          <Style>
-                            <TextAlign>Center</TextAlign>
-                          </Style>
-                        </Paragraph>
-                      </Paragraphs>
-                      <rd:DefaultName>Total1</rd:DefaultName>
+                      <rd:DefaultName>TotalPartida</rd:DefaultName>
                       <Style>
                         <Border>
                           <Color>White</Color>
@@ -732,8 +578,6 @@
             <TablixMember />
             <TablixMember />
             <TablixMember />
-            <TablixMember />
-            <TablixMember />
           </TablixMembers>
         </TablixColumnHierarchy>
         <TablixRowHierarchy>
@@ -747,10 +591,9 @@
           </TablixMembers>
         </TablixRowHierarchy>
         <DataSetName>DataSet2</DataSetName>
-        <Top>0.43187cm</Top>
-        <Left>0.32797cm</Left>
+        <Left>0.21295cm</Left>
         <Height>1.72917cm</Height>
-        <Width>20.86986cm</Width>
+        <Width>17.99518cm</Width>
         <Style>
           <Border>
             <Color>White</Color>
@@ -811,7 +654,7 @@
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>=Sum(Fields!Subtotal1.Value, "DataSet2")</Value>
+                              <Value>=Sum(Fields!SubtotalPartida.Value, "DataSet2")</Value>
                               <Style>
                                 <Format>'$'#,0.00;('$'#,0.00)</Format>
                                 <rd:FormatSymbolCulture>es-MX</rd:FormatSymbolCulture>
@@ -984,76 +827,6 @@
               <TablixCells>
                 <TablixCell>
                   <CellContents>
-                    <Textbox Name="Textbox116">
-                      <CanGrow>true</CanGrow>
-                      <KeepTogether>true</KeepTogether>
-                      <Paragraphs>
-                        <Paragraph>
-                          <TextRuns>
-                            <TextRun>
-                              <Value>IEPS</Value>
-                              <Style />
-                            </TextRun>
-                          </TextRuns>
-                          <Style />
-                        </Paragraph>
-                      </Paragraphs>
-                      <rd:DefaultName>Textbox116</rd:DefaultName>
-                      <Style>
-                        <Border>
-                          <Color>LightGrey</Color>
-                          <Style>None</Style>
-                        </Border>
-                        <PaddingLeft>2pt</PaddingLeft>
-                        <PaddingRight>2pt</PaddingRight>
-                        <PaddingTop>2pt</PaddingTop>
-                        <PaddingBottom>2pt</PaddingBottom>
-                      </Style>
-                    </Textbox>
-                  </CellContents>
-                </TablixCell>
-                <TablixCell>
-                  <CellContents>
-                    <Textbox Name="Textbox117">
-                      <CanGrow>true</CanGrow>
-                      <KeepTogether>true</KeepTogether>
-                      <Paragraphs>
-                        <Paragraph>
-                          <TextRuns>
-                            <TextRun>
-                              <Value>=Sum(Fields!IEPSPartida.Value, "DataSet2")</Value>
-                              <Style>
-                                <Format>'$'#,0.00;('$'#,0.00)</Format>
-                                <rd:FormatSymbolCulture>es-MX</rd:FormatSymbolCulture>
-                              </Style>
-                            </TextRun>
-                          </TextRuns>
-                          <Style>
-                            <TextAlign>Right</TextAlign>
-                          </Style>
-                        </Paragraph>
-                      </Paragraphs>
-                      <rd:DefaultName>Textbox117</rd:DefaultName>
-                      <Style>
-                        <Border>
-                          <Color>LightGrey</Color>
-                          <Style>None</Style>
-                        </Border>
-                        <PaddingLeft>2pt</PaddingLeft>
-                        <PaddingRight>2pt</PaddingRight>
-                        <PaddingTop>2pt</PaddingTop>
-                        <PaddingBottom>2pt</PaddingBottom>
-                      </Style>
-                    </Textbox>
-                  </CellContents>
-                </TablixCell>
-              </TablixCells>
-            </TablixRow>
-            <TablixRow>
-              <Height>0.6cm</Height>
-              <TablixCells>
-                <TablixCell>
-                  <CellContents>
                     <Textbox Name="Textbox43">
                       <CanGrow>true</CanGrow>
                       <KeepTogether>true</KeepTogether>
@@ -1096,7 +869,7 @@
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>=Sum(Fields!Total1.Value, "DataSet2")</Value>
+                              <Value>=Sum(Fields!TotalPartida.Value, "DataSet2")</Value>
                               <Style>
                                 <FontWeight>Bold</FontWeight>
                                 <Format>'$'#,0.00;('$'#,0.00)</Format>
@@ -1187,13 +960,12 @@
             <TablixMember />
             <TablixMember />
             <TablixMember />
-            <TablixMember />
           </TablixMembers>
         </TablixRowHierarchy>
         <DataSetName>DataSet2</DataSetName>
-        <Top>2.57458cm</Top>
-        <Left>10.20491cm</Left>
-        <Height>3.6cm</Height>
+        <Top>2.14271cm</Top>
+        <Left>10.08989cm</Left>
+        <Height>3cm</Height>
         <Width>8.11824cm</Width>
         <ZIndex>1</ZIndex>
         <Style>
@@ -1287,8 +1059,8 @@
           </Textbox>
         </ReportItems>
         <KeepTogether>true</KeepTogether>
-        <Top>2.58978cm</Top>
-        <Left>0.96297cm</Left>
+        <Top>2.15791cm</Top>
+        <Left>0.84795cm</Left>
         <Height>2.71167cm</Height>
         <Width>7.69875cm</Width>
         <ZIndex>2</ZIndex>
@@ -1299,13 +1071,13 @@
         </Style>
       </Rectangle>
     </ReportItems>
-    <Height>2.52083in</Height>
+    <Height>2.26091in</Height>
     <Style />
   </Body>
-  <Width>8.59392in</Width>
+  <Width>7.2524in</Width>
   <Page>
     <PageHeader>
-      <Height>7.17283cm</Height>
+      <Height>6.32616cm</Height>
       <PrintOnFirstPage>true</PrintOnFirstPage>
       <PrintOnLastPage>true</PrintOnLastPage>
       <ReportItems>
@@ -1429,7 +1201,7 @@
                 </Paragraph>
               </Paragraphs>
               <rd:DefaultName>Textbox7</rd:DefaultName>
-              <Top>0.14139cm</Top>
+              <Top>0.90888cm</Top>
               <Left>0.51684cm</Left>
               <Height>0.6cm</Height>
               <Width>11.25189cm</Width>
@@ -1469,7 +1241,7 @@
                 </Paragraph>
               </Paragraphs>
               <rd:DefaultName>Textbox7</rd:DefaultName>
-              <Top>0.81194cm</Top>
+              <Top>1.57943cm</Top>
               <Left>0.51684cm</Left>
               <Height>0.6cm</Height>
               <Width>2.5cm</Width>
@@ -1491,7 +1263,7 @@
                 <Paragraph>
                   <TextRuns>
                     <TextRun>
-                      <Value>=First(Fields!ProyectoEncabezado.Value, "DataSet2")</Value>
+                      <Value>=First(Fields!NombreProyecto.Value, "DataSet2")</Value>
                       <Style />
                     </TextRun>
                   </TextRuns>
@@ -1499,7 +1271,7 @@
                 </Paragraph>
               </Paragraphs>
               <rd:DefaultName>Textbox7</rd:DefaultName>
-              <Top>0.81194cm</Top>
+              <Top>1.57943cm</Top>
               <Left>3.01684cm</Left>
               <Height>0.6cm</Height>
               <Width>15.05606cm</Width>
@@ -1534,7 +1306,7 @@
                 </Paragraph>
               </Paragraphs>
               <rd:DefaultName>Textbox7</rd:DefaultName>
-              <Top>0.14139cm</Top>
+              <Top>0.90888cm</Top>
               <Left>11.98485cm</Left>
               <Height>0.6cm</Height>
               <Width>5.99011cm</Width>
@@ -1561,41 +1333,10 @@
                         <FontWeight>Bold</FontWeight>
                       </Style>
                     </TextRun>
-                  </TextRuns>
-                  <Style />
-                </Paragraph>
-                <Paragraph>
-                  <TextRuns>
                     <TextRun>
-                      <Value />
+                      <Value xml:space="preserve"> </Value>
                       <Style />
                     </TextRun>
-                  </TextRuns>
-                  <Style />
-                </Paragraph>
-              </Paragraphs>
-              <rd:DefaultName>Textbox7</rd:DefaultName>
-              <Top>1.58833cm</Top>
-              <Left>0.51684cm</Left>
-              <Height>0.6cm</Height>
-              <Width>2.5cm</Width>
-              <ZIndex>4</ZIndex>
-              <Style>
-                <Border>
-                  <Style>None</Style>
-                </Border>
-                <PaddingLeft>2pt</PaddingLeft>
-                <PaddingRight>2pt</PaddingRight>
-                <PaddingTop>2pt</PaddingTop>
-                <PaddingBottom>2pt</PaddingBottom>
-              </Style>
-            </Textbox>
-            <Textbox Name="Textbox14">
-              <CanGrow>true</CanGrow>
-              <KeepTogether>true</KeepTogether>
-              <Paragraphs>
-                <Paragraph>
-                  <TextRuns>
                     <TextRun>
                       <Value>=First(Fields!RazonSocial.Value, "DataSet2")</Value>
                       <Style />
@@ -1605,82 +1346,11 @@
                 </Paragraph>
               </Paragraphs>
               <rd:DefaultName>Textbox7</rd:DefaultName>
-              <Top>1.58833cm</Top>
-              <Left>3.01684cm</Left>
+              <Top>0.20305cm</Top>
+              <Left>0.49976cm</Left>
               <Height>0.6cm</Height>
-              <Width>8.75189cm</Width>
-              <ZIndex>5</ZIndex>
-              <Style>
-                <Border>
-                  <Style>None</Style>
-                </Border>
-                <PaddingLeft>2pt</PaddingLeft>
-                <PaddingRight>2pt</PaddingRight>
-                <PaddingTop>2pt</PaddingTop>
-                <PaddingBottom>2pt</PaddingBottom>
-              </Style>
-            </Textbox>
-            <Textbox Name="Textbox20">
-              <CanGrow>true</CanGrow>
-              <KeepTogether>true</KeepTogether>
-              <Paragraphs>
-                <Paragraph>
-                  <TextRuns>
-                    <TextRun>
-                      <Value>Documento:</Value>
-                      <Style>
-                        <FontWeight>Bold</FontWeight>
-                      </Style>
-                    </TextRun>
-                  </TextRuns>
-                  <Style />
-                </Paragraph>
-                <Paragraph>
-                  <TextRuns>
-                    <TextRun>
-                      <Value />
-                      <Style />
-                    </TextRun>
-                  </TextRuns>
-                  <Style />
-                </Paragraph>
-              </Paragraphs>
-              <rd:DefaultName>Textbox7</rd:DefaultName>
-              <Top>1.58833cm</Top>
-              <Left>11.98485cm</Left>
-              <Height>0.6cm</Height>
-              <Width>2.5cm</Width>
-              <ZIndex>6</ZIndex>
-              <Style>
-                <Border>
-                  <Style>None</Style>
-                </Border>
-                <PaddingLeft>2pt</PaddingLeft>
-                <PaddingRight>2pt</PaddingRight>
-                <PaddingTop>2pt</PaddingTop>
-                <PaddingBottom>2pt</PaddingBottom>
-              </Style>
-            </Textbox>
-            <Textbox Name="Textbox22">
-              <CanGrow>true</CanGrow>
-              <KeepTogether>true</KeepTogether>
-              <Paragraphs>
-                <Paragraph>
-                  <TextRuns>
-                    <TextRun>
-                      <Value>=First(Fields!ClaveDocumento.Value, "DataSet2")+" - "+First(Fields!NombreDocumento.Value, "DataSet2")</Value>
-                      <Style />
-                    </TextRun>
-                  </TextRuns>
-                  <Style />
-                </Paragraph>
-              </Paragraphs>
-              <rd:DefaultName>Textbox7</rd:DefaultName>
-              <Top>1.58833cm</Top>
-              <Left>14.62596cm</Left>
-              <Height>0.6cm</Height>
-              <Width>3.37287cm</Width>
-              <ZIndex>7</ZIndex>
+              <Width>11.25189cm</Width>
+              <ZIndex>4</ZIndex>
               <Style>
                 <Border>
                   <Style>None</Style>
@@ -1693,9 +1363,9 @@
             </Textbox>
           </ReportItems>
           <KeepTogether>true</KeepTogether>
-          <Top>4.63172cm</Top>
+          <Top>3.86423cm</Top>
           <Left>0.34819cm</Left>
-          <Height>2.50583cm</Height>
+          <Height>2.46193cm</Height>
           <Width>18.0729cm</Width>
           <ZIndex>3</ZIndex>
           <Style>
@@ -1813,7 +1483,7 @@
             <Paragraph>
               <TextRuns>
                 <TextRun>
-                  <Value>COMPRA REEMBOLSO</Value>
+                  <Value>COMPRA GASTO</Value>
                   <Style>
                     <FontSize>12pt</FontSize>
                     <FontWeight>Bold</FontWeight>
@@ -1851,10 +1521,10 @@
     </PageHeader>
     <PageHeight>29.7cm</PageHeight>
     <PageWidth>21cm</PageWidth>
-    <LeftMargin>1cm</LeftMargin>
-    <RightMargin>1cm</RightMargin>
-    <TopMargin>1cm</TopMargin>
-    <BottomMargin>1cm</BottomMargin>
+    <LeftMargin>2cm</LeftMargin>
+    <RightMargin>2cm</RightMargin>
+    <TopMargin>2cm</TopMargin>
+    <BottomMargin>2cm</BottomMargin>
     <ColumnSpacing>0.13cm</ColumnSpacing>
     <Style />
   </Page>
@@ -1865,14 +1535,14 @@
         <DataProvider>System.Data.DataSet</DataProvider>
         <ConnectString>/* Local Connection */</ConnectString>
       </ConnectionProperties>
-      <rd:DataSourceID>1247f0d6-4976-4842-b5a8-d5c0a9c6bad3</rd:DataSourceID>
+      <rd:DataSourceID>ead8a65e-584e-4670-ab23-c808ae32dd83</rd:DataSourceID>
     </DataSource>
-    <DataSource Name="DTSReporteDiarioReembolsos">
+    <DataSource Name="DTSReporteDiarioGastos">
       <ConnectionProperties>
         <DataProvider>System.Data.DataSet</DataProvider>
         <ConnectString>/* Local Connection */</ConnectString>
       </ConnectionProperties>
-      <rd:DataSourceID>33cbde37-b77a-4aa5-b6a7-76c4991d8150</rd:DataSourceID>
+      <rd:DataSourceID>92a9a113-d381-475e-b86c-20f71ad8bff4</rd:DataSourceID>
     </DataSource>
   </DataSources>
   <DataSets>
@@ -1973,7 +1643,7 @@
       </Fields>
       <rd:DataSetInfo>
         <rd:DataSetName>ControlCondominiosDataSet23</rd:DataSetName>
-        <rd:SchemaPath>C:\Users\jorge\Desktop\SIGA Constructora\PV\ControlCondominiosDataSet23.xsd</rd:SchemaPath>
+        <rd:SchemaPath>C:\Users\Giorgi\Documents\Proyectos .Net\SIGA\PV\ControlCondominiosDataSet23.xsd</rd:SchemaPath>
         <rd:TableName>DatosEmpresa</rd:TableName>
         <rd:TableAdapterFillMethod>Fill</rd:TableAdapterFillMethod>
         <rd:TableAdapterGetDataMethod>GetData</rd:TableAdapterGetDataMethod>
@@ -1982,7 +1652,7 @@
     </DataSet>
     <DataSet Name="DataSet2">
       <Query>
-        <DataSourceName>DTSReporteDiarioReembolsos</DataSourceName>
+        <DataSourceName>DTSReporteDiarioGastos</DataSourceName>
         <CommandText>/* Local Query */</CommandText>
       </Query>
       <Fields>
@@ -1990,60 +1660,72 @@
           <DataField>Folio</DataField>
           <rd:TypeName>System.Int32</rd:TypeName>
         </Field>
-        <Field Name="Consecutivo">
-          <DataField>Consecutivo</DataField>
-          <rd:TypeName>System.Int32</rd:TypeName>
-        </Field>
         <Field Name="ClaveDocumento">
           <DataField>ClaveDocumento</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="NombreDocumento">
-          <DataField>NombreDocumento</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
         <Field Name="Fecha">
           <DataField>Fecha</DataField>
           <rd:TypeName>System.DateTime</rd:TypeName>
         </Field>
-        <Field Name="FechaVence">
-          <DataField>FechaVence</DataField>
-          <rd:TypeName>System.DateTime</rd:TypeName>
-        </Field>
         <Field Name="Divisa">
           <DataField>Divisa</DataField>
           <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="TipoCambio">
+          <DataField>TipoCambio</DataField>
+          <rd:TypeName>System.Decimal</rd:TypeName>
         </Field>
         <Field Name="Subtotal">
           <DataField>Subtotal</DataField>
           <rd:TypeName>System.Decimal</rd:TypeName>
         </Field>
-        <Field Name="Descuento">
-          <DataField>Descuento</DataField>
+        <Field Name="DescuentoGlobal">
+          <DataField>DescuentoGlobal</DataField>
           <rd:TypeName>System.Decimal</rd:TypeName>
         </Field>
-        <Field Name="Cargo">
-          <DataField>Cargo</DataField>
-          <rd:TypeName>System.Decimal</rd:TypeName>
-        </Field>
-        <Field Name="IEPS">
-          <DataField>IEPS</DataField>
+        <Field Name="CargoGlobal">
+          <DataField>CargoGlobal</DataField>
           <rd:TypeName>System.Decimal</rd:TypeName>
         </Field>
         <Field Name="Total">
           <DataField>Total</DataField>
           <rd:TypeName>System.Decimal</rd:TypeName>
         </Field>
-        <Field Name="Anio">
-          <DataField>Anio</DataField>
+        <Field Name="Notas">
+          <DataField>Notas</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Referencia">
+          <DataField>Referencia</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
         <Field Name="Semana">
           <DataField>Semana</DataField>
           <rd:TypeName>System.Int32</rd:TypeName>
         </Field>
-        <Field Name="Estatus">
-          <DataField>Estatus</DataField>
+        <Field Name="Anio">
+          <DataField>Anio</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="TotalRetenciones">
+          <DataField>TotalRetenciones</DataField>
+          <rd:TypeName>System.Decimal</rd:TypeName>
+        </Field>
+        <Field Name="ClaveCentroCostos">
+          <DataField>ClaveCentroCostos</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="NombreCentroCostos">
+          <DataField>NombreCentroCostos</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="IdProyecto">
+          <DataField>IdProyecto</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="NombreProyecto">
+          <DataField>NombreProyecto</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
         <Field Name="IdProveedor">
@@ -2054,8 +1736,52 @@
           <DataField>RazonSocial</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
-        <Field Name="NombreProveedorAlterno">
-          <DataField>NombreProveedorAlterno</DataField>
+        <Field Name="RFC">
+          <DataField>RFC</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Calle">
+          <DataField>Calle</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="NoExterior">
+          <DataField>NoExterior</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="NoInterior">
+          <DataField>NoInterior</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Colonia">
+          <DataField>Colonia</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Municipio">
+          <DataField>Municipio</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="CodigoPostal">
+          <DataField>CodigoPostal</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Ciudad">
+          <DataField>Ciudad</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Pais">
+          <DataField>Pais</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Telefono">
+          <DataField>Telefono</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Celular">
+          <DataField>Celular</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Correo">
+          <DataField>Correo</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
         <Field Name="Partida">
@@ -2066,86 +1792,65 @@
           <DataField>ClaveProducto</DataField>
           <rd:TypeName>System.Int32</rd:TypeName>
         </Field>
-        <Field Name="Concepto2">
-          <DataField>Concepto2</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
         <Field Name="Cantidad">
           <DataField>Cantidad</DataField>
           <rd:TypeName>System.Int32</rd:TypeName>
         </Field>
-        <Field Name="ClaveServicio">
-          <DataField>ClaveServicio</DataField>
-          <rd:TypeName>System.Int32</rd:TypeName>
+        <Field Name="Unidad">
+          <DataField>Unidad</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
         </Field>
         <Field Name="Descripcion">
           <DataField>Descripcion</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
-        <Field Name="Subtotal1">
-          <DataField>Subtotal1</DataField>
+        <Field Name="Alias">
+          <DataField>Alias</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Precio">
+          <DataField>Precio</DataField>
           <rd:TypeName>System.Decimal</rd:TypeName>
         </Field>
-        <Field Name="Descuento1">
-          <DataField>Descuento1</DataField>
+        <Field Name="SubtotalPartida">
+          <DataField>SubtotalPartida</DataField>
           <rd:TypeName>System.Decimal</rd:TypeName>
         </Field>
-        <Field Name="Impuesto">
-          <DataField>Impuesto</DataField>
-          <rd:TypeName>System.Decimal</rd:TypeName>
-        </Field>
-        <Field Name="IEPSPartida">
-          <DataField>IEPSPartida</DataField>
-          <rd:TypeName>System.Decimal</rd:TypeName>
-        </Field>
-        <Field Name="Total1">
-          <DataField>Total1</DataField>
+        <Field Name="DescuentoPartida">
+          <DataField>DescuentoPartida</DataField>
           <rd:TypeName>System.Decimal</rd:TypeName>
         </Field>
         <Field Name="DescuentoImporte">
           <DataField>DescuentoImporte</DataField>
           <rd:TypeName>System.Decimal</rd:TypeName>
         </Field>
+        <Field Name="Impuesto">
+          <DataField>Impuesto</DataField>
+          <rd:TypeName>System.Decimal</rd:TypeName>
+        </Field>
         <Field Name="ImpuestoImporte">
           <DataField>ImpuestoImporte</DataField>
           <rd:TypeName>System.Decimal</rd:TypeName>
         </Field>
-        <Field Name="NombreCentroCostos">
-          <DataField>NombreCentroCostos</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
+        <Field Name="Retencion">
+          <DataField>Retencion</DataField>
+          <rd:TypeName>System.Decimal</rd:TypeName>
         </Field>
-        <Field Name="FormadePago">
-          <DataField>FormadePago</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="referencia">
-          <DataField>referencia</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="ProyectoEncabezado">
-          <DataField>ProyectoEncabezado</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="ProyectoDetalle">
-          <DataField>ProyectoDetalle</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="Notas">
-          <DataField>Notas</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
+        <Field Name="TotalPartida">
+          <DataField>TotalPartida</DataField>
+          <rd:TypeName>System.Decimal</rd:TypeName>
         </Field>
       </Fields>
       <rd:DataSetInfo>
-        <rd:DataSetName>DTSReporteDiarioReembolsos</rd:DataSetName>
-        <rd:SchemaPath>C:\Users\Giorgi\Documents\Proyectos .Net\SIGA\PV\DTSReporteDiarioReembolsos.xsd</rd:SchemaPath>
-        <rd:TableName>sp_ReporteReembolso</rd:TableName>
+        <rd:DataSetName>DTSReporteDiarioGastos</rd:DataSetName>
+        <rd:SchemaPath>C:\Users\Giorgi\Documents\Proyectos .Net\SIGA\PV\DTSReporteDiarioGastos.xsd</rd:SchemaPath>
+        <rd:TableName>sp_ReporteComprobanteGasto</rd:TableName>
         <rd:TableAdapterFillMethod>Fill</rd:TableAdapterFillMethod>
         <rd:TableAdapterGetDataMethod>GetData</rd:TableAdapterGetDataMethod>
-        <rd:TableAdapterName>sp_ReporteReembolsoTableAdapter</rd:TableAdapterName>
+        <rd:TableAdapterName>sp_ReporteComprobanteGastoTableAdapter</rd:TableAdapterName>
       </rd:DataSetInfo>
     </DataSet>
   </DataSets>
-  <Language>es-MX</Language>
   <rd:ReportUnitType>Cm</rd:ReportUnitType>
-  <rd:ReportID>50634f21-30ef-422c-a167-4c3899e1a7cf</rd:ReportID>
+  <rd:ReportID>a05c93cd-cfa2-40a0-9904-3fa30152281c</rd:ReportID>
 </Report>

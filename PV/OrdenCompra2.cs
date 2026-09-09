@@ -514,8 +514,13 @@ namespace PV
             }
             else if (e.ClickedItem.Text == "IMPRIMIR")
             {
+                if (string.IsNullOrEmpty(txtFolio.Text))
+                {
+                    MessageBox.Show("Seleccione una orden de compra para continuar");
+                    return;
+                }
              
-                ReporteOrdenCompra reporteOrdenCompra = new ReporteOrdenCompra();
+                ReporteComprobanteOrdenCompra reporteOrdenCompra = new ReporteComprobanteOrdenCompra(txtFolio.Text);
                 reporteOrdenCompra.ShowDialog();
 
                 guna2PictureBox2.Visible = false;

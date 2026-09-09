@@ -7,6 +7,7 @@ using PV.Clases.CentroCostos;
 using PV.Clases.Clientes;
 using PV.Clases.Facturas;
 using PV.Clases.PedidoCliente;
+using PV.Clases.Remision;
 using PV.Clases.Servicios;
 using System;
 using System.Data;
@@ -69,7 +70,7 @@ namespace PV
             T.SetToolTip(guna2Button16, "Consultar Factura");
             T.SetToolTip(button10, "Imprimir Factura");
             T.SetToolTip(btnCliente, "Buscar Cliente");
-
+            T.SetToolTip(btnRemisionXML, "Generar XML");
             // Controles heredados del copiado de OrdenPedidoCliente que eran
             // específicos de la vinculación con Pedido a Cliente: no aplican
             // en Facturas.
@@ -1032,14 +1033,14 @@ namespace PV
 
         private void button10_Click(object sender, EventArgs e)
         {
-           /* if (string.IsNullOrEmpty(txtFolio.Text))
+            if (string.IsNullOrEmpty(txtFolio.Text))
             {
                 MessageBox.Show("Es necesario seleccionar una factura");
                 return;
             }
 
-            ReporteFactura r = new ReporteFactura(txtFolio.Text, txtMatricular.Text);
-            r.ShowDialog();*/
+            ReporteComprobanteFactura r = new ReporteComprobanteFactura(txtFolio.Text);
+            r.ShowDialog();
         }
 
         private void button11_Click(object sender, EventArgs e)
@@ -1052,7 +1053,7 @@ namespace PV
 
             string[] valores = cl.InformacionCliente(txtMatricular.Text);
 
-            ReporteFactura r = new ReporteFactura(txtFolio.Text, txtMatricular.Text);
+            ReporteComprobanteFactura r = new ReporteComprobanteFactura(txtFolio.Text);
             string carpeta = Utilerias.SavePDF(r.reportViewer1, "Factura", txtDocumento.Text, txtConsecutivo.Text);
 
             bool enviado = CorreosMasivos.EnviarCorreos(
@@ -1120,7 +1121,7 @@ namespace PV
                     ConfigurarConsulta();
                     break;
                 case "IMPRIMIR":
-                    ReporteFactura reporte = new ReporteFactura(txtFolio.Text, txtMatricular.Text);
+                    ReporteComprobanteFactura reporte = new ReporteComprobanteFactura(txtFolio.Text);
                     reporte.ShowDialog();
                     break;
                 case "ENVIAR CORREO":
@@ -1329,5 +1330,44 @@ namespace PV
         private void txtCantidad_Leave(object sender, EventArgs e) { }
 
         #endregion
+
+        private void btnRemisionXML_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                string folio = txtFolio.Text.Trim(); // ajusta al control real donde tienes el folio
+
+                if (string.IsNullOrWhiteSpace(folio))
+                {
+                    MessageBox.Show("Debes indicar el folio de la factura.");
+                    return;
+                }
+
+                DBFacturas db = new DBFacturas();
+                string xml = db.GenerarXmlFactura(folio);
+
+                if (string.IsNullOrEmpty(xml))
+                {
+                    MessageBox.Show("No se encontró la factura con ese folio.");
+                    return;
+                }
+
+                using (SaveFileDialog sfd = new SaveFileDialog())
+                {
+                    sfd.Filter = "Archivo XML (*.xml)|*.xml";
+                    sfd.FileName = $"Factura_{folio}.xml";
+
+                    if (sfd.ShowDialog() == DialogResult.OK)
+                    {
+                        System.IO.File.WriteAllText(sfd.FileName, xml, System.Text.Encoding.UTF8);
+                        MessageBox.Show("XML generado correctamente.");
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al generar XML: " + ex.ToString());
+            }
+        }
     }
 }

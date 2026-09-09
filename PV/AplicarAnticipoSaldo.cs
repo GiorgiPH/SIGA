@@ -1,4 +1,5 @@
 ﻿using PV.Clases.Anticipo;
+using PV.Clases.Facturas;
 using PV.Clases.Remision;
 using System;
 using System.Globalization;
@@ -6,28 +7,99 @@ using System.Windows.Forms;
 
 namespace PV
 {
+    /// <summary>
+    /// Aplica el saldo disponible de un Anticipo (de Propietario/Cliente) contra uno
+    /// o varios documentos con saldo pendiente: Remisiones y/o Facturas.
+    ///
+    /// La grilla <c>dgvPagosPendientes</c> se llena combinando dos fuentes en un
+    /// mismo formato de columnas (0=FolioDocumento, 1=Consecutivo, 2=ClaveDocumento,
+    /// 3=Nombre, 4=Importe, 6=Descuento, 8=Abono, 9=Saldo):
+    ///   - <see cref="DBAnticipo.CargarReciboAlumno2"/> para Remisiones.
+    ///   - <see cref="DBFacturas.CargarFacturaPendienteAnticipo"/> para Facturas.
+    /// Cada fila queda marcada en su <c>Tag</c> con "REMISION" o "FACTURA" — mismo
+    /// patrón de discriminador por Tag que ya usa <c>DBFacturas.CargarFacturaCobro</c>
+    /// en el flujo de RegistrarCobro — y es ese Tag el que decide, al aplicar el
+    /// abono, a qué actualizador de saldo y con qué TipoDocumento llamar.
+    ///
+    /// Cambios respecto a la versión original (ver detalle en el chat):
+    ///  - Antes sólo existían Remisiones como destino posible; ahora también
+    ///    pueden pagarse Facturas en la misma pantalla, sin duplicar formulario.
+    ///  - El constructor recibe además el Concepto (ConceptoCobroPago.IdConcepto)
+    ///    del Anticipo origen, para guardarlo como trazabilidad en AnticipoCobros.
+    ///  - <c>DBAnticipo.InsertarCobro</c> ahora requiere el TipoDocumento de cada
+    ///    fila (REMISION/FACTURA), ya que AnticipoCobros.Folio dejó de apuntar
+    ///    siempre a un único tipo de tabla.
+    /// </summary>
     public partial class AplicarAnticipoSaldo : Form
     {
+        /// <summary>Acceso a datos de Anticipos (Anticipo / AnticipoCobros / Anticipo_General).</summary>
         DBAnticipo c = new DBAnticipo();
+
+        /// <summary>Acceso a datos de Remisiones.</summary>
         DBRemiision r = new DBRemiision();
+
+        /// <summary>Acceso a datos de Facturas.</summary>
+        DBFacturas f = new DBFacturas();
+
+        /// <summary>Folio del Anticipo origen del cual se está descontando el saldo.</summary>
         string Anticipo = string.Empty;
 
-        public AplicarAnticipoSaldo(string importe, string Matricula, string Alumno, string anticipo, string Fecha)
+        /// <summary>
+        /// Concepto (ConceptoCobroPago.IdConcepto) vigente en el Anticipo origen,
+        /// recibido desde <see cref="AplicarAnticipo"/> para guardarse como
+        /// trazabilidad en cada renglón de AnticipoCobros.
+        /// </summary>
+        /// <remarks>
+        /// NOTA DE NOMBRE: no se llama "Concepto" a secas porque el Designer de este
+        /// formulario ya genera un campo con ese nombre para la columna del grid
+        /// (DataGridViewTextBoxColumn "Concepto"), y al ser una clase parcial ambos
+        /// coexistirían provocando el error del compilador CS0229 ("Ambigüedad entre
+        /// 'AplicarAnticipoSaldo.Concepto' y 'AplicarAnticipoSaldo.Concepto'").
+        /// </remarks>
+        string ConceptoAnticipo = string.Empty;
+
+        /// <summary>
+        /// Inicializa el formulario con los datos del Anticipo a aplicar.
+        /// </summary>
+        /// <param name="importe">Saldo disponible del Anticipo (tope máximo a aplicar).</param>
+        /// <param name="Matricula">Clave del Propietario/Cliente dueño del Anticipo.</param>
+        /// <param name="Alumno">Nombre del Propietario/Cliente, sólo para mostrar.</param>
+        /// <param name="anticipo">Folio del Anticipo origen (Anticipo.Folio).</param>
+        /// <param name="Fecha">Fecha de la aplicación (se fija y no es editable).</param>
+        /// <param name="concepto">
+        /// Concepto (ConceptoCobroPago.IdConcepto) del Anticipo origen. Parámetro
+        /// nuevo respecto a la versión original: se agregó al migrar a
+        /// ConceptoCobroPago, para poder dejarlo como trazabilidad en cada
+        /// AnticipoCobros generado (ver <see cref="DBAnticipo.InsertarCobro"/>).
+        /// </param>
+        public AplicarAnticipoSaldo(string importe, string Matricula, string Alumno, string anticipo, string Fecha, string concepto)
         {
             InitializeComponent();
             txtMatricula.Text = Matricula;
             txtAlumno.Text = Alumno;
             txtImporteTotal.Text = importe;
             Anticipo = anticipo;
+            ConceptoAnticipo = concepto;
             dtpFecha.Value = Convert.ToDateTime(Fecha);
             dtpFecha.Enabled = false;
         }
 
+        /// <summary>
+        /// Carga en la grilla, combinadas, las Remisiones y Facturas con saldo
+        /// pendiente del cliente. Se limpia el grid una sola vez aquí; ambos loaders
+        /// se llaman con <c>limpiarPrimero: false</c> para no pisarse entre sí.
+        /// </summary>
         private void AplicarAnticipoSaldo_Load(object sender, EventArgs e)
         {
-            c.CargarReciboAlumno2(dgvPagosPendientes, txtMatricula.Text);
+            dgvPagosPendientes.Rows.Clear();
+            c.CargarReciboAlumno2(dgvPagosPendientes, txtMatricula.Text, limpiarPrimero: false);
+            f.CargarFacturaPendienteAnticipo(dgvPagosPendientes, txtMatricula.Text, limpiarPrimero: false);
         }
 
+        /// <summary>
+        /// Recalcula el Saldo de la fila editada (Importe - Abono - Descuento) y el
+        /// total pagado acumulado, y da formato de moneda a Abono/Descuento.
+        /// </summary>
         private void dgvPagosPendientes_CellEndEdit(object sender, DataGridViewCellEventArgs e)
         {
             NumberFormatInfo formato = new CultureInfo("en-US").NumberFormat;
@@ -78,15 +150,10 @@ namespace PV
             decimal TotalImporte = 0.00M;
             decimal TotalAbono = 0.00M;
 
-
             foreach (DataGridViewRow row in dgvPagosPendientes.Rows)
             {
-                //TotalImporte = TotalImporte + Convert.ToDecimal(row.Cells["Importe"].Value.ToString());
-                //txtImporteTotal.Text = TotalImporte.ToString("N", formato);
-
                 TotalAbono = TotalAbono + Convert.ToDecimal(row.Cells["Abono"].Value.ToString());
                 txtTotalPagado.Text = TotalAbono.ToString("N", formato);
-
             }
 
             decimal abono = Convert.ToDecimal(dgvPagosPendientes.Rows[e.RowIndex].Cells[8].Value);
@@ -95,11 +162,14 @@ namespace PV
             dgvPagosPendientes.Rows[e.RowIndex].Cells[6].Value = desc.ToString("N", formato);
         }
 
+        /// <summary>
+        /// Habilita para edición la celda de Abono o Descuento de la fila, según el
+        /// botón ("MasAbono"/"MasDescuento") en el que se haya dado clic.
+        /// </summary>
         private void dgvPagosPendientes_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             if (this.dgvPagosPendientes.Columns[e.ColumnIndex].Name == "MasAbono")
             {
-
                 dgvPagosPendientes.Rows[e.RowIndex].Cells[8].ReadOnly = false;
                 dgvPagosPendientes.Rows[e.RowIndex].Cells[8].Selected = true;
                 dgvPagosPendientes.BeginEdit(true);
@@ -113,7 +183,6 @@ namespace PV
 
             if (this.dgvPagosPendientes.Columns[e.ColumnIndex].Name == "MasDescuento")
             {
-
                 dgvPagosPendientes.Rows[e.RowIndex].Cells[6].ReadOnly = false;
                 dgvPagosPendientes.Rows[e.RowIndex].Cells[6].Selected = true;
                 dgvPagosPendientes.BeginEdit(true);
@@ -126,18 +195,31 @@ namespace PV
             }
         }
 
+        /// <summary>Cierra el formulario sin aplicar nada.</summary>
         private void button1_Click(object sender, EventArgs e)
         {
             this.Close();
         }
 
+        /// <summary>
+        /// Confirma la aplicación del Anticipo: valida montos, y por cada fila con
+        /// Abono &gt; 0 actualiza el saldo del documento correspondiente (Remisión o
+        /// Factura, según su Tag) y registra el movimiento en AnticipoCobros.
+        /// Finalmente descuenta el saldo aplicado del Anticipo origen.
+        /// </summary>
+        /// <remarks>
+        /// CAMBIO: el despacho Remisión/Factura se decide leyendo
+        /// <c>row.Tag</c> (asignado por los loaders en <see cref="AplicarAnticipoSaldo_Load"/>).
+        /// Si por algún motivo una fila no trae Tag (p. ej. quedara alguna ruta vieja
+        /// que no lo asigne), se asume "REMISION" por compatibilidad con el
+        /// comportamiento anterior, que sólo contemplaba ese tipo.
+        /// </remarks>
         private void button5_Click(object sender, EventArgs e)
         {
             if (Convert.ToDecimal(txtImporteTotal.Text) < Convert.ToDecimal(txtTotalPagado.Text))
             {
                 MessageBox.Show("No es posible aplicar un importe mayor al del anticipo");
             }
-
             else
             {
                 if (MessageBox.Show("¿Finalizar aplicacion de Anticipo?", "Aplicar Anticipo", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
@@ -160,21 +242,38 @@ namespace PV
 
                         c.InsertarCobroGeneral(Convert.ToDecimal(txtTotalPagado.Text), txtFolioGeneral);
 
+                        int? idConceptoCobroPago = int.TryParse(ConceptoAnticipo, out int conceptoParseado) ? (int?)conceptoParseado : null;
+
                         foreach (DataGridViewRow row in dgvPagosPendientes.Rows)
                         {
                             if (Convert.ToDecimal(row.Cells["Abono"].Value.ToString()) > 0)
                             {
-                                r.ActualizarRemision(row.Cells["FolioDocumento"].Value.ToString(), 0.00m, Convert.ToDecimal(row.Cells["Descuento"].Value.ToString()), Convert.ToDecimal(row.Cells["Abono"].Value.ToString()));
-                                c.InsertarCobro(row.Cells["FolioDocumento"].Value.ToString(), txtMatricula.Text, dtpFecha.Text, Convert.ToDecimal(row.Cells["Abono"].Value.ToString()), txtFolioGeneral.Text, Anticipo, Convert.ToDecimal(row.Cells["Saldo"].Value.ToString()), Convert.ToDecimal(row.Cells["Descuento"].Value.ToString()));
+                                string tipoDocumento = (row.Tag as string) ?? "REMISION";
+                                string folioDocumento = row.Cells["FolioDocumento"].Value.ToString();
+                                decimal abono = Convert.ToDecimal(row.Cells["Abono"].Value.ToString());
+                                decimal descuento = Convert.ToDecimal(row.Cells["Descuento"].Value.ToString());
+                                decimal saldoRestante = Convert.ToDecimal(row.Cells["Saldo"].Value.ToString());
 
-                                if (Convert.ToDecimal(row.Cells["Descuento"].Value.ToString()) > 0)
+                                if (tipoDocumento == "FACTURA")
                                 {
-                                    //ReciboNotaCredito reciboNotaCredito = new ReciboNotaCredito(row.Cells["FolioDocumento"].Value.ToString(), txtMatricula.Text, "1");
-                                    //reciboNotaCredito.ShowDialog();
+                                    f.ActualizarFacturaAbono(folioDocumento, descuento, abono);
+                                }
+                                else
+                                {
+                                    r.ActualizarRemision(folioDocumento, 0.00m, descuento, abono);
                                 }
 
+                                c.InsertarCobro(folioDocumento, tipoDocumento, txtMatricula.Text, dtpFecha.Text,
+                                    abono, txtFolioGeneral.Text, Anticipo, saldoRestante, descuento, idConceptoCobroPago);
+
+                                if (descuento > 0)
+                                {
+                                    //ReciboNotaCredito reciboNotaCredito = new ReciboNotaCredito(folioDocumento, txtMatricula.Text, "1");
+                                    //reciboNotaCredito.ShowDialog();
+                                }
                             }
                         }
+
                         decimal SaldoAnticipo = Convert.ToDecimal(txtImporteTotal.Text) - Convert.ToDecimal(txtTotalPagado.Text);
                         c.ActualizarAnticipo(Anticipo, SaldoAnticipo);
                         AplicarAnticipo.nombre = string.Empty;
@@ -189,6 +288,7 @@ namespace PV
             }
         }
 
+        /// <summary>Recalcula el nuevo saldo del Anticipo (Importe - Total pagado) y habilita/deshabilita "Confirmar".</summary>
         private void txtTotalPagado_TextChanged(object sender, EventArgs e)
         {
             decimal NuevoSaldo = Convert.ToDecimal(txtImporteTotal.Text) - Convert.ToDecimal(txtTotalPagado.Text);
@@ -208,6 +308,7 @@ namespace PV
             Moneda(ref txtNuevoSaldo);
         }
 
+        /// <summary>Da formato de moneda "en vivo" mientras el usuario captura un TextBox de importe.</summary>
         private void Moneda(ref TextBox txt)
         {
             string n = string.Empty;

@@ -55,6 +55,14 @@ namespace PV
                 pnProyecto.Visible = false;
 
             }
+            else if (tipo == "Diario Ordenes Compras")
+            {
+                pnCuentaBancaria.Visible = false;
+                pnCliente.Visible = false;
+                pnProyecto.Visible = false;
+                pnCentroCostos.Visible = false;
+
+            }
             else if (tipo == "Diario Egresos")
             {
                 pnCentroCostos.Visible = false;
@@ -369,6 +377,11 @@ namespace PV
             else if (tipo == "Diario Compras")
             {
                 ReporteDiarioCompras reporteDiarioCompras = new ReporteDiarioCompras(cmbPropietario1?.SelectedValue?.ToString(), cmbTipo?.SelectedValue?.ToString(), fecha == "Si" ? dtFecha1.Value.ToString("yyyy-MM-dd") : "", fecha == "Si" ? dtFecha2.Value.ToString("yyyy-MM-dd") : "");
+                reporteDiarioCompras.ShowDialog();
+            }
+            else if (tipo == "Diario Ordenes Compras")
+            {
+                ReporteDiarioOrdenesCompra reporteDiarioCompras = new ReporteDiarioOrdenesCompra(cmbPropietario1?.SelectedValue?.ToString(), cmbTipo?.SelectedValue?.ToString(), fecha == "Si" ? dtFecha1.Value.ToString("yyyy-MM-dd") : "", fecha == "Si" ? dtFecha2.Value.ToString("yyyy-MM-dd") : "");
                 reporteDiarioCompras.ShowDialog();
             }
             else if (tipo == "Diario Egresos")

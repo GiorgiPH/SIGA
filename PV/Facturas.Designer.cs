@@ -228,6 +228,7 @@ namespace PV
             this.guna2HtmlLabel5 = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.guna2HtmlLabel8 = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.guna2GradientPanel4 = new Guna.UI2.WinForms.Guna2GradientPanel();
+            this.btnRemisionXML = new Guna.UI2.WinForms.Guna2Button();
             this.button11 = new Guna.UI2.WinForms.Guna2Button();
             this.button10 = new Guna.UI2.WinForms.Guna2Button();
             this.guna2Button16 = new Guna.UI2.WinForms.Guna2Button();
@@ -3485,6 +3486,7 @@ namespace PV
             // guna2GradientPanel4
             // 
             this.guna2GradientPanel4.BorderRadius = 20;
+            this.guna2GradientPanel4.Controls.Add(this.btnRemisionXML);
             this.guna2GradientPanel4.Controls.Add(this.button11);
             this.guna2GradientPanel4.Controls.Add(this.button10);
             this.guna2GradientPanel4.Controls.Add(this.guna2Button16);
@@ -3501,6 +3503,25 @@ namespace PV
             this.guna2GradientPanel4.ShadowDecoration.Mode = Guna.UI2.WinForms.Enums.ShadowMode.Circle;
             this.guna2GradientPanel4.Size = new System.Drawing.Size(77, 614);
             this.guna2GradientPanel4.TabIndex = 300;
+            // 
+            // btnRemisionXML
+            // 
+            this.btnRemisionXML.BackColor = System.Drawing.Color.Transparent;
+            this.btnRemisionXML.BorderRadius = 20;
+            this.btnRemisionXML.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.btnRemisionXML.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.btnRemisionXML.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.btnRemisionXML.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.btnRemisionXML.FillColor = System.Drawing.Color.Transparent;
+            this.btnRemisionXML.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.btnRemisionXML.ForeColor = System.Drawing.Color.White;
+            this.btnRemisionXML.Image = ((System.Drawing.Image)(resources.GetObject("btnRemisionXML.Image")));
+            this.btnRemisionXML.ImageSize = new System.Drawing.Size(35, 35);
+            this.btnRemisionXML.Location = new System.Drawing.Point(6, 275);
+            this.btnRemisionXML.Name = "btnRemisionXML";
+            this.btnRemisionXML.Size = new System.Drawing.Size(65, 65);
+            this.btnRemisionXML.TabIndex = 304;
+            this.btnRemisionXML.Click += new System.EventHandler(this.btnRemisionXML_Click);
             // 
             // button11
             // 
@@ -3820,5 +3841,6 @@ namespace PV
         private System.Windows.Forms.Label label49;
         private System.Windows.Forms.Label label70;
         private System.Windows.Forms.Label label71;
+        private Guna.UI2.WinForms.Guna2Button btnRemisionXML;
     }
 }

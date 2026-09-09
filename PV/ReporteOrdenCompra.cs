@@ -20,7 +20,7 @@ namespace PV
         private void ReporteOrdenCompra_Load(object sender, EventArgs e)
         {
             // TODO: esta línea de código carga datos en la tabla 'ControlCondominiosDataSet27.OrdenCompra' Puede moverla o quitarla según sea necesario.
-            this.OrdenCompraTableAdapter.Fill(this.ControlCondominiosDataSet27.OrdenCompra);
+            //this.OrdenCompraTableAdapter.Fill(this.ControlCondominiosDataSet27.OrdenCompra);
 
             this.reportViewer1.RefreshReport();
         }

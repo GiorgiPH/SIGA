@@ -830,7 +830,14 @@ namespace PV
             c.ActualizarSaldoProveedor2(txtMatricular.Text, Convert.ToDecimal(txtTotal.Text));
             Limpiar();
             c.CargarGasto(dgvGastos);
+            if (MessageBox.Show("¿Imprimir Documento?", "Documento", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+            {
 
+                ReporteComprobanteGasto r = new ReporteComprobanteGasto(txtFolio.Text);
+                r.ShowDialog();
+
+
+            }
             Limpiarcabezado();
             LimpiarDetalle();
 
@@ -1907,8 +1914,19 @@ namespace PV
             }
             else if (e.ClickedItem.Text == "IMPRIMIR")
             {
+
                 ColapsarPanelLateral();
+                if (string.IsNullOrEmpty(txtFolio.Text))
+                {
+                    MessageBox.Show("Seleccione un registro para continuar");
+                    return;
+
+                }
+                ReporteComprobanteGasto r = new ReporteComprobanteGasto(txtFolio.Text);
+                r.ShowDialog();
+
             }
+
             else if (e.ClickedItem.Text == "PROVEEDORES")
             {
                 ColapsarPanelLateral();

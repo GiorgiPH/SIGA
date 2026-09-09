@@ -227,9 +227,9 @@
             this.cmbPropietario1.Items.AddRange(new object[] {
             "Activo",
             "Inactivo"});
-            this.cmbPropietario1.Location = new System.Drawing.Point(89, 5);
+            this.cmbPropietario1.Location = new System.Drawing.Point(124, 5);
             this.cmbPropietario1.Name = "cmbPropietario1";
-            this.cmbPropietario1.Size = new System.Drawing.Size(393, 26);
+            this.cmbPropietario1.Size = new System.Drawing.Size(358, 26);
             this.cmbPropietario1.TabIndex = 257;
             this.cmbPropietario1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.cmbPropietario1.SelectedIndexChanged += new System.EventHandler(this.cmbPropietario1_SelectedIndexChanged);
@@ -270,9 +270,9 @@
             this.cmbCuentaBancaria.Items.AddRange(new object[] {
             "Activo",
             "Inactivo"});
-            this.cmbCuentaBancaria.Location = new System.Drawing.Point(110, 5);
+            this.cmbCuentaBancaria.Location = new System.Drawing.Point(124, 5);
             this.cmbCuentaBancaria.Name = "cmbCuentaBancaria";
-            this.cmbCuentaBancaria.Size = new System.Drawing.Size(372, 26);
+            this.cmbCuentaBancaria.Size = new System.Drawing.Size(358, 26);
             this.cmbCuentaBancaria.TabIndex = 257;
             this.cmbCuentaBancaria.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -312,9 +312,9 @@
             this.cmbCliente.Items.AddRange(new object[] {
             "Activo",
             "Inactivo"});
-            this.cmbCliente.Location = new System.Drawing.Point(89, 5);
+            this.cmbCliente.Location = new System.Drawing.Point(124, 5);
             this.cmbCliente.Name = "cmbCliente";
-            this.cmbCliente.Size = new System.Drawing.Size(393, 26);
+            this.cmbCliente.Size = new System.Drawing.Size(358, 26);
             this.cmbCliente.TabIndex = 257;
             this.cmbCliente.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -397,9 +397,9 @@
             this.cmbCentroCostos.Items.AddRange(new object[] {
             "Activo",
             "Inactivo"});
-            this.cmbCentroCostos.Location = new System.Drawing.Point(110, 5);
+            this.cmbCentroCostos.Location = new System.Drawing.Point(124, 5);
             this.cmbCentroCostos.Name = "cmbCentroCostos";
-            this.cmbCentroCostos.Size = new System.Drawing.Size(372, 26);
+            this.cmbCentroCostos.Size = new System.Drawing.Size(358, 26);
             this.cmbCentroCostos.TabIndex = 257;
             this.cmbCentroCostos.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.cmbCentroCostos.SelectedIndexChanged += new System.EventHandler(this.cmbCentroCostos_SelectedIndexChanged);
@@ -440,9 +440,9 @@
             this.cmbProyecto.Items.AddRange(new object[] {
             "Activo",
             "Inactivo"});
-            this.cmbProyecto.Location = new System.Drawing.Point(110, 5);
+            this.cmbProyecto.Location = new System.Drawing.Point(124, 5);
             this.cmbProyecto.Name = "cmbProyecto";
-            this.cmbProyecto.Size = new System.Drawing.Size(372, 26);
+            this.cmbProyecto.Size = new System.Drawing.Size(358, 26);
             this.cmbProyecto.TabIndex = 257;
             this.cmbProyecto.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 

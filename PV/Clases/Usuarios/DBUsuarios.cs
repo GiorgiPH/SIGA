@@ -172,5 +172,42 @@ namespace PuntoVentas.Clases.Usuarios
                 MessageBox.Show("Error" + ex.ToString());
             }
         }
+        //_____________________________________________________________________________________________________________
+        //Foto del usaurio para el menu
+        public void CargarFotoUsuario(string Usuario, Guna.UI2.WinForms.Guna2PictureBox Foto)
+        {
+            try
+            {
+                cmd = new SqlCommand("SELECT Foto FROM Usuarios WHERE Usuario=@Usuario", cn);
+                cmd.Parameters.AddWithValue("@Usuario", Usuario);
+
+                dr = cmd.ExecuteReader();
+
+                if (dr.Read())
+                {
+                    if (dr["Foto"] != DBNull.Value)
+                    {
+                        byte[] datos = (byte[])dr["Foto"];
+
+                        using (System.IO.MemoryStream ms = new System.IO.MemoryStream(datos))
+                        {
+                            using (System.Drawing.Image imagen = System.Drawing.Image.FromStream(ms))
+                            {
+                                Foto.Image = new System.Drawing.Bitmap(imagen);
+                            }
+                        }
+                    }
+                }
+
+                dr.Close();
+            }
+            catch (Exception ex)
+            {
+                if (dr != null && !dr.IsClosed)
+                    dr.Close();
+
+                MessageBox.Show("Error " + ex.ToString());
+            }
+        }
     }
 }

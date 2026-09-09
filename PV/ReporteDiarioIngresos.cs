@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Reporting.WinForms;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -78,6 +79,16 @@ namespace PV
             {
                 claveCuentaBancaria = Convert.ToInt32(_claveCuentaBancaria);
             }
+            ReportParameter rpFechaInicio = new ReportParameter(
+    "FechaInicio",
+    fechaInicio.HasValue ? fechaInicio.Value.ToString("yyyy-MM-dd") : string.Empty);
+
+            ReportParameter rpFechaFin = new ReportParameter(
+                "FechaFin",
+                fechaFin.HasValue ? fechaFin.Value.ToString("yyyy-MM-dd") : string.Empty);
+
+            this.reportViewer1.LocalReport.SetParameters(new ReportParameter[] { rpFechaInicio, rpFechaFin });
+
 
             this.sp_ReporteDiarioIngresosTableAdapter.Fill(
                 this.controlCondominiosDataSet46.sp_ReporteDiarioIngresos,

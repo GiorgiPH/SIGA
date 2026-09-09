@@ -10,11 +10,12 @@ namespace PV
     public partial class FavoritosMenu : UserControl
     {
         private readonly List<SidebarMenuItem> favoritos = new List<SidebarMenuItem>();
+        private readonly ToolTip toolTipFavoritos = new ToolTip();
 
         private const int MaxFavoritos = 7;
         private const int MargenFavorito = 8;
         private const int SeparacionFavoritos = 2;
-        private const int EspacioTitulo = 6;
+        private const int EspacioTitulo = 8;
         private const int AltoFavorito = 32;
         private const int AnchoBotonEliminar = 28;
 
@@ -33,10 +34,7 @@ namespace PV
         public string UsuarioActual
         {
             get { return usuarioActual; }
-            set
-            {
-                usuarioActual = (value ?? "").Trim();
-            }
+            set { usuarioActual = (value ?? "").Trim(); }
         }
 
         private void ConfigurarControl()
@@ -56,7 +54,11 @@ namespace PV
             flpFavoritos.Dock = DockStyle.Top;
             flpFavoritos.Margin = new Padding(0, EspacioTitulo, 0, 0);
 
-            Margin = new Padding(0, 10, 0, 0);
+            toolTipFavoritos.InitialDelay = 400;
+            toolTipFavoritos.ReshowDelay = 100;
+            toolTipFavoritos.AutoPopDelay = 5000;
+
+            Margin = new Padding(0, 14, 0, 0);
 
             Visible = false;
         }
@@ -72,20 +74,16 @@ namespace PV
 
             LimpiarListaVisual();
 
-            List<string> clavesFavoritos =
-                dbFavoritos.CargarFavoritos(UsuarioActual);
+            List<string> clavesFavoritos = dbFavoritos.CargarFavoritos(UsuarioActual);
 
             foreach (string clave in clavesFavoritos)
             {
-                SidebarMenuItem opcion =
-                    BuscarOpcionPorClave(clave);
+                SidebarMenuItem opcion = BuscarOpcionPorClave(clave);
 
                 if (opcion != null &&
                     !favoritos.Contains(opcion) &&
                     favoritos.Count < MaxFavoritos)
                 {
-                    // Carga inicial: no debe volver a insertar en SQL ni
-                    // disparar el evento FavoritoCambiado.
                     opcion.EstablecerFavoritoInicial(true);
                     favoritos.Add(opcion);
                 }
@@ -99,18 +97,12 @@ namespace PV
             if (string.IsNullOrWhiteSpace(clave))
                 return null;
 
-            SidebarMenuItem[] opciones =
-                ObtenerTodasLasOpciones();
+            SidebarMenuItem[] opciones = ObtenerTodasLasOpciones();
 
             foreach (SidebarMenuItem opcion in opciones)
             {
-                if (string.Equals(
-                    opcion.Clave,
-                    clave,
-                    StringComparison.OrdinalIgnoreCase))
-                {
+                if (string.Equals(opcion.Clave, clave, StringComparison.OrdinalIgnoreCase))
                     return opcion;
-                }
             }
 
             return null;
@@ -118,17 +110,14 @@ namespace PV
 
         private SidebarMenuItem[] ObtenerTodasLasOpciones()
         {
-            List<SidebarMenuItem> resultado =
-                new List<SidebarMenuItem>();
+            List<SidebarMenuItem> resultado = new List<SidebarMenuItem>();
 
             Form formulario = FindForm();
 
             if (formulario == null)
                 return resultado.ToArray();
 
-            ObtenerOpcionesDesdeControl(
-                formulario,
-                resultado);
+            ObtenerOpcionesDesdeControl(formulario, resultado);
 
             return resultado.ToArray();
         }
@@ -137,39 +126,26 @@ namespace PV
         {
             foreach (Control hijo in control.Controls)
             {
-                SidebarMenuItem opcion =
-                    hijo as SidebarMenuItem;
+                SidebarMenuItem opcion = hijo as SidebarMenuItem;
 
                 if (opcion != null)
                 {
-                    if (!opcion.TieneSubMenus &&
-                        !string.IsNullOrWhiteSpace(opcion.Clave))
-                    {
+                    if (!opcion.TieneSubMenus && !string.IsNullOrWhiteSpace(opcion.Clave))
                         resultado.Add(opcion);
-                    }
 
-                    ObtenerOpcionesDesdeControl(
-                        opcion,
-                        resultado);
+                    ObtenerOpcionesDesdeControl(opcion, resultado);
                 }
                 else
                 {
-                    ObtenerOpcionesDesdeControl(
-                        hijo,
-                        resultado);
+                    ObtenerOpcionesDesdeControl(hijo, resultado);
                 }
             }
         }
 
         private void LimpiarListaVisual()
         {
-            foreach (SidebarMenuItem opcion in
-                new List<SidebarMenuItem>(favoritos))
-            {
-                // Solo limpia el estado local. No debe borrar registros SQL
-                // mientras se está recargando la lista.
+            foreach (SidebarMenuItem opcion in new List<SidebarMenuItem>(favoritos))
                 opcion.EstablecerFavoritoInicial(false);
-            }
 
             favoritos.Clear();
             flpFavoritos.Controls.Clear();
@@ -177,8 +153,7 @@ namespace PV
 
         private void Opcion_FavoritoSolicitado(object sender, EventArgs e)
         {
-            SidebarMenuItem opcion =
-                sender as SidebarMenuItem;
+            SidebarMenuItem opcion = sender as SidebarMenuItem;
 
             if (opcion == null)
                 return;
@@ -212,21 +187,13 @@ namespace PV
                 opcion.TieneSubMenus ||
                 !opcion.PuedeSerFavorito ||
                 string.IsNullOrWhiteSpace(opcion.Clave))
-            {
                 return;
-            }
 
-            opcion.FavoritoSolicitado -=
-                Opcion_FavoritoSolicitado;
+            opcion.FavoritoSolicitado -= Opcion_FavoritoSolicitado;
+            opcion.FavoritoSolicitado += Opcion_FavoritoSolicitado;
 
-            opcion.FavoritoSolicitado +=
-                Opcion_FavoritoSolicitado;
-
-            opcion.FavoritoCambiado -=
-                Opcion_FavoritoCambiado;
-
-            opcion.FavoritoCambiado +=
-                Opcion_FavoritoCambiado;
+            opcion.FavoritoCambiado -= Opcion_FavoritoCambiado;
+            opcion.FavoritoCambiado += Opcion_FavoritoCambiado;
 
             if (opcion.EsFavorito)
                 AgregarFavorito(opcion, false);
@@ -244,20 +211,14 @@ namespace PV
                 bool agregado = AgregarFavorito(opcion, true);
 
                 if (!agregado)
-                {
-                    // Si SQL rechazó el cambio, regresa la estrella al
-                    // estado anterior sin volver a disparar eventos.
                     opcion.EstablecerFavoritoInicial(false);
-                }
             }
             else
             {
                 bool eliminado = QuitarFavorito(opcion, true);
 
                 if (!eliminado)
-                {
                     opcion.EstablecerFavoritoInicial(true);
-                }
             }
         }
 
@@ -266,11 +227,8 @@ namespace PV
             if (opcion == null)
                 return false;
 
-            if (opcion.TieneSubMenus ||
-                !opcion.PuedeSerFavorito)
-            {
+            if (opcion.TieneSubMenus || !opcion.PuedeSerFavorito)
                 return false;
-            }
 
             if (string.IsNullOrWhiteSpace(opcion.Clave))
                 return false;
@@ -286,17 +244,13 @@ namespace PV
                 if (string.IsNullOrWhiteSpace(UsuarioActual))
                     return false;
 
-                bool guardado =
-                    dbFavoritos.AgregarFavorito(
-                        UsuarioActual,
-                        opcion.Clave);
+                bool guardado = dbFavoritos.AgregarFavorito(UsuarioActual, opcion.Clave);
 
                 if (!guardado)
                     return false;
             }
 
             favoritos.Add(opcion);
-
             ActualizarFavoritos();
 
             return true;
@@ -317,17 +271,13 @@ namespace PV
                 if (string.IsNullOrWhiteSpace(UsuarioActual))
                     return false;
 
-                bool eliminado =
-                    dbFavoritos.EliminarFavorito(
-                        UsuarioActual,
-                        opcion.Clave);
+                bool eliminado = dbFavoritos.EliminarFavorito(UsuarioActual, opcion.Clave);
 
                 if (!eliminado)
                     return false;
             }
 
             favoritos.Remove(opcion);
-
             ActualizarFavoritos();
 
             return true;
@@ -343,20 +293,16 @@ namespace PV
 
             if (!string.IsNullOrWhiteSpace(UsuarioActual))
             {
-                bool eliminados =
-                    dbFavoritos.EliminarTodosLosFavoritos(UsuarioActual);
+                bool eliminados = dbFavoritos.EliminarTodosLosFavoritos(UsuarioActual);
 
                 if (!eliminados)
                     return;
             }
 
-            List<SidebarMenuItem> copia =
-                new List<SidebarMenuItem>(favoritos);
+            List<SidebarMenuItem> copia = new List<SidebarMenuItem>(favoritos);
 
             foreach (SidebarMenuItem opcion in copia)
-            {
                 opcion.EstablecerFavoritoInicial(false);
-            }
 
             favoritos.Clear();
             flpFavoritos.Controls.Clear();
@@ -377,14 +323,11 @@ namespace PV
         private void ActualizarFavoritos()
         {
             flpFavoritos.SuspendLayout();
-
             flpFavoritos.Controls.Clear();
 
             foreach (SidebarMenuItem opcion in favoritos)
             {
-                Panel panel =
-                    CrearFavorito(opcion);
-
+                Panel panel = CrearFavorito(opcion);
                 flpFavoritos.Controls.Add(panel);
             }
 
@@ -415,102 +358,119 @@ namespace PV
                 MargenFavorito,
                 SeparacionFavoritos);
 
-            panel.BackColor =
-                Color.FromArgb(35, 58, 88);
-
-            Button boton = new Button();
-
-            boton.Text = "•  " + opcion.Titulo;
-            boton.Tag = opcion;
-            boton.Dock = DockStyle.Fill;
-            boton.FlatStyle = FlatStyle.Flat;
-            boton.FlatAppearance.BorderSize = 0;
-            boton.TextAlign =
-                ContentAlignment.MiddleLeft;
-
-            boton.Padding = new Padding(
-                12,
-                0,
-                AnchoBotonEliminar + 4,
-                0);
-
-            boton.Font =
-                new Font(
-                    "Segoe UI",
-                    9F,
-                    FontStyle.Regular);
-
-            boton.ForeColor =
-                Color.FromArgb(
-                    220,
-                    232,
-                    244);
-
-            boton.BackColor =
-                Color.FromArgb(
-                    35,
-                    58,
-                    88);
-
-            boton.Cursor = Cursors.Hand;
-
-            boton.Click += Favorito_Click;
+            panel.BackColor = Color.FromArgb(35, 58, 88);
 
             Button eliminar = new Button();
 
             eliminar.Text = "×";
             eliminar.Tag = opcion;
-            eliminar.Width =
-                AnchoBotonEliminar;
-
-            eliminar.Dock =
-                DockStyle.Right;
-
-            eliminar.FlatStyle =
-                FlatStyle.Flat;
-
+            eliminar.Width = AnchoBotonEliminar;
+            eliminar.Dock = DockStyle.Right;
+            eliminar.FlatStyle = FlatStyle.Flat;
             eliminar.FlatAppearance.BorderSize = 0;
+            eliminar.FlatAppearance.MouseOverBackColor = Color.FromArgb(50, 79, 112);
+            eliminar.FlatAppearance.MouseDownBackColor = Color.FromArgb(50, 79, 112);
+            eliminar.Font = new Font("Segoe UI", 10F, FontStyle.Regular);
+            eliminar.ForeColor = Color.FromArgb(180, 200, 220);
+            eliminar.BackColor = Color.FromArgb(35, 58, 88);
+            eliminar.Cursor = Cursors.Hand;
+            eliminar.Click += EliminarFavorito_Click;
 
-            eliminar.Font =
-                new Font(
-                    "Segoe UI",
-                    10F,
-                    FontStyle.Regular);
+            Button boton = new Button();
 
-            eliminar.ForeColor =
-                Color.FromArgb(
-                    180,
-                    200,
-                    220);
+            boton.Tag = opcion;
+            boton.Dock = DockStyle.Fill;
+            boton.FlatStyle = FlatStyle.Flat;
+            boton.FlatAppearance.BorderSize = 0;
+            boton.FlatAppearance.MouseOverBackColor = Color.FromArgb(50, 79, 112);
+            boton.FlatAppearance.MouseDownBackColor = Color.FromArgb(50, 79, 112);
+            boton.TextAlign = ContentAlignment.MiddleLeft;
+            boton.Padding = new Padding(12, 0, 6, 0);
+            boton.Font = new Font("Segoe UI", 9F, FontStyle.Regular);
+            boton.ForeColor = Color.FromArgb(220, 232, 244);
+            boton.BackColor = Color.FromArgb(35, 58, 88);
+            boton.Cursor = Cursors.Hand;
 
-            eliminar.BackColor =
-                Color.FromArgb(
-                    35,
-                    58,
-                    88);
+            string textoCompleto = "•  " + opcion.Titulo;
 
-            eliminar.Cursor =
-                Cursors.Hand;
+            int anchoDisponible =
+                panel.Width -
+                AnchoBotonEliminar -
+                boton.Padding.Left -
+                boton.Padding.Right -
+                6;
 
-            eliminar.Click +=
-                EliminarFavorito_Click;
+            boton.Text = AjustarTextoFavorito(
+                textoCompleto,
+                boton.Font,
+                anchoDisponible);
+
+            if (boton.Text != textoCompleto)
+                toolTipFavoritos.SetToolTip(boton, opcion.Titulo);
+            else
+                toolTipFavoritos.SetToolTip(boton, "");
+
+            boton.Click += Favorito_Click;
 
             panel.Controls.Add(boton);
             panel.Controls.Add(eliminar);
 
+            eliminar.BringToFront();
+
             return panel;
+        }
+
+        private string AjustarTextoFavorito(string texto, Font fuente, int anchoDisponible)
+        {
+            if (string.IsNullOrWhiteSpace(texto))
+                return "";
+
+            texto = texto.Replace("\r", " ").Replace("\n", " ").Trim();
+
+            Size medida = TextRenderer.MeasureText(
+                texto,
+                fuente,
+                new Size(int.MaxValue, int.MaxValue),
+                TextFormatFlags.SingleLine | TextFormatFlags.NoPadding);
+
+            if (medida.Width <= anchoDisponible)
+                return texto;
+
+            const string puntos = "...";
+
+            string textoRecortado = texto;
+
+            while (textoRecortado.Length > 1)
+            {
+                textoRecortado =
+                    textoRecortado.Substring(
+                        0,
+                        textoRecortado.Length - 1)
+                    .TrimEnd();
+
+                string candidato = textoRecortado + puntos;
+
+                medida = TextRenderer.MeasureText(
+                    candidato,
+                    fuente,
+                    new Size(int.MaxValue, int.MaxValue),
+                    TextFormatFlags.SingleLine | TextFormatFlags.NoPadding);
+
+                if (medida.Width <= anchoDisponible)
+                    return candidato;
+            }
+
+            return puntos;
         }
 
         private void Favorito_Click(object sender, EventArgs e)
         {
-            Button boton =
-                sender as Button;
+            Button boton = sender as Button;
 
             if (boton == null)
                 return;
 
-            SidebarMenuItem opcion =
-                boton.Tag as SidebarMenuItem;
+            SidebarMenuItem opcion = boton.Tag as SidebarMenuItem;
 
             if (opcion == null)
                 return;
@@ -520,14 +480,12 @@ namespace PV
 
         private void EliminarFavorito_Click(object sender, EventArgs e)
         {
-            Button boton =
-                sender as Button;
+            Button boton = sender as Button;
 
             if (boton == null)
                 return;
 
-            SidebarMenuItem opcion =
-                boton.Tag as SidebarMenuItem;
+            SidebarMenuItem opcion = boton.Tag as SidebarMenuItem;
 
             if (opcion == null)
                 return;
