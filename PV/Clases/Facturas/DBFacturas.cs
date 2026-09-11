@@ -543,9 +543,9 @@ namespace PV.Clases.Facturas
         public void CargarPartidasFactura(DataGridView dgv, string folioFactura)
         {
             const string sql = @"
-                SELECT FolioFactura, Partida, Concepto2, Cantidad, Subtotal, Descuento, Impuesto, Total
-                FROM PartidaFactura
-                WHERE FolioFactura = @Folio
+                SELECT F.Consecutivo,P.FolioFactura, P.Partida, P.Concepto2, P.Cantidad, P.Subtotal, P.Descuento, P.Impuesto, P.Total
+                FROM Factura as F Join PartidaFactura as P ON F.Folio = P.FolioFactura
+                WHERE F.Folio = @Folio
                 ORDER BY Partida";
 
             using (SqlConnection cn = new SqlConnection(ObtenerCn()))

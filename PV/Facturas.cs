@@ -178,8 +178,34 @@ namespace PV
             dgv.MultiSelect = false;
             dgv.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
 
-            dgv.Columns.Add(new DataGridViewTextBoxColumn { Name = "Folio", DataPropertyName = "FolioFactura", HeaderText = "Folio", Width = 70 });
-            dgv.Columns.Add(new DataGridViewTextBoxColumn { Name = "Partida", DataPropertyName = "Partida", HeaderText = "Partida", Width = 70 });
+            // Consecutivo: se conserva como valor interno, pero no se muestra
+            dgv.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                Name = "Consecutivo",
+                DataPropertyName = "Consecutivo",
+                HeaderText = "Consecutivo",
+                Width = 70,
+                Visible = true
+            });
+
+            // FolioFactura: se conserva como valor interno, pero no se muestra
+            dgv.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                Name = "Folio",
+                DataPropertyName = "FolioFactura",
+                HeaderText = "Folio",
+                Width = 70,
+                Visible = false
+            });
+
+            dgv.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                Name = "Partida",
+                DataPropertyName = "Partida",
+                HeaderText = "Partida",
+                Width = 70
+            });
+
             dgv.Columns.Add(new DataGridViewTextBoxColumn
             {
                 Name = "Producto",
@@ -188,38 +214,65 @@ namespace PV
                 Width = 220,
                 AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill
             });
-            dgv.Columns.Add(new DataGridViewTextBoxColumn { Name = "Cantidad", DataPropertyName = "Cantidad", HeaderText = "Cantidad", Width = 80 });
+
+            dgv.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                Name = "Cantidad",
+                DataPropertyName = "Cantidad",
+                HeaderText = "Cantidad",
+                Width = 80
+            });
+
             dgv.Columns.Add(new DataGridViewTextBoxColumn
             {
                 Name = "Subtotal",
                 DataPropertyName = "Subtotal",
                 HeaderText = "Subtotal",
                 Width = 90,
-                DefaultCellStyle = new DataGridViewCellStyle { Format = "N2", Alignment = DataGridViewContentAlignment.MiddleRight }
+                DefaultCellStyle = new DataGridViewCellStyle
+                {
+                    Format = "N2",
+                    Alignment = DataGridViewContentAlignment.MiddleRight
+                }
             });
+
             dgv.Columns.Add(new DataGridViewTextBoxColumn
             {
                 Name = "Descuento",
                 DataPropertyName = "Descuento",
                 HeaderText = "Descuento",
                 Width = 90,
-                DefaultCellStyle = new DataGridViewCellStyle { Format = "N2", Alignment = DataGridViewContentAlignment.MiddleRight }
+                DefaultCellStyle = new DataGridViewCellStyle
+                {
+                    Format = "N2",
+                    Alignment = DataGridViewContentAlignment.MiddleRight
+                }
             });
+
             dgv.Columns.Add(new DataGridViewTextBoxColumn
             {
                 Name = "Impuesto",
                 DataPropertyName = "Impuesto",
                 HeaderText = "Impuesto",
                 Width = 90,
-                DefaultCellStyle = new DataGridViewCellStyle { Format = "N2", Alignment = DataGridViewContentAlignment.MiddleRight }
+                DefaultCellStyle = new DataGridViewCellStyle
+                {
+                    Format = "N2",
+                    Alignment = DataGridViewContentAlignment.MiddleRight
+                }
             });
+
             dgv.Columns.Add(new DataGridViewTextBoxColumn
             {
                 Name = "Total",
                 DataPropertyName = "Total",
                 HeaderText = "Total",
                 Width = 100,
-                DefaultCellStyle = new DataGridViewCellStyle { Format = "N2", Alignment = DataGridViewContentAlignment.MiddleRight }
+                DefaultCellStyle = new DataGridViewCellStyle
+                {
+                    Format = "N2",
+                    Alignment = DataGridViewContentAlignment.MiddleRight
+                }
             });
         }
 
@@ -400,11 +453,10 @@ namespace PV
                     txtElaborado.Text, txtConsecutivo.Text, string.Empty, centroCosto, proyecto);
             }
 
-            TxtFolio2.Text = txtFolio.Text;
             guna2TabControl1.SelectedIndex = 1;
 
             CargarComboProductos();
-            f.Consulta5Factura(TxtFolio2.Text, txtPartida);
+            f.Consulta5Factura(txtFolio.Text, txtPartida);
 
             txtCantidad.Text = "1";
             txtUnidad.Text = "Servicio";
@@ -418,7 +470,6 @@ namespace PV
         void Limpiar()
         {
             txtFolio.Clear();
-            TxtFolio2.Clear();
             txtConsecutivo.Clear();
             cmbEstatus.Text = "Abierto";
             txtDiasVence.Text = "0";
@@ -479,7 +530,7 @@ namespace PV
 
         private void btnBuevaFactura_Click(object sender, EventArgs e)
         {
-            if (!string.IsNullOrEmpty(TxtFolio2.Text) && cmbEstatus.Text == "Abierto")
+            if (!string.IsNullOrEmpty(txtFolio.Text) && cmbEstatus.Text == "Abierto")
             {
                 if (MessageBox.Show("El registro actual se perderá, ¿Desea continuar?", "Nueva Factura",
                     MessageBoxButtons.YesNo, MessageBoxIcon.Question) != DialogResult.Yes)
@@ -520,7 +571,7 @@ namespace PV
             txtImpuesto1.Text = "0";
 
             CargarComboProductos();
-            f.Consulta5Factura(TxtFolio2.Text, txtPartida);
+            f.Consulta5Factura(txtFolio.Text, txtPartida);
         }
 
         private void cmbConcepto_SelectedIndexChanged(object sender, EventArgs e)
@@ -593,10 +644,11 @@ namespace PV
             if (!GuardarPartidaActual())
                 return;
 
-            f.ReciboSaldosPartidas(TxtFolio2.Text, txtSubtotalR, txtDescuentoR, txtTotalR, txtImpuestoR);
+            f.ReciboSaldosPartidas(txtFolio.Text, txtSubtotalR, txtDescuentoR, txtTotalR, txtImpuestoR);
             CargarComboProductos();
             CargarPartidas();
             LimpiarPartida();
+            f.Consulta5Factura(txtFolio.Text, txtPartida);
         }
 
         /// <summary>
@@ -617,7 +669,7 @@ namespace PV
             }
 
             f.InsertarPartidaFactura(
-                TxtFolio2.Text,
+                txtFolio.Text,
                 txtPartida.Text,
                 cmbConcepto.SelectedValue.ToString(),
                 txtConcepto2.Text,
@@ -631,8 +683,8 @@ namespace PV
                 Convert.ToDecimal(txtPrecio.Text),
                 Convert.ToDecimal(txtImpuesto1.Text));
 
-            f.ActualizarTotalesFactura(TxtFolio2.Text);
-            f.ReciboSaldos(TxtFolio2.Text, txtSubtotal, txtDescuento, txtRecargo, txtTotal, txtPartidas);
+            f.ActualizarTotalesFactura(txtFolio.Text);
+            f.ReciboSaldos(txtFolio.Text, txtSubtotal, txtDescuento, txtRecargo, txtTotal, txtPartidas);
 
             return true;
         }
@@ -642,8 +694,8 @@ namespace PV
             int partida = Convert.ToInt32(txtPartida.Text) - 1;
             if (partida > 0)
             {
-                f.ActualizarTotalesFactura(TxtFolio2.Text);
-                f.ReciboSaldos(TxtFolio2.Text, txtSubtotal, txtDescuento, txtRecargo, txtTotal, txtPartidas);
+                f.ActualizarTotalesFactura(txtFolio.Text);
+                f.ReciboSaldos(txtFolio.Text, txtSubtotal, txtDescuento, txtRecargo, txtTotal, txtPartidas);
             }
             PanelPartidasRequisicion.Visible = false;
         }
@@ -666,7 +718,7 @@ namespace PV
                 return;
             }
 
-            string mensaje = f.EliminarPartidaFactura(TxtFolio2.Text, txtPartida.Text);
+            string mensaje = f.EliminarPartidaFactura(txtFolio.Text, txtPartida.Text);
             if (!string.IsNullOrEmpty(mensaje))
             {
                 MessageBox.Show(mensaje);
@@ -679,18 +731,20 @@ namespace PV
             // refrescan tanto los campos globales del encabezado
             // (ReciboSaldos) como el panel de totales "en vivo" de la
             // captura de partidas (ReciboSaldosPartidas).
-            f.ActualizarTotalesFactura(TxtFolio2.Text);
-            f.ReciboSaldos(TxtFolio2.Text, txtSubtotal, txtDescuento, txtRecargo, txtTotal, txtPartidas);
-            f.ReciboSaldosPartidas(TxtFolio2.Text, txtSubtotalR, txtDescuentoR, txtTotalR, txtImpuestoR);
+            f.ActualizarTotalesFactura(txtFolio.Text);
+            f.ReciboSaldos(txtFolio.Text, txtSubtotal, txtDescuento, txtRecargo, txtTotal, txtPartidas);
+            f.ReciboSaldosPartidas(txtFolio.Text, txtSubtotalR, txtDescuentoR, txtTotalR, txtImpuestoR);
 
             ConfigurarPartida(true);
             LimpiarPartida();
             CargarPartidas();
+            f.Consulta5Factura(txtFolio.Text, txtPartida);
         }
 
         private void CargarPartidas()
         {
-            f.CargarPartidasFactura(guna2DataGridView1, TxtFolio2.Text);
+            f.CargarPartidasFactura(guna2DataGridView1, txtFolio.Text);
+
         }
 
         /// <summary>
@@ -728,7 +782,7 @@ namespace PV
 
             cmbConcepto.SelectedIndexChanged -= cmbConcepto_SelectedIndexChanged;
 
-            f.ConsultaPartidaFactura(TxtFolio2.Text, partida, txtCantidad,
+            f.ConsultaPartidaFactura(txtFolio.Text, partida, txtCantidad,
                 txtUnidad, txtDivisa1, txtTipoCambio1, txtImporte1, txtDescuento1, txtTotal1, txtPrecio,
                 txtImpuesto1, txtEntregado, cmbConcepto);
 
@@ -936,7 +990,7 @@ namespace PV
             // vacío por compatibilidad con la firma de
             // DBFacturas.ActualizarFacturaEstatus (la columna FolioMovimiento
             // acepta NULL vía IntOrNull, así que esto es seguro).
-            f.ActualizarFacturaEstatus(TxtFolio2.Text, "Bloqueado", "", string.Empty);
+            f.ActualizarFacturaEstatus(txtFolio.Text, "Bloqueado", "", string.Empty);
 
             MessageBox.Show("La factura se confirmó exitosamente");
 
@@ -999,7 +1053,7 @@ namespace PV
             cmbDocumento.Enabled = false;
             txtDiasVence.Enabled = false;
             txtNotas.Enabled = false;
-            TxtFolio2.Text = txtFolio.Text;
+            txtFolio.Text = txtFolio.Text;
 
             txtMatricular.Text = cliente;
             Matricula = cliente;
@@ -1171,7 +1225,7 @@ namespace PV
             btnConfirmarPartida.Enabled = true;
             btnSiguientePartids.Enabled = true;
 
-            f.CargarPartidasFactura(guna2DataGridView1, TxtFolio2.Text);
+            f.CargarPartidasFactura(guna2DataGridView1, txtFolio.Text);
         }
 
         private void ConfigurarConsulta()
@@ -1263,7 +1317,7 @@ namespace PV
 
         private void guna2TabControl1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (guna2TabControl1.SelectedIndex == 1 && string.IsNullOrEmpty(TxtFolio2.Text))
+            if (guna2TabControl1.SelectedIndex == 1 && string.IsNullOrEmpty(txtFolio.Text))
             {
                 MessageBox.Show("Es necesario crear el encabezado");
                 guna2TabControl1.SelectedIndex = 0;
@@ -1368,6 +1422,36 @@ namespace PV
             {
                 MessageBox.Show("Error al generar XML: " + ex.ToString());
             }
+        }
+
+        private void txtSubtotal_TextChanged(object sender, EventArgs e)
+        {
+            Moneda(ref txtSubtotal);
+        }
+
+        private void txtRecargo_TextChanged(object sender, EventArgs e)
+        {
+            Moneda(ref txtRecargo);
+        }
+
+        private void txtTotal_TextChanged(object sender, EventArgs e)
+        {
+            Moneda(ref txtTotal);
+        }
+
+        private void txtDescuento_TextChanged(object sender, EventArgs e)
+        {
+            Moneda(ref txtDescuento);
+        }
+
+        private void txtImporte1_TextChanged(object sender, EventArgs e)
+        {
+            Moneda(ref txtImporte1);
+        }
+
+        private void txtDescuentoIm_TextChanged(object sender, EventArgs e)
+        {
+            Moneda(ref txtDescuentoIm);
         }
     }
 }

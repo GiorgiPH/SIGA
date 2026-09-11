@@ -231,8 +231,15 @@ namespace PV
                 }
                 else
                 {
+                    decimal AbonoCapital = 0.00m;
+                  
+                        AbonoCapital = Convert.ToDecimal(dgvPagosPendientes.Rows[e.RowIndex].Cells["Importe"].Value);
+
+                    
+                    dgvPagosPendientes.Rows[e.RowIndex].Cells["Abono"].Value = AbonoCapital.ToString();
                     dgvPagosPendientes.Rows[e.RowIndex].Cells[7].ReadOnly = false;
                     dgvPagosPendientes.Rows[e.RowIndex].Cells[7].Selected = true;
+
                     dgvPagosPendientes.BeginEdit(true);
                 }
 
