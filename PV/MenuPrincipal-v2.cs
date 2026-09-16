@@ -785,7 +785,6 @@ namespace PV
             cxc.AgregarSubMenu("Registra Ingresos", "REGISTRAR_INGRESO");
             cxc.AgregarSubMenu("Registra Anticipo Cliente", "REGISTRAR_ANTICIPO_CLIENTE");
             cxc.AgregarSubMenu("Aplicar Anticipos Clientes", "APLICAR_ANTICIPO_CLIENTE");
-            cxc.AgregarSubMenu("Registrar Préstamos");
 
             SidebarMenuItem reportesCxc = cxc.AgregarSubMenu("Reportes CxC Ingresos");
             reportesCxc.AgregarSubMenu("Diario de Ingresos", "REPORTE_DIARIO_INGRESOS");
@@ -797,8 +796,9 @@ namespace PV
             SidebarMenuItem cxp = tesoreria.AgregarSubMenu("CxP - Egresos");
             cxp.AgregarSubMenu("Pagos por Vencimiento", "PAGOS_VENCIMIENTO");
             cxp.AgregarSubMenu("Pagos por Proveedor", "PAGOS_PROVEEDOR");
-            cxp.AgregarSubMenu("Registrar Anticipo Proveedor");
-            cxp.AgregarSubMenu("Aplicar Anticipo Proveedor");
+            cxp.AgregarSubMenu("Registrar Anticipo Proveedor", "REGISTRAR_ANTICIPO_PROVEEDOR");
+            cxp.AgregarSubMenu("Aplicar Anticipo Proveedor", "APLICAR_ANTICIPO_PROVEEDOR");
+            cxp.AgregarSubMenu("Registrar Préstamos", "REGISTRAR_PRESTAMOS");
 
             SidebarMenuItem reportesCxp = cxp.AgregarSubMenu("Reportes CxP Egresos");
             reportesCxp.AgregarSubMenu("Reporte Diario de Egresos", "REPORTE_DIARIO_EGRESOS");
@@ -1079,6 +1079,12 @@ namespace PV
                 case "GENERAR_POLIZAS_EGRESOS":
                     AbrirFormulario(new GENERARPOLIZAS("Polizas Compras"));
                     break;
+                case "REGISTRAR_ANTICIPO_PROVEEDOR":
+                    AbrirFormulario(new RegistrarAnticipo("Proveedor"));
+                    break;
+                case "APLICAR_ANTICIPO_PROVEEDOR":
+                    AbrirFormulario(new AplicarAnticipoProveedor2());
+                    break;
                 case "REPORTE_RESULTADOS_GLOBAL":
                     AbrirFormulario(new FiltrarReporteResultadosGlobal());
                     break;
@@ -1090,6 +1096,9 @@ namespace PV
                     break;
                 case "CERRAR_PRESUPUESTOS":
                     AbrirFormulario(new CerrarPresupuesto());
+                    break;
+                case "REGISTRAR_PRESTAMOS":
+                    AbrirFormulario(new Prestamos());
                     break;
                 default:
                     LimpiarSeleccionMenu();

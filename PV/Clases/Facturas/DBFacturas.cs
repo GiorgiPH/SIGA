@@ -123,6 +123,7 @@ namespace PV.Clases.Facturas
                             cmd.Parameters.AddWithValue("@CentroCostos", IntOrNull(centroCostos));
                             cmd.Parameters.AddWithValue("@IdProyecto", IntOrNull(proyecto));
 
+
                             cmd.ExecuteNonQuery();
                         }
 
@@ -145,16 +146,16 @@ namespace PV.Clases.Facturas
         /// </summary>
         public void ConsultaFactura(string folio, Control txtClave, Control cmbEstatus, Control txtFecha,
             Control txtDiasVence, Control txtFechaVence, Control txtDivisa, Control txtTipoCambio,
-            Control txtSubtotal, Control txtDescuento, Control txtRecargo, Control txtTotal, Control txtPartidas,
+            Control txtSubtotal, Control txtDescuento, Control txtRecargo, Control txtTotal, Control txtPartidas, Control txtSaldo,
             Control txtNotas, Control txtElaborado, Control txtFolio, Control txtConsecutivo, Control txtAutoriza,
-            Control txtFechaAuto, out string cliente, ComboBox cmbCentroCostos, ComboBox cmbProyecto)
+            Control txtFechaAuto, out string cliente, ComboBox cmbCentroCostos, ComboBox cmbProyecto, ComboBox cmbAlmacen)
         {
             cliente = string.Empty;
 
             const string sql = @"
                 SELECT ClaveDocumento, Estatus, Fecha, Divisa, TipoCambio, Subtotal, Descuento, Recargo, Total,
-                       TotalPartidas, Notas, Elaborado, Consecutivo, Autorizado, FechaAutoriza, UsuarioAutoriza,
-                       ClaveProveedor, CentroCostos, IdProyecto, DiasVence, FechaVence
+                       TotalPartidas, Saldo, Notas, Elaborado, Consecutivo, Autorizado, FechaAutoriza, UsuarioAutoriza,
+                       ClaveProveedor, CentroCostos, IdProyecto, DiasVence, FechaVence, Almacen
                 FROM Factura
                 WHERE Folio = @Folio";
 
@@ -178,6 +179,7 @@ namespace PV.Clases.Facturas
                     txtRecargo.Text = Txt(dr["Recargo"]);
                     txtTotal.Text = Txt(dr["Total"]);
                     txtPartidas.Text = Txt(dr["TotalPartidas"]);
+                    txtSaldo.Text = Txt(dr["Saldo"]);
                     txtNotas.Text = Txt(dr["Notas"]);
                     txtElaborado.Text = Txt(dr["Elaborado"]);
                     txtConsecutivo.Text = Txt(dr["Consecutivo"]);
@@ -188,15 +190,29 @@ namespace PV.Clases.Facturas
                     // CENTRO DE COSTOS
                     if (dr["CentroCostos"] != DBNull.Value)
                     {
-                        cmbCentroCostos.SelectedValue = dr["CentroCostos"];
+                        cmbCentroCostos.SelectedValue = Convert.ToInt32(dr["CentroCostos"]);
                     }
                     else
                     {
                         cmbCentroCostos.SelectedIndex = -1;
                     }
+
                     if (dr["IdProyecto"] != DBNull.Value)
                     {
-                        cmbProyecto.SelectedValue = dr["IdProyecto"];
+                        cmbProyecto.SelectedValue = Convert.ToInt32(dr["IdProyecto"]);
+                    }
+                    else
+                    {
+                        cmbProyecto.SelectedIndex = -1;
+                    }
+
+                    if (dr["Almacen"] != DBNull.Value)
+                    {
+                        cmbAlmacen.SelectedValue = Convert.ToInt32(dr["Almacen"]);
+                    }
+                    else
+                    {
+                        cmbAlmacen.SelectedIndex = -1;
                     }
                     cliente = Txt(dr["ClaveProveedor"]);
                 }
@@ -207,9 +223,9 @@ namespace PV.Clases.Facturas
 
         /// <summary>Carga únicamente los totales/saldo del encabezado (equivalente a ReciboSaldos).</summary>
         public void ReciboSaldos(string folio, Control txtSubtotal, Control txtDescuento, Control txtRecargo,
-            Control txtTotal, Control txtPartidas)
+            Control txtTotal, Control txtPartidas, Control txtSaldo)
         {
-            const string sql = @"SELECT Subtotal, Descuento, Recargo, Total, TotalPartidas FROM Factura WHERE Folio = @Folio";
+            const string sql = @"SELECT Subtotal, Descuento, Cargo, Total, TotalPartidas, Saldo FROM Factura WHERE Folio = @Folio";
 
             using (SqlConnection cn = new SqlConnection(ObtenerCn()))
             using (SqlCommand cmd = new SqlCommand(sql, cn))
@@ -223,9 +239,11 @@ namespace PV.Clases.Facturas
 
                     txtSubtotal.Text = Txt(dr["Subtotal"]);
                     txtDescuento.Text = Txt(dr["Descuento"]);
-                    txtRecargo.Text = Txt(dr["Recargo"]);
+                    txtRecargo.Text = Txt(dr["Cargo"]);
                     txtTotal.Text = Txt(dr["Total"]);
                     txtPartidas.Text = Txt(dr["TotalPartidas"]);
+                    txtSaldo.Text = Txt(dr["Saldo"]);
+
                 }
             }
         }
@@ -282,9 +300,11 @@ namespace PV.Clases.Facturas
             const string sql = @"
                 UPDATE Factura SET
                     Subtotal = ISNULL((SELECT SUM(Subtotal) FROM PartidaFactura WHERE FolioFactura = @Folio), 0),
-                    Descuento = ISNULL((SELECT SUM(Descuento) FROM PartidaFactura WHERE FolioFactura = @Folio), 0),
-                    Recargo = ISNULL((SELECT SUM(Impuesto) FROM PartidaFactura WHERE FolioFactura = @Folio), 0),
+                    Descuento = ISNULL((SELECT SUM(DescuentoImporte) FROM PartidaFactura WHERE FolioFactura = @Folio), 0),
+                    Cargo = ISNULL((SELECT SUM(ImpuestoImporte) FROM PartidaFactura WHERE FolioFactura = @Folio), 0),
                     Total = ISNULL((SELECT SUM(Total) FROM PartidaFactura WHERE FolioFactura = @Folio), 0),
+                    Saldo = ISNULL((SELECT SUM(Total) FROM PartidaFactura WHERE FolioFactura = @Folio), 0),
+
                     TotalPartidas = ISNULL((SELECT count(*) FROM PartidaFactura WHERE FolioFactura = @Folio), 0)
                 WHERE Folio = @Folio;
 
@@ -390,17 +410,42 @@ namespace PV.Clases.Facturas
             }
         }
 
+        /// <summary>
+        /// Indica si ya existe una partida (FolioFactura + Partida) en la
+        /// tabla PartidaFactura. Se usa desde el formulario para decidir si
+        /// GuardarPartidaActual debe hacer INSERT (partida nueva) o UPDATE
+        /// (partida existente que se está editando, p.ej. tras doble clic
+        /// en la grilla de partidas) — antes siempre se hacía INSERT, lo que
+        /// provocaba una violación de llave primaria/única al intentar
+        /// "guardar" una partida ya existente.
+        /// </summary>
+        public bool ExistePartidaFactura(string folioFactura, string partida)
+        {
+            if (string.IsNullOrWhiteSpace(folioFactura) || folioFactura == "X" || string.IsNullOrWhiteSpace(partida))
+                return false;
+
+            const string sql = "SELECT COUNT(*) FROM PartidaFactura WHERE FolioFactura = @Folio AND Partida = @Partida";
+            using (SqlConnection cn = new SqlConnection(ObtenerCn()))
+            using (SqlCommand cmd = new SqlCommand(sql, cn))
+            {
+                cmd.Parameters.AddWithValue("@Folio", Convert.ToInt32(folioFactura));
+                cmd.Parameters.AddWithValue("@Partida", Convert.ToInt32(partida));
+                cn.Open();
+                return Convert.ToInt32(cmd.ExecuteScalar()) > 0;
+            }
+        }
+
         public void InsertarPartidaFactura(string folioFactura, string partida, string claveProducto, string concepto2,
             string cantidad, string unidad, string divisa, string tipoCambio, decimal subtotal, decimal descuento,
-            decimal total, decimal precio, decimal impuesto)
+            decimal total, decimal precio, decimal impuesto, decimal descuentoImporte, decimal ImpuestoImporte)
         {
             const string sql = @"
                 INSERT INTO PartidaFactura
                     (FolioFactura, Partida, ClaveProducto, Concepto2, Cantidad, Unidad, Divisa, TipoCambio,
-                     Subtotal, Descuento, Total, Precio, CantidadRecibida, Impuesto)
+                     Subtotal, Descuento, Total, Precio, CantidadRecibida, Impuesto, DescuentoImporte, ImpuestoImporte)
                 VALUES
                     (@FolioFactura, @Partida, @ClaveProducto, @Concepto2, @Cantidad, @Unidad, @Divisa, @TipoCambio,
-                     @Subtotal, @Descuento, @Total, @Precio, 0, @Impuesto)";
+                     @Subtotal, @Descuento, @Total, @Precio, 0, @Impuesto,  @DescuentoImporte, @ImpuestoImporte)";
 
             using (SqlConnection cn = new SqlConnection(ObtenerCn()))
             using (SqlCommand cmd = new SqlCommand(sql, cn))
@@ -418,6 +463,62 @@ namespace PV.Clases.Facturas
                 cmd.Parameters.AddWithValue("@Total", total);
                 cmd.Parameters.AddWithValue("@Precio", precio);
                 cmd.Parameters.AddWithValue("@Impuesto", impuesto);
+                cmd.Parameters.AddWithValue("@DescuentoImporte", descuentoImporte);
+                cmd.Parameters.AddWithValue("@ImpuestoImporte", ImpuestoImporte);
+
+                cn.Open();
+                cmd.ExecuteNonQuery();
+            }
+        }
+
+        /// <summary>
+        /// Actualiza una partida ya existente (FolioFactura + Partida). Es
+        /// la contraparte de InsertarPartidaFactura: mismos campos, pero vía
+        /// UPDATE en vez de INSERT. Se agrega porque el formulario permite
+        /// cargar una partida existente para edición (doble clic en la
+        /// grilla de partidas) y, al confirmar, antes se intentaba volver a
+        /// insertarla con la misma llave (FolioFactura, Partida), lo que
+        /// producía una violación de llave primaria/única.
+        /// </summary>
+        public void ActualizarPartidaFactura(string folioFactura, string partida, string claveProducto, string concepto2,
+            string cantidad, string unidad, string divisa, string tipoCambio, decimal subtotal, decimal descuento,
+            decimal total, decimal precio, decimal impuesto, decimal DescuentoImporte, decimal ImpuestoImporte)
+        {
+            const string sql = @"
+                UPDATE PartidaFactura SET
+                    ClaveProducto = @ClaveProducto,
+                    Concepto2 = @Concepto2,
+                    Cantidad = @Cantidad,
+                    Unidad = @Unidad,
+                    Divisa = @Divisa,
+                    TipoCambio = @TipoCambio,
+                    Subtotal = @Subtotal,
+                    Descuento = @Descuento,
+                    Total = @Total,
+                    Precio = @Precio,
+                    Impuesto = @Impuesto,
+                    DescuentoImporte = @DescuentoImporte,   
+                    ImpuestoImporte = @ImpuestoImporte
+                WHERE FolioFactura = @FolioFactura AND Partida = @Partida";
+
+            using (SqlConnection cn = new SqlConnection(ObtenerCn()))
+            using (SqlCommand cmd = new SqlCommand(sql, cn))
+            {
+                cmd.Parameters.AddWithValue("@FolioFactura", Convert.ToInt32(folioFactura));
+                cmd.Parameters.AddWithValue("@Partida", Convert.ToInt32(partida));
+                cmd.Parameters.AddWithValue("@ClaveProducto", IntOrNull(claveProducto));
+                cmd.Parameters.AddWithValue("@Concepto2", (object)concepto2 ?? DBNull.Value);
+                cmd.Parameters.AddWithValue("@Cantidad", string.IsNullOrWhiteSpace(cantidad) ? 0 : Convert.ToInt32(Convert.ToDecimal(cantidad)));
+                cmd.Parameters.AddWithValue("@Unidad", (object)unidad ?? DBNull.Value);
+                cmd.Parameters.AddWithValue("@Divisa", (object)divisa ?? DBNull.Value);
+                cmd.Parameters.AddWithValue("@TipoCambio", string.IsNullOrWhiteSpace(tipoCambio) ? 1.00m : Convert.ToDecimal(tipoCambio));
+                cmd.Parameters.AddWithValue("@Subtotal", subtotal);
+                cmd.Parameters.AddWithValue("@Descuento", descuento);
+                cmd.Parameters.AddWithValue("@Total", total);
+                cmd.Parameters.AddWithValue("@Precio", precio);
+                cmd.Parameters.AddWithValue("@Impuesto", impuesto);
+                cmd.Parameters.AddWithValue("@DescuentoImporte", DescuentoImporte);
+                cmd.Parameters.AddWithValue("@ImpuestoImporte", ImpuestoImporte);
 
                 cn.Open();
                 cmd.ExecuteNonQuery();
@@ -929,13 +1030,13 @@ namespace PV.Clases.Facturas
         }
 
 
-            /// <summary>
-            /// Genera el XML de una Factura (encabezado + emisor + cliente + partidas),
-            /// misma estructura que GenerarXmlRemision pero usando Factura/PartidaFactura/Servicios.
-            /// </summary>
-            public string GenerarXmlFactura(string folio)
-            {
-                const string sqlFactura = @"
+        /// <summary>
+        /// Genera el XML de una Factura (encabezado + emisor + cliente + partidas),
+        /// misma estructura que GenerarXmlRemision pero usando Factura/PartidaFactura/Servicios.
+        /// </summary>
+        public string GenerarXmlFactura(string folio)
+        {
+            const string sqlFactura = @"
                 SELECT F.Folio, F.ClaveDocumento, F.Estatus, F.Fecha,
                        F.Divisa, F.TipoCambio, F.Subtotal, F.Descuento, F.Cargo, F.Total,
                        F.TotalPartidas, F.Notas, F.Elaborado, F.Saldo, F.FolioOrden, F.Consecutivo,
@@ -946,12 +1047,12 @@ namespace PV.Clases.Facturas
                 LEFT JOIN Clientes AS C ON F.ClaveProveedor = C.IdCliente
                 WHERE F.Folio = @Folio";
 
-                const string sqlEmpresa = @"
+            const string sqlEmpresa = @"
                 SELECT TOP 1 RazonSocial, NombreComercial, RFC, Telefono1, Correo, PaginaWeb,
                        CalleNumero, Colonia, Municipio, Estado, CodigoPostal, Pais
                 FROM DatosEmpresa";
 
-                const string sqlPartidas = @"
+            const string sqlPartidas = @"
                 SELECT PF.Partida, PF.ClaveProducto, PF.Concepto2, PF.Cantidad, PF.Unidad,
                        PF.Divisa, PF.TipoCambio, PF.Subtotal, PF.Descuento, PF.Total,
                        PF.Precio, PF.CantidadRecibida, PF.Impuesto,
@@ -961,151 +1062,151 @@ namespace PV.Clases.Facturas
                 WHERE PF.FolioFactura = @Folio
                 ORDER BY PF.Partida";
 
-                using (SqlConnection cn = new SqlConnection(ObtenerCn()))
+            using (SqlConnection cn = new SqlConnection(ObtenerCn()))
+            {
+                cn.Open();
+
+                // --- Datos de la Factura (encabezado) ---
+                DataRow facturaRow = null;
+                using (SqlCommand cmd = new SqlCommand(sqlFactura, cn))
                 {
-                    cn.Open();
-
-                    // --- Datos de la Factura (encabezado) ---
-                    DataRow facturaRow = null;
-                    using (SqlCommand cmd = new SqlCommand(sqlFactura, cn))
-                    {
-                        cmd.Parameters.AddWithValue("@Folio", folio);
-                        using (SqlDataAdapter da = new SqlDataAdapter(cmd))
-                        {
-                            DataTable dt = new DataTable();
-                            da.Fill(dt);
-                            if (dt.Rows.Count == 0)
-                                return null; // no existe esa factura
-
-                            facturaRow = dt.Rows[0];
-                        }
-                    }
-
-                    // --- Datos de la Empresa (Emisor) ---
-                    DataRow empresaRow = null;
-                    using (SqlCommand cmd = new SqlCommand(sqlEmpresa, cn))
+                    cmd.Parameters.AddWithValue("@Folio", folio);
                     using (SqlDataAdapter da = new SqlDataAdapter(cmd))
                     {
                         DataTable dt = new DataTable();
                         da.Fill(dt);
-                        if (dt.Rows.Count > 0)
-                            empresaRow = dt.Rows[0];
+                        if (dt.Rows.Count == 0)
+                            return null; // no existe esa factura
+
+                        facturaRow = dt.Rows[0];
                     }
+                }
 
-                    // --- Partidas de la Factura ---
-                    DataTable partidasDt = new DataTable();
-                    using (SqlCommand cmd = new SqlCommand(sqlPartidas, cn))
+                // --- Datos de la Empresa (Emisor) ---
+                DataRow empresaRow = null;
+                using (SqlCommand cmd = new SqlCommand(sqlEmpresa, cn))
+                using (SqlDataAdapter da = new SqlDataAdapter(cmd))
+                {
+                    DataTable dt = new DataTable();
+                    da.Fill(dt);
+                    if (dt.Rows.Count > 0)
+                        empresaRow = dt.Rows[0];
+                }
+
+                // --- Partidas de la Factura ---
+                DataTable partidasDt = new DataTable();
+                using (SqlCommand cmd = new SqlCommand(sqlPartidas, cn))
+                {
+                    cmd.Parameters.AddWithValue("@Folio", folio);
+                    using (SqlDataAdapter da = new SqlDataAdapter(cmd))
                     {
-                        cmd.Parameters.AddWithValue("@Folio", folio);
-                        using (SqlDataAdapter da = new SqlDataAdapter(cmd))
-                        {
-                            da.Fill(partidasDt);
-                        }
+                        da.Fill(partidasDt);
                     }
+                }
 
-                    // --- Construcción del XML ---
-                    var settings = new System.Xml.XmlWriterSettings
+                // --- Construcción del XML ---
+                var settings = new System.Xml.XmlWriterSettings
+                {
+                    Indent = true,
+                    Encoding = System.Text.Encoding.UTF8,
+                    OmitXmlDeclaration = false
+                };
+
+                using (var sw = new System.IO.StringWriter())
+                using (var writer = System.Xml.XmlWriter.Create(sw, settings))
+                {
+                    writer.WriteStartDocument();
+                    writer.WriteStartElement("Factura");
+
+                    // Bloque Emisor (empresa)
+                    writer.WriteStartElement("Emisor");
+                    if (empresaRow != null)
                     {
-                        Indent = true,
-                        Encoding = System.Text.Encoding.UTF8,
-                        OmitXmlDeclaration = false
-                    };
-
-                    using (var sw = new System.IO.StringWriter())
-                    using (var writer = System.Xml.XmlWriter.Create(sw, settings))
-                    {
-                        writer.WriteStartDocument();
-                        writer.WriteStartElement("Factura");
-
-                        // Bloque Emisor (empresa)
-                        writer.WriteStartElement("Emisor");
-                        if (empresaRow != null)
-                        {
-                            writer.WriteElementString("RazonSocial", empresaRow["RazonSocial"].ToString());
-                            writer.WriteElementString("NombreComercial", empresaRow["NombreComercial"].ToString());
-                            writer.WriteElementString("RFC", empresaRow["RFC"].ToString());
-                            writer.WriteElementString("Telefono", empresaRow["Telefono1"].ToString());
-                            writer.WriteElementString("Correo", empresaRow["Correo"].ToString());
-                            writer.WriteElementString("PaginaWeb", empresaRow["PaginaWeb"].ToString());
-                            writer.WriteElementString("Domicilio", empresaRow["CalleNumero"].ToString());
-                            writer.WriteElementString("Colonia", empresaRow["Colonia"].ToString());
-                            writer.WriteElementString("Municipio", empresaRow["Municipio"].ToString());
-                            writer.WriteElementString("Estado", empresaRow["Estado"].ToString());
-                            writer.WriteElementString("CodigoPostal", empresaRow["CodigoPostal"].ToString());
-                            writer.WriteElementString("Pais", empresaRow["Pais"].ToString());
-                        }
-                        writer.WriteEndElement(); // Emisor
-
-                        // Datos generales de la factura
-                        writer.WriteElementString("Folio", facturaRow["Folio"].ToString());
-                        writer.WriteElementString("ClaveDocumento", facturaRow["ClaveDocumento"].ToString());
-                        writer.WriteElementString("Estatus", facturaRow["Estatus"].ToString());
-                        writer.WriteElementString("Fecha", facturaRow["Fecha"] == DBNull.Value ? "" : Convert.ToDateTime(facturaRow["Fecha"]).ToString("yyyy-MM-dd"));
-                        writer.WriteElementString("FechaVence", facturaRow["FechaVence"] == DBNull.Value ? "" : Convert.ToDateTime(facturaRow["FechaVence"]).ToString("yyyy-MM-dd"));
-                        writer.WriteElementString("Divisa", facturaRow["Divisa"].ToString());
-                        writer.WriteElementString("TipoCambio", facturaRow["TipoCambio"].ToString());
-                        writer.WriteElementString("Subtotal", facturaRow["Subtotal"].ToString());
-                        writer.WriteElementString("Descuento", facturaRow["Descuento"].ToString());
-                        writer.WriteElementString("Cargo", facturaRow["Cargo"].ToString());
-                        writer.WriteElementString("Total", facturaRow["Total"].ToString());
-                        writer.WriteElementString("Saldo", facturaRow["Saldo"].ToString());
-                        writer.WriteElementString("Notas", facturaRow["Notas"].ToString());
-                        writer.WriteElementString("Elaborado", facturaRow["Elaborado"].ToString());
-                        writer.WriteElementString("Almacen", facturaRow["Almacen"].ToString());
-                        writer.WriteElementString("Referencia", facturaRow["Referencia"].ToString());
-                        writer.WriteElementString("Autorizado", facturaRow["Autorizado"].ToString());
-                        writer.WriteElementString("CentroCostos", facturaRow["CentroCostos"].ToString());
-                        writer.WriteElementString("IdProyecto", facturaRow["IdProyecto"].ToString());
-
-                        // Bloque Cliente (receptor)
-                        writer.WriteStartElement("Cliente");
-                        writer.WriteElementString("IdCliente", facturaRow["IdCliente"].ToString());
-                        writer.WriteElementString("RazonSocial", facturaRow["RazonSocial"].ToString());
-                        writer.WriteElementString("RFC", facturaRow["RFC"].ToString());
-                        writer.WriteElementString("Calle", facturaRow["Calle"].ToString());
-                        writer.WriteElementString("NoExterior", facturaRow["NoExterior"].ToString());
-                        writer.WriteElementString("NoInterior", facturaRow["NoInterior"].ToString());
-                        writer.WriteElementString("Colonia", facturaRow["Colonia"].ToString());
-                        writer.WriteElementString("Municipio", facturaRow["Municipio"].ToString());
-                        writer.WriteElementString("CodigoPostal", facturaRow["CodigoPostal"].ToString());
-                        writer.WriteElementString("Ciudad", facturaRow["Ciudad"].ToString());
-                        writer.WriteElementString("Pais", facturaRow["Pais"].ToString());
-                        writer.WriteEndElement(); // Cliente
-
-                        // Bloque Partidas (detalle)
-                        writer.WriteStartElement("Partidas");
-                        foreach (DataRow p in partidasDt.Rows)
-                        {
-                            writer.WriteStartElement("Partida");
-                            writer.WriteElementString("NumeroPartida", p["Partida"].ToString());
-                            writer.WriteElementString("ClaveProducto", p["ClaveProducto"].ToString());
-                            writer.WriteElementString("Descripcion",
-                                p["DescripcionProducto"] != DBNull.Value ? p["DescripcionProducto"].ToString() : p["Concepto2"].ToString());
-                            writer.WriteElementString("Alias", p["Alias"].ToString());
-                            writer.WriteElementString("Cantidad", p["Cantidad"].ToString());
-                            writer.WriteElementString("CantidadRecibida", p["CantidadRecibida"].ToString());
-                            writer.WriteElementString("Unidad",
-                                !string.IsNullOrWhiteSpace(p["Unidad"].ToString()) ? p["Unidad"].ToString() : p["UnidadMedida"].ToString());
-                            writer.WriteElementString("Precio", p["Precio"].ToString());
-                            writer.WriteElementString("Divisa", p["Divisa"].ToString());
-                            writer.WriteElementString("TipoCambio", p["TipoCambio"].ToString());
-                            writer.WriteElementString("Subtotal", p["Subtotal"].ToString());
-                            writer.WriteElementString("Descuento", p["Descuento"].ToString());
-                            writer.WriteElementString("Impuesto", p["Impuesto"].ToString());
-                            writer.WriteElementString("Total", p["Total"].ToString());
-                            writer.WriteEndElement(); // Partida
-                        }
-                        writer.WriteEndElement(); // Partidas
-
-                        writer.WriteEndElement(); // Factura
-                        writer.WriteEndDocument();
-                        writer.Flush();
-
-                        return sw.ToString();
+                        writer.WriteElementString("RazonSocial", empresaRow["RazonSocial"].ToString());
+                        writer.WriteElementString("NombreComercial", empresaRow["NombreComercial"].ToString());
+                        writer.WriteElementString("RFC", empresaRow["RFC"].ToString());
+                        writer.WriteElementString("Telefono", empresaRow["Telefono1"].ToString());
+                        writer.WriteElementString("Correo", empresaRow["Correo"].ToString());
+                        writer.WriteElementString("PaginaWeb", empresaRow["PaginaWeb"].ToString());
+                        writer.WriteElementString("Domicilio", empresaRow["CalleNumero"].ToString());
+                        writer.WriteElementString("Colonia", empresaRow["Colonia"].ToString());
+                        writer.WriteElementString("Municipio", empresaRow["Municipio"].ToString());
+                        writer.WriteElementString("Estado", empresaRow["Estado"].ToString());
+                        writer.WriteElementString("CodigoPostal", empresaRow["CodigoPostal"].ToString());
+                        writer.WriteElementString("Pais", empresaRow["Pais"].ToString());
                     }
+                    writer.WriteEndElement(); // Emisor
+
+                    // Datos generales de la factura
+                    writer.WriteElementString("Folio", facturaRow["Folio"].ToString());
+                    writer.WriteElementString("ClaveDocumento", facturaRow["ClaveDocumento"].ToString());
+                    writer.WriteElementString("Estatus", facturaRow["Estatus"].ToString());
+                    writer.WriteElementString("Fecha", facturaRow["Fecha"] == DBNull.Value ? "" : Convert.ToDateTime(facturaRow["Fecha"]).ToString("yyyy-MM-dd"));
+                    writer.WriteElementString("FechaVence", facturaRow["FechaVence"] == DBNull.Value ? "" : Convert.ToDateTime(facturaRow["FechaVence"]).ToString("yyyy-MM-dd"));
+                    writer.WriteElementString("Divisa", facturaRow["Divisa"].ToString());
+                    writer.WriteElementString("TipoCambio", facturaRow["TipoCambio"].ToString());
+                    writer.WriteElementString("Subtotal", facturaRow["Subtotal"].ToString());
+                    writer.WriteElementString("Descuento", facturaRow["Descuento"].ToString());
+                    writer.WriteElementString("Cargo", facturaRow["Cargo"].ToString());
+                    writer.WriteElementString("Total", facturaRow["Total"].ToString());
+                    writer.WriteElementString("Saldo", facturaRow["Saldo"].ToString());
+                    writer.WriteElementString("Notas", facturaRow["Notas"].ToString());
+                    writer.WriteElementString("Elaborado", facturaRow["Elaborado"].ToString());
+                    writer.WriteElementString("Almacen", facturaRow["Almacen"].ToString());
+                    writer.WriteElementString("Referencia", facturaRow["Referencia"].ToString());
+                    writer.WriteElementString("Autorizado", facturaRow["Autorizado"].ToString());
+                    writer.WriteElementString("CentroCostos", facturaRow["CentroCostos"].ToString());
+                    writer.WriteElementString("IdProyecto", facturaRow["IdProyecto"].ToString());
+
+                    // Bloque Cliente (receptor)
+                    writer.WriteStartElement("Cliente");
+                    writer.WriteElementString("IdCliente", facturaRow["IdCliente"].ToString());
+                    writer.WriteElementString("RazonSocial", facturaRow["RazonSocial"].ToString());
+                    writer.WriteElementString("RFC", facturaRow["RFC"].ToString());
+                    writer.WriteElementString("Calle", facturaRow["Calle"].ToString());
+                    writer.WriteElementString("NoExterior", facturaRow["NoExterior"].ToString());
+                    writer.WriteElementString("NoInterior", facturaRow["NoInterior"].ToString());
+                    writer.WriteElementString("Colonia", facturaRow["Colonia"].ToString());
+                    writer.WriteElementString("Municipio", facturaRow["Municipio"].ToString());
+                    writer.WriteElementString("CodigoPostal", facturaRow["CodigoPostal"].ToString());
+                    writer.WriteElementString("Ciudad", facturaRow["Ciudad"].ToString());
+                    writer.WriteElementString("Pais", facturaRow["Pais"].ToString());
+                    writer.WriteEndElement(); // Cliente
+
+                    // Bloque Partidas (detalle)
+                    writer.WriteStartElement("Partidas");
+                    foreach (DataRow p in partidasDt.Rows)
+                    {
+                        writer.WriteStartElement("Partida");
+                        writer.WriteElementString("NumeroPartida", p["Partida"].ToString());
+                        writer.WriteElementString("ClaveProducto", p["ClaveProducto"].ToString());
+                        writer.WriteElementString("Descripcion",
+                            p["DescripcionProducto"] != DBNull.Value ? p["DescripcionProducto"].ToString() : p["Concepto2"].ToString());
+                        writer.WriteElementString("Alias", p["Alias"].ToString());
+                        writer.WriteElementString("Cantidad", p["Cantidad"].ToString());
+                        writer.WriteElementString("CantidadRecibida", p["CantidadRecibida"].ToString());
+                        writer.WriteElementString("Unidad",
+                            !string.IsNullOrWhiteSpace(p["Unidad"].ToString()) ? p["Unidad"].ToString() : p["UnidadMedida"].ToString());
+                        writer.WriteElementString("Precio", p["Precio"].ToString());
+                        writer.WriteElementString("Divisa", p["Divisa"].ToString());
+                        writer.WriteElementString("TipoCambio", p["TipoCambio"].ToString());
+                        writer.WriteElementString("Subtotal", p["Subtotal"].ToString());
+                        writer.WriteElementString("Descuento", p["Descuento"].ToString());
+                        writer.WriteElementString("Impuesto", p["Impuesto"].ToString());
+                        writer.WriteElementString("Total", p["Total"].ToString());
+                        writer.WriteEndElement(); // Partida
+                    }
+                    writer.WriteEndElement(); // Partidas
+
+                    writer.WriteEndElement(); // Factura
+                    writer.WriteEndDocument();
+                    writer.Flush();
+
+                    return sw.ToString();
                 }
             }
         }
-    }
-        #endregion
 
+        #endregion
+    }
+}

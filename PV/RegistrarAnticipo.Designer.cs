@@ -30,9 +30,9 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(RegistrarAnticipo));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             this.panel1 = new System.Windows.Forms.Panel();
             this.lbEstatus = new System.Windows.Forms.Label();
@@ -49,6 +49,7 @@
             this.label16 = new System.Windows.Forms.Label();
             this.txtimporte = new Guna.UI2.WinForms.Guna2TextBox();
             this.label17 = new System.Windows.Forms.Label();
+            this.cmbConceptoCobro = new Guna.UI2.WinForms.Guna2ComboBox();
             this.cmbDivisas = new Guna.UI2.WinForms.Guna2ComboBox();
             this.label11 = new System.Windows.Forms.Label();
             this.cmbCuentaBancaria = new Guna.UI2.WinForms.Guna2ComboBox();
@@ -60,7 +61,6 @@
             this.label7 = new System.Windows.Forms.Label();
             this.txtReferencia = new Guna.UI2.WinForms.Guna2TextBox();
             this.txtTipoCambio = new Guna.UI2.WinForms.Guna2TextBox();
-            this.txtConcepto = new Guna.UI2.WinForms.Guna2TextBox();
             this.btnBuscar = new Guna.UI2.WinForms.Guna2Button();
             this.dtpFecha = new Guna.UI2.WinForms.Guna2DateTimePicker();
             this.txtAlumno = new Guna.UI2.WinForms.Guna2TextBox();
@@ -71,6 +71,7 @@
             this.label8 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
+            this.txtConcepto = new Guna.UI2.WinForms.Guna2TextBox();
             this.btnConfirmarAnticipo = new Guna.UI2.WinForms.Guna2Button();
             this.btnLimpiar = new Guna.UI2.WinForms.Guna2Button();
             this.btnCancelarAnticipo = new Guna.UI2.WinForms.Guna2Button();
@@ -94,7 +95,6 @@
             this.label12 = new System.Windows.Forms.Label();
             this.txtFiltro = new Guna.UI2.WinForms.Guna2TextBox();
             this.PanelUsuario = new System.Windows.Forms.Panel();
-            this.cmbConceptoCobro = new Guna.UI2.WinForms.Guna2ComboBox();
             this.panel1.SuspendLayout();
             this.pnRegistrar.SuspendLayout();
             this.fl.SuspendLayout();
@@ -347,6 +347,27 @@
             this.label17.TabIndex = 111;
             this.label17.Text = "Concepto:";
             // 
+            // cmbConceptoCobro
+            // 
+            this.cmbConceptoCobro.AutoRoundedCorners = true;
+            this.cmbConceptoCobro.BackColor = System.Drawing.Color.Transparent;
+            this.cmbConceptoCobro.BorderColor = System.Drawing.Color.Gray;
+            this.cmbConceptoCobro.BorderRadius = 12;
+            this.cmbConceptoCobro.BorderStyle = System.Drawing.Drawing2D.DashStyle.Custom;
+            this.cmbConceptoCobro.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
+            this.cmbConceptoCobro.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbConceptoCobro.FocusedColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.cmbConceptoCobro.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.cmbConceptoCobro.Font = new System.Drawing.Font("Arial", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cmbConceptoCobro.ForeColor = System.Drawing.Color.Black;
+            this.cmbConceptoCobro.IntegralHeight = false;
+            this.cmbConceptoCobro.ItemHeight = 21;
+            this.cmbConceptoCobro.Location = new System.Drawing.Point(157, 81);
+            this.cmbConceptoCobro.Name = "cmbConceptoCobro";
+            this.cmbConceptoCobro.Size = new System.Drawing.Size(259, 27);
+            this.cmbConceptoCobro.TabIndex = 12;
+            this.cmbConceptoCobro.SelectedIndexChanged += new System.EventHandler(this.cmbDivisas_SelectedIndexChanged);
+            // 
             // cmbDivisas
             // 
             this.cmbDivisas.AutoRoundedCorners = true;
@@ -526,31 +547,6 @@
             this.txtTipoCambio.Size = new System.Drawing.Size(87, 23);
             this.txtTipoCambio.TabIndex = 13;
             // 
-            // txtConcepto
-            // 
-            this.txtConcepto.AutoRoundedCorners = true;
-            this.txtConcepto.BorderColor = System.Drawing.Color.Gray;
-            this.txtConcepto.BorderRadius = 10;
-            this.txtConcepto.Cursor = System.Windows.Forms.Cursors.IBeam;
-            this.txtConcepto.DefaultText = "";
-            this.txtConcepto.DisabledState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(208)))), ((int)(((byte)(208)))));
-            this.txtConcepto.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(226)))), ((int)(((byte)(226)))));
-            this.txtConcepto.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
-            this.txtConcepto.DisabledState.PlaceholderForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
-            this.txtConcepto.Enabled = false;
-            this.txtConcepto.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.txtConcepto.Font = new System.Drawing.Font("Arial", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtConcepto.ForeColor = System.Drawing.Color.Black;
-            this.txtConcepto.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.txtConcepto.Location = new System.Drawing.Point(132, 576);
-            this.txtConcepto.Name = "txtConcepto";
-            this.txtConcepto.PlaceholderText = "";
-            this.txtConcepto.SelectedText = "";
-            this.txtConcepto.Size = new System.Drawing.Size(350, 23);
-            this.txtConcepto.TabIndex = 8;
-            this.txtConcepto.Visible = false;
-            this.txtConcepto.TextChanged += new System.EventHandler(this.txtConcepto_TextChanged);
-            // 
             // btnBuscar
             // 
             this.btnBuscar.AutoRoundedCorners = true;
@@ -707,6 +703,31 @@
             this.label2.Size = new System.Drawing.Size(44, 15);
             this.label2.TabIndex = 1;
             this.label2.Text = "Fecha:";
+            // 
+            // txtConcepto
+            // 
+            this.txtConcepto.AutoRoundedCorners = true;
+            this.txtConcepto.BorderColor = System.Drawing.Color.Gray;
+            this.txtConcepto.BorderRadius = 10;
+            this.txtConcepto.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.txtConcepto.DefaultText = "";
+            this.txtConcepto.DisabledState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(208)))), ((int)(((byte)(208)))));
+            this.txtConcepto.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(226)))), ((int)(((byte)(226)))));
+            this.txtConcepto.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
+            this.txtConcepto.DisabledState.PlaceholderForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
+            this.txtConcepto.Enabled = false;
+            this.txtConcepto.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.txtConcepto.Font = new System.Drawing.Font("Arial", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtConcepto.ForeColor = System.Drawing.Color.Black;
+            this.txtConcepto.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.txtConcepto.Location = new System.Drawing.Point(132, 576);
+            this.txtConcepto.Name = "txtConcepto";
+            this.txtConcepto.PlaceholderText = "";
+            this.txtConcepto.SelectedText = "";
+            this.txtConcepto.Size = new System.Drawing.Size(350, 23);
+            this.txtConcepto.TabIndex = 8;
+            this.txtConcepto.Visible = false;
+            this.txtConcepto.TextChanged += new System.EventHandler(this.txtConcepto_TextChanged);
             // 
             // btnConfirmarAnticipo
             // 
@@ -978,40 +999,40 @@
             this.dgvAnticipos.BackgroundColor = System.Drawing.Color.WhiteSmoke;
             this.dgvAnticipos.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.dgvAnticipos.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(19)))), ((int)(((byte)(35)))), ((int)(((byte)(95)))));
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(19)))), ((int)(((byte)(35)))), ((int)(((byte)(95)))));
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvAnticipos.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(19)))), ((int)(((byte)(35)))), ((int)(((byte)(95)))));
+            dataGridViewCellStyle4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle4.ForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(19)))), ((int)(((byte)(35)))), ((int)(((byte)(95)))));
+            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvAnticipos.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle4;
             this.dgvAnticipos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvAnticipos.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Folio,
             this.Propietario,
             this.Saldo});
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgvAnticipos.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle5.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvAnticipos.DefaultCellStyle = dataGridViewCellStyle5;
             this.dgvAnticipos.EnableHeadersVisualStyles = false;
             this.dgvAnticipos.Location = new System.Drawing.Point(0, 46);
             this.dgvAnticipos.MultiSelect = false;
             this.dgvAnticipos.Name = "dgvAnticipos";
             this.dgvAnticipos.ReadOnly = true;
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvAnticipos.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle6.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvAnticipos.RowHeadersDefaultCellStyle = dataGridViewCellStyle6;
             this.dgvAnticipos.RowHeadersVisible = false;
             this.dgvAnticipos.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
             this.dgvAnticipos.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
@@ -1080,32 +1101,11 @@
             this.PanelUsuario.Controls.Add(this.txtFiltro);
             this.PanelUsuario.Controls.Add(this.label12);
             this.PanelUsuario.Controls.Add(this.dgvAnticipos);
-            this.PanelUsuario.Location = new System.Drawing.Point(354, 83);
+            this.PanelUsuario.Location = new System.Drawing.Point(345, 85);
             this.PanelUsuario.Name = "PanelUsuario";
             this.PanelUsuario.Size = new System.Drawing.Size(302, 482);
             this.PanelUsuario.TabIndex = 114;
             this.PanelUsuario.Visible = false;
-            // 
-            // cmbConceptoCobro
-            // 
-            this.cmbConceptoCobro.AutoRoundedCorners = true;
-            this.cmbConceptoCobro.BackColor = System.Drawing.Color.Transparent;
-            this.cmbConceptoCobro.BorderColor = System.Drawing.Color.Gray;
-            this.cmbConceptoCobro.BorderRadius = 12;
-            this.cmbConceptoCobro.BorderStyle = System.Drawing.Drawing2D.DashStyle.Custom;
-            this.cmbConceptoCobro.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
-            this.cmbConceptoCobro.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbConceptoCobro.FocusedColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.cmbConceptoCobro.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.cmbConceptoCobro.Font = new System.Drawing.Font("Arial", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cmbConceptoCobro.ForeColor = System.Drawing.Color.Black;
-            this.cmbConceptoCobro.IntegralHeight = false;
-            this.cmbConceptoCobro.ItemHeight = 21;
-            this.cmbConceptoCobro.Location = new System.Drawing.Point(157, 81);
-            this.cmbConceptoCobro.Name = "cmbConceptoCobro";
-            this.cmbConceptoCobro.Size = new System.Drawing.Size(259, 27);
-            this.cmbConceptoCobro.TabIndex = 12;
-            this.cmbConceptoCobro.SelectedIndexChanged += new System.EventHandler(this.cmbDivisas_SelectedIndexChanged);
             // 
             // RegistrarAnticipo
             // 
@@ -1114,9 +1114,9 @@
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(237)))), ((int)(((byte)(237)))), ((int)(((byte)(237)))));
             this.ClientSize = new System.Drawing.Size(737, 635);
             this.ControlBox = false;
+            this.Controls.Add(this.PanelUsuario);
             this.Controls.Add(this.guna2GradientPanel1);
             this.Controls.Add(this.fl);
-            this.Controls.Add(this.PanelUsuario);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.btnConfirmarAnticipo);
             this.Controls.Add(this.btnCancelarAnticipo);

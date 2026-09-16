@@ -922,7 +922,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>Cargo</Value>
+                                  <Value>Impuesto</Value>
                                   <Style />
                                 </TextRun>
                               </TextRuns>
@@ -1254,6 +1254,9 @@
               <Height>0.6cm</Height>
               <Width>3.1cm</Width>
               <ZIndex>4</ZIndex>
+              <Visibility>
+                <Hidden>true</Hidden>
+              </Visibility>
               <Style>
                 <Border>
                   <Style>None</Style>
@@ -1290,6 +1293,9 @@
               <Height>0.6cm</Height>
               <Width>6.9cm</Width>
               <ZIndex>5</ZIndex>
+              <Visibility>
+                <Hidden>true</Hidden>
+              </Visibility>
               <Style>
                 <Border>
                   <Style>None</Style>
@@ -1394,7 +1400,7 @@
                     <Paragraph>
                       <TextRuns>
                         <TextRun>
-                          <Value>=First(Fields!RazonSocial.Value, "DataSet2")</Value>
+                          <Value>=First(Fields!IdCliente.Value, "DataSet2").ToString()+ " "+First(Fields!RazonSocial.Value, "DataSet2").ToString()</Value>
                           <Style>
                             <FontWeight>Bold</FontWeight>
                           </Style>

@@ -134,6 +134,11 @@ namespace PV
             {
                 BuscarListaProveedores buscar = new BuscarListaProveedores();
                 buscar.ShowDialog();
+                if (!string.IsNullOrEmpty(BuscarListaProveedores.ClaveProveedor))
+                {
+                    txtMatricula.Text = BuscarListaProveedores.ClaveProveedor;
+                    txtAlumno.Text = BuscarListaProveedores.NombreProveedor;
+                }
             }
         }
 
@@ -276,15 +281,14 @@ namespace PV
 
             if (Opcion == "Propietario")
             {
-                c.ConsultaConceptoAnticipo(txtConcepto, txtConceptoClave);
+                //c.ConsultaConceptoAnticipo(txtConcepto, txtConceptoClave);
                 c.CargarAnticipoCliente(dgvAnticipos, txtFiltro.Text);
             }
             else
             {
                 c.CargarAnticipoProveedor(dgvAnticipos, txtFiltro.Text);
                 lbProv.Visible = true;
-                txtConcepto.Text = "APR - Anticipo Proveedores";
-                txtConceptoClave.Text = "APR";
+           
             }
         }
 

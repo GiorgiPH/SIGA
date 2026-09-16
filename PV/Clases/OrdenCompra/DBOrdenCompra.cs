@@ -5231,7 +5231,7 @@ namespace PV.Clases.OrdenCompra
                 MessageBox.Show(ex.ToString());
             }
         }
-        public void ConsultaRemision(string Folio, TextBox Documento, ComboBox Estatus, Guna2DateTimePicker Fecha, Guna.UI2.WinForms.Guna2TextBox Dias, Guna.UI2.WinForms.Guna2TextBox FechaVence, Guna.UI2.WinForms.Guna2TextBox Divisa, Guna.UI2.WinForms.Guna2TextBox TipoCambio, Guna.UI2.WinForms.Guna2TextBox Subtotal, Guna.UI2.WinForms.Guna2TextBox Descuentos, Guna.UI2.WinForms.Guna2TextBox Cargo, Guna.UI2.WinForms.Guna2TextBox Total, Guna.UI2.WinForms.Guna2TextBox Partidas, Guna.UI2.WinForms.Guna2TextBox Notas, Guna.UI2.WinForms.Guna2TextBox Elaborado, TextBox txtFolio, Guna.UI2.WinForms.Guna2TextBox txtConsecutivo, Guna.UI2.WinForms.Guna2TextBox txtAutoriza, Guna.UI2.WinForms.Guna2TextBox txtFechaAutoriza, ComboBox cmbAlmacen, TextBox txtFolioPedido, Guna.UI2.WinForms.Guna2TextBox txtPedidoCliente, out string cliente, ComboBox CentroCosto,
+        public void ConsultaRemision(string Folio, TextBox Documento, ComboBox Estatus, Guna2DateTimePicker Fecha, Guna.UI2.WinForms.Guna2TextBox Dias, Guna.UI2.WinForms.Guna2TextBox FechaVence, Guna.UI2.WinForms.Guna2TextBox Divisa, Guna.UI2.WinForms.Guna2TextBox TipoCambio, Guna.UI2.WinForms.Guna2TextBox Subtotal, Guna.UI2.WinForms.Guna2TextBox Descuentos, Guna.UI2.WinForms.Guna2TextBox Cargo, Guna.UI2.WinForms.Guna2TextBox Total, Guna.UI2.WinForms.Guna2TextBox Saldo, Guna.UI2.WinForms.Guna2TextBox Partidas, Guna.UI2.WinForms.Guna2TextBox Notas, Guna.UI2.WinForms.Guna2TextBox Elaborado, TextBox txtFolio, Guna.UI2.WinForms.Guna2TextBox txtConsecutivo, Guna.UI2.WinForms.Guna2TextBox txtAutoriza, Guna.UI2.WinForms.Guna2TextBox txtFechaAutoriza, ComboBox cmbAlmacen, TextBox txtFolioPedido, Guna.UI2.WinForms.Guna2TextBox txtPedidoCliente, out string cliente, ComboBox CentroCosto,
      ComboBox cmbProyecto)
         {
             cliente = string.Empty;
@@ -5257,6 +5257,8 @@ namespace PV.Clases.OrdenCompra
                             Descuentos.Text = dr["Descuento"].ToString();
                             Cargo.Text = dr["Cargo"].ToString();
                             Total.Text = dr["Total"].ToString();
+                            Saldo.Text = dr["Saldo"].ToString();
+
 
                             Notas.Text = dr["Notas"].ToString();
                             Elaborado.Text = dr["Elaborado"].ToString();

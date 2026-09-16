@@ -1,6 +1,7 @@
-﻿using System;
-using System.Windows.Forms;
+﻿using PV.Clases.Clientes;
 using PV.Clases.OrdenCompra;
+using System;
+using System.Windows.Forms;
 
 namespace PV
 {
@@ -10,6 +11,9 @@ namespace PV
 
         public string Matricula { get; private set; }
         public string Nombre { get; private set; }
+
+        public static string ClaveProveedor = string.Empty;
+        public static string NombreProveedor= string.Empty;
 
         public BuscarListaProveedores()
         {
@@ -35,6 +39,9 @@ namespace PV
 
             Matricula = dataGridView1.Rows[e.RowIndex].Cells["Id"].Value.ToString();
             Nombre = dataGridView1.Rows[e.RowIndex].Cells["Proveedor"].Value.ToString();
+
+            ClaveProveedor = dataGridView1.Rows[e.RowIndex].Cells["Id"].Value.ToString();
+            NombreProveedor = dataGridView1.Rows[e.RowIndex].Cells["Proveedor"].Value.ToString();
 
             DialogResult = DialogResult.OK;
             Close();

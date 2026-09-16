@@ -202,6 +202,7 @@ namespace PV
             }
 
             AplicarAnticipoSaldo cobro = new AplicarAnticipoSaldo(Importe, txtMatricula.Text, txtAlumno.Text, Anticipo, dtpFecha.Text, Concepto);
+            
             cobro.ShowDialog();
 
             matricula = string.Empty;

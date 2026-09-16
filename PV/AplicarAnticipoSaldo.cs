@@ -20,15 +20,7 @@ namespace PV
     /// patrón de discriminador por Tag que ya usa <c>DBFacturas.CargarFacturaCobro</c>
     /// en el flujo de RegistrarCobro — y es ese Tag el que decide, al aplicar el
     /// abono, a qué actualizador de saldo y con qué TipoDocumento llamar.
-    ///
-    /// Cambios respecto a la versión original (ver detalle en el chat):
-    ///  - Antes sólo existían Remisiones como destino posible; ahora también
-    ///    pueden pagarse Facturas en la misma pantalla, sin duplicar formulario.
-    ///  - El constructor recibe además el Concepto (ConceptoCobroPago.IdConcepto)
-    ///    del Anticipo origen, para guardarlo como trazabilidad en AnticipoCobros.
-    ///  - <c>DBAnticipo.InsertarCobro</c> ahora requiere el TipoDocumento de cada
-    ///    fila (REMISION/FACTURA), ya que AnticipoCobros.Folio dejó de apuntar
-    ///    siempre a un único tipo de tabla.
+ 
     /// </summary>
     public partial class AplicarAnticipoSaldo : Form
     {
@@ -119,16 +111,6 @@ namespace PV
                 Importe = Convert.ToDecimal(dgvPagosPendientes.Rows[e.RowIndex].Cells[4].Value.ToString());
             }
 
-            if (dgvPagosPendientes.Rows[e.RowIndex].Cells[8].Value != null)
-            {
-                Abono = Convert.ToDecimal(dgvPagosPendientes.Rows[e.RowIndex].Cells[8].Value.ToString());
-
-            }
-            else
-            {
-                dgvPagosPendientes.Rows[e.RowIndex].Cells[8].Value = 0;
-            }
-
             if (dgvPagosPendientes.Rows[e.RowIndex].Cells[6].Value != null)
             {
                 Descuento = Convert.ToDecimal(dgvPagosPendientes.Rows[e.RowIndex].Cells[6].Value.ToString());
@@ -139,9 +121,32 @@ namespace PV
                 dgvPagosPendientes.Rows[e.RowIndex].Cells[6].Value = 0;
             }
 
+            if (dgvPagosPendientes.Rows[e.RowIndex].Cells[8].Value != null)
+            {
+                Abono = Convert.ToDecimal(dgvPagosPendientes.Rows[e.RowIndex].Cells[8].Value.ToString());
+
+            }
+            else
+            {
+                dgvPagosPendientes.Rows[e.RowIndex].Cells[8].Value = 0;
+            }
+
+            // NUEVO: si el abono capturado excede el saldo disponible del documento
+            // (Importe - Descuento), se rechaza, se avisa y se regresa el Abono a 0.
+            if (Abono > (Importe - Descuento))
+            {
+                MessageBox.Show("El abono no puede ser mayor al saldo del documento");
+                Abono = 0.00M;
+                dgvPagosPendientes.Rows[e.RowIndex].Cells[8].Value = 0;
+            }
+
             if (Abono > 0)
             {
                 Saldo = Importe - Abono - Descuento;
+            }
+            else
+            {
+                Saldo = Importe - Descuento;
             }
 
             string saldo = Saldo.ToString("N", formato);
@@ -206,13 +211,7 @@ namespace PV
         /// Abono &gt; 0 actualiza el saldo del documento correspondiente (Remisión o
         /// Factura, según su Tag) y registra el movimiento en AnticipoCobros.
         /// Finalmente descuenta el saldo aplicado del Anticipo origen.
-        /// </summary>
-        /// <remarks>
-        /// CAMBIO: el despacho Remisión/Factura se decide leyendo
-        /// <c>row.Tag</c> (asignado por los loaders en <see cref="AplicarAnticipoSaldo_Load"/>).
-        /// Si por algún motivo una fila no trae Tag (p. ej. quedara alguna ruta vieja
-        /// que no lo asigne), se asume "REMISION" por compatibilidad con el
-        /// comportamiento anterior, que sólo contemplaba ese tipo.
+        /// </summary>       
         /// </remarks>
         private void button5_Click(object sender, EventArgs e)
         {

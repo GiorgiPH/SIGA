@@ -1705,7 +1705,7 @@ namespace PV
                 string cliente = string.Empty;
                 if (tipo == "Remision")
                 {
-                    o.ConsultaRemision(Folio, txtClave, cmbEstatus, txtFecha, txtDiasVence, txtFechaVence, txtDivisa, txtTipoCambio, txtSubtotal, txtDescuento, txtRecargo, txtTotal, txtPartidas, txtNotas, txtElaborado, txtFolio, txtConsecutivo, txtAutoriza, txtFechaAuto, cmbAlmacen, txtFolioPedido, d, out cliente, cmbCentroCostos, cmbproyecto);
+                    o.ConsultaRemision(Folio, txtClave, cmbEstatus, txtFecha, txtDiasVence, txtFechaVence, txtDivisa, txtTipoCambio, txtSubtotal, txtDescuento, txtRecargo, txtTotal, txtSaldo, txtPartidas, txtNotas, txtElaborado, txtFolio, txtConsecutivo, txtAutoriza, txtFechaAuto, cmbAlmacen, txtFolioPedido, d, out cliente, cmbCentroCostos, cmbproyecto);
                 }
                 else
                 {
@@ -1754,7 +1754,7 @@ namespace PV
                 txtFolio.Text = "X";
                 if (tipo == "Remision")
                 {
-                    o.ConsultaRemision(Folio, txtClave, cmbEstatus, txtFecha, txtDiasVence, txtFechaVence, txtDivisa, txtTipoCambio, txtSubtotal, txtDescuento, txtRecargo, txtTotal, txtPartidas, txtNotas, txtElaborado, txtFolio, txtConsecutivo, txtAutoriza, txtFechaAuto, cmbAlmacen, txtFolioPedido, d, out cliente, cmbCentroCostos, cmbproyecto);
+                    o.ConsultaRemision(Folio, txtClave, cmbEstatus, txtFecha, txtDiasVence, txtFechaVence, txtDivisa, txtTipoCambio, txtSubtotal, txtSaldo, txtDescuento, txtRecargo, txtTotal, txtPartidas, txtNotas, txtElaborado, txtFolio, txtConsecutivo, txtAutoriza, txtFechaAuto, cmbAlmacen, txtFolioPedido, d, out cliente, cmbCentroCostos, cmbproyecto);
                 }
                 else
                 {
@@ -2292,6 +2292,31 @@ namespace PV
             {
                 MessageBox.Show("Error al generar XML: " + ex.ToString());
             }
+        }
+
+        private void txtSubtotal_TextChanged(object sender, EventArgs e)
+        {
+            Moneda(ref txtSubtotal);
+        }
+
+        private void txtRecargo_TextChanged(object sender, EventArgs e)
+        {
+            Moneda(ref txtRecargo);
+        }
+
+        private void txtDescuento_TextChanged(object sender, EventArgs e)
+        {
+            Moneda(ref txtDescuento);
+        }
+
+        private void txtTotal_TextChanged(object sender, EventArgs e)
+        {
+            Moneda(ref txtTotal);
+        }
+
+        private void txtSaldo_TextChanged(object sender, EventArgs e)
+        {
+            Moneda(ref txtSaldo);
         }
     }
 

@@ -3,6 +3,7 @@ using Condominios.Clases.RegistrarIngresos;
 using Guna.UI2.WinForms;
 using PuntoVentas.Clases.Login;
 using PV.Clases;
+using PV.Clases.Almacenes;
 using PV.Clases.CentroCostos;
 using PV.Clases.Clientes;
 using PV.Clases.Facturas;
@@ -54,6 +55,7 @@ namespace PV
         DBClientes cl = new DBClientes();
         DBCentroCostos cc = new DBCentroCostos();
         DBDatosProyecto dp = new DBDatosProyecto();
+        DBAlmacenes DBAlmacenes = new DBAlmacenes();
 
         // Facturas ahora solo trabaja contra el catálogo de Servicios.
         DBServicios srv = new DBServicios();
@@ -105,6 +107,7 @@ namespace PV
 
             ConfigurarToolStripExpandido();
             LlenarComboCentro();
+            LLenarAlmacenes();
         }
 
         /// <summary>
@@ -183,7 +186,7 @@ namespace PV
             {
                 Name = "Consecutivo",
                 DataPropertyName = "Consecutivo",
-                HeaderText = "Consecutivo",
+                HeaderText = "Folio",
                 Width = 70,
                 Visible = true
             });
@@ -280,7 +283,7 @@ namespace PV
         {
             if (txtFolio.Text != "X" && !string.IsNullOrEmpty(txtFolio.Text))
             {
-                f.ReciboSaldos(txtFolio.Text, txtSubtotal, txtDescuento, txtRecargo, txtTotal, txtPartidas);
+                f.ReciboSaldos(txtFolio.Text, txtSubtotal, txtDescuento, txtRecargo, txtTotal, txtPartidas, txtSaldo);
 
                 if (txtPartidas.Text == string.Empty)
                 {
@@ -425,11 +428,19 @@ namespace PV
                 MessageBox.Show("Registre el Documento para continuar");
                 return;
             }
+            if (cmbAlmacen.Text == string.Empty)
+            {
+                MessageBox.Show("Registre el Almacén para continuar");
+                return;
+            }
+
 
             if (string.IsNullOrEmpty(txtFolio.Text))
             {
                 string centroCosto = null;
                 string proyecto = ComboUtil.ObtenerSelectedValue(cmbproyecto);
+                string IdAlmacen = ComboUtil.ObtenerSelectedValue(cmbAlmacen);
+
 
                 if (mostrarCentroCosto)
                 {
@@ -450,7 +461,7 @@ namespace PV
                 // seguro).
                 f.InsertarFactura(txtFolio, txtClave.Text, cmbEstatus.Text, txtFecha.Text, txtDiasVence.Text,
                     txtFechaVence.Text, txtMatricular.Text, txtDivisa1.Text, txtTipoCambio1.Text, txtNotas.Text,
-                    txtElaborado.Text, txtConsecutivo.Text, string.Empty, centroCosto, proyecto);
+                    txtElaborado.Text, txtConsecutivo.Text, IdAlmacen, centroCosto, proyecto);
             }
 
             guna2TabControl1.SelectedIndex = 1;
@@ -470,6 +481,7 @@ namespace PV
         void Limpiar()
         {
             txtFolio.Clear();
+            cmbAlmacen.SelectedIndex = -1;
             txtConsecutivo.Clear();
             cmbEstatus.Text = "Abierto";
             txtDiasVence.Text = "0";
@@ -482,6 +494,7 @@ namespace PV
             txtSubtotal.Text = "0.00";
             txtDescuento.Text = "0.00";
             txtTotal.Text = "0.00";
+            txtSaldo.Text = "0.00";
             txtNotas.Clear();
             cmbDocumento.Text = null;
             cmbDocumento.Enabled = false;
@@ -546,6 +559,7 @@ namespace PV
             txtNotas.Enabled = true;
             cmbDocumento.DroppedDown = true;
             btnCliente.Enabled = true;
+            cmbAlmacen.Enabled = true;
         }
 
         #endregion
@@ -588,7 +602,6 @@ namespace PV
                 return;
 
             txtConcepto2.Text = valores[0];
-            txtConcepto.Text = valores[1];
             txtPrecio.Text = valores[2];
             txtUnidad.Text = valores[3];
             txtImpuesto1.Text = valores[4];
@@ -652,13 +665,21 @@ namespace PV
         }
 
         /// <summary>
-        /// Inserta la partida actualmente capturada. Toda inserción de
-        /// partida es una modificación a PartidaFactura, así que aquí mismo
-        /// se recalculan los totales del encabezado
-        /// (ActualizarTotalesFactura, que ahora también recalcula
-        /// TotalPartidas por sí sola vía COUNT(*)) y se refrescan los campos
-        /// globales del encabezado (ReciboSaldos), sin esperar a que el
-        /// formulario reciba Activated.
+        /// Inserta o actualiza la partida actualmente capturada. Si la
+        /// partida (Folio + número de partida) ya existe en la tabla
+        /// PartidaFactura -típicamente porque se llegó aquí luego de hacer
+        /// doble clic sobre una partida existente en la grilla para
+        /// editarla- se actualiza esa fila (UPDATE) en vez de intentar
+        /// insertar una fila nueva con la misma llave (lo que antes
+        /// provocaba una violación de llave primaria/única). Si la partida
+        /// no existe todavía, se inserta como siempre.
+        ///
+        /// Toda inserción/edición de partida es una modificación a
+        /// PartidaFactura, así que aquí mismo se recalculan los totales del
+        /// encabezado (ActualizarTotalesFactura, que ahora también
+        /// recalcula TotalPartidas por sí sola vía COUNT(*)) y se refrescan
+        /// los campos globales del encabezado (ReciboSaldos), sin esperar a
+        /// que el formulario reciba Activated.
         /// </summary>
         private bool GuardarPartidaActual()
         {
@@ -668,23 +689,48 @@ namespace PV
                 return false;
             }
 
-            f.InsertarPartidaFactura(
-                txtFolio.Text,
-                txtPartida.Text,
-                cmbConcepto.SelectedValue.ToString(),
-                txtConcepto2.Text,
-                txtCantidad.Text,
-                txtUnidad.Text,
-                txtDivisa1.Text,
-                txtTipoCambio1.Text,
-                Convert.ToDecimal(txtImporte1.Text),
-                Convert.ToDecimal(txtDescuento1.Text),
-                Convert.ToDecimal(txtTotal1.Text),
-                Convert.ToDecimal(txtPrecio.Text),
-                Convert.ToDecimal(txtImpuesto1.Text));
+            if (f.ExistePartidaFactura(txtFolio.Text, txtPartida.Text))
+            {
+                f.ActualizarPartidaFactura(
+                    txtFolio.Text,
+                    txtPartida.Text,
+                    cmbConcepto.SelectedValue.ToString(),
+                    txtConcepto2.Text,
+                    txtCantidad.Text,
+                    txtUnidad.Text,
+                    txtDivisa1.Text,
+                    txtTipoCambio1.Text,
+                    Convert.ToDecimal(txtImporte1.Text),
+                    Convert.ToDecimal(txtDescuento1.Text),
+                    Convert.ToDecimal(txtTotal1.Text),
+                    Convert.ToDecimal(txtPrecio.Text),
+                    Convert.ToDecimal(txtImpuesto1.Text),
+                Convert.ToDecimal(txtDescuentoIm.Text),
+                Convert.ToDecimal(txtImpuestoIm.Text));
+
+            }
+            else
+            {
+                f.InsertarPartidaFactura(
+                    txtFolio.Text,
+                    txtPartida.Text,
+                    cmbConcepto.SelectedValue.ToString(),
+                    txtConcepto2.Text,
+                    txtCantidad.Text,
+                    txtUnidad.Text,
+                    txtDivisa1.Text,
+                    txtTipoCambio1.Text,
+                    Convert.ToDecimal(txtImporte1.Text),
+                    Convert.ToDecimal(txtDescuento1.Text),
+                    Convert.ToDecimal(txtTotal1.Text),
+                    Convert.ToDecimal(txtPrecio.Text),
+                    Convert.ToDecimal(txtImpuesto1.Text),
+                     Convert.ToDecimal(txtDescuentoIm.Text),
+                Convert.ToDecimal(txtImpuestoIm.Text));
+            }
 
             f.ActualizarTotalesFactura(txtFolio.Text);
-            f.ReciboSaldos(txtFolio.Text, txtSubtotal, txtDescuento, txtRecargo, txtTotal, txtPartidas);
+            f.ReciboSaldos(txtFolio.Text, txtSubtotal, txtDescuento, txtRecargo, txtTotal, txtPartidas, txtSaldo);
 
             return true;
         }
@@ -695,7 +741,7 @@ namespace PV
             if (partida > 0)
             {
                 f.ActualizarTotalesFactura(txtFolio.Text);
-                f.ReciboSaldos(txtFolio.Text, txtSubtotal, txtDescuento, txtRecargo, txtTotal, txtPartidas);
+                f.ReciboSaldos(txtFolio.Text, txtSubtotal, txtDescuento, txtRecargo, txtTotal, txtPartidas, txtSaldo);
             }
             PanelPartidasRequisicion.Visible = false;
         }
@@ -732,7 +778,7 @@ namespace PV
             // (ReciboSaldos) como el panel de totales "en vivo" de la
             // captura de partidas (ReciboSaldosPartidas).
             f.ActualizarTotalesFactura(txtFolio.Text);
-            f.ReciboSaldos(txtFolio.Text, txtSubtotal, txtDescuento, txtRecargo, txtTotal, txtPartidas);
+            f.ReciboSaldos(txtFolio.Text, txtSubtotal, txtDescuento, txtRecargo, txtTotal, txtPartidas, txtSaldo);
             f.ReciboSaldosPartidas(txtFolio.Text, txtSubtotalR, txtDescuentoR, txtTotalR, txtImpuestoR);
 
             ConfigurarPartida(true);
@@ -770,7 +816,6 @@ namespace PV
             txtImpuesto1.Text = "0.00";
             txtImpuestoIm.Text = "0.00";
             cmbConcepto.SelectedIndex = -1;
-            txtCostoUnitario.Text = "0.00";
             txtConcepto2.Text = string.Empty;
         }
 
@@ -994,11 +1039,11 @@ namespace PV
 
             MessageBox.Show("La factura se confirmó exitosamente");
 
-            /*if (MessageBox.Show("¿Imprimir Documento?", "Documento", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+            if (MessageBox.Show("¿Imprimir Documento?", "Documento", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
             {
-                ReporteFactura r = new ReporteFactura(txtFolio.Text, txtMatricular.Text);
+                ReporteComprobanteFactura r = new ReporteComprobanteFactura(txtFolio.Text);
                 r.ShowDialog();
-            }*/
+            }
 
             Limpiar();
             LimpiarPartida();
@@ -1034,7 +1079,7 @@ namespace PV
 
         #region Consulta / filtros / grillas de encabezado
 
-      
+
         private void DataGridView2_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex == -1) return;
@@ -1046,9 +1091,9 @@ namespace PV
             txtFolio.Text = "X";
 
             f.ConsultaFactura(folio, txtClave, cmbEstatus, txtFecha, txtDiasVence, txtFechaVence, txtDivisa,
-                txtTipoCambio, txtSubtotal, txtDescuento, txtRecargo, txtTotal, txtPartidas, txtNotas, txtElaborado,
+                txtTipoCambio, txtSubtotal, txtDescuento, txtRecargo, txtTotal, txtPartidas, txtSaldo, txtNotas, txtElaborado,
                 txtFolio, txtConsecutivo, txtAutoriza, txtFechaAuto, out string cliente,
-                cmbCentroCostos, cmbproyecto);
+                cmbCentroCostos, cmbproyecto, cmbAlmacen);
 
             cmbDocumento.Enabled = false;
             txtDiasVence.Enabled = false;
@@ -1156,6 +1201,11 @@ namespace PV
         {
             DataTable dtProyectos = dp.ObtenerProyectosPorCentroCostos(cmbCentroCostos.Text);
             ComboUtil.LlenarComboBox(cmbproyecto, dtProyectos, "Proyecto", "Id");
+        }
+        private void LLenarAlmacenes()
+        {
+            DataTable dtAlmacenes = DBAlmacenes.ObtenerAlmacenes();
+            ComboUtil.LlenarComboBox(cmbAlmacen, dtAlmacenes, "Nombre", "Clave");
         }
 
         #endregion
@@ -1362,11 +1412,6 @@ namespace PV
         private void txtNombreAlumnno_TextChanged(object sender, EventArgs e) { }
         private void txtTipoCambio_TextChanged(object sender, EventArgs e) { }
 
-        // cmbAlmacen queda oculto y sin lógica de negocio (Facturas ya no
-        // maneja almacenes), pero el Designer copiado puede seguir teniendo
-        // el evento enganchado; se deja vacío para que compile.
-        private void cmbAlmacen_SelectedIndexChanged(object sender, EventArgs e) { }
-
         // El Designer registró el TextChanged de txtSubtotal1 dos veces con
         // nombres distintos (típico de Visual Studio cuando el evento se
         // engancha más de una vez desde el panel de Propiedades). Con que
@@ -1452,6 +1497,17 @@ namespace PV
         private void txtDescuentoIm_TextChanged(object sender, EventArgs e)
         {
             Moneda(ref txtDescuentoIm);
+        }
+
+        private void cmbAlmacen_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void txtSaldo_TextChanged(object sender, EventArgs e)
+        {
+            Moneda(ref txtSaldo);
+
         }
     }
 }

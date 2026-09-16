@@ -244,5 +244,32 @@ namespace PV.Clases.Almacenes
                 cb.EndUpdate();
             }
         }
+        public DataTable ObtenerAlmacenes()
+        {
+            try
+            {
+                string consulta = @"
+                    SELECT Clave, nombre, Estatus
+                    FROM Almacenes 
+                    WHERE Estatus='Activo'
+                    ";
+                DataTable dt = new DataTable();
+                using (SqlConnection cn = new SqlConnection(ObtenerCn()))
+                using (SqlCommand cmd = new SqlCommand(consulta, cn))
+                {
+                    cn.Open();
+                    using (SqlDataAdapter da = new SqlDataAdapter(cmd))
+                    {
+                        da.Fill(dt);
+                    }
+                }
+                return dt;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error: " + ex.Message);
+                return new DataTable();
+            }
+        }
     }
 }

@@ -10,7 +10,9 @@ namespace PV.Clases.Anticipo
 {
     /// <summary>
     /// Acceso a datos del módulo de Anticipos (Clientes/Propietarios y Proveedores)
-    /// y de su Aplicación contra documentos (Remisión o Factura).
+    /// y de su Aplicación contra documentos (Remisión o Factura, o del lado
+    /// Proveedores: RecepcionProducto / RegistroGastos / RegistroReembolso /
+    /// NotasGasto).
     ///
     /// Historial de cambios relevante:
     ///  - No se mantiene una SqlConnection abierta como campo de instancia; cada
@@ -29,26 +31,53 @@ namespace PV.Clases.Anticipo
     ///  - MIGRACIÓN A ConceptoCobroPago: el concepto del Anticipo dejó de
     ///    referenciar "ConceptosIngreso" y ahora referencia "ConceptoCobroPago"
     ///    (Anticipo.Concepto = ConceptoCobroPago.IdConcepto). Todos los JOIN que
-    ///    resolvían la descripción del concepto se migraron.
-    ///  - APLICACIÓN DE ANTICIPOS POLIMÓRFICA: antes, aplicar un Anticipo sólo
-    ///    contemplaba un documento destino de tipo Remisión. Ahora el destino
-    ///    puede ser Remisión o Factura, por lo que AnticipoCobros incorpora una
-    ///    columna discriminadora "TipoDocumento" ('REMISION' | 'FACTURA').
-    ///    Como ya no existe una FK física hacia una sola tabla, la integridad
-    ///    referencial del documento destino se valida en código
-    ///    (ver <see cref="ExisteDocumento"/>), siguiendo el mismo patrón de
+    ///    resolvían la descripción del concepto se migraron. La MISMA migración
+    ///    queda pendiente de completar en AnticipoProveedor.Concepto — ver
+    ///    02_Migracion_AnticipoProveedor.sql (la FK vieja hacia ConceptosIngreso
+    ///    ya se retiró; falta agregar la nueva según el tipo real de
+    ///    ConceptoCobroPago.IdConcepto).
+    ///  - APLICACIÓN DE ANTICIPOS POLIMÓRFICA (lado Clientes): antes, aplicar un
+    ///    Anticipo sólo contemplaba un documento destino de tipo Remisión. Ahora
+    ///    el destino puede ser Remisión o Factura, por lo que AnticipoCobros
+    ///    incorpora una columna discriminadora "TipoDocumento" ('REMISION' |
+    ///    'FACTURA'). Como ya no existe una FK física hacia una sola tabla, la
+    ///    integridad referencial del documento destino se valida en código (ver
+    ///    <see cref="ExisteDocumento"/>), siguiendo el mismo patrón de
     ///    discriminador que ya usaba esta clase en CargarEgreso2/ActualizarEgreso2
-    ///    (tipos 'P' / 'G' / 'NCG'). Este patrón resultó además ser consistente con
-    ///    uno ya existente en otro módulo del sistema (DBFacturas.CargarFacturaCobro
-    ///    para el flujo de RegistrarCobro), que combina Remisión y Factura en una
-    ///    misma grilla marcando cada fila con <c>DataGridViewRow.Tag</c>. Por eso
-    ///    aquí se siguió el mismo criterio: esta clase valida la existencia del
-    ///    documento (<see cref="ExisteDocumento"/>) y registra el movimiento
-    ///    (<see cref="InsertarCobro"/>), mientras que <c>DBRemiision.ActualizarRemision</c>
-    ///    y <c>DBFacturas.ActualizarFacturaAbono</c> —ya existentes— siguen siendo
+    ///    (tipos 'P' / 'G' / 'RR' / 'NCG'). Este patrón resultó además ser
+    ///    consistente con uno ya existente en otro módulo del sistema
+    ///    (DBFacturas.CargarFacturaCobro para el flujo de RegistrarCobro), que
+    ///    combina Remisión y Factura en una misma grilla marcando cada fila con
+    ///    <c>DataGridViewRow.Tag</c>. Por eso aquí se siguió el mismo criterio:
+    ///    esta clase valida la existencia del documento (<see cref="ExisteDocumento"/>)
+    ///    y registra el movimiento (<see cref="InsertarCobro"/>), mientras que
+    ///    <c>DBRemiision.ActualizarRemision</c> y
+    ///    <c>DBFacturas.ActualizarFacturaAbono</c> —ya existentes— siguen siendo
     ///    responsables de actualizar el saldo propio de cada documento; es
-    ///    <see cref="AplicarAnticipoSaldo"/> quien decide, por el Tag de cada fila,
-    ///    a cuál de los dos llamar.
+    ///    <see cref="AplicarAnticipoSaldo"/> quien decide, por el Tag de cada
+    ///    fila, a cuál de los dos llamar.
+    ///  - APLICACIÓN DE ANTICIPOS — LADO PROVEEDORES (este cambio): se aplica el
+    ///    MISMO criterio que el lado Clientes, pero con 4 tipos de documento en
+    ///    vez de 2 (P=RecepcionProducto, G=RegistroGastos, RR=RegistroReembolso,
+    ///    NCG=NotasGasto — el discriminador "Tipo" ya existía en
+    ///    AnticipoProveedorCobros/CargarEgreso2/ActualizarEgreso2, solo le
+    ///    faltaba el caso "RR" en ActualizarEgreso2, que se corrigió). Se agregó:
+    ///      * <see cref="CargarEgreso2"/>: se le agregó el bloque UNION
+    ///        faltante para 'RR' (RegistroReembolso), y se reescribieron los 4
+    ///        bloques con columnas explícitas en vez de "R.*" (RegistroReembolso
+    ///        no tiene las mismas columnas que RecepcionProducto/RegistroGastos,
+    ///        así que un UNION con "R.*" en los 4 bloques se habría caído por
+    ///        desalineación de columnas).
+    ///      * <see cref="ExisteDocumentoEgreso"/>: valida que el folio exista en
+    ///        su tabla de origen antes de registrar el pago (mismo rol que
+    ///        <see cref="ExisteDocumento"/> del lado Clientes).
+    ///      * Sobrecarga de InsertarEgreso con los mismos campos que ya tiene
+    ///        <see cref="InsertarCobro"/> del lado Clientes (Anticipo origen,
+    ///        SaldoRestante, DescuentoPago, IdConceptoCobroPago) — requiere la
+    ///        migración de AnticipoProveedorCobros (ver
+    ///        02_Migracion_AnticipoProveedor.sql). Se agregó como SOBRECARGA (no
+    ///        se modificó la firma original de 6 parámetros) para no romper otros
+    ///        lugares del sistema que ya llamen a InsertarEgreso con la firma vieja.
     ///  - Nota de negocio: la columna "ClaveProveedor" en las tablas Factura y
     ///    Remision en realidad identifica al CLIENTE (nombre heredado de una
     ///    etapa anterior del sistema). No se renombró la columna física para no
@@ -525,7 +554,7 @@ namespace PV.Clases.Anticipo
 
         #endregion
 
-        #region Aplicación de Anticipos: soporte para documento destino polimórfico (Remisión / Factura)
+        #region Aplicación de Anticipos: soporte para documento destino polimórfico (Clientes: Remisión / Factura)
 
         /// <summary>
         /// Resuelve el nombre físico de tabla correspondiente a un TipoDocumento
@@ -572,6 +601,52 @@ namespace PV.Clases.Anticipo
             using (SqlCommand cmd = new SqlCommand($"SELECT COUNT(*) FROM {tabla} WHERE Folio = @Folio", cn))
             {
                 cmd.Parameters.AddWithValue("@Folio", folio);
+                return Convert.ToInt32(cmd.ExecuteScalar()) > 0;
+            }
+        }
+
+        #endregion
+
+        #region Aplicación de Anticipos: soporte para documento destino polimórfico (Proveedores: Egresos)
+
+        /// <summary>
+        /// Resuelve el nombre físico de tabla correspondiente a un Tipo de egreso
+        /// ('P' -> RecepcionProducto, 'G' -> RegistroGastos, 'RR' -> RegistroReembolso,
+        /// 'NCG' -> NotasGasto). Mismo rol que <see cref="ResolverTablaDocumento"/>
+        /// pero para el lado Proveedores; estos 4 tipos son los mismos que ya cubre
+        /// el método de referencia "ObtenerEgresos" que se compartió en el chat.
+        /// </summary>
+        /// <exception cref="ArgumentException">Si el tipo no es reconocido.</exception>
+        private static string ResolverTablaEgreso(string tipo)
+        {
+            switch ((tipo ?? string.Empty).Trim().ToUpperInvariant())
+            {
+                case "P":
+                    return "RecepcionProducto";
+                case "G":
+                    return "RegistroGastos";
+                case "RR":
+                    return "RegistroReembolso";
+                case "NCG":
+                    return "NotasGasto";
+                default:
+                    throw new ArgumentException($"Tipo de egreso '{tipo}' no reconocido. Se esperaba P, G, RR o NCG.");
+            }
+        }
+
+        /// <summary>
+        /// Valida que un folio exista realmente en la tabla de egreso origen
+        /// indicada por "tipo", y que pertenezca al proveedor indicado. Rol
+        /// equivalente a <see cref="ExisteDocumento"/> del lado Clientes.
+        /// </summary>
+        private bool ExisteDocumentoEgreso(SqlConnection cn, string tipo, string folio, string claveProveedor)
+        {
+            string tabla = ResolverTablaEgreso(tipo);
+            using (SqlCommand cmd = new SqlCommand(
+                $"SELECT COUNT(*) FROM {tabla} WHERE Folio = @Folio AND ClaveProveedor = @ClaveProveedor", cn))
+            {
+                cmd.Parameters.AddWithValue("@Folio", folio);
+                cmd.Parameters.AddWithValue("@ClaveProveedor", claveProveedor);
                 return Convert.ToInt32(cmd.ExecuteScalar()) > 0;
             }
         }
@@ -918,7 +993,7 @@ namespace PV.Clases.Anticipo
                 using (SqlCommand cmd = new SqlCommand(
                     "SELECT A.*, CCP.Descripcion FROM AnticipoProveedor AS A " +
                     "INNER JOIN ConceptoCobroPago AS CCP ON A.Concepto = CCP.IdConcepto " +
-                    "WHERE A.ClaveProveedor = @ClaveProveedor AND A.Saldo > 0", cn))
+                    "WHERE A.ClaveProveedor = @ClaveProveedor AND A.Saldo > 0 AND Activo = 1", cn))
                 {
                     cmd.Parameters.AddWithValue("@ClaveProveedor", claveProveedor);
                     using (SqlDataAdapter da = new SqlDataAdapter(cmd))
@@ -932,7 +1007,10 @@ namespace PV.Clases.Anticipo
                             dgv.Rows[n].Cells[2].Value = item["Concepto"].ToString();
                             dgv.Rows[n].Cells[3].Value = item["Descripcion"].ToString();
                             dgv.Rows[n].Cells[4].Value = Convert.ToDateTime(item["Fecha"]).ToString("yyyy/MM/dd");
-                            dgv.Rows[n].Cells[5].Value = Convert.ToDecimal(item["Saldo"]).ToString("N", formato);
+                            dgv.Rows[n].Cells[5].Value = item["Divisa"].ToString();
+
+                            dgv.Rows[n].Cells[6].Value = Convert.ToDecimal(item["Saldo"]).ToString("N", formato);
+
                         }
                     }
                 }
@@ -950,7 +1028,11 @@ namespace PV.Clases.Anticipo
         /// para Facturas es <c>DBFacturas.CargarFacturaPendienteAnticipo</c>. Ambas
         /// comparten el mismo layout de columnas por índice (0=FolioDocumento,
         /// 1=Consecutivo, 2=ClaveDocumento, 3=Nombre, 4=Importe, 6=Descuento,
-        /// 8=Abono, 9=Saldo) para poder combinarse en una sola grilla.
+        /// 8=Abono, 9=Saldo) para poder combinarse en una sola grilla. El lado
+        /// Proveedores (<see cref="CargarEgreso2"/>) resuelve el mismo problema
+        /// pero con un layout propio y distinto, ya existente en su pantalla
+        /// (AplicarAnticipoProveedorSaldo): 0=Tipo, 1=Folio, 2=ClaveDocumento,
+        /// 3=Nombre, 4=Importe, 6=Abono, 7=Saldo.
         /// </summary>
         /// <param name="limpiarPrimero">
         /// Si es true (default), limpia el grid antes de cargar. Pásalo en false
@@ -1020,11 +1102,34 @@ namespace PV.Clases.Anticipo
         }
 
         /// <summary>
-        /// Carga movimientos de egreso (RecepcionProducto/RegistroGastos/NotasGasto)
-        /// de un proveedor. Ámbito distinto al de Aplicación de Anticipos; no requiere
-        /// cambios por la migración de Concepto. Se corrigió la culture inválida
-        /// "US-AR" -> "en-US" (mismo motivo que en CargarReciboProveedor).
+        /// Carga movimientos de egreso (RecepcionProducto/RegistroGastos/
+        /// RegistroReembolso/NotasGasto) de un proveedor. Es el método que
+        /// alimenta la grilla de AplicarAnticipoProveedorSaldo. Se corrigió la
+        /// culture inválida "US-AR" -> "en-US" (mismo motivo que en
+        /// CargarReciboProveedor).
         /// </summary>
+        /// <remarks>
+        /// FIX 1: antes solo cubría 'P', 'G' y 'NCG' — le faltaba 'RR'
+        /// (RegistroReembolso), uno de los 4 tipos de egreso del sistema (ver
+        /// el método de referencia "ObtenerEgresos" compartido en el chat, y
+        /// <see cref="ActualizarEgreso2"/>/<see cref="ResolverTablaEgreso"/>,
+        /// que ya sí lo contemplaban). Un RegistroReembolso pendiente
+        /// simplemente no aparecía en esta grilla y no podía pagarse con un
+        /// Anticipo.
+        /// FIX 2: la versión anterior armaba los bloques P y G con "R.*"
+        /// (todas las columnas de la tabla). Según el propio "ObtenerEgresos"
+        /// de referencia, RegistroReembolso NO tiene las columnas Recargo,
+        /// DescuentoPago, Almacen, Condominio ni Extension que sí tienen
+        /// RecepcionProducto/RegistroGastos — un UNION con "R.*" en los 4
+        /// bloques exige el mismo número de columnas en cada uno y se habría
+        /// caído (o, peor, alineado columnas distintas sin error si el conteo
+        /// hubiera coincidido por coincidencia). Como este método solo
+        /// consume Tipo/Folio/ClaveDocumento/Saldo/Nombre más abajo, se
+        /// reescribieron los 4 bloques para seleccionar EXPLÍCITAMENTE solo
+        /// esas columnas, evitando por completo el riesgo de desalineación
+        /// (y de paso ya no hace falta el relleno de "'' AS DiasVence, '' AS
+        /// FechaVence" que tenía el bloque de NotasGasto).
+        /// </remarks>
         public void CargarEgreso2(DataGridView dgv, string claveProveedor)
         {
             try
@@ -1036,14 +1141,21 @@ namespace PV.Clases.Anticipo
                 dgv.Rows.Clear();
                 using (SqlConnection cn = AbrirConexion())
                 using (SqlCommand cmd = new SqlCommand(
-                    "(SELECT 'P' AS Tipo, R.*, D.Nombre FROM RecepcionProducto AS R, Documento AS D " +
-                    " WHERE ClaveProveedor = @ClaveProveedor AND Saldo <> 0 AND R.ClaveDocumento = D.Clave) " +
+                    "(SELECT 'P' AS Tipo, R.Folio, R.ClaveDocumento, R.Saldo, D.Nombre " +
+                    " FROM RecepcionProducto AS R, Documento AS D " +
+                    " WHERE R.ClaveProveedor = @ClaveProveedor AND R.Saldo <> 0 AND R.ClaveDocumento = D.Clave) " +
                     "UNION " +
-                    "(SELECT 'G' AS Tipo, R.*, D.Nombre FROM RegistroGastos AS R, Documento AS D " +
-                    " WHERE ClaveProveedor = @ClaveProveedor AND Saldo <> 0 AND R.ClaveDocumento = D.Clave) " +
+                    "(SELECT 'G' AS Tipo, R.Folio, R.ClaveDocumento, R.Saldo, D.Nombre " +
+                    " FROM RegistroGastos AS R, Documento AS D " +
+                    " WHERE R.ClaveProveedor = @ClaveProveedor AND R.Saldo <> 0 AND R.ClaveDocumento = D.Clave) " +
                     "UNION " +
-                    "(SELECT 'NCG' AS Tipo, R.*, '' AS DiasVence, '' AS FechaVence, D.Nombre FROM NotasGasto AS R, Documento AS D " +
-                    " WHERE ClaveProveedor = @ClaveProveedor AND Saldo <> 0 AND R.ClaveDocumento = D.Clave)", cn))
+                    "(SELECT 'RR' AS Tipo, R.Folio, R.ClaveDocumento, R.Saldo, D.Nombre " +
+                    " FROM RegistroReembolso AS R, Documento AS D " +
+                    " WHERE R.ClaveProveedor = @ClaveProveedor AND R.Saldo <> 0 AND R.ClaveDocumento = D.Clave) " +
+                    "UNION " +
+                    "(SELECT 'NCG' AS Tipo, R.Folio, R.ClaveDocumento, R.Saldo, D.Nombre " +
+                    " FROM NotasGasto AS R, Documento AS D " +
+                    " WHERE R.ClaveProveedor = @ClaveProveedor AND R.Saldo <> 0 AND R.ClaveDocumento = D.Clave)", cn))
                 {
                     cmd.Parameters.AddWithValue("@ClaveProveedor", claveProveedor);
                     using (SqlDataAdapter da = new SqlDataAdapter(cmd))
@@ -1053,13 +1165,19 @@ namespace PV.Clases.Anticipo
                         foreach (DataRow item in dt.Rows)
                         {
                             int n = dgv.Rows.Add();
-                            dgv.Rows[n].Cells[0].Value = item["Tipo"].ToString();
-                            dgv.Rows[n].Cells[1].Value = item["Folio"].ToString();
-                            dgv.Rows[n].Cells[2].Value = item["ClaveDocumento"].ToString();
-                            dgv.Rows[n].Cells[3].Value = item["Nombre"].ToString();
-                            dgv.Rows[n].Cells[4].Value = Convert.ToDecimal(item["Saldo"]).ToString("N", formato);
-                            dgv.Rows[n].Cells[6].Value = Convert.ToDecimal(0.00).ToString("N", formato);
-                            dgv.Rows[n].Cells[7].Value = Convert.ToDecimal(0.00).ToString("N", formato);
+
+                            // Mapeo seguro según la nueva estructura de 11 columnas
+                            dgv.Rows[n].Cells[0].Value = item["Tipo"].ToString();             // Tipo
+                            dgv.Rows[n].Cells[1].Value = item["Folio"].ToString();            // FolioDocumento
+                            dgv.Rows[n].Cells[2].Value = item["ClaveDocumento"].ToString();   // Consecutivo
+                            dgv.Rows[n].Cells[3].Value = item["Nombre"].ToString();           // Documento
+
+                            decimal saldoOriginal = Convert.ToDecimal(item["Saldo"]);
+                            dgv.Rows[n].Cells[5].Value = saldoOriginal.ToString("N", formato); // Importe (Cells[5])
+
+                            dgv.Rows[n].Cells[7].Value = Convert.ToDecimal(0.00).ToString("N", formato); // Descuento (Cells[7])
+                            dgv.Rows[n].Cells[9].Value = Convert.ToDecimal(0.00).ToString("N", formato); // Abono (Cells[9])
+                            dgv.Rows[n].Cells[10].Value = saldoOriginal.ToString("N", formato); // Saldo inicial (Cells[10])
                         }
                     }
                 }
@@ -1152,7 +1270,14 @@ namespace PV.Clases.Anticipo
             }
         }
 
-        /// <summary>Inserta un egreso aplicado a un movimiento de proveedor (RecepcionProducto/RegistroGastos/NotasGasto).</summary>
+        /// <summary>
+        /// Inserta un egreso aplicado a un movimiento de proveedor (RecepcionProducto/
+        /// RegistroGastos/NotasGasto). FIRMA ORIGINAL, sin tocar — se conserva por si
+        /// algún otro punto del sistema (fuera de los archivos revisados en este chat)
+        /// todavía la invoca así. Para el flujo nuevo de Aplicación de Anticipo a
+        /// Proveedores (con Anticipo origen, SaldoRestante, DescuentoPago e
+        /// IdConceptoCobroPago) usa la sobrecarga de abajo.
+        /// </summary>
         public void InsertarEgreso(string tipo, string folio, string claveProveedor, string fecha, decimal pago, string folioGeneral)
         {
             try
@@ -1170,6 +1295,82 @@ namespace PV.Clases.Anticipo
                     cmd.Parameters.AddWithValue("@FolioGeneral", folioGeneral);
                     cmd.ExecuteNonQuery();
                 }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("ERROR" + ex.ToString());
+            }
+        }
+
+        /// <summary>
+        /// Sobrecarga: registra la aplicación de un Anticipo de Proveedor contra un
+        /// documento de egreso destino (RecepcionProducto/RegistroGastos/
+        /// RegistroReembolso/NotasGasto), con el mismo nivel de detalle que ya tiene
+        /// <see cref="InsertarCobro"/> del lado Clientes.
+        /// </summary>
+        /// <param name="tipo">Discriminador del documento destino: "P", "G", "RR" o "NCG".</param>
+        /// <param name="folioDocumento">Folio del documento destino en su tabla de origen.</param>
+        /// <param name="claveProveedor">Clave del Proveedor dueño del Anticipo.</param>
+        /// <param name="fecha">Fecha de la aplicación.</param>
+        /// <param name="pago">Importe aplicado.</param>
+        /// <param name="folioGeneral">Folio del movimiento general asociado (AnticipoProveedor_General).</param>
+        /// <param name="anticipo">Folio del AnticipoProveedor origen del cual se está descontando el saldo.</param>
+        /// <param name="saldoRestante">Saldo restante del AnticipoProveedor origen tras la aplicación.</param>
+        /// <param name="descuentoPago">Descuento por pronto pago, si aplica.</param>
+        /// <param name="idConceptoCobroPago">
+        /// Concepto (ConceptoCobroPago.IdConcepto) vigente en el Anticipo origen al
+        /// momento de la aplicación; se guarda como trazabilidad/auditoría.
+        /// </param>
+        /// <remarks>
+        /// Requiere la migración de AnticipoProveedorCobros (columnas Anticipo,
+        /// SaldoRestante, DescuentoPago, IdConceptoCobroPago) — ver
+        /// 02_Migracion_AnticipoProveedor.sql. Valida la existencia del documento
+        /// destino en su tabla origen (y que pertenezca al proveedor) antes de
+        /// insertar (ver <see cref="ExisteDocumentoEgreso"/>), ya que aquí tampoco
+        /// hay una FK física hacia una sola tabla posible. Esta validación NO
+        /// reemplaza la actualización del saldo propio del documento — eso sigue a
+        /// cargo de <see cref="ActualizarEgreso2"/>, que quien orqueste esta pantalla
+        /// (análoga a AplicarAnticipoSaldo) debe invocar por separado según el Tag de
+        /// cada fila — este método sólo registra el movimiento y descuenta el
+        /// Anticipo origen (ver <see cref="ActualizarAnticipoProveedor"/>).
+        /// </remarks>
+        public void InsertarEgreso(string tipo, string folioDocumento, string claveProveedor, string fecha,
+            decimal pago, string folioGeneral, string anticipo, decimal saldoRestante, decimal descuentoPago,
+            int? idConceptoCobroPago = null)
+        {
+            try
+            {
+                using (SqlConnection cn = AbrirConexion())
+                {
+                    if (!ExisteDocumentoEgreso(cn, tipo, folioDocumento, claveProveedor))
+                    {
+                        MessageBox.Show($"El folio {folioDocumento} no existe como documento de tipo '{tipo}' para este proveedor.");
+                        return;
+                    }
+
+                    using (SqlCommand cmd = new SqlCommand(
+                        "INSERT INTO AnticipoProveedorCobros (Tipo, Folio, ClaveProveedor, Fecha, Pago, FolioGeneral, " +
+                        "Anticipo, SaldoRestante, DescuentoPago, IdConceptoCobroPago) " +
+                        "VALUES (@Tipo, @Folio, @ClaveProveedor, @Fecha, @Pago, @FolioGeneral, " +
+                        "@Anticipo, @SaldoRestante, @DescuentoPago, @IdConceptoCobroPago)", cn))
+                    {
+                        cmd.Parameters.AddWithValue("@Tipo", tipo);
+                        cmd.Parameters.AddWithValue("@Folio", folioDocumento);
+                        cmd.Parameters.AddWithValue("@ClaveProveedor", claveProveedor);
+                        cmd.Parameters.AddWithValue("@Fecha", fecha);
+                        cmd.Parameters.AddWithValue("@Pago", pago);
+                        cmd.Parameters.AddWithValue("@FolioGeneral", folioGeneral);
+                        cmd.Parameters.AddWithValue("@Anticipo", anticipo);
+                        cmd.Parameters.AddWithValue("@SaldoRestante", saldoRestante);
+                        cmd.Parameters.AddWithValue("@DescuentoPago", descuentoPago);
+                        cmd.Parameters.AddWithValue("@IdConceptoCobroPago", (object)idConceptoCobroPago ?? DBNull.Value);
+                        cmd.ExecuteNonQuery();
+                    }
+                }
+            }
+            catch (ArgumentException ex)
+            {
+                MessageBox.Show(ex.Message);
             }
             catch (Exception ex)
             {
@@ -1280,15 +1481,26 @@ namespace PV.Clases.Anticipo
             }
         }
 
-        /// <summary>Actualiza el saldo de un movimiento de egreso (RecepcionProducto/RegistroGastos/NotasGasto) según su tipo.</summary>
+        /// <summary>
+        /// Actualiza el saldo de un movimiento de egreso (RecepcionProducto/
+        /// RegistroGastos/RegistroReembolso/NotasGasto) según su tipo.
+        /// </summary>
+        /// <remarks>
+        /// FIX: antes no contemplaba "RR" (RegistroReembolso) — si tipo era "RR",
+        /// "tabla" quedaba null y el método regresaba sin actualizar nada, dejando
+        /// el saldo del RegistroReembolso desactualizado tras un pago. Se agregó el
+        /// caso faltante, usando <see cref="ResolverTablaEgreso"/> como única fuente
+        /// de verdad para el mapeo tipo -> tabla (ya usado por
+        /// <see cref="ExisteDocumentoEgreso"/>), en vez de repetir el switch aquí.
+        /// </remarks>
         public void ActualizarEgreso2(string tipo, string folio, decimal saldo)
         {
-            string tabla = null;
-            if (tipo == "P") tabla = "RecepcionProducto";
-            else if (tipo == "G") tabla = "RegistroGastos";
-            else if (tipo == "NCG") tabla = "NotasGasto";
-
-            if (tabla == null)
+            string tabla;
+            try
+            {
+                tabla = ResolverTablaEgreso(tipo);
+            }
+            catch (ArgumentException)
             {
                 return;
             }
@@ -1379,6 +1591,48 @@ namespace PV.Clases.Anticipo
             {
                 MessageBox.Show("ERROR" + ex.ToString());
             }
+        }
+
+        /// <summary>
+        /// Obtiene el concepto (ConceptoCobroPago.IdConcepto) ya guardado en un
+        /// AnticipoProveedor por su Folio, para usarlo como IdConceptoCobroPago
+        /// al aplicar su saldo (<see cref="InsertarEgreso(string, string, string, string, decimal, string, string, decimal, decimal, int?)"/>).
+        /// </summary>
+        /// <remarks>
+        /// El concepto de un Anticipo se define una sola vez, al darlo de alta
+        /// (<see cref="RegistroAnticipoProveedor"/>) — aplicarlo después no
+        /// cambia de qué se trata el anticipo, así que no tiene sentido
+        /// volver a preguntarlo (con un combo, por ejemplo) en la pantalla de
+        /// aplicación; simplemente se hereda el que ya tiene. Esto es lo
+        /// mismo que hace el lado Clientes (AplicarAnticipoSaldo no vuelve a
+        /// pedir concepto).
+        ///
+        /// AnticipoProveedor.Concepto es varchar(20); tras la migración a
+        /// ConceptoCobroPago (ver 02_Migracion_AnticipoProveedor.sql) debería
+        /// contener el IdConcepto como texto. Si todavía no se ha migrado, o
+        /// el valor no es numérico, este método regresa null en vez de
+        /// truncar con una excepción.
+        /// </remarks>
+        public int? ObtenerConceptoAnticipoProveedor(string folioAnticipo)
+        {
+            try
+            {
+                using (SqlConnection cn = AbrirConexion())
+                using (SqlCommand cmd = new SqlCommand("SELECT Concepto FROM AnticipoProveedor WHERE Folio = @Folio", cn))
+                {
+                    cmd.Parameters.AddWithValue("@Folio", folioAnticipo);
+                    object resultado = cmd.ExecuteScalar();
+                    if (resultado != null && resultado != DBNull.Value && int.TryParse(resultado.ToString(), out int idConcepto))
+                    {
+                        return idConcepto;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("ERROR" + ex.ToString());
+            }
+            return null;
         }
 
         #endregion
