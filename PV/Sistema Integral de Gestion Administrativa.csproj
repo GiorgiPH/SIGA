@@ -158,6 +158,11 @@
     <Compile Include="AdministracionDataSet1.Designer.cs">
       <DependentUpon>AdministracionDataSet1.cs</DependentUpon>
     </Compile>
+    <Compile Include="AdministracionDataSet11.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>AdministracionDataSet1.xsd</DependentUpon>
+    </Compile>
     <Compile Include="AdministracionDataSet2.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -188,15 +193,31 @@
       <DependentUpon>AplicarAnticipoProveedorSaldo2.cs</DependentUpon>
     </Compile>
     <Compile Include="Clases\Facturas\DBFacturas.cs" />
+    <Compile Include="Clases\Graficas\DBDashboardVentas.cs" />
+    <Compile Include="Clases\Graficas\IDashboardVentas.cs" />
     <Compile Include="Clases\MenuPrincipal\DBFavoritos.cs" />
     <Compile Include="Clases\MovimientosBanco\DBMovimientosBanco.cs" />
     <Compile Include="Clases\NumericHelper.cs" />
     <Compile Include="Clases\Prestamos\DBPrestamos.cs" />
+    <Compile Include="Clases\ReporteResultadoGlobal\DBResultadoGlobal.cs" />
     <Compile Include="Clases\Requisicion\DBRequisicion.cs" />
     <Compile Include="ControlCondominiosDataSet34.cs">
       <DependentUpon>ControlCondominiosDataSet34.xsd</DependentUpon>
     </Compile>
+    <Compile Include="DashboardVentas.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DashboardVentas.Designer.cs">
+      <DependentUpon>DashboardVentas.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DashboardVentasCentroCostos.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DashboardVentasCentroCostos.Designer.cs">
+      <DependentUpon>DashboardVentasCentroCostos.cs</DependentUpon>
+    </Compile>
     <Compile Include="dto\Prestamos\PrestamosData.cs" />
+    <Compile Include="dto\ResumenDashboardVentas.cs" />
     <Compile Include="DTSFactura.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -2055,6 +2076,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="AplicarAnticipoProveedorSaldo2.resx">
       <DependentUpon>AplicarAnticipoProveedorSaldo2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DashboardVentas.resx">
+      <DependentUpon>DashboardVentas.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DashboardVentasCentroCostos.resx">
+      <DependentUpon>DashboardVentasCentroCostos.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Prestamos.resx">
       <DependentUpon>Prestamos.cs</DependentUpon>

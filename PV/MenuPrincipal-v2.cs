@@ -719,6 +719,8 @@ namespace PV
             compras.AgregarSubMenu("Compras Gastos", "COMPRAS_GASTOS");
             compras.AgregarSubMenu("Compras Vía Reembolso", "COMPRAS_REEMBOLSO");
             compras.AgregarSubMenu("Compras Inventariables", "COMPRAS_INVENTARIABLES");
+            compras.AgregarSubMenu("Notas Credito Proveedor");
+            compras.AgregarSubMenu("Notas Cargo Proveedor");
 
             SidebarMenuItem reportesCompras = compras.AgregarSubMenu("Reportes");
             reportesCompras.AgregarSubMenu("Diario de requisiciones", "DIARIO_REQUISICIONES");
@@ -733,6 +735,7 @@ namespace PV
 
             reportesCompras.AgregarSubMenu("Proveedores");
             compras.AgregarSubMenu("Gráficas");
+            compras.AgregarSubMenu("Poliza Contable");
 
             compras.OpcionSeleccionada += Menu_OpcionSeleccionada;
             compras.ModuloPrincipalExpandido += ModuloPrincipal_Expandido;
@@ -759,7 +762,7 @@ namespace PV
             reportesVentas.AgregarSubMenu("Reporte Analítico ventas");
 
             SidebarMenuItem graficasVentas = ventas.AgregarSubMenu("Gráficas");
-            graficasVentas.AgregarSubMenu("Gráfica de Ventas");
+            graficasVentas.AgregarSubMenu("Gráfica de Ventas", "DASHBOARD_VENTAS");
             graficasVentas.AgregarSubMenu("Gráfica de Productos");
             graficasVentas.AgregarSubMenu("Gráfica de Clientes");
 
@@ -785,6 +788,9 @@ namespace PV
             cxc.AgregarSubMenu("Registra Ingresos", "REGISTRAR_INGRESO");
             cxc.AgregarSubMenu("Registra Anticipo Cliente", "REGISTRAR_ANTICIPO_CLIENTE");
             cxc.AgregarSubMenu("Aplicar Anticipos Clientes", "APLICAR_ANTICIPO_CLIENTE");
+            cxc.AgregarSubMenu("Consultas");
+            cxc.AgregarSubMenu("Registrar Préstamos");
+
 
             SidebarMenuItem reportesCxc = cxc.AgregarSubMenu("Reportes CxC Ingresos");
             reportesCxc.AgregarSubMenu("Diario de Ingresos", "REPORTE_DIARIO_INGRESOS");
@@ -799,11 +805,15 @@ namespace PV
             cxp.AgregarSubMenu("Registrar Anticipo Proveedor", "REGISTRAR_ANTICIPO_PROVEEDOR");
             cxp.AgregarSubMenu("Aplicar Anticipo Proveedor", "APLICAR_ANTICIPO_PROVEEDOR");
             cxp.AgregarSubMenu("Registrar Préstamos", "REGISTRAR_PRESTAMOS");
+            cxp.AgregarSubMenu("Consultas");
 
             SidebarMenuItem reportesCxp = cxp.AgregarSubMenu("Reportes CxP Egresos");
             reportesCxp.AgregarSubMenu("Reporte Diario de Egresos", "REPORTE_DIARIO_EGRESOS");
             reportesCxp.AgregarSubMenu("Saldos Proveedores");
             reportesCxp.AgregarSubMenu("Estado de Cuenta Proveedor");
+
+            tesoreria.AgregarSubMenu("Gráficas");
+
 
             SidebarMenuItem polizasTesoreria = tesoreria.AgregarSubMenu("Pólizas Contables");
             polizasTesoreria.AgregarSubMenu("Definir Pólizas");
@@ -824,6 +834,8 @@ namespace PV
             utilerias.AgregarSubMenu("Contabilidad");
             utilerias.AgregarSubMenu("ODBC");
             utilerias.AgregarSubMenu("Correo Electrónico");
+            utilerias.AgregarSubMenu("Respaldar DB");
+            utilerias.AgregarSubMenu("Instalar Respaldo");
             utilerias.OpcionSeleccionada += Menu_OpcionSeleccionada;
             utilerias.ModuloPrincipalExpandido += ModuloPrincipal_Expandido;
 
@@ -1099,6 +1111,9 @@ namespace PV
                     break;
                 case "REGISTRAR_PRESTAMOS":
                     AbrirFormulario(new Prestamos());
+                    break;
+                case "DASHBOARD_VENTAS":
+                    AbrirFormulario(new DashboardVentas());
                     break;
                 default:
                     LimpiarSeleccionMenu();

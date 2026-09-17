@@ -18,16 +18,25 @@ namespace PV
         private int Mes = 0;
         private int Año = 0;
         private string Notas = "";
+        private int CentroCostos = 0;
+        private int Proyecto = 0;
+        private string NombreCentroCostos = "";
+        private string NombreProyecto = "";
 
-        public ReporteResultadosGlobal(string mes, string año, string notas)
+        public ReporteResultadosGlobal(
+            string mes,
+            string año,
+            string notas,
+            int centrocostos,
+            int proyecto,
+            string Nombrecentrocostos,
+            string Nombreproyecto)
         {
             InitializeComponent();
 
-            // Inicializar DataSets
             administracionDataSet1 = new AdministracionDataSet1();
             administracionDataSet2 = new AdministracionDataSet2();
 
-            // Convertir parámetros
             if (!int.TryParse(mes, out Mes))
             {
                 Mes = 0;
@@ -38,10 +47,14 @@ namespace PV
                 Año = 0;
             }
 
-            // Evitar que Notas sea null
+            CentroCostos = centrocostos;
+            Proyecto = proyecto;
+
+            NombreCentroCostos = Nombrecentrocostos ?? "";
+            NombreProyecto = Nombreproyecto ?? "";
+
             Notas = notas ?? "";
 
-            // Inicializar TableAdapters
             partidaRegistroGastosTableAdapter =
                 new PartidaRegistroGastosTableAdapter();
 
@@ -53,10 +66,6 @@ namespace PV
         {
             try
             {
-                // =========================================================
-                // VALIDACIONES
-                // =========================================================
-
                 if (reportViewer1 == null)
                 {
                     throw new Exception(
@@ -85,17 +94,42 @@ namespace PV
                     );
                 }
 
-                // =========================================================
-                // OBTENER INFORMACIÓN
-                // =========================================================
+                DataTable resultados;
 
-                DataTable resultados =
-                    partidaRegistroGastosTableAdapter.GetData(Mes, Año);
+                if (CentroCostos != 0)
+                {
+                    int? idProyecto;
+
+                    if (Proyecto != 0)
+                    {
+                        idProyecto = Proyecto;
+                    }
+                    else
+                    {
+                        idProyecto = null;
+                    }
+
+                    resultados =
+                        partidaRegistroGastosTableAdapter.GetDataBy(
+                            Mes,
+                            Año,
+                            CentroCostos,
+                            idProyecto
+                        );
+                    resultados = null;
+                }
+                else
+                {
+                    resultados =
+                        partidaRegistroGastosTableAdapter.GetData(
+                            Mes,
+                            Año
+                        );
+                }
 
                 DataTable empresa =
                     datosEmpresaTableAdapter.GetData();
 
-                // Evitar DataTables null
                 if (resultados == null)
                 {
                     resultados = new DataTable();
@@ -106,22 +140,10 @@ namespace PV
                     empresa = new DataTable();
                 }
 
-                // =========================================================
-                // CONFIGURAR REPORTE
-                // =========================================================
-
                 reportViewer1.LocalReport.ReportEmbeddedResource =
                     "PV.ReporteResultadosGlobal.rdlc";
 
-                // =========================================================
-                // LIMPIAR DATASOURCES
-                // =========================================================
-
                 reportViewer1.LocalReport.DataSources.Clear();
-
-                // =========================================================
-                // DATASOURCE RESULTADOS
-                // =========================================================
 
                 ReportDataSource dataSource1 =
                     new ReportDataSource(
@@ -129,26 +151,19 @@ namespace PV
                         resultados
                     );
 
-                // =========================================================
-                // DATASOURCE EMPRESA
-                // =========================================================
-
                 ReportDataSource dataSource2 =
                     new ReportDataSource(
                         "DataSet2",
                         empresa
                     );
 
-                // =========================================================
-                // AGREGAR DATASOURCES
-                // =========================================================
+                reportViewer1.LocalReport.DataSources.Add(
+                    dataSource1
+                );
 
-                reportViewer1.LocalReport.DataSources.Add(dataSource1);
-                reportViewer1.LocalReport.DataSources.Add(dataSource2);
-
-                // =========================================================
-                // PARÁMETROS DEL REPORTE
-                // =========================================================
+                reportViewer1.LocalReport.DataSources.Add(
+                    dataSource2
+                );
 
                 ReportParameter parametroMes =
                     new ReportParameter(
@@ -165,25 +180,33 @@ namespace PV
                 ReportParameter parametroNotas =
                     new ReportParameter(
                         "Notas",
-                        Notas ?? ""
+                        Notas
+                    );
+
+                ReportParameter parametroCentroCostos =
+                    new ReportParameter(
+                        "CentroCostos",
+                        NombreCentroCostos
+                    );
+
+                ReportParameter parametroProyecto =
+                    new ReportParameter(
+                        "Proyecto",
+                        NombreProyecto
                     );
 
                 ReportParameter[] parametros =
                 {
                     parametroMes,
                     parametroAño,
-                    parametroNotas
+                    parametroNotas,
+                    parametroCentroCostos,
+                    parametroProyecto
                 };
 
-                // =========================================================
-                // ESTABLECER PARÁMETROS
-                // =========================================================
-
-                reportViewer1.LocalReport.SetParameters(parametros);
-
-                // =========================================================
-                // ACTUALIZAR REPORTE
-                // =========================================================
+                reportViewer1.LocalReport.SetParameters(
+                    parametros
+                );
 
                 reportViewer1.RefreshReport();
             }

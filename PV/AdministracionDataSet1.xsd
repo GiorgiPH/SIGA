@@ -9,379 +9,640 @@
         <Tables>
           <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="PartidaRegistroGastosTableAdapter" GeneratorDataComponentClassName="PartidaRegistroGastosTableAdapter" Name="PartidaRegistroGastos" UserDataComponentName="PartidaRegistroGastosTableAdapter">
             <MainSource>
-              <DbSource ConnectionRef="ControlCondominiosConnectionString (Settings)" DbObjectName="SELECT 'Ventas' AS Concepto, ISNULL((SELECT SUM(F.Total) FROM Factura F WHERE MONTH(F.Fecha)=@Mes AND YEAR(F.Fecha)=@Año),0)+ ISNULL((SELECT SUM(R.Total) FROM Remision R WHERE MONTH(R.Fecha)=@Mes AND YEAR(R.Fecha)=@Año),0) AS ImporteMes, ((ISNULL((SELECT SUM(F.Total) FROM Factura F WHERE MONTH(F.Fecha)=@Mes AND YEAR(F.Fecha)=@Año),0)+ ISNULL((SELECT SUM(R.Total) FROM Remision R WHERE MONTH(R.Fecha)=@Mes AND YEAR(R.Fecha)=@Año),0))*100)/ NULLIF( ISNULL((SELECT SUM(F.Total) FROM Factura F WHERE MONTH(F.Fecha)=@Mes AND YEAR(F.Fecha)=@Año),0)+ ISNULL((SELECT SUM(R.Total) FROM Remision R WHERE MONTH(R.Fecha)=@Mes AND YEAR(R.Fecha)=@Año),0)+ ISNULL((SELECT SUM(MB.Importe) FROM MovimientoBanco MB WHERE MB.Tipo='i' AND MONTH(MB.Fecha)=@Mes AND YEAR(MB.Fecha)=@Año),0),0) AS PorcentajeMes, ISNULL((SELECT SUM(F.Total) FROM Factura F WHERE YEAR(F.Fecha)=@Año AND MONTH(F.Fecha)&lt;=@Mes),0)+ ISNULL((SELECT SUM(R.Total) FROM Remision R WHERE YEAR(R.Fecha)=@Año AND MONTH(R.Fecha)&lt;=@Mes),0) AS Acumulado, ((ISNULL((SELECT SUM(F.Total) FROM Factura F WHERE YEAR(F.Fecha)=@Año AND MONTH(F.Fecha)&lt;=@Mes),0)+ ISNULL((SELECT SUM(R.Total) FROM Remision R WHERE YEAR(R.Fecha)=@Año AND MONTH(R.Fecha)&lt;=@Mes),0))*100)/ NULLIF( ISNULL((SELECT SUM(F.Total) FROM Factura F WHERE YEAR(F.Fecha)=@Año AND MONTH(F.Fecha)&lt;=@Mes),0)+ ISNULL((SELECT SUM(R.Total) FROM Remision R WHERE YEAR(R.Fecha)=@Año AND MONTH(R.Fecha)&lt;=@Mes),0)+ ISNULL((SELECT SUM(MB.Importe) FROM MovimientoBanco MB WHERE MB.Tipo='i' AND YEAR(MB.Fecha)=@Año AND MONTH(MB.Fecha)&lt;=@Mes),0),0) AS PorcentajeAcumulado, 1 AS Orden UNION ALL SELECT 'Otros Ingresos', ISNULL((SELECT SUM(MB.Importe) FROM MovimientoBanco MB WHERE MB.Tipo='i' AND MONTH(MB.Fecha)=@Mes AND YEAR(MB.Fecha)=@Año),0), (ISNULL((SELECT SUM(MB.Importe) FROM MovimientoBanco MB WHERE MB.Tipo='i' AND MONTH(MB.Fecha)=@Mes AND YEAR(MB.Fecha)=@Año),0)*100)/ NULLIF( ISNULL((SELECT SUM(F.Total) FROM Factura F WHERE MONTH(F.Fecha)=@Mes AND YEAR(F.Fecha)=@Año),0)+ ISNULL((SELECT SUM(R.Total) FROM Remision R WHERE MONTH(R.Fecha)=@Mes AND YEAR(R.Fecha)=@Año),0)+ ISNULL((SELECT SUM(MB.Importe) FROM MovimientoBanco MB WHERE MB.Tipo='i' AND MONTH(MB.Fecha)=@Mes AND YEAR(MB.Fecha)=@Año),0),0), ISNULL((SELECT SUM(MB.Importe) FROM MovimientoBanco MB WHERE MB.Tipo='i' AND YEAR(MB.Fecha)=@Año AND MONTH(MB.Fecha)&lt;=@Mes),0), (ISNULL((SELECT SUM(MB.Importe) FROM MovimientoBanco MB WHERE MB.Tipo='i' AND YEAR(MB.Fecha)=@Año AND MONTH(MB.Fecha)&lt;=@Mes),0)*100)/ NULLIF( ISNULL((SELECT SUM(F.Total) FROM Factura F WHERE YEAR(F.Fecha)=@Año AND MONTH(F.Fecha)&lt;=@Mes),0)+ ISNULL((SELECT SUM(R.Total) FROM Remision R WHERE YEAR(R.Fecha)=@Año AND MONTH(R.Fecha)&lt;=@Mes),0)+ ISNULL((SELECT SUM(MB.Importe) FROM MovimientoBanco MB WHERE MB.Tipo='i' AND YEAR(MB.Fecha)=@Año AND MONTH(MB.Fecha)&lt;=@Mes),0),0), 2 AS Orden UNION ALL SELECT 'Total Ingresos', ISNULL((SELECT SUM(F.Total) FROM Factura F WHERE MONTH(F.Fecha)=@Mes AND YEAR(F.Fecha)=@Año),0)+ ISNULL((SELECT SUM(R.Total) FROM Remision R WHERE MONTH(R.Fecha)=@Mes AND YEAR(R.Fecha)=@Año),0)+ ISNULL((SELECT SUM(MB.Importe) FROM MovimientoBanco MB WHERE MB.Tipo='i' AND MONTH(MB.Fecha)=@Mes AND YEAR(MB.Fecha)=@Año),0), 100, ISNULL((SELECT SUM(F.Total) FROM Factura F WHERE YEAR(F.Fecha)=@Año AND MONTH(F.Fecha)&lt;=@Mes),0)+ ISNULL((SELECT SUM(R.Total) FROM Remision R WHERE YEAR(R.Fecha)=@Año AND MONTH(R.Fecha)&lt;=@Mes),0)+ ISNULL((SELECT SUM(MB.Importe) FROM MovimientoBanco MB WHERE MB.Tipo='i' AND YEAR(MB.Fecha)=@Año AND MONTH(MB.Fecha)&lt;=@Mes),0), 100, 3 AS Orden UNION ALL /* ESPACIO DESPUÉS DE TOTAL INGRESOS */ SELECT '', NULL, NULL, NULL, NULL, 3.5 AS Orden UNION ALL SELECT 'Costos Op. y Gastos Directos', ISNULL((SELECT SUM(PG.Total) FROM PartidaRegistroGastos PG INNER JOIN RegistroGastos RG ON PG.FolioGasto=RG.Folio INNER JOIN ProductosServicios PS ON PG.ClaveProducto=PS.ClaveProducto WHERE PS.Categoria=1 AND MONTH(RG.Fecha)=@Mes AND YEAR(RG.Fecha)=@Año),0)+ ISNULL((SELECT SUM(PR.Total) FROM PartidaRegistroReembolso PR INNER JOIN RegistroReembolso RR ON PR.FolioGasto=RR.Folio INNER JOIN ProductosServicios PS ON PR.ClaveProducto=PS.ClaveProducto WHERE PS.Categoria=1 AND MONTH(RR.Fecha)=@Mes AND YEAR(RR.Fecha)=@Año),0)+ ISNULL((SELECT SUM(PRC.Total) FROM PartidaRecepcion PRC INNER JOIN RecepcionProducto RP ON PRC.FolioRecepcion=RP.Folio INNER JOIN ProductosServicios PS ON PRC.ClaveProducto=PS.ClaveProducto WHERE PS.Categoria=1 AND MONTH(RP.Fecha)=@Mes AND YEAR(RP.Fecha)=@Año),0), 0, ISNULL((SELECT SUM(PG.Total) FROM PartidaRegistroGastos PG INNER JOIN RegistroGastos RG ON PG.FolioGasto=RG.Folio INNER JOIN ProductosServicios PS ON PG.ClaveProducto=PS.ClaveProducto WHERE PS.Categoria=1 AND YEAR(RG.Fecha)=@Año AND MONTH(RG.Fecha)&lt;=@Mes),0)+ ISNULL((SELECT SUM(PR.Total) FROM PartidaRegistroReembolso PR INNER JOIN RegistroReembolso RR ON PR.FolioGasto=RR.Folio INNER JOIN ProductosServicios PS ON PR.ClaveProducto=PS.ClaveProducto WHERE PS.Categoria=1 AND YEAR(RR.Fecha)=@Año AND MONTH(RR.Fecha)&lt;=@Mes),0)+ ISNULL((SELECT SUM(PRC.Total) FROM PartidaRecepcion PRC INNER JOIN RecepcionProducto RP ON PRC.FolioRecepcion=RP.Folio INNER JOIN ProductosServicios PS ON PRC.ClaveProducto=PS.ClaveProducto WHERE PS.Categoria=1 AND YEAR(RP.Fecha)=@Año AND MONTH(RP.Fecha)&lt;=@Mes),0), 0, 4 AS Orden UNION ALL SELECT 'Utilidad Bruta', ( ISNULL((SELECT SUM(F.Total) FROM Factura F WHERE MONTH(F.Fecha)=@Mes AND YEAR(F.Fecha)=@Año),0)+ ISNULL((SELECT SUM(R.Total) FROM Remision R WHERE MONTH(R.Fecha)=@Mes AND YEAR(R.Fecha)=@Año),0)+ ISNULL((SELECT SUM(MB.Importe) FROM MovimientoBanco MB WHERE MB.Tipo='i' AND MONTH(MB.Fecha)=@Mes AND YEAR(MB.Fecha)=@Año),0) ) - ( ISNULL((SELECT SUM(PG.Total) FROM PartidaRegistroGastos PG INNER JOIN RegistroGastos RG ON PG.FolioGasto=RG.Folio INNER JOIN ProductosServicios PS ON PG.ClaveProducto=PS.ClaveProducto WHERE PS.Categoria=1 AND MONTH(RG.Fecha)=@Mes AND YEAR(RG.Fecha)=@Año),0)+ ISNULL((SELECT SUM(PR.Total) FROM PartidaRegistroReembolso PR INNER JOIN RegistroReembolso RR ON PR.FolioGasto=RR.Folio INNER JOIN ProductosServicios PS ON PR.ClaveProducto=PS.ClaveProducto WHERE PS.Categoria=1 AND MONTH(RR.Fecha)=@Mes AND YEAR(RR.Fecha)=@Año),0)+ ISNULL((SELECT SUM(PRC.Total) FROM PartidaRecepcion PRC INNER JOIN RecepcionProducto RP ON PRC.FolioRecepcion=RP.Folio INNER JOIN ProductosServicios PS ON PRC.ClaveProducto=PS.ClaveProducto WHERE PS.Categoria=1 AND MONTH(RP.Fecha)=@Mes AND YEAR(RP.Fecha)=@Año),0) ), 0, ISNULL((SELECT SUM(F.Total) FROM Factura F WHERE YEAR(F.Fecha)=@Año AND MONTH(F.Fecha)&lt;=@Mes),0)+ ISNULL((SELECT SUM(R.Total) FROM Remision R WHERE YEAR(R.Fecha)=@Año AND MONTH(R.Fecha)&lt;=@Mes),0)+ ISNULL((SELECT SUM(MB.Importe) FROM MovimientoBanco MB WHERE MB.Tipo='i' AND YEAR(MB.Fecha)=@Año AND MONTH(MB.Fecha)&lt;=@Mes),0) - ( ISNULL((SELECT SUM(PG.Total) FROM PartidaRegistroGastos PG INNER JOIN RegistroGastos RG ON PG.FolioGasto=RG.Folio INNER JOIN ProductosServicios PS ON PG.ClaveProducto=PS.ClaveProducto WHERE PS.Categoria=1 AND YEAR(RG.Fecha)=@Año AND MONTH(RG.Fecha)&lt;=@Mes),0)+ ISNULL((SELECT SUM(PR.Total) FROM PartidaRegistroReembolso PR INNER JOIN RegistroReembolso RR ON PR.FolioGasto=RR.Folio INNER JOIN ProductosServicios PS ON PR.ClaveProducto=PS.ClaveProducto WHERE PS.Categoria=1 AND YEAR(RR.Fecha)=@Año AND MONTH(RR.Fecha)&lt;=@Mes),0)+ ISNULL((SELECT SUM(PRC.Total) FROM PartidaRecepcion PRC INNER JOIN RecepcionProducto RP ON PRC.FolioRecepcion=RP.Folio INNER JOIN ProductosServicios PS ON PRC.ClaveProducto=PS.ClaveProducto WHERE PS.Categoria=1 AND YEAR(RP.Fecha)=@Año AND MONTH(RP.Fecha)&lt;=@Mes),0) ), 0, 5 AS Orden UNION ALL /* ESPACIO DESPUÉS DE UTILIDAD BRUTA */ SELECT '', NULL, NULL, NULL, NULL, 5.5 AS Orden UNION ALL SELECT 'Gastos de administración', ISNULL((SELECT SUM(PG.Total) FROM PartidaRegistroGastos PG INNER JOIN RegistroGastos RG ON PG.FolioGasto=RG.Folio INNER JOIN ProductosServicios PS ON PG.ClaveProducto=PS.ClaveProducto WHERE PS.Categoria=2 AND MONTH(RG.Fecha)=@Mes AND YEAR(RG.Fecha)=@Año),0)+ ISNULL((SELECT SUM(PR.Total) FROM PartidaRegistroReembolso PR INNER JOIN RegistroReembolso RR ON PR.FolioGasto=RR.Folio INNER JOIN ProductosServicios PS ON PR.ClaveProducto=PS.ClaveProducto WHERE PS.Categoria=2 AND MONTH(RR.Fecha)=@Mes AND YEAR(RR.Fecha)=@Año),0)+ ISNULL((SELECT SUM(PRC.Total) FROM PartidaRecepcion PRC INNER JOIN RecepcionProducto RP ON PRC.FolioRecepcion=RP.Folio INNER JOIN ProductosServicios PS ON PRC.ClaveProducto=PS.ClaveProducto WHERE PS.Categoria=2 AND MONTH(RP.Fecha)=@Mes AND YEAR(RP.Fecha)=@Año),0), 0, ISNULL((SELECT SUM(PG.Total) FROM PartidaRegistroGastos PG INNER JOIN RegistroGastos RG ON PG.FolioGasto=RG.Folio INNER JOIN ProductosServicios PS ON PG.ClaveProducto=PS.ClaveProducto WHERE PS.Categoria=2 AND YEAR(RG.Fecha)=@Año AND MONTH(RG.Fecha)&lt;=@Mes),0)+ ISNULL((SELECT SUM(PR.Total) FROM PartidaRegistroReembolso PR INNER JOIN RegistroReembolso RR ON PR.FolioGasto=RR.Folio INNER JOIN ProductosServicios PS ON PR.ClaveProducto=PS.ClaveProducto WHERE PS.Categoria=2 AND YEAR(RR.Fecha)=@Año AND MONTH(RR.Fecha)&lt;=@Mes),0)+ ISNULL((SELECT SUM(PRC.Total) FROM PartidaRecepcion PRC INNER JOIN RecepcionProducto RP ON PRC.FolioRecepcion=RP.Folio INNER JOIN ProductosServicios PS ON PRC.ClaveProducto=PS.ClaveProducto WHERE PS.Categoria=2 AND YEAR(RP.Fecha)=@Año AND MONTH(RP.Fecha)&lt;=@Mes),0), 0, 6 AS Orden UNION ALL SELECT 'Gastos Financieros', ISNULL((SELECT SUM(MB.Importe) FROM MovimientoBanco MB WHERE MB.Tipo='e' AND MONTH(MB.Fecha)=@Mes AND YEAR(MB.Fecha)=@Año),0), 0, ISNULL((SELECT SUM(MB.Importe) FROM MovimientoBanco MB WHERE MB.Tipo='e' AND YEAR(MB.Fecha)=@Año AND MONTH(MB.Fecha)&lt;=@Mes),0), 0, 7 AS Orden UNION ALL /* SEPARADOR ANTES DE UTILIDAD OPERATIVA */ SELECT '', NULL, NULL, NULL, NULL, 7.5 AS Orden UNION ALL SELECT 'Utilidad Operativa', ( ISNULL((SELECT SUM(F.Total) FROM Factura F WHERE MONTH(F.Fecha)=@Mes AND YEAR(F.Fecha)=@Año),0)+ ISNULL((SELECT SUM(R.Total) FROM Remision R WHERE MONTH(R.Fecha)=@Mes AND YEAR(R.Fecha)=@Año),0)+ ISNULL((SELECT SUM(MB.Importe) FROM MovimientoBanco MB WHERE MB.Tipo='i' AND MONTH(MB.Fecha)=@Mes AND YEAR(MB.Fecha)=@Año),0) ) - ( ISNULL((SELECT SUM(PG.Total) FROM PartidaRegistroGastos PG INNER JOIN RegistroGastos RG ON PG.FolioGasto=RG.Folio INNER JOIN ProductosServicios PS ON PG.ClaveProducto=PS.ClaveProducto WHERE PS.Categoria=1 AND MONTH(RG.Fecha)=@Mes AND YEAR(RG.Fecha)=@Año),0)+ ISNULL((SELECT SUM(PR.Total) FROM PartidaRegistroReembolso PR INNER JOIN RegistroReembolso RR ON PR.FolioGasto=RR.Folio INNER JOIN ProductosServicios PS ON PR.ClaveProducto=PS.ClaveProducto WHERE PS.Categoria=1 AND MONTH(RR.Fecha)=@Mes AND YEAR(RR.Fecha)=@Año),0)+ ISNULL((SELECT SUM(PRC.Total) FROM PartidaRecepcion PRC INNER JOIN RecepcionProducto RP ON PRC.FolioRecepcion=RP.Folio INNER JOIN ProductosServicios PS ON PRC.ClaveProducto=PS.ClaveProducto WHERE PS.Categoria=1 AND MONTH(RP.Fecha)=@Mes AND YEAR(RP.Fecha)=@Año),0) ) - ( ISNULL((SELECT SUM(PG.Total) FROM PartidaRegistroGastos PG INNER JOIN RegistroGastos RG ON PG.FolioGasto=RG.Folio INNER JOIN ProductosServicios PS ON PG.ClaveProducto=PS.ClaveProducto WHERE PS.Categoria=2 AND MONTH(RG.Fecha)=@Mes AND YEAR(RG.Fecha)=@Año),0)+ ISNULL((SELECT SUM(PR.Total) FROM PartidaRegistroReembolso PR INNER JOIN RegistroReembolso RR ON PR.FolioGasto=RR.Folio INNER JOIN ProductosServicios PS ON PR.ClaveProducto=PS.ClaveProducto WHERE PS.Categoria=2 AND MONTH(RR.Fecha)=@Mes AND YEAR(RR.Fecha)=@Año),0)+ ISNULL((SELECT SUM(PRC.Total) FROM PartidaRecepcion PRC INNER JOIN RecepcionProducto RP ON PRC.FolioRecepcion=RP.Folio INNER JOIN ProductosServicios PS ON PRC.ClaveProducto=PS.ClaveProducto WHERE PS.Categoria=2 AND MONTH(RP.Fecha)=@Mes AND YEAR(RP.Fecha)=@Año),0) ) - ISNULL((SELECT SUM(MB.Importe) FROM MovimientoBanco MB WHERE MB.Tipo='e' AND MONTH(MB.Fecha)=@Mes AND YEAR(MB.Fecha)=@Año),0), 0, ( ISNULL((SELECT SUM(F.Total) FROM Factura F WHERE YEAR(F.Fecha)=@Año AND MONTH(F.Fecha)&lt;=@Mes),0)+ ISNULL((SELECT SUM(R.Total) FROM Remision R WHERE YEAR(R.Fecha)=@Año AND MONTH(R.Fecha)&lt;=@Mes),0)+ ISNULL((SELECT SUM(MB.Importe) FROM MovimientoBanco MB WHERE MB.Tipo='i' AND YEAR(MB.Fecha)=@Año AND MONTH(MB.Fecha)&lt;=@Mes),0) ) - ( ISNULL((SELECT SUM(PG.Total) FROM PartidaRegistroGastos PG INNER JOIN RegistroGastos RG ON PG.FolioGasto=RG.Folio INNER JOIN ProductosServicios PS ON PG.ClaveProducto=PS.ClaveProducto WHERE PS.Categoria=1 AND YEAR(RG.Fecha)=@Año AND MONTH(RG.Fecha)&lt;=@Mes),0)+ ISNULL((SELECT SUM(PR.Total) FROM PartidaRegistroReembolso PR INNER JOIN RegistroReembolso RR ON PR.FolioGasto=RR.Folio INNER JOIN ProductosServicios PS ON PR.ClaveProducto=PS.ClaveProducto WHERE PS.Categoria=1 AND YEAR(RR.Fecha)=@Año AND MONTH(RR.Fecha)&lt;=@Mes),0)+ ISNULL((SELECT SUM(PRC.Total) FROM PartidaRecepcion PRC INNER JOIN RecepcionProducto RP ON PRC.FolioRecepcion=RP.Folio INNER JOIN ProductosServicios PS ON PRC.ClaveProducto=PS.ClaveProducto WHERE PS.Categoria=1 AND YEAR(RP.Fecha)=@Año AND MONTH(RP.Fecha)&lt;=@Mes),0) ) - ( ISNULL((SELECT SUM(PG.Total) FROM PartidaRegistroGastos PG INNER JOIN RegistroGastos RG ON PG.FolioGasto=RG.Folio INNER JOIN ProductosServicios PS ON PG.ClaveProducto=PS.ClaveProducto WHERE PS.Categoria=2 AND YEAR(RG.Fecha)=@Año AND MONTH(RG.Fecha)&lt;=@Mes),0)+ ISNULL((SELECT SUM(PR.Total) FROM PartidaRegistroReembolso PR INNER JOIN RegistroReembolso RR ON PR.FolioGasto=RR.Folio INNER JOIN ProductosServicios PS ON PR.ClaveProducto=PS.ClaveProducto WHERE PS.Categoria=2 AND YEAR(RR.Fecha)=@Año AND MONTH(RR.Fecha)&lt;=@Mes),0)+ ISNULL((SELECT SUM(PRC.Total) FROM PartidaRecepcion PRC INNER JOIN RecepcionProducto RP ON PRC.FolioRecepcion=RP.Folio INNER JOIN ProductosServicios PS ON PRC.ClaveProducto=PS.ClaveProducto WHERE PS.Categoria=2 AND YEAR(RP.Fecha)=@Año AND MONTH(RP.Fecha)&lt;=@Mes),0) ) - ISNULL((SELECT SUM(MB.Importe) FROM MovimientoBanco MB WHERE MB.Tipo='e' AND YEAR(MB.Fecha)=@Año AND MONTH(MB.Fecha)&lt;=@Mes),0), 0, 8 AS Orden" DbObjectType="Unknown" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="false" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="false" UserGetMethodName="GetData" UserSourceName="Fill">
+              <DbSource ConnectionRef="ControlCondominiosConnectionString (Settings)" DbObjectName="SELECT 'Ventas' AS Concepto, ISNULL((SELECT SUM(F.Total) FROM Factura F WHERE MONTH(F.Fecha)=@Mes AND YEAR(F.Fecha)=@Año),0)+ ISNULL((SELECT SUM(R.Total) FROM Remision R WHERE MONTH(R.Fecha)=@Mes AND YEAR(R.Fecha)=@Año),0) AS ImporteMes, ((ISNULL((SELECT SUM(F.Total) FROM Factura F WHERE MONTH(F.Fecha)=@Mes AND YEAR(F.Fecha)=@Año),0)+ ISNULL((SELECT SUM(R.Total) FROM Remision R WHERE MONTH(R.Fecha)=@Mes AND YEAR(R.Fecha)=@Año),0))*100)/ NULLIF( ISNULL((SELECT SUM(F.Total) FROM Factura F WHERE MONTH(F.Fecha)=@Mes AND YEAR(F.Fecha)=@Año),0)+ ISNULL((SELECT SUM(R.Total) FROM Remision R WHERE MONTH(R.Fecha)=@Mes AND YEAR(R.Fecha)=@Año),0)+ ISNULL((SELECT SUM(MB.Importe) FROM MovimientoBanco MB WHERE MB.Tipo='i' AND MONTH(MB.Fecha)=@Mes AND YEAR(MB.Fecha)=@Año),0),0) AS PorcentajeMes, ISNULL((SELECT SUM(F.Total) FROM Factura F WHERE YEAR(F.Fecha)=@Año AND MONTH(F.Fecha)&lt;=@Mes),0)+ ISNULL((SELECT SUM(R.Total) FROM Remision R WHERE YEAR(R.Fecha)=@Año AND MONTH(R.Fecha)&lt;=@Mes),0) AS Acumulado, ((ISNULL((SELECT SUM(F.Total) FROM Factura F WHERE YEAR(F.Fecha)=@Año AND MONTH(F.Fecha)&lt;=@Mes),0)+ ISNULL((SELECT SUM(R.Total) FROM Remision R WHERE YEAR(R.Fecha)=@Año AND MONTH(R.Fecha)&lt;=@Mes),0))*100)/ NULLIF( ISNULL((SELECT SUM(F.Total) FROM Factura F WHERE YEAR(F.Fecha)=@Año AND MONTH(F.Fecha)&lt;=@Mes),0)+ ISNULL((SELECT SUM(R.Total) FROM Remision R WHERE YEAR(R.Fecha)=@Año AND MONTH(R.Fecha)&lt;=@Mes),0)+ ISNULL((SELECT SUM(MB.Importe) FROM MovimientoBanco MB WHERE MB.Tipo='i' AND YEAR(MB.Fecha)=@Año AND MONTH(MB.Fecha)&lt;=@Mes),0),0) AS PorcentajeAcumulado, 1 AS Orden UNION ALL SELECT 'Otros Ingresos', ISNULL((SELECT SUM(MB.Importe) FROM MovimientoBanco MB WHERE MB.Tipo='i' AND MONTH(MB.Fecha)=@Mes AND YEAR(MB.Fecha)=@Año),0), (ISNULL((SELECT SUM(MB.Importe) FROM MovimientoBanco MB WHERE MB.Tipo='i' AND MONTH(MB.Fecha)=@Mes AND YEAR(MB.Fecha)=@Año),0)*100)/ NULLIF( ISNULL((SELECT SUM(F.Total) FROM Factura F WHERE MONTH(F.Fecha)=@Mes AND YEAR(F.Fecha)=@Año),0)+ ISNULL((SELECT SUM(R.Total) FROM Remision R WHERE MONTH(R.Fecha)=@Mes AND YEAR(R.Fecha)=@Año),0)+ ISNULL((SELECT SUM(MB.Importe) FROM MovimientoBanco MB WHERE MB.Tipo='i' AND MONTH(MB.Fecha)=@Mes AND YEAR(MB.Fecha)=@Año),0),0), ISNULL((SELECT SUM(MB.Importe) FROM MovimientoBanco MB WHERE MB.Tipo='i' AND YEAR(MB.Fecha)=@Año AND MONTH(MB.Fecha)&lt;=@Mes),0), (ISNULL((SELECT SUM(MB.Importe) FROM MovimientoBanco MB WHERE MB.Tipo='i' AND YEAR(MB.Fecha)=@Año AND MONTH(MB.Fecha)&lt;=@Mes),0)*100)/ NULLIF( ISNULL((SELECT SUM(F.Total) FROM Factura F WHERE YEAR(F.Fecha)=@Año AND MONTH(F.Fecha)&lt;=@Mes),0)+ ISNULL((SELECT SUM(R.Total) FROM Remision R WHERE YEAR(R.Fecha)=@Año AND MONTH(R.Fecha)&lt;=@Mes),0)+ ISNULL((SELECT SUM(MB.Importe) FROM MovimientoBanco MB WHERE MB.Tipo='i' AND YEAR(MB.Fecha)=@Año AND MONTH(MB.Fecha)&lt;=@Mes),0),0), 2 AS Orden UNION ALL SELECT 'Total Ingresos', ISNULL((SELECT SUM(F.Total) FROM Factura F WHERE MONTH(F.Fecha)=@Mes AND YEAR(F.Fecha)=@Año),0)+ ISNULL((SELECT SUM(R.Total) FROM Remision R WHERE MONTH(R.Fecha)=@Mes AND YEAR(R.Fecha)=@Año),0)+ ISNULL((SELECT SUM(MB.Importe) FROM MovimientoBanco MB WHERE MB.Tipo='i' AND MONTH(MB.Fecha)=@Mes AND YEAR(MB.Fecha)=@Año),0), 100, ISNULL((SELECT SUM(F.Total) FROM Factura F WHERE YEAR(F.Fecha)=@Año AND MONTH(F.Fecha)&lt;=@Mes),0)+ ISNULL((SELECT SUM(R.Total) FROM Remision R WHERE YEAR(R.Fecha)=@Año AND MONTH(R.Fecha)&lt;=@Mes),0)+ ISNULL((SELECT SUM(MB.Importe) FROM MovimientoBanco MB WHERE MB.Tipo='i' AND YEAR(MB.Fecha)=@Año AND MONTH(MB.Fecha)&lt;=@Mes),0), 100, 3 AS Orden UNION ALL SELECT '', NULL, NULL, NULL, NULL, 3.5 AS Orden UNION ALL SELECT 'Costos Op. y Gastos Directos', ISNULL((SELECT SUM(PG.Total) FROM PartidaRegistroGastos PG INNER JOIN RegistroGastos RG ON PG.FolioGasto=RG.Folio INNER JOIN ProductosServicios PS ON PG.ClaveProducto=PS.ClaveProducto WHERE PS.Categoria=1 AND MONTH(RG.Fecha)=@Mes AND YEAR(RG.Fecha)=@Año),0)+ ISNULL((SELECT SUM(PR.Total) FROM PartidaRegistroReembolso PR INNER JOIN RegistroReembolso RR ON PR.FolioGasto=RR.Folio INNER JOIN ProductosServicios PS ON PR.ClaveProducto=PS.ClaveProducto WHERE PS.Categoria=1 AND MONTH(RR.Fecha)=@Mes AND YEAR(RR.Fecha)=@Año),0)+ ISNULL((SELECT SUM(PRC.Total) FROM PartidaRecepcion PRC INNER JOIN RecepcionProducto RP ON PRC.FolioRecepcion=RP.Folio INNER JOIN ProductosServicios PS ON PRC.ClaveProducto=PS.ClaveProducto WHERE PS.Categoria=1 AND MONTH(RP.Fecha)=@Mes AND YEAR(RP.Fecha)=@Año),0), ( ISNULL((SELECT SUM(PG.Total) FROM PartidaRegistroGastos PG INNER JOIN RegistroGastos RG ON PG.FolioGasto=RG.Folio INNER JOIN ProductosServicios PS ON PG.ClaveProducto=PS.ClaveProducto WHERE PS.Categoria=1 AND MONTH(RG.Fecha)=@Mes AND YEAR(RG.Fecha)=@Año),0)+ ISNULL((SELECT SUM(PR.Total) FROM PartidaRegistroReembolso PR INNER JOIN RegistroReembolso RR ON PR.FolioGasto=RR.Folio INNER JOIN ProductosServicios PS ON PR.ClaveProducto=PS.ClaveProducto WHERE PS.Categoria=1 AND MONTH(RR.Fecha)=@Mes AND YEAR(RR.Fecha)=@Año),0)+ ISNULL((SELECT SUM(PRC.Total) FROM PartidaRecepcion PRC INNER JOIN RecepcionProducto RP ON PRC.FolioRecepcion=RP.Folio INNER JOIN ProductosServicios PS ON PRC.ClaveProducto=PS.ClaveProducto WHERE PS.Categoria=1 AND MONTH(RP.Fecha)=@Mes AND YEAR(RP.Fecha)=@Año),0) )*100/ NULLIF( ISNULL((SELECT SUM(F.Total) FROM Factura F WHERE MONTH(F.Fecha)=@Mes AND YEAR(F.Fecha)=@Año),0)+ ISNULL((SELECT SUM(R.Total) FROM Remision R WHERE MONTH(R.Fecha)=@Mes AND YEAR(R.Fecha)=@Año),0)+ ISNULL((SELECT SUM(MB.Importe) FROM MovimientoBanco MB WHERE MB.Tipo='i' AND MONTH(MB.Fecha)=@Mes AND YEAR(MB.Fecha)=@Año),0),0), ISNULL((SELECT SUM(PG.Total) FROM PartidaRegistroGastos PG INNER JOIN RegistroGastos RG ON PG.FolioGasto=RG.Folio INNER JOIN ProductosServicios PS ON PG.ClaveProducto=PS.ClaveProducto WHERE PS.Categoria=1 AND YEAR(RG.Fecha)=@Año AND MONTH(RG.Fecha)&lt;=@Mes),0)+ ISNULL((SELECT SUM(PR.Total) FROM PartidaRegistroReembolso PR INNER JOIN RegistroReembolso RR ON PR.FolioGasto=RR.Folio INNER JOIN ProductosServicios PS ON PR.ClaveProducto=PS.ClaveProducto WHERE PS.Categoria=1 AND YEAR(RR.Fecha)=@Año AND MONTH(RR.Fecha)&lt;=@Mes),0)+ ISNULL((SELECT SUM(PRC.Total) FROM PartidaRecepcion PRC INNER JOIN RecepcionProducto RP ON PRC.FolioRecepcion=RP.Folio INNER JOIN ProductosServicios PS ON PRC.ClaveProducto=PS.ClaveProducto WHERE PS.Categoria=1 AND YEAR(RP.Fecha)=@Año AND MONTH(RP.Fecha)&lt;=@Mes),0), ( ISNULL((SELECT SUM(PG.Total) FROM PartidaRegistroGastos PG INNER JOIN RegistroGastos RG ON PG.FolioGasto=RG.Folio INNER JOIN ProductosServicios PS ON PG.ClaveProducto=PS.ClaveProducto WHERE PS.Categoria=1 AND YEAR(RG.Fecha)=@Año AND MONTH(RG.Fecha)&lt;=@Mes),0)+ ISNULL((SELECT SUM(PR.Total) FROM PartidaRegistroReembolso PR INNER JOIN RegistroReembolso RR ON PR.FolioGasto=RR.Folio INNER JOIN ProductosServicios PS ON PR.ClaveProducto=PS.ClaveProducto WHERE PS.Categoria=1 AND YEAR(RR.Fecha)=@Año AND MONTH(RR.Fecha)&lt;=@Mes),0)+ ISNULL((SELECT SUM(PRC.Total) FROM PartidaRecepcion PRC INNER JOIN RecepcionProducto RP ON PRC.FolioRecepcion=RP.Folio INNER JOIN ProductosServicios PS ON PRC.ClaveProducto=PS.ClaveProducto WHERE PS.Categoria=1 AND YEAR(RP.Fecha)=@Año AND MONTH(RP.Fecha)&lt;=@Mes),0) )*100/ NULLIF( ISNULL((SELECT SUM(F.Total) FROM Factura F WHERE YEAR(F.Fecha)=@Año AND MONTH(F.Fecha)&lt;=@Mes),0)+ ISNULL((SELECT SUM(R.Total) FROM Remision R WHERE YEAR(R.Fecha)=@Año AND MONTH(R.Fecha)&lt;=@Mes),0)+ ISNULL((SELECT SUM(MB.Importe) FROM MovimientoBanco MB WHERE MB.Tipo='i' AND YEAR(MB.Fecha)=@Año AND MONTH(MB.Fecha)&lt;=@Mes),0),0), 4 AS Orden UNION ALL SELECT 'Utilidad Bruta', ( ISNULL((SELECT SUM(F.Total) FROM Factura F WHERE MONTH(F.Fecha)=@Mes AND YEAR(F.Fecha)=@Año),0)+ ISNULL((SELECT SUM(R.Total) FROM Remision R WHERE MONTH(R.Fecha)=@Mes AND YEAR(R.Fecha)=@Año),0)+ ISNULL((SELECT SUM(MB.Importe) FROM MovimientoBanco MB WHERE MB.Tipo='i' AND MONTH(MB.Fecha)=@Mes AND YEAR(MB.Fecha)=@Año),0) ) - ( ISNULL((SELECT SUM(PG.Total) FROM PartidaRegistroGastos PG INNER JOIN RegistroGastos RG ON PG.FolioGasto=RG.Folio INNER JOIN ProductosServicios PS ON PG.ClaveProducto=PS.ClaveProducto WHERE PS.Categoria=1 AND MONTH(RG.Fecha)=@Mes AND YEAR(RG.Fecha)=@Año),0)+ ISNULL((SELECT SUM(PR.Total) FROM PartidaRegistroReembolso PR INNER JOIN RegistroReembolso RR ON PR.FolioGasto=RR.Folio INNER JOIN ProductosServicios PS ON PR.ClaveProducto=PS.ClaveProducto WHERE PS.Categoria=1 AND MONTH(RR.Fecha)=@Mes AND YEAR(RR.Fecha)=@Año),0)+ ISNULL((SELECT SUM(PRC.Total) FROM PartidaRecepcion PRC INNER JOIN RecepcionProducto RP ON PRC.FolioRecepcion=RP.Folio INNER JOIN ProductosServicios PS ON PRC.ClaveProducto=PS.ClaveProducto WHERE PS.Categoria=1 AND MONTH(RP.Fecha)=@Mes AND YEAR(RP.Fecha)=@Año),0) ), ( ( ISNULL((SELECT SUM(F.Total) FROM Factura F WHERE MONTH(F.Fecha)=@Mes AND YEAR(F.Fecha)=@Año),0)+ ISNULL((SELECT SUM(R.Total) FROM Remision R WHERE MONTH(R.Fecha)=@Mes AND YEAR(R.Fecha)=@Año),0)+ ISNULL((SELECT SUM(MB.Importe) FROM MovimientoBanco MB WHERE MB.Tipo='i' AND MONTH(MB.Fecha)=@Mes AND YEAR(MB.Fecha)=@Año),0) ) - ( ISNULL((SELECT SUM(PG.Total) FROM PartidaRegistroGastos PG INNER JOIN RegistroGastos RG ON PG.FolioGasto=RG.Folio INNER JOIN ProductosServicios PS ON PG.ClaveProducto=PS.ClaveProducto WHERE PS.Categoria=1 AND MONTH(RG.Fecha)=@Mes AND YEAR(RG.Fecha)=@Año),0)+ ISNULL((SELECT SUM(PR.Total) FROM PartidaRegistroReembolso PR INNER JOIN RegistroReembolso RR ON PR.FolioGasto=RR.Folio INNER JOIN ProductosServicios PS ON PR.ClaveProducto=PS.ClaveProducto WHERE PS.Categoria=1 AND MONTH(RR.Fecha)=@Mes AND YEAR(RR.Fecha)=@Año),0)+ ISNULL((SELECT SUM(PRC.Total) FROM PartidaRecepcion PRC INNER JOIN RecepcionProducto RP ON PRC.FolioRecepcion=RP.Folio INNER JOIN ProductosServicios PS ON PRC.ClaveProducto=PS.ClaveProducto WHERE PS.Categoria=1 AND MONTH(RP.Fecha)=@Mes AND YEAR(RP.Fecha)=@Año),0) ) )*100/ NULLIF( ISNULL((SELECT SUM(F.Total) FROM Factura F WHERE MONTH(F.Fecha)=@Mes AND YEAR(F.Fecha)=@Año),0)+ ISNULL((SELECT SUM(R.Total) FROM Remision R WHERE MONTH(R.Fecha)=@Mes AND YEAR(R.Fecha)=@Año),0)+ ISNULL((SELECT SUM(MB.Importe) FROM MovimientoBanco MB WHERE MB.Tipo='i' AND MONTH(MB.Fecha)=@Mes AND YEAR(MB.Fecha)=@Año),0),0), ( ISNULL((SELECT SUM(F.Total) FROM Factura F WHERE YEAR(F.Fecha)=@Año AND MONTH(F.Fecha)&lt;=@Mes),0)+ ISNULL((SELECT SUM(R.Total) FROM Remision R WHERE YEAR(R.Fecha)=@Año AND MONTH(R.Fecha)&lt;=@Mes),0)+ ISNULL((SELECT SUM(MB.Importe) FROM MovimientoBanco MB WHERE MB.Tipo='i' AND YEAR(MB.Fecha)=@Año AND MONTH(MB.Fecha)&lt;=@Mes),0) ) - ( ISNULL((SELECT SUM(PG.Total) FROM PartidaRegistroGastos PG INNER JOIN RegistroGastos RG ON PG.FolioGasto=RG.Folio INNER JOIN ProductosServicios PS ON PG.ClaveProducto=PS.ClaveProducto WHERE PS.Categoria=1 AND YEAR(RG.Fecha)=@Año AND MONTH(RG.Fecha)&lt;=@Mes),0)+ ISNULL((SELECT SUM(PR.Total) FROM PartidaRegistroReembolso PR INNER JOIN RegistroReembolso RR ON PR.FolioGasto=RR.Folio INNER JOIN ProductosServicios PS ON PR.ClaveProducto=PS.ClaveProducto WHERE PS.Categoria=1 AND YEAR(RR.Fecha)=@Año AND MONTH(RR.Fecha)&lt;=@Mes),0)+ ISNULL((SELECT SUM(PRC.Total) FROM PartidaRecepcion PRC INNER JOIN RecepcionProducto RP ON PRC.FolioRecepcion=RP.Folio INNER JOIN ProductosServicios PS ON PRC.ClaveProducto=PS.ClaveProducto WHERE PS.Categoria=1 AND YEAR(RP.Fecha)=@Año AND MONTH(RP.Fecha)&lt;=@Mes),0) ), ( ( ISNULL((SELECT SUM(F.Total) FROM Factura F WHERE YEAR(F.Fecha)=@Año AND MONTH(F.Fecha)&lt;=@Mes),0)+ ISNULL((SELECT SUM(R.Total) FROM Remision R WHERE YEAR(R.Fecha)=@Año AND MONTH(R.Fecha)&lt;=@Mes),0)+ ISNULL((SELECT SUM(MB.Importe) FROM MovimientoBanco MB WHERE MB.Tipo='i' AND YEAR(MB.Fecha)=@Año AND MONTH(MB.Fecha)&lt;=@Mes),0) ) - ( ISNULL((SELECT SUM(PG.Total) FROM PartidaRegistroGastos PG INNER JOIN RegistroGastos RG ON PG.FolioGasto=RG.Folio INNER JOIN ProductosServicios PS ON PG.ClaveProducto=PS.ClaveProducto WHERE PS.Categoria=1 AND YEAR(RG.Fecha)=@Año AND MONTH(RG.Fecha)&lt;=@Mes),0)+ ISNULL((SELECT SUM(PR.Total) FROM PartidaRegistroReembolso PR INNER JOIN RegistroReembolso RR ON PR.FolioGasto=RR.Folio INNER JOIN ProductosServicios PS ON PR.ClaveProducto=PS.ClaveProducto WHERE PS.Categoria=1 AND YEAR(RR.Fecha)=@Año AND MONTH(RR.Fecha)&lt;=@Mes),0)+ ISNULL((SELECT SUM(PRC.Total) FROM PartidaRecepcion PRC INNER JOIN RecepcionProducto RP ON PRC.FolioRecepcion=RP.Folio INNER JOIN ProductosServicios PS ON PRC.ClaveProducto=PS.ClaveProducto WHERE PS.Categoria=1 AND YEAR(RP.Fecha)=@Año AND MONTH(RP.Fecha)&lt;=@Mes),0) ) )*100/ NULLIF( ISNULL((SELECT SUM(F.Total) FROM Factura F WHERE YEAR(F.Fecha)=@Año AND MONTH(F.Fecha)&lt;=@Mes),0)+ ISNULL((SELECT SUM(R.Total) FROM Remision R WHERE YEAR(R.Fecha)=@Año AND MONTH(R.Fecha)&lt;=@Mes),0)+ ISNULL((SELECT SUM(MB.Importe) FROM MovimientoBanco MB WHERE MB.Tipo='i' AND YEAR(MB.Fecha)=@Año AND MONTH(MB.Fecha)&lt;=@Mes),0),0), 5 AS Orden UNION ALL SELECT '', NULL, NULL, NULL, NULL, 5.5 AS Orden UNION ALL SELECT 'Gastos de administración', ISNULL((SELECT SUM(PG.Total) FROM PartidaRegistroGastos PG INNER JOIN RegistroGastos RG ON PG.FolioGasto=RG.Folio INNER JOIN ProductosServicios PS ON PG.ClaveProducto=PS.ClaveProducto WHERE PS.Categoria=2 AND MONTH(RG.Fecha)=@Mes AND YEAR(RG.Fecha)=@Año),0)+ ISNULL((SELECT SUM(PR.Total) FROM PartidaRegistroReembolso PR INNER JOIN RegistroReembolso RR ON PR.FolioGasto=RR.Folio INNER JOIN ProductosServicios PS ON PR.ClaveProducto=PS.ClaveProducto WHERE PS.Categoria=2 AND MONTH(RR.Fecha)=@Mes AND YEAR(RR.Fecha)=@Año),0)+ ISNULL((SELECT SUM(PRC.Total) FROM PartidaRecepcion PRC INNER JOIN RecepcionProducto RP ON PRC.FolioRecepcion=RP.Folio INNER JOIN ProductosServicios PS ON PRC.ClaveProducto=PS.ClaveProducto WHERE PS.Categoria=2 AND MONTH(RP.Fecha)=@Mes AND YEAR(RP.Fecha)=@Año),0), ( ISNULL((SELECT SUM(PG.Total) FROM PartidaRegistroGastos PG INNER JOIN RegistroGastos RG ON PG.FolioGasto=RG.Folio INNER JOIN ProductosServicios PS ON PG.ClaveProducto=PS.ClaveProducto WHERE PS.Categoria=2 AND MONTH(RG.Fecha)=@Mes AND YEAR(RG.Fecha)=@Año),0)+ ISNULL((SELECT SUM(PR.Total) FROM PartidaRegistroReembolso PR INNER JOIN RegistroReembolso RR ON PR.FolioGasto=RR.Folio INNER JOIN ProductosServicios PS ON PR.ClaveProducto=PS.ClaveProducto WHERE PS.Categoria=2 AND MONTH(RR.Fecha)=@Mes AND YEAR(RR.Fecha)=@Año),0)+ ISNULL((SELECT SUM(PRC.Total) FROM PartidaRecepcion PRC INNER JOIN RecepcionProducto RP ON PRC.FolioRecepcion=RP.Folio INNER JOIN ProductosServicios PS ON PRC.ClaveProducto=PS.ClaveProducto WHERE PS.Categoria=2 AND MONTH(RP.Fecha)=@Mes AND YEAR(RP.Fecha)=@Año),0) )*100/ NULLIF( ISNULL((SELECT SUM(F.Total) FROM Factura F WHERE MONTH(F.Fecha)=@Mes AND YEAR(F.Fecha)=@Año),0)+ ISNULL((SELECT SUM(R.Total) FROM Remision R WHERE MONTH(R.Fecha)=@Mes AND YEAR(R.Fecha)=@Año),0)+ ISNULL((SELECT SUM(MB.Importe) FROM MovimientoBanco MB WHERE MB.Tipo='i' AND MONTH(MB.Fecha)=@Mes AND YEAR(MB.Fecha)=@Año),0),0), ISNULL((SELECT SUM(PG.Total) FROM PartidaRegistroGastos PG INNER JOIN RegistroGastos RG ON PG.FolioGasto=RG.Folio INNER JOIN ProductosServicios PS ON PG.ClaveProducto=PS.ClaveProducto WHERE PS.Categoria=2 AND YEAR(RG.Fecha)=@Año AND MONTH(RG.Fecha)&lt;=@Mes),0)+ ISNULL((SELECT SUM(PR.Total) FROM PartidaRegistroReembolso PR INNER JOIN RegistroReembolso RR ON PR.FolioGasto=RR.Folio INNER JOIN ProductosServicios PS ON PR.ClaveProducto=PS.ClaveProducto WHERE PS.Categoria=2 AND YEAR(RR.Fecha)=@Año AND MONTH(RR.Fecha)&lt;=@Mes),0)+ ISNULL((SELECT SUM(PRC.Total) FROM PartidaRecepcion PRC INNER JOIN RecepcionProducto RP ON PRC.FolioRecepcion=RP.Folio INNER JOIN ProductosServicios PS ON PRC.ClaveProducto=PS.ClaveProducto WHERE PS.Categoria=2 AND YEAR(RP.Fecha)=@Año AND MONTH(RP.Fecha)&lt;=@Mes),0), ( ISNULL((SELECT SUM(PG.Total) FROM PartidaRegistroGastos PG INNER JOIN RegistroGastos RG ON PG.FolioGasto=RG.Folio INNER JOIN ProductosServicios PS ON PG.ClaveProducto=PS.ClaveProducto WHERE PS.Categoria=2 AND YEAR(RG.Fecha)=@Año AND MONTH(RG.Fecha)&lt;=@Mes),0)+ ISNULL((SELECT SUM(PR.Total) FROM PartidaRegistroReembolso PR INNER JOIN RegistroReembolso RR ON PR.FolioGasto=RR.Folio INNER JOIN ProductosServicios PS ON PR.ClaveProducto=PS.ClaveProducto WHERE PS.Categoria=2 AND YEAR(RR.Fecha)=@Año AND MONTH(RR.Fecha)&lt;=@Mes),0)+ ISNULL((SELECT SUM(PRC.Total) FROM PartidaRecepcion PRC INNER JOIN RecepcionProducto RP ON PRC.FolioRecepcion=RP.Folio INNER JOIN ProductosServicios PS ON PRC.ClaveProducto=PS.ClaveProducto WHERE PS.Categoria=2 AND YEAR(RP.Fecha)=@Año AND MONTH(RP.Fecha)&lt;=@Mes),0) )*100/ NULLIF( ISNULL((SELECT SUM(F.Total) FROM Factura F WHERE YEAR(F.Fecha)=@Año AND MONTH(F.Fecha)&lt;=@Mes),0)+ ISNULL((SELECT SUM(R.Total) FROM Remision R WHERE YEAR(R.Fecha)=@Año AND MONTH(R.Fecha)&lt;=@Mes),0)+ ISNULL((SELECT SUM(MB.Importe) FROM MovimientoBanco MB WHERE MB.Tipo='i' AND YEAR(MB.Fecha)=@Año AND MONTH(MB.Fecha)&lt;=@Mes),0),0), 6 AS Orden UNION ALL SELECT 'Gastos Financieros', ISNULL((SELECT SUM(MB.Importe) FROM MovimientoBanco MB WHERE MB.Tipo='e' AND MONTH(MB.Fecha)=@Mes AND YEAR(MB.Fecha)=@Año),0), ISNULL((SELECT SUM(MB.Importe) FROM MovimientoBanco MB WHERE MB.Tipo='e' AND MONTH(MB.Fecha)=@Mes AND YEAR(MB.Fecha)=@Año),0)*100/ NULLIF( ISNULL((SELECT SUM(F.Total) FROM Factura F WHERE MONTH(F.Fecha)=@Mes AND YEAR(F.Fecha)=@Año),0)+ ISNULL((SELECT SUM(R.Total) FROM Remision R WHERE MONTH(R.Fecha)=@Mes AND YEAR(R.Fecha)=@Año),0)+ ISNULL((SELECT SUM(MB.Importe) FROM MovimientoBanco MB WHERE MB.Tipo='i' AND MONTH(MB.Fecha)=@Mes AND YEAR(MB.Fecha)=@Año),0),0), ISNULL((SELECT SUM(MB.Importe) FROM MovimientoBanco MB WHERE MB.Tipo='e' AND YEAR(MB.Fecha)=@Año AND MONTH(MB.Fecha)&lt;=@Mes),0), ISNULL((SELECT SUM(MB.Importe) FROM MovimientoBanco MB WHERE MB.Tipo='e' AND YEAR(MB.Fecha)=@Año AND MONTH(MB.Fecha)&lt;=@Mes),0)*100/ NULLIF( ISNULL((SELECT SUM(F.Total) FROM Factura F WHERE YEAR(F.Fecha)=@Año AND MONTH(F.Fecha)&lt;=@Mes),0)+ ISNULL((SELECT SUM(R.Total) FROM Remision R WHERE YEAR(R.Fecha)=@Año AND MONTH(R.Fecha)&lt;=@Mes),0)+ ISNULL((SELECT SUM(MB.Importe) FROM MovimientoBanco MB WHERE MB.Tipo='i' AND YEAR(MB.Fecha)=@Año AND MONTH(MB.Fecha)&lt;=@Mes),0),0), 7 AS Orden UNION ALL SELECT '', NULL, NULL, NULL, NULL, 7.5 AS Orden UNION ALL SELECT 'Utilidad Operativa', ( ISNULL((SELECT SUM(F.Total) FROM Factura F WHERE MONTH(F.Fecha)=@Mes AND YEAR(F.Fecha)=@Año),0)+ ISNULL((SELECT SUM(R.Total) FROM Remision R WHERE MONTH(R.Fecha)=@Mes AND YEAR(R.Fecha)=@Año),0)+ ISNULL((SELECT SUM(MB.Importe) FROM MovimientoBanco MB WHERE MB.Tipo='i' AND MONTH(MB.Fecha)=@Mes AND YEAR(MB.Fecha)=@Año),0) ) - ( ISNULL((SELECT SUM(PG.Total) FROM PartidaRegistroGastos PG INNER JOIN RegistroGastos RG ON PG.FolioGasto=RG.Folio INNER JOIN ProductosServicios PS ON PG.ClaveProducto=PS.ClaveProducto WHERE PS.Categoria=1 AND MONTH(RG.Fecha)=@Mes AND YEAR(RG.Fecha)=@Año),0)+ ISNULL((SELECT SUM(PR.Total) FROM PartidaRegistroReembolso PR INNER JOIN RegistroReembolso RR ON PR.FolioGasto=RR.Folio INNER JOIN ProductosServicios PS ON PR.ClaveProducto=PS.ClaveProducto WHERE PS.Categoria=1 AND MONTH(RR.Fecha)=@Mes AND YEAR(RR.Fecha)=@Año),0)+ ISNULL((SELECT SUM(PRC.Total) FROM PartidaRecepcion PRC INNER JOIN RecepcionProducto RP ON PRC.FolioRecepcion=RP.Folio INNER JOIN ProductosServicios PS ON PRC.ClaveProducto=PS.ClaveProducto WHERE PS.Categoria=1 AND MONTH(RP.Fecha)=@Mes AND YEAR(RP.Fecha)=@Año),0) ) - ( ISNULL((SELECT SUM(PG.Total) FROM PartidaRegistroGastos PG INNER JOIN RegistroGastos RG ON PG.FolioGasto=RG.Folio INNER JOIN ProductosServicios PS ON PG.ClaveProducto=PS.ClaveProducto WHERE PS.Categoria=2 AND MONTH(RG.Fecha)=@Mes AND YEAR(RG.Fecha)=@Año),0)+ ISNULL((SELECT SUM(PR.Total) FROM PartidaRegistroReembolso PR INNER JOIN RegistroReembolso RR ON PR.FolioGasto=RR.Folio INNER JOIN ProductosServicios PS ON PR.ClaveProducto=PS.ClaveProducto WHERE PS.Categoria=2 AND MONTH(RR.Fecha)=@Mes AND YEAR(RR.Fecha)=@Año),0)+ ISNULL((SELECT SUM(PRC.Total) FROM PartidaRecepcion PRC INNER JOIN RecepcionProducto RP ON PRC.FolioRecepcion=RP.Folio INNER JOIN ProductosServicios PS ON PRC.ClaveProducto=PS.ClaveProducto WHERE PS.Categoria=2 AND MONTH(RP.Fecha)=@Mes AND YEAR(RP.Fecha)=@Año),0) ) - ISNULL((SELECT SUM(MB.Importe) FROM MovimientoBanco MB WHERE MB.Tipo='e' AND MONTH(MB.Fecha)=@Mes AND YEAR(MB.Fecha)=@Año),0), ( ( ISNULL((SELECT SUM(F.Total) FROM Factura F WHERE MONTH(F.Fecha)=@Mes AND YEAR(F.Fecha)=@Año),0)+ ISNULL((SELECT SUM(R.Total) FROM Remision R WHERE MONTH(R.Fecha)=@Mes AND YEAR(R.Fecha)=@Año),0)+ ISNULL((SELECT SUM(MB.Importe) FROM MovimientoBanco MB WHERE MB.Tipo='i' AND MONTH(MB.Fecha)=@Mes AND YEAR(MB.Fecha)=@Año),0) ) - ( ISNULL((SELECT SUM(PG.Total) FROM PartidaRegistroGastos PG INNER JOIN RegistroGastos RG ON PG.FolioGasto=RG.Folio INNER JOIN ProductosServicios PS ON PG.ClaveProducto=PS.ClaveProducto WHERE PS.Categoria=1 AND MONTH(RG.Fecha)=@Mes AND YEAR(RG.Fecha)=@Año),0)+ ISNULL((SELECT SUM(PR.Total) FROM PartidaRegistroReembolso PR INNER JOIN RegistroReembolso RR ON PR.FolioGasto=RR.Folio INNER JOIN ProductosServicios PS ON PR.ClaveProducto=PS.ClaveProducto WHERE PS.Categoria=1 AND MONTH(RR.Fecha)=@Mes AND YEAR(RR.Fecha)=@Año),0)+ ISNULL((SELECT SUM(PRC.Total) FROM PartidaRecepcion PRC INNER JOIN RecepcionProducto RP ON PRC.FolioRecepcion=RP.Folio INNER JOIN ProductosServicios PS ON PRC.ClaveProducto=PS.ClaveProducto WHERE PS.Categoria=1 AND MONTH(RP.Fecha)=@Mes AND YEAR(RP.Fecha)=@Año),0) ) - ( ISNULL((SELECT SUM(PG.Total) FROM PartidaRegistroGastos PG INNER JOIN RegistroGastos RG ON PG.FolioGasto=RG.Folio INNER JOIN ProductosServicios PS ON PG.ClaveProducto=PS.ClaveProducto WHERE PS.Categoria=2 AND MONTH(RG.Fecha)=@Mes AND YEAR(RG.Fecha)=@Año),0)+ ISNULL((SELECT SUM(PR.Total) FROM PartidaRegistroReembolso PR INNER JOIN RegistroReembolso RR ON PR.FolioGasto=RR.Folio INNER JOIN ProductosServicios PS ON PR.ClaveProducto=PS.ClaveProducto WHERE PS.Categoria=2 AND MONTH(RR.Fecha)=@Mes AND YEAR(RR.Fecha)=@Año),0)+ ISNULL((SELECT SUM(PRC.Total) FROM PartidaRecepcion PRC INNER JOIN RecepcionProducto RP ON PRC.FolioRecepcion=RP.Folio INNER JOIN ProductosServicios PS ON PRC.ClaveProducto=PS.ClaveProducto WHERE PS.Categoria=2 AND MONTH(RP.Fecha)=@Mes AND YEAR(RP.Fecha)=@Año),0) ) - ISNULL((SELECT SUM(MB.Importe) FROM MovimientoBanco MB WHERE MB.Tipo='e' AND MONTH(MB.Fecha)=@Mes AND YEAR(MB.Fecha)=@Año),0) )*100/ NULLIF( ISNULL((SELECT SUM(F.Total) FROM Factura F WHERE MONTH(F.Fecha)=@Mes AND YEAR(F.Fecha)=@Año),0)+ ISNULL((SELECT SUM(R.Total) FROM Remision R WHERE MONTH(R.Fecha)=@Mes AND YEAR(R.Fecha)=@Año),0)+ ISNULL((SELECT SUM(MB.Importe) FROM MovimientoBanco MB WHERE MB.Tipo='i' AND MONTH(MB.Fecha)=@Mes AND YEAR(MB.Fecha)=@Año),0),0), ( ISNULL((SELECT SUM(F.Total) FROM Factura F WHERE YEAR(F.Fecha)=@Año AND MONTH(F.Fecha)&lt;=@Mes),0)+ ISNULL((SELECT SUM(R.Total) FROM Remision R WHERE YEAR(R.Fecha)=@Año AND MONTH(R.Fecha)&lt;=@Mes),0)+ ISNULL((SELECT SUM(MB.Importe) FROM MovimientoBanco MB WHERE MB.Tipo='i' AND YEAR(MB.Fecha)=@Año AND MONTH(MB.Fecha)&lt;=@Mes),0) ) - ( ISNULL((SELECT SUM(PG.Total) FROM PartidaRegistroGastos PG INNER JOIN RegistroGastos RG ON PG.FolioGasto=RG.Folio INNER JOIN ProductosServicios PS ON PG.ClaveProducto=PS.ClaveProducto WHERE PS.Categoria=1 AND YEAR(RG.Fecha)=@Año AND MONTH(RG.Fecha)&lt;=@Mes),0)+ ISNULL((SELECT SUM(PR.Total) FROM PartidaRegistroReembolso PR INNER JOIN RegistroReembolso RR ON PR.FolioGasto=RR.Folio INNER JOIN ProductosServicios PS ON PR.ClaveProducto=PS.ClaveProducto WHERE PS.Categoria=1 AND YEAR(RR.Fecha)=@Año AND MONTH(RR.Fecha)&lt;=@Mes),0)+ ISNULL((SELECT SUM(PRC.Total) FROM PartidaRecepcion PRC INNER JOIN RecepcionProducto RP ON PRC.FolioRecepcion=RP.Folio INNER JOIN ProductosServicios PS ON PRC.ClaveProducto=PS.ClaveProducto WHERE PS.Categoria=1 AND YEAR(RP.Fecha)=@Año AND MONTH(RP.Fecha)&lt;=@Mes),0) ) - ( ISNULL((SELECT SUM(PG.Total) FROM PartidaRegistroGastos PG INNER JOIN RegistroGastos RG ON PG.FolioGasto=RG.Folio INNER JOIN ProductosServicios PS ON PG.ClaveProducto=PS.ClaveProducto WHERE PS.Categoria=2 AND YEAR(RG.Fecha)=@Año AND MONTH(RG.Fecha)&lt;=@Mes),0)+ ISNULL((SELECT SUM(PR.Total) FROM PartidaRegistroReembolso PR INNER JOIN RegistroReembolso RR ON PR.FolioGasto=RR.Folio INNER JOIN ProductosServicios PS ON PR.ClaveProducto=PS.ClaveProducto WHERE PS.Categoria=2 AND YEAR(RR.Fecha)=@Año AND MONTH(RR.Fecha)&lt;=@Mes),0)+ ISNULL((SELECT SUM(PRC.Total) FROM PartidaRecepcion PRC INNER JOIN RecepcionProducto RP ON PRC.FolioRecepcion=RP.Folio INNER JOIN ProductosServicios PS ON PRC.ClaveProducto=PS.ClaveProducto WHERE PS.Categoria=2 AND YEAR(RP.Fecha)=@Año AND MONTH(RP.Fecha)&lt;=@Mes),0) ) - ISNULL((SELECT SUM(MB.Importe) FROM MovimientoBanco MB WHERE MB.Tipo='e' AND YEAR(MB.Fecha)=@Año AND MONTH(MB.Fecha)&lt;=@Mes),0), ( ( ISNULL((SELECT SUM(F.Total) FROM Factura F WHERE YEAR(F.Fecha)=@Año AND MONTH(F.Fecha)&lt;=@Mes),0)+ ISNULL((SELECT SUM(R.Total) FROM Remision R WHERE YEAR(R.Fecha)=@Año AND MONTH(R.Fecha)&lt;=@Mes),0)+ ISNULL((SELECT SUM(MB.Importe) FROM MovimientoBanco MB WHERE MB.Tipo='i' AND YEAR(MB.Fecha)=@Año AND MONTH(MB.Fecha)&lt;=@Mes),0) ) - ( ISNULL((SELECT SUM(PG.Total) FROM PartidaRegistroGastos PG INNER JOIN RegistroGastos RG ON PG.FolioGasto=RG.Folio INNER JOIN ProductosServicios PS ON PG.ClaveProducto=PS.ClaveProducto WHERE PS.Categoria=1 AND YEAR(RG.Fecha)=@Año AND MONTH(RG.Fecha)&lt;=@Mes),0)+ ISNULL((SELECT SUM(PR.Total) FROM PartidaRegistroReembolso PR INNER JOIN RegistroReembolso RR ON PR.FolioGasto=RR.Folio INNER JOIN ProductosServicios PS ON PR.ClaveProducto=PS.ClaveProducto WHERE PS.Categoria=1 AND YEAR(RR.Fecha)=@Año AND MONTH(RR.Fecha)&lt;=@Mes),0)+ ISNULL((SELECT SUM(PRC.Total) FROM PartidaRecepcion PRC INNER JOIN RecepcionProducto RP ON PRC.FolioRecepcion=RP.Folio INNER JOIN ProductosServicios PS ON PRC.ClaveProducto=PS.ClaveProducto WHERE PS.Categoria=1 AND YEAR(RP.Fecha)=@Año AND MONTH(RP.Fecha)&lt;=@Mes),0) ) - ( ISNULL((SELECT SUM(PG.Total) FROM PartidaRegistroGastos PG INNER JOIN RegistroGastos RG ON PG.FolioGasto=RG.Folio INNER JOIN ProductosServicios PS ON PG.ClaveProducto=PS.ClaveProducto WHERE PS.Categoria=2 AND YEAR(RG.Fecha)=@Año AND MONTH(RG.Fecha)&lt;=@Mes),0)+ ISNULL((SELECT SUM(PR.Total) FROM PartidaRegistroReembolso PR INNER JOIN RegistroReembolso RR ON PR.FolioGasto=RR.Folio INNER JOIN ProductosServicios PS ON PR.ClaveProducto=PS.ClaveProducto WHERE PS.Categoria=2 AND YEAR(RR.Fecha)=@Año AND MONTH(RR.Fecha)&lt;=@Mes),0)+ ISNULL((SELECT SUM(PRC.Total) FROM PartidaRecepcion PRC INNER JOIN RecepcionProducto RP ON PRC.FolioRecepcion=RP.Folio INNER JOIN ProductosServicios PS ON PRC.ClaveProducto=PS.ClaveProducto WHERE PS.Categoria=2 AND YEAR(RP.Fecha)=@Año AND MONTH(RP.Fecha)&lt;=@Mes),0) ) - ISNULL((SELECT SUM(MB.Importe) FROM MovimientoBanco MB WHERE MB.Tipo='e' AND YEAR(MB.Fecha)=@Año AND MONTH(MB.Fecha)&lt;=@Mes),0) )*100/ NULLIF( ISNULL((SELECT SUM(F.Total) FROM Factura F WHERE YEAR(F.Fecha)=@Año AND MONTH(F.Fecha)&lt;=@Mes),0)+ ISNULL((SELECT SUM(R.Total) FROM Remision R WHERE YEAR(R.Fecha)=@Año AND MONTH(R.Fecha)&lt;=@Mes),0)+ ISNULL((SELECT SUM(MB.Importe) FROM MovimientoBanco MB WHERE MB.Tipo='i' AND YEAR(MB.Fecha)=@Año AND MONTH(MB.Fecha)&lt;=@Mes),0),0), 8 AS Orden" DbObjectType="Unknown" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="false" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="false" UserGetMethodName="GetData" UserSourceName="Fill">
                 <SelectCommand>
                   <DbCommand CommandType="Text" ModifiedByUser="true">
                     <CommandText>SELECT Concepto,
-       ImporteMes,
-       PorcentajeMes,
-       Acumulado,
-       PorcentajeAcumulado
+ImporteMes,
+PorcentajeMes,
+Acumulado,
+PorcentajeAcumulado
 FROM
 (
-    SELECT 'Ventas' AS Concepto,
-    ISNULL((SELECT SUM(F.Total) FROM Factura F WHERE MONTH(F.Fecha)=@Mes AND YEAR(F.Fecha)=@Año),0)+
-    ISNULL((SELECT SUM(R.Total) FROM Remision R WHERE MONTH(R.Fecha)=@Mes AND YEAR(R.Fecha)=@Año),0) AS ImporteMes,
-
-    ((ISNULL((SELECT SUM(F.Total) FROM Factura F WHERE MONTH(F.Fecha)=@Mes AND YEAR(F.Fecha)=@Año),0)+
-    ISNULL((SELECT SUM(R.Total) FROM Remision R WHERE MONTH(R.Fecha)=@Mes AND YEAR(R.Fecha)=@Año),0))*100)/
-    NULLIF(
-    ISNULL((SELECT SUM(F.Total) FROM Factura F WHERE MONTH(F.Fecha)=@Mes AND YEAR(F.Fecha)=@Año),0)+
-    ISNULL((SELECT SUM(R.Total) FROM Remision R WHERE MONTH(R.Fecha)=@Mes AND YEAR(R.Fecha)=@Año),0)+
-    ISNULL((SELECT SUM(MB.Importe) FROM MovimientoBanco MB WHERE MB.Tipo='i' AND MONTH(MB.Fecha)=@Mes AND YEAR(MB.Fecha)=@Año),0),0) AS PorcentajeMes,
-
-    ISNULL((SELECT SUM(F.Total) FROM Factura F WHERE YEAR(F.Fecha)=@Año AND MONTH(F.Fecha)&lt;=@Mes),0)+
-    ISNULL((SELECT SUM(R.Total) FROM Remision R WHERE YEAR(R.Fecha)=@Año AND MONTH(R.Fecha)&lt;=@Mes),0) AS Acumulado,
-
-    ((ISNULL((SELECT SUM(F.Total) FROM Factura F WHERE YEAR(F.Fecha)=@Año AND MONTH(F.Fecha)&lt;=@Mes),0)+
-    ISNULL((SELECT SUM(R.Total) FROM Remision R WHERE YEAR(R.Fecha)=@Año AND MONTH(R.Fecha)&lt;=@Mes),0))*100)/
-    NULLIF(
-    ISNULL((SELECT SUM(F.Total) FROM Factura F WHERE YEAR(F.Fecha)=@Año AND MONTH(F.Fecha)&lt;=@Mes),0)+
-    ISNULL((SELECT SUM(R.Total) FROM Remision R WHERE YEAR(R.Fecha)=@Año AND MONTH(R.Fecha)&lt;=@Mes),0)+
-    ISNULL((SELECT SUM(MB.Importe) FROM MovimientoBanco MB WHERE MB.Tipo='i' AND YEAR(MB.Fecha)=@Año AND MONTH(MB.Fecha)&lt;=@Mes),0),0) AS PorcentajeAcumulado,
-    1 AS Orden
-
-    UNION ALL
-
-    SELECT 'Otros Ingresos',
-    ISNULL((SELECT SUM(MB.Importe) FROM MovimientoBanco MB WHERE MB.Tipo='i' AND MONTH(MB.Fecha)=@Mes AND YEAR(MB.Fecha)=@Año),0),
-
-    (ISNULL((SELECT SUM(MB.Importe) FROM MovimientoBanco MB WHERE MB.Tipo='i' AND MONTH(MB.Fecha)=@Mes AND YEAR(MB.Fecha)=@Año),0)*100)/
-    NULLIF(
-    ISNULL((SELECT SUM(F.Total) FROM Factura F WHERE MONTH(F.Fecha)=@Mes AND YEAR(F.Fecha)=@Año),0)+
-    ISNULL((SELECT SUM(R.Total) FROM Remision R WHERE MONTH(R.Fecha)=@Mes AND YEAR(R.Fecha)=@Año),0)+
-    ISNULL((SELECT SUM(MB.Importe) FROM MovimientoBanco MB WHERE MB.Tipo='i' AND MONTH(MB.Fecha)=@Mes AND YEAR(MB.Fecha)=@Año),0),0),
-
-    ISNULL((SELECT SUM(MB.Importe) FROM MovimientoBanco MB WHERE MB.Tipo='i' AND YEAR(MB.Fecha)=@Año AND MONTH(MB.Fecha)&lt;=@Mes),0),
-
-    (ISNULL((SELECT SUM(MB.Importe) FROM MovimientoBanco MB WHERE MB.Tipo='i' AND YEAR(MB.Fecha)=@Año AND MONTH(MB.Fecha)&lt;=@Mes),0)*100)/
-    NULLIF(
-    ISNULL((SELECT SUM(F.Total) FROM Factura F WHERE YEAR(F.Fecha)=@Año AND MONTH(F.Fecha)&lt;=@Mes),0)+
-    ISNULL((SELECT SUM(R.Total) FROM Remision R WHERE YEAR(R.Fecha)=@Año AND MONTH(R.Fecha)&lt;=@Mes),0)+
-    ISNULL((SELECT SUM(MB.Importe) FROM MovimientoBanco MB WHERE MB.Tipo='i' AND YEAR(MB.Fecha)=@Año AND MONTH(MB.Fecha)&lt;=@Mes),0),0),
-    2 AS Orden
-
-    UNION ALL
-
-    SELECT 'Total Ingresos',
-
-    ISNULL((SELECT SUM(F.Total) FROM Factura F WHERE MONTH(F.Fecha)=@Mes AND YEAR(F.Fecha)=@Año),0)+
-    ISNULL((SELECT SUM(R.Total) FROM Remision R WHERE MONTH(R.Fecha)=@Mes AND YEAR(R.Fecha)=@Año),0)+
-    ISNULL((SELECT SUM(MB.Importe) FROM MovimientoBanco MB WHERE MB.Tipo='i' AND MONTH(MB.Fecha)=@Mes AND YEAR(MB.Fecha)=@Año),0),
-
-    100,
-
-    ISNULL((SELECT SUM(F.Total) FROM Factura F WHERE YEAR(F.Fecha)=@Año AND MONTH(F.Fecha)&lt;=@Mes),0)+
-    ISNULL((SELECT SUM(R.Total) FROM Remision R WHERE YEAR(R.Fecha)=@Año AND MONTH(R.Fecha)&lt;=@Mes),0)+
-    ISNULL((SELECT SUM(MB.Importe) FROM MovimientoBanco MB WHERE MB.Tipo='i' AND YEAR(MB.Fecha)=@Año AND MONTH(MB.Fecha)&lt;=@Mes),0),
-
-    100,
-    3 AS Orden
-
-    UNION ALL
-
-    /* ESPACIO DESPUÉS DE TOTAL INGRESOS */
-    SELECT '',
-           NULL,
-           NULL,
-           NULL,
-           NULL,
-           3.5 AS Orden
-
-    UNION ALL
-
-    SELECT 'Costos Op. y Gastos Directos',
-
-    ISNULL((SELECT SUM(PG.Total)
-    FROM PartidaRegistroGastos PG
-    INNER JOIN RegistroGastos RG ON PG.FolioGasto=RG.Folio
-    INNER JOIN ProductosServicios PS ON PG.ClaveProducto=PS.ClaveProducto
-    WHERE PS.Categoria=1 AND MONTH(RG.Fecha)=@Mes AND YEAR(RG.Fecha)=@Año),0)+
-
-    ISNULL((SELECT SUM(PR.Total)
-    FROM PartidaRegistroReembolso PR
-    INNER JOIN RegistroReembolso RR ON PR.FolioGasto=RR.Folio
-    INNER JOIN ProductosServicios PS ON PR.ClaveProducto=PS.ClaveProducto
-    WHERE PS.Categoria=1 AND MONTH(RR.Fecha)=@Mes AND YEAR(RR.Fecha)=@Año),0)+
-
-    ISNULL((SELECT SUM(PRC.Total)
-    FROM PartidaRecepcion PRC
-    INNER JOIN RecepcionProducto RP ON PRC.FolioRecepcion=RP.Folio
-    INNER JOIN ProductosServicios PS ON PRC.ClaveProducto=PS.ClaveProducto
-    WHERE PS.Categoria=1 AND MONTH(RP.Fecha)=@Mes AND YEAR(RP.Fecha)=@Año),0),
-
-    0,
-
-    ISNULL((SELECT SUM(PG.Total)
-    FROM PartidaRegistroGastos PG
-    INNER JOIN RegistroGastos RG ON PG.FolioGasto=RG.Folio
-    INNER JOIN ProductosServicios PS ON PG.ClaveProducto=PS.ClaveProducto
-    WHERE PS.Categoria=1 AND YEAR(RG.Fecha)=@Año AND MONTH(RG.Fecha)&lt;=@Mes),0)+
-
-    ISNULL((SELECT SUM(PR.Total)
-    FROM PartidaRegistroReembolso PR
-    INNER JOIN RegistroReembolso RR ON PR.FolioGasto=RR.Folio
-    INNER JOIN ProductosServicios PS ON PR.ClaveProducto=PS.ClaveProducto
-    WHERE PS.Categoria=1 AND YEAR(RR.Fecha)=@Año AND MONTH(RR.Fecha)&lt;=@Mes),0)+
-
-    ISNULL((SELECT SUM(PRC.Total)
-    FROM PartidaRecepcion PRC
-    INNER JOIN RecepcionProducto RP ON PRC.FolioRecepcion=RP.Folio
-    INNER JOIN ProductosServicios PS ON PRC.ClaveProducto=PS.ClaveProducto
-    WHERE PS.Categoria=1 AND YEAR(RP.Fecha)=@Año AND MONTH(RP.Fecha)&lt;=@Mes),0),
-
-    0,
-    4 AS Orden
-
-    UNION ALL
-
-    SELECT 'Utilidad Bruta',
-
-    (
-    ISNULL((SELECT SUM(F.Total) FROM Factura F WHERE MONTH(F.Fecha)=@Mes AND YEAR(F.Fecha)=@Año),0)+
-    ISNULL((SELECT SUM(R.Total) FROM Remision R WHERE MONTH(R.Fecha)=@Mes AND YEAR(R.Fecha)=@Año),0)+
-    ISNULL((SELECT SUM(MB.Importe) FROM MovimientoBanco MB WHERE MB.Tipo='i' AND MONTH(MB.Fecha)=@Mes AND YEAR(MB.Fecha)=@Año),0)
-    )
-    -
-    (
-    ISNULL((SELECT SUM(PG.Total)
-    FROM PartidaRegistroGastos PG
-    INNER JOIN RegistroGastos RG ON PG.FolioGasto=RG.Folio
-    INNER JOIN ProductosServicios PS ON PG.ClaveProducto=PS.ClaveProducto
-    WHERE PS.Categoria=1 AND MONTH(RG.Fecha)=@Mes AND YEAR(RG.Fecha)=@Año),0)+
-
-    ISNULL((SELECT SUM(PR.Total)
-    FROM PartidaRegistroReembolso PR
-    INNER JOIN RegistroReembolso RR ON PR.FolioGasto=RR.Folio
-    INNER JOIN ProductosServicios PS ON PR.ClaveProducto=PS.ClaveProducto
-    WHERE PS.Categoria=1 AND MONTH(RR.Fecha)=@Mes AND YEAR(RR.Fecha)=@Año),0)+
-
-    ISNULL((SELECT SUM(PRC.Total)
-    FROM PartidaRecepcion PRC
-    INNER JOIN RecepcionProducto RP ON PRC.FolioRecepcion=RP.Folio
-    INNER JOIN ProductosServicios PS ON PRC.ClaveProducto=PS.ClaveProducto
-    WHERE PS.Categoria=1 AND MONTH(RP.Fecha)=@Mes AND YEAR(RP.Fecha)=@Año),0)
-    ),
-
-    0,
-
-    ISNULL((SELECT SUM(F.Total) FROM Factura F WHERE YEAR(F.Fecha)=@Año AND MONTH(F.Fecha)&lt;=@Mes),0)+
-    ISNULL((SELECT SUM(R.Total) FROM Remision R WHERE YEAR(R.Fecha)=@Año AND MONTH(R.Fecha)&lt;=@Mes),0)+
-    ISNULL((SELECT SUM(MB.Importe) FROM MovimientoBanco MB WHERE MB.Tipo='i' AND YEAR(MB.Fecha)=@Año AND MONTH(MB.Fecha)&lt;=@Mes),0)
-    -
-    (
-    ISNULL((SELECT SUM(PG.Total)
-    FROM PartidaRegistroGastos PG
-    INNER JOIN RegistroGastos RG ON PG.FolioGasto=RG.Folio
-    INNER JOIN ProductosServicios PS ON PG.ClaveProducto=PS.ClaveProducto
-    WHERE PS.Categoria=1 AND YEAR(RG.Fecha)=@Año AND MONTH(RG.Fecha)&lt;=@Mes),0)+
-
-    ISNULL((SELECT SUM(PR.Total)
-    FROM PartidaRegistroReembolso PR
-    INNER JOIN RegistroReembolso RR ON PR.FolioGasto=RR.Folio
-    INNER JOIN ProductosServicios PS ON PR.ClaveProducto=PS.ClaveProducto
-    WHERE PS.Categoria=1 AND YEAR(RR.Fecha)=@Año AND MONTH(RR.Fecha)&lt;=@Mes),0)+
-
-    ISNULL((SELECT SUM(PRC.Total)
-    FROM PartidaRecepcion PRC
-    INNER JOIN RecepcionProducto RP ON PRC.FolioRecepcion=RP.Folio
-    INNER JOIN ProductosServicios PS ON PRC.ClaveProducto=PS.ClaveProducto
-    WHERE PS.Categoria=1 AND YEAR(RP.Fecha)=@Año AND MONTH(RP.Fecha)&lt;=@Mes),0)
-    ),
-
-    0,
-    5 AS Orden
-
-    UNION ALL
-
-    /* ESPACIO DESPUÉS DE UTILIDAD BRUTA */
-    SELECT '',
-           NULL,
-           NULL,
-           NULL,
-           NULL,
-           5.5 AS Orden
-
-    UNION ALL
-
-    SELECT 'Gastos de administración',
-
-    ISNULL((SELECT SUM(PG.Total)
-    FROM PartidaRegistroGastos PG
-    INNER JOIN RegistroGastos RG ON PG.FolioGasto=RG.Folio
-    INNER JOIN ProductosServicios PS ON PG.ClaveProducto=PS.ClaveProducto
-    WHERE PS.Categoria=2 AND MONTH(RG.Fecha)=@Mes AND YEAR(RG.Fecha)=@Año),0)+
-
-    ISNULL((SELECT SUM(PR.Total)
-    FROM PartidaRegistroReembolso PR
-    INNER JOIN RegistroReembolso RR ON PR.FolioGasto=RR.Folio
-    INNER JOIN ProductosServicios PS ON PR.ClaveProducto=PS.ClaveProducto
-    WHERE PS.Categoria=2 AND MONTH(RR.Fecha)=@Mes AND YEAR(RR.Fecha)=@Año),0)+
-
-    ISNULL((SELECT SUM(PRC.Total)
-    FROM PartidaRecepcion PRC
-    INNER JOIN RecepcionProducto RP ON PRC.FolioRecepcion=RP.Folio
-    INNER JOIN ProductosServicios PS ON PRC.ClaveProducto=PS.ClaveProducto
-    WHERE PS.Categoria=2 AND MONTH(RP.Fecha)=@Mes AND YEAR(RP.Fecha)=@Año),0),
-
-    0,
-
-    ISNULL((SELECT SUM(PG.Total)
-    FROM PartidaRegistroGastos PG
-    INNER JOIN RegistroGastos RG ON PG.FolioGasto=RG.Folio
-    INNER JOIN ProductosServicios PS ON PG.ClaveProducto=PS.ClaveProducto
-    WHERE PS.Categoria=2 AND YEAR(RG.Fecha)=@Año AND MONTH(RG.Fecha)&lt;=@Mes),0)+
-
-    ISNULL((SELECT SUM(PR.Total)
-    FROM PartidaRegistroReembolso PR
-    INNER JOIN RegistroReembolso RR ON PR.FolioGasto=RR.Folio
-    INNER JOIN ProductosServicios PS ON PR.ClaveProducto=PS.ClaveProducto
-    WHERE PS.Categoria=2 AND YEAR(RR.Fecha)=@Año AND MONTH(RR.Fecha)&lt;=@Mes),0)+
-
-    ISNULL((SELECT SUM(PRC.Total)
-    FROM PartidaRecepcion PRC
-    INNER JOIN RecepcionProducto RP ON PRC.FolioRecepcion=RP.Folio
-    INNER JOIN ProductosServicios PS ON PRC.ClaveProducto=PS.ClaveProducto
-    WHERE PS.Categoria=2 AND YEAR(RP.Fecha)=@Año AND MONTH(RP.Fecha)&lt;=@Mes),0),
-
-    0,
-    6 AS Orden
-
-    UNION ALL
-
-    SELECT 'Gastos Financieros',
-
-    ISNULL((SELECT SUM(MB.Importe)
-    FROM MovimientoBanco MB
-    WHERE MB.Tipo='e' AND MONTH(MB.Fecha)=@Mes AND YEAR(MB.Fecha)=@Año),0),
-
-    0,
-
-    ISNULL((SELECT SUM(MB.Importe)
-    FROM MovimientoBanco MB
-    WHERE MB.Tipo='e' AND YEAR(MB.Fecha)=@Año AND MONTH(MB.Fecha)&lt;=@Mes),0),
-
-    0,
-    7 AS Orden
-
-    UNION ALL
-
-    /* SEPARADOR ANTES DE UTILIDAD OPERATIVA */
-    SELECT '',
-           NULL,
-           NULL,
-           NULL,
-           NULL,
-           7.5 AS Orden
-
-    UNION ALL
-
-    SELECT 'Utilidad Operativa',
-
-    (
-    ISNULL((SELECT SUM(F.Total) FROM Factura F WHERE MONTH(F.Fecha)=@Mes AND YEAR(F.Fecha)=@Año),0)+
-    ISNULL((SELECT SUM(R.Total) FROM Remision R WHERE MONTH(R.Fecha)=@Mes AND YEAR(R.Fecha)=@Año),0)+
-    ISNULL((SELECT SUM(MB.Importe) FROM MovimientoBanco MB WHERE MB.Tipo='i' AND MONTH(MB.Fecha)=@Mes AND YEAR(MB.Fecha)=@Año),0)
-    )
-    -
-    (
-    ISNULL((SELECT SUM(PG.Total)
-    FROM PartidaRegistroGastos PG
-    INNER JOIN RegistroGastos RG ON PG.FolioGasto=RG.Folio
-    INNER JOIN ProductosServicios PS ON PG.ClaveProducto=PS.ClaveProducto
-    WHERE PS.Categoria=1 AND MONTH(RG.Fecha)=@Mes AND YEAR(RG.Fecha)=@Año),0)+
-
-    ISNULL((SELECT SUM(PR.Total)
-    FROM PartidaRegistroReembolso PR
-    INNER JOIN RegistroReembolso RR ON PR.FolioGasto=RR.Folio
-    INNER JOIN ProductosServicios PS ON PR.ClaveProducto=PS.ClaveProducto
-    WHERE PS.Categoria=1 AND MONTH(RR.Fecha)=@Mes AND YEAR(RR.Fecha)=@Año),0)+
-
-    ISNULL((SELECT SUM(PRC.Total)
-    FROM PartidaRecepcion PRC
-    INNER JOIN RecepcionProducto RP ON PRC.FolioRecepcion=RP.Folio
-    INNER JOIN ProductosServicios PS ON PRC.ClaveProducto=PS.ClaveProducto
-    WHERE PS.Categoria=1 AND MONTH(RP.Fecha)=@Mes AND YEAR(RP.Fecha)=@Año),0)
-    )
-    -
-    (
-    ISNULL((SELECT SUM(PG.Total)
-    FROM PartidaRegistroGastos PG
-    INNER JOIN RegistroGastos RG ON PG.FolioGasto=RG.Folio
-    INNER JOIN ProductosServicios PS ON PG.ClaveProducto=PS.ClaveProducto
-    WHERE PS.Categoria=2 AND MONTH(RG.Fecha)=@Mes AND YEAR(RG.Fecha)=@Año),0)+
-
-    ISNULL((SELECT SUM(PR.Total)
-    FROM PartidaRegistroReembolso PR
-    INNER JOIN RegistroReembolso RR ON PR.FolioGasto=RR.Folio
-    INNER JOIN ProductosServicios PS ON PR.ClaveProducto=PS.ClaveProducto
-    WHERE PS.Categoria=2 AND MONTH(RR.Fecha)=@Mes AND YEAR(RR.Fecha)=@Año),0)+
-
-    ISNULL((SELECT SUM(PRC.Total)
-    FROM PartidaRecepcion PRC
-    INNER JOIN RecepcionProducto RP ON PRC.FolioRecepcion=RP.Folio
-    INNER JOIN ProductosServicios PS ON PRC.ClaveProducto=PS.ClaveProducto
-    WHERE PS.Categoria=2 AND MONTH(RP.Fecha)=@Mes AND YEAR(RP.Fecha)=@Año),0)
-    )
-    -
-    ISNULL((SELECT SUM(MB.Importe)
-    FROM MovimientoBanco MB
-    WHERE MB.Tipo='e' AND MONTH(MB.Fecha)=@Mes AND YEAR(MB.Fecha)=@Año),0),
-
-    0,
-
-    (
-    ISNULL((SELECT SUM(F.Total) FROM Factura F WHERE YEAR(F.Fecha)=@Año AND MONTH(F.Fecha)&lt;=@Mes),0)+
-    ISNULL((SELECT SUM(R.Total) FROM Remision R WHERE YEAR(R.Fecha)=@Año AND MONTH(R.Fecha)&lt;=@Mes),0)+
-    ISNULL((SELECT SUM(MB.Importe) FROM MovimientoBanco MB WHERE MB.Tipo='i' AND YEAR(MB.Fecha)=@Año AND MONTH(MB.Fecha)&lt;=@Mes),0)
-    )
-    -
-    (
-    ISNULL((SELECT SUM(PG.Total)
-    FROM PartidaRegistroGastos PG
-    INNER JOIN RegistroGastos RG ON PG.FolioGasto=RG.Folio
-    INNER JOIN ProductosServicios PS ON PG.ClaveProducto=PS.ClaveProducto
-    WHERE PS.Categoria=1 AND YEAR(RG.Fecha)=@Año AND MONTH(RG.Fecha)&lt;=@Mes),0)+
-
-    ISNULL((SELECT SUM(PR.Total)
-    FROM PartidaRegistroReembolso PR
-    INNER JOIN RegistroReembolso RR ON PR.FolioGasto=RR.Folio
-    INNER JOIN ProductosServicios PS ON PR.ClaveProducto=PS.ClaveProducto
-    WHERE PS.Categoria=1 AND YEAR(RR.Fecha)=@Año AND MONTH(RR.Fecha)&lt;=@Mes),0)+
-
-    ISNULL((SELECT SUM(PRC.Total)
-    FROM PartidaRecepcion PRC
-    INNER JOIN RecepcionProducto RP ON PRC.FolioRecepcion=RP.Folio
-    INNER JOIN ProductosServicios PS ON PRC.ClaveProducto=PS.ClaveProducto
-    WHERE PS.Categoria=1 AND YEAR(RP.Fecha)=@Año AND MONTH(RP.Fecha)&lt;=@Mes),0)
-    )
-    -
-    (
-    ISNULL((SELECT SUM(PG.Total)
-    FROM PartidaRegistroGastos PG
-    INNER JOIN RegistroGastos RG ON PG.FolioGasto=RG.Folio
-    INNER JOIN ProductosServicios PS ON PG.ClaveProducto=PS.ClaveProducto
-    WHERE PS.Categoria=2 AND YEAR(RG.Fecha)=@Año AND MONTH(RG.Fecha)&lt;=@Mes),0)+
-
-    ISNULL((SELECT SUM(PR.Total)
-    FROM PartidaRegistroReembolso PR
-    INNER JOIN RegistroReembolso RR ON PR.FolioGasto=RR.Folio
-    INNER JOIN ProductosServicios PS ON PR.ClaveProducto=PS.ClaveProducto
-    WHERE PS.Categoria=2 AND YEAR(RR.Fecha)=@Año AND MONTH(RR.Fecha)&lt;=@Mes),0)+
-
-    ISNULL((SELECT SUM(PRC.Total)
-    FROM PartidaRecepcion PRC
-    INNER JOIN RecepcionProducto RP ON PRC.FolioRecepcion=RP.Folio
-    INNER JOIN ProductosServicios PS ON PRC.ClaveProducto=PS.ClaveProducto
-    WHERE PS.Categoria=2 AND YEAR(RP.Fecha)=@Año AND MONTH(RP.Fecha)&lt;=@Mes),0)
-    )
-    -
-    ISNULL((SELECT SUM(MB.Importe)
-    FROM MovimientoBanco MB
-    WHERE MB.Tipo='e' AND YEAR(MB.Fecha)=@Año AND MONTH(MB.Fecha)&lt;=@Mes),0),
-
-    0,
-    8 AS Orden
+SELECT 'Ventas' AS Concepto,
+
+ISNULL((SELECT SUM(F.Total) FROM Factura F WHERE MONTH(F.Fecha)=@Mes AND YEAR(F.Fecha)=@Año),0)+
+ISNULL((SELECT SUM(R.Total) FROM Remision R WHERE MONTH(R.Fecha)=@Mes AND YEAR(R.Fecha)=@Año),0) AS ImporteMes,
+
+((ISNULL((SELECT SUM(F.Total) FROM Factura F WHERE MONTH(F.Fecha)=@Mes AND YEAR(F.Fecha)=@Año),0)+
+ISNULL((SELECT SUM(R.Total) FROM Remision R WHERE MONTH(R.Fecha)=@Mes AND YEAR(R.Fecha)=@Año),0))*100)/
+NULLIF(
+ISNULL((SELECT SUM(F.Total) FROM Factura F WHERE MONTH(F.Fecha)=@Mes AND YEAR(F.Fecha)=@Año),0)+
+ISNULL((SELECT SUM(R.Total) FROM Remision R WHERE MONTH(R.Fecha)=@Mes AND YEAR(R.Fecha)=@Año),0)+
+ISNULL((SELECT SUM(MB.Importe) FROM MovimientoBanco MB WHERE MB.Tipo='i' AND MONTH(MB.Fecha)=@Mes AND YEAR(MB.Fecha)=@Año),0),0) AS PorcentajeMes,
+
+ISNULL((SELECT SUM(F.Total) FROM Factura F WHERE YEAR(F.Fecha)=@Año AND MONTH(F.Fecha)&lt;=@Mes),0)+
+ISNULL((SELECT SUM(R.Total) FROM Remision R WHERE YEAR(R.Fecha)=@Año AND MONTH(R.Fecha)&lt;=@Mes),0) AS Acumulado,
+
+((ISNULL((SELECT SUM(F.Total) FROM Factura F WHERE YEAR(F.Fecha)=@Año AND MONTH(F.Fecha)&lt;=@Mes),0)+
+ISNULL((SELECT SUM(R.Total) FROM Remision R WHERE YEAR(R.Fecha)=@Año AND MONTH(R.Fecha)&lt;=@Mes),0))*100)/
+NULLIF(
+ISNULL((SELECT SUM(F.Total) FROM Factura F WHERE YEAR(F.Fecha)=@Año AND MONTH(F.Fecha)&lt;=@Mes),0)+
+ISNULL((SELECT SUM(R.Total) FROM Remision R WHERE YEAR(R.Fecha)=@Año AND MONTH(R.Fecha)&lt;=@Mes),0)+
+ISNULL((SELECT SUM(MB.Importe) FROM MovimientoBanco MB WHERE MB.Tipo='i' AND YEAR(MB.Fecha)=@Año AND MONTH(MB.Fecha)&lt;=@Mes),0),0) AS PorcentajeAcumulado,
+
+1 AS Orden
+
+
+UNION ALL
+
+
+SELECT 'Otros Ingresos',
+
+ISNULL((SELECT SUM(MB.Importe) FROM MovimientoBanco MB WHERE MB.Tipo='i' AND MONTH(MB.Fecha)=@Mes AND YEAR(MB.Fecha)=@Año),0),
+
+(ISNULL((SELECT SUM(MB.Importe) FROM MovimientoBanco MB WHERE MB.Tipo='i' AND MONTH(MB.Fecha)=@Mes AND YEAR(MB.Fecha)=@Año),0)*100)/
+NULLIF(
+ISNULL((SELECT SUM(F.Total) FROM Factura F WHERE MONTH(F.Fecha)=@Mes AND YEAR(F.Fecha)=@Año),0)+
+ISNULL((SELECT SUM(R.Total) FROM Remision R WHERE MONTH(R.Fecha)=@Mes AND YEAR(R.Fecha)=@Año),0)+
+ISNULL((SELECT SUM(MB.Importe) FROM MovimientoBanco MB WHERE MB.Tipo='i' AND MONTH(MB.Fecha)=@Mes AND YEAR(MB.Fecha)=@Año),0),0),
+
+ISNULL((SELECT SUM(MB.Importe) FROM MovimientoBanco MB WHERE MB.Tipo='i' AND YEAR(MB.Fecha)=@Año AND MONTH(MB.Fecha)&lt;=@Mes),0),
+
+(ISNULL((SELECT SUM(MB.Importe) FROM MovimientoBanco MB WHERE MB.Tipo='i' AND YEAR(MB.Fecha)=@Año AND MONTH(MB.Fecha)&lt;=@Mes),0)*100)/
+NULLIF(
+ISNULL((SELECT SUM(F.Total) FROM Factura F WHERE YEAR(F.Fecha)=@Año AND MONTH(F.Fecha)&lt;=@Mes),0)+
+ISNULL((SELECT SUM(R.Total) FROM Remision R WHERE YEAR(R.Fecha)=@Año AND MONTH(R.Fecha)&lt;=@Mes),0)+
+ISNULL((SELECT SUM(MB.Importe) FROM MovimientoBanco MB WHERE MB.Tipo='i' AND YEAR(MB.Fecha)=@Año AND MONTH(MB.Fecha)&lt;=@Mes),0),0),
+
+2 AS Orden
+
+
+UNION ALL
+
+
+SELECT 'Total Ingresos',
+
+ISNULL((SELECT SUM(F.Total) FROM Factura F WHERE MONTH(F.Fecha)=@Mes AND YEAR(F.Fecha)=@Año),0)+
+ISNULL((SELECT SUM(R.Total) FROM Remision R WHERE MONTH(R.Fecha)=@Mes AND YEAR(R.Fecha)=@Año),0)+
+ISNULL((SELECT SUM(MB.Importe) FROM MovimientoBanco MB WHERE MB.Tipo='i' AND MONTH(MB.Fecha)=@Mes AND YEAR(MB.Fecha)=@Año),0),
+
+100,
+
+ISNULL((SELECT SUM(F.Total) FROM Factura F WHERE YEAR(F.Fecha)=@Año AND MONTH(F.Fecha)&lt;=@Mes),0)+
+ISNULL((SELECT SUM(R.Total) FROM Remision R WHERE YEAR(R.Fecha)=@Año AND MONTH(R.Fecha)&lt;=@Mes),0)+
+ISNULL((SELECT SUM(MB.Importe) FROM MovimientoBanco MB WHERE MB.Tipo='i' AND YEAR(MB.Fecha)=@Año AND MONTH(MB.Fecha)&lt;=@Mes),0),
+
+100,
+
+3 AS Orden
+
+
+UNION ALL
+
+
+SELECT '',
+NULL,
+NULL,
+NULL,
+NULL,
+3.5 AS Orden
+
+
+UNION ALL
+
+
+SELECT 'Costos Op. y Gastos Directos',
+
+ISNULL((SELECT SUM(PG.Total)
+FROM PartidaRegistroGastos PG
+INNER JOIN RegistroGastos RG ON PG.FolioGasto=RG.Folio
+INNER JOIN ProductosServicios PS ON PG.ClaveProducto=PS.ClaveProducto
+WHERE PS.Categoria=1 AND MONTH(RG.Fecha)=@Mes AND YEAR(RG.Fecha)=@Año),0)+
+
+ISNULL((SELECT SUM(PR.Total)
+FROM PartidaRegistroReembolso PR
+INNER JOIN RegistroReembolso RR ON PR.FolioGasto=RR.Folio
+INNER JOIN ProductosServicios PS ON PR.ClaveProducto=PS.ClaveProducto
+WHERE PS.Categoria=1 AND MONTH(RR.Fecha)=@Mes AND YEAR(RR.Fecha)=@Año),0)+
+
+ISNULL((SELECT SUM(PRC.Total)
+FROM PartidaRecepcion PRC
+INNER JOIN RecepcionProducto RP ON PRC.FolioRecepcion=RP.Folio
+INNER JOIN ProductosServicios PS ON PRC.ClaveProducto=PS.ClaveProducto
+WHERE PS.Categoria=1 AND MONTH(RP.Fecha)=@Mes AND YEAR(RP.Fecha)=@Año),0),
+
+(
+ISNULL((SELECT SUM(PG.Total)
+FROM PartidaRegistroGastos PG
+INNER JOIN RegistroGastos RG ON PG.FolioGasto=RG.Folio
+INNER JOIN ProductosServicios PS ON PG.ClaveProducto=PS.ClaveProducto
+WHERE PS.Categoria=1 AND MONTH(RG.Fecha)=@Mes AND YEAR(RG.Fecha)=@Año),0)+
+ISNULL((SELECT SUM(PR.Total)
+FROM PartidaRegistroReembolso PR
+INNER JOIN RegistroReembolso RR ON PR.FolioGasto=RR.Folio
+INNER JOIN ProductosServicios PS ON PR.ClaveProducto=PS.ClaveProducto
+WHERE PS.Categoria=1 AND MONTH(RR.Fecha)=@Mes AND YEAR(RR.Fecha)=@Año),0)+
+ISNULL((SELECT SUM(PRC.Total)
+FROM PartidaRecepcion PRC
+INNER JOIN RecepcionProducto RP ON PRC.FolioRecepcion=RP.Folio
+INNER JOIN ProductosServicios PS ON PRC.ClaveProducto=PS.ClaveProducto
+WHERE PS.Categoria=1 AND MONTH(RP.Fecha)=@Mes AND YEAR(RP.Fecha)=@Año),0)
+)*100/
+NULLIF(
+ISNULL((SELECT SUM(F.Total) FROM Factura F WHERE MONTH(F.Fecha)=@Mes AND YEAR(F.Fecha)=@Año),0)+
+ISNULL((SELECT SUM(R.Total) FROM Remision R WHERE MONTH(R.Fecha)=@Mes AND YEAR(R.Fecha)=@Año),0)+
+ISNULL((SELECT SUM(MB.Importe) FROM MovimientoBanco MB WHERE MB.Tipo='i' AND MONTH(MB.Fecha)=@Mes AND YEAR(MB.Fecha)=@Año),0),0),
+
+ISNULL((SELECT SUM(PG.Total)
+FROM PartidaRegistroGastos PG
+INNER JOIN RegistroGastos RG ON PG.FolioGasto=RG.Folio
+INNER JOIN ProductosServicios PS ON PG.ClaveProducto=PS.ClaveProducto
+WHERE PS.Categoria=1 AND YEAR(RG.Fecha)=@Año AND MONTH(RG.Fecha)&lt;=@Mes),0)+
+
+ISNULL((SELECT SUM(PR.Total)
+FROM PartidaRegistroReembolso PR
+INNER JOIN RegistroReembolso RR ON PR.FolioGasto=RR.Folio
+INNER JOIN ProductosServicios PS ON PR.ClaveProducto=PS.ClaveProducto
+WHERE PS.Categoria=1 AND YEAR(RR.Fecha)=@Año AND MONTH(RR.Fecha)&lt;=@Mes),0)+
+
+ISNULL((SELECT SUM(PRC.Total)
+FROM PartidaRecepcion PRC
+INNER JOIN RecepcionProducto RP ON PRC.FolioRecepcion=RP.Folio
+INNER JOIN ProductosServicios PS ON PRC.ClaveProducto=PS.ClaveProducto
+WHERE PS.Categoria=1 AND YEAR(RP.Fecha)=@Año AND MONTH(RP.Fecha)&lt;=@Mes),0),
+
+(
+ISNULL((SELECT SUM(PG.Total)
+FROM PartidaRegistroGastos PG
+INNER JOIN RegistroGastos RG ON PG.FolioGasto=RG.Folio
+INNER JOIN ProductosServicios PS ON PG.ClaveProducto=PS.ClaveProducto
+WHERE PS.Categoria=1 AND YEAR(RG.Fecha)=@Año AND MONTH(RG.Fecha)&lt;=@Mes),0)+
+ISNULL((SELECT SUM(PR.Total)
+FROM PartidaRegistroReembolso PR
+INNER JOIN RegistroReembolso RR ON PR.FolioGasto=RR.Folio
+INNER JOIN ProductosServicios PS ON PR.ClaveProducto=PS.ClaveProducto
+WHERE PS.Categoria=1 AND YEAR(RR.Fecha)=@Año AND MONTH(RR.Fecha)&lt;=@Mes),0)+
+ISNULL((SELECT SUM(PRC.Total)
+FROM PartidaRecepcion PRC
+INNER JOIN RecepcionProducto RP ON PRC.FolioRecepcion=RP.Folio
+INNER JOIN ProductosServicios PS ON PRC.ClaveProducto=PS.ClaveProducto
+WHERE PS.Categoria=1 AND YEAR(RP.Fecha)=@Año AND MONTH(RP.Fecha)&lt;=@Mes),0)
+)*100/
+NULLIF(
+ISNULL((SELECT SUM(F.Total) FROM Factura F WHERE YEAR(F.Fecha)=@Año AND MONTH(F.Fecha)&lt;=@Mes),0)+
+ISNULL((SELECT SUM(R.Total) FROM Remision R WHERE YEAR(R.Fecha)=@Año AND MONTH(R.Fecha)&lt;=@Mes),0)+
+ISNULL((SELECT SUM(MB.Importe) FROM MovimientoBanco MB WHERE MB.Tipo='i' AND YEAR(MB.Fecha)=@Año AND MONTH(MB.Fecha)&lt;=@Mes),0),0),
+
+4 AS Orden
+
+
+UNION ALL
+
+
+SELECT 'Utilidad Bruta',
+
+(
+ISNULL((SELECT SUM(F.Total) FROM Factura F WHERE MONTH(F.Fecha)=@Mes AND YEAR(F.Fecha)=@Año),0)+
+ISNULL((SELECT SUM(R.Total) FROM Remision R WHERE MONTH(R.Fecha)=@Mes AND YEAR(R.Fecha)=@Año),0)+
+ISNULL((SELECT SUM(MB.Importe) FROM MovimientoBanco MB WHERE MB.Tipo='i' AND MONTH(MB.Fecha)=@Mes AND YEAR(MB.Fecha)=@Año),0)
+)
+-
+(
+ISNULL((SELECT SUM(PG.Total)
+FROM PartidaRegistroGastos PG
+INNER JOIN RegistroGastos RG ON PG.FolioGasto=RG.Folio
+INNER JOIN ProductosServicios PS ON PG.ClaveProducto=PS.ClaveProducto
+WHERE PS.Categoria=1 AND MONTH(RG.Fecha)=@Mes AND YEAR(RG.Fecha)=@Año),0)+
+ISNULL((SELECT SUM(PR.Total)
+FROM PartidaRegistroReembolso PR
+INNER JOIN RegistroReembolso RR ON PR.FolioGasto=RR.Folio
+INNER JOIN ProductosServicios PS ON PR.ClaveProducto=PS.ClaveProducto
+WHERE PS.Categoria=1 AND MONTH(RR.Fecha)=@Mes AND YEAR(RR.Fecha)=@Año),0)+
+ISNULL((SELECT SUM(PRC.Total)
+FROM PartidaRecepcion PRC
+INNER JOIN RecepcionProducto RP ON PRC.FolioRecepcion=RP.Folio
+INNER JOIN ProductosServicios PS ON PRC.ClaveProducto=PS.ClaveProducto
+WHERE PS.Categoria=1 AND MONTH(RP.Fecha)=@Mes AND YEAR(RP.Fecha)=@Año),0)
+),
+
+(
+(
+ISNULL((SELECT SUM(F.Total) FROM Factura F WHERE MONTH(F.Fecha)=@Mes AND YEAR(F.Fecha)=@Año),0)+
+ISNULL((SELECT SUM(R.Total) FROM Remision R WHERE MONTH(R.Fecha)=@Mes AND YEAR(R.Fecha)=@Año),0)+
+ISNULL((SELECT SUM(MB.Importe) FROM MovimientoBanco MB WHERE MB.Tipo='i' AND MONTH(MB.Fecha)=@Mes AND YEAR(MB.Fecha)=@Año),0)
+)
+-
+(
+ISNULL((SELECT SUM(PG.Total)
+FROM PartidaRegistroGastos PG
+INNER JOIN RegistroGastos RG ON PG.FolioGasto=RG.Folio
+INNER JOIN ProductosServicios PS ON PG.ClaveProducto=PS.ClaveProducto
+WHERE PS.Categoria=1 AND MONTH(RG.Fecha)=@Mes AND YEAR(RG.Fecha)=@Año),0)+
+ISNULL((SELECT SUM(PR.Total)
+FROM PartidaRegistroReembolso PR
+INNER JOIN RegistroReembolso RR ON PR.FolioGasto=RR.Folio
+INNER JOIN ProductosServicios PS ON PR.ClaveProducto=PS.ClaveProducto
+WHERE PS.Categoria=1 AND MONTH(RR.Fecha)=@Mes AND YEAR(RR.Fecha)=@Año),0)+
+ISNULL((SELECT SUM(PRC.Total)
+FROM PartidaRecepcion PRC
+INNER JOIN RecepcionProducto RP ON PRC.FolioRecepcion=RP.Folio
+INNER JOIN ProductosServicios PS ON PRC.ClaveProducto=PS.ClaveProducto
+WHERE PS.Categoria=1 AND MONTH(RP.Fecha)=@Mes AND YEAR(RP.Fecha)=@Año),0)
+)
+)*100/
+NULLIF(
+ISNULL((SELECT SUM(F.Total) FROM Factura F WHERE MONTH(F.Fecha)=@Mes AND YEAR(F.Fecha)=@Año),0)+
+ISNULL((SELECT SUM(R.Total) FROM Remision R WHERE MONTH(R.Fecha)=@Mes AND YEAR(R.Fecha)=@Año),0)+
+ISNULL((SELECT SUM(MB.Importe) FROM MovimientoBanco MB WHERE MB.Tipo='i' AND MONTH(MB.Fecha)=@Mes AND YEAR(MB.Fecha)=@Año),0),0),
+
+(
+ISNULL((SELECT SUM(F.Total) FROM Factura F WHERE YEAR(F.Fecha)=@Año AND MONTH(F.Fecha)&lt;=@Mes),0)+
+ISNULL((SELECT SUM(R.Total) FROM Remision R WHERE YEAR(R.Fecha)=@Año AND MONTH(R.Fecha)&lt;=@Mes),0)+
+ISNULL((SELECT SUM(MB.Importe) FROM MovimientoBanco MB WHERE MB.Tipo='i' AND YEAR(MB.Fecha)=@Año AND MONTH(MB.Fecha)&lt;=@Mes),0)
+)
+-
+(
+ISNULL((SELECT SUM(PG.Total)
+FROM PartidaRegistroGastos PG
+INNER JOIN RegistroGastos RG ON PG.FolioGasto=RG.Folio
+INNER JOIN ProductosServicios PS ON PG.ClaveProducto=PS.ClaveProducto
+WHERE PS.Categoria=1 AND YEAR(RG.Fecha)=@Año AND MONTH(RG.Fecha)&lt;=@Mes),0)+
+ISNULL((SELECT SUM(PR.Total)
+FROM PartidaRegistroReembolso PR
+INNER JOIN RegistroReembolso RR ON PR.FolioGasto=RR.Folio
+INNER JOIN ProductosServicios PS ON PR.ClaveProducto=PS.ClaveProducto
+WHERE PS.Categoria=1 AND YEAR(RR.Fecha)=@Año AND MONTH(RR.Fecha)&lt;=@Mes),0)+
+ISNULL((SELECT SUM(PRC.Total)
+FROM PartidaRecepcion PRC
+INNER JOIN RecepcionProducto RP ON PRC.FolioRecepcion=RP.Folio
+INNER JOIN ProductosServicios PS ON PRC.ClaveProducto=PS.ClaveProducto
+WHERE PS.Categoria=1 AND YEAR(RP.Fecha)=@Año AND MONTH(RP.Fecha)&lt;=@Mes),0)
+),
+
+(
+(
+ISNULL((SELECT SUM(F.Total) FROM Factura F WHERE YEAR(F.Fecha)=@Año AND MONTH(F.Fecha)&lt;=@Mes),0)+
+ISNULL((SELECT SUM(R.Total) FROM Remision R WHERE YEAR(R.Fecha)=@Año AND MONTH(R.Fecha)&lt;=@Mes),0)+
+ISNULL((SELECT SUM(MB.Importe) FROM MovimientoBanco MB WHERE MB.Tipo='i' AND YEAR(MB.Fecha)=@Año AND MONTH(MB.Fecha)&lt;=@Mes),0)
+)
+-
+(
+ISNULL((SELECT SUM(PG.Total)
+FROM PartidaRegistroGastos PG
+INNER JOIN RegistroGastos RG ON PG.FolioGasto=RG.Folio
+INNER JOIN ProductosServicios PS ON PG.ClaveProducto=PS.ClaveProducto
+WHERE PS.Categoria=1 AND YEAR(RG.Fecha)=@Año AND MONTH(RG.Fecha)&lt;=@Mes),0)+
+ISNULL((SELECT SUM(PR.Total)
+FROM PartidaRegistroReembolso PR
+INNER JOIN RegistroReembolso RR ON PR.FolioGasto=RR.Folio
+INNER JOIN ProductosServicios PS ON PR.ClaveProducto=PS.ClaveProducto
+WHERE PS.Categoria=1 AND YEAR(RR.Fecha)=@Año AND MONTH(RR.Fecha)&lt;=@Mes),0)+
+ISNULL((SELECT SUM(PRC.Total)
+FROM PartidaRecepcion PRC
+INNER JOIN RecepcionProducto RP ON PRC.FolioRecepcion=RP.Folio
+INNER JOIN ProductosServicios PS ON PRC.ClaveProducto=PS.ClaveProducto
+WHERE PS.Categoria=1 AND YEAR(RP.Fecha)=@Año AND MONTH(RP.Fecha)&lt;=@Mes),0)
+)
+)*100/
+NULLIF(
+ISNULL((SELECT SUM(F.Total) FROM Factura F WHERE YEAR(F.Fecha)=@Año AND MONTH(F.Fecha)&lt;=@Mes),0)+
+ISNULL((SELECT SUM(R.Total) FROM Remision R WHERE YEAR(R.Fecha)=@Año AND MONTH(R.Fecha)&lt;=@Mes),0)+
+ISNULL((SELECT SUM(MB.Importe) FROM MovimientoBanco MB WHERE MB.Tipo='i' AND YEAR(MB.Fecha)=@Año AND MONTH(MB.Fecha)&lt;=@Mes),0),0),
+
+5 AS Orden
+
+
+UNION ALL
+
+
+SELECT '',
+NULL,
+NULL,
+NULL,
+NULL,
+5.5 AS Orden
+
+
+UNION ALL
+
+
+SELECT 'Gastos de administración',
+
+ISNULL((SELECT SUM(PG.Total)
+FROM PartidaRegistroGastos PG
+INNER JOIN RegistroGastos RG ON PG.FolioGasto=RG.Folio
+INNER JOIN ProductosServicios PS ON PG.ClaveProducto=PS.ClaveProducto
+WHERE PS.Categoria=2 AND MONTH(RG.Fecha)=@Mes AND YEAR(RG.Fecha)=@Año),0)+
+ISNULL((SELECT SUM(PR.Total)
+FROM PartidaRegistroReembolso PR
+INNER JOIN RegistroReembolso RR ON PR.FolioGasto=RR.Folio
+INNER JOIN ProductosServicios PS ON PR.ClaveProducto=PS.ClaveProducto
+WHERE PS.Categoria=2 AND MONTH(RR.Fecha)=@Mes AND YEAR(RR.Fecha)=@Año),0)+
+ISNULL((SELECT SUM(PRC.Total)
+FROM PartidaRecepcion PRC
+INNER JOIN RecepcionProducto RP ON PRC.FolioRecepcion=RP.Folio
+INNER JOIN ProductosServicios PS ON PRC.ClaveProducto=PS.ClaveProducto
+WHERE PS.Categoria=2 AND MONTH(RP.Fecha)=@Mes AND YEAR(RP.Fecha)=@Año),0),
+
+(
+ISNULL((SELECT SUM(PG.Total)
+FROM PartidaRegistroGastos PG
+INNER JOIN RegistroGastos RG ON PG.FolioGasto=RG.Folio
+INNER JOIN ProductosServicios PS ON PG.ClaveProducto=PS.ClaveProducto
+WHERE PS.Categoria=2 AND MONTH(RG.Fecha)=@Mes AND YEAR(RG.Fecha)=@Año),0)+
+ISNULL((SELECT SUM(PR.Total)
+FROM PartidaRegistroReembolso PR
+INNER JOIN RegistroReembolso RR ON PR.FolioGasto=RR.Folio
+INNER JOIN ProductosServicios PS ON PR.ClaveProducto=PS.ClaveProducto
+WHERE PS.Categoria=2 AND MONTH(RR.Fecha)=@Mes AND YEAR(RR.Fecha)=@Año),0)+
+ISNULL((SELECT SUM(PRC.Total)
+FROM PartidaRecepcion PRC
+INNER JOIN RecepcionProducto RP ON PRC.FolioRecepcion=RP.Folio
+INNER JOIN ProductosServicios PS ON PRC.ClaveProducto=PS.ClaveProducto
+WHERE PS.Categoria=2 AND MONTH(RP.Fecha)=@Mes AND YEAR(RP.Fecha)=@Año),0)
+)*100/
+NULLIF(
+ISNULL((SELECT SUM(F.Total) FROM Factura F WHERE MONTH(F.Fecha)=@Mes AND YEAR(F.Fecha)=@Año),0)+
+ISNULL((SELECT SUM(R.Total) FROM Remision R WHERE MONTH(R.Fecha)=@Mes AND YEAR(R.Fecha)=@Año),0)+
+ISNULL((SELECT SUM(MB.Importe) FROM MovimientoBanco MB WHERE MB.Tipo='i' AND MONTH(MB.Fecha)=@Mes AND YEAR(MB.Fecha)=@Año),0),0),
+
+ISNULL((SELECT SUM(PG.Total)
+FROM PartidaRegistroGastos PG
+INNER JOIN RegistroGastos RG ON PG.FolioGasto=RG.Folio
+INNER JOIN ProductosServicios PS ON PG.ClaveProducto=PS.ClaveProducto
+WHERE PS.Categoria=2 AND YEAR(RG.Fecha)=@Año AND MONTH(RG.Fecha)&lt;=@Mes),0)+
+ISNULL((SELECT SUM(PR.Total)
+FROM PartidaRegistroReembolso PR
+INNER JOIN RegistroReembolso RR ON PR.FolioGasto=RR.Folio
+INNER JOIN ProductosServicios PS ON PR.ClaveProducto=PS.ClaveProducto
+WHERE PS.Categoria=2 AND YEAR(RR.Fecha)=@Año AND MONTH(RR.Fecha)&lt;=@Mes),0)+
+ISNULL((SELECT SUM(PRC.Total)
+FROM PartidaRecepcion PRC
+INNER JOIN RecepcionProducto RP ON PRC.FolioRecepcion=RP.Folio
+INNER JOIN ProductosServicios PS ON PRC.ClaveProducto=PS.ClaveProducto
+WHERE PS.Categoria=2 AND YEAR(RP.Fecha)=@Año AND MONTH(RP.Fecha)&lt;=@Mes),0),
+
+(
+ISNULL((SELECT SUM(PG.Total)
+FROM PartidaRegistroGastos PG
+INNER JOIN RegistroGastos RG ON PG.FolioGasto=RG.Folio
+INNER JOIN ProductosServicios PS ON PG.ClaveProducto=PS.ClaveProducto
+WHERE PS.Categoria=2 AND YEAR(RG.Fecha)=@Año AND MONTH(RG.Fecha)&lt;=@Mes),0)+
+ISNULL((SELECT SUM(PR.Total)
+FROM PartidaRegistroReembolso PR
+INNER JOIN RegistroReembolso RR ON PR.FolioGasto=RR.Folio
+INNER JOIN ProductosServicios PS ON PR.ClaveProducto=PS.ClaveProducto
+WHERE PS.Categoria=2 AND YEAR(RR.Fecha)=@Año AND MONTH(RR.Fecha)&lt;=@Mes),0)+
+ISNULL((SELECT SUM(PRC.Total)
+FROM PartidaRecepcion PRC
+INNER JOIN RecepcionProducto RP ON PRC.FolioRecepcion=RP.Folio
+INNER JOIN ProductosServicios PS ON PRC.ClaveProducto=PS.ClaveProducto
+WHERE PS.Categoria=2 AND YEAR(RP.Fecha)=@Año AND MONTH(RP.Fecha)&lt;=@Mes),0)
+)*100/
+NULLIF(
+ISNULL((SELECT SUM(F.Total) FROM Factura F WHERE YEAR(F.Fecha)=@Año AND MONTH(F.Fecha)&lt;=@Mes),0)+
+ISNULL((SELECT SUM(R.Total) FROM Remision R WHERE YEAR(R.Fecha)=@Año AND MONTH(R.Fecha)&lt;=@Mes),0)+
+ISNULL((SELECT SUM(MB.Importe) FROM MovimientoBanco MB WHERE MB.Tipo='i' AND YEAR(MB.Fecha)=@Año AND MONTH(MB.Fecha)&lt;=@Mes),0),0),
+
+6 AS Orden
+
+
+UNION ALL
+
+
+SELECT 'Gastos Financieros',
+
+ISNULL((SELECT SUM(MB.Importe)
+FROM MovimientoBanco MB
+WHERE MB.Tipo='e' AND MONTH(MB.Fecha)=@Mes AND YEAR(MB.Fecha)=@Año),0),
+
+ISNULL((SELECT SUM(MB.Importe)
+FROM MovimientoBanco MB
+WHERE MB.Tipo='e' AND MONTH(MB.Fecha)=@Mes AND YEAR(MB.Fecha)=@Año),0)*100/
+NULLIF(
+ISNULL((SELECT SUM(F.Total) FROM Factura F WHERE MONTH(F.Fecha)=@Mes AND YEAR(F.Fecha)=@Año),0)+
+ISNULL((SELECT SUM(R.Total) FROM Remision R WHERE MONTH(R.Fecha)=@Mes AND YEAR(R.Fecha)=@Año),0)+
+ISNULL((SELECT SUM(MB.Importe) FROM MovimientoBanco MB WHERE MB.Tipo='i' AND MONTH(MB.Fecha)=@Mes AND YEAR(MB.Fecha)=@Año),0),0),
+
+ISNULL((SELECT SUM(MB.Importe)
+FROM MovimientoBanco MB
+WHERE MB.Tipo='e' AND YEAR(MB.Fecha)=@Año AND MONTH(MB.Fecha)&lt;=@Mes),0),
+
+ISNULL((SELECT SUM(MB.Importe)
+FROM MovimientoBanco MB
+WHERE MB.Tipo='e' AND YEAR(MB.Fecha)=@Año AND MONTH(MB.Fecha)&lt;=@Mes),0)*100/
+NULLIF(
+ISNULL((SELECT SUM(F.Total) FROM Factura F WHERE YEAR(F.Fecha)=@Año AND MONTH(F.Fecha)&lt;=@Mes),0)+
+ISNULL((SELECT SUM(R.Total) FROM Remision R WHERE YEAR(R.Fecha)=@Año AND MONTH(R.Fecha)&lt;=@Mes),0)+
+ISNULL((SELECT SUM(MB.Importe) FROM MovimientoBanco MB WHERE MB.Tipo='i' AND YEAR(MB.Fecha)=@Año AND MONTH(MB.Fecha)&lt;=@Mes),0),0),
+
+7 AS Orden
+
+
+UNION ALL
+
+
+SELECT '',
+NULL,
+NULL,
+NULL,
+NULL,
+7.5 AS Orden
+
+
+UNION ALL
+
+
+SELECT 'Utilidad Operativa',
+
+(
+ISNULL((SELECT SUM(F.Total) FROM Factura F WHERE MONTH(F.Fecha)=@Mes AND YEAR(F.Fecha)=@Año),0)+
+ISNULL((SELECT SUM(R.Total) FROM Remision R WHERE MONTH(R.Fecha)=@Mes AND YEAR(R.Fecha)=@Año),0)+
+ISNULL((SELECT SUM(MB.Importe) FROM MovimientoBanco MB WHERE MB.Tipo='i' AND MONTH(MB.Fecha)=@Mes AND YEAR(MB.Fecha)=@Año),0)
+)
+-
+(
+ISNULL((SELECT SUM(PG.Total)
+FROM PartidaRegistroGastos PG
+INNER JOIN RegistroGastos RG ON PG.FolioGasto=RG.Folio
+INNER JOIN ProductosServicios PS ON PG.ClaveProducto=PS.ClaveProducto
+WHERE PS.Categoria=1 AND MONTH(RG.Fecha)=@Mes AND YEAR(RG.Fecha)=@Año),0)+
+ISNULL((SELECT SUM(PR.Total)
+FROM PartidaRegistroReembolso PR
+INNER JOIN RegistroReembolso RR ON PR.FolioGasto=RR.Folio
+INNER JOIN ProductosServicios PS ON PR.ClaveProducto=PS.ClaveProducto
+WHERE PS.Categoria=1 AND MONTH(RR.Fecha)=@Mes AND YEAR(RR.Fecha)=@Año),0)+
+ISNULL((SELECT SUM(PRC.Total)
+FROM PartidaRecepcion PRC
+INNER JOIN RecepcionProducto RP ON PRC.FolioRecepcion=RP.Folio
+INNER JOIN ProductosServicios PS ON PRC.ClaveProducto=PS.ClaveProducto
+WHERE PS.Categoria=1 AND MONTH(RP.Fecha)=@Mes AND YEAR(RP.Fecha)=@Año),0)
+)
+-
+(
+ISNULL((SELECT SUM(PG.Total)
+FROM PartidaRegistroGastos PG
+INNER JOIN RegistroGastos RG ON PG.FolioGasto=RG.Folio
+INNER JOIN ProductosServicios PS ON PG.ClaveProducto=PS.ClaveProducto
+WHERE PS.Categoria=2 AND MONTH(RG.Fecha)=@Mes AND YEAR(RG.Fecha)=@Año),0)+
+ISNULL((SELECT SUM(PR.Total)
+FROM PartidaRegistroReembolso PR
+INNER JOIN RegistroReembolso RR ON PR.FolioGasto=RR.Folio
+INNER JOIN ProductosServicios PS ON PR.ClaveProducto=PS.ClaveProducto
+WHERE PS.Categoria=2 AND MONTH(RR.Fecha)=@Mes AND YEAR(RR.Fecha)=@Año),0)+
+ISNULL((SELECT SUM(PRC.Total)
+FROM PartidaRecepcion PRC
+INNER JOIN RecepcionProducto RP ON PRC.FolioRecepcion=RP.Folio
+INNER JOIN ProductosServicios PS ON PRC.ClaveProducto=PS.ClaveProducto
+WHERE PS.Categoria=2 AND MONTH(RP.Fecha)=@Mes AND YEAR(RP.Fecha)=@Año),0)
+)
+-
+ISNULL((SELECT SUM(MB.Importe)
+FROM MovimientoBanco MB
+WHERE MB.Tipo='e' AND MONTH(MB.Fecha)=@Mes AND YEAR(MB.Fecha)=@Año),0),
+
+(
+(
+ISNULL((SELECT SUM(F.Total) FROM Factura F WHERE MONTH(F.Fecha)=@Mes AND YEAR(F.Fecha)=@Año),0)+
+ISNULL((SELECT SUM(R.Total) FROM Remision R WHERE MONTH(R.Fecha)=@Mes AND YEAR(R.Fecha)=@Año),0)+
+ISNULL((SELECT SUM(MB.Importe) FROM MovimientoBanco MB WHERE MB.Tipo='i' AND MONTH(MB.Fecha)=@Mes AND YEAR(MB.Fecha)=@Año),0)
+)
+-
+(
+ISNULL((SELECT SUM(PG.Total)
+FROM PartidaRegistroGastos PG
+INNER JOIN RegistroGastos RG ON PG.FolioGasto=RG.Folio
+INNER JOIN ProductosServicios PS ON PG.ClaveProducto=PS.ClaveProducto
+WHERE PS.Categoria=1 AND MONTH(RG.Fecha)=@Mes AND YEAR(RG.Fecha)=@Año),0)+
+ISNULL((SELECT SUM(PR.Total)
+FROM PartidaRegistroReembolso PR
+INNER JOIN RegistroReembolso RR ON PR.FolioGasto=RR.Folio
+INNER JOIN ProductosServicios PS ON PR.ClaveProducto=PS.ClaveProducto
+WHERE PS.Categoria=1 AND MONTH(RR.Fecha)=@Mes AND YEAR(RR.Fecha)=@Año),0)+
+ISNULL((SELECT SUM(PRC.Total)
+FROM PartidaRecepcion PRC
+INNER JOIN RecepcionProducto RP ON PRC.FolioRecepcion=RP.Folio
+INNER JOIN ProductosServicios PS ON PRC.ClaveProducto=PS.ClaveProducto
+WHERE PS.Categoria=1 AND MONTH(RP.Fecha)=@Mes AND YEAR(RP.Fecha)=@Año),0)
+)
+-
+(
+ISNULL((SELECT SUM(PG.Total)
+FROM PartidaRegistroGastos PG
+INNER JOIN RegistroGastos RG ON PG.FolioGasto=RG.Folio
+INNER JOIN ProductosServicios PS ON PG.ClaveProducto=PS.ClaveProducto
+WHERE PS.Categoria=2 AND MONTH(RG.Fecha)=@Mes AND YEAR(RG.Fecha)=@Año),0)+
+ISNULL((SELECT SUM(PR.Total)
+FROM PartidaRegistroReembolso PR
+INNER JOIN RegistroReembolso RR ON PR.FolioGasto=RR.Folio
+INNER JOIN ProductosServicios PS ON PR.ClaveProducto=PS.ClaveProducto
+WHERE PS.Categoria=2 AND MONTH(RR.Fecha)=@Mes AND YEAR(RR.Fecha)=@Año),0)+
+ISNULL((SELECT SUM(PRC.Total)
+FROM PartidaRecepcion PRC
+INNER JOIN RecepcionProducto RP ON PRC.FolioRecepcion=RP.Folio
+INNER JOIN ProductosServicios PS ON PRC.ClaveProducto=PS.ClaveProducto
+WHERE PS.Categoria=2 AND MONTH(RP.Fecha)=@Mes AND YEAR(RP.Fecha)=@Año),0)
+)
+-
+ISNULL((SELECT SUM(MB.Importe)
+FROM MovimientoBanco MB
+WHERE MB.Tipo='e' AND MONTH(MB.Fecha)=@Mes AND YEAR(MB.Fecha)=@Año),0)
+)*100/
+NULLIF(
+ISNULL((SELECT SUM(F.Total) FROM Factura F WHERE MONTH(F.Fecha)=@Mes AND YEAR(F.Fecha)=@Año),0)+
+ISNULL((SELECT SUM(R.Total) FROM Remision R WHERE MONTH(R.Fecha)=@Mes AND YEAR(R.Fecha)=@Año),0)+
+ISNULL((SELECT SUM(MB.Importe) FROM MovimientoBanco MB WHERE MB.Tipo='i' AND MONTH(MB.Fecha)=@Mes AND YEAR(MB.Fecha)=@Año),0),0),
+
+(
+ISNULL((SELECT SUM(F.Total) FROM Factura F WHERE YEAR(F.Fecha)=@Año AND MONTH(F.Fecha)&lt;=@Mes),0)+
+ISNULL((SELECT SUM(R.Total) FROM Remision R WHERE YEAR(R.Fecha)=@Año AND MONTH(R.Fecha)&lt;=@Mes),0)+
+ISNULL((SELECT SUM(MB.Importe) FROM MovimientoBanco MB WHERE MB.Tipo='i' AND YEAR(MB.Fecha)=@Año AND MONTH(MB.Fecha)&lt;=@Mes),0)
+)
+-
+(
+ISNULL((SELECT SUM(PG.Total)
+FROM PartidaRegistroGastos PG
+INNER JOIN RegistroGastos RG ON PG.FolioGasto=RG.Folio
+INNER JOIN ProductosServicios PS ON PG.ClaveProducto=PS.ClaveProducto
+WHERE PS.Categoria=1 AND YEAR(RG.Fecha)=@Año AND MONTH(RG.Fecha)&lt;=@Mes),0)+
+ISNULL((SELECT SUM(PR.Total)
+FROM PartidaRegistroReembolso PR
+INNER JOIN RegistroReembolso RR ON PR.FolioGasto=RR.Folio
+INNER JOIN ProductosServicios PS ON PR.ClaveProducto=PS.ClaveProducto
+WHERE PS.Categoria=1 AND YEAR(RR.Fecha)=@Año AND MONTH(RR.Fecha)&lt;=@Mes),0)+
+ISNULL((SELECT SUM(PRC.Total)
+FROM PartidaRecepcion PRC
+INNER JOIN RecepcionProducto RP ON PRC.FolioRecepcion=RP.Folio
+INNER JOIN ProductosServicios PS ON PRC.ClaveProducto=PS.ClaveProducto
+WHERE PS.Categoria=1 AND YEAR(RP.Fecha)=@Año AND MONTH(RP.Fecha)&lt;=@Mes),0)
+)
+-
+(
+ISNULL((SELECT SUM(PG.Total)
+FROM PartidaRegistroGastos PG
+INNER JOIN RegistroGastos RG ON PG.FolioGasto=RG.Folio
+INNER JOIN ProductosServicios PS ON PG.ClaveProducto=PS.ClaveProducto
+WHERE PS.Categoria=2 AND YEAR(RG.Fecha)=@Año AND MONTH(RG.Fecha)&lt;=@Mes),0)+
+ISNULL((SELECT SUM(PR.Total)
+FROM PartidaRegistroReembolso PR
+INNER JOIN RegistroReembolso RR ON PR.FolioGasto=RR.Folio
+INNER JOIN ProductosServicios PS ON PR.ClaveProducto=PS.ClaveProducto
+WHERE PS.Categoria=2 AND YEAR(RR.Fecha)=@Año AND MONTH(RR.Fecha)&lt;=@Mes),0)+
+ISNULL((SELECT SUM(PRC.Total)
+FROM PartidaRecepcion PRC
+INNER JOIN RecepcionProducto RP ON PRC.FolioRecepcion=RP.Folio
+INNER JOIN ProductosServicios PS ON PRC.ClaveProducto=PS.ClaveProducto
+WHERE PS.Categoria=2 AND YEAR(RP.Fecha)=@Año AND MONTH(RP.Fecha)&lt;=@Mes),0)
+)
+-
+ISNULL((SELECT SUM(MB.Importe)
+FROM MovimientoBanco MB
+WHERE MB.Tipo='e' AND YEAR(MB.Fecha)=@Año AND MONTH(MB.Fecha)&lt;=@Mes),0),
+
+(
+(
+ISNULL((SELECT SUM(F.Total) FROM Factura F WHERE YEAR(F.Fecha)=@Año AND MONTH(F.Fecha)&lt;=@Mes),0)+
+ISNULL((SELECT SUM(R.Total) FROM Remision R WHERE YEAR(R.Fecha)=@Año AND MONTH(R.Fecha)&lt;=@Mes),0)+
+ISNULL((SELECT SUM(MB.Importe) FROM MovimientoBanco MB WHERE MB.Tipo='i' AND YEAR(MB.Fecha)=@Año AND MONTH(MB.Fecha)&lt;=@Mes),0)
+)
+-
+(
+ISNULL((SELECT SUM(PG.Total)
+FROM PartidaRegistroGastos PG
+INNER JOIN RegistroGastos RG ON PG.FolioGasto=RG.Folio
+INNER JOIN ProductosServicios PS ON PG.ClaveProducto=PS.ClaveProducto
+WHERE PS.Categoria=1 AND YEAR(RG.Fecha)=@Año AND MONTH(RG.Fecha)&lt;=@Mes),0)+
+ISNULL((SELECT SUM(PR.Total)
+FROM PartidaRegistroReembolso PR
+INNER JOIN RegistroReembolso RR ON PR.FolioGasto=RR.Folio
+INNER JOIN ProductosServicios PS ON PR.ClaveProducto=PS.ClaveProducto
+WHERE PS.Categoria=1 AND YEAR(RR.Fecha)=@Año AND MONTH(RR.Fecha)&lt;=@Mes),0)+
+ISNULL((SELECT SUM(PRC.Total)
+FROM PartidaRecepcion PRC
+INNER JOIN RecepcionProducto RP ON PRC.FolioRecepcion=RP.Folio
+INNER JOIN ProductosServicios PS ON PRC.ClaveProducto=PS.ClaveProducto
+WHERE PS.Categoria=1 AND YEAR(RP.Fecha)=@Año AND MONTH(RP.Fecha)&lt;=@Mes),0)
+)
+-
+(
+ISNULL((SELECT SUM(PG.Total)
+FROM PartidaRegistroGastos PG
+INNER JOIN RegistroGastos RG ON PG.FolioGasto=RG.Folio
+INNER JOIN ProductosServicios PS ON PG.ClaveProducto=PS.ClaveProducto
+WHERE PS.Categoria=2 AND YEAR(RG.Fecha)=@Año AND MONTH(RG.Fecha)&lt;=@Mes),0)+
+ISNULL((SELECT SUM(PR.Total)
+FROM PartidaRegistroReembolso PR
+INNER JOIN RegistroReembolso RR ON PR.FolioGasto=RR.Folio
+INNER JOIN ProductosServicios PS ON PR.ClaveProducto=PS.ClaveProducto
+WHERE PS.Categoria=2 AND YEAR(RR.Fecha)=@Año AND MONTH(RR.Fecha)&lt;=@Mes),0)+
+ISNULL((SELECT SUM(PRC.Total)
+FROM PartidaRecepcion PRC
+INNER JOIN RecepcionProducto RP ON PRC.FolioRecepcion=RP.Folio
+INNER JOIN ProductosServicios PS ON PRC.ClaveProducto=PS.ClaveProducto
+WHERE PS.Categoria=2 AND YEAR(RP.Fecha)=@Año AND MONTH(RP.Fecha)&lt;=@Mes),0)
+)
+-
+ISNULL((SELECT SUM(MB.Importe)
+FROM MovimientoBanco MB
+WHERE MB.Tipo='e' AND YEAR(MB.Fecha)=@Año AND MONTH(MB.Fecha)&lt;=@Mes),0)
+)*100/
+NULLIF(
+ISNULL((SELECT SUM(F.Total) FROM Factura F WHERE YEAR(F.Fecha)=@Año AND MONTH(F.Fecha)&lt;=@Mes),0)+
+ISNULL((SELECT SUM(R.Total) FROM Remision R WHERE YEAR(R.Fecha)=@Año AND MONTH(R.Fecha)&lt;=@Mes),0)+
+ISNULL((SELECT SUM(MB.Importe) FROM MovimientoBanco MB WHERE MB.Tipo='i' AND YEAR(MB.Fecha)=@Año AND MONTH(MB.Fecha)&lt;=@Mes),0),0),
+
+8 AS Orden
 
 ) AS Resultado
 ORDER BY Orden;</CommandText>
@@ -400,7 +661,21 @@ ORDER BY Orden;</CommandText>
               <Mapping SourceColumn="Acumulado" DataSetColumn="Acumulado" />
               <Mapping SourceColumn="PorcentajeAcumulado" DataSetColumn="PorcentajeAcumulado" />
             </Mappings>
-            <Sources />
+            <Sources>
+              <DbSource ConnectionRef="ControlCondominiosConnectionString (Settings)" DbObjectName="SELECT 1 AS Orden,'Ventas' AS Concepto,ISNULL((SELECT SUM(F.Total) FROM Factura F WHERE MONTH(F.Fecha)=@Mes AND YEAR(F.Fecha)=@Año AND (@CentroCostos IS NULL OR F.CentroCostos=@CentroCostos) AND (@IdProyecto IS NULL OR F.IdProyecto=@IdProyecto)),0)+ISNULL((SELECT SUM(R.Total) FROM Remision R WHERE MONTH(R.Fecha)=@Mes AND YEAR(R.Fecha)=@Año AND (@CentroCostos IS NULL OR R.CentroCostos=@CentroCostos) AND (@IdProyecto IS NULL OR R.IdProyecto=@IdProyecto)),0) AS ImporteMes,((ISNULL((SELECT SUM(F.Total) FROM Factura F WHERE MONTH(F.Fecha)=@Mes AND YEAR(F.Fecha)=@Año AND (@CentroCostos IS NULL OR F.CentroCostos=@CentroCostos) AND (@IdProyecto IS NULL OR F.IdProyecto=@IdProyecto)),0)+ISNULL((SELECT SUM(R.Total) FROM Remision R WHERE MONTH(R.Fecha)=@Mes AND YEAR(R.Fecha)=@Año AND (@CentroCostos IS NULL OR R.CentroCostos=@CentroCostos) AND (@IdProyecto IS NULL OR R.IdProyecto=@IdProyecto)),0))*100.0)/NULLIF(ISNULL((SELECT SUM(F.Total) FROM Factura F WHERE MONTH(F.Fecha)=@Mes AND YEAR(F.Fecha)=@Año AND (@CentroCostos IS NULL OR F.CentroCostos=@CentroCostos) AND (@IdProyecto IS NULL OR F.IdProyecto=@IdProyecto)),0)+ISNULL((SELECT SUM(R.Total) FROM Remision R WHERE MONTH(R.Fecha)=@Mes AND YEAR(R.Fecha)=@Año AND (@CentroCostos IS NULL OR R.CentroCostos=@CentroCostos) AND (@IdProyecto IS NULL OR R.IdProyecto=@IdProyecto)),0)+ISNULL((SELECT SUM(M.Importe) FROM MovimientoBanco M WHERE MONTH(M.Fecha)=@Mes AND YEAR(M.Fecha)=@Año AND M.Tipo='i'),0),0) AS PorcentajeMes,ISNULL((SELECT SUM(F.Total) FROM Factura F WHERE MONTH(F.Fecha)&lt;=@Mes AND YEAR(F.Fecha)=@Año AND (@CentroCostos IS NULL OR F.CentroCostos=@CentroCostos) AND (@IdProyecto IS NULL OR F.IdProyecto=@IdProyecto)),0)+ISNULL((SELECT SUM(R.Total) FROM Remision R WHERE MONTH(R.Fecha)&lt;=@Mes AND YEAR(R.Fecha)=@Año AND (@CentroCostos IS NULL OR R.CentroCostos=@CentroCostos) AND (@IdProyecto IS NULL OR R.IdProyecto=@IdProyecto)),0) AS Acumulado,((ISNULL((SELECT SUM(F.Total) FROM Factura F WHERE MONTH(F.Fecha)&lt;=@Mes AND YEAR(F.Fecha)=@Año AND (@CentroCostos IS NULL OR F.CentroCostos=@CentroCostos) AND (@IdProyecto IS NULL OR F.IdProyecto=@IdProyecto)),0)+ISNULL((SELECT SUM(R.Total) FROM Remision R WHERE MONTH(R.Fecha)&lt;=@Mes AND YEAR(R.Fecha)=@Año AND (@CentroCostos IS NULL OR R.CentroCostos=@CentroCostos) AND (@IdProyecto IS NULL OR R.IdProyecto=@IdProyecto)),0))*100.0)/NULLIF(ISNULL((SELECT SUM(F.Total) FROM Factura F WHERE MONTH(F.Fecha)&lt;=@Mes AND YEAR(F.Fecha)=@Año AND (@CentroCostos IS NULL OR F.CentroCostos=@CentroCostos) AND (@IdProyecto IS NULL OR F.IdProyecto=@IdProyecto)),0)+ISNULL((SELECT SUM(R.Total) FROM Remision R WHERE MONTH(R.Fecha)&lt;=@Mes AND YEAR(R.Fecha)=@Año AND (@CentroCostos IS NULL OR R.CentroCostos=@CentroCostos) AND (@IdProyecto IS NULL OR R.IdProyecto=@IdProyecto)),0)+ISNULL((SELECT SUM(M.Importe) FROM MovimientoBanco M WHERE MONTH(M.Fecha)&lt;=@Mes AND YEAR(M.Fecha)=@Año AND M.Tipo='i'),0),0) AS PorcentajeAcumulado UNION ALL SELECT 2,'Otros Ingresos',ISNULL((SELECT SUM(M.Importe) FROM MovimientoBanco M WHERE MONTH(M.Fecha)=@Mes AND YEAR(M.Fecha)=@Año AND M.Tipo='i'),0),(ISNULL((SELECT SUM(M.Importe) FROM MovimientoBanco M WHERE MONTH(M.Fecha)=@Mes AND YEAR(M.Fecha)=@Año AND M.Tipo='i'),0)*100.0)/NULLIF(ISNULL((SELECT SUM(F.Total) FROM Factura F WHERE MONTH(F.Fecha)=@Mes AND YEAR(F.Fecha)=@Año AND (@CentroCostos IS NULL OR F.CentroCostos=@CentroCostos) AND (@IdProyecto IS NULL OR F.IdProyecto=@IdProyecto)),0)+ISNULL((SELECT SUM(R.Total) FROM Remision R WHERE MONTH(R.Fecha)=@Mes AND YEAR(R.Fecha)=@Año AND (@CentroCostos IS NULL OR R.CentroCostos=@CentroCostos) AND (@IdProyecto IS NULL OR R.IdProyecto=@IdProyecto)),0)+ISNULL((SELECT SUM(M.Importe) FROM MovimientoBanco M WHERE MONTH(M.Fecha)=@Mes AND YEAR(M.Fecha)=@Año AND M.Tipo='i'),0),0),ISNULL((SELECT SUM(M.Importe) FROM MovimientoBanco M WHERE MONTH(M.Fecha)&lt;=@Mes AND YEAR(M.Fecha)=@Año AND M.Tipo='i'),0),(ISNULL((SELECT SUM(M.Importe) FROM MovimientoBanco M WHERE MONTH(M.Fecha)&lt;=@Mes AND YEAR(M.Fecha)=@Año AND M.Tipo='i'),0)*100.0)/NULLIF(ISNULL((SELECT SUM(F.Total) FROM Factura F WHERE MONTH(F.Fecha)&lt;=@Mes AND YEAR(F.Fecha)=@Año AND (@CentroCostos IS NULL OR F.CentroCostos=@CentroCostos) AND (@IdProyecto IS NULL OR F.IdProyecto=@IdProyecto)),0)+ISNULL((SELECT SUM(R.Total) FROM Remision R WHERE MONTH(R.Fecha)&lt;=@Mes AND YEAR(R.Fecha)=@Año AND (@CentroCostos IS NULL OR R.CentroCostos=@CentroCostos) AND (@IdProyecto IS NULL OR R.IdProyecto=@IdProyecto)),0)+ISNULL((SELECT SUM(M.Importe) FROM MovimientoBanco M WHERE MONTH(M.Fecha)&lt;=@Mes AND YEAR(M.Fecha)=@Año AND M.Tipo='i'),0),0) UNION ALL SELECT 3,'Total Ingresos',ISNULL((SELECT SUM(F.Total) FROM Factura F WHERE MONTH(F.Fecha)=@Mes AND YEAR(F.Fecha)=@Año AND (@CentroCostos IS NULL OR F.CentroCostos=@CentroCostos) AND (@IdProyecto IS NULL OR F.IdProyecto=@IdProyecto)),0)+ISNULL((SELECT SUM(R.Total) FROM Remision R WHERE MONTH(R.Fecha)=@Mes AND YEAR(R.Fecha)=@Año AND (@CentroCostos IS NULL OR R.CentroCostos=@CentroCostos) AND (@IdProyecto IS NULL OR R.IdProyecto=@IdProyecto)),0)+ISNULL((SELECT SUM(M.Importe) FROM MovimientoBanco M WHERE MONTH(M.Fecha)=@Mes AND YEAR(M.Fecha)=@Año AND M.Tipo='i'),0),100.0,ISNULL((SELECT SUM(F.Total) FROM Factura F WHERE MONTH(F.Fecha)&lt;=@Mes AND YEAR(F.Fecha)=@Año AND (@CentroCostos IS NULL OR F.CentroCostos=@CentroCostos) AND (@IdProyecto IS NULL OR F.IdProyecto=@IdProyecto)),0)+ISNULL((SELECT SUM(R.Total) FROM Remision R WHERE MONTH(R.Fecha)&lt;=@Mes AND YEAR(R.Fecha)=@Año AND (@CentroCostos IS NULL OR R.CentroCostos=@CentroCostos) AND (@IdProyecto IS NULL OR R.IdProyecto=@IdProyecto)),0)+ISNULL((SELECT SUM(M.Importe) FROM MovimientoBanco M WHERE MONTH(M.Fecha)&lt;=@Mes AND YEAR(M.Fecha)=@Año AND M.Tipo='i'),0),100.0 UNION ALL SELECT 3.5,'',NULL,NULL,NULL,NULL UNION ALL SELECT 4,'Costos Op. y Gastos Directos',ISNULL((SELECT SUM(P.Total) FROM RegistroGastos G INNER JOIN PartidaRegistroGastos P ON G.Folio=P.FolioGasto INNER JOIN ProductosServicios S ON P.ClaveProducto=S.ClaveProducto WHERE MONTH(G.Fecha)=@Mes AND YEAR(G.Fecha)=@Año AND S.Categoria=1 AND (@CentroCostos IS NULL OR G.CentroCostos=@CentroCostos) AND (@IdProyecto IS NULL OR G.IdProyecto=@IdProyecto)),0)+ISNULL((SELECT SUM(P.Total) FROM RegistroReembolso G INNER JOIN PartidaRegistroReembolso P ON G.Folio=P.FolioGasto INNER JOIN ProductosServicios S ON P.ClaveProducto=S.ClaveProducto WHERE MONTH(G.Fecha)=@Mes AND YEAR(G.Fecha)=@Año AND S.Categoria=1 AND (@CentroCostos IS NULL OR G.CentroCostos=@CentroCostos) AND (@IdProyecto IS NULL OR G.IdProyecto=@IdProyecto)),0)+ISNULL((SELECT SUM(P.Total) FROM RecepcionProducto G INNER JOIN PartidaRecepcion P ON G.Folio=P.FolioRecepcion INNER JOIN ProductosServicios S ON P.ClaveProducto=S.ClaveProducto WHERE MONTH(G.Fecha)=@Mes AND YEAR(G.Fecha)=@Año AND S.Categoria=1 AND (@CentroCostos IS NULL OR G.CentroCostos=@CentroCostos) AND (@IdProyecto IS NULL OR G.IdProyecto=@IdProyecto)),0),((ISNULL((SELECT SUM(P.Total) FROM RegistroGastos G INNER JOIN PartidaRegistroGastos P ON G.Folio=P.FolioGasto INNER JOIN ProductosServicios S ON P.ClaveProducto=S.ClaveProducto WHERE MONTH(G.Fecha)=@Mes AND YEAR(G.Fecha)=@Año AND S.Categoria=1 AND (@CentroCostos IS NULL OR G.CentroCostos=@CentroCostos) AND (@IdProyecto IS NULL OR G.IdProyecto=@IdProyecto)),0)+ISNULL((SELECT SUM(P.Total) FROM RegistroReembolso G INNER JOIN PartidaRegistroReembolso P ON G.Folio=P.FolioGasto INNER JOIN ProductosServicios S ON P.ClaveProducto=S.ClaveProducto WHERE MONTH(G.Fecha)=@Mes AND YEAR(G.Fecha)=@Año AND S.Categoria=1 AND (@CentroCostos IS NULL OR G.CentroCostos=@CentroCostos) AND (@IdProyecto IS NULL OR G.IdProyecto=@IdProyecto)),0)+ISNULL((SELECT SUM(P.Total) FROM RecepcionProducto G INNER JOIN PartidaRecepcion P ON G.Folio=P.FolioRecepcion INNER JOIN ProductosServicios S ON P.ClaveProducto=S.ClaveProducto WHERE MONTH(G.Fecha)=@Mes AND YEAR(G.Fecha)=@Año AND S.Categoria=1 AND (@CentroCostos IS NULL OR G.CentroCostos=@CentroCostos) AND (@IdProyecto IS NULL OR G.IdProyecto=@IdProyecto)),0))*100.0)/NULLIF(ISNULL((SELECT SUM(F.Total) FROM Factura F WHERE MONTH(F.Fecha)=@Mes AND YEAR(F.Fecha)=@Año AND (@CentroCostos IS NULL OR F.CentroCostos=@CentroCostos) AND (@IdProyecto IS NULL OR F.IdProyecto=@IdProyecto)),0)+ISNULL((SELECT SUM(R.Total) FROM Remision R WHERE MONTH(R.Fecha)=@Mes AND YEAR(R.Fecha)=@Año AND (@CentroCostos IS NULL OR R.CentroCostos=@CentroCostos) AND (@IdProyecto IS NULL OR R.IdProyecto=@IdProyecto)),0)+ISNULL((SELECT SUM(M.Importe) FROM MovimientoBanco M WHERE MONTH(M.Fecha)=@Mes AND YEAR(M.Fecha)=@Año AND M.Tipo='i'),0),0),ISNULL((SELECT SUM(P.Total) FROM RegistroGastos G INNER JOIN PartidaRegistroGastos P ON G.Folio=P.FolioGasto INNER JOIN ProductosServicios S ON P.ClaveProducto=S.ClaveProducto WHERE MONTH(G.Fecha)&lt;=@Mes AND YEAR(G.Fecha)=@Año AND S.Categoria=1 AND (@CentroCostos IS NULL OR G.CentroCostos=@CentroCostos) AND (@IdProyecto IS NULL OR G.IdProyecto=@IdProyecto)),0)+ISNULL((SELECT SUM(P.Total) FROM RegistroReembolso G INNER JOIN PartidaRegistroReembolso P ON G.Folio=P.FolioGasto INNER JOIN ProductosServicios S ON P.ClaveProducto=S.ClaveProducto WHERE MONTH(G.Fecha)&lt;=@Mes AND YEAR(G.Fecha)=@Año AND S.Categoria=1 AND (@CentroCostos IS NULL OR G.CentroCostos=@CentroCostos) AND (@IdProyecto IS NULL OR G.IdProyecto=@IdProyecto)),0)+ISNULL((SELECT SUM(P.Total) FROM RecepcionProducto G INNER JOIN PartidaRecepcion P ON G.Folio=P.FolioRecepcion INNER JOIN ProductosServicios S ON P.ClaveProducto=S.ClaveProducto WHERE MONTH(G.Fecha)&lt;=@Mes AND YEAR(G.Fecha)=@Año AND S.Categoria=1 AND (@CentroCostos IS NULL OR G.CentroCostos=@CentroCostos) AND (@IdProyecto IS NULL OR G.IdProyecto=@IdProyecto)),0),((ISNULL((SELECT SUM(P.Total) FROM RegistroGastos G INNER JOIN PartidaRegistroGastos P ON G.Folio=P.FolioGasto INNER JOIN ProductosServicios S ON P.ClaveProducto=S.ClaveProducto WHERE MONTH(G.Fecha)&lt;=@Mes AND YEAR(G.Fecha)=@Año AND S.Categoria=1 AND (@CentroCostos IS NULL OR G.CentroCostos=@CentroCostos) AND (@IdProyecto IS NULL OR G.IdProyecto=@IdProyecto)),0)+ISNULL((SELECT SUM(P.Total) FROM RegistroReembolso G INNER JOIN PartidaRegistroReembolso P ON G.Folio=P.FolioGasto INNER JOIN ProductosServicios S ON P.ClaveProducto=S.ClaveProducto WHERE MONTH(G.Fecha)&lt;=@Mes AND YEAR(G.Fecha)=@Año AND S.Categoria=1 AND (@CentroCostos IS NULL OR G.CentroCostos=@CentroCostos) AND (@IdProyecto IS NULL OR G.IdProyecto=@IdProyecto)),0)+ISNULL((SELECT SUM(P.Total) FROM RecepcionProducto G INNER JOIN PartidaRecepcion P ON G.Folio=P.FolioRecepcion INNER JOIN ProductosServicios S ON P.ClaveProducto=S.ClaveProducto WHERE MONTH(G.Fecha)&lt;=@Mes AND YEAR(G.Fecha)=@Año AND S.Categoria=1 AND (@CentroCostos IS NULL OR G.CentroCostos=@CentroCostos) AND (@IdProyecto IS NULL OR G.IdProyecto=@IdProyecto)),0))*100.0)/NULLIF(ISNULL((SELECT SUM(F.Total) FROM Factura F WHERE MONTH(F.Fecha)&lt;=@Mes AND YEAR(F.Fecha)=@Año AND (@CentroCostos IS NULL OR F.CentroCostos=@CentroCostos) AND (@IdProyecto IS NULL OR F.IdProyecto=@IdProyecto)),0)+ISNULL((SELECT SUM(R.Total) FROM Remision R WHERE MONTH(R.Fecha)&lt;=@Mes AND YEAR(R.Fecha)=@Año AND (@CentroCostos IS NULL OR R.CentroCostos=@CentroCostos) AND (@IdProyecto IS NULL OR R.IdProyecto=@IdProyecto)),0)+ISNULL((SELECT SUM(M.Importe) FROM MovimientoBanco M WHERE MONTH(M.Fecha)&lt;=@Mes AND YEAR(M.Fecha)=@Año AND M.Tipo='i'),0),0) UNION ALL SELECT 5,'Utilidad Bruta',(ISNULL((SELECT SUM(F.Total) FROM Factura F WHERE MONTH(F.Fecha)=@Mes AND YEAR(F.Fecha)=@Año AND (@CentroCostos IS NULL OR F.CentroCostos=@CentroCostos) AND (@IdProyecto IS NULL OR F.IdProyecto=@IdProyecto)),0)+ISNULL((SELECT SUM(R.Total) FROM Remision R WHERE MONTH(R.Fecha)=@Mes AND YEAR(R.Fecha)=@Año AND (@CentroCostos IS NULL OR R.CentroCostos=@CentroCostos) AND (@IdProyecto IS NULL OR R.IdProyecto=@IdProyecto)),0)+ISNULL((SELECT SUM(M.Importe) FROM MovimientoBanco M WHERE MONTH(M.Fecha)=@Mes AND YEAR(M.Fecha)=@Año AND M.Tipo='i'),0))-(ISNULL((SELECT SUM(P.Total) FROM RegistroGastos G INNER JOIN PartidaRegistroGastos P ON G.Folio=P.FolioGasto INNER JOIN ProductosServicios S ON P.ClaveProducto=S.ClaveProducto WHERE MONTH(G.Fecha)=@Mes AND YEAR(G.Fecha)=@Año AND S.Categoria=1 AND (@CentroCostos IS NULL OR G.CentroCostos=@CentroCostos) AND (@IdProyecto IS NULL OR G.IdProyecto=@IdProyecto)),0)+ISNULL((SELECT SUM(P.Total) FROM RegistroReembolso G INNER JOIN PartidaRegistroReembolso P ON G.Folio=P.FolioGasto INNER JOIN ProductosServicios S ON P.ClaveProducto=S.ClaveProducto WHERE MONTH(G.Fecha)=@Mes AND YEAR(G.Fecha)=@Año AND S.Categoria=1 AND (@CentroCostos IS NULL OR G.CentroCostos=@CentroCostos) AND (@IdProyecto IS NULL OR G.IdProyecto=@IdProyecto)),0)+ISNULL((SELECT SUM(P.Total) FROM RecepcionProducto G INNER JOIN PartidaRecepcion P ON G.Folio=P.FolioRecepcion INNER JOIN ProductosServicios S ON P.ClaveProducto=S.ClaveProducto WHERE MONTH(G.Fecha)=@Mes AND YEAR(G.Fecha)=@Año AND S.Categoria=1 AND (@CentroCostos IS NULL OR G.CentroCostos=@CentroCostos) AND (@IdProyecto IS NULL OR G.IdProyecto=@IdProyecto)),0)),100.0-((ISNULL((SELECT SUM(P.Total) FROM RegistroGastos G INNER JOIN PartidaRegistroGastos P ON G.Folio=P.FolioGasto INNER JOIN ProductosServicios S ON P.ClaveProducto=S.ClaveProducto WHERE MONTH(G.Fecha)=@Mes AND YEAR(G.Fecha)=@Año AND S.Categoria=1 AND (@CentroCostos IS NULL OR G.CentroCostos=@CentroCostos) AND (@IdProyecto IS NULL OR G.IdProyecto=@IdProyecto)),0)+ISNULL((SELECT SUM(P.Total) FROM RegistroReembolso G INNER JOIN PartidaRegistroReembolso P ON G.Folio=P.FolioGasto INNER JOIN ProductosServicios S ON P.ClaveProducto=S.ClaveProducto WHERE MONTH(G.Fecha)=@Mes AND YEAR(G.Fecha)=@Año AND S.Categoria=1 AND (@CentroCostos IS NULL OR G.CentroCostos=@CentroCostos) AND (@IdProyecto IS NULL OR G.IdProyecto=@IdProyecto)),0)+ISNULL((SELECT SUM(P.Total) FROM RecepcionProducto G INNER JOIN PartidaRecepcion P ON G.Folio=P.FolioRecepcion INNER JOIN ProductosServicios S ON P.ClaveProducto=S.ClaveProducto WHERE MONTH(G.Fecha)=@Mes AND YEAR(G.Fecha)=@Año AND S.Categoria=1 AND (@CentroCostos IS NULL OR G.CentroCostos=@CentroCostos) AND (@IdProyecto IS NULL OR G.IdProyecto=@IdProyecto)),0))*100.0/NULLIF(ISNULL((SELECT SUM(F.Total) FROM Factura F WHERE MONTH(F.Fecha)=@Mes AND YEAR(F.Fecha)=@Año AND (@CentroCostos IS NULL OR F.CentroCostos=@CentroCostos) AND (@IdProyecto IS NULL OR F.IdProyecto=@IdProyecto)),0)+ISNULL((SELECT SUM(R.Total) FROM Remision R WHERE MONTH(R.Fecha)=@Mes AND YEAR(R.Fecha)=@Año AND (@CentroCostos IS NULL OR R.CentroCostos=@CentroCostos) AND (@IdProyecto IS NULL OR R.IdProyecto=@IdProyecto)),0)+ISNULL((SELECT SUM(M.Importe) FROM MovimientoBanco M WHERE MONTH(M.Fecha)=@Mes AND YEAR(M.Fecha)=@Año AND M.Tipo='i'),0),0)),(ISNULL((SELECT SUM(F.Total) FROM Factura F WHERE MONTH(F.Fecha)&lt;=@Mes AND YEAR(F.Fecha)=@Año AND (@CentroCostos IS NULL OR F.CentroCostos=@CentroCostos) AND (@IdProyecto IS NULL OR F.IdProyecto=@IdProyecto)),0)+ISNULL((SELECT SUM(R.Total) FROM Remision R WHERE MONTH(R.Fecha)&lt;=@Mes AND YEAR(R.Fecha)=@Año AND (@CentroCostos IS NULL OR R.CentroCostos=@CentroCostos) AND (@IdProyecto IS NULL OR R.IdProyecto=@IdProyecto)),0)+ISNULL((SELECT SUM(M.Importe) FROM MovimientoBanco M WHERE MONTH(M.Fecha)&lt;=@Mes AND YEAR(M.Fecha)=@Año AND M.Tipo='i'),0))-(ISNULL((SELECT SUM(P.Total) FROM RegistroGastos G INNER JOIN PartidaRegistroGastos P ON G.Folio=P.FolioGasto INNER JOIN ProductosServicios S ON P.ClaveProducto=S.ClaveProducto WHERE MONTH(G.Fecha)&lt;=@Mes AND YEAR(G.Fecha)=@Año AND S.Categoria=1 AND (@CentroCostos IS NULL OR G.CentroCostos=@CentroCostos) AND (@IdProyecto IS NULL OR G.IdProyecto=@IdProyecto)),0)+ISNULL((SELECT SUM(P.Total) FROM RegistroReembolso G INNER JOIN PartidaRegistroReembolso P ON G.Folio=P.FolioGasto INNER JOIN ProductosServicios S ON P.ClaveProducto=S.ClaveProducto WHERE MONTH(G.Fecha)&lt;=@Mes AND YEAR(G.Fecha)=@Año AND S.Categoria=1 AND (@CentroCostos IS NULL OR G.CentroCostos=@CentroCostos) AND (@IdProyecto IS NULL OR G.IdProyecto=@IdProyecto)),0)+ISNULL((SELECT SUM(P.Total) FROM RecepcionProducto G INNER JOIN PartidaRecepcion P ON G.Folio=P.FolioRecepcion INNER JOIN ProductosServicios S ON P.ClaveProducto=S.ClaveProducto WHERE MONTH(G.Fecha)&lt;=@Mes AND YEAR(G.Fecha)=@Año AND S.Categoria=1 AND (@CentroCostos IS NULL OR G.CentroCostos=@CentroCostos) AND (@IdProyecto IS NULL OR G.IdProyecto=@IdProyecto)),0)),100.0-((ISNULL((SELECT SUM(P.Total) FROM RegistroGastos G INNER JOIN PartidaRegistroGastos P ON G.Folio=P.FolioGasto INNER JOIN ProductosServicios S ON P.ClaveProducto=S.ClaveProducto WHERE MONTH(G.Fecha)&lt;=@Mes AND YEAR(G.Fecha)=@Año AND S.Categoria=1 AND (@CentroCostos IS NULL OR G.CentroCostos=@CentroCostos) AND (@IdProyecto IS NULL OR G.IdProyecto=@IdProyecto)),0)+ISNULL((SELECT SUM(P.Total) FROM RegistroReembolso G INNER JOIN PartidaRegistroReembolso P ON G.Folio=P.FolioGasto INNER JOIN ProductosServicios S ON P.ClaveProducto=S.ClaveProducto WHERE MONTH(G.Fecha)&lt;=@Mes AND YEAR(G.Fecha)=@Año AND S.Categoria=1 AND (@CentroCostos IS NULL OR G.CentroCostos=@CentroCostos) AND (@IdProyecto IS NULL OR G.IdProyecto=@IdProyecto)),0)+ISNULL((SELECT SUM(P.Total) FROM RecepcionProducto G INNER JOIN PartidaRecepcion P ON G.Folio=P.FolioRecepcion INNER JOIN ProductosServicios S ON P.ClaveProducto=S.ClaveProducto WHERE MONTH(G.Fecha)&lt;=@Mes AND YEAR(G.Fecha)=@Año AND S.Categoria=1 AND (@CentroCostos IS NULL OR G.CentroCostos=@CentroCostos) AND (@IdProyecto IS NULL OR G.IdProyecto=@IdProyecto)),0))*100.0/NULLIF(ISNULL((SELECT SUM(F.Total) FROM Factura F WHERE MONTH(F.Fecha)&lt;=@Mes AND YEAR(F.Fecha)=@Año AND (@CentroCostos IS NULL OR F.CentroCostos=@CentroCostos) AND (@IdProyecto IS NULL OR F.IdProyecto=@IdProyecto)),0)+ISNULL((SELECT SUM(R.Total) FROM Remision R WHERE MONTH(R.Fecha)&lt;=@Mes AND YEAR(R.Fecha)=@Año AND (@CentroCostos IS NULL OR R.CentroCostos=@CentroCostos) AND (@IdProyecto IS NULL OR R.IdProyecto=@IdProyecto)),0)+ISNULL((SELECT SUM(M.Importe) FROM MovimientoBanco M WHERE MONTH(M.Fecha)&lt;=@Mes AND YEAR(M.Fecha)=@Año AND M.Tipo='i'),0),0)) UNION ALL SELECT 5.5,'',NULL,NULL,NULL,NULL UNION ALL SELECT 6,'Gastos de administración',ISNULL((SELECT SUM(P.Total) FROM RegistroGastos G INNER JOIN PartidaRegistroGastos P ON G.Folio=P.FolioGasto INNER JOIN ProductosServicios S ON P.ClaveProducto=S.ClaveProducto WHERE MONTH(G.Fecha)=@Mes AND YEAR(G.Fecha)=@Año AND S.Categoria=2 AND (@CentroCostos IS NULL OR G.CentroCostos=@CentroCostos) AND (@IdProyecto IS NULL OR G.IdProyecto=@IdProyecto)),0)+ISNULL((SELECT SUM(P.Total) FROM RegistroReembolso G INNER JOIN PartidaRegistroReembolso P ON G.Folio=P.FolioGasto INNER JOIN ProductosServicios S ON P.ClaveProducto=S.ClaveProducto WHERE MONTH(G.Fecha)=@Mes AND YEAR(G.Fecha)=@Año AND S.Categoria=2 AND (@CentroCostos IS NULL OR G.CentroCostos=@CentroCostos) AND (@IdProyecto IS NULL OR G.IdProyecto=@IdProyecto)),0)+ISNULL((SELECT SUM(P.Total) FROM RecepcionProducto G INNER JOIN PartidaRecepcion P ON G.Folio=P.FolioRecepcion INNER JOIN ProductosServicios S ON P.ClaveProducto=S.ClaveProducto WHERE MONTH(G.Fecha)=@Mes AND YEAR(G.Fecha)=@Año AND S.Categoria=2 AND (@CentroCostos IS NULL OR G.CentroCostos=@CentroCostos) AND (@IdProyecto IS NULL OR G.IdProyecto=@IdProyecto)),0),((ISNULL((SELECT SUM(P.Total) FROM RegistroGastos G INNER JOIN PartidaRegistroGastos P ON G.Folio=P.FolioGasto INNER JOIN ProductosServicios S ON P.ClaveProducto=S.ClaveProducto WHERE MONTH(G.Fecha)=@Mes AND YEAR(G.Fecha)=@Año AND S.Categoria=2 AND (@CentroCostos IS NULL OR G.CentroCostos=@CentroCostos) AND (@IdProyecto IS NULL OR G.IdProyecto=@IdProyecto)),0)+ISNULL((SELECT SUM(P.Total) FROM RegistroReembolso G INNER JOIN PartidaRegistroReembolso P ON G.Folio=P.FolioGasto INNER JOIN ProductosServicios S ON P.ClaveProducto=S.ClaveProducto WHERE MONTH(G.Fecha)=@Mes AND YEAR(G.Fecha)=@Año AND S.Categoria=2 AND (@CentroCostos IS NULL OR G.CentroCostos=@CentroCostos) AND (@IdProyecto IS NULL OR G.IdProyecto=@IdProyecto)),0)+ISNULL((SELECT SUM(P.Total) FROM RecepcionProducto G INNER JOIN PartidaRecepcion P ON G.Folio=P.FolioRecepcion INNER JOIN ProductosServicios S ON P.ClaveProducto=S.ClaveProducto WHERE MONTH(G.Fecha)=@Mes AND YEAR(G.Fecha)=@Año AND S.Categoria=2 AND (@CentroCostos IS NULL OR G.CentroCostos=@CentroCostos) AND (@IdProyecto IS NULL OR G.IdProyecto=@IdProyecto)),0))*100.0)/NULLIF(ISNULL((SELECT SUM(F.Total) FROM Factura F WHERE MONTH(F.Fecha)=@Mes AND YEAR(F.Fecha)=@Año AND (@CentroCostos IS NULL OR F.CentroCostos=@CentroCostos) AND (@IdProyecto IS NULL OR F.IdProyecto=@IdProyecto)),0)+ISNULL((SELECT SUM(R.Total) FROM Remision R WHERE MONTH(R.Fecha)=@Mes AND YEAR(R.Fecha)=@Año AND (@CentroCostos IS NULL OR R.CentroCostos=@CentroCostos) AND (@IdProyecto IS NULL OR R.IdProyecto=@IdProyecto)),0)+ISNULL((SELECT SUM(M.Importe) FROM MovimientoBanco M WHERE MONTH(M.Fecha)=@Mes AND YEAR(M.Fecha)=@Año AND M.Tipo='i'),0),0),ISNULL((SELECT SUM(P.Total) FROM RegistroGastos G INNER JOIN PartidaRegistroGastos P ON G.Folio=P.FolioGasto INNER JOIN ProductosServicios S ON P.ClaveProducto=S.ClaveProducto WHERE MONTH(G.Fecha)&lt;=@Mes AND YEAR(G.Fecha)=@Año AND S.Categoria=2 AND (@CentroCostos IS NULL OR G.CentroCostos=@CentroCostos) AND (@IdProyecto IS NULL OR G.IdProyecto=@IdProyecto)),0)+ISNULL((SELECT SUM(P.Total) FROM RegistroReembolso G INNER JOIN PartidaRegistroReembolso P ON G.Folio=P.FolioGasto INNER JOIN ProductosServicios S ON P.ClaveProducto=S.ClaveProducto WHERE MONTH(G.Fecha)&lt;=@Mes AND YEAR(G.Fecha)=@Año AND S.Categoria=2 AND (@CentroCostos IS NULL OR G.CentroCostos=@CentroCostos) AND (@IdProyecto IS NULL OR G.IdProyecto=@IdProyecto)),0)+ISNULL((SELECT SUM(P.Total) FROM RecepcionProducto G INNER JOIN PartidaRecepcion P ON G.Folio=P.FolioRecepcion INNER JOIN ProductosServicios S ON P.ClaveProducto=S.ClaveProducto WHERE MONTH(G.Fecha)&lt;=@Mes AND YEAR(G.Fecha)=@Año AND S.Categoria=2 AND (@CentroCostos IS NULL OR G.CentroCostos=@CentroCostos) AND (@IdProyecto IS NULL OR G.IdProyecto=@IdProyecto)),0),((ISNULL((SELECT SUM(P.Total) FROM RegistroGastos G INNER JOIN PartidaRegistroGastos P ON G.Folio=P.FolioGasto INNER JOIN ProductosServicios S ON P.ClaveProducto=S.ClaveProducto WHERE MONTH(G.Fecha)&lt;=@Mes AND YEAR(G.Fecha)=@Año AND S.Categoria=2 AND (@CentroCostos IS NULL OR G.CentroCostos=@CentroCostos) AND (@IdProyecto IS NULL OR G.IdProyecto=@IdProyecto)),0)+ISNULL((SELECT SUM(P.Total) FROM RegistroReembolso G INNER JOIN PartidaRegistroReembolso P ON G.Folio=P.FolioGasto INNER JOIN ProductosServicios S ON P.ClaveProducto=S.ClaveProducto WHERE MONTH(G.Fecha)&lt;=@Mes AND YEAR(G.Fecha)=@Año AND S.Categoria=2 AND (@CentroCostos IS NULL OR G.CentroCostos=@CentroCostos) AND (@IdProyecto IS NULL OR G.IdProyecto=@IdProyecto)),0)+ISNULL((SELECT SUM(P.Total) FROM RecepcionProducto G INNER JOIN PartidaRecepcion P ON G.Folio=P.FolioRecepcion INNER JOIN ProductosServicios S ON P.ClaveProducto=S.ClaveProducto WHERE MONTH(G.Fecha)&lt;=@Mes AND YEAR(G.Fecha)=@Año AND S.Categoria=2 AND (@CentroCostos IS NULL OR G.CentroCostos=@CentroCostos) AND (@IdProyecto IS NULL OR G.IdProyecto=@IdProyecto)),0))*100.0)/NULLIF(ISNULL((SELECT SUM(F.Total) FROM Factura F WHERE MONTH(F.Fecha)&lt;=@Mes AND YEAR(F.Fecha)=@Año AND (@CentroCostos IS NULL OR F.CentroCostos=@CentroCostos) AND (@IdProyecto IS NULL OR F.IdProyecto=@IdProyecto)),0)+ISNULL((SELECT SUM(R.Total) FROM Remision R WHERE MONTH(R.Fecha)&lt;=@Mes AND YEAR(R.Fecha)=@Año AND (@CentroCostos IS NULL OR R.CentroCostos=@CentroCostos) AND (@IdProyecto IS NULL OR R.IdProyecto=@IdProyecto)),0)+ISNULL((SELECT SUM(M.Importe) FROM MovimientoBanco M WHERE MONTH(M.Fecha)&lt;=@Mes AND YEAR(M.Fecha)=@Año AND M.Tipo='i'),0),0) UNION ALL SELECT 7,'Gastos Financieros',ISNULL((SELECT SUM(M.Importe) FROM MovimientoBanco M WHERE MONTH(M.Fecha)=@Mes AND YEAR(M.Fecha)=@Año AND M.Tipo='e'),0),(ISNULL((SELECT SUM(M.Importe) FROM MovimientoBanco M WHERE MONTH(M.Fecha)=@Mes AND YEAR(M.Fecha)=@Año AND M.Tipo='e'),0)*100.0)/NULLIF(ISNULL((SELECT SUM(F.Total) FROM Factura F WHERE MONTH(F.Fecha)=@Mes AND YEAR(F.Fecha)=@Año AND (@CentroCostos IS NULL OR F.CentroCostos=@CentroCostos) AND (@IdProyecto IS NULL OR F.IdProyecto=@IdProyecto)),0)+ISNULL((SELECT SUM(R.Total) FROM Remision R WHERE MONTH(R.Fecha)=@Mes AND YEAR(R.Fecha)=@Año AND (@CentroCostos IS NULL OR R.CentroCostos=@CentroCostos) AND (@IdProyecto IS NULL OR R.IdProyecto=@IdProyecto)),0)+ISNULL((SELECT SUM(M.Importe) FROM MovimientoBanco M WHERE MONTH(M.Fecha)=@Mes AND YEAR(M.Fecha)=@Año AND M.Tipo='i'),0),0),ISNULL((SELECT SUM(M.Importe) FROM MovimientoBanco M WHERE MONTH(M.Fecha)&lt;=@Mes AND YEAR(M.Fecha)=@Año AND M.Tipo='e'),0),(ISNULL((SELECT SUM(M.Importe) FROM MovimientoBanco M WHERE MONTH(M.Fecha)&lt;=@Mes AND YEAR(M.Fecha)=@Año AND M.Tipo='e'),0)*100.0)/NULLIF(ISNULL((SELECT SUM(F.Total) FROM Factura F WHERE MONTH(F.Fecha)&lt;=@Mes AND YEAR(F.Fecha)=@Año AND (@CentroCostos IS NULL OR F.CentroCostos=@CentroCostos) AND (@IdProyecto IS NULL OR F.IdProyecto=@IdProyecto)),0)+ISNULL((SELECT SUM(R.Total) FROM Remision R WHERE MONTH(R.Fecha)&lt;=@Mes AND YEAR(R.Fecha)=@Año AND (@CentroCostos IS NULL OR R.CentroCostos=@CentroCostos) AND (@IdProyecto IS NULL OR R.IdProyecto=@IdProyecto)),0)+ISNULL((SELECT SUM(M.Importe) FROM MovimientoBanco M WHERE MONTH(M.Fecha)&lt;=@Mes AND YEAR(M.Fecha)=@Año AND M.Tipo='i'),0),0) UNION ALL SELECT 7.5,'',NULL,NULL,NULL,NULL UNION ALL SELECT 8,'Utilidad Operativa',(ISNULL((SELECT SUM(F.Total) FROM Factura F WHERE MONTH(F.Fecha)=@Mes AND YEAR(F.Fecha)=@Año AND (@CentroCostos IS NULL OR F.CentroCostos=@CentroCostos) AND (@IdProyecto IS NULL OR F.IdProyecto=@IdProyecto)),0)+ISNULL((SELECT SUM(R.Total) FROM Remision R WHERE MONTH(R.Fecha)=@Mes AND YEAR(R.Fecha)=@Año AND (@CentroCostos IS NULL OR R.CentroCostos=@CentroCostos) AND (@IdProyecto IS NULL OR R.IdProyecto=@IdProyecto)),0)+ISNULL((SELECT SUM(M.Importe) FROM MovimientoBanco M WHERE MONTH(M.Fecha)=@Mes AND YEAR(M.Fecha)=@Año AND M.Tipo='i'),0))-(ISNULL((SELECT SUM(P.Total) FROM RegistroGastos G INNER JOIN PartidaRegistroGastos P ON G.Folio=P.FolioGasto INNER JOIN ProductosServicios S ON P.ClaveProducto=S.ClaveProducto WHERE MONTH(G.Fecha)=@Mes AND YEAR(G.Fecha)=@Año AND S.Categoria IN(1,2) AND (@CentroCostos IS NULL OR G.CentroCostos=@CentroCostos) AND (@IdProyecto IS NULL OR G.IdProyecto=@IdProyecto)),0)+ISNULL((SELECT SUM(P.Total) FROM RegistroReembolso G INNER JOIN PartidaRegistroReembolso P ON G.Folio=P.FolioGasto INNER JOIN ProductosServicios S ON P.ClaveProducto=S.ClaveProducto WHERE MONTH(G.Fecha)=@Mes AND YEAR(G.Fecha)=@Año AND S.Categoria IN(1,2) AND (@CentroCostos IS NULL OR G.CentroCostos=@CentroCostos) AND (@IdProyecto IS NULL OR G.IdProyecto=@IdProyecto)),0)+ISNULL((SELECT SUM(P.Total) FROM RecepcionProducto G INNER JOIN PartidaRecepcion P ON G.Folio=P.FolioRecepcion INNER JOIN ProductosServicios S ON P.ClaveProducto=S.ClaveProducto WHERE MONTH(G.Fecha)=@Mes AND YEAR(G.Fecha)=@Año AND S.Categoria IN(1,2) AND (@CentroCostos IS NULL OR G.CentroCostos=@CentroCostos) AND (@IdProyecto IS NULL OR G.IdProyecto=@IdProyecto)),0)+ISNULL((SELECT SUM(M.Importe) FROM MovimientoBanco M WHERE MONTH(M.Fecha)=@Mes AND YEAR(M.Fecha)=@Año AND M.Tipo='e'),0)),100.0-((ISNULL((SELECT SUM(P.Total) FROM RegistroGastos G INNER JOIN PartidaRegistroGastos P ON G.Folio=P.FolioGasto INNER JOIN ProductosServicios S ON P.ClaveProducto=S.ClaveProducto WHERE MONTH(G.Fecha)=@Mes AND YEAR(G.Fecha)=@Año AND S.Categoria IN(1,2) AND (@CentroCostos IS NULL OR G.CentroCostos=@CentroCostos) AND (@IdProyecto IS NULL OR G.IdProyecto=@IdProyecto)),0)+ISNULL((SELECT SUM(P.Total) FROM RegistroReembolso G INNER JOIN PartidaRegistroReembolso P ON G.Folio=P.FolioGasto INNER JOIN ProductosServicios S ON P.ClaveProducto=S.ClaveProducto WHERE MONTH(G.Fecha)=@Mes AND YEAR(G.Fecha)=@Año AND S.Categoria IN(1,2) AND (@CentroCostos IS NULL OR G.CentroCostos=@CentroCostos) AND (@IdProyecto IS NULL OR G.IdProyecto=@IdProyecto)),0)+ISNULL((SELECT SUM(P.Total) FROM RecepcionProducto G INNER JOIN PartidaRecepcion P ON G.Folio=P.FolioRecepcion INNER JOIN ProductosServicios S ON P.ClaveProducto=S.ClaveProducto WHERE MONTH(G.Fecha)=@Mes AND YEAR(G.Fecha)=@Año AND S.Categoria IN(1,2) AND (@CentroCostos IS NULL OR G.CentroCostos=@CentroCostos) AND (@IdProyecto IS NULL OR G.IdProyecto=@IdProyecto)),0)+ISNULL((SELECT SUM(M.Importe) FROM MovimientoBanco M WHERE MONTH(M.Fecha)=@Mes AND YEAR(M.Fecha)=@Año AND M.Tipo='e'),0))*100.0/NULLIF(ISNULL((SELECT SUM(F.Total) FROM Factura F WHERE MONTH(F.Fecha)=@Mes AND YEAR(F.Fecha)=@Año AND (@CentroCostos IS NULL OR F.CentroCostos=@CentroCostos) AND (@IdProyecto IS NULL OR F.IdProyecto=@IdProyecto)),0)+ISNULL((SELECT SUM(R.Total) FROM Remision R WHERE MONTH(R.Fecha)=@Mes AND YEAR(R.Fecha)=@Año AND (@CentroCostos IS NULL OR R.CentroCostos=@CentroCostos) AND (@IdProyecto IS NULL OR R.IdProyecto=@IdProyecto)),0)+ISNULL((SELECT SUM(M.Importe) FROM MovimientoBanco M WHERE MONTH(M.Fecha)=@Mes AND YEAR(M.Fecha)=@Año AND M.Tipo='i'),0),0)),(ISNULL((SELECT SUM(F.Total) FROM Factura F WHERE MONTH(F.Fecha)&lt;=@Mes AND YEAR(F.Fecha)=@Año AND (@CentroCostos IS NULL OR F.CentroCostos=@CentroCostos) AND (@IdProyecto IS NULL OR F.IdProyecto=@IdProyecto)),0)+ISNULL((SELECT SUM(R.Total) FROM Remision R WHERE MONTH(R.Fecha)&lt;=@Mes AND YEAR(R.Fecha)=@Año AND (@CentroCostos IS NULL OR R.CentroCostos=@CentroCostos) AND (@IdProyecto IS NULL OR R.IdProyecto=@IdProyecto)),0)+ISNULL((SELECT SUM(M.Importe) FROM MovimientoBanco M WHERE MONTH(M.Fecha)&lt;=@Mes AND YEAR(M.Fecha)=@Año AND M.Tipo='i'),0))-(ISNULL((SELECT SUM(P.Total) FROM RegistroGastos G INNER JOIN PartidaRegistroGastos P ON G.Folio=P.FolioGasto INNER JOIN ProductosServicios S ON P.ClaveProducto=S.ClaveProducto WHERE MONTH(G.Fecha)&lt;=@Mes AND YEAR(G.Fecha)=@Año AND S.Categoria IN(1,2) AND (@CentroCostos IS NULL OR G.CentroCostos=@CentroCostos) AND (@IdProyecto IS NULL OR G.IdProyecto=@IdProyecto)),0)+ISNULL((SELECT SUM(P.Total) FROM RegistroReembolso G INNER JOIN PartidaRegistroReembolso P ON G.Folio=P.FolioGasto INNER JOIN ProductosServicios S ON P.ClaveProducto=S.ClaveProducto WHERE MONTH(G.Fecha)&lt;=@Mes AND YEAR(G.Fecha)=@Año AND S.Categoria IN(1,2) AND (@CentroCostos IS NULL OR G.CentroCostos=@CentroCostos) AND (@IdProyecto IS NULL OR G.IdProyecto=@IdProyecto)),0)+ISNULL((SELECT SUM(P.Total) FROM RecepcionProducto G INNER JOIN PartidaRecepcion P ON G.Folio=P.FolioRecepcion INNER JOIN ProductosServicios S ON P.ClaveProducto=S.ClaveProducto WHERE MONTH(G.Fecha)&lt;=@Mes AND YEAR(G.Fecha)=@Año AND S.Categoria IN(1,2) AND (@CentroCostos IS NULL OR G.CentroCostos=@CentroCostos) AND (@IdProyecto IS NULL OR G.IdProyecto=@IdProyecto)),0)+ISNULL((SELECT SUM(M.Importe) FROM MovimientoBanco M WHERE MONTH(M.Fecha)&lt;=@Mes AND YEAR(M.Fecha)=@Año AND M.Tipo='e'),0)),100.0-((ISNULL((SELECT SUM(P.Total) FROM RegistroGastos G INNER JOIN PartidaRegistroGastos P ON G.Folio=P.FolioGasto INNER JOIN ProductosServicios S ON P.ClaveProducto=S.ClaveProducto WHERE MONTH(G.Fecha)&lt;=@Mes AND YEAR(G.Fecha)=@Año AND S.Categoria IN(1,2) AND (@CentroCostos IS NULL OR G.CentroCostos=@CentroCostos) AND (@IdProyecto IS NULL OR G.IdProyecto=@IdProyecto)),0)+ISNULL((SELECT SUM(P.Total) FROM RegistroReembolso G INNER JOIN PartidaRegistroReembolso P ON G.Folio=P.FolioGasto INNER JOIN ProductosServicios S ON P.ClaveProducto=S.ClaveProducto WHERE MONTH(G.Fecha)&lt;=@Mes AND YEAR(G.Fecha)=@Año AND S.Categoria IN(1,2) AND (@CentroCostos IS NULL OR G.CentroCostos=@CentroCostos) AND (@IdProyecto IS NULL OR G.IdProyecto=@IdProyecto)),0)+ISNULL((SELECT SUM(P.Total) FROM RecepcionProducto G INNER JOIN PartidaRecepcion P ON G.Folio=P.FolioRecepcion INNER JOIN ProductosServicios S ON P.ClaveProducto=S.ClaveProducto WHERE MONTH(G.Fecha)&lt;=@Mes AND YEAR(G.Fecha)=@Año AND S.Categoria IN(1,2) AND (@CentroCostos IS NULL OR G.CentroCostos=@CentroCostos) AND (@IdProyecto IS NULL OR G.IdProyecto=@IdProyecto)),0)+ISNULL((SELECT SUM(M.Importe) FROM MovimientoBanco M WHERE MONTH(M.Fecha)&lt;=@Mes AND YEAR(M.Fecha)=@Año AND M.Tipo='e'),0))*100.0/NULLIF(ISNULL((SELECT SUM(F.Total) FROM Factura F WHERE MONTH(F.Fecha)&lt;=@Mes AND YEAR(F.Fecha)=@Año AND (@CentroCostos IS NULL OR F.CentroCostos=@CentroCostos) AND (@IdProyecto IS NULL OR F.IdProyecto=@IdProyecto)),0)+ISNULL((SELECT SUM(R.Total) FROM Remision R WHERE MONTH(R.Fecha)&lt;=@Mes AND YEAR(R.Fecha)=@Año AND (@CentroCostos IS NULL OR R.CentroCostos=@CentroCostos) AND (@IdProyecto IS NULL OR R.IdProyecto=@IdProyecto)),0)+ISNULL((SELECT SUM(M.Importe) FROM MovimientoBanco M WHERE MONTH(M.Fecha)&lt;=@Mes AND YEAR(M.Fecha)=@Año AND M.Tipo='i'),0),0))" DbObjectType="Unknown" FillMethodModifier="Public" FillMethodName="FillBy" GenerateMethods="Both" GenerateShortCommands="true" GeneratorGetMethodName="GetDataBy" GeneratorSourceName="FillBy" GetMethodModifier="Public" GetMethodName="GetDataBy" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetDataBy" UserSourceName="FillBy">
+                <SelectCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="true">
+                    <CommandText>SELECT Concepto,ImporteMes,PorcentajeMes,Acumulado,PorcentajeAcumulado FROM (SELECT 1 AS Orden,'Ventas' AS Concepto,ISNULL((SELECT SUM(F.Total) FROM Factura F WHERE MONTH(F.Fecha)=@Mes AND YEAR(F.Fecha)=@Año AND (@CentroCostos IS NULL OR F.CentroCostos=@CentroCostos) AND (@IdProyecto IS NULL OR F.IdProyecto=@IdProyecto)),0)+ISNULL((SELECT SUM(R.Total) FROM Remision R WHERE MONTH(R.Fecha)=@Mes AND YEAR(R.Fecha)=@Año AND (@CentroCostos IS NULL OR R.CentroCostos=@CentroCostos) AND (@IdProyecto IS NULL OR R.IdProyecto=@IdProyecto)),0) AS ImporteMes,((ISNULL((SELECT SUM(F.Total) FROM Factura F WHERE MONTH(F.Fecha)=@Mes AND YEAR(F.Fecha)=@Año AND (@CentroCostos IS NULL OR F.CentroCostos=@CentroCostos) AND (@IdProyecto IS NULL OR F.IdProyecto=@IdProyecto)),0)+ISNULL((SELECT SUM(R.Total) FROM Remision R WHERE MONTH(R.Fecha)=@Mes AND YEAR(R.Fecha)=@Año AND (@CentroCostos IS NULL OR R.CentroCostos=@CentroCostos) AND (@IdProyecto IS NULL OR R.IdProyecto=@IdProyecto)),0))*100.0)/NULLIF(ISNULL((SELECT SUM(F.Total) FROM Factura F WHERE MONTH(F.Fecha)=@Mes AND YEAR(F.Fecha)=@Año AND (@CentroCostos IS NULL OR F.CentroCostos=@CentroCostos) AND (@IdProyecto IS NULL OR F.IdProyecto=@IdProyecto)),0)+ISNULL((SELECT SUM(R.Total) FROM Remision R WHERE MONTH(R.Fecha)=@Mes AND YEAR(R.Fecha)=@Año AND (@CentroCostos IS NULL OR R.CentroCostos=@CentroCostos) AND (@IdProyecto IS NULL OR R.IdProyecto=@IdProyecto)),0)+ISNULL((SELECT SUM(M.Importe) FROM MovimientoBanco M WHERE MONTH(M.Fecha)=@Mes AND YEAR(M.Fecha)=@Año AND M.Tipo='i'),0),0) AS PorcentajeMes,ISNULL((SELECT SUM(F.Total) FROM Factura F WHERE MONTH(F.Fecha)&lt;=@Mes AND YEAR(F.Fecha)=@Año AND (@CentroCostos IS NULL OR F.CentroCostos=@CentroCostos) AND (@IdProyecto IS NULL OR F.IdProyecto=@IdProyecto)),0)+ISNULL((SELECT SUM(R.Total) FROM Remision R WHERE MONTH(R.Fecha)&lt;=@Mes AND YEAR(R.Fecha)=@Año AND (@CentroCostos IS NULL OR R.CentroCostos=@CentroCostos) AND (@IdProyecto IS NULL OR R.IdProyecto=@IdProyecto)),0) AS Acumulado,((ISNULL((SELECT SUM(F.Total) FROM Factura F WHERE MONTH(F.Fecha)&lt;=@Mes AND YEAR(F.Fecha)=@Año AND (@CentroCostos IS NULL OR F.CentroCostos=@CentroCostos) AND (@IdProyecto IS NULL OR F.IdProyecto=@IdProyecto)),0)+ISNULL((SELECT SUM(R.Total) FROM Remision R WHERE MONTH(R.Fecha)&lt;=@Mes AND YEAR(R.Fecha)=@Año AND (@CentroCostos IS NULL OR R.CentroCostos=@CentroCostos) AND (@IdProyecto IS NULL OR R.IdProyecto=@IdProyecto)),0))*100.0)/NULLIF(ISNULL((SELECT SUM(F.Total) FROM Factura F WHERE MONTH(F.Fecha)&lt;=@Mes AND YEAR(F.Fecha)=@Año AND (@CentroCostos IS NULL OR F.CentroCostos=@CentroCostos) AND (@IdProyecto IS NULL OR F.IdProyecto=@IdProyecto)),0)+ISNULL((SELECT SUM(R.Total) FROM Remision R WHERE MONTH(R.Fecha)&lt;=@Mes AND YEAR(R.Fecha)=@Año AND (@CentroCostos IS NULL OR R.CentroCostos=@CentroCostos) AND (@IdProyecto IS NULL OR R.IdProyecto=@IdProyecto)),0)+ISNULL((SELECT SUM(M.Importe) FROM MovimientoBanco M WHERE MONTH(M.Fecha)&lt;=@Mes AND YEAR(M.Fecha)=@Año AND M.Tipo='i'),0),0) AS PorcentajeAcumulado UNION ALL SELECT 2,'Otros Ingresos',ISNULL((SELECT SUM(M.Importe) FROM MovimientoBanco M WHERE MONTH(M.Fecha)=@Mes AND YEAR(M.Fecha)=@Año AND M.Tipo='i'),0),(ISNULL((SELECT SUM(M.Importe) FROM MovimientoBanco M WHERE MONTH(M.Fecha)=@Mes AND YEAR(M.Fecha)=@Año AND M.Tipo='i'),0)*100.0)/NULLIF(ISNULL((SELECT SUM(F.Total) FROM Factura F WHERE MONTH(F.Fecha)=@Mes AND YEAR(F.Fecha)=@Año AND (@CentroCostos IS NULL OR F.CentroCostos=@CentroCostos) AND (@IdProyecto IS NULL OR F.IdProyecto=@IdProyecto)),0)+ISNULL((SELECT SUM(R.Total) FROM Remision R WHERE MONTH(R.Fecha)=@Mes AND YEAR(R.Fecha)=@Año AND (@CentroCostos IS NULL OR R.CentroCostos=@CentroCostos) AND (@IdProyecto IS NULL OR R.IdProyecto=@IdProyecto)),0)+ISNULL((SELECT SUM(M.Importe) FROM MovimientoBanco M WHERE MONTH(M.Fecha)=@Mes AND YEAR(M.Fecha)=@Año AND M.Tipo='i'),0),0),ISNULL((SELECT SUM(M.Importe) FROM MovimientoBanco M WHERE MONTH(M.Fecha)&lt;=@Mes AND YEAR(M.Fecha)=@Año AND M.Tipo='i'),0),(ISNULL((SELECT SUM(M.Importe) FROM MovimientoBanco M WHERE MONTH(M.Fecha)&lt;=@Mes AND YEAR(M.Fecha)=@Año AND M.Tipo='i'),0)*100.0)/NULLIF(ISNULL((SELECT SUM(F.Total) FROM Factura F WHERE MONTH(F.Fecha)&lt;=@Mes AND YEAR(F.Fecha)=@Año AND (@CentroCostos IS NULL OR F.CentroCostos=@CentroCostos) AND (@IdProyecto IS NULL OR F.IdProyecto=@IdProyecto)),0)+ISNULL((SELECT SUM(R.Total) FROM Remision R WHERE MONTH(R.Fecha)&lt;=@Mes AND YEAR(R.Fecha)=@Año AND (@CentroCostos IS NULL OR R.CentroCostos=@CentroCostos) AND (@IdProyecto IS NULL OR R.IdProyecto=@IdProyecto)),0)+ISNULL((SELECT SUM(M.Importe) FROM MovimientoBanco M WHERE MONTH(M.Fecha)&lt;=@Mes AND YEAR(M.Fecha)=@Año AND M.Tipo='i'),0),0) UNION ALL SELECT 3,'Total Ingresos',ISNULL((SELECT SUM(F.Total) FROM Factura F WHERE MONTH(F.Fecha)=@Mes AND YEAR(F.Fecha)=@Año AND (@CentroCostos IS NULL OR F.CentroCostos=@CentroCostos) AND (@IdProyecto IS NULL OR F.IdProyecto=@IdProyecto)),0)+ISNULL((SELECT SUM(R.Total) FROM Remision R WHERE MONTH(R.Fecha)=@Mes AND YEAR(R.Fecha)=@Año AND (@CentroCostos IS NULL OR R.CentroCostos=@CentroCostos) AND (@IdProyecto IS NULL OR R.IdProyecto=@IdProyecto)),0)+ISNULL((SELECT SUM(M.Importe) FROM MovimientoBanco M WHERE MONTH(M.Fecha)=@Mes AND YEAR(M.Fecha)=@Año AND M.Tipo='i'),0),100.0,ISNULL((SELECT SUM(F.Total) FROM Factura F WHERE MONTH(F.Fecha)&lt;=@Mes AND YEAR(F.Fecha)=@Año AND (@CentroCostos IS NULL OR F.CentroCostos=@CentroCostos) AND (@IdProyecto IS NULL OR F.IdProyecto=@IdProyecto)),0)+ISNULL((SELECT SUM(R.Total) FROM Remision R WHERE MONTH(R.Fecha)&lt;=@Mes AND YEAR(R.Fecha)=@Año AND (@CentroCostos IS NULL OR R.CentroCostos=@CentroCostos) AND (@IdProyecto IS NULL OR R.IdProyecto=@IdProyecto)),0)+ISNULL((SELECT SUM(M.Importe) FROM MovimientoBanco M WHERE MONTH(M.Fecha)&lt;=@Mes AND YEAR(M.Fecha)=@Año AND M.Tipo='i'),0),100.0 UNION ALL SELECT 3.5,'',NULL,NULL,NULL,NULL UNION ALL SELECT 4,'Costos Op. y Gastos Directos',ISNULL((SELECT SUM(P.Total) FROM RegistroGastos G INNER JOIN PartidaRegistroGastos P ON G.Folio=P.FolioGasto INNER JOIN ProductosServicios S ON P.ClaveProducto=S.ClaveProducto WHERE MONTH(G.Fecha)=@Mes AND YEAR(G.Fecha)=@Año AND S.Categoria=1 AND (@CentroCostos IS NULL OR G.CentroCostos=@CentroCostos) AND (@IdProyecto IS NULL OR G.IdProyecto=@IdProyecto)),0)+ISNULL((SELECT SUM(P.Total) FROM RegistroReembolso G INNER JOIN PartidaRegistroReembolso P ON G.Folio=P.FolioGasto INNER JOIN ProductosServicios S ON P.ClaveProducto=S.ClaveProducto WHERE MONTH(G.Fecha)=@Mes AND YEAR(G.Fecha)=@Año AND S.Categoria=1 AND (@CentroCostos IS NULL OR G.CentroCostos=@CentroCostos) AND (@IdProyecto IS NULL OR G.IdProyecto=@IdProyecto)),0)+ISNULL((SELECT SUM(P.Total) FROM RecepcionProducto G INNER JOIN PartidaRecepcion P ON G.Folio=P.FolioRecepcion INNER JOIN ProductosServicios S ON P.ClaveProducto=S.ClaveProducto WHERE MONTH(G.Fecha)=@Mes AND YEAR(G.Fecha)=@Año AND S.Categoria=1 AND (@CentroCostos IS NULL OR G.CentroCostos=@CentroCostos) AND (@IdProyecto IS NULL OR G.IdProyecto=@IdProyecto)),0),((ISNULL((SELECT SUM(P.Total) FROM RegistroGastos G INNER JOIN PartidaRegistroGastos P ON G.Folio=P.FolioGasto INNER JOIN ProductosServicios S ON P.ClaveProducto=S.ClaveProducto WHERE MONTH(G.Fecha)=@Mes AND YEAR(G.Fecha)=@Año AND S.Categoria=1 AND (@CentroCostos IS NULL OR G.CentroCostos=@CentroCostos) AND (@IdProyecto IS NULL OR G.IdProyecto=@IdProyecto)),0)+ISNULL((SELECT SUM(P.Total) FROM RegistroReembolso G INNER JOIN PartidaRegistroReembolso P ON G.Folio=P.FolioGasto INNER JOIN ProductosServicios S ON P.ClaveProducto=S.ClaveProducto WHERE MONTH(G.Fecha)=@Mes AND YEAR(G.Fecha)=@Año AND S.Categoria=1 AND (@CentroCostos IS NULL OR G.CentroCostos=@CentroCostos) AND (@IdProyecto IS NULL OR G.IdProyecto=@IdProyecto)),0)+ISNULL((SELECT SUM(P.Total) FROM RecepcionProducto G INNER JOIN PartidaRecepcion P ON G.Folio=P.FolioRecepcion INNER JOIN ProductosServicios S ON P.ClaveProducto=S.ClaveProducto WHERE MONTH(G.Fecha)=@Mes AND YEAR(G.Fecha)=@Año AND S.Categoria=1 AND (@CentroCostos IS NULL OR G.CentroCostos=@CentroCostos) AND (@IdProyecto IS NULL OR G.IdProyecto=@IdProyecto)),0))*100.0)/NULLIF(ISNULL((SELECT SUM(F.Total) FROM Factura F WHERE MONTH(F.Fecha)=@Mes AND YEAR(F.Fecha)=@Año AND (@CentroCostos IS NULL OR F.CentroCostos=@CentroCostos) AND (@IdProyecto IS NULL OR F.IdProyecto=@IdProyecto)),0)+ISNULL((SELECT SUM(R.Total) FROM Remision R WHERE MONTH(R.Fecha)=@Mes AND YEAR(R.Fecha)=@Año AND (@CentroCostos IS NULL OR R.CentroCostos=@CentroCostos) AND (@IdProyecto IS NULL OR R.IdProyecto=@IdProyecto)),0)+ISNULL((SELECT SUM(M.Importe) FROM MovimientoBanco M WHERE MONTH(M.Fecha)=@Mes AND YEAR(M.Fecha)=@Año AND M.Tipo='i'),0),0),ISNULL((SELECT SUM(P.Total) FROM RegistroGastos G INNER JOIN PartidaRegistroGastos P ON G.Folio=P.FolioGasto INNER JOIN ProductosServicios S ON P.ClaveProducto=S.ClaveProducto WHERE MONTH(G.Fecha)&lt;=@Mes AND YEAR(G.Fecha)=@Año AND S.Categoria=1 AND (@CentroCostos IS NULL OR G.CentroCostos=@CentroCostos) AND (@IdProyecto IS NULL OR G.IdProyecto=@IdProyecto)),0)+ISNULL((SELECT SUM(P.Total) FROM RegistroReembolso G INNER JOIN PartidaRegistroReembolso P ON G.Folio=P.FolioGasto INNER JOIN ProductosServicios S ON P.ClaveProducto=S.ClaveProducto WHERE MONTH(G.Fecha)&lt;=@Mes AND YEAR(G.Fecha)=@Año AND S.Categoria=1 AND (@CentroCostos IS NULL OR G.CentroCostos=@CentroCostos) AND (@IdProyecto IS NULL OR G.IdProyecto=@IdProyecto)),0)+ISNULL((SELECT SUM(P.Total) FROM RecepcionProducto G INNER JOIN PartidaRecepcion P ON G.Folio=P.FolioRecepcion INNER JOIN ProductosServicios S ON P.ClaveProducto=S.ClaveProducto WHERE MONTH(G.Fecha)&lt;=@Mes AND YEAR(G.Fecha)=@Año AND S.Categoria=1 AND (@CentroCostos IS NULL OR G.CentroCostos=@CentroCostos) AND (@IdProyecto IS NULL OR G.IdProyecto=@IdProyecto)),0),((ISNULL((SELECT SUM(P.Total) FROM RegistroGastos G INNER JOIN PartidaRegistroGastos P ON G.Folio=P.FolioGasto INNER JOIN ProductosServicios S ON P.ClaveProducto=S.ClaveProducto WHERE MONTH(G.Fecha)&lt;=@Mes AND YEAR(G.Fecha)=@Año AND S.Categoria=1 AND (@CentroCostos IS NULL OR G.CentroCostos=@CentroCostos) AND (@IdProyecto IS NULL OR G.IdProyecto=@IdProyecto)),0)+ISNULL((SELECT SUM(P.Total) FROM RegistroReembolso G INNER JOIN PartidaRegistroReembolso P ON G.Folio=P.FolioGasto INNER JOIN ProductosServicios S ON P.ClaveProducto=S.ClaveProducto WHERE MONTH(G.Fecha)&lt;=@Mes AND YEAR(G.Fecha)=@Año AND S.Categoria=1 AND (@CentroCostos IS NULL OR G.CentroCostos=@CentroCostos) AND (@IdProyecto IS NULL OR G.IdProyecto=@IdProyecto)),0)+ISNULL((SELECT SUM(P.Total) FROM RecepcionProducto G INNER JOIN PartidaRecepcion P ON G.Folio=P.FolioRecepcion INNER JOIN ProductosServicios S ON P.ClaveProducto=S.ClaveProducto WHERE MONTH(G.Fecha)&lt;=@Mes AND YEAR(G.Fecha)=@Año AND S.Categoria=1 AND (@CentroCostos IS NULL OR G.CentroCostos=@CentroCostos) AND (@IdProyecto IS NULL OR G.IdProyecto=@IdProyecto)),0))*100.0)/NULLIF(ISNULL((SELECT SUM(F.Total) FROM Factura F WHERE MONTH(F.Fecha)&lt;=@Mes AND YEAR(F.Fecha)=@Año AND (@CentroCostos IS NULL OR F.CentroCostos=@CentroCostos) AND (@IdProyecto IS NULL OR F.IdProyecto=@IdProyecto)),0)+ISNULL((SELECT SUM(R.Total) FROM Remision R WHERE MONTH(R.Fecha)&lt;=@Mes AND YEAR(R.Fecha)=@Año AND (@CentroCostos IS NULL OR R.CentroCostos=@CentroCostos) AND (@IdProyecto IS NULL OR R.IdProyecto=@IdProyecto)),0)+ISNULL((SELECT SUM(M.Importe) FROM MovimientoBanco M WHERE MONTH(M.Fecha)&lt;=@Mes AND YEAR(M.Fecha)=@Año AND M.Tipo='i'),0),0) UNION ALL SELECT 5,'Utilidad Bruta',(ISNULL((SELECT SUM(F.Total) FROM Factura F WHERE MONTH(F.Fecha)=@Mes AND YEAR(F.Fecha)=@Año AND (@CentroCostos IS NULL OR F.CentroCostos=@CentroCostos) AND (@IdProyecto IS NULL OR F.IdProyecto=@IdProyecto)),0)+ISNULL((SELECT SUM(R.Total) FROM Remision R WHERE MONTH(R.Fecha)=@Mes AND YEAR(R.Fecha)=@Año AND (@CentroCostos IS NULL OR R.CentroCostos=@CentroCostos) AND (@IdProyecto IS NULL OR R.IdProyecto=@IdProyecto)),0)+ISNULL((SELECT SUM(M.Importe) FROM MovimientoBanco M WHERE MONTH(M.Fecha)=@Mes AND YEAR(M.Fecha)=@Año AND M.Tipo='i'),0))-(ISNULL((SELECT SUM(P.Total) FROM RegistroGastos G INNER JOIN PartidaRegistroGastos P ON G.Folio=P.FolioGasto INNER JOIN ProductosServicios S ON P.ClaveProducto=S.ClaveProducto WHERE MONTH(G.Fecha)=@Mes AND YEAR(G.Fecha)=@Año AND S.Categoria=1 AND (@CentroCostos IS NULL OR G.CentroCostos=@CentroCostos) AND (@IdProyecto IS NULL OR G.IdProyecto=@IdProyecto)),0)+ISNULL((SELECT SUM(P.Total) FROM RegistroReembolso G INNER JOIN PartidaRegistroReembolso P ON G.Folio=P.FolioGasto INNER JOIN ProductosServicios S ON P.ClaveProducto=S.ClaveProducto WHERE MONTH(G.Fecha)=@Mes AND YEAR(G.Fecha)=@Año AND S.Categoria=1 AND (@CentroCostos IS NULL OR G.CentroCostos=@CentroCostos) AND (@IdProyecto IS NULL OR G.IdProyecto=@IdProyecto)),0)+ISNULL((SELECT SUM(P.Total) FROM RecepcionProducto G INNER JOIN PartidaRecepcion P ON G.Folio=P.FolioRecepcion INNER JOIN ProductosServicios S ON P.ClaveProducto=S.ClaveProducto WHERE MONTH(G.Fecha)=@Mes AND YEAR(G.Fecha)=@Año AND S.Categoria=1 AND (@CentroCostos IS NULL OR G.CentroCostos=@CentroCostos) AND (@IdProyecto IS NULL OR G.IdProyecto=@IdProyecto)),0)),100.0-((ISNULL((SELECT SUM(P.Total) FROM RegistroGastos G INNER JOIN PartidaRegistroGastos P ON G.Folio=P.FolioGasto INNER JOIN ProductosServicios S ON P.ClaveProducto=S.ClaveProducto WHERE MONTH(G.Fecha)=@Mes AND YEAR(G.Fecha)=@Año AND S.Categoria=1 AND (@CentroCostos IS NULL OR G.CentroCostos=@CentroCostos) AND (@IdProyecto IS NULL OR G.IdProyecto=@IdProyecto)),0)+ISNULL((SELECT SUM(P.Total) FROM RegistroReembolso G INNER JOIN PartidaRegistroReembolso P ON G.Folio=P.FolioGasto INNER JOIN ProductosServicios S ON P.ClaveProducto=S.ClaveProducto WHERE MONTH(G.Fecha)=@Mes AND YEAR(G.Fecha)=@Año AND S.Categoria=1 AND (@CentroCostos IS NULL OR G.CentroCostos=@CentroCostos) AND (@IdProyecto IS NULL OR G.IdProyecto=@IdProyecto)),0)+ISNULL((SELECT SUM(P.Total) FROM RecepcionProducto G INNER JOIN PartidaRecepcion P ON G.Folio=P.FolioRecepcion INNER JOIN ProductosServicios S ON P.ClaveProducto=S.ClaveProducto WHERE MONTH(G.Fecha)=@Mes AND YEAR(G.Fecha)=@Año AND S.Categoria=1 AND (@CentroCostos IS NULL OR G.CentroCostos=@CentroCostos) AND (@IdProyecto IS NULL OR G.IdProyecto=@IdProyecto)),0))*100.0/NULLIF(ISNULL((SELECT SUM(F.Total) FROM Factura F WHERE MONTH(F.Fecha)=@Mes AND YEAR(F.Fecha)=@Año AND (@CentroCostos IS NULL OR F.CentroCostos=@CentroCostos) AND (@IdProyecto IS NULL OR F.IdProyecto=@IdProyecto)),0)+ISNULL((SELECT SUM(R.Total) FROM Remision R WHERE MONTH(R.Fecha)=@Mes AND YEAR(R.Fecha)=@Año AND (@CentroCostos IS NULL OR R.CentroCostos=@CentroCostos) AND (@IdProyecto IS NULL OR R.IdProyecto=@IdProyecto)),0)+ISNULL((SELECT SUM(M.Importe) FROM MovimientoBanco M WHERE MONTH(M.Fecha)=@Mes AND YEAR(M.Fecha)=@Año AND M.Tipo='i'),0),0)),(ISNULL((SELECT SUM(F.Total) FROM Factura F WHERE MONTH(F.Fecha)&lt;=@Mes AND YEAR(F.Fecha)=@Año AND (@CentroCostos IS NULL OR F.CentroCostos=@CentroCostos) AND (@IdProyecto IS NULL OR F.IdProyecto=@IdProyecto)),0)+ISNULL((SELECT SUM(R.Total) FROM Remision R WHERE MONTH(R.Fecha)&lt;=@Mes AND YEAR(R.Fecha)=@Año AND (@CentroCostos IS NULL OR R.CentroCostos=@CentroCostos) AND (@IdProyecto IS NULL OR R.IdProyecto=@IdProyecto)),0)+ISNULL((SELECT SUM(M.Importe) FROM MovimientoBanco M WHERE MONTH(M.Fecha)&lt;=@Mes AND YEAR(M.Fecha)=@Año AND M.Tipo='i'),0))-(ISNULL((SELECT SUM(P.Total) FROM RegistroGastos G INNER JOIN PartidaRegistroGastos P ON G.Folio=P.FolioGasto INNER JOIN ProductosServicios S ON P.ClaveProducto=S.ClaveProducto WHERE MONTH(G.Fecha)&lt;=@Mes AND YEAR(G.Fecha)=@Año AND S.Categoria=1 AND (@CentroCostos IS NULL OR G.CentroCostos=@CentroCostos) AND (@IdProyecto IS NULL OR G.IdProyecto=@IdProyecto)),0)+ISNULL((SELECT SUM(P.Total) FROM RegistroReembolso G INNER JOIN PartidaRegistroReembolso P ON G.Folio=P.FolioGasto INNER JOIN ProductosServicios S ON P.ClaveProducto=S.ClaveProducto WHERE MONTH(G.Fecha)&lt;=@Mes AND YEAR(G.Fecha)=@Año AND S.Categoria=1 AND (@CentroCostos IS NULL OR G.CentroCostos=@CentroCostos) AND (@IdProyecto IS NULL OR G.IdProyecto=@IdProyecto)),0)+ISNULL((SELECT SUM(P.Total) FROM RecepcionProducto G INNER JOIN PartidaRecepcion P ON G.Folio=P.FolioRecepcion INNER JOIN ProductosServicios S ON P.ClaveProducto=S.ClaveProducto WHERE MONTH(G.Fecha)&lt;=@Mes AND YEAR(G.Fecha)=@Año AND S.Categoria=1 AND (@CentroCostos IS NULL OR G.CentroCostos=@CentroCostos) AND (@IdProyecto IS NULL OR G.IdProyecto=@IdProyecto)),0)),100.0-((ISNULL((SELECT SUM(P.Total) FROM RegistroGastos G INNER JOIN PartidaRegistroGastos P ON G.Folio=P.FolioGasto INNER JOIN ProductosServicios S ON P.ClaveProducto=S.ClaveProducto WHERE MONTH(G.Fecha)&lt;=@Mes AND YEAR(G.Fecha)=@Año AND S.Categoria=1 AND (@CentroCostos IS NULL OR G.CentroCostos=@CentroCostos) AND (@IdProyecto IS NULL OR G.IdProyecto=@IdProyecto)),0)+ISNULL((SELECT SUM(P.Total) FROM RegistroReembolso G INNER JOIN PartidaRegistroReembolso P ON G.Folio=P.FolioGasto INNER JOIN ProductosServicios S ON P.ClaveProducto=S.ClaveProducto WHERE MONTH(G.Fecha)&lt;=@Mes AND YEAR(G.Fecha)=@Año AND S.Categoria=1 AND (@CentroCostos IS NULL OR G.CentroCostos=@CentroCostos) AND (@IdProyecto IS NULL OR G.IdProyecto=@IdProyecto)),0)+ISNULL((SELECT SUM(P.Total) FROM RecepcionProducto G INNER JOIN PartidaRecepcion P ON G.Folio=P.FolioRecepcion INNER JOIN ProductosServicios S ON P.ClaveProducto=S.ClaveProducto WHERE MONTH(G.Fecha)&lt;=@Mes AND YEAR(G.Fecha)=@Año AND S.Categoria=1 AND (@CentroCostos IS NULL OR G.CentroCostos=@CentroCostos) AND (@IdProyecto IS NULL OR G.IdProyecto=@IdProyecto)),0))*100.0/NULLIF(ISNULL((SELECT SUM(F.Total) FROM Factura F WHERE MONTH(F.Fecha)&lt;=@Mes AND YEAR(F.Fecha)=@Año AND (@CentroCostos IS NULL OR F.CentroCostos=@CentroCostos) AND (@IdProyecto IS NULL OR F.IdProyecto=@IdProyecto)),0)+ISNULL((SELECT SUM(R.Total) FROM Remision R WHERE MONTH(R.Fecha)&lt;=@Mes AND YEAR(R.Fecha)=@Año AND (@CentroCostos IS NULL OR R.CentroCostos=@CentroCostos) AND (@IdProyecto IS NULL OR R.IdProyecto=@IdProyecto)),0)+ISNULL((SELECT SUM(M.Importe) FROM MovimientoBanco M WHERE MONTH(M.Fecha)&lt;=@Mes AND YEAR(M.Fecha)=@Año AND M.Tipo='i'),0),0)) UNION ALL SELECT 5.5,'',NULL,NULL,NULL,NULL UNION ALL SELECT 6,'Gastos de administración',ISNULL((SELECT SUM(P.Total) FROM RegistroGastos G INNER JOIN PartidaRegistroGastos P ON G.Folio=P.FolioGasto INNER JOIN ProductosServicios S ON P.ClaveProducto=S.ClaveProducto WHERE MONTH(G.Fecha)=@Mes AND YEAR(G.Fecha)=@Año AND S.Categoria=2 AND (@CentroCostos IS NULL OR G.CentroCostos=@CentroCostos) AND (@IdProyecto IS NULL OR G.IdProyecto=@IdProyecto)),0)+ISNULL((SELECT SUM(P.Total) FROM RegistroReembolso G INNER JOIN PartidaRegistroReembolso P ON G.Folio=P.FolioGasto INNER JOIN ProductosServicios S ON P.ClaveProducto=S.ClaveProducto WHERE MONTH(G.Fecha)=@Mes AND YEAR(G.Fecha)=@Año AND S.Categoria=2 AND (@CentroCostos IS NULL OR G.CentroCostos=@CentroCostos) AND (@IdProyecto IS NULL OR G.IdProyecto=@IdProyecto)),0)+ISNULL((SELECT SUM(P.Total) FROM RecepcionProducto G INNER JOIN PartidaRecepcion P ON G.Folio=P.FolioRecepcion INNER JOIN ProductosServicios S ON P.ClaveProducto=S.ClaveProducto WHERE MONTH(G.Fecha)=@Mes AND YEAR(G.Fecha)=@Año AND S.Categoria=2 AND (@CentroCostos IS NULL OR G.CentroCostos=@CentroCostos) AND (@IdProyecto IS NULL OR G.IdProyecto=@IdProyecto)),0),((ISNULL((SELECT SUM(P.Total) FROM RegistroGastos G INNER JOIN PartidaRegistroGastos P ON G.Folio=P.FolioGasto INNER JOIN ProductosServicios S ON P.ClaveProducto=S.ClaveProducto WHERE MONTH(G.Fecha)=@Mes AND YEAR(G.Fecha)=@Año AND S.Categoria=2 AND (@CentroCostos IS NULL OR G.CentroCostos=@CentroCostos) AND (@IdProyecto IS NULL OR G.IdProyecto=@IdProyecto)),0)+ISNULL((SELECT SUM(P.Total) FROM RegistroReembolso G INNER JOIN PartidaRegistroReembolso P ON G.Folio=P.FolioGasto INNER JOIN ProductosServicios S ON P.ClaveProducto=S.ClaveProducto WHERE MONTH(G.Fecha)=@Mes AND YEAR(G.Fecha)=@Año AND S.Categoria=2 AND (@CentroCostos IS NULL OR G.CentroCostos=@CentroCostos) AND (@IdProyecto IS NULL OR G.IdProyecto=@IdProyecto)),0)+ISNULL((SELECT SUM(P.Total) FROM RecepcionProducto G INNER JOIN PartidaRecepcion P ON G.Folio=P.FolioRecepcion INNER JOIN ProductosServicios S ON P.ClaveProducto=S.ClaveProducto WHERE MONTH(G.Fecha)=@Mes AND YEAR(G.Fecha)=@Año AND S.Categoria=2 AND (@CentroCostos IS NULL OR G.CentroCostos=@CentroCostos) AND (@IdProyecto IS NULL OR G.IdProyecto=@IdProyecto)),0))*100.0)/NULLIF(ISNULL((SELECT SUM(F.Total) FROM Factura F WHERE MONTH(F.Fecha)=@Mes AND YEAR(F.Fecha)=@Año AND (@CentroCostos IS NULL OR F.CentroCostos=@CentroCostos) AND (@IdProyecto IS NULL OR F.IdProyecto=@IdProyecto)),0)+ISNULL((SELECT SUM(R.Total) FROM Remision R WHERE MONTH(R.Fecha)=@Mes AND YEAR(R.Fecha)=@Año AND (@CentroCostos IS NULL OR R.CentroCostos=@CentroCostos) AND (@IdProyecto IS NULL OR R.IdProyecto=@IdProyecto)),0)+ISNULL((SELECT SUM(M.Importe) FROM MovimientoBanco M WHERE MONTH(M.Fecha)=@Mes AND YEAR(M.Fecha)=@Año AND M.Tipo='i'),0),0),ISNULL((SELECT SUM(P.Total) FROM RegistroGastos G INNER JOIN PartidaRegistroGastos P ON G.Folio=P.FolioGasto INNER JOIN ProductosServicios S ON P.ClaveProducto=S.ClaveProducto WHERE MONTH(G.Fecha)&lt;=@Mes AND YEAR(G.Fecha)=@Año AND S.Categoria=2 AND (@CentroCostos IS NULL OR G.CentroCostos=@CentroCostos) AND (@IdProyecto IS NULL OR G.IdProyecto=@IdProyecto)),0)+ISNULL((SELECT SUM(P.Total) FROM RegistroReembolso G INNER JOIN PartidaRegistroReembolso P ON G.Folio=P.FolioGasto INNER JOIN ProductosServicios S ON P.ClaveProducto=S.ClaveProducto WHERE MONTH(G.Fecha)&lt;=@Mes AND YEAR(G.Fecha)=@Año AND S.Categoria=2 AND (@CentroCostos IS NULL OR G.CentroCostos=@CentroCostos) AND (@IdProyecto IS NULL OR G.IdProyecto=@IdProyecto)),0)+ISNULL((SELECT SUM(P.Total) FROM RecepcionProducto G INNER JOIN PartidaRecepcion P ON G.Folio=P.FolioRecepcion INNER JOIN ProductosServicios S ON P.ClaveProducto=S.ClaveProducto WHERE MONTH(G.Fecha)&lt;=@Mes AND YEAR(G.Fecha)=@Año AND S.Categoria=2 AND (@CentroCostos IS NULL OR G.CentroCostos=@CentroCostos) AND (@IdProyecto IS NULL OR G.IdProyecto=@IdProyecto)),0),((ISNULL((SELECT SUM(P.Total) FROM RegistroGastos G INNER JOIN PartidaRegistroGastos P ON G.Folio=P.FolioGasto INNER JOIN ProductosServicios S ON P.ClaveProducto=S.ClaveProducto WHERE MONTH(G.Fecha)&lt;=@Mes AND YEAR(G.Fecha)=@Año AND S.Categoria=2 AND (@CentroCostos IS NULL OR G.CentroCostos=@CentroCostos) AND (@IdProyecto IS NULL OR G.IdProyecto=@IdProyecto)),0)+ISNULL((SELECT SUM(P.Total) FROM RegistroReembolso G INNER JOIN PartidaRegistroReembolso P ON G.Folio=P.FolioGasto INNER JOIN ProductosServicios S ON P.ClaveProducto=S.ClaveProducto WHERE MONTH(G.Fecha)&lt;=@Mes AND YEAR(G.Fecha)=@Año AND S.Categoria=2 AND (@CentroCostos IS NULL OR G.CentroCostos=@CentroCostos) AND (@IdProyecto IS NULL OR G.IdProyecto=@IdProyecto)),0)+ISNULL((SELECT SUM(P.Total) FROM RecepcionProducto G INNER JOIN PartidaRecepcion P ON G.Folio=P.FolioRecepcion INNER JOIN ProductosServicios S ON P.ClaveProducto=S.ClaveProducto WHERE MONTH(G.Fecha)&lt;=@Mes AND YEAR(G.Fecha)=@Año AND S.Categoria=2 AND (@CentroCostos IS NULL OR G.CentroCostos=@CentroCostos) AND (@IdProyecto IS NULL OR G.IdProyecto=@IdProyecto)),0))*100.0)/NULLIF(ISNULL((SELECT SUM(F.Total) FROM Factura F WHERE MONTH(F.Fecha)&lt;=@Mes AND YEAR(F.Fecha)=@Año AND (@CentroCostos IS NULL OR F.CentroCostos=@CentroCostos) AND (@IdProyecto IS NULL OR F.IdProyecto=@IdProyecto)),0)+ISNULL((SELECT SUM(R.Total) FROM Remision R WHERE MONTH(R.Fecha)&lt;=@Mes AND YEAR(R.Fecha)=@Año AND (@CentroCostos IS NULL OR R.CentroCostos=@CentroCostos) AND (@IdProyecto IS NULL OR R.IdProyecto=@IdProyecto)),0)+ISNULL((SELECT SUM(M.Importe) FROM MovimientoBanco M WHERE MONTH(M.Fecha)&lt;=@Mes AND YEAR(M.Fecha)=@Año AND M.Tipo='i'),0),0) UNION ALL SELECT 7,'Gastos Financieros',ISNULL((SELECT SUM(M.Importe) FROM MovimientoBanco M WHERE MONTH(M.Fecha)=@Mes AND YEAR(M.Fecha)=@Año AND M.Tipo='e'),0),(ISNULL((SELECT SUM(M.Importe) FROM MovimientoBanco M WHERE MONTH(M.Fecha)=@Mes AND YEAR(M.Fecha)=@Año AND M.Tipo='e'),0)*100.0)/NULLIF(ISNULL((SELECT SUM(F.Total) FROM Factura F WHERE MONTH(F.Fecha)=@Mes AND YEAR(F.Fecha)=@Año AND (@CentroCostos IS NULL OR F.CentroCostos=@CentroCostos) AND (@IdProyecto IS NULL OR F.IdProyecto=@IdProyecto)),0)+ISNULL((SELECT SUM(R.Total) FROM Remision R WHERE MONTH(R.Fecha)=@Mes AND YEAR(R.Fecha)=@Año AND (@CentroCostos IS NULL OR R.CentroCostos=@CentroCostos) AND (@IdProyecto IS NULL OR R.IdProyecto=@IdProyecto)),0)+ISNULL((SELECT SUM(M.Importe) FROM MovimientoBanco M WHERE MONTH(M.Fecha)=@Mes AND YEAR(M.Fecha)=@Año AND M.Tipo='i'),0),0),ISNULL((SELECT SUM(M.Importe) FROM MovimientoBanco M WHERE MONTH(M.Fecha)&lt;=@Mes AND YEAR(M.Fecha)=@Año AND M.Tipo='e'),0),(ISNULL((SELECT SUM(M.Importe) FROM MovimientoBanco M WHERE MONTH(M.Fecha)&lt;=@Mes AND YEAR(M.Fecha)=@Año AND M.Tipo='e'),0)*100.0)/NULLIF(ISNULL((SELECT SUM(F.Total) FROM Factura F WHERE MONTH(F.Fecha)&lt;=@Mes AND YEAR(F.Fecha)=@Año AND (@CentroCostos IS NULL OR F.CentroCostos=@CentroCostos) AND (@IdProyecto IS NULL OR F.IdProyecto=@IdProyecto)),0)+ISNULL((SELECT SUM(R.Total) FROM Remision R WHERE MONTH(R.Fecha)&lt;=@Mes AND YEAR(R.Fecha)=@Año AND (@CentroCostos IS NULL OR R.CentroCostos=@CentroCostos) AND (@IdProyecto IS NULL OR R.IdProyecto=@IdProyecto)),0)+ISNULL((SELECT SUM(M.Importe) FROM MovimientoBanco M WHERE MONTH(M.Fecha)&lt;=@Mes AND YEAR(M.Fecha)=@Año AND M.Tipo='i'),0),0) UNION ALL SELECT 7.5,'',NULL,NULL,NULL,NULL UNION ALL SELECT 8,'Utilidad Operativa',(ISNULL((SELECT SUM(F.Total) FROM Factura F WHERE MONTH(F.Fecha)=@Mes AND YEAR(F.Fecha)=@Año AND (@CentroCostos IS NULL OR F.CentroCostos=@CentroCostos) AND (@IdProyecto IS NULL OR F.IdProyecto=@IdProyecto)),0)+ISNULL((SELECT SUM(R.Total) FROM Remision R WHERE MONTH(R.Fecha)=@Mes AND YEAR(R.Fecha)=@Año AND (@CentroCostos IS NULL OR R.CentroCostos=@CentroCostos) AND (@IdProyecto IS NULL OR R.IdProyecto=@IdProyecto)),0)+ISNULL((SELECT SUM(M.Importe) FROM MovimientoBanco M WHERE MONTH(M.Fecha)=@Mes AND YEAR(M.Fecha)=@Año AND M.Tipo='i'),0))-(ISNULL((SELECT SUM(P.Total) FROM RegistroGastos G INNER JOIN PartidaRegistroGastos P ON G.Folio=P.FolioGasto INNER JOIN ProductosServicios S ON P.ClaveProducto=S.ClaveProducto WHERE MONTH(G.Fecha)=@Mes AND YEAR(G.Fecha)=@Año AND S.Categoria IN(1,2) AND (@CentroCostos IS NULL OR G.CentroCostos=@CentroCostos) AND (@IdProyecto IS NULL OR G.IdProyecto=@IdProyecto)),0)+ISNULL((SELECT SUM(P.Total) FROM RegistroReembolso G INNER JOIN PartidaRegistroReembolso P ON G.Folio=P.FolioGasto INNER JOIN ProductosServicios S ON P.ClaveProducto=S.ClaveProducto WHERE MONTH(G.Fecha)=@Mes AND YEAR(G.Fecha)=@Año AND S.Categoria IN(1,2) AND (@CentroCostos IS NULL OR G.CentroCostos=@CentroCostos) AND (@IdProyecto IS NULL OR G.IdProyecto=@IdProyecto)),0)+ISNULL((SELECT SUM(P.Total) FROM RecepcionProducto G INNER JOIN PartidaRecepcion P ON G.Folio=P.FolioRecepcion INNER JOIN ProductosServicios S ON P.ClaveProducto=S.ClaveProducto WHERE MONTH(G.Fecha)=@Mes AND YEAR(G.Fecha)=@Año AND S.Categoria IN(1,2) AND (@CentroCostos IS NULL OR G.CentroCostos=@CentroCostos) AND (@IdProyecto IS NULL OR G.IdProyecto=@IdProyecto)),0)+ISNULL((SELECT SUM(M.Importe) FROM MovimientoBanco M WHERE MONTH(M.Fecha)=@Mes AND YEAR(M.Fecha)=@Año AND M.Tipo='e'),0)),100.0-((ISNULL((SELECT SUM(P.Total) FROM RegistroGastos G INNER JOIN PartidaRegistroGastos P ON G.Folio=P.FolioGasto INNER JOIN ProductosServicios S ON P.ClaveProducto=S.ClaveProducto WHERE MONTH(G.Fecha)=@Mes AND YEAR(G.Fecha)=@Año AND S.Categoria IN(1,2) AND (@CentroCostos IS NULL OR G.CentroCostos=@CentroCostos) AND (@IdProyecto IS NULL OR G.IdProyecto=@IdProyecto)),0)+ISNULL((SELECT SUM(P.Total) FROM RegistroReembolso G INNER JOIN PartidaRegistroReembolso P ON G.Folio=P.FolioGasto INNER JOIN ProductosServicios S ON P.ClaveProducto=S.ClaveProducto WHERE MONTH(G.Fecha)=@Mes AND YEAR(G.Fecha)=@Año AND S.Categoria IN(1,2) AND (@CentroCostos IS NULL OR G.CentroCostos=@CentroCostos) AND (@IdProyecto IS NULL OR G.IdProyecto=@IdProyecto)),0)+ISNULL((SELECT SUM(P.Total) FROM RecepcionProducto G INNER JOIN PartidaRecepcion P ON G.Folio=P.FolioRecepcion INNER JOIN ProductosServicios S ON P.ClaveProducto=S.ClaveProducto WHERE MONTH(G.Fecha)=@Mes AND YEAR(G.Fecha)=@Año AND S.Categoria IN(1,2) AND (@CentroCostos IS NULL OR G.CentroCostos=@CentroCostos) AND (@IdProyecto IS NULL OR G.IdProyecto=@IdProyecto)),0)+ISNULL((SELECT SUM(M.Importe) FROM MovimientoBanco M WHERE MONTH(M.Fecha)=@Mes AND YEAR(M.Fecha)=@Año AND M.Tipo='e'),0))*100.0/NULLIF(ISNULL((SELECT SUM(F.Total) FROM Factura F WHERE MONTH(F.Fecha)=@Mes AND YEAR(F.Fecha)=@Año AND (@CentroCostos IS NULL OR F.CentroCostos=@CentroCostos) AND (@IdProyecto IS NULL OR F.IdProyecto=@IdProyecto)),0)+ISNULL((SELECT SUM(R.Total) FROM Remision R WHERE MONTH(R.Fecha)=@Mes AND YEAR(R.Fecha)=@Año AND (@CentroCostos IS NULL OR R.CentroCostos=@CentroCostos) AND (@IdProyecto IS NULL OR R.IdProyecto=@IdProyecto)),0)+ISNULL((SELECT SUM(M.Importe) FROM MovimientoBanco M WHERE MONTH(M.Fecha)=@Mes AND YEAR(M.Fecha)=@Año AND M.Tipo='i'),0),0)),(ISNULL((SELECT SUM(F.Total) FROM Factura F WHERE MONTH(F.Fecha)&lt;=@Mes AND YEAR(F.Fecha)=@Año AND (@CentroCostos IS NULL OR F.CentroCostos=@CentroCostos) AND (@IdProyecto IS NULL OR F.IdProyecto=@IdProyecto)),0)+ISNULL((SELECT SUM(R.Total) FROM Remision R WHERE MONTH(R.Fecha)&lt;=@Mes AND YEAR(R.Fecha)=@Año AND (@CentroCostos IS NULL OR R.CentroCostos=@CentroCostos) AND (@IdProyecto IS NULL OR R.IdProyecto=@IdProyecto)),0)+ISNULL((SELECT SUM(M.Importe) FROM MovimientoBanco M WHERE MONTH(M.Fecha)&lt;=@Mes AND YEAR(M.Fecha)=@Año AND M.Tipo='i'),0))-(ISNULL((SELECT SUM(P.Total) FROM RegistroGastos G INNER JOIN PartidaRegistroGastos P ON G.Folio=P.FolioGasto INNER JOIN ProductosServicios S ON P.ClaveProducto=S.ClaveProducto WHERE MONTH(G.Fecha)&lt;=@Mes AND YEAR(G.Fecha)=@Año AND S.Categoria IN(1,2) AND (@CentroCostos IS NULL OR G.CentroCostos=@CentroCostos) AND (@IdProyecto IS NULL OR G.IdProyecto=@IdProyecto)),0)+ISNULL((SELECT SUM(P.Total) FROM RegistroReembolso G INNER JOIN PartidaRegistroReembolso P ON G.Folio=P.FolioGasto INNER JOIN ProductosServicios S ON P.ClaveProducto=S.ClaveProducto WHERE MONTH(G.Fecha)&lt;=@Mes AND YEAR(G.Fecha)=@Año AND S.Categoria IN(1,2) AND (@CentroCostos IS NULL OR G.CentroCostos=@CentroCostos) AND (@IdProyecto IS NULL OR G.IdProyecto=@IdProyecto)),0)+ISNULL((SELECT SUM(P.Total) FROM RecepcionProducto G INNER JOIN PartidaRecepcion P ON G.Folio=P.FolioRecepcion INNER JOIN ProductosServicios S ON P.ClaveProducto=S.ClaveProducto WHERE MONTH(G.Fecha)&lt;=@Mes AND YEAR(G.Fecha)=@Año AND S.Categoria IN(1,2) AND (@CentroCostos IS NULL OR G.CentroCostos=@CentroCostos) AND (@IdProyecto IS NULL OR G.IdProyecto=@IdProyecto)),0)+ISNULL((SELECT SUM(M.Importe) FROM MovimientoBanco M WHERE MONTH(M.Fecha)&lt;=@Mes AND YEAR(M.Fecha)=@Año AND M.Tipo='e'),0)),100.0-((ISNULL((SELECT SUM(P.Total) FROM RegistroGastos G INNER JOIN PartidaRegistroGastos P ON G.Folio=P.FolioGasto INNER JOIN ProductosServicios S ON P.ClaveProducto=S.ClaveProducto WHERE MONTH(G.Fecha)&lt;=@Mes AND YEAR(G.Fecha)=@Año AND S.Categoria IN(1,2) AND (@CentroCostos IS NULL OR G.CentroCostos=@CentroCostos) AND (@IdProyecto IS NULL OR G.IdProyecto=@IdProyecto)),0)+ISNULL((SELECT SUM(P.Total) FROM RegistroReembolso G INNER JOIN PartidaRegistroReembolso P ON G.Folio=P.FolioGasto INNER JOIN ProductosServicios S ON P.ClaveProducto=S.ClaveProducto WHERE MONTH(G.Fecha)&lt;=@Mes AND YEAR(G.Fecha)=@Año AND S.Categoria IN(1,2) AND (@CentroCostos IS NULL OR G.CentroCostos=@CentroCostos) AND (@IdProyecto IS NULL OR G.IdProyecto=@IdProyecto)),0)+ISNULL((SELECT SUM(P.Total) FROM RecepcionProducto G INNER JOIN PartidaRecepcion P ON G.Folio=P.FolioRecepcion INNER JOIN ProductosServicios S ON P.ClaveProducto=S.ClaveProducto WHERE MONTH(G.Fecha)&lt;=@Mes AND YEAR(G.Fecha)=@Año AND S.Categoria IN(1,2) AND (@CentroCostos IS NULL OR G.CentroCostos=@CentroCostos) AND (@IdProyecto IS NULL OR G.IdProyecto=@IdProyecto)),0)+ISNULL((SELECT SUM(M.Importe) FROM MovimientoBanco M WHERE MONTH(M.Fecha)&lt;=@Mes AND YEAR(M.Fecha)=@Año AND M.Tipo='e'),0))*100.0/NULLIF(ISNULL((SELECT SUM(F.Total) FROM Factura F WHERE MONTH(F.Fecha)&lt;=@Mes AND YEAR(F.Fecha)=@Año AND (@CentroCostos IS NULL OR F.CentroCostos=@CentroCostos) AND (@IdProyecto IS NULL OR F.IdProyecto=@IdProyecto)),0)+ISNULL((SELECT SUM(R.Total) FROM Remision R WHERE MONTH(R.Fecha)&lt;=@Mes AND YEAR(R.Fecha)=@Año AND (@CentroCostos IS NULL OR R.CentroCostos=@CentroCostos) AND (@IdProyecto IS NULL OR R.IdProyecto=@IdProyecto)),0)+ISNULL((SELECT SUM(M.Importe) FROM MovimientoBanco M WHERE MONTH(M.Fecha)&lt;=@Mes AND YEAR(M.Fecha)=@Año AND M.Tipo='i'),0),0))) AS Resultado ORDER BY Orden;</CommandText>
+                    <Parameters>
+                      <Parameter AllowDbNull="false" AutogeneratedName="Mes" ColumnName="" DataSourceName="" DataTypeServer="unknown" DbType="Decimal" Direction="Input" ParameterName="@Mes" Precision="0" Scale="0" Size="0" SourceColumn="" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="Año" ColumnName="" DataSourceName="" DataTypeServer="unknown" DbType="Decimal" Direction="Input" ParameterName="@Año" Precision="0" Scale="0" Size="0" SourceColumn="" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="CentroCostos" ColumnName="" DataSourceName="" DataTypeServer="int" DbType="Decimal" Direction="Input" ParameterName="@CentroCostos" Precision="10" Scale="0" Size="4" SourceColumn="" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="IdProyecto" ColumnName="" DataSourceName="" DataTypeServer="int" DbType="Int32" Direction="Input" ParameterName="@IdProyecto" Precision="0" Scale="0" Size="4" SourceColumn="" SourceColumnNullMapping="false" SourceVersion="Current" />
+                    </Parameters>
+                  </DbCommand>
+                </SelectCommand>
+              </DbSource>
+            </Sources>
           </TableAdapter>
         </Tables>
         <Sources />
