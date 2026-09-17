@@ -9,10 +9,3 @@ namespace PV
     {
     }
 }
-
-namespace PV.AdministracionDataSet1TableAdapters {
-    
-    
-    public partial class PartidaRegistroGastosTableAdapter {
-    }
-}
