@@ -116,7 +116,7 @@ namespace PV
                             CentroCostos,
                             idProyecto
                         );
-                    resultados = null;
+                 
                 }
                 else
                 {
