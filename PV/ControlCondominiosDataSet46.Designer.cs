@@ -1059,6 +1059,12 @@ namespace PV {
             
             private global::System.Data.DataColumn columnNumeroCuentaBancaria;
             
+            private global::System.Data.DataColumn columnOrigenRegistro;
+            
+            private global::System.Data.DataColumn columnDivisa;
+            
+            private global::System.Data.DataColumn columnTipoCambio;
+            
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
             public sp_ReporteDiarioIngresosDataTable() {
@@ -1278,6 +1284,30 @@ namespace PV {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+            public global::System.Data.DataColumn OrigenRegistroColumn {
+                get {
+                    return this.columnOrigenRegistro;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+            public global::System.Data.DataColumn DivisaColumn {
+                get {
+                    return this.columnDivisa;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+            public global::System.Data.DataColumn TipoCambioColumn {
+                get {
+                    return this.columnTipoCambio;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -1335,7 +1365,10 @@ namespace PV {
                         int ClaveCentroCostos, 
                         int ClaveCuentaBancaria, 
                         string NombreCuentaBancaria, 
-                        string NumeroCuentaBancaria) {
+                        string NumeroCuentaBancaria, 
+                        string OrigenRegistro, 
+                        string Divisa, 
+                        decimal TipoCambio) {
                 sp_ReporteDiarioIngresosRow rowsp_ReporteDiarioIngresosRow = ((sp_ReporteDiarioIngresosRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         null,
@@ -1360,7 +1393,10 @@ namespace PV {
                         ClaveCentroCostos,
                         ClaveCuentaBancaria,
                         NombreCuentaBancaria,
-                        NumeroCuentaBancaria};
+                        NumeroCuentaBancaria,
+                        OrigenRegistro,
+                        Divisa,
+                        TipoCambio};
                 rowsp_ReporteDiarioIngresosRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowsp_ReporteDiarioIngresosRow);
                 return rowsp_ReporteDiarioIngresosRow;
@@ -1406,6 +1442,9 @@ namespace PV {
                 this.columnClaveCuentaBancaria = base.Columns["ClaveCuentaBancaria"];
                 this.columnNombreCuentaBancaria = base.Columns["NombreCuentaBancaria"];
                 this.columnNumeroCuentaBancaria = base.Columns["NumeroCuentaBancaria"];
+                this.columnOrigenRegistro = base.Columns["OrigenRegistro"];
+                this.columnDivisa = base.Columns["Divisa"];
+                this.columnTipoCambio = base.Columns["TipoCambio"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -1457,10 +1496,15 @@ namespace PV {
                 base.Columns.Add(this.columnNombreCuentaBancaria);
                 this.columnNumeroCuentaBancaria = new global::System.Data.DataColumn("NumeroCuentaBancaria", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnNumeroCuentaBancaria);
+                this.columnOrigenRegistro = new global::System.Data.DataColumn("OrigenRegistro", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnOrigenRegistro);
+                this.columnDivisa = new global::System.Data.DataColumn("Divisa", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnDivisa);
+                this.columnTipoCambio = new global::System.Data.DataColumn("TipoCambio", typeof(decimal), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnTipoCambio);
                 this.columnFolio.AutoIncrement = true;
                 this.columnFolio.AutoIncrementSeed = -1;
                 this.columnFolio.AutoIncrementStep = -1;
-                this.columnFolio.AllowDBNull = false;
                 this.columnFolio.ReadOnly = true;
                 this.columnFormaPago.MaxLength = 50;
                 this.columnReferencia.MaxLength = 100;
@@ -1477,6 +1521,11 @@ namespace PV {
                 this.columnClaveCentroCostos.ReadOnly = true;
                 this.columnNombreCuentaBancaria.MaxLength = 100;
                 this.columnNumeroCuentaBancaria.MaxLength = 200;
+                this.columnOrigenRegistro.ReadOnly = true;
+                this.columnOrigenRegistro.MaxLength = 10;
+                this.columnDivisa.ReadOnly = true;
+                this.columnDivisa.MaxLength = 50;
+                this.columnTipoCambio.ReadOnly = true;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -2476,7 +2525,12 @@ namespace PV {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
             public int Folio {
                 get {
-                    return ((int)(this[this.tablesp_ReporteDiarioIngresos.FolioColumn]));
+                    try {
+                        return ((int)(this[this.tablesp_ReporteDiarioIngresos.FolioColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("El valor de la columna \'Folio\' de la tabla \'sp_ReporteDiarioIngresos\' es DBNull.", e);
+                    }
                 }
                 set {
                     this[this.tablesp_ReporteDiarioIngresos.FolioColumn] = value;
@@ -2857,6 +2911,69 @@ namespace PV {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+            public string OrigenRegistro {
+                get {
+                    try {
+                        return ((string)(this[this.tablesp_ReporteDiarioIngresos.OrigenRegistroColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("El valor de la columna \'OrigenRegistro\' de la tabla \'sp_ReporteDiarioIngresos\' es" +
+                                " DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tablesp_ReporteDiarioIngresos.OrigenRegistroColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+            public string Divisa {
+                get {
+                    try {
+                        return ((string)(this[this.tablesp_ReporteDiarioIngresos.DivisaColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("El valor de la columna \'Divisa\' de la tabla \'sp_ReporteDiarioIngresos\' es DBNull." +
+                                "", e);
+                    }
+                }
+                set {
+                    this[this.tablesp_ReporteDiarioIngresos.DivisaColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+            public decimal TipoCambio {
+                get {
+                    try {
+                        return ((decimal)(this[this.tablesp_ReporteDiarioIngresos.TipoCambioColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("El valor de la columna \'TipoCambio\' de la tabla \'sp_ReporteDiarioIngresos\' es DBN" +
+                                "ull.", e);
+                    }
+                }
+                set {
+                    this[this.tablesp_ReporteDiarioIngresos.TipoCambioColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+            public bool IsFolioNull() {
+                return this.IsNull(this.tablesp_ReporteDiarioIngresos.FolioColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+            public void SetFolioNull() {
+                this[this.tablesp_ReporteDiarioIngresos.FolioColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
             public bool IsFechaNull() {
                 return this.IsNull(this.tablesp_ReporteDiarioIngresos.FechaColumn);
             }
@@ -3117,6 +3234,42 @@ namespace PV {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
             public void SetNumeroCuentaBancariaNull() {
                 this[this.tablesp_ReporteDiarioIngresos.NumeroCuentaBancariaColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+            public bool IsOrigenRegistroNull() {
+                return this.IsNull(this.tablesp_ReporteDiarioIngresos.OrigenRegistroColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+            public void SetOrigenRegistroNull() {
+                this[this.tablesp_ReporteDiarioIngresos.OrigenRegistroColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+            public bool IsDivisaNull() {
+                return this.IsNull(this.tablesp_ReporteDiarioIngresos.DivisaColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+            public void SetDivisaNull() {
+                this[this.tablesp_ReporteDiarioIngresos.DivisaColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+            public bool IsTipoCambioNull() {
+                return this.IsNull(this.tablesp_ReporteDiarioIngresos.TipoCambioColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+            public void SetTipoCambioNull() {
+                this[this.tablesp_ReporteDiarioIngresos.TipoCambioColumn] = global::System.Convert.DBNull;
             }
         }
         
@@ -3557,6 +3710,9 @@ ORDER BY C.Folio";
             tableMapping.ColumnMappings.Add("ClaveCuentaBancaria", "ClaveCuentaBancaria");
             tableMapping.ColumnMappings.Add("NombreCuentaBancaria", "NombreCuentaBancaria");
             tableMapping.ColumnMappings.Add("NumeroCuentaBancaria", "NumeroCuentaBancaria");
+            tableMapping.ColumnMappings.Add("OrigenRegistro", "OrigenRegistro");
+            tableMapping.ColumnMappings.Add("Divisa", "Divisa");
+            tableMapping.ColumnMappings.Add("TipoCambio", "TipoCambio");
             this._adapter.TableMappings.Add(tableMapping);
         }
         
@@ -3582,13 +3738,14 @@ ORDER BY C.Folio";
             this._commandCollection[0].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@ClaveDocumento", global::System.Data.SqlDbType.VarChar, 10, global::System.Data.ParameterDirection.Input, 0, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._commandCollection[0].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@ClaveCentroCostos", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.Input, 10, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._commandCollection[0].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@ClaveCuentaBancaria", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.Input, 10, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._commandCollection[0].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Anticipos", global::System.Data.SqlDbType.Bit, 1, global::System.Data.ParameterDirection.Input, 1, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Fill, true)]
-        public virtual int Fill(ControlCondominiosDataSet46.sp_ReporteDiarioIngresosDataTable dataTable, global::System.Nullable<int> ClaveProveedor, global::System.Nullable<global::System.DateTime> FechaInicio, global::System.Nullable<global::System.DateTime> FechaFin, string ClaveDocumento, global::System.Nullable<int> ClaveCentroCostos, global::System.Nullable<int> ClaveCuentaBancaria) {
+        public virtual int Fill(ControlCondominiosDataSet46.sp_ReporteDiarioIngresosDataTable dataTable, global::System.Nullable<int> ClaveProveedor, global::System.Nullable<global::System.DateTime> FechaInicio, global::System.Nullable<global::System.DateTime> FechaFin, string ClaveDocumento, global::System.Nullable<int> ClaveCentroCostos, global::System.Nullable<int> ClaveCuentaBancaria, global::System.Nullable<bool> Anticipos) {
             this.Adapter.SelectCommand = this.CommandCollection[0];
             if ((ClaveProveedor.HasValue == true)) {
                 this.Adapter.SelectCommand.Parameters[1].Value = ((int)(ClaveProveedor.Value));
@@ -3625,6 +3782,12 @@ ORDER BY C.Folio";
             }
             else {
                 this.Adapter.SelectCommand.Parameters[6].Value = global::System.DBNull.Value;
+            }
+            if ((Anticipos.HasValue == true)) {
+                this.Adapter.SelectCommand.Parameters[7].Value = ((bool)(Anticipos.Value));
+            }
+            else {
+                this.Adapter.SelectCommand.Parameters[7].Value = global::System.DBNull.Value;
             }
             if ((this.ClearBeforeFill == true)) {
                 dataTable.Clear();
@@ -3637,7 +3800,7 @@ ORDER BY C.Folio";
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Select, true)]
-        public virtual ControlCondominiosDataSet46.sp_ReporteDiarioIngresosDataTable GetData(global::System.Nullable<int> ClaveProveedor, global::System.Nullable<global::System.DateTime> FechaInicio, global::System.Nullable<global::System.DateTime> FechaFin, string ClaveDocumento, global::System.Nullable<int> ClaveCentroCostos, global::System.Nullable<int> ClaveCuentaBancaria) {
+        public virtual ControlCondominiosDataSet46.sp_ReporteDiarioIngresosDataTable GetData(global::System.Nullable<int> ClaveProveedor, global::System.Nullable<global::System.DateTime> FechaInicio, global::System.Nullable<global::System.DateTime> FechaFin, string ClaveDocumento, global::System.Nullable<int> ClaveCentroCostos, global::System.Nullable<int> ClaveCuentaBancaria, global::System.Nullable<bool> Anticipos) {
             this.Adapter.SelectCommand = this.CommandCollection[0];
             if ((ClaveProveedor.HasValue == true)) {
                 this.Adapter.SelectCommand.Parameters[1].Value = ((int)(ClaveProveedor.Value));
@@ -3674,6 +3837,12 @@ ORDER BY C.Folio";
             }
             else {
                 this.Adapter.SelectCommand.Parameters[6].Value = global::System.DBNull.Value;
+            }
+            if ((Anticipos.HasValue == true)) {
+                this.Adapter.SelectCommand.Parameters[7].Value = ((bool)(Anticipos.Value));
+            }
+            else {
+                this.Adapter.SelectCommand.Parameters[7].Value = global::System.DBNull.Value;
             }
             ControlCondominiosDataSet46.sp_ReporteDiarioIngresosDataTable dataTable = new ControlCondominiosDataSet46.sp_ReporteDiarioIngresosDataTable();
             this.Adapter.Fill(dataTable);

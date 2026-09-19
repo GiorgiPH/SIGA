@@ -158,11 +158,6 @@
     <Compile Include="AdministracionDataSet1.Designer.cs">
       <DependentUpon>AdministracionDataSet1.cs</DependentUpon>
     </Compile>
-    <Compile Include="AdministracionDataSet11.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>AdministracionDataSet1.xsd</DependentUpon>
-    </Compile>
     <Compile Include="AdministracionDataSet2.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -192,6 +187,7 @@
     <Compile Include="AplicarAnticipoProveedorSaldo2.Designer.cs">
       <DependentUpon>AplicarAnticipoProveedorSaldo2.cs</DependentUpon>
     </Compile>
+    <Compile Include="Clases\Cotizaciones\DBCotizaciones.cs" />
     <Compile Include="Clases\Facturas\DBFacturas.cs" />
     <Compile Include="Clases\Graficas\DBDashboardVentas.cs" />
     <Compile Include="Clases\Graficas\IDashboardVentas.cs" />
@@ -218,6 +214,11 @@
     </Compile>
     <Compile Include="dto\Prestamos\PrestamosData.cs" />
     <Compile Include="dto\ResumenDashboardVentas.cs" />
+    <Compile Include="DTSCotizaciones.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DTSCotizaciones.xsd</DependentUpon>
+    </Compile>
     <Compile Include="DTSFactura.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -227,6 +228,12 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>DTSPrestamos.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Cotizaciones.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Cotizaciones.Designer.cs">
+      <DependentUpon>Cotizaciones.cs</DependentUpon>
     </Compile>
     <Compile Include="Prestamos.cs">
       <SubType>Form</SubType>
@@ -770,6 +777,12 @@
     </Compile>
     <Compile Include="ReporteComprasReembolso.Designer.cs">
       <DependentUpon>ReporteComprasReembolso.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ReporteComprobanteCotizacion.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ReporteComprobanteCotizacion.Designer.cs">
+      <DependentUpon>ReporteComprobanteCotizacion.cs</DependentUpon>
     </Compile>
     <Compile Include="ReporteComprobanteFactura.cs">
       <SubType>Form</SubType>
@@ -2083,6 +2096,9 @@
     <EmbeddedResource Include="DashboardVentasCentroCostos.resx">
       <DependentUpon>DashboardVentasCentroCostos.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Cotizaciones.resx">
+      <DependentUpon>Cotizaciones.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Prestamos.resx">
       <DependentUpon>Prestamos.cs</DependentUpon>
     </EmbeddedResource>
@@ -2282,6 +2298,10 @@
     <EmbeddedResource Include="ReporteComprasReembolso.rdlc" />
     <EmbeddedResource Include="ReporteComprasReembolso.resx">
       <DependentUpon>ReporteComprasReembolso.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ReporteComprobanteCotizacion.rdlc" />
+    <EmbeddedResource Include="ReporteComprobanteCotizacion.resx">
+      <DependentUpon>ReporteComprobanteCotizacion.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ReporteComprobanteFactura.rdlc" />
     <EmbeddedResource Include="ReporteComprobanteFactura.resx">
@@ -3596,6 +3616,17 @@
     </None>
     <None Include="DTSConceptosCobroPago.xss">
       <DependentUpon>DTSConceptosCobroPago.xsd</DependentUpon>
+    </None>
+    <None Include="DTSCotizaciones.xsc">
+      <DependentUpon>DTSCotizaciones.xsd</DependentUpon>
+    </None>
+    <None Include="DTSCotizaciones.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>DTSCotizaciones.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="DTSCotizaciones.xss">
+      <DependentUpon>DTSCotizaciones.xsd</DependentUpon>
     </None>
     <None Include="DTSFactura.xsc">
       <DependentUpon>DTSFactura.xsd</DependentUpon>

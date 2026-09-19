@@ -755,6 +755,44 @@ namespace PuntoVentas.Clases.ProductosServicios
             }
             return mensaje;
         }
+        public string[] InformacionProducto(string descripcion)
+        {
+            string[] resultado = null;
+
+            try
+            {
+                using (SqlConnection cn = new SqlConnection(ObtenerCn()))
+                using (SqlCommand cmd = new SqlCommand(
+                    "SELECT ClaveProducto, Descripcion, PrecioVenta, UnidadMedida, ImpuestoPorc, DescuentoPorc " +
+                    "FROM ProductosServicios WHERE Descripcion = @Descripcion", cn))
+                {
+                    cmd.Parameters.AddWithValue("@Descripcion", descripcion);
+                    cn.Open();
+
+                    using (SqlDataReader lector = cmd.ExecuteReader())
+                    {
+                        if (lector.Read())
+                        {
+                            resultado = new string[]
+                            {
+                        lector["Descripcion"].ToString(),
+                        lector["ClaveProducto"].ToString(),
+                        lector["PrecioVenta"].ToString(),
+                        lector["UnidadMedida"].ToString(),
+                        lector["ImpuestoPorc"].ToString(),
+                        lector["DescuentoPorc"].ToString()
+                            };
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al obtener la información del producto: " + ex.ToString());
+            }
+
+            return resultado;
+        }
 
         //____________________________________________________________________________________________________________________________________________
         // Catálogo simple para llenar combos vía ComboUtil.LlenarComboBox(cmb, dt, "Descripcion", "ClaveProducto")

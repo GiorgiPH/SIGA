@@ -105,6 +105,7 @@ namespace PV
                 // Cobros: Cliente, Fechas, Centro de Costos y Cuenta Bancaria; sin tipo de documento propio
                 pnProveedor.Visible = false;
                 pnCliente.Visible = true;
+                pnAnticipos.Visible = true;
                 pnCentroCostos.Visible = true;
                 pnTipoDocumento.Visible = false;
                 pnCuentaBancaria.Visible = true;
@@ -428,7 +429,8 @@ namespace PV
                     fecha == "Si" ? dtFecha1.Value.ToString("yyyy-MM-dd") : "",
                     fecha == "Si" ? dtFecha2.Value.ToString("yyyy-MM-dd") : "",
                     cmbCentroCostos?.SelectedValue?.ToString(),
-                    cmbCuentaBancaria?.SelectedValue?.ToString());
+                    cmbCuentaBancaria?.SelectedValue?.ToString(),
+                    tgAanticipos.Checked);
                 reporteDiarioIngresos.ShowDialog();
             }
 
@@ -481,6 +483,11 @@ namespace PV
                 DataTable dtProyectos = datosProyecto.ObtenerProyectosPorCentroCostos(cmbCentroCostos.Text);
                 ComboUtil.LlenarComboBox(cmbProyecto, dtProyectos, "Proyecto", "Id");
             }
+        }
+
+        private void label12_Click(object sender, EventArgs e)
+        {
+
         }
     }
     public class SemanaItem

@@ -745,7 +745,7 @@ namespace PV
             ventas.Titulo = "VENTAS";
             ventas.Icono = PV.Properties.Resources.grafico_de_barras;
             ventas.Margin = Padding.Empty;
-
+            ventas.AgregarSubMenu("Cotizaciones", "COTIZACIONES");
             ventas.AgregarSubMenu("Pedidos Clientes", "PEDIDOS_CLIENTES");
             ventas.AgregarSubMenu("Remisiones", "REMISIONES");
             ventas.AgregarSubMenu("Factura (CFDI)", "FACTURAS");
@@ -789,14 +789,14 @@ namespace PV
             cxc.AgregarSubMenu("Registra Anticipo Cliente", "REGISTRAR_ANTICIPO_CLIENTE");
             cxc.AgregarSubMenu("Aplicar Anticipos Clientes", "APLICAR_ANTICIPO_CLIENTE");
             cxc.AgregarSubMenu("Consultas");
-            cxc.AgregarSubMenu("Registrar Préstamos");
 
 
             SidebarMenuItem reportesCxc = cxc.AgregarSubMenu("Reportes CxC Ingresos");
-            reportesCxc.AgregarSubMenu("Diario de Ingresos", "REPORTE_DIARIO_INGRESOS");
-            reportesCxc.AgregarSubMenu("Reporte de Ingresos");
+            reportesCxc.AgregarSubMenu("Reporte Diario de Ingresos", "REPORTE_DIARIO_INGRESOS");
             reportesCxc.AgregarSubMenu("Reporte de Anticipos");
+            reportesCxc.AgregarSubMenu("Reporte de Aplicación Anticipos");
             reportesCxc.AgregarSubMenu("Saldos de Clientes");
+            reportesCxc.AgregarSubMenu("Reporte Antiguedad Saldos Clientes");
             reportesCxc.AgregarSubMenu("Estado de Cuenta Cliente");
 
             SidebarMenuItem cxp = tesoreria.AgregarSubMenu("CxP - Egresos");
@@ -1114,6 +1114,9 @@ namespace PV
                     break;
                 case "DASHBOARD_VENTAS":
                     AbrirFormulario(new DashboardVentas());
+                    break;
+                case "COTIZACIONES":
+                    AbrirFormulario(new Cotizaciones());
                     break;
                 default:
                     LimpiarSeleccionMenu();

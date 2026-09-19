@@ -109,13 +109,13 @@ namespace PV
                         idProyecto = null;
                     }
 
-                    resultados =
+                  /*  resultados =
                         partidaRegistroGastosTableAdapter.GetDataBy(
                             Mes,
                             Año,
                             CentroCostos,
                             idProyecto
-                        );
+                        );*/
                     resultados = null;
                 }
                 else
