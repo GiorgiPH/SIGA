@@ -9,7 +9,9 @@ namespace PV
 {
     public partial class SidebarMenuItem : UserControl
     {
-        private readonly List<SidebarMenuItem> subMenus = new List<SidebarMenuItem>();
+        private readonly List<SidebarMenuItem> subMenus =
+            new List<SidebarMenuItem>();
+
         private bool expandido;
         private bool organizando;
         private string titulo = "Nuevo elemento";
@@ -32,29 +34,58 @@ namespace PV
         private const int AltoSubSubMenuDosLineasBase = 48;
 
         private const int LimiteCaracteresDosLineas = 26;
+        private const int AnchoFavoritoBase = 34;
 
-        private static readonly Color ColorModulo = Color.FromArgb(57, 101, 145);
-        private static readonly Color ColorModuloExpandido = Color.FromArgb(45, 91, 137);
-        private static readonly Color ColorModuloHover = Color.FromArgb(66, 113, 159);
-        private static readonly Color ColorModuloExpandidoHover = Color.FromArgb(52, 103, 153);
+        private static readonly Color ColorModulo =
+            Color.FromArgb(57, 101, 145);
 
-        private static readonly Color ColorSubMenu = Color.FromArgb(35, 58, 88);
-        private static readonly Color ColorSubMenuHover = Color.FromArgb(50, 79, 112);
-        private static readonly Color ColorTextoSubMenu = Color.FromArgb(238, 244, 250);
+        private static readonly Color ColorModuloExpandido =
+            Color.FromArgb(45, 91, 137);
 
-        private static readonly Color ColorSubSubMenu = Color.FromArgb(43, 69, 101);
-        private static readonly Color ColorSubSubMenuHover = Color.FromArgb(58, 88, 121);
-        private static readonly Color ColorTextoSubSubMenu = Color.FromArgb(205, 220, 235);
+        private static readonly Color ColorModuloHover =
+            Color.FromArgb(66, 113, 159);
 
-        private static readonly Color ColorSeleccionado = Color.FromArgb(57, 101, 145);
-        private static readonly Color ColorSeleccionadoHover = Color.FromArgb(66, 115, 161);
+        private static readonly Color ColorModuloExpandidoHover =
+            Color.FromArgb(52, 103, 153);
 
-        private static readonly Color ColorTextoDeshabilitado = Color.FromArgb(115, 137, 160);
+        private static readonly Color ColorSubMenu =
+            Color.FromArgb(35, 58, 88);
 
-        public event EventHandler<OpcionMenuSeleccionadaEventArgs> OpcionSeleccionada;
-        public event EventHandler ModuloPrincipalExpandido;
-        public event EventHandler FavoritoCambiado;
-        public event EventHandler FavoritoSolicitado;
+        private static readonly Color ColorSubMenuHover =
+            Color.FromArgb(50, 79, 112);
+
+        private static readonly Color ColorTextoSubMenu =
+            Color.FromArgb(238, 244, 250);
+
+        private static readonly Color ColorSubSubMenu =
+            Color.FromArgb(43, 69, 101);
+
+        private static readonly Color ColorSubSubMenuHover =
+            Color.FromArgb(58, 88, 121);
+
+        private static readonly Color ColorTextoSubSubMenu =
+            Color.FromArgb(205, 220, 235);
+
+        private static readonly Color ColorSeleccionado =
+            Color.FromArgb(57, 101, 145);
+
+        private static readonly Color ColorSeleccionadoHover =
+            Color.FromArgb(66, 115, 161);
+
+        private static readonly Color ColorTextoDeshabilitado =
+            Color.FromArgb(115, 137, 160);
+
+        public event EventHandler<OpcionMenuSeleccionadaEventArgs>
+            OpcionSeleccionada;
+
+        public event EventHandler
+            ModuloPrincipalExpandido;
+
+        public event EventHandler
+            FavoritoCambiado;
+
+        public event EventHandler
+            FavoritoSolicitado;
 
         public SidebarMenuItem()
         {
@@ -62,6 +93,7 @@ namespace PV
 
             btnHeader.Click += btnHeader_Click;
             SizeChanged += SidebarMenuItem_SizeChanged;
+
             btnHeader.AutoSize = false;
 
             ActualizarTextoEncabezado();
@@ -73,7 +105,11 @@ namespace PV
             Seleccionado = true;
 
             if (OpcionSeleccionada != null)
-                OpcionSeleccionada(this, new OpcionMenuSeleccionadaEventArgs(this));
+            {
+                OpcionSeleccionada(
+                    this,
+                    new OpcionMenuSeleccionadaEventArgs(this));
+            }
         }
 
         public void Deseleccionar()
@@ -86,17 +122,13 @@ namespace PV
             Seleccionado = false;
 
             foreach (SidebarMenuItem subMenu in subMenus)
+            {
                 subMenu.LimpiarSeleccion();
+            }
 
             ActualizarTextoEncabezado();
             OrganizarBotonFavorito();
             ActualizarColorBotonFavorito();
-
-            if (btnFavorito != null)
-            {
-                btnFavorito.Invalidate();
-                btnFavorito.Refresh();
-            }
 
             Invalidate();
         }
@@ -107,7 +139,11 @@ namespace PV
                 return;
 
             if (OpcionSeleccionada != null)
-                OpcionSeleccionada(this, new OpcionMenuSeleccionadaEventArgs(this));
+            {
+                OpcionSeleccionada(
+                    this,
+                    new OpcionMenuSeleccionadaEventArgs(this));
+            }
         }
 
         [Category("Favoritos")]
@@ -115,12 +151,15 @@ namespace PV
         public bool PuedeSerFavorito
         {
             get { return puedeSerFavorito; }
+
             set
             {
                 puedeSerFavorito = value;
 
                 if (!puedeSerFavorito)
+                {
                     EsFavorito = false;
+                }
 
                 ActualizarTextoEncabezado();
                 OrganizarSubMenus();
@@ -132,13 +171,16 @@ namespace PV
         public bool EsFavorito
         {
             get { return esFavorito; }
+
             set
             {
                 if (esFavorito == value)
                     return;
 
                 if (string.IsNullOrWhiteSpace(Clave))
+                {
                     value = false;
+                }
 
                 esFavorito = value;
 
@@ -146,14 +188,23 @@ namespace PV
                 ActualizarColorBotonFavorito();
 
                 if (FavoritoCambiado != null)
-                    FavoritoCambiado(this, EventArgs.Empty);
+                {
+                    FavoritoCambiado(
+                        this,
+                        EventArgs.Empty);
+                }
             }
         }
 
-        public void EstablecerFavoritoInicial(bool favorito)
+        public void EstablecerFavoritoInicial(
+            bool favorito)
         {
-            if (!PuedeSerFavorito || TieneSubMenus || string.IsNullOrWhiteSpace(Clave))
+            if (!PuedeSerFavorito ||
+                TieneSubMenus ||
+                string.IsNullOrWhiteSpace(Clave))
+            {
                 return;
+            }
 
             esFavorito = favorito;
 
@@ -166,106 +217,253 @@ namespace PV
             if (btnFavorito != null)
                 return;
 
-            btnFavorito = new Guna2Button();
-            btnFavorito.Name = "btnFavorito";
-            btnFavorito.Text = "☆";
-            btnFavorito.Font = new Font("Segoe UI Symbol", 11F, FontStyle.Regular);
-            btnFavorito.ForeColor = ColorTextoSubMenu;
-            btnFavorito.FillColor = Color.Transparent;
-            btnFavorito.BorderThickness = 0;
-            btnFavorito.BorderRadius = 0;
-            btnFavorito.HoverState.FillColor = Color.Transparent;
-            btnFavorito.HoverState.ForeColor = Color.White;
-            btnFavorito.PressedColor = Color.Transparent;
-            btnFavorito.DisabledState.FillColor = Color.Transparent;
-            btnFavorito.DisabledState.ForeColor = ColorTextoDeshabilitado;
-            btnFavorito.TextAlign = HorizontalAlignment.Center;
-            btnFavorito.Cursor = Cursors.Hand;
-            btnFavorito.TabStop = false;
-            btnFavorito.Click += btnFavorito_Click;
+            btnFavorito =
+                new Guna2Button();
 
-            Controls.Add(btnFavorito);
+            btnFavorito.Name =
+                "btnFavorito";
+
+            btnFavorito.Text =
+                "☆";
+
+            btnFavorito.Font =
+                new Font(
+                    "Segoe UI Symbol",
+                    11F,
+                    FontStyle.Regular);
+
+            btnFavorito.ForeColor =
+                ColorTextoSubMenu;
+
+            btnFavorito.FillColor =
+                Color.Transparent;
+
+            btnFavorito.BorderThickness =
+                0;
+
+            btnFavorito.BorderRadius =
+                0;
+
+            btnFavorito.HoverState.FillColor =
+                Color.Transparent;
+
+            btnFavorito.HoverState.ForeColor =
+                Color.White;
+
+            btnFavorito.PressedColor =
+                Color.Transparent;
+
+            btnFavorito.DisabledState.FillColor =
+                Color.Transparent;
+
+            btnFavorito.DisabledState.ForeColor =
+                ColorTextoDeshabilitado;
+
+            btnFavorito.TextAlign =
+                HorizontalAlignment.Center;
+
+            btnFavorito.Cursor =
+                Cursors.Hand;
+
+            btnFavorito.TabStop =
+                false;
+
+            btnFavorito.Anchor =
+                AnchorStyles.Top |
+                AnchorStyles.Right;
+
+            btnFavorito.Click +=
+                btnFavorito_Click;
+
+            Controls.Add(
+                btnFavorito);
+
             btnFavorito.BringToFront();
         }
 
-        private void btnFavorito_Click(object sender, EventArgs e)
+        private void btnFavorito_Click(
+            object sender,
+            EventArgs e)
         {
             if (string.IsNullOrWhiteSpace(Clave))
                 return;
 
             if (FavoritoSolicitado != null)
-                FavoritoSolicitado(this, EventArgs.Empty);
+            {
+                FavoritoSolicitado(
+                    this,
+                    EventArgs.Empty);
+            }
         }
 
         private void OrganizarBotonFavorito()
         {
-            if (btnFavorito == null)
-                return;
-
-            if (nivel == 0 || !PuedeSerFavorito || TieneSubMenus)
+            // Los módulos principales no utilizan columna de favoritos.
+            if (nivel == 0)
             {
-                btnFavorito.Visible = false;
-                btnHeader.Width = Width;
+                if (btnFavorito != null)
+                    btnFavorito.Visible = false;
+
+                if (btnHeader != null)
+                {
+                    btnHeader.Left = 0;
+                    btnHeader.Width = Math.Max(1, ClientSize.Width);
+                }
+
                 return;
             }
 
-            const int anchoFavorito = 34;
+            // Todos los submenús reservan exactamente el mismo espacio
+            // para la columna de favoritos, aunque esta opción particular
+            // no pueda mostrar la estrella.
+            int anchoFavorito = ObtenerAnchoFavorito();
+
+            int anchoDisponible =
+                Math.Max(1, ClientSize.Width);
+
+            btnHeader.Left = 0;
+
+            btnHeader.Width =
+                Math.Max(
+                    1,
+                    anchoDisponible - anchoFavorito);
+
+            bool mostrarFavorito =
+                PuedeSerFavorito &&
+                !TieneSubMenus &&
+                !string.IsNullOrWhiteSpace(Clave);
+
+            if (!mostrarFavorito)
+            {
+                if (btnFavorito != null)
+                    btnFavorito.Visible = false;
+
+                return;
+            }
+
+            CrearBotonFavorito();
+
+            btnFavorito.SetBounds(
+                Math.Max(
+                    0,
+                    anchoDisponible - anchoFavorito),
+                0,
+                anchoFavorito,
+                btnHeader.Height);
 
             btnFavorito.Visible = true;
-            btnFavorito.Enabled = !string.IsNullOrWhiteSpace(Clave);
-            btnFavorito.Width = anchoFavorito;
-            btnFavorito.Height = btnHeader.Height;
-            btnFavorito.Left = Width - anchoFavorito;
-            btnFavorito.Top = 0;
+            btnFavorito.Enabled = true;
 
-            btnHeader.Width = Math.Max(1, Width - anchoFavorito);
+            btnFavorito.Text =
+                EsFavorito
+                    ? "★"
+                    : "☆";
 
             btnFavorito.BringToFront();
         }
 
+        private int ObtenerAnchoFavorito()
+        {
+            return (int)Math.Round(
+                AnchoFavoritoBase *
+                Math.Min(
+                    ObtenerEscalaDpi(),
+                    1.35F));
+        }
+
         private void ActualizarColorBotonFavorito()
         {
-            if (btnFavorito == null || !btnFavorito.Visible)
+            if (btnFavorito == null ||
+                !btnFavorito.Visible)
+            {
                 return;
+            }
 
-            btnFavorito.FillColor = Color.Transparent;
-            btnFavorito.HoverState.FillColor = Color.Transparent;
-            btnFavorito.PressedColor = Color.Transparent;
-            btnFavorito.DisabledState.FillColor = Color.Transparent;
-            btnFavorito.DisabledState.ForeColor = ColorTextoDeshabilitado;
-            btnFavorito.ForeColor = EsFavorito ? Color.White : ColorTextoSubMenu;
-            btnFavorito.HoverState.ForeColor = Color.White;
+            btnFavorito.Text =
+                EsFavorito
+                    ? "★"
+                    : "☆";
+
+            btnFavorito.FillColor =
+                Color.Transparent;
+
+            btnFavorito.HoverState.FillColor =
+                Color.Transparent;
+
+            btnFavorito.PressedColor =
+                Color.Transparent;
+
+            btnFavorito.DisabledState.FillColor =
+                Color.Transparent;
+
+            btnFavorito.DisabledState.ForeColor =
+                ColorTextoDeshabilitado;
+
+            btnFavorito.ForeColor =
+                EsFavorito
+                    ? Color.White
+                    : ColorTextoSubMenu;
+
+            btnFavorito.HoverState.ForeColor =
+                Color.White;
+
             btnFavorito.Invalidate();
         }
 
         private void ConfigurarFavorito()
         {
-            if (PuedeSerFavorito && !TieneSubMenus)
+            bool mostrar =
+                nivel > 0 &&
+                PuedeSerFavorito &&
+                !TieneSubMenus &&
+                !string.IsNullOrWhiteSpace(Clave);
+
+            if (mostrar)
             {
                 CrearBotonFavorito();
 
-                btnFavorito.Text = EsFavorito ? "★" : "☆";
-                btnFavorito.Visible = true;
-                btnFavorito.Enabled = !string.IsNullOrWhiteSpace(Clave);
+                btnFavorito.Visible =
+                    true;
+
+                btnFavorito.Enabled =
+                    true;
+
+                btnFavorito.Text =
+                    EsFavorito
+                        ? "★"
+                        : "☆";
             }
-            else
+            else if (btnFavorito != null)
             {
-                if (btnFavorito != null)
-                    btnFavorito.Visible = false;
+                btnFavorito.Visible =
+                    false;
             }
         }
 
         private void ActualizarEstadoHabilitado()
         {
-            bool tieneClave = !string.IsNullOrWhiteSpace(Clave);
+            bool tieneClave =
+                !string.IsNullOrWhiteSpace(Clave);
 
-            if (nivel == 0 || TieneSubMenus)
-                btnHeader.Enabled = true;
+            if (nivel == 0 ||
+                TieneSubMenus)
+            {
+                btnHeader.Enabled =
+                    true;
+            }
             else
-                btnHeader.Enabled = tieneClave;
+            {
+                btnHeader.Enabled =
+                    tieneClave;
+            }
 
             if (btnFavorito != null)
-                btnFavorito.Enabled = tieneClave && PuedeSerFavorito && !TieneSubMenus;
+            {
+                btnFavorito.Enabled =
+                    tieneClave &&
+                    PuedeSerFavorito &&
+                    !TieneSubMenus;
+            }
         }
 
         [Category("Menu")]
@@ -273,6 +471,7 @@ namespace PV
         public bool AjustarDpi
         {
             get { return ajustarDpi; }
+
             set
             {
                 if (ajustarDpi == value)
@@ -295,42 +494,71 @@ namespace PV
 
         private float ObtenerFuenteModulo()
         {
-            return FuenteModuloBase * Math.Min(ObtenerEscalaDpi(), 1.35F);
+            return FuenteModuloBase *
+                Math.Min(
+                    ObtenerEscalaDpi(),
+                    1.35F);
         }
 
         private float ObtenerFuenteSubMenu()
         {
-            return FuenteSubMenuBase * Math.Min(ObtenerEscalaDpi(), 1.35F);
+            return FuenteSubMenuBase *
+                Math.Min(
+                    ObtenerEscalaDpi(),
+                    1.35F);
         }
 
         private float ObtenerFuenteSubSubMenu()
         {
-            return FuenteSubSubMenuBase * Math.Min(ObtenerEscalaDpi(), 1.35F);
+            return FuenteSubSubMenuBase *
+                Math.Min(
+                    ObtenerEscalaDpi(),
+                    1.35F);
         }
 
         private int ObtenerAltoModulo()
         {
-            return (int)Math.Round(AltoModuloBase * Math.Min(ObtenerEscalaDpi(), 1.35F));
+            return (int)Math.Round(
+                AltoModuloBase *
+                Math.Min(
+                    ObtenerEscalaDpi(),
+                    1.35F));
         }
 
         private int ObtenerAltoSubMenu()
         {
-            return (int)Math.Round(AltoSubMenuBase * Math.Min(ObtenerEscalaDpi(), 1.35F));
+            return (int)Math.Round(
+                AltoSubMenuBase *
+                Math.Min(
+                    ObtenerEscalaDpi(),
+                    1.35F));
         }
 
         private int ObtenerAltoSubMenuDosLineas()
         {
-            return (int)Math.Round(AltoSubMenuDosLineasBase * Math.Min(ObtenerEscalaDpi(), 1.35F));
+            return (int)Math.Round(
+                AltoSubMenuDosLineasBase *
+                Math.Min(
+                    ObtenerEscalaDpi(),
+                    1.35F));
         }
 
         private int ObtenerAltoSubSubMenu()
         {
-            return (int)Math.Round(AltoSubSubMenuBase * Math.Min(ObtenerEscalaDpi(), 1.35F));
+            return (int)Math.Round(
+                AltoSubSubMenuBase *
+                Math.Min(
+                    ObtenerEscalaDpi(),
+                    1.35F));
         }
 
         private int ObtenerAltoSubSubMenuDosLineas()
         {
-            return (int)Math.Round(AltoSubSubMenuDosLineasBase * Math.Min(ObtenerEscalaDpi(), 1.35F));
+            return (int)Math.Round(
+                AltoSubSubMenuDosLineasBase *
+                Math.Min(
+                    ObtenerEscalaDpi(),
+                    1.35F));
         }
 
         [Category("Menu")]
@@ -338,6 +566,7 @@ namespace PV
         public bool Seleccionado
         {
             get { return seleccionado; }
+
             set
             {
                 if (seleccionado == value)
@@ -354,7 +583,6 @@ namespace PV
                 if (btnFavorito != null)
                 {
                     btnFavorito.Invalidate();
-                    btnFavorito.Refresh();
                 }
 
                 Invalidate();
@@ -377,6 +605,7 @@ namespace PV
         public Image Icono
         {
             get { return btnHeader.Image; }
+
             set
             {
                 btnHeader.Image = value;
@@ -389,9 +618,12 @@ namespace PV
         public string Titulo
         {
             get { return titulo; }
+
             set
             {
-                titulo = value ?? "";
+                titulo =
+                    value ?? "";
+
                 ActualizarTextoEncabezado();
             }
         }
@@ -401,12 +633,16 @@ namespace PV
         public string Clave
         {
             get { return clave; }
+
             set
             {
-                clave = (value ?? "").Trim();
+                clave =
+                    (value ?? "").Trim();
 
                 if (string.IsNullOrWhiteSpace(clave))
+                {
                     esFavorito = false;
+                }
 
                 ActualizarTextoEncabezado();
                 OrganizarSubMenus();
@@ -424,17 +660,24 @@ namespace PV
         public bool Expandido
         {
             get { return expandido; }
+
             set
             {
                 if (!TieneSubMenus)
+                {
                     value = false;
+                }
 
                 if (!value)
                 {
                     LimpiarSeleccion();
 
-                    foreach (SidebarMenuItem subMenu in subMenus)
+                    foreach (
+                        SidebarMenuItem subMenu
+                        in subMenus)
+                    {
                         subMenu.Expandir(false);
+                    }
                 }
 
                 if (expandido == value)
@@ -447,101 +690,161 @@ namespace PV
             }
         }
 
-        public void Expandir(bool expandir = true)
+        public void Expandir(
+            bool expandir = true)
         {
             Expandido = expandir;
         }
 
-        public SidebarMenuItem AgregarSubMenu(string tituloSubMenu, string claveSubMenu = "")
+        public SidebarMenuItem AgregarSubMenu(
+            string tituloSubMenu,
+            string claveSubMenu = "")
         {
-            SidebarMenuItem subMenu = new SidebarMenuItem();
+            SidebarMenuItem subMenu =
+                new SidebarMenuItem();
 
-            subMenu.Titulo = tituloSubMenu;
-            subMenu.Clave = claveSubMenu;
-            subMenu.AjustarDpi = AjustarDpi;
+            subMenu.Titulo =
+                tituloSubMenu;
 
-            AgregarSubMenu(subMenu);
+            subMenu.Clave =
+                claveSubMenu;
+
+            subMenu.AjustarDpi =
+                AjustarDpi;
+
+            AgregarSubMenu(
+                subMenu);
 
             return subMenu;
         }
 
-        public void AgregarSubMenu(SidebarMenuItem subMenu)
+        public void AgregarSubMenu(
+            SidebarMenuItem subMenu)
         {
             if (subMenu == null)
-                throw new ArgumentNullException("subMenu");
-
-            subMenus.Add(subMenu);
-            pnlSubMenu.Controls.Add(subMenu);
-
-            EsFavorito = false;
-
-            subMenu.EstablecerNivel(nivel + 1);
-            subMenu.AjustarDpi = AjustarDpi;
-            subMenu.OpcionSeleccionada += SubMenu_OpcionSeleccionada;
-
-            subMenu.SizeChanged += delegate
             {
-                OrganizarSubMenus();
-            };
+                throw new ArgumentNullException(
+                    "subMenu");
+            }
+
+            subMenus.Add(
+                subMenu);
+
+            pnlSubMenu.Controls.Add(
+                subMenu);
+
+            EsFavorito =
+                false;
+
+            subMenu.EstablecerNivel(
+                nivel + 1);
+
+            subMenu.AjustarDpi =
+                AjustarDpi;
+
+            subMenu.OpcionSeleccionada +=
+                SubMenu_OpcionSeleccionada;
+
+            subMenu.SizeChanged +=
+                delegate
+                {
+                    OrganizarSubMenus();
+                };
 
             ActualizarTextoEncabezado();
             OrganizarSubMenus();
         }
 
-        public void RegistrarFavoritos(FavoritosMenu favoritosMenu)
+        public void RegistrarFavoritos(
+            FavoritosMenu favoritosMenu)
         {
             if (favoritosMenu == null)
                 return;
 
-            foreach (SidebarMenuItem subMenu in subMenus)
+            foreach (
+                SidebarMenuItem subMenu
+                in subMenus)
             {
                 if (subMenu.TieneSubMenus)
                 {
-                    subMenu.RegistrarFavoritos(favoritosMenu);
+                    subMenu.RegistrarFavoritos(
+                        favoritosMenu);
                 }
-                else if (subMenu.PuedeSerFavorito && !string.IsNullOrWhiteSpace(subMenu.Clave))
+                else if (
+                    subMenu.PuedeSerFavorito &&
+                    !string.IsNullOrWhiteSpace(
+                        subMenu.Clave))
                 {
-                    favoritosMenu.RegistrarOpcion(subMenu);
+                    favoritosMenu.RegistrarOpcion(
+                        subMenu);
                 }
             }
         }
 
-        private void btnHeader_Click(object sender, EventArgs e)
+        private void btnHeader_Click(
+            object sender,
+            EventArgs e)
         {
             if (TieneSubMenus)
             {
-                if (!Expandido && nivel == 0 && ModuloPrincipalExpandido != null)
-                    ModuloPrincipalExpandido(this, EventArgs.Empty);
+                if (!Expandido &&
+                    nivel == 0 &&
+                    ModuloPrincipalExpandido != null)
+                {
+                    ModuloPrincipalExpandido(
+                        this,
+                        EventArgs.Empty);
+                }
 
-                Expandido = !Expandido;
+                Expandido =
+                    !Expandido;
             }
 
             EjecutarOpcion();
         }
 
-        private void SubMenu_OpcionSeleccionada(object sender, OpcionMenuSeleccionadaEventArgs e)
+        private void SubMenu_OpcionSeleccionada(
+            object sender,
+            OpcionMenuSeleccionadaEventArgs e)
         {
             if (OpcionSeleccionada != null)
-                OpcionSeleccionada(this, e);
+            {
+                OpcionSeleccionada(
+                    this,
+                    e);
+            }
         }
 
-        private void SidebarMenuItem_SizeChanged(object sender, EventArgs e)
-        {
-            ActualizarTextoEncabezado();
-            OrganizarSubMenus();
-        }
+      
 
-        private void EstablecerNivel(int nuevoNivel)
+        private void EstablecerNivel(
+            int nuevoNivel)
         {
-            nivel = nuevoNivel;
+            nivel =
+                nuevoNivel;
 
             if (nivel == 0)
-                Margin = new Padding(0, 0, 0, 4);
+            {
+                Margin =
+                    new Padding(
+                        0,
+                        0,
+                        0,
+                        4);
+            }
             else
-                Margin = Padding.Empty;
+            {
+                Margin =
+                    Padding.Empty;
+            }
 
-            foreach (SidebarMenuItem subMenu in subMenus)
-                subMenu.EstablecerNivel(nivel + 1);
+            foreach (
+                SidebarMenuItem subMenu
+                in subMenus)
+            {
+                subMenu.EstablecerNivel(
+                    nivel + 1);
+            }
 
             ActualizarTextoEncabezado();
             OrganizarSubMenus();
@@ -553,92 +856,223 @@ namespace PV
                 return;
 
             if (nivel == 0)
+            {
                 ConfigurarModuloPrincipal();
+            }
             else if (nivel == 1)
+            {
                 ConfigurarSubMenuNivel1();
+            }
             else
+            {
                 ConfigurarSubMenuNivel2();
+            }
 
             ActualizarEstadoHabilitado();
         }
 
         private void ConfigurarModuloPrincipal()
         {
-            Margin = new Padding(0, 0, 0, 4);
+            Margin =
+                new Padding(
+                    0,
+                    0,
+                    0,
+                    4);
 
-            string flecha = TieneSubMenus ? (expandido ? "  ▾" : "  ▸") : "";
+            string flecha =
+                TieneSubMenus
+                    ? (expandido
+                        ? "  ▾"
+                        : "  ▸")
+                    : "";
 
-            btnHeader.Height = ObtenerAltoModulo();
-            btnHeader.Width = Math.Max(1, Width);
-            btnHeader.Text = titulo + flecha;
-            btnHeader.ImageAlign = HorizontalAlignment.Left;
-            btnHeader.ImageOffset = new Point(10, 0);
-            btnHeader.TextAlign = HorizontalAlignment.Left;
-            btnHeader.TextOffset = new Point(5, 0);
-            btnHeader.ForeColor = Color.White;
-            btnHeader.Font = new Font("Segoe UI", ObtenerFuenteModulo(), FontStyle.Bold);
-            btnHeader.BorderRadius = 8;
-            btnHeader.BorderThickness = 0;
-            btnHeader.Padding = new Padding(16, 0, 12, 0);
+            btnHeader.Height =
+                ObtenerAltoModulo();
 
-            btnHeader.FillColor = expandido ? ColorModuloExpandido : ColorModulo;
-            btnHeader.HoverState.FillColor = expandido ? ColorModuloExpandidoHover : ColorModuloHover;
-            btnHeader.DisabledState.FillColor = btnHeader.FillColor;
-            btnHeader.DisabledState.ForeColor = Color.White;
+            btnHeader.Left =
+                0;
+
+            btnHeader.Width =
+                Math.Max(
+                    1,
+                    ClientSize.Width);
+
+            btnHeader.Text =
+                titulo + flecha;
+
+            btnHeader.ImageAlign =
+                HorizontalAlignment.Left;
+
+            btnHeader.ImageOffset =
+                new Point(
+                    10,
+                    0);
+
+            btnHeader.TextAlign =
+                HorizontalAlignment.Left;
+
+            btnHeader.TextOffset =
+                new Point(
+                    5,
+                    0);
+
+            btnHeader.ForeColor =
+                Color.White;
+
+            btnHeader.Font =
+                new Font(
+                    "Segoe UI",
+                    ObtenerFuenteModulo(),
+                    FontStyle.Bold);
+
+            btnHeader.BorderRadius =
+                8;
+
+            btnHeader.BorderThickness =
+                0;
+
+            btnHeader.Padding =
+                new Padding(
+                    16,
+                    0,
+                    12,
+                    0);
+
+            btnHeader.FillColor =
+                expandido
+                    ? ColorModuloExpandido
+                    : ColorModulo;
+
+            btnHeader.HoverState.FillColor =
+                expandido
+                    ? ColorModuloExpandidoHover
+                    : ColorModuloHover;
+
+            btnHeader.DisabledState.FillColor =
+                btnHeader.FillColor;
+
+            btnHeader.DisabledState.ForeColor =
+                Color.White;
 
             if (btnFavorito != null)
-                btnFavorito.Visible = false;
+            {
+                btnFavorito.Visible =
+                    false;
+            }
         }
 
         private void ConfigurarSubMenuNivel1()
         {
-            Margin = Padding.Empty;
+            Margin =
+                Padding.Empty;
 
-            string flecha = TieneSubMenus ? (expandido ? "  ▾" : "  ▸") : "";
+            string flecha =
+                TieneSubMenus
+                    ? (expandido
+                        ? "  ▾"
+                        : "  ▸")
+                    : "";
 
             ConfigurarFavorito();
 
-            int anchoFavorito = TieneBotonFavoritoVisible() ? 34 : 0;
+            btnHeader.Left =
+                0;
 
-            btnHeader.Width = Math.Max(1, Width - anchoFavorito);
-            btnHeader.ImageAlign = HorizontalAlignment.Left;
-            btnHeader.ImageOffset = new Point(8, 0);
-            btnHeader.TextAlign = HorizontalAlignment.Left;
-            btnHeader.TextOffset = Point.Empty;
-            btnHeader.Font = new Font("Segoe UI", ObtenerFuenteSubMenu(), FontStyle.Regular);
-            btnHeader.BorderRadius = 2;
-            btnHeader.BorderThickness = 0;
-            btnHeader.Padding = new Padding(22, 0, 6, 0);
+            btnHeader.ImageAlign =
+                HorizontalAlignment.Left;
 
-            string textoTitulo = LimpiarTexto(titulo);
-            string prefijo = seleccionado ? "▌ " : "• ";
+            btnHeader.ImageOffset =
+                new Point(
+                    8,
+                    0);
 
-            if (textoTitulo.Length > LimiteCaracteresDosLineas)
+            btnHeader.TextAlign =
+                HorizontalAlignment.Left;
+
+            btnHeader.TextOffset =
+                Point.Empty;
+
+            btnHeader.Font =
+                new Font(
+                    "Segoe UI",
+                    ObtenerFuenteSubMenu(),
+                    FontStyle.Regular);
+
+            btnHeader.BorderRadius =
+                2;
+
+            btnHeader.BorderThickness =
+                0;
+
+            btnHeader.Padding =
+                new Padding(
+                    22,
+                    0,
+                    6,
+                    0);
+
+            string textoTitulo =
+                LimpiarTexto(
+                    titulo);
+
+            string prefijo =
+                seleccionado
+                    ? "▌ "
+                    : "• ";
+
+            if (textoTitulo.Length >
+                LimiteCaracteresDosLineas)
             {
-                btnHeader.Height = ObtenerAltoSubMenuDosLineas();
-                btnHeader.Text = prefijo + DividirTextoEnDosLineas(textoTitulo, LimiteCaracteresDosLineas) + flecha;
+                btnHeader.Height =
+                    ObtenerAltoSubMenuDosLineas();
+
+                btnHeader.Text =
+                    prefijo +
+                    DividirTextoEnDosLineas(
+                        textoTitulo,
+                        LimiteCaracteresDosLineas) +
+                    flecha;
             }
             else
             {
-                btnHeader.Height = ObtenerAltoSubMenu();
-                btnHeader.Text = prefijo + textoTitulo + flecha;
+                btnHeader.Height =
+                    ObtenerAltoSubMenu();
+
+                btnHeader.Text =
+                    prefijo +
+                    textoTitulo +
+                    flecha;
             }
 
             if (seleccionado)
             {
-                btnHeader.FillColor = ColorSeleccionado;
-                btnHeader.ForeColor = Color.White;
-                btnHeader.HoverState.FillColor = ColorSeleccionadoHover;
+                btnHeader.FillColor =
+                    ColorSeleccionado;
+
+                btnHeader.ForeColor =
+                    Color.White;
+
+                btnHeader.HoverState.FillColor =
+                    ColorSeleccionadoHover;
             }
             else
             {
-                btnHeader.FillColor = ColorSubMenu;
-                btnHeader.ForeColor = ColorTextoSubMenu;
-                btnHeader.HoverState.FillColor = ColorSubMenuHover;
+                btnHeader.FillColor =
+                    ColorSubMenu;
+
+                btnHeader.ForeColor =
+                    ColorTextoSubMenu;
+
+                btnHeader.HoverState.FillColor =
+                    ColorSubMenuHover;
             }
 
-            btnHeader.DisabledState.FillColor = btnHeader.FillColor;
-            btnHeader.DisabledState.ForeColor = ColorTextoDeshabilitado;
+            btnHeader.DisabledState.FillColor =
+                btnHeader.FillColor;
+
+            btnHeader.DisabledState.ForeColor =
+                ColorTextoDeshabilitado;
 
             OrganizarBotonFavorito();
             ActualizarColorBotonFavorito();
@@ -646,95 +1080,193 @@ namespace PV
 
         private void ConfigurarSubMenuNivel2()
         {
-            Margin = Padding.Empty;
+            Margin =
+                Padding.Empty;
 
-            string flecha = TieneSubMenus ? (expandido ? "  ▾" : "  ▸") : "";
+            string flecha =
+                TieneSubMenus
+                    ? (expandido
+                        ? "  ▾"
+                        : "  ▸")
+                    : "";
 
             ConfigurarFavorito();
 
-            int anchoFavorito = TieneBotonFavoritoVisible() ? 34 : 0;
-            int anchoControl = Math.Max(1, Width - anchoFavorito);
+            btnHeader.Left =
+                0;
 
-            btnHeader.Width = anchoControl;
-            btnHeader.ImageAlign = HorizontalAlignment.Left;
-            btnHeader.ImageOffset = new Point(4, 0);
+            btnHeader.ImageAlign =
+                HorizontalAlignment.Left;
 
-            int indentacion = nivel == 2 ? 14 : 20 + ((nivel - 3) * 5);
+            btnHeader.ImageOffset =
+                new Point(
+                    4,
+                    0);
 
-            btnHeader.Padding = new Padding(indentacion, 0, 4, 0);
-            btnHeader.Font = new Font("Segoe UI", ObtenerFuenteSubSubMenu(), FontStyle.Regular);
-            btnHeader.TextAlign = HorizontalAlignment.Left;
-            btnHeader.TextOffset = Point.Empty;
-            btnHeader.BorderRadius = 0;
-            btnHeader.BorderThickness = 0;
+            int indentacion;
 
-            string textoTitulo = LimpiarTexto(titulo);
-            string prefijo = seleccionado ? "▌ " : "• ";
-
-            if (textoTitulo.Length > LimiteCaracteresDosLineas)
+            if (nivel == 2)
             {
-                btnHeader.Height = ObtenerAltoSubSubMenuDosLineas();
-                btnHeader.Text = prefijo + DividirTextoEnDosLineas(textoTitulo, LimiteCaracteresDosLineas) + flecha;
+                indentacion = 14;
             }
             else
             {
-                btnHeader.Height = ObtenerAltoSubSubMenu();
-                btnHeader.Text = prefijo + textoTitulo + flecha;
+                indentacion =
+                    20 +
+                    ((nivel - 3) * 5);
+            }
+
+            btnHeader.Padding =
+                new Padding(
+                    indentacion,
+                    0,
+                    4,
+                    0);
+
+            btnHeader.Font =
+                new Font(
+                    "Segoe UI",
+                    ObtenerFuenteSubSubMenu(),
+                    FontStyle.Regular);
+
+            btnHeader.TextAlign =
+                HorizontalAlignment.Left;
+
+            btnHeader.TextOffset =
+                Point.Empty;
+
+            btnHeader.BorderRadius =
+                0;
+
+            btnHeader.BorderThickness =
+                0;
+
+            string textoTitulo =
+                LimpiarTexto(
+                    titulo);
+
+            string prefijo =
+                seleccionado
+                    ? "▌ "
+                    : "• ";
+
+            if (textoTitulo.Length >
+                LimiteCaracteresDosLineas)
+            {
+                btnHeader.Height =
+                    ObtenerAltoSubSubMenuDosLineas();
+
+                btnHeader.Text =
+                    prefijo +
+                    DividirTextoEnDosLineas(
+                        textoTitulo,
+                        LimiteCaracteresDosLineas) +
+                    flecha;
+            }
+            else
+            {
+                btnHeader.Height =
+                    ObtenerAltoSubSubMenu();
+
+                btnHeader.Text =
+                    prefijo +
+                    textoTitulo +
+                    flecha;
             }
 
             if (seleccionado)
             {
-                btnHeader.FillColor = ColorSeleccionado;
-                btnHeader.ForeColor = Color.White;
-                btnHeader.HoverState.FillColor = ColorSeleccionadoHover;
+                btnHeader.FillColor =
+                    ColorSeleccionado;
+
+                btnHeader.ForeColor =
+                    Color.White;
+
+                btnHeader.HoverState.FillColor =
+                    ColorSeleccionadoHover;
             }
             else
             {
-                btnHeader.FillColor = ColorSubSubMenu;
-                btnHeader.ForeColor = ColorTextoSubSubMenu;
-                btnHeader.HoverState.FillColor = ColorSubSubMenuHover;
+                btnHeader.FillColor =
+                    ColorSubSubMenu;
+
+                btnHeader.ForeColor =
+                    ColorTextoSubSubMenu;
+
+                btnHeader.HoverState.FillColor =
+                    ColorSubSubMenuHover;
             }
 
-            btnHeader.DisabledState.FillColor = btnHeader.FillColor;
-            btnHeader.DisabledState.ForeColor = ColorTextoDeshabilitado;
+            btnHeader.DisabledState.FillColor =
+                btnHeader.FillColor;
+
+            btnHeader.DisabledState.ForeColor =
+                ColorTextoDeshabilitado;
 
             OrganizarBotonFavorito();
             ActualizarColorBotonFavorito();
         }
 
-        private string LimpiarTexto(string texto)
+        private string LimpiarTexto(
+            string texto)
         {
-            if (string.IsNullOrWhiteSpace(texto))
+            if (string.IsNullOrWhiteSpace(
+                texto))
+            {
                 return "";
+            }
 
-            return texto.Replace("\r", " ").Replace("\n", " ").Trim();
+            return texto
+                .Replace("\r", " ")
+                .Replace("\n", " ")
+                .Trim();
         }
 
-        private string DividirTextoEnDosLineas(string texto, int limite)
+        private string DividirTextoEnDosLineas(
+            string texto,
+            int limite)
         {
-            texto = LimpiarTexto(texto);
+            texto =
+                LimpiarTexto(
+                    texto);
 
             if (texto.Length <= limite)
                 return texto;
 
-            int posicionCorte = -1;
+            int posicionCorte =
+                -1;
 
-            for (int i = Math.Min(limite, texto.Length - 1); i >= 0; i--)
+            for (
+                int i =
+                    Math.Min(
+                        limite,
+                        texto.Length - 1);
+                i >= 0;
+                i--)
             {
-                if (char.IsWhiteSpace(texto[i]))
+                if (char.IsWhiteSpace(
+                    texto[i]))
                 {
-                    posicionCorte = i;
+                    posicionCorte =
+                        i;
+
                     break;
                 }
             }
 
             if (posicionCorte <= 0)
             {
-                for (int i = limite + 1; i < texto.Length; i++)
+                for (
+                    int i = limite + 1;
+                    i < texto.Length;
+                    i++)
                 {
-                    if (char.IsWhiteSpace(texto[i]))
+                    if (char.IsWhiteSpace(
+                        texto[i]))
                     {
-                        posicionCorte = i;
+                        posicionCorte =
+                            i;
+
                         break;
                     }
                 }
@@ -743,59 +1275,142 @@ namespace PV
             if (posicionCorte <= 0)
                 return texto;
 
-            string linea1 = texto.Substring(0, posicionCorte).Trim();
-            string linea2 = texto.Substring(posicionCorte + 1).Trim();
+            string linea1 =
+                texto
+                .Substring(
+                    0,
+                    posicionCorte)
+                .Trim();
 
-            return linea1 + Environment.NewLine + linea2;
-        }
+            string linea2 =
+                texto
+                .Substring(
+                    posicionCorte + 1)
+                .Trim();
 
-        private bool TieneBotonFavoritoVisible()
-        {
-            return btnFavorito != null && PuedeSerFavorito && !TieneSubMenus;
+            return
+                linea1 +
+                Environment.NewLine +
+                linea2;
         }
 
         private void OrganizarSubMenus()
         {
-            if (organizando || Width <= 0)
-                return;
-
-            organizando = true;
-
-            OrganizarBotonFavorito();
-
-            int posicionActual = 0;
-
-            if (expandido)
+            if (organizando ||
+                ClientSize.Width <= 0)
             {
-                foreach (SidebarMenuItem subMenu in subMenus)
-                {
-                    subMenu.Width = Width;
-                    subMenu.Left = 0;
-                    subMenu.Top = posicionActual;
-
-                    posicionActual += subMenu.Height;
-                }
+                return;
             }
 
-            pnlSubMenu.Left = 0;
-            pnlSubMenu.Top = btnHeader.Height;
-            pnlSubMenu.Width = Width;
-            pnlSubMenu.Height = posicionActual;
-            pnlSubMenu.Visible = expandido && TieneSubMenus;
+            organizando =
+                true;
 
-            Height = btnHeader.Height + posicionActual;
+            try
+            {
+                ActualizarTextoEncabezado();
 
-            organizando = false;
+                OrganizarBotonFavorito();
+
+                int posicionActual =
+                    0;
+
+                int anchoHijos =
+                    Math.Max(
+                        1,
+                        ClientSize.Width);
+
+                if (expandido)
+                {
+                    foreach (
+                        SidebarMenuItem subMenu
+                        in subMenus)
+                    {
+                        subMenu.SetBounds(
+                            0,
+                            posicionActual,
+                            anchoHijos,
+                            subMenu.Height);
+
+                        subMenu.RecalcularLayoutCompleto();
+
+                        posicionActual +=
+                            subMenu.Height;
+                    }
+                }
+
+                pnlSubMenu.SetBounds(
+                    0,
+                    btnHeader.Bottom,
+                    anchoHijos,
+                    posicionActual);
+
+                pnlSubMenu.Visible =
+                    expandido &&
+                    TieneSubMenus;
+
+                Height =
+                    btnHeader.Height +
+                    posicionActual;
+
+                OrganizarBotonFavorito();
+            }
+            finally
+            {
+                organizando =
+                    false;
+            }
+        }
+
+        public void RecalcularLayoutCompleto()
+        {
+            if (IsDisposed)
+                return;
+
+            ActualizarTextoEncabezado();
+            OrganizarBotonFavorito();
+
+            foreach (
+                SidebarMenuItem subMenu
+                in subMenus)
+            {
+                subMenu.Width =
+                    Math.Max(
+                        1,
+                        ClientSize.Width);
+
+                subMenu.RecalcularLayoutCompleto();
+            }
+
+            OrganizarSubMenus();
+
+            Invalidate(true);
+        }
+
+        private void SidebarMenuItem_SizeChanged(
+     object sender,
+     EventArgs e)
+        {
+            if (organizando)
+                return;
+
+            RecalcularLayoutCompleto();
         }
     }
 
-    public class OpcionMenuSeleccionadaEventArgs : EventArgs
+    public class OpcionMenuSeleccionadaEventArgs :
+        EventArgs
     {
-        public SidebarMenuItem Opcion { get; private set; }
-
-        public OpcionMenuSeleccionadaEventArgs(SidebarMenuItem opcion)
+        public SidebarMenuItem Opcion
         {
-            Opcion = opcion;
+            get;
+            private set;
+        }
+
+        public OpcionMenuSeleccionadaEventArgs(
+            SidebarMenuItem opcion)
+        {
+            Opcion =
+                opcion;
         }
     }
 }

@@ -155,7 +155,7 @@
     <Compile Include="AdministracionDataSet1.cs">
       <DependentUpon>AdministracionDataSet1.xsd</DependentUpon>
     </Compile>
-    <Compile Include="AdministracionDataSet11.Designer.cs">     
+    <Compile Include="AdministracionDataSet11.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>AdministracionDataSet1.xsd</DependentUpon>
@@ -164,6 +164,12 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>AdministracionDataSet2.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="AdministrarMenu.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AdministrarMenu.Designer.cs">
+      <DependentUpon>AdministrarMenu.cs</DependentUpon>
     </Compile>
     <Compile Include="AgregarConceptoPresProdc.cs">
       <SubType>Form</SubType>
@@ -193,11 +199,13 @@
     <Compile Include="Clases\Graficas\DBDashboardVentas.cs" />
     <Compile Include="Clases\Graficas\IDashboardVentas.cs" />
     <Compile Include="Clases\MenuPrincipal\DBFavoritos.cs" />
+    <Compile Include="Clases\MenuPrincipal\DBMenu.cs" />
     <Compile Include="Clases\MovimientosBanco\DBMovimientosBanco.cs" />
     <Compile Include="Clases\NumericHelper.cs" />
     <Compile Include="Clases\Prestamos\DBPrestamos.cs" />
     <Compile Include="Clases\ReporteResultadoGlobal\DBResultadoGlobal.cs" />
     <Compile Include="Clases\Requisicion\DBRequisicion.cs" />
+    <Compile Include="Clases\Usuarios\DBOpcionMenu.cs" />
     <Compile Include="ControlCondominiosDataSet34.cs">
       <DependentUpon>ControlCondominiosDataSet34.xsd</DependentUpon>
     </Compile>
@@ -224,6 +232,12 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>DTSPrestamos.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="MenuPrincipal.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MenuPrincipal.Designer.cs">
+      <DependentUpon>MenuPrincipal.cs</DependentUpon>
     </Compile>
     <Compile Include="Prestamos.cs">
       <SubType>Form</SubType>
@@ -483,7 +497,6 @@
     <Compile Include="Clases\TiposZonas\DBTiposZonas.cs" />
     <Compile Include="Clases\Usuarios\DBPermisos.cs" />
     <Compile Include="Clases\Usuarios\DBUsuarios.cs" />
-    <Compile Include="Clases\Usuarios\PermisosManager.cs" />
     <Compile Include="Clases\Utilerias.cs" />
     <Compile Include="Clientes.cs">
       <SubType>Form</SubType>
@@ -1397,12 +1410,6 @@
     <Compile Include="Login.Designer.cs">
       <DependentUpon>Login.cs</DependentUpon>
     </Compile>
-    <Compile Include="MenuPrincipal.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="MenuPrincipal.Designer.cs">
-      <DependentUpon>MenuPrincipal.cs</DependentUpon>
-    </Compile>
     <Compile Include="MovimientosInventario.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -2062,6 +2069,9 @@
     <EmbeddedResource Include="ActivoFijo.resx">
       <DependentUpon>ActivoFijo.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="AdministrarMenu.resx">
+      <DependentUpon>AdministrarMenu.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="AgregarConceptoPresProdc.resx">
       <DependentUpon>AgregarConceptoPresProdc.cs</DependentUpon>
     </EmbeddedResource>
@@ -2079,6 +2089,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="DashboardVentasCentroCostos.resx">
       <DependentUpon>DashboardVentasCentroCostos.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MenuPrincipal.resx">
+      <DependentUpon>MenuPrincipal.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Prestamos.resx">
       <DependentUpon>Prestamos.cs</DependentUpon>
@@ -2466,9 +2479,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Login.resx">
       <DependentUpon>Login.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="MenuPrincipal.resx">
-      <DependentUpon>MenuPrincipal.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MovimientosInventario.resx">
       <DependentUpon>MovimientosInventario.cs</DependentUpon>

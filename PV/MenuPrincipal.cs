@@ -62,10 +62,10 @@ namespace PuntoVentas
 
         private void MenuPrincipal_Load(object sender, EventArgs e)
         {
-            this.WindowState = FormWindowState.Maximized;
-            c.empresa();
-            _permisos = p.CargarPermisosUsuario(DBLogin.usuario);
-            AplicarPermisosMenu();
+            //this.WindowState = FormWindowState.Maximized;
+            //c.empresa();
+            //_permisos = p.CargarPermisosUsuario(DBLogin.usuario);
+            //AplicarPermisosMenu();
         }
 
         private void AplicarPermisosMenu()
