@@ -3479,7 +3479,6 @@ namespace PV
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Orden Compra";
             this.Activated += new System.EventHandler(this.OrdenCompra2_Activated);
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.OrdenPedidoCliente_FormClosing);
             this.Load += new System.EventHandler(this.OrdenCompra2_Load);
             this.guna2GradientPanel1.ResumeLayout(false);
             this.guna2GradientPanel1.PerformLayout();

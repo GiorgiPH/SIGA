@@ -1419,7 +1419,6 @@ namespace PV
 
         private void OrdenCompra2_Load(object sender, EventArgs e) => Cotizaciones_Load(sender, e);
         private void OrdenCompra2_Activated(object sender, EventArgs e) => Cotizaciones_Activated(sender, e);
-        private void OrdenPedidoCliente_FormClosing(object sender, FormClosingEventArgs e) => Cotizaciones_FormClosing(sender, e);
 
         // Handlers que en el original eran no-ops y que el Designer puede
         // seguir teniendo enganchados:
