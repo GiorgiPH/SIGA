@@ -54,10 +54,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestCertificateThumbprint>C7A6F4D417EECE40C229783505B7F92503215261</ManifestCertificateThumbprint>
+    <ManifestCertificateThumbprint>18091F5C8E6754E7F98A98045DDFC7D18F23C345</ManifestCertificateThumbprint>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestKeyFile>Sistema Integral de Gestion Administrativa_4_TemporaryKey.pfx</ManifestKeyFile>
+    <ManifestKeyFile>Sistema Integral de Gestion Administrativa_5_TemporaryKey.pfx</ManifestKeyFile>
   </PropertyGroup>
   <PropertyGroup>
     <GenerateManifests>true</GenerateManifests>
@@ -197,7 +197,13 @@
     </Compile>
     <Compile Include="Clases\Cotizaciones\DBCotizaciones.cs" />
     <Compile Include="Clases\Facturas\DBFacturas.cs" />
+    <Compile Include="Clases\Graficas\DBDashboardCompras.cs" />
+    <Compile Include="Clases\Graficas\DBDashboardEgresos.cs" />
+    <Compile Include="Clases\Graficas\DBDashboardIngresos.cs" />
     <Compile Include="Clases\Graficas\DBDashboardVentas.cs" />
+    <Compile Include="Clases\Graficas\IDashboardCompras.cs" />
+    <Compile Include="Clases\Graficas\IDashboardEgresos.cs" />
+    <Compile Include="Clases\Graficas\IDashboardIngresos.cs" />
     <Compile Include="Clases\Graficas\IDashboardVentas.cs" />
     <Compile Include="Clases\MenuPrincipal\DBFavoritos.cs" />
     <Compile Include="Clases\MenuPrincipal\DBMenu.cs" />
@@ -209,6 +215,24 @@
     <Compile Include="Clases\Usuarios\DBOpcionMenu.cs" />
     <Compile Include="ControlCondominiosDataSet34.cs">
       <DependentUpon>ControlCondominiosDataSet34.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="DashboardCompras.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DashboardCompras.Designer.cs">
+      <DependentUpon>DashboardCompras.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DashboardEgresos.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DashboardEgresos.Designer.cs">
+      <DependentUpon>DashboardEgresos.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DashboardIngresos.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DashboardIngresos.Designer.cs">
+      <DependentUpon>DashboardIngresos.cs</DependentUpon>
     </Compile>
     <Compile Include="DashboardVentas.cs">
       <SubType>Form</SubType>
@@ -222,7 +246,22 @@
     <Compile Include="DashboardVentasCentroCostos.Designer.cs">
       <DependentUpon>DashboardVentasCentroCostos.cs</DependentUpon>
     </Compile>
+    <Compile Include="dto\AntiguedadCartera.cs" />
+    <Compile Include="dto\CarteraCliente.cs" />
+    <Compile Include="dto\ComparativoCompraAnual.cs" />
+    <Compile Include="dto\CompraClasificacion.cs" />
+    <Compile Include="dto\CompraMensual.cs" />
+    <Compile Include="dto\CompraProveedor.cs" />
+    <Compile Include="dto\EgresoAntiguedad.cs" />
+    <Compile Include="dto\EgresoCuentaBancaria.cs" />
+    <Compile Include="dto\EgresoMensual.cs" />
+    <Compile Include="dto\EgresoProveedor.cs" />
+    <Compile Include="dto\IngresoCuenta.cs" />
+    <Compile Include="dto\IngresoMensual.cs" />
     <Compile Include="dto\Prestamos\PrestamosData.cs" />
+    <Compile Include="dto\ResumenDashboardCompras.cs" />
+    <Compile Include="dto\ResumenDashboardEgresos.cs" />
+    <Compile Include="dto\ResumenDashboardIngresos.cs" />
     <Compile Include="dto\ResumenDashboardVentas.cs" />
     <Compile Include="DTSCotizaciones.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -2102,6 +2141,9 @@
     <EmbeddedResource Include="AplicarAnticipoProveedorSaldo2.resx">
       <DependentUpon>AplicarAnticipoProveedorSaldo2.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="DashboardCompras.resx">
+      <DependentUpon>DashboardCompras.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="DashboardVentas.resx">
       <DependentUpon>DashboardVentas.cs</DependentUpon>
     </EmbeddedResource>
@@ -3742,6 +3784,7 @@
     <None Include="Sistema Integral de Gestion Administrativa_2_TemporaryKey.pfx" />
     <None Include="Sistema Integral de Gestion Administrativa_3_TemporaryKey.pfx" />
     <None Include="Sistema Integral de Gestion Administrativa_4_TemporaryKey.pfx" />
+    <None Include="Sistema Integral de Gestion Administrativa_5_TemporaryKey.pfx" />
     <None Include="Sistema Integral de Gestion Administrativa_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
