@@ -29,12 +29,12 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Prestamos));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle13 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle14 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle15 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle16 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle17 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle18 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle19 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle20 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle21 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle22 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle23 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle24 = new System.Windows.Forms.DataGridViewCellStyle();
             this.guna2GradientPanel1 = new Guna.UI2.WinForms.Guna2GradientPanel();
             this.lblTitulo = new System.Windows.Forms.Label();
             this.guna2CircleButton1 = new Guna.UI2.WinForms.Guna2CircleButton();
@@ -62,7 +62,6 @@
             this.txtNombreAcreedor = new Guna.UI2.WinForms.Guna2TextBox();
             this.lblConcepto1 = new System.Windows.Forms.Label();
             this.cmbConceptoPrestamo = new Guna.UI2.WinForms.Guna2ComboBox();
-            this.txtDescConceptoPrestamo = new Guna.UI2.WinForms.Guna2TextBox();
             this.lblReferencia = new System.Windows.Forms.Label();
             this.txtReferencia = new Guna.UI2.WinForms.Guna2TextBox();
             this.lblParcialidades = new System.Windows.Forms.Label();
@@ -77,7 +76,6 @@
             this.lblConceptoInteres = new System.Windows.Forms.Label();
             this.cmbConceptoInteres = new Guna.UI2.WinForms.Guna2ComboBox();
             this.lblImpuesto = new System.Windows.Forms.Label();
-            this.txtImpuesto = new Guna.UI2.WinForms.Guna2TextBox();
             this.lblDivisa = new System.Windows.Forms.Label();
             this.txtDivisa = new Guna.UI2.WinForms.Guna2TextBox();
             this.lblTipoCambio = new System.Windows.Forms.Label();
@@ -173,6 +171,8 @@
             this.button10 = new Guna.UI2.WinForms.Guna2Button();
             this.guna2Button16 = new Guna.UI2.WinForms.Guna2Button();
             this.btnNuevoPrestamo = new Guna.UI2.WinForms.Guna2Button();
+            this.tgImpuesto = new Guna.UI2.WinForms.Guna2ToggleSwitch();
+            this.lblImpuestoo = new System.Windows.Forms.Label();
             this.guna2GradientPanel1.SuspendLayout();
             this.guna2Panel1.SuspendLayout();
             this.guna2TabControl1.SuspendLayout();
@@ -317,6 +317,7 @@
             // 
             // tabEncabezado
             // 
+            this.tabEncabezado.Controls.Add(this.tgImpuesto);
             this.tabEncabezado.Controls.Add(this.lblInteresCPago);
             this.tabEncabezado.Controls.Add(this.btnBuscarAcreedor);
             this.tabEncabezado.Controls.Add(this.lblDocumento);
@@ -329,6 +330,7 @@
             this.tabEncabezado.Controls.Add(this.txtFecha);
             this.tabEncabezado.Controls.Add(this.lblVence);
             this.tabEncabezado.Controls.Add(this.txtDiasVence);
+            this.tabEncabezado.Controls.Add(this.lblImpuestoo);
             this.tabEncabezado.Controls.Add(this.lblDias);
             this.tabEncabezado.Controls.Add(this.lblVencimiento);
             this.tabEncabezado.Controls.Add(this.txtFechaVence);
@@ -337,7 +339,6 @@
             this.tabEncabezado.Controls.Add(this.txtNombreAcreedor);
             this.tabEncabezado.Controls.Add(this.lblConcepto1);
             this.tabEncabezado.Controls.Add(this.cmbConceptoPrestamo);
-            this.tabEncabezado.Controls.Add(this.txtDescConceptoPrestamo);
             this.tabEncabezado.Controls.Add(this.lblReferencia);
             this.tabEncabezado.Controls.Add(this.txtReferencia);
             this.tabEncabezado.Controls.Add(this.lblParcialidades);
@@ -352,7 +353,6 @@
             this.tabEncabezado.Controls.Add(this.lblConceptoInteres);
             this.tabEncabezado.Controls.Add(this.cmbConceptoInteres);
             this.tabEncabezado.Controls.Add(this.lblImpuesto);
-            this.tabEncabezado.Controls.Add(this.txtImpuesto);
             this.tabEncabezado.Controls.Add(this.lblDivisa);
             this.tabEncabezado.Controls.Add(this.txtDivisa);
             this.tabEncabezado.Controls.Add(this.lblTipoCambio);
@@ -580,6 +580,7 @@
             this.lblDias.Size = new System.Drawing.Size(32, 13);
             this.lblDias.TabIndex = 6;
             this.lblDias.Text = "Dias.";
+            this.lblDias.Click += new System.EventHandler(this.lblDias_Click);
             // 
             // lblVencimiento
             // 
@@ -674,25 +675,9 @@
             this.cmbConceptoPrestamo.ItemHeight = 20;
             this.cmbConceptoPrestamo.Location = new System.Drawing.Point(120, 118);
             this.cmbConceptoPrestamo.Name = "cmbConceptoPrestamo";
-            this.cmbConceptoPrestamo.Size = new System.Drawing.Size(70, 26);
+            this.cmbConceptoPrestamo.Size = new System.Drawing.Size(406, 26);
             this.cmbConceptoPrestamo.TabIndex = 10;
             this.cmbConceptoPrestamo.SelectedIndexChanged += new System.EventHandler(this.cmbConceptoPrestamo_SelectedIndexChanged);
-            // 
-            // txtDescConceptoPrestamo
-            // 
-            this.txtDescConceptoPrestamo.AutoRoundedCorners = true;
-            this.txtDescConceptoPrestamo.BorderColor = System.Drawing.Color.Gray;
-            this.txtDescConceptoPrestamo.BorderRadius = 11;
-            this.txtDescConceptoPrestamo.Cursor = System.Windows.Forms.Cursors.IBeam;
-            this.txtDescConceptoPrestamo.DefaultText = "";
-            this.txtDescConceptoPrestamo.Enabled = false;
-            this.txtDescConceptoPrestamo.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.txtDescConceptoPrestamo.Location = new System.Drawing.Point(207, 119);
-            this.txtDescConceptoPrestamo.Name = "txtDescConceptoPrestamo";
-            this.txtDescConceptoPrestamo.PlaceholderText = "";
-            this.txtDescConceptoPrestamo.SelectedText = "";
-            this.txtDescConceptoPrestamo.Size = new System.Drawing.Size(340, 25);
-            this.txtDescConceptoPrestamo.TabIndex = 11;
             // 
             // lblReferencia
             // 
@@ -873,7 +858,7 @@
             this.cmbConceptoInteres.ItemHeight = 20;
             this.cmbConceptoInteres.Location = new System.Drawing.Point(598, 188);
             this.cmbConceptoInteres.Name = "cmbConceptoInteres";
-            this.cmbConceptoInteres.Size = new System.Drawing.Size(70, 26);
+            this.cmbConceptoInteres.Size = new System.Drawing.Size(190, 26);
             this.cmbConceptoInteres.TabIndex = 18;
             this.cmbConceptoInteres.SelectedIndexChanged += new System.EventHandler(this.cmbConceptoInteres_SelectedIndexChanged);
             // 
@@ -881,28 +866,11 @@
             // 
             this.lblImpuesto.AutoSize = true;
             this.lblImpuesto.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold);
-            this.lblImpuesto.Location = new System.Drawing.Point(688, 193);
+            this.lblImpuesto.Location = new System.Drawing.Point(794, 193);
             this.lblImpuesto.Name = "lblImpuesto";
             this.lblImpuesto.Size = new System.Drawing.Size(70, 15);
             this.lblImpuesto.TabIndex = 19;
             this.lblImpuesto.Text = "Impuesto:";
-            // 
-            // txtImpuesto
-            // 
-            this.txtImpuesto.AutoRoundedCorners = true;
-            this.txtImpuesto.BorderColor = System.Drawing.Color.Gray;
-            this.txtImpuesto.BorderRadius = 11;
-            this.txtImpuesto.Cursor = System.Windows.Forms.Cursors.IBeam;
-            this.txtImpuesto.DefaultText = "NO";
-            this.txtImpuesto.Enabled = false;
-            this.txtImpuesto.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.txtImpuesto.Location = new System.Drawing.Point(758, 188);
-            this.txtImpuesto.Name = "txtImpuesto";
-            this.txtImpuesto.PlaceholderText = "";
-            this.txtImpuesto.SelectedText = "";
-            this.txtImpuesto.Size = new System.Drawing.Size(70, 25);
-            this.txtImpuesto.TabIndex = 19;
-            this.txtImpuesto.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // lblDivisa
             // 
@@ -1500,7 +1468,7 @@
             this.txtImporteCapital.Cursor = System.Windows.Forms.Cursors.IBeam;
             this.txtImporteCapital.DefaultText = "0.00";
             this.txtImporteCapital.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.txtImporteCapital.Location = new System.Drawing.Point(170, 60);
+            this.txtImporteCapital.Location = new System.Drawing.Point(140, 58);
             this.txtImporteCapital.Name = "txtImporteCapital";
             this.txtImporteCapital.PlaceholderText = "";
             this.txtImporteCapital.SelectedText = "";
@@ -1533,7 +1501,7 @@
             this.cmbConceptoCapitalPartida.Font = new System.Drawing.Font("Segoe UI", 10F);
             this.cmbConceptoCapitalPartida.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(68)))), ((int)(((byte)(88)))), ((int)(((byte)(112)))));
             this.cmbConceptoCapitalPartida.ItemHeight = 20;
-            this.cmbConceptoCapitalPartida.Location = new System.Drawing.Point(110, 102);
+            this.cmbConceptoCapitalPartida.Location = new System.Drawing.Point(140, 101);
             this.cmbConceptoCapitalPartida.Name = "cmbConceptoCapitalPartida";
             this.cmbConceptoCapitalPartida.Size = new System.Drawing.Size(70, 26);
             this.cmbConceptoCapitalPartida.TabIndex = 5;
@@ -1547,20 +1515,19 @@
             this.txtDescConceptoCapitalPartida.DefaultText = "";
             this.txtDescConceptoCapitalPartida.Enabled = false;
             this.txtDescConceptoCapitalPartida.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.txtDescConceptoCapitalPartida.Location = new System.Drawing.Point(190, 102);
+            this.txtDescConceptoCapitalPartida.Location = new System.Drawing.Point(216, 102);
             this.txtDescConceptoCapitalPartida.Name = "txtDescConceptoCapitalPartida";
             this.txtDescConceptoCapitalPartida.PlaceholderText = "";
             this.txtDescConceptoCapitalPartida.SelectedText = "";
-            this.txtDescConceptoCapitalPartida.Size = new System.Drawing.Size(560, 25);
+            this.txtDescConceptoCapitalPartida.Size = new System.Drawing.Size(534, 25);
             this.txtDescConceptoCapitalPartida.TabIndex = 6;
             // 
             // lblInteresParcialidad
             // 
-            this.lblInteresParcialidad.AutoSize = true;
             this.lblInteresParcialidad.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold);
-            this.lblInteresParcialidad.Location = new System.Drawing.Point(26, 150);
+            this.lblInteresParcialidad.Location = new System.Drawing.Point(26, 143);
             this.lblInteresParcialidad.Name = "lblInteresParcialidad";
-            this.lblInteresParcialidad.Size = new System.Drawing.Size(131, 15);
+            this.lblInteresParcialidad.Size = new System.Drawing.Size(92, 33);
             this.lblInteresParcialidad.TabIndex = 8;
             this.lblInteresParcialidad.Text = "Interés parcialidad:";
             // 
@@ -1572,7 +1539,7 @@
             this.txtInteresParcialidad.Cursor = System.Windows.Forms.Cursors.IBeam;
             this.txtInteresParcialidad.DefaultText = "0.00";
             this.txtInteresParcialidad.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.txtInteresParcialidad.Location = new System.Drawing.Point(190, 145);
+            this.txtInteresParcialidad.Location = new System.Drawing.Point(140, 144);
             this.txtInteresParcialidad.Name = "txtInteresParcialidad";
             this.txtInteresParcialidad.PlaceholderText = "";
             this.txtInteresParcialidad.SelectedText = "";
@@ -1586,7 +1553,7 @@
             // 
             this.lblIvaParcialidad.AutoSize = true;
             this.lblIvaParcialidad.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold);
-            this.lblIvaParcialidad.Location = new System.Drawing.Point(330, 150);
+            this.lblIvaParcialidad.Location = new System.Drawing.Point(277, 149);
             this.lblIvaParcialidad.Name = "lblIvaParcialidad";
             this.lblIvaParcialidad.Size = new System.Drawing.Size(31, 15);
             this.lblIvaParcialidad.TabIndex = 9;
@@ -1601,7 +1568,7 @@
             this.txtIvaParcialidad.DefaultText = "0.00";
             this.txtIvaParcialidad.Enabled = false;
             this.txtIvaParcialidad.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.txtIvaParcialidad.Location = new System.Drawing.Point(380, 145);
+            this.txtIvaParcialidad.Location = new System.Drawing.Point(327, 144);
             this.txtIvaParcialidad.Name = "txtIvaParcialidad";
             this.txtIvaParcialidad.PlaceholderText = "";
             this.txtIvaParcialidad.SelectedText = "";
@@ -1632,7 +1599,7 @@
             this.cmbConceptoInteresPartida.Font = new System.Drawing.Font("Segoe UI", 10F);
             this.cmbConceptoInteresPartida.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(68)))), ((int)(((byte)(88)))), ((int)(((byte)(112)))));
             this.cmbConceptoInteresPartida.ItemHeight = 20;
-            this.cmbConceptoInteresPartida.Location = new System.Drawing.Point(110, 192);
+            this.cmbConceptoInteresPartida.Location = new System.Drawing.Point(140, 192);
             this.cmbConceptoInteresPartida.Name = "cmbConceptoInteresPartida";
             this.cmbConceptoInteresPartida.Size = new System.Drawing.Size(70, 26);
             this.cmbConceptoInteresPartida.TabIndex = 9;
@@ -1646,11 +1613,11 @@
             this.txtDescConceptoInteresPartida.DefaultText = "";
             this.txtDescConceptoInteresPartida.Enabled = false;
             this.txtDescConceptoInteresPartida.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.txtDescConceptoInteresPartida.Location = new System.Drawing.Point(190, 192);
+            this.txtDescConceptoInteresPartida.Location = new System.Drawing.Point(216, 192);
             this.txtDescConceptoInteresPartida.Name = "txtDescConceptoInteresPartida";
             this.txtDescConceptoInteresPartida.PlaceholderText = "";
             this.txtDescConceptoInteresPartida.SelectedText = "";
-            this.txtDescConceptoInteresPartida.Size = new System.Drawing.Size(560, 25);
+            this.txtDescConceptoInteresPartida.Size = new System.Drawing.Size(534, 25);
             this.txtDescConceptoInteresPartida.TabIndex = 10;
             // 
             // lblTotalPartida
@@ -1672,7 +1639,7 @@
             this.txtTotalPartida.DefaultText = "0.00";
             this.txtTotalPartida.Enabled = false;
             this.txtTotalPartida.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
-            this.txtTotalPartida.Location = new System.Drawing.Point(170, 235);
+            this.txtTotalPartida.Location = new System.Drawing.Point(140, 240);
             this.txtTotalPartida.Name = "txtTotalPartida";
             this.txtTotalPartida.PlaceholderText = "";
             this.txtTotalPartida.SelectedText = "";
@@ -1765,25 +1732,25 @@
             // 
             this.guna2DataGridView1.AllowUserToAddRows = false;
             this.guna2DataGridView1.AllowUserToDeleteRows = false;
-            dataGridViewCellStyle13.BackColor = System.Drawing.Color.White;
-            this.guna2DataGridView1.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle13;
+            dataGridViewCellStyle19.BackColor = System.Drawing.Color.White;
+            this.guna2DataGridView1.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle19;
             this.guna2DataGridView1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            dataGridViewCellStyle14.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle14.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(88)))), ((int)(((byte)(255)))));
-            dataGridViewCellStyle14.Font = new System.Drawing.Font("Segoe UI", 8.25F);
-            dataGridViewCellStyle14.ForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle14.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle14.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle14.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.guna2DataGridView1.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle14;
-            dataGridViewCellStyle15.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle15.BackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle15.Font = new System.Drawing.Font("Segoe UI", 8.25F);
-            dataGridViewCellStyle15.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(71)))), ((int)(((byte)(69)))), ((int)(((byte)(94)))));
-            dataGridViewCellStyle15.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(229)))), ((int)(((byte)(255)))));
-            dataGridViewCellStyle15.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(71)))), ((int)(((byte)(69)))), ((int)(((byte)(94)))));
-            dataGridViewCellStyle15.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.guna2DataGridView1.DefaultCellStyle = dataGridViewCellStyle15;
+            dataGridViewCellStyle20.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle20.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(88)))), ((int)(((byte)(255)))));
+            dataGridViewCellStyle20.Font = new System.Drawing.Font("Segoe UI", 8.25F);
+            dataGridViewCellStyle20.ForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle20.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle20.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle20.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.guna2DataGridView1.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle20;
+            dataGridViewCellStyle21.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle21.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle21.Font = new System.Drawing.Font("Segoe UI", 8.25F);
+            dataGridViewCellStyle21.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(71)))), ((int)(((byte)(69)))), ((int)(((byte)(94)))));
+            dataGridViewCellStyle21.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(229)))), ((int)(((byte)(255)))));
+            dataGridViewCellStyle21.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(71)))), ((int)(((byte)(69)))), ((int)(((byte)(94)))));
+            dataGridViewCellStyle21.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.guna2DataGridView1.DefaultCellStyle = dataGridViewCellStyle21;
             this.guna2DataGridView1.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(229)))), ((int)(((byte)(255)))));
             this.guna2DataGridView1.Location = new System.Drawing.Point(93, 35);
             this.guna2DataGridView1.Name = "guna2DataGridView1";
@@ -1846,7 +1813,7 @@
             this.guna2GradientPanel2.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(19)))), ((int)(((byte)(35)))), ((int)(((byte)(95)))));
             this.guna2GradientPanel2.FillColor2 = System.Drawing.Color.SteelBlue;
             this.guna2GradientPanel2.GradientMode = System.Drawing.Drawing2D.LinearGradientMode.ForwardDiagonal;
-            this.guna2GradientPanel2.Location = new System.Drawing.Point(675, 81);
+            this.guna2GradientPanel2.Location = new System.Drawing.Point(688, 81);
             this.guna2GradientPanel2.Name = "guna2GradientPanel2";
             this.guna2GradientPanel2.Size = new System.Drawing.Size(386, 559);
             this.guna2GradientPanel2.TabIndex = 168;
@@ -1895,25 +1862,25 @@
             // 
             this.dgvAutorizados.AllowUserToAddRows = false;
             this.dgvAutorizados.AllowUserToDeleteRows = false;
-            dataGridViewCellStyle16.BackColor = System.Drawing.Color.White;
-            this.dgvAutorizados.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle16;
+            dataGridViewCellStyle22.BackColor = System.Drawing.Color.White;
+            this.dgvAutorizados.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle22;
             this.dgvAutorizados.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            dataGridViewCellStyle17.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle17.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(88)))), ((int)(((byte)(255)))));
-            dataGridViewCellStyle17.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle17.ForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle17.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle17.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle17.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvAutorizados.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle17;
-            dataGridViewCellStyle18.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle18.BackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle18.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle18.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(71)))), ((int)(((byte)(69)))), ((int)(((byte)(94)))));
-            dataGridViewCellStyle18.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(229)))), ((int)(((byte)(255)))));
-            dataGridViewCellStyle18.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(71)))), ((int)(((byte)(69)))), ((int)(((byte)(94)))));
-            dataGridViewCellStyle18.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgvAutorizados.DefaultCellStyle = dataGridViewCellStyle18;
+            dataGridViewCellStyle23.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle23.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(88)))), ((int)(((byte)(255)))));
+            dataGridViewCellStyle23.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle23.ForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle23.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle23.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle23.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvAutorizados.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle23;
+            dataGridViewCellStyle24.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle24.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle24.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle24.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(71)))), ((int)(((byte)(69)))), ((int)(((byte)(94)))));
+            dataGridViewCellStyle24.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(229)))), ((int)(((byte)(255)))));
+            dataGridViewCellStyle24.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(71)))), ((int)(((byte)(69)))), ((int)(((byte)(94)))));
+            dataGridViewCellStyle24.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvAutorizados.DefaultCellStyle = dataGridViewCellStyle24;
             this.dgvAutorizados.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(229)))), ((int)(((byte)(255)))));
             this.dgvAutorizados.Location = new System.Drawing.Point(1, 4);
             this.dgvAutorizados.Name = "dgvAutorizados";
@@ -2328,6 +2295,32 @@
             this.btnNuevoPrestamo.TabIndex = 88;
             this.btnNuevoPrestamo.Click += new System.EventHandler(this.btnNuevoPrestamo_Click);
             // 
+            // tgImpuesto
+            // 
+            this.tgImpuesto.CheckedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.tgImpuesto.CheckedState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.tgImpuesto.CheckedState.InnerBorderColor = System.Drawing.Color.White;
+            this.tgImpuesto.CheckedState.InnerColor = System.Drawing.Color.White;
+            this.tgImpuesto.Location = new System.Drawing.Point(868, 193);
+            this.tgImpuesto.Name = "tgImpuesto";
+            this.tgImpuesto.Size = new System.Drawing.Size(35, 20);
+            this.tgImpuesto.TabIndex = 244;
+            this.tgImpuesto.UncheckedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(137)))), ((int)(((byte)(149)))));
+            this.tgImpuesto.UncheckedState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(137)))), ((int)(((byte)(149)))));
+            this.tgImpuesto.UncheckedState.InnerBorderColor = System.Drawing.Color.White;
+            this.tgImpuesto.UncheckedState.InnerColor = System.Drawing.Color.White;
+            this.tgImpuesto.CheckedChanged += new System.EventHandler(this.tgImpuesto_CheckedChanged);
+            // 
+            // lblImpuestoo
+            // 
+            this.lblImpuestoo.AutoSize = true;
+            this.lblImpuestoo.Location = new System.Drawing.Point(908, 195);
+            this.lblImpuestoo.Name = "lblImpuestoo";
+            this.lblImpuestoo.Size = new System.Drawing.Size(24, 13);
+            this.lblImpuestoo.TabIndex = 6;
+            this.lblImpuestoo.Text = "NO";
+            this.lblImpuestoo.Click += new System.EventHandler(this.lblDias_Click);
+            // 
             // Prestamos
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -2407,7 +2400,6 @@
         private Guna.UI2.WinForms.Guna2TextBox txtNombreAcreedor;
         private System.Windows.Forms.Label lblConcepto1;
         private Guna.UI2.WinForms.Guna2ComboBox cmbConceptoPrestamo;
-        private Guna.UI2.WinForms.Guna2TextBox txtDescConceptoPrestamo;
         private System.Windows.Forms.Label lblReferencia;
         private Guna.UI2.WinForms.Guna2TextBox txtReferencia;
         private System.Windows.Forms.Label lblParcialidades;
@@ -2423,7 +2415,6 @@
         private System.Windows.Forms.Label lblConceptoInteres;
         private Guna.UI2.WinForms.Guna2ComboBox cmbConceptoInteres;
         private System.Windows.Forms.Label lblImpuesto;
-        private Guna.UI2.WinForms.Guna2TextBox txtImpuesto;
         private System.Windows.Forms.Label lblDivisa;
         private Guna.UI2.WinForms.Guna2TextBox txtDivisa;
         private System.Windows.Forms.Label lblTipoCambio;
@@ -2527,5 +2518,7 @@
         private Guna.UI2.WinForms.Guna2Button btnBuscarAcreedor;
         private Guna.UI2.WinForms.Guna2Button btnEliminarPartida;
         private Guna.UI2.WinForms.Guna2DateTimePicker txtVencimientoPartida;
+        private Guna.UI2.WinForms.Guna2ToggleSwitch tgImpuesto;
+        private System.Windows.Forms.Label lblImpuestoo;
     }
 }

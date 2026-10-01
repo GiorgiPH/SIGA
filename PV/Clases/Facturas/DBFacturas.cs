@@ -33,6 +33,32 @@ namespace PV.Clases.Facturas
     ///     aquí es la propiedad .Text, disponible en la clase base Control.
     ///     Esto evita acoplar la capa de datos al tipo exacto de control de
     ///     UI que uses (Guna2TextBox, TextBox, Guna2ComboBox, ComboBox, etc.)
+    ///
+    /// AJUSTE (Producto o Servicio por partida): PartidaFactura.ClaveProducto
+    /// ya no apunta exclusivamente a Servicios.ClaveServicio. Ahora cada
+    /// partida trae también TipoConcepto ('Producto' / 'Servicio'), que dice
+    /// contra cuál de los dos catálogos (ProductosServicios o Servicios)
+    /// resolver ClaveProducto. Esto afecta:
+    ///   - InsertarPartidaFactura / ActualizarPartidaFactura: reciben
+    ///     "tipoConcepto" como nuevo parámetro y lo guardan.
+    ///   - ConsultaPartidaFactura: YA NO recibe el ComboBox cmbConcepto ni le
+    ///     asigna SelectedValue directamente -antes podía hacerlo porque
+    ///     cmbConcepto sólo tenía una fuente posible (Servicios)-; ahora
+    ///     regresa TipoConcepto y ClaveProducto crudos por "out", porque
+    ///     decidir de qué catálogo recargar cmbConcepto antes de poder
+    ///     seleccionar el valor correcto le corresponde al formulario (ver
+    ///     Facturas.guna2DataGridView1_CellDoubleClick). De paso, ahora sí
+    ///     restaura txtConcepto2 (antes no lo hacía, dejando la descripción
+    ///     visible desactualizada al editar una partida).
+    ///   - CargarPartidasFactura: agrega TipoConcepto al SELECT para que la
+    ///     grilla pueda mostrar la columna "Tipo".
+    ///   - GenerarXmlFactura: el JOIN que resolvía la descripción/alias de
+    ///     la partida sólo contra Servicios ahora es contra Servicios O
+    ///     ProductosServicios, según TipoConcepto.
+    ///   - ObtenerPartidas: agrega TipoConcepto al final de cada fila (nuevo
+    ///     índice [7]), sin romper los índices existentes, por si en el
+    ///     futuro se usa para generar movimientos de almacén sólo cuando
+    ///     TipoConcepto = 'Producto'.
     /// </summary>
     public class DBFacturas
     {
@@ -435,16 +461,24 @@ namespace PV.Clases.Facturas
             }
         }
 
-        public void InsertarPartidaFactura(string folioFactura, string partida, string claveProducto, string concepto2,
-            string cantidad, string unidad, string divisa, string tipoCambio, decimal subtotal, decimal descuento,
-            decimal total, decimal precio, decimal impuesto, decimal descuentoImporte, decimal ImpuestoImporte)
+        /// <summary>
+        /// Inserta una partida. "tipoConcepto" debe ser exactamente
+        /// 'Producto' o 'Servicio' (viene de cmbTipo.Text en el formulario) y
+        /// "claveProducto" es la clave del catálogo correspondiente
+        /// (ProductosServicios.ClaveProducto o Servicios.ClaveServicio,
+        /// según tipoConcepto).
+        /// </summary>
+        public void InsertarPartidaFactura(string folioFactura, string partida, string tipoConcepto, string claveProducto,
+            string concepto2, string cantidad, string unidad, string divisa, string tipoCambio, decimal subtotal,
+            decimal descuento, decimal total, decimal precio, decimal impuesto, decimal descuentoImporte,
+            decimal ImpuestoImporte)
         {
             const string sql = @"
                 INSERT INTO PartidaFactura
-                    (FolioFactura, Partida, ClaveProducto, Concepto2, Cantidad, Unidad, Divisa, TipoCambio,
+                    (FolioFactura, Partida, TipoConcepto, ClaveProducto, Concepto2, Cantidad, Unidad, Divisa, TipoCambio,
                      Subtotal, Descuento, Total, Precio, CantidadRecibida, Impuesto, DescuentoImporte, ImpuestoImporte)
                 VALUES
-                    (@FolioFactura, @Partida, @ClaveProducto, @Concepto2, @Cantidad, @Unidad, @Divisa, @TipoCambio,
+                    (@FolioFactura, @Partida, @TipoConcepto, @ClaveProducto, @Concepto2, @Cantidad, @Unidad, @Divisa, @TipoCambio,
                      @Subtotal, @Descuento, @Total, @Precio, 0, @Impuesto,  @DescuentoImporte, @ImpuestoImporte)";
 
             using (SqlConnection cn = new SqlConnection(ObtenerCn()))
@@ -452,6 +486,7 @@ namespace PV.Clases.Facturas
             {
                 cmd.Parameters.AddWithValue("@FolioFactura", Convert.ToInt32(folioFactura));
                 cmd.Parameters.AddWithValue("@Partida", Convert.ToInt32(partida));
+                cmd.Parameters.AddWithValue("@TipoConcepto", tipoConcepto);
                 cmd.Parameters.AddWithValue("@ClaveProducto", IntOrNull(claveProducto));
                 cmd.Parameters.AddWithValue("@Concepto2", (object)concepto2 ?? DBNull.Value);
                 cmd.Parameters.AddWithValue("@Cantidad", string.IsNullOrWhiteSpace(cantidad) ? 0 : Convert.ToInt32(Convert.ToDecimal(cantidad)));
@@ -473,19 +508,21 @@ namespace PV.Clases.Facturas
 
         /// <summary>
         /// Actualiza una partida ya existente (FolioFactura + Partida). Es
-        /// la contraparte de InsertarPartidaFactura: mismos campos, pero vía
-        /// UPDATE en vez de INSERT. Se agrega porque el formulario permite
-        /// cargar una partida existente para edición (doble clic en la
-        /// grilla de partidas) y, al confirmar, antes se intentaba volver a
-        /// insertarla con la misma llave (FolioFactura, Partida), lo que
-        /// producía una violación de llave primaria/única.
+        /// la contraparte de InsertarPartidaFactura: mismos campos (incluido
+        /// tipoConcepto), pero vía UPDATE en vez de INSERT. Se agrega porque
+        /// el formulario permite cargar una partida existente para edición
+        /// (doble clic en la grilla de partidas) y, al confirmar, antes se
+        /// intentaba volver a insertarla con la misma llave (FolioFactura,
+        /// Partida), lo que producía una violación de llave primaria/única.
         /// </summary>
-        public void ActualizarPartidaFactura(string folioFactura, string partida, string claveProducto, string concepto2,
-            string cantidad, string unidad, string divisa, string tipoCambio, decimal subtotal, decimal descuento,
-            decimal total, decimal precio, decimal impuesto, decimal DescuentoImporte, decimal ImpuestoImporte)
+        public void ActualizarPartidaFactura(string folioFactura, string partida, string tipoConcepto, string claveProducto,
+            string concepto2, string cantidad, string unidad, string divisa, string tipoCambio, decimal subtotal,
+            decimal descuento, decimal total, decimal precio, decimal impuesto, decimal DescuentoImporte,
+            decimal ImpuestoImporte)
         {
             const string sql = @"
                 UPDATE PartidaFactura SET
+                    TipoConcepto = @TipoConcepto,
                     ClaveProducto = @ClaveProducto,
                     Concepto2 = @Concepto2,
                     Cantidad = @Cantidad,
@@ -506,6 +543,7 @@ namespace PV.Clases.Facturas
             {
                 cmd.Parameters.AddWithValue("@FolioFactura", Convert.ToInt32(folioFactura));
                 cmd.Parameters.AddWithValue("@Partida", Convert.ToInt32(partida));
+                cmd.Parameters.AddWithValue("@TipoConcepto", tipoConcepto);
                 cmd.Parameters.AddWithValue("@ClaveProducto", IntOrNull(claveProducto));
                 cmd.Parameters.AddWithValue("@Concepto2", (object)concepto2 ?? DBNull.Value);
                 cmd.Parameters.AddWithValue("@Cantidad", string.IsNullOrWhiteSpace(cantidad) ? 0 : Convert.ToInt32(Convert.ToDecimal(cantidad)));
@@ -526,18 +564,34 @@ namespace PV.Clases.Facturas
         }
 
         /// <summary>
-        /// Carga una partida existente en los controles del panel de edición.
-        /// Selecciona el producto en el combo por Id (SelectedValue) en vez
-        /// de por texto, para que quede exactamente el mismo producto aunque
-        /// existan descripciones repetidas o parecidas.
+        /// Carga una partida existente en los controles del panel de edición
+        /// y regresa por "out" TipoConcepto y ClaveProducto crudos. A
+        /// diferencia de la versión anterior, YA NO recibe ni manipula el
+        /// ComboBox cmbConcepto: como ahora cmbConcepto puede alimentarse de
+        /// dos catálogos distintos según TipoConcepto, decidir cuál cargar
+        /// antes de poder seleccionar el valor correcto le corresponde al
+        /// formulario (Facturas.guna2DataGridView1_CellDoubleClick), que
+        /// debe:
+        ///   1) Llamar a este método.
+        ///   2) Poner cmbTipo.Text = tipoConcepto.
+        ///   3) Repoblar cmbConcepto para ese tipo (CargarComboProductos()).
+        ///   4) Recién entonces, cmbConcepto.SelectedValue = claveProducto.
+        ///
+        /// También se agrega "txtConcepto2": a diferencia de la versión
+        /// anterior (que no lo restauraba al editar, dejando la descripción
+        /// visible desactualizada), ahora sí se repone desde la base de
+        /// datos.
         /// </summary>
         public void ConsultaPartidaFactura(string folioFactura, string partida,
             Control txtCantidad, Control txtUnidad, Control txtDivisa, Control txtTipoCambio,
             Control txtImporte, Control txtDescuento, Control txtTotal, Control txtPrecio, Control txtImpuesto,
-            Control txtEntregado, ComboBox cmbConcepto)
+            Control txtEntregado, Control txtConcepto2, out string tipoConcepto, out string claveProducto)
         {
+            tipoConcepto = string.Empty;
+            claveProducto = string.Empty;
+
             const string sql = @"
-                SELECT ClaveProducto, Concepto2, Cantidad, Unidad, Divisa, TipoCambio, Subtotal, Descuento, Total,
+                SELECT TipoConcepto, ClaveProducto, Concepto2, Cantidad, Unidad, Divisa, TipoCambio, Subtotal, Descuento, Total,
                        Precio, Impuesto, CantidadRecibida
                 FROM PartidaFactura
                 WHERE FolioFactura = @Folio AND Partida = @Partida";
@@ -553,14 +607,10 @@ namespace PV.Clases.Facturas
                     if (!dr.Read())
                         return;
 
-                    // El ValueMember del combo (ClaveProducto) es numérico:
-                    // hay que convertir antes de asignar SelectedValue, o la
-                    // comparación de tipos falla y no selecciona nada.
-                    if (dr["ClaveProducto"] != DBNull.Value)
-                    {
-                        cmbConcepto.SelectedValue = Convert.ToInt32(dr["ClaveProducto"]);
-                    }
+                    tipoConcepto = Txt(dr["TipoConcepto"]);
+                    claveProducto = Txt(dr["ClaveProducto"]);
 
+                    txtConcepto2.Text = Txt(dr["Concepto2"]);
                     txtCantidad.Text = Txt(dr["Cantidad"]);
                     txtUnidad.Text = Txt(dr["Unidad"]);
                     txtDivisa.Text = Txt(dr["Divisa"]);
@@ -638,13 +688,13 @@ namespace PV.Clases.Facturas
         /// Llena la grilla de partidas de una Factura. Trae únicamente los
         /// datos que necesitan las columnas armadas por código en el
         /// formulario (Facturas.ConfigurarGrillaPartidas): Folio, Partida,
-        /// Producto (Concepto2), Cantidad, Subtotal, Descuento, Impuesto,
-        /// Total.
+        /// Tipo (TipoConcepto), Producto (Concepto2), Cantidad, Subtotal,
+        /// Descuento, Impuesto, Total.
         /// </summary>
         public void CargarPartidasFactura(DataGridView dgv, string folioFactura)
         {
             const string sql = @"
-                SELECT F.Consecutivo,P.FolioFactura, P.Partida, P.Concepto2, P.Cantidad, P.Subtotal, P.Descuento, P.Impuesto, P.Total
+                SELECT F.Consecutivo,P.FolioFactura, P.Partida, P.TipoConcepto, P.Concepto2, P.Cantidad, P.Subtotal, P.Descuento, P.Impuesto, P.Total
                 FROM Factura as F Join PartidaFactura as P ON F.Folio = P.FolioFactura
                 WHERE F.Folio = @Folio
                 ORDER BY Partida";
@@ -690,22 +740,26 @@ namespace PV.Clases.Facturas
 
         /// <summary>
         /// Regresa las partidas de la Factura en el formato
-        /// [ClaveProducto, Cantidad, Costeo, Precio, Partida, Unidad, Total]
+        /// [ClaveProducto, Cantidad, Costeo, Precio, Partida, Unidad, Total, TipoConcepto]
         /// requerido por la salida de almacén (mismo formato que consumía
-        /// IngresarAlmacen en OrdenPedidoCliente).
+        /// IngresarAlmacen en OrdenPedidoCliente). Se agrega TipoConcepto al
+        /// final (índice [7]) sin romper los índices existentes, por si en
+        /// el futuro se usa para generar el movimiento de almacén SÓLO
+        /// cuando TipoConcepto = 'Producto' (un Servicio no debería mover
+        /// inventario).
         ///
         /// NOTA/TODO: el costo unitario ("Costeo") no se guarda en
         /// PartidaFactura (igual que no se guardaba en PartidaRemision); en
         /// el formulario original se tomaba de la tabla de Producto al
         /// momento de capturar la partida. Aquí se regresa "0" como
         /// marcador de posición — ajusta el JOIN de abajo con tu tabla
-        /// Producto real (por ejemplo Producto.CostoUnitario) si necesitas
-        /// el costeo real para el movimiento de inventario.
+        /// Producto real (por ejemplo ProductosServicios.CostoUnitario) si
+        /// necesitas el costeo real para el movimiento de inventario.
         /// </summary>
         public List<List<string>> ObtenerPartidas(string folioFactura)
         {
             const string sql = @"
-                SELECT ClaveProducto, Cantidad, Precio, Partida, Unidad, Total
+                SELECT ClaveProducto, Cantidad, Precio, Partida, Unidad, Total, TipoConcepto
                 FROM PartidaFactura
                 WHERE FolioFactura = @Folio
                 ORDER BY Partida";
@@ -729,7 +783,8 @@ namespace PV.Clases.Facturas
                             Txt(dr["Precio"]),          // [3] precio
                             Txt(dr["Partida"]),         // [4] partida
                             Txt(dr["Unidad"]),          // [5] unidad
-                            Txt(dr["Total"])            // [6] total
+                            Txt(dr["Total"]),           // [6] total
+                            Txt(dr["TipoConcepto"])     // [7] tipo (Producto/Servicio) - NUEVO
                         };
                         resultado.Add(fila);
                     }
@@ -1032,7 +1087,11 @@ namespace PV.Clases.Facturas
 
         /// <summary>
         /// Genera el XML de una Factura (encabezado + emisor + cliente + partidas),
-        /// misma estructura que GenerarXmlRemision pero usando Factura/PartidaFactura/Servicios.
+        /// misma estructura que GenerarXmlRemision pero usando Factura/PartidaFactura.
+        /// Cada partida ahora puede ser un Producto o un Servicio: la
+        /// descripción/alias/unidad se resuelven con un LEFT JOIN a
+        /// Servicios (cuando TipoConcepto='Servicio') o a ProductosServicios
+        /// (cuando TipoConcepto='Producto'), tomando el que haga match.
         /// </summary>
         public string GenerarXmlFactura(string folio)
         {
@@ -1053,12 +1112,17 @@ namespace PV.Clases.Facturas
                 FROM DatosEmpresa";
 
             const string sqlPartidas = @"
-                SELECT PF.Partida, PF.ClaveProducto, PF.Concepto2, PF.Cantidad, PF.Unidad,
+                SELECT PF.Partida, PF.TipoConcepto, PF.ClaveProducto, PF.Concepto2, PF.Cantidad, PF.Unidad,
                        PF.Divisa, PF.TipoCambio, PF.Subtotal, PF.Descuento, PF.Total,
                        PF.Precio, PF.CantidadRecibida, PF.Impuesto,
-                       S.Descripcion AS DescripcionProducto, S.Alias, S.UnidadMedida
+                       COALESCE(S.Descripcion, PS.Descripcion)    AS DescripcionProducto,
+                       COALESCE(S.Alias, PS.Alias)                AS Alias,
+                       PS.UnidadMedida                            AS UnidadMedida
                 FROM PartidaFactura AS PF
-                LEFT JOIN Servicios AS S ON PF.ClaveProducto = S.ClaveServicio
+                LEFT JOIN Servicios AS S
+                    ON PF.TipoConcepto = 'Servicio' AND PF.ClaveProducto = S.ClaveServicio
+                LEFT JOIN ProductosServicios AS PS
+                    ON PF.TipoConcepto = 'Producto' AND PF.ClaveProducto = PS.ClaveProducto
                 WHERE PF.FolioFactura = @Folio
                 ORDER BY PF.Partida";
 
@@ -1177,16 +1241,26 @@ namespace PV.Clases.Facturas
                     writer.WriteStartElement("Partidas");
                     foreach (DataRow p in partidasDt.Rows)
                     {
+                        string tipoConcepto = p["TipoConcepto"].ToString();
+
+                        // Unidad: se usa la capturada en la partida si existe;
+                        // si no, 'Servicio' como literal fijo cuando el tipo es
+                        // Servicio (esa tabla no tiene columna de unidad), o la
+                        // UnidadMedida de ProductosServicios cuando es Producto.
+                        string unidadPartida = !string.IsNullOrWhiteSpace(p["Unidad"].ToString())
+                            ? p["Unidad"].ToString()
+                            : (tipoConcepto == "Servicio" ? "Servicio" : Txt(p["UnidadMedida"]));
+
                         writer.WriteStartElement("Partida");
                         writer.WriteElementString("NumeroPartida", p["Partida"].ToString());
+                        writer.WriteElementString("Tipo", tipoConcepto);
                         writer.WriteElementString("ClaveProducto", p["ClaveProducto"].ToString());
                         writer.WriteElementString("Descripcion",
                             p["DescripcionProducto"] != DBNull.Value ? p["DescripcionProducto"].ToString() : p["Concepto2"].ToString());
                         writer.WriteElementString("Alias", p["Alias"].ToString());
                         writer.WriteElementString("Cantidad", p["Cantidad"].ToString());
                         writer.WriteElementString("CantidadRecibida", p["CantidadRecibida"].ToString());
-                        writer.WriteElementString("Unidad",
-                            !string.IsNullOrWhiteSpace(p["Unidad"].ToString()) ? p["Unidad"].ToString() : p["UnidadMedida"].ToString());
+                        writer.WriteElementString("Unidad", unidadPartida);
                         writer.WriteElementString("Precio", p["Precio"].ToString());
                         writer.WriteElementString("Divisa", p["Divisa"].ToString());
                         writer.WriteElementString("TipoCambio", p["TipoCambio"].ToString());

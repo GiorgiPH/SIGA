@@ -1,15 +1,12 @@
 ﻿using Condominios.Clases.CentroCostos;
-using Condominios.Clases.RegistrarIngresos;
 using Guna.UI2.WinForms;
 using PuntoVentas.Clases.Login;
 using PuntoVentas.Clases.ProductosServicios;
 using PV.Clases;
-using PV.Clases.Almacenes;
 using PV.Clases.CentroCostos;
 using PV.Clases.Clientes;
-using PV.Clases.Facturas;
+using PV.Clases.Cotizaciones;
 using PV.Clases.PedidoCliente;
-using PV.Clases.Remision;
 using PV.Clases.Servicios;
 using System;
 using System.Data;
@@ -19,112 +16,56 @@ using System.Windows.Forms;
 namespace PV
 {
     /// <summary>
-    /// Registro de Facturas. Adaptado de OrdenPedidoCliente.cs, conservando
-    /// únicamente la rama de lógica equivalente a "Remision" (por eso el
-    /// parecido casi total en nombres de método/control), y retirando por
-    /// completo la vinculación a Pedido a Cliente (txtFolioPedido, el botón
-    /// de documento vinculado "d"/btnDocumento/label66, y la validación de
-    /// cantidad pendiente contra un pedido).
-    ///
-    /// Ajuste posterior: Facturas ya NO trabaja contra el catálogo de
-    /// Productos y Servicios ni contra Almacenes/Inventario. El concepto de
-    /// la partida se toma únicamente del catálogo de Servicios (DBServicios),
-    /// y se retiró toda la lógica de existencias, selección de almacén y
-    /// movimiento de salida de inventario al confirmar la factura.
-    ///
-    /// Ajuste posterior 2: cada acción que inserta, edita o elimina una
-    /// PartidaFactura vuelve a llamar a DBFacturas.ActualizarTotalesFactura
-    /// (que ahora recalcula TotalPartidas por sí sola, vía COUNT(*), y ya no
-    /// recibe ese valor como parámetro) seguido de DBFacturas.ReciboSaldos,
-    /// para que los campos globales del encabezado (Subtotal, Descuento,
-    /// Recargo, Total, Partidas) se vean actualizados de inmediato sin
-    /// esperar a que el formulario reciba el evento Activated.
-    ///
-    /// Ajuste posterior 3: cada partida ahora puede capturarse contra el
-    /// catálogo de Productos (ProductosServicios) O contra el catálogo de
-    /// Servicios (Servicios), elegido con el nuevo combo "cmbTipo". Antes la
-    /// columna PartidaFactura.ClaveProducto sólo podía apuntar a
-    /// Servicios.ClaveServicio; ahora puede apuntar a cualquiera de los dos
-    /// catálogos, y PartidaFactura.TipoConcepto ('Producto'/'Servicio') dice
-    /// contra cuál se debe resolver. Esto implicó:
-    ///   - Agregar DBProductosServicios como catálogo adicional (prod).
-    ///   - CargarComboProductos() ahora decide la fuente del combo
-    ///     (cmbConcepto) según cmbTipo.Text.
-    ///   - cmbConcepto_SelectedIndexChanged resuelve precio/unidad/impuesto/
-    ///     descuento contra DBProductosServicios.InformacionProducto o
-    ///     DBServicios.InformacionServicio, según cmbTipo.
-    ///   - InsertarPartidaFactura/ActualizarPartidaFactura reciben
-    ///     "tipoConcepto" como nuevo parámetro.
-    ///   - ConsultaPartidaFactura (capa de datos) ya no manipula el combo
-    ///     directamente: regresa TipoConcepto y ClaveProducto crudos por
-    ///     "out", porque la fuente de cmbConcepto depende de cmbTipo y esa
-    ///     decisión le corresponde al formulario, no a la capa de datos
-    ///     (ver guna2DataGridView1_CellDoubleClick).
-    ///   - Ver también el ALTER de SQL Server que agrega la columna
-    ///     TipoConcepto a PartidaFactura y retira la FK fija hacia Servicios.
+    
     /// </summary>
-    public partial class Facturas : Form
+    public partial class Cotizaciones : Form
     {
         public static string Matricula = string.Empty;
         public static string M2 = string.Empty;
-        public static int Opcion = 0;
 
-        // Específico de Facturas (Factura / PartidaFactura)
-        DBFacturas f = new DBFacturas();
+        // Específico de Cotizaciones (Cotizacion / PartidaCotizacion)
+        DBCotizaciones cot = new DBCotizaciones();
 
-        // Compartidas/genéricas: se siguen usando igual que en OrdenPedidoCliente
-        // porque no dependen de la tabla Remision/Factura (catálogo de
-        // documentos, búsqueda de clientes, etc.)
         DBPedidoCliente c = new DBPedidoCliente();
         DBClientes cl = new DBClientes();
         DBCentroCostos cc = new DBCentroCostos();
-        DBDatosProyecto dp = new DBDatosProyecto();
-        DBAlmacenes DBAlmacenes = new DBAlmacenes();
 
-        // Catálogos para las partidas: cada partida puede ser un Producto o
-        // un Servicio, según el combo cmbTipo.
+        // Catálogos para las partidas: Cotizaciones puede capturar contra
+        // Productos o contra Servicios, según cmbTipo.
         DBServicios srv = new DBServicios();
         DBProductosServicios prod = new DBProductosServicios();
 
         private bool mostrarCentroCosto = false;
 
-        public Facturas()
+        // true cuando la Cotización no tiene cliente registrado y se está
+        // capturando/mostrando información de prospecto.
+        private bool esProspecto = false;
+
+        public Cotizaciones()
         {
             InitializeComponent();
 
             ToolTip T = new ToolTip();
-            label18.Text = "Factura";
-            T.SetToolTip(btnBuevaFactura, "Nueva Factura");
-            T.SetToolTip(guna2Button16, "Consultar Factura");
-            T.SetToolTip(button10, "Imprimir Factura");
+            label18.Text = "Cotización";
+            T.SetToolTip(btnBuevaFactura, "Nueva Cotización");
+            T.SetToolTip(guna2Button16, "Consultar Cotización");
+            T.SetToolTip(button10, "Imprimir Cotización");
             T.SetToolTip(btnCliente, "Buscar Cliente");
-            T.SetToolTip(btnRemisionXML, "Generar XML");
-            // Controles heredados del copiado de OrdenPedidoCliente que eran
-            // específicos de la vinculación con Pedido a Cliente: no aplican
-            // en Facturas.
-            if (d != null) d.Visible = false;
-            if (btnDocumento != null) btnDocumento.Visible = false;
-            if (label66 != null) label66.Visible = false;
-
-            // cmbTipo se agregó directamente en el Designer (sin wiring de
-            // evento todavía); se engancha aquí por código para no depender
-            // de que el evento haya quedado conectado desde el panel de
-            // Propiedades de Visual Studio.
-            cmbTipo.SelectedIndexChanged += cmbTipo_SelectedIndexChanged;
 
             c.BuscarProveedor(guna2DataGridView2);
         }
 
         #region Ciclo de vida del formulario
 
-        private void Facturas_Load(object sender, EventArgs e)
+        private void Cotizaciones_Load(object sender, EventArgs e)
         {
             ConfigurarGrillaEncabezado(DataGridView2);
             ConfigurarGrillaPartidas(guna2DataGridView1);
 
-            f.CargarFacturas(DataGridView2, txtFiltro.Text, txtFiltroDocumento.Text, txtFiltroNombre.Text, true);
+            cot.CargarCotizaciones(DataGridView2, txtFiltro.Text, txtFiltroDocumento.Text, txtFiltroNombre.Text, true);
 
-            f.SeleccionarFactura(cmbDocumento);
+            cot.SeleccionarCotizacion(cmbDocumento);
+
             ConfigurarComboTipo();
 
             cmbEstatus.SelectedIndex = 0;
@@ -134,20 +75,16 @@ namespace PV
             txtElaborado.Text = DBLogin.usuario;
 
             txtDiasVence.Text = "0";
+            tgProspecto.Checked = false;
             RecalcularFechaVencimiento();
 
             ConfigurarToolStripExpandido();
             LlenarComboCentro();
-            LLenarAlmacenes();
+
+            ConfigurarClienteOProspecto(hayCliente: false);
         }
 
-        /// <summary>
-        /// Llena cmbTipo con las dos opciones fijas Producto/Servicio y lo
-        /// deja en modo "sólo selección de lista" (sin texto libre), para
-        /// que su .Text siempre sea exactamente "Producto" o "Servicio" tal
-        /// como lo esperan CargarComboProductos() y
-        /// cmbConcepto_SelectedIndexChanged.
-        /// </summary>
+        /// <summary>Llena cmbTipo con las dos opciones fijas Producto/Servicio.</summary>
         private void ConfigurarComboTipo()
         {
             cmbTipo.DropDownStyle = ComboBoxStyle.DropDownList;
@@ -158,12 +95,10 @@ namespace PV
         }
 
         /// <summary>
-        /// Arma por código las columnas de las grillas de encabezado
-        /// (dataGridView1 = abiertas / no autorizadas, DataGridView2 =
-        /// autorizadas-bloqueadas). Si el Designer copiado ya traía columnas
-        /// definidas ahí, este método las reemplaza por completo: Folio
-        /// (oculto, el folio real/PK), Folio (visible, en realidad muestra
-        /// el Consecutivo), Documento, Proveedor, Fecha.
+        /// Arma por código las columnas de las grillas de encabezado.
+        /// Se corrige el HeaderText "Proveedor" que traía la copia de
+        /// Facturas (arrastrado de un copy-paste anterior) por "Cliente",
+        /// que es lo que realmente representa la columna en Cotizaciones.
         /// </summary>
         private void ConfigurarGrillaEncabezado(DataGridView dgv)
         {
@@ -200,7 +135,7 @@ namespace PV
             {
                 Name = "Cliente",
                 DataPropertyName = "Cliente",
-                HeaderText = "Proveedor",
+                HeaderText = "Cliente",
                 Width = 220,
                 AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill
             });
@@ -215,10 +150,8 @@ namespace PV
         }
 
         /// <summary>
-        /// Arma por código las columnas de la grilla de partidas:
-        /// Folio, Partida, Tipo, Producto, Cantidad, Subtotal, Descuento, Impuesto, Total.
-        /// Se agrega la columna "Tipo" (Producto/Servicio) respecto a la
-        /// versión anterior, que sólo manejaba Servicios.
+        /// Arma por código las columnas de la grilla de partidas. Se agrega
+        /// la columna "Tipo" (Producto/Servicio) respecto a Facturas.
         /// </summary>
         private void ConfigurarGrillaPartidas(DataGridView dgv)
         {
@@ -230,7 +163,6 @@ namespace PV
             dgv.MultiSelect = false;
             dgv.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
 
-            // Consecutivo: se conserva como valor interno, pero no se muestra
             dgv.Columns.Add(new DataGridViewTextBoxColumn
             {
                 Name = "Consecutivo",
@@ -240,11 +172,10 @@ namespace PV
                 Visible = true
             });
 
-            // FolioFactura: se conserva como valor interno, pero no se muestra
             dgv.Columns.Add(new DataGridViewTextBoxColumn
             {
                 Name = "Folio",
-                DataPropertyName = "FolioFactura",
+                DataPropertyName = "FolioCotizacion",
                 HeaderText = "Folio",
                 Width = 70,
                 Visible = false
@@ -270,7 +201,7 @@ namespace PV
             {
                 Name = "Producto",
                 DataPropertyName = "Concepto2",
-                HeaderText = "Producto",
+                HeaderText = "Producto / Servicio",
                 Width = 220,
                 AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill
             });
@@ -336,11 +267,11 @@ namespace PV
             });
         }
 
-        private void Facturas_Activated(object sender, EventArgs e)
+        private void Cotizaciones_Activated(object sender, EventArgs e)
         {
             if (txtFolio.Text != "X" && !string.IsNullOrEmpty(txtFolio.Text))
             {
-                f.ReciboSaldos(txtFolio.Text, txtSubtotal, txtDescuento, txtRecargo, txtTotal, txtPartidas, txtSaldo);
+                cot.ReciboSaldos(txtFolio.Text, txtSubtotal, txtDescuento, txtRecargo, txtTotal, txtPartidas);
 
                 if (txtPartidas.Text == string.Empty)
                 {
@@ -348,28 +279,37 @@ namespace PV
                 }
             }
 
-            if (Opcion == 1)
-            {
-                txtAutoriza.Text = DBRegistrarIngresos.usuario;
-                txtFechaAuto.Text = DateTime.Today.ToString("yyyy/MM/dd");
-                f.ActualizarFacturaAutorizacion(txtFolio.Text, txtAutoriza.Text, txtFechaAuto.Text);
-                MessageBox.Show("Factura Autorizada");
-                Limpiar();
-
-                f.CargarFacturas(DataGridView2, txtFiltro.Text, txtFiltroDocumento.Text, txtFiltroNombre.Text, true);
-            }
+        
         }
 
-        private void Facturas_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            // Nada que cerrar: cada método de DBFacturas abre y cierra su
-            // propia conexión, no se mantiene ninguna conexión persistente
-            // a nivel de formulario.
-        }
+
 
         #endregion
 
         #region Catálogo de documento / consecutivo
+
+        private void cmbDocumento_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (txtFolio.Text == "X" || cmbDocumento.Text == string.Empty)
+                return;
+
+            string[] valores = c.InformacionDocumento(cmbDocumento.Text);
+            txtDocumento.Text = valores[0];
+            txtClave.Text = valores[1];
+
+            if (txtFolio.Text == string.Empty)
+            {
+                if (valores.Length > 2)
+                {
+                    mostrarCentroCosto = ParsearBooleano(valores[2]);
+                    cmbCentroCostos.Enabled = mostrarCentroCosto;
+                }
+
+                cot.ConsecutivoCotizacion(txtConsecutivo, txtClave.Text);
+            }
+
+            txtDiasVence.Focus();
+        }
 
         private bool ParsearBooleano(string valor)
         {
@@ -390,40 +330,49 @@ namespace PV
             }
         }
 
-        private void cmbDocumento_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (txtFolio.Text == "X" || cmbDocumento.Text == string.Empty)
-                return;
-
-            string[] valores = c.InformacionDocumento(cmbDocumento.Text);
-            txtDocumento.Text = valores[0];
-            txtClave.Text = valores[1];
-
-            if (txtFolio.Text == string.Empty)
-            {
-                if (valores.Length > 2)
-                {
-                    mostrarCentroCosto = ParsearBooleano(valores[2]);
-                    cmbCentroCostos.Enabled = mostrarCentroCosto;
-                }
-
-                f.ConsecutivoFactura(txtConsecutivo, txtClave.Text);
-            }
-
-            txtDiasVence.Focus();
-        }
-
         #endregion
 
-        #region Cliente
+        #region Cliente / Prospecto
+
+        /// <summary>
+        /// Habilita/deshabilita los campos de prospecto según haya o no un
+        /// cliente seleccionado. Se dispara automáticamente desde
+        /// txtMatricular_TextChanged: seleccionar un cliente (txtMatricular
+        /// con contenido) apaga el modo prospecto, y limpiar txtMatricular
+        
+        /// </summary>
+        private void ConfigurarClienteOProspecto(bool hayCliente)
+        {
+            esProspecto = !hayCliente;
+
+            txtNombreProspecto.Enabled = esProspecto;
+            txtRFCProspecto.Enabled = esProspecto;
+            txtDomicilioProspecto.Enabled = esProspecto;
+            txtContactoProspecto.Enabled = esProspecto;
+            txtCelularProspecto.Enabled = esProspecto;
+
+            if (hayCliente)
+            {
+                txtNombreProspecto.Clear();
+                txtRFCProspecto.Clear();
+                txtDomicilioProspecto.Clear();
+                txtContactoProspecto.Clear();
+                txtCelularProspecto.Clear();
+            }
+        }
 
         private void txtMatricular_TextChanged(object sender, EventArgs e)
         {
-            if (txtMatricular.Text == string.Empty)
+            if (string.IsNullOrWhiteSpace(txtMatricular.Text))
+            {
+                txtNombreAlumnno.Clear();
+                ConfigurarClienteOProspecto(hayCliente: false);
                 return;
+            }
 
             string[] valores = cl.InformacionCliente(txtMatricular.Text);
             txtNombreAlumnno.Text = valores[1];
+            ConfigurarClienteOProspecto(hayCliente: true);
         }
 
         private void guna2Button12_Click(object sender, EventArgs e)
@@ -470,14 +419,14 @@ namespace PV
                 MessageBox.Show("Registre los dias de vencimiento antes de continuar");
                 return;
             }
-            if (txtMatricular.Text == string.Empty)
+            if (string.IsNullOrWhiteSpace(txtMatricular.Text) && string.IsNullOrWhiteSpace(txtNombreProspecto.Text))
             {
-                MessageBox.Show("Registre al cliente antes de continuar");
+                MessageBox.Show("Seleccione un cliente o registre al menos el nombre del prospecto antes de continuar.");
                 return;
             }
             if (cmbEstatus.Text != "Abierto")
             {
-                MessageBox.Show("No es posible agregar partidas a una factura Bloqueada o Cancelada");
+                MessageBox.Show("No es posible agregar partidas a una cotización Bloqueada o Cancelada");
                 return;
             }
             if (cmbDocumento.Text == string.Empty)
@@ -485,19 +434,10 @@ namespace PV
                 MessageBox.Show("Registre el Documento para continuar");
                 return;
             }
-            if (cmbAlmacen.Text == string.Empty)
-            {
-                MessageBox.Show("Registre el Almacén para continuar");
-                return;
-            }
-
 
             if (string.IsNullOrEmpty(txtFolio.Text))
             {
                 string centroCosto = null;
-                string proyecto = ComboUtil.ObtenerSelectedValue(cmbproyecto);
-                string IdAlmacen = ComboUtil.ObtenerSelectedValue(cmbAlmacen);
-
 
                 if (mostrarCentroCosto)
                 {
@@ -511,23 +451,20 @@ namespace PV
                     }
                 }
 
-                // Facturas ya no maneja almacenes: se conserva el parámetro
-                // por compatibilidad con la firma de DBFacturas.InsertarFactura,
-                // pero se envía vacío en vez del almacén seleccionado (la
-                // columna Almacen acepta NULL vía IntOrNull, así que esto es
-                // seguro).
-                f.InsertarFactura(txtFolio, txtClave.Text, cmbEstatus.Text, txtFecha.Text, txtDiasVence.Text,
-                    txtFechaVence.Text, txtMatricular.Text, txtDivisa1.Text, txtTipoCambio1.Text, txtNotas.Text,
-                    txtElaborado.Text, txtConsecutivo.Text, IdAlmacen, centroCosto, proyecto);
+                cot.InsertarCotizacion(txtFolio, txtClave.Text, cmbEstatus.Text, txtFecha.Text, txtDiasVence.Text,
+                    txtFechaVence.Text,
+                    string.IsNullOrWhiteSpace(txtMatricular.Text) ? null : txtMatricular.Text,
+                    txtNombreProspecto.Text, txtRFCProspecto.Text, txtDomicilioProspecto.Text,
+                    txtContactoProspecto.Text, txtCelularProspecto.Text,
+                    txtDivisa1.Text, txtTipoCambio1.Text, txtNotas.Text, txtElaborado.Text, txtConsecutivo.Text,
+                    centroCosto);
             }
 
             guna2TabControl1.SelectedIndex = 1;
 
-            CargarComboProductos();
-            f.Consulta5Factura(txtFolio.Text, txtPartida);
+            cot.Consulta5Cotizacion(txtFolio.Text, txtPartida);
 
             txtCantidad.Text = "1";
-            txtUnidad.Clear();
             txtDivisa1.Text = "MXN";
             txtTipoCambio1.Text = "1.00";
 
@@ -538,20 +475,25 @@ namespace PV
         void Limpiar()
         {
             txtFolio.Clear();
-            cmbAlmacen.SelectedIndex = -1;
             txtConsecutivo.Clear();
             cmbEstatus.Text = "Abierto";
             txtDiasVence.Text = "0";
-            txtTotalConceptos.Text = "0";
             txtFechaVence.Clear();
-            txtMatricular.Clear();
-            txtNombreAlumnno.Clear();
+            txtMatricular.Text = "";
+            txtNombreAlumnno.Text ="";
+            txtNombreProspecto.Text = "";
+            txtRFCProspecto.Text = "";
+            txtDomicilioProspecto.Text = "";
+            txtContactoProspecto.Text = "";
+            txtCelularProspecto.Text = "";
+            
+            ConfigurarClienteOProspecto(hayCliente: false);
+
             txtPartidas.Text = "0";
             txtRecargo.Text = "0.00";
             txtSubtotal.Text = "0.00";
             txtDescuento.Text = "0.00";
             txtTotal.Text = "0.00";
-            txtSaldo.Text = "0.00";
             txtNotas.Clear();
             cmbDocumento.Text = null;
             cmbDocumento.Enabled = false;
@@ -561,9 +503,6 @@ namespace PV
             txtNotas.Enabled = false;
 
             Matricula = string.Empty;
-            Opcion = 0;
-            txtAutoriza.Clear();
-            txtFechaAuto.Clear();
 
             cmbDocumento.DroppedDown = false;
             txtDiasVence.BackColor = Color.White;
@@ -572,11 +511,11 @@ namespace PV
             cmbTipo.SelectedIndexChanged -= cmbTipo_SelectedIndexChanged;
             cmbTipo.SelectedIndex = -1;
             cmbTipo.SelectedIndexChanged += cmbTipo_SelectedIndexChanged;
-            cmbConcepto.SelectedIndex = -1;
             cmbConcepto.DataSource = null;
             cmbConcepto.Items.Clear();
+
             cmbCentroCostos.SelectedIndex = -1;
-            cmbproyecto.SelectedIndex = -1;
+            tgProspecto.Checked = false;
 
             PanelPartidasRequisicion.Visible = false;
             guna2TabControl1.SelectedIndex = 0;
@@ -607,7 +546,7 @@ namespace PV
         {
             if (!string.IsNullOrEmpty(txtFolio.Text) && cmbEstatus.Text == "Abierto")
             {
-                if (MessageBox.Show("El registro actual se perderá, ¿Desea continuar?", "Nueva Factura",
+                if (MessageBox.Show("El registro actual se perderá, ¿Desea continuar?", "Nueva Cotización",
                     MessageBoxButtons.YesNo, MessageBoxIcon.Question) != DialogResult.Yes)
                 {
                     return;
@@ -621,12 +560,45 @@ namespace PV
             txtNotas.Enabled = true;
             cmbDocumento.DroppedDown = true;
             btnCliente.Enabled = true;
-            cmbAlmacen.Enabled = true;
         }
 
         #endregion
 
         #region Partidas - captura
+
+        /// <summary>Llena cmbConcepto según el tipo elegido en cmbTipo (Producto -> ProductosServicios, Servicio -> Servicios).</summary>
+        private void CargarComboConceptos()
+        {
+            cmbConcepto.SelectedIndexChanged -= cmbConcepto_SelectedIndexChanged;
+
+            if (cmbTipo.Text == "Producto")
+            {
+                DataTable dtProductos = prod.ObtenerProductos();
+                ComboUtil.LlenarComboBox(cmbConcepto, dtProductos, "Descripcion", "ClaveProducto");
+            }
+            else if (cmbTipo.Text == "Servicio")
+            {
+                DataTable dtServicios = srv.ObtenerProductosGasto();
+                ComboUtil.LlenarComboBox(cmbConcepto, dtServicios, "Descripcion", "ClaveServicio");
+            }
+            else
+            {
+                cmbConcepto.DataSource = null;
+                cmbConcepto.Items.Clear();
+            }
+
+            cmbConcepto.SelectedIndexChanged += cmbConcepto_SelectedIndexChanged;
+        }
+
+        private void cmbTipo_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            CargarComboConceptos();
+            txtConcepto2.Clear();
+            txtPrecio.Text = "0.00";
+            txtDescuento1.Text = "0.00";
+            txtImpuesto1.Text = "0";
+            txtUnidad.Clear();
+        }
 
         private void guna2Button2_Click(object sender, EventArgs e)
         {
@@ -645,7 +617,6 @@ namespace PV
 
             cmbConcepto.DataSource = null;
             cmbConcepto.Items.Clear();
-            cmbConcepto.Text = "";
             txtConcepto2.Text = string.Empty;
 
             txtCantidad.Text = "1";
@@ -654,18 +625,7 @@ namespace PV
             txtDescuento1.Text = "0.00";
             txtImpuesto1.Text = "0";
 
-            f.Consulta5Factura(txtFolio.Text, txtPartida);
-        }
-
-        /// <summary>Llena cmbConcepto según el tipo elegido en cmbTipo (Producto -> ProductosServicios, Servicio -> Servicios).</summary>
-        private void cmbTipo_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            CargarComboProductos();
-            txtConcepto2.Clear();
-            txtPrecio.Text = "0.00";
-            txtDescuento1.Text = "0.00";
-            txtImpuesto1.Text = "0";
-            txtUnidad.Clear();
+            cot.Consulta5Cotizacion(txtFolio.Text, txtPartida);
         }
 
         private void cmbConcepto_SelectedIndexChanged(object sender, EventArgs e)
@@ -673,8 +633,6 @@ namespace PV
             if (cmbConcepto.Text == string.Empty)
                 return;
 
-            // Según cmbTipo, la información se obtiene de DBProductosServicios
-            // (catálogo de Productos) o de DBServicios (catálogo de Servicios).
             string[] valores = cmbTipo.Text == "Producto"
                 ? prod.InformacionProducto(cmbConcepto.Text)
                 : srv.InformacionServicio(cmbConcepto.Text);
@@ -726,44 +684,29 @@ namespace PV
         {
             if (cmbConcepto.Text == string.Empty)
             {
-                MessageBox.Show("Registre el producto para continuar");
+                MessageBox.Show("Registre el producto o servicio para continuar");
                 return;
             }
             if (txtTotal1.Text == "0.00" || txtTotal1.Text == "0")
             {
-                MessageBox.Show("Registre el importe para continuar para continuar");
+                MessageBox.Show("Registre el importe para continuar");
                 return;
             }
 
             if (!GuardarPartidaActual())
                 return;
 
-            f.ReciboSaldosPartidas(txtFolio.Text, txtSubtotalR, txtDescuentoR, txtTotalR, txtImpuestoR);
-            CargarComboProductos();
+            cot.ReciboSaldosPartidas(txtFolio.Text, txtSubtotalR, txtDescuentoR, txtTotalR, txtImpuestoR);
             CargarPartidas();
             LimpiarPartida();
-            f.Consulta5Factura(txtFolio.Text, txtPartida);
+            cot.Consulta5Cotizacion(txtFolio.Text, txtPartida);
         }
 
         /// <summary>
-        /// Inserta o actualiza la partida actualmente capturada. Si la
-        /// partida (Folio + número de partida) ya existe en la tabla
-        /// PartidaFactura -típicamente porque se llegó aquí luego de hacer
-        /// doble clic sobre una partida existente en la grilla para
-        /// editarla- se actualiza esa fila (UPDATE) en vez de intentar
-        /// insertar una fila nueva con la misma llave (lo que antes
-        /// provocaba una violación de llave primaria/única). Si la partida
-        /// no existe todavía, se inserta como siempre.
-        ///
-        /// Toda inserción/edición de partida es una modificación a
-        /// PartidaFactura, así que aquí mismo se recalculan los totales del
-        /// encabezado (ActualizarTotalesFactura, que ahora también
-        /// recalcula TotalPartidas por sí sola vía COUNT(*)) y se refrescan
-        /// los campos globales del encabezado (ReciboSaldos), sin esperar a
-        /// que el formulario reciba Activated.
-        ///
-        /// Ahora también valida que se haya elegido cmbTipo y envía
-        /// cmbTipo.Text ('Producto'/'Servicio') a la capa de datos.
+        /// Inserta o actualiza la partida actualmente capturada, igual que
+        /// GuardarPartidaActual en Facturas, pero validando también que se
+        /// haya elegido cmbTipo y enviando TipoConcepto/ClaveConcepto a la
+        /// capa de datos.
         /// </summary>
         private bool GuardarPartidaActual()
         {
@@ -779,9 +722,9 @@ namespace PV
                 return false;
             }
 
-            if (f.ExistePartidaFactura(txtFolio.Text, txtPartida.Text))
+            if (cot.ExistePartidaCotizacion(txtFolio.Text, txtPartida.Text))
             {
-                f.ActualizarPartidaFactura(
+                cot.ActualizarPartidaCotizacion(
                     txtFolio.Text,
                     txtPartida.Text,
                     cmbTipo.Text,
@@ -796,13 +739,12 @@ namespace PV
                     Convert.ToDecimal(txtTotal1.Text),
                     Convert.ToDecimal(txtPrecio.Text),
                     Convert.ToDecimal(txtImpuesto1.Text),
-                Convert.ToDecimal(txtDescuentoIm.Text),
-                Convert.ToDecimal(txtImpuestoIm.Text));
-
+                    Convert.ToDecimal(txtDescuentoIm.Text),
+                    Convert.ToDecimal(txtImpuestoIm.Text));
             }
             else
             {
-                f.InsertarPartidaFactura(
+                cot.InsertarPartidaCotizacion(
                     txtFolio.Text,
                     txtPartida.Text,
                     cmbTipo.Text,
@@ -817,12 +759,12 @@ namespace PV
                     Convert.ToDecimal(txtTotal1.Text),
                     Convert.ToDecimal(txtPrecio.Text),
                     Convert.ToDecimal(txtImpuesto1.Text),
-                     Convert.ToDecimal(txtDescuentoIm.Text),
-                Convert.ToDecimal(txtImpuestoIm.Text));
+                    Convert.ToDecimal(txtDescuentoIm.Text),
+                    Convert.ToDecimal(txtImpuestoIm.Text));
             }
 
-            f.ActualizarTotalesFactura(txtFolio.Text);
-            f.ReciboSaldos(txtFolio.Text, txtSubtotal, txtDescuento, txtRecargo, txtTotal, txtPartidas, txtSaldo);
+            cot.ActualizarTotalesCotizacion(txtFolio.Text);
+            cot.ReciboSaldos(txtFolio.Text, txtSubtotal, txtDescuento, txtRecargo, txtTotal, txtPartidas);
 
             return true;
         }
@@ -832,8 +774,8 @@ namespace PV
             int partida = Convert.ToInt32(txtPartida.Text) - 1;
             if (partida > 0)
             {
-                f.ActualizarTotalesFactura(txtFolio.Text);
-                f.ReciboSaldos(txtFolio.Text, txtSubtotal, txtDescuento, txtRecargo, txtTotal, txtPartidas, txtSaldo);
+                cot.ActualizarTotalesCotizacion(txtFolio.Text);
+                cot.ReciboSaldos(txtFolio.Text, txtSubtotal, txtDescuento, txtRecargo, txtTotal, txtPartidas);
             }
             PanelPartidasRequisicion.Visible = false;
         }
@@ -856,68 +798,25 @@ namespace PV
                 return;
             }
 
-            string mensaje = f.EliminarPartidaFactura(txtFolio.Text, txtPartida.Text);
+            string mensaje = cot.EliminarPartidaCotizacion(txtFolio.Text, txtPartida.Text);
             if (!string.IsNullOrEmpty(mensaje))
             {
                 MessageBox.Show(mensaje);
             }
 
-            // Eliminar una partida también es una modificación a
-            // PartidaFactura: se recalculan los totales del encabezado
-            // (TotalPartidas ya se autocalcula dentro de
-            // ActualizarTotalesFactura, ya no se le pasa por parámetro) y se
-            // refrescan tanto los campos globales del encabezado
-            // (ReciboSaldos) como el panel de totales "en vivo" de la
-            // captura de partidas (ReciboSaldosPartidas).
-            f.ActualizarTotalesFactura(txtFolio.Text);
-            f.ReciboSaldos(txtFolio.Text, txtSubtotal, txtDescuento, txtRecargo, txtTotal, txtPartidas, txtSaldo);
-            f.ReciboSaldosPartidas(txtFolio.Text, txtSubtotalR, txtDescuentoR, txtTotalR, txtImpuestoR);
+            cot.ActualizarTotalesCotizacion(txtFolio.Text);
+            cot.ReciboSaldos(txtFolio.Text, txtSubtotal, txtDescuento, txtRecargo, txtTotal, txtPartidas);
+            cot.ReciboSaldosPartidas(txtFolio.Text, txtSubtotalR, txtDescuentoR, txtTotalR, txtImpuestoR);
 
             ConfigurarPartida(true);
             LimpiarPartida();
             CargarPartidas();
-            f.Consulta5Factura(txtFolio.Text, txtPartida);
+            cot.Consulta5Cotizacion(txtFolio.Text, txtPartida);
         }
 
         private void CargarPartidas()
         {
-            f.CargarPartidasFactura(guna2DataGridView1, txtFolio.Text);
-
-        }
-
-        /// <summary>
-        /// Llena cmbConcepto con el catálogo correspondiente según cmbTipo:
-        ///   - "Producto" -> DBProductosServicios.ObtenerProductos()
-        ///     (ClaveProducto/Descripcion).
-        ///   - "Servicio"  -> DBServicios.ObtenerProductosGasto(), que ya
-        ///     filtra Estatus = 'Activo' y expone ClaveServicio/Descripcion.
-        /// Si cmbTipo todavía no tiene selección, el combo simplemente se
-        /// deja vacío (nada que mostrar hasta que el usuario elija el tipo).
-        /// Se desconecta/reconecta cmbConcepto_SelectedIndexChanged mientras
-        /// se cambia el DataSource para no disparar el evento con datos a
-        /// medio cargar.
-        /// </summary>
-        private void CargarComboProductos()
-        {
-            cmbConcepto.SelectedIndexChanged -= cmbConcepto_SelectedIndexChanged;
-
-            if (cmbTipo.Text == "Producto")
-            {
-                DataTable dtProductos = prod.ObtenerProductos();
-                ComboUtil.LlenarComboBox(cmbConcepto, dtProductos, "Descripcion", "ClaveProducto");
-            }
-            else if (cmbTipo.Text == "Servicio")
-            {
-                DataTable dtServicios = srv.ObtenerProductosGasto();
-                ComboUtil.LlenarComboBox(cmbConcepto, dtServicios, "Descripcion", "ClaveServicio");
-            }
-            else
-            {
-                cmbConcepto.DataSource = null;
-                cmbConcepto.Items.Clear();
-            }
-
-            cmbConcepto.SelectedIndexChanged += cmbConcepto_SelectedIndexChanged;
+            cot.CargarPartidasCotizacion(guna2DataGridView1, txtFolio.Text);
         }
 
         void LimpiarPartida()
@@ -936,20 +835,16 @@ namespace PV
 
             cmbConcepto.DataSource = null;
             cmbConcepto.Items.Clear();
-            cmbConcepto.SelectedIndex = -1;
             txtConcepto2.Text = string.Empty;
         }
 
         /// <summary>
-        /// Doble clic sobre una partida para editarla. Como cmbConcepto
-        /// depende de cmbTipo, el orden es obligatorio:
-        ///   1) Consultar la partida (regresa TipoConcepto/ClaveProducto
-        ///      crudos, sin tocar los combos).
-        ///   2) Poner cmbTipo.Text con lo consultado.
-        ///   3) Repoblar cmbConcepto para ese tipo (CargarComboProductos).
-        ///   4) Recién ahí, seleccionar la clave en cmbConcepto.
-        /// Los eventos de ambos combos se desconectan mientras se hace este
-        /// acomodo, para no disparar recalculos a medio cargar.
+        /// Doble clic sobre una partida para editarla. Primero se
+        /// desactivan los eventos de cmbTipo y cmbConcepto, se consulta la
+        /// partida (que regresa TipoConcepto/ClaveConcepto crudos), se
+        /// pone cmbTipo.Text, se repuebla cmbConcepto con
+        /// CargarComboConceptos() y por último se selecciona la clave — en
+        /// ese orden, porque cmbConcepto depende de cmbTipo.
         /// </summary>
         private void guna2DataGridView1_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
@@ -960,14 +855,14 @@ namespace PV
             cmbTipo.SelectedIndexChanged -= cmbTipo_SelectedIndexChanged;
             cmbConcepto.SelectedIndexChanged -= cmbConcepto_SelectedIndexChanged;
 
-            f.ConsultaPartidaFactura(txtFolio.Text, partida, txtCantidad,
-                txtUnidad, txtDivisa1, txtTipoCambio1, txtImporte1, txtDescuento1, txtTotal1, txtPrecio,
-                txtImpuesto1, txtEntregado, txtConcepto2, out string tipoConcepto, out string claveProducto);
+            cot.ConsultaPartidaCotizacion(txtFolio.Text, partida, txtCantidad, txtUnidad, txtDivisa1, txtTipoCambio1,
+                txtImporte1, txtDescuento1, txtTotal1, txtPrecio, txtImpuesto1, txtConcepto2,
+                out string tipoConcepto, out string claveConcepto);
 
             cmbTipo.Text = tipoConcepto;
-            CargarComboProductos();
+            CargarComboConceptos();
 
-            if (!string.IsNullOrEmpty(claveProducto) && int.TryParse(claveProducto, out int clave))
+            if (!string.IsNullOrEmpty(claveConcepto) && int.TryParse(claveConcepto, out int clave))
             {
                 cmbConcepto.SelectedValue = clave;
             }
@@ -981,11 +876,9 @@ namespace PV
             ConfigurarPartida(!cmbEstatus.Text.Equals("Abierto", StringComparison.OrdinalIgnoreCase));
         }
 
+
         private void ConfigurarPartida(bool bloquear)
         {
-            label56.Visible = bloquear;
-            txtEntregado.Visible = bloquear;
-
             btnEliminarPartida.Visible = !bloquear;
             btnLimpiarPartida.Visible = !bloquear;
             btnConfirmarPartida.Visible = !bloquear;
@@ -1003,7 +896,7 @@ namespace PV
 
         #endregion
 
-        #region Cálculo de importes por partida (idéntico al original)
+        #region Cálculo de importes por partida (idéntico a Facturas)
 
         private void Calcular()
         {
@@ -1160,11 +1053,11 @@ namespace PV
             }
             if (cmbEstatus.Text != "Abierto")
             {
-                MessageBox.Show("No es posible confirmar una factura Bloqueada o Cancelada");
+                MessageBox.Show("No es posible confirmar una cotización Bloqueada o Cancelada");
                 return;
             }
-            if (MessageBox.Show("Al confirmar la factura no podra realizar modificaciones, ¿Desea continuar?",
-                "Factura", MessageBoxButtons.YesNo, MessageBoxIcon.Question) != DialogResult.Yes)
+            if (MessageBox.Show("Al confirmar la cotización no podra realizar modificaciones, ¿Desea continuar?",
+                "Cotización", MessageBoxButtons.YesNo, MessageBoxIcon.Question) != DialogResult.Yes)
             {
                 return;
             }
@@ -1172,26 +1065,21 @@ namespace PV
             Matricula = string.Empty;
             cmbEstatus.Text = "Bloqueado";
 
-            // Facturas ya no genera movimiento de salida de almacén (no
-            // maneja inventario): solo se actualiza el estatus del
-            // encabezado. Se conserva el parámetro de folio de movimiento
-            // vacío por compatibilidad con la firma de
-            // DBFacturas.ActualizarFacturaEstatus (la columna FolioMovimiento
-            // acepta NULL vía IntOrNull, así que esto es seguro).
-            f.ActualizarFacturaEstatus(txtFolio.Text, "Bloqueado", "", string.Empty);
+            cot.ActualizarCotizacionEstatus(txtFolio.Text, "Bloqueado");
 
-            MessageBox.Show("La factura se confirmó exitosamente");
+            MessageBox.Show("La cotización se confirmó exitosamente");
 
             if (MessageBox.Show("¿Imprimir Documento?", "Documento", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
             {
-                ReporteComprobanteFactura r = new ReporteComprobanteFactura(txtFolio.Text);
+
+                ReporteComprobanteCotizacion r = new ReporteComprobanteCotizacion(txtFolio.Text);
                 r.ShowDialog();
             }
 
             Limpiar();
             LimpiarPartida();
 
-            f.CargarFacturas(DataGridView2, txtFiltro.Text, txtFiltroDocumento.Text, txtFiltroNombre.Text, true);
+            cot.CargarCotizaciones(DataGridView2, txtFiltro.Text, txtFiltroDocumento.Text, txtFiltroNombre.Text, true);
 
             guna2TabControl1.SelectedIndex = 0;
             btnTerminarFactura.Visible = false;
@@ -1201,18 +1089,18 @@ namespace PV
         {
             if (txtFolio.Text == string.Empty)
             {
-                MessageBox.Show("Seleccione la factura");
+                MessageBox.Show("Seleccione la cotización");
                 return;
             }
             if (cmbEstatus.Text != "Bloqueado" && cmbEstatus.Text != "Abierto")
             {
-                MessageBox.Show("No es posible cancelar una factura que no esta bloqueada o abierta");
+                MessageBox.Show("No es posible cancelar una cotización que no esta bloqueada o abierta");
                 return;
             }
-            if (MessageBox.Show("La factura será cancelada, ¿Desea continuar?", "Factura",
+            if (MessageBox.Show("La cotización será cancelada, ¿Desea continuar?", "Cotización",
                 MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
             {
-                f.CancelarFactura(txtFolio.Text);
+                cot.CancelarCotizacion(txtFolio.Text);
                 cmbEstatus.Text = "Cancelado";
                 Limpiar();
             }
@@ -1221,7 +1109,6 @@ namespace PV
         #endregion
 
         #region Consulta / filtros / grillas de encabezado
-
 
         private void DataGridView2_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
@@ -1233,18 +1120,29 @@ namespace PV
         {
             txtFolio.Text = "X";
 
-            f.ConsultaFactura(folio, txtClave, cmbEstatus, txtFecha, txtDiasVence, txtFechaVence, txtDivisa,
-                txtTipoCambio, txtSubtotal, txtDescuento, txtRecargo, txtTotal, txtPartidas, txtSaldo, txtNotas, txtElaborado,
-                txtFolio, txtConsecutivo, txtAutoriza, txtFechaAuto, out string cliente,
-                cmbCentroCostos, cmbproyecto, cmbAlmacen);
+            cot.ConsultaCotizacion(folio, txtClave, cmbEstatus, txtFecha, txtDiasVence, txtFechaVence, txtDivisa,
+                txtTipoCambio, txtSubtotal, txtDescuento, txtRecargo, txtTotal, txtPartidas, txtNotas, txtElaborado,
+                txtFolio, txtConsecutivo,
+                txtNombreProspecto, txtRFCProspecto, txtDomicilioProspecto, txtContactoProspecto, txtCelularProspecto,
+                out string claveCliente, out bool prospecto, cmbCentroCostos);
 
             cmbDocumento.Enabled = false;
             txtDiasVence.Enabled = false;
             txtNotas.Enabled = false;
-            txtFolio.Text = txtFolio.Text;
+            tgProspecto.Checked = prospecto;
 
-            txtMatricular.Text = cliente;
-            Matricula = cliente;
+            if (prospecto)
+            {
+                txtMatricular.Text = string.Empty;
+                Matricula = string.Empty;
+                ConfigurarClienteOProspecto(hayCliente: false);
+            }
+            else
+            {
+                txtMatricular.Text = claveCliente;
+                Matricula = claveCliente;
+ 
+            }
 
             string[] valores = c.InformacionDocumento2(txtClave.Text);
             txtDocumento.Text = valores[0];
@@ -1256,17 +1154,20 @@ namespace PV
 
             if (cmbEstatus.Text != "Abierto")
             {
-                CargarComboProductos();
+                // Fuera de "Abierto" no se va a capturar nada nuevo; se
+                // deja el combo de conceptos vacío hasta que se elija Tipo.
+                cmbConcepto.DataSource = null;
+                cmbConcepto.Items.Clear();
             }
         }
 
-        private void txtFiltro_TextChanged(object sender, EventArgs e) => RecargarGrillasFacturas();
-        private void txtFiltroDocumento_TextChanged(object sender, EventArgs e) => RecargarGrillasFacturas();
-        private void txtFiltroNombre_TextChanged(object sender, EventArgs e) => RecargarGrillasFacturas();
+        private void txtFiltro_TextChanged(object sender, EventArgs e) => RecargarGrillasCotizaciones();
+        private void txtFiltroDocumento_TextChanged(object sender, EventArgs e) => RecargarGrillasCotizaciones();
+        private void txtFiltroNombre_TextChanged(object sender, EventArgs e) => RecargarGrillasCotizaciones();
 
-        private void RecargarGrillasFacturas()
+        private void RecargarGrillasCotizaciones()
         {
-            f.CargarFacturas(DataGridView2, txtFiltro.Text, txtFiltroDocumento.Text, txtFiltroNombre.Text, true);
+            cot.CargarCotizaciones(DataGridView2, txtFiltro.Text, txtFiltroDocumento.Text, txtFiltroNombre.Text, true);
         }
 
         #endregion
@@ -1277,40 +1178,46 @@ namespace PV
         {
             if (string.IsNullOrEmpty(txtFolio.Text))
             {
-                MessageBox.Show("Es necesario seleccionar una factura");
+                MessageBox.Show("Es necesario seleccionar una cotización");
                 return;
             }
 
-            ReporteComprobanteFactura r = new ReporteComprobanteFactura(txtFolio.Text);
+            ReporteComprobanteCotizacion r = new ReporteComprobanteCotizacion(txtFolio.Text);
             r.ShowDialog();
         }
 
         private void button11_Click(object sender, EventArgs e)
         {
-            if (txtMatricular.Text == string.Empty || txtFolio.Text == string.Empty)
+            if (txtFolio.Text == string.Empty || (txtMatricular.Text == string.Empty && txtNombreProspecto.Text == string.Empty))
             {
-                MessageBox.Show("Seleccione la factura para enviar el correo");
+                MessageBox.Show("Seleccione la cotización para enviar el correo");
+                return;
+            }
+
+            if (esProspecto)
+            {
+                MessageBox.Show("No es posible enviar correo automáticamente: el prospecto no tiene una dirección de correo registrada. Envíelo manualmente o registre al prospecto como cliente.");
                 return;
             }
 
             string[] valores = cl.InformacionCliente(txtMatricular.Text);
 
-            ReporteComprobanteFactura r = new ReporteComprobanteFactura(txtFolio.Text);
-            string carpeta = Utilerias.SavePDF(r.reportViewer1, "Factura", txtDocumento.Text, txtConsecutivo.Text);
+            ReporteComprobanteCotizacion r = new ReporteComprobanteCotizacion(txtFolio.Text);
+            string carpeta = Utilerias.SavePDF(r.reportViewer1, "Cotizacion", txtDocumento.Text, txtConsecutivo.Text);
 
             bool enviado = CorreosMasivos.EnviarCorreos(
-                "Factura",
+                "Cotización",
                 @"<html>
                     <body style='font-family: Arial, sans-serif; font-size: 14px; color: #333;'>
-                        <p>Estimado Socio Comercial,</p>
-                        <p>Enviamos su factura correspondiente.</p>
+                        <p>Estimado Cliente,</p>
+                        <p>Enviamos su cotización correspondiente.</p>
                         <p>Si tiene alguna duda o requiere realizar algún ajuste, no dude en contactar a su vendedor,
                            quien estará encantado en asistirle.</p>
                         <p>Reciban un cordial saludo y que tengan un excelente día.</p>
                     </body>
                   </html>",
                 Utilerias.ConvertirReportViewerAPdf(r.reportViewer1),
-                "Factura-" + txtConsecutivo.Text + ".pdf",
+                "Cotizacion-" + txtConsecutivo.Text + ".pdf",
                 valores[5]);
 
             if (enviado)
@@ -1321,7 +1228,7 @@ namespace PV
 
         #endregion
 
-        #region Centro de costos / proyecto
+        #region Centro de costos
 
         private void LlenarComboCentro()
         {
@@ -1340,20 +1247,9 @@ namespace PV
             }
         }
 
-        private void cmbCentroCostos_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            DataTable dtProyectos = dp.ObtenerProyectosPorCentroCostos(cmbCentroCostos.Text);
-            ComboUtil.LlenarComboBox(cmbproyecto, dtProyectos, "Proyecto", "Id");
-        }
-        private void LLenarAlmacenes()
-        {
-            DataTable dtAlmacenes = DBAlmacenes.ObtenerAlmacenes();
-            ComboUtil.LlenarComboBox(cmbAlmacen, dtAlmacenes, "Nombre", "Clave");
-        }
-
         #endregion
 
-        #region Barra lateral (toolStrip2) - menú NUEVO / CONSULTAR / IMPRIMIR / ENVIAR CORREO / AUTORIZAR
+        #region Barra lateral (toolStrip2) - menú NUEVO / CONSULTAR / IMPRIMIR / ENVIAR CORREO
 
         private void toolStrip2_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
         {
@@ -1368,16 +1264,13 @@ namespace PV
                     ConfigurarConsulta();
                     break;
                 case "IMPRIMIR":
-                    ReporteComprobanteFactura reporte = new ReporteComprobanteFactura(txtFolio.Text);
+                    ReporteComprobanteCotizacion reporte = new ReporteComprobanteCotizacion(txtFolio.Text);
                     reporte.ShowDialog();
                     break;
                 case "ENVIAR CORREO":
                     button11_Click(sender, e);
                     break;
-                case "AUTORIZAR":
-                    AutentificarAdmin autentificarAdmin = new AutentificarAdmin();
-                    autentificarAdmin.ShowDialog();
-                    break;
+
             }
 
             ConfigurarToolStripCompacto();
@@ -1400,7 +1293,7 @@ namespace PV
             }
             else
             {
-                MessageBox.Show("Confirme la factura antes de continuar");
+                MessageBox.Show("Confirme la cotización antes de continuar");
             }
 
             guna2TabControl1.SelectedIndex = 0;
@@ -1418,7 +1311,7 @@ namespace PV
             btnConfirmarPartida.Enabled = true;
             btnSiguientePartids.Enabled = true;
 
-            f.CargarPartidasFactura(guna2DataGridView1, txtFolio.Text);
+            cot.CargarPartidasCotizacion(guna2DataGridView1, txtFolio.Text);
         }
 
         private void ConfigurarConsulta()
@@ -1436,12 +1329,6 @@ namespace PV
             btnSiguientePartids.Enabled = false;
         }
 
-        /// <summary>
-        /// Ajusta tamaños/orientación del toolStrip lateral cuando está
-        /// contraído. Se factoriza en un único método porque en el
-        /// formulario original este mismo bloque se repetía de forma
-        /// idéntica más de media docena de veces.
-        /// </summary>
         private void ConfigurarToolStripCompacto()
         {
             guna2PictureBox2.Visible = false;
@@ -1517,7 +1404,6 @@ namespace PV
             }
         }
 
-
         private void txtPartidas_TextChanged(object sender, EventArgs e)
         {
             if (cmbEstatus.Text == "Abierto" && !string.IsNullOrEmpty(txtPartidas.Text) && txtPartidas.Text != "0")
@@ -1528,24 +1414,14 @@ namespace PV
 
         #endregion
 
-        #region Compatibilidad con el Designer copiado de OrdenPedidoCliente
+        #region Compatibilidad con el Designer copiado de Facturas/OrdenPedidoCliente
 
-        // El Facturas.Designer.cs quedó tal cual del copy-paste de
-        // OrdenPedidoCliente.Designer.cs, así que sigue enganchando eventos a
-        // nombres de método que aquí renombramos o que ya no hacen nada
-        // (porque eran no-ops en el original, o dependían de la lógica de
-        // Pedido a Cliente / Almacenes-Inventario que se retiró). En vez de
-        // editar el .Designer.cs a mano (generado por el diseñador, fácil de
-        // romper si luego abres el formulario en modo diseño), se agregan
-        // aquí los métodos que el Designer espera encontrar.
 
-        // Eventos del formulario que renombramos:
-        private void OrdenCompra2_Load(object sender, EventArgs e) => Facturas_Load(sender, e);
-        private void OrdenCompra2_Activated(object sender, EventArgs e) => Facturas_Activated(sender, e);
-        private void OrdenPedidoCliente_FormClosing(object sender, FormClosingEventArgs e) => Facturas_FormClosing(sender, e);
+        private void OrdenCompra2_Load(object sender, EventArgs e) => Cotizaciones_Load(sender, e);
+        private void OrdenCompra2_Activated(object sender, EventArgs e) => Cotizaciones_Activated(sender, e);
 
-        // Handlers que en el original eran no-ops (no hacían nada) y que el
-        // Designer sigue teniendo enganchados:
+        // Handlers que en el original eran no-ops y que el Designer puede
+        // seguir teniendo enganchados:
         private void label9_Click(object sender, EventArgs e) { }
         private void label37_Click(object sender, EventArgs e) { }
         private void label49_Click(object sender, EventArgs e) { }
@@ -1554,63 +1430,13 @@ namespace PV
         private void PanelPartidasRequisicion_Paint(object sender, PaintEventArgs e) { }
         private void txtNombreAlumnno_TextChanged(object sender, EventArgs e) { }
         private void txtTipoCambio_TextChanged(object sender, EventArgs e) { }
-
-        // El Designer registró el TextChanged de txtSubtotal1 dos veces con
-        // nombres distintos (típico de Visual Studio cuando el evento se
-        // engancha más de una vez desde el panel de Propiedades). Con que
-        // exista, basta:
         private void txtSubtotal1_TextChanged_1(object sender, EventArgs e) { }
-
-        // btnDocumento ya no se usa (no hay vinculación a Pedido a Cliente en
-        // Facturas) pero sigue oculto en el formulario copiado; se deja el
-        // handler vacío para que compile. Si prefieres, quita el control del
-        // Designer y este método también.
         private void btnDocumento_Click(object sender, EventArgs e) { }
-
-        // txtCantidad_Leave validaba cantidad contra un pedido vinculado;
-        // Facturas no maneja esa vinculación, así que queda vacío.
         private void txtCantidad_Leave(object sender, EventArgs e) { }
 
+
+
         #endregion
-
-        private void btnRemisionXML_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                string folio = txtFolio.Text.Trim(); // ajusta al control real donde tienes el folio
-
-                if (string.IsNullOrWhiteSpace(folio))
-                {
-                    MessageBox.Show("Debes indicar el folio de la factura.");
-                    return;
-                }
-
-                DBFacturas db = new DBFacturas();
-                string xml = db.GenerarXmlFactura(folio);
-
-                if (string.IsNullOrEmpty(xml))
-                {
-                    MessageBox.Show("No se encontró la factura con ese folio.");
-                    return;
-                }
-
-                using (SaveFileDialog sfd = new SaveFileDialog())
-                {
-                    sfd.Filter = "Archivo XML (*.xml)|*.xml";
-                    sfd.FileName = $"Factura_{folio}.xml";
-
-                    if (sfd.ShowDialog() == DialogResult.OK)
-                    {
-                        System.IO.File.WriteAllText(sfd.FileName, xml, System.Text.Encoding.UTF8);
-                        MessageBox.Show("XML generado correctamente.");
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Error al generar XML: " + ex.ToString());
-            }
-        }
 
         private void txtSubtotal_TextChanged(object sender, EventArgs e)
         {
@@ -1642,15 +1468,43 @@ namespace PV
             Moneda(ref txtDescuentoIm);
         }
 
-        private void cmbAlmacen_SelectedIndexChanged(object sender, EventArgs e)
+        private void tgProspecto_CheckedChanged(object sender, EventArgs e)
         {
+            if (tgProspecto.Checked)
+            {
+                txtMatricular.Visible = false;
+                txtNombreAlumnno.Visible = false;
+                btnCliente.Visible = false;
 
-        }
+                txtNombreProspecto.Visible = true;
+                txtRFCProspecto.Visible = true;
+                txtContactoProspecto.Visible = true;
+                txtCelularProspecto.Visible = true;
+                txtDomicilioProspecto.Visible = true;
 
-        private void txtSaldo_TextChanged(object sender, EventArgs e)
-        {
-            Moneda(ref txtSaldo);
+                lblNombre.Visible = true;
+                lblRFC.Visible = true;
+                lblDomicilio.Visible = true;
+                lblContacto.Visible = true;
+                lblCelular.Visible = true;
+            }
+            else
+            {
+                txtMatricular.Visible = true;
+                txtNombreAlumnno.Visible = true;
+                btnCliente.Visible = true;
+                txtNombreProspecto.Visible = false;
+                txtRFCProspecto.Visible = false;
+                txtContactoProspecto.Visible = false;
+                txtCelularProspecto.Visible = false;
+                txtDomicilioProspecto.Visible = false;
 
+                lblNombre.Visible = false;
+                lblRFC.Visible = false;
+                lblDomicilio.Visible = false;
+                lblContacto.Visible = false;
+                lblCelular.Visible = false;
+            }
         }
     }
 }

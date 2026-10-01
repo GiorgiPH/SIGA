@@ -845,6 +845,8 @@ namespace PV
 
         private void txtImpuesto1_TextChanged(object sender, EventArgs e)
         {
+            Moneda(ref txtImpuesto1);
+
             /*    try
                 {
                     if (txtImpuesto1.Text != string.Empty)

@@ -156,8 +156,8 @@ namespace PV
             dtConceptosPago = dbConceptos.ListarParaCombo(3);
 
 
-            ComboUtil.LlenarComboBox(cmbConceptoPrestamo, dtConceptosCobro.Copy(), "ClaveConcepto", "IdConcepto");
-            ComboUtil.LlenarComboBox(cmbConceptoInteres, dtConceptosPago.Copy(), "ClaveConcepto", "IdConcepto");
+            ComboUtil.LlenarComboBox(cmbConceptoPrestamo, dtConceptosCobro.Copy(), "Descripcion", "IdConcepto");
+            ComboUtil.LlenarComboBox(cmbConceptoInteres, dtConceptosPago.Copy(), "Descripcion", "IdConcepto");
 
             cmbConceptoPrestamo.SelectedIndex = -1;
             cmbConceptoInteres.SelectedIndex = -1;
@@ -169,8 +169,8 @@ namespace PV
             DataTable dtCobro = dtConceptosCobro ?? dbConceptos.ListarParaCombo(2);
             DataTable dtPago = dtConceptosPago ?? dbConceptos.ListarParaCombo(3);
 
-            ComboUtil.LlenarComboBox(cmbConceptoCapitalPartida, dtCobro.Copy(), "ClaveConcepto", "IdConcepto");
-            ComboUtil.LlenarComboBox(cmbConceptoInteresPartida, dtPago.Copy(), "ClaveConcepto", "IdConcepto");
+            ComboUtil.LlenarComboBox(cmbConceptoCapitalPartida, dtCobro.Copy(), "Descripcion", "IdConcepto");
+            ComboUtil.LlenarComboBox(cmbConceptoInteresPartida, dtPago.Copy(), "Descripcion", "IdConcepto");
         }
 
         private void cmbDocumento_SelectedIndexChanged(object sender, EventArgs e)
@@ -183,15 +183,7 @@ namespace PV
 
         private void cmbConceptoPrestamo_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (cmbConceptoPrestamo.SelectedValue == null || dtConceptosCobro == null)
-            {
-                txtDescConceptoPrestamo.Clear();
-                return;
-            }
-
-            int idConcepto = Convert.ToInt32(cmbConceptoPrestamo.SelectedValue);
-            DataRow[] filas = dtConceptosCobro.Select($"IdConcepto = {idConcepto}");
-            txtDescConceptoPrestamo.Text = filas.Length > 0 ? filas[0]["Descripcion"].ToString() : string.Empty;
+            
         }
 
         private void cmbConceptoInteres_SelectedIndexChanged(object sender, EventArgs e)
@@ -225,7 +217,6 @@ namespace PV
             txtNombreAcreedor.Clear();
 
             cmbConceptoPrestamo.SelectedIndex = -1;
-            txtDescConceptoPrestamo.Clear();
             cmbConceptoInteres.SelectedIndex = -1;
 
             txtReferencia.Clear();
@@ -239,7 +230,6 @@ namespace PV
             // asume que el préstamo SÍ causa IVA sobre el interés, que es el
             // escenario del mock-up. Si el IVA debe depender del concepto o
             // de una configuración distinta, aquí es donde hay que resolverlo.
-            txtImpuesto.Text = "SI";
 
             txtDivisa.Text = "MXN";
             txtTipoCambio.Text = "1.00";
@@ -331,7 +321,7 @@ namespace PV
                 ImporteCPago = Convert.ToDecimal(txtImporteCPago.Text),
                 InteresCPago = Convert.ToDecimal(txtInteresCPago.Text),
                 IdConceptoInteres = (int?)cmbConceptoInteres.SelectedValue,
-                AplicaImpuesto = txtImpuesto.Text.Trim().Equals("SI", StringComparison.OrdinalIgnoreCase),
+                AplicaImpuesto = tgImpuesto.Checked,
                 Divisa = txtDivisa.Text,
                 TipoCambio = Convert.ToDecimal(txtTipoCambio.Text),
                 Notas = txtNotas.Text,
@@ -391,7 +381,7 @@ namespace PV
             }
 
             decimal interesParcialidad = Convert.ToDecimal(txtInteresCPago.Text);
-            bool aplicaImpuesto = txtImpuesto.Text.Trim().Equals("SI", StringComparison.OrdinalIgnoreCase);
+            bool aplicaImpuesto = tgImpuesto.Checked;
             decimal iva = aplicaImpuesto ? Math.Round(interesParcialidad * TasaIVA, 2) : 0m;
 
             db.GenerarCalendarioPagos(
@@ -1016,7 +1006,6 @@ namespace PV
             txtNombreAcreedor.Text = dato.NombreAcreedor;
 
             SeleccionarValorCombo(cmbConceptoPrestamo, dato.IdConceptoCapital);
-            txtDescConceptoPrestamo.Text = dato.DescripcionConceptoCapital;
             SeleccionarValorCombo(cmbConceptoInteres, dato.IdConceptoInteres);
 
             txtReferencia.Text = dato.Referencia;
@@ -1025,7 +1014,7 @@ namespace PV
             txtPeriodicidad.Text = dato.Periodicidad.ToString();
             txtImporteCPago.Text = dato.ImporteCPago.ToString("N2");
             txtInteresCPago.Text = dato.InteresCPago.ToString("N2");
-            txtImpuesto.Text = dato.AplicaImpuesto ? "SI" : "NO";
+            tgImpuesto.Checked = dato.AplicaImpuesto;
             txtDivisa.Text = dato.Divisa;
             txtTipoCambio.Text = dato.TipoCambio.ToString("N2");
             txtNotas.Text = dato.Notas;
@@ -1175,5 +1164,22 @@ namespace PV
         private void btnRemisionXML_Click(object sender, EventArgs e) { }
 
         #endregion
+
+        private void lblDias_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void tgImpuesto_CheckedChanged(object sender, EventArgs e)
+        {
+            if (tgImpuesto.Checked)
+            {
+                lblImpuestoo.Text = "SI";
+            }
+            else
+            {
+                lblImpuestoo.Text = "NO";
+            }
+        }
     }
 }

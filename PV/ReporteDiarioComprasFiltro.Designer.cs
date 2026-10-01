@@ -59,6 +59,10 @@
             this.pnFechas = new System.Windows.Forms.Panel();
             this.label2 = new System.Windows.Forms.Label();
             this.guna2ToggleSwitch1 = new Guna.UI2.WinForms.Guna2ToggleSwitch();
+            this.pnAnticipos = new System.Windows.Forms.Panel();
+            this.label8 = new System.Windows.Forms.Label();
+            this.tgAanticipos = new Guna.UI2.WinForms.Guna2ToggleSwitch();
+            this.label12 = new System.Windows.Forms.Label();
             this.guna2Button1 = new Guna.UI2.WinForms.Guna2Button();
             this.guna2Button3 = new Guna.UI2.WinForms.Guna2Button();
             this.guna2Button9 = new Guna.UI2.WinForms.Guna2Button();
@@ -73,6 +77,7 @@
             this.pnCentroCostos.SuspendLayout();
             this.pnProyecto.SuspendLayout();
             this.pnFechas.SuspendLayout();
+            this.pnAnticipos.SuspendLayout();
             this.SuspendLayout();
             // 
             // dtFecha2
@@ -181,7 +186,7 @@
             this.guna2Panel1.FillColor = System.Drawing.Color.White;
             this.guna2Panel1.Location = new System.Drawing.Point(18, 81);
             this.guna2Panel1.Name = "guna2Panel1";
-            this.guna2Panel1.Size = new System.Drawing.Size(550, 402);
+            this.guna2Panel1.Size = new System.Drawing.Size(550, 448);
             this.guna2Panel1.TabIndex = 113;
             this.guna2Panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.guna2Panel1_Paint);
             // 
@@ -194,10 +199,11 @@
             this.flowLayoutPanel1.Controls.Add(this.pnCentroCostos);
             this.flowLayoutPanel1.Controls.Add(this.pnProyecto);
             this.flowLayoutPanel1.Controls.Add(this.pnFechas);
+            this.flowLayoutPanel1.Controls.Add(this.pnAnticipos);
             this.flowLayoutPanel1.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
             this.flowLayoutPanel1.Location = new System.Drawing.Point(18, 26);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(503, 299);
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(503, 342);
             this.flowLayoutPanel1.TabIndex = 262;
             this.flowLayoutPanel1.WrapContents = false;
             // 
@@ -495,6 +501,53 @@
             this.guna2ToggleSwitch1.UncheckedState.InnerColor = System.Drawing.Color.White;
             this.guna2ToggleSwitch1.CheckedChanged += new System.EventHandler(this.guna2ToggleSwitch1_CheckedChanged);
             // 
+            // pnAnticipos
+            // 
+            this.pnAnticipos.Controls.Add(this.label8);
+            this.pnAnticipos.Controls.Add(this.tgAanticipos);
+            this.pnAnticipos.Controls.Add(this.label12);
+            this.pnAnticipos.Location = new System.Drawing.Point(3, 297);
+            this.pnAnticipos.Name = "pnAnticipos";
+            this.pnAnticipos.Size = new System.Drawing.Size(495, 36);
+            this.pnAnticipos.TabIndex = 266;
+            this.pnAnticipos.Visible = false;
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label8.Location = new System.Drawing.Point(166, 12);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(23, 15);
+            this.label8.TabIndex = 261;
+            this.label8.Text = "No";
+            // 
+            // tgAanticipos
+            // 
+            this.tgAanticipos.CheckedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.tgAanticipos.CheckedState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.tgAanticipos.CheckedState.InnerBorderColor = System.Drawing.Color.White;
+            this.tgAanticipos.CheckedState.InnerColor = System.Drawing.Color.White;
+            this.tgAanticipos.Location = new System.Drawing.Point(125, 9);
+            this.tgAanticipos.Name = "tgAanticipos";
+            this.tgAanticipos.Size = new System.Drawing.Size(35, 20);
+            this.tgAanticipos.TabIndex = 260;
+            this.tgAanticipos.UncheckedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(137)))), ((int)(((byte)(149)))));
+            this.tgAanticipos.UncheckedState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(137)))), ((int)(((byte)(149)))));
+            this.tgAanticipos.UncheckedState.InnerBorderColor = System.Drawing.Color.White;
+            this.tgAanticipos.UncheckedState.InnerColor = System.Drawing.Color.White;
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label12.Location = new System.Drawing.Point(13, 13);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(63, 13);
+            this.label12.TabIndex = 101;
+            this.label12.Text = "Anticipos:";
+            this.label12.Click += new System.EventHandler(this.label12_Click);
+            // 
             // guna2Button1
             // 
             this.guna2Button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
@@ -511,7 +564,7 @@
             this.guna2Button1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(19)))), ((int)(((byte)(35)))), ((int)(((byte)(95)))));
             this.guna2Button1.Image = global::PV.Properties.Resources.cancelar;
             this.guna2Button1.ImageAlign = System.Windows.Forms.HorizontalAlignment.Left;
-            this.guna2Button1.Location = new System.Drawing.Point(259, 342);
+            this.guna2Button1.Location = new System.Drawing.Point(259, 388);
             this.guna2Button1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.guna2Button1.Name = "guna2Button1";
             this.guna2Button1.Size = new System.Drawing.Size(128, 46);
@@ -538,7 +591,7 @@
             this.guna2Button3.Image = ((System.Drawing.Image)(resources.GetObject("guna2Button3.Image")));
             this.guna2Button3.ImageAlign = System.Windows.Forms.HorizontalAlignment.Left;
             this.guna2Button3.ImageSize = new System.Drawing.Size(48, 48);
-            this.guna2Button3.Location = new System.Drawing.Point(393, 342);
+            this.guna2Button3.Location = new System.Drawing.Point(393, 388);
             this.guna2Button3.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.guna2Button3.Name = "guna2Button3";
             this.guna2Button3.Size = new System.Drawing.Size(128, 46);
@@ -564,7 +617,7 @@
             this.guna2Button9.Image = ((System.Drawing.Image)(resources.GetObject("guna2Button9.Image")));
             this.guna2Button9.ImageAlign = System.Windows.Forms.HorizontalAlignment.Left;
             this.guna2Button9.ImageSize = new System.Drawing.Size(48, 48);
-            this.guna2Button9.Location = new System.Drawing.Point(829, 351);
+            this.guna2Button9.Location = new System.Drawing.Point(829, 397);
             this.guna2Button9.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.guna2Button9.Name = "guna2Button9";
             this.guna2Button9.Size = new System.Drawing.Size(128, 46);
@@ -587,7 +640,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(589, 495);
+            this.ClientSize = new System.Drawing.Size(589, 541);
             this.ControlBox = false;
             this.Controls.Add(this.guna2GradientPanel1);
             this.Controls.Add(this.guna2Panel1);
@@ -615,6 +668,8 @@
             this.pnProyecto.PerformLayout();
             this.pnFechas.ResumeLayout(false);
             this.pnFechas.PerformLayout();
+            this.pnAnticipos.ResumeLayout(false);
+            this.pnAnticipos.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -654,5 +709,9 @@
         private System.Windows.Forms.Panel pnCuentaBancaria;
         private Guna.UI2.WinForms.Guna2ComboBox cmbCuentaBancaria;
         private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.Panel pnAnticipos;
+        private System.Windows.Forms.Label label8;
+        private Guna.UI2.WinForms.Guna2ToggleSwitch tgAanticipos;
+        private System.Windows.Forms.Label label12;
     }
 }

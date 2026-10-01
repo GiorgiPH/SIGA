@@ -48,7 +48,7 @@ namespace Condominios
                 groupBox4.Enabled = true;
                 cmbtarea.Enabled = true;
 
-                CargarTareas("Pedidos clientes", "Remisiones", "Factura", "Nota Crédito", "Nota Cargo");
+                CargarTareas("Pedidos clientes", "Remisiones", "Factura", "Nota Crédito", "Nota Cargo", "Cotizaciones a Cliente");
             }
             else if (cmbTipoDocumento.Text == "Inventario")
             {

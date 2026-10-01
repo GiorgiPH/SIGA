@@ -1028,6 +1028,18 @@ namespace PV {
             
             private global::System.Data.DataColumn columnTotalPartida;
             
+            private global::System.Data.DataColumn columnFechaVence;
+            
+            private global::System.Data.DataColumn columnNombreCentroCosto;
+            
+            private global::System.Data.DataColumn columnProyecto;
+            
+            private global::System.Data.DataColumn columnTotalPartidas;
+            
+            private global::System.Data.DataColumn columnConsecutivo;
+            
+            private global::System.Data.DataColumn columnImpuestoImporte;
+            
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
             public sp_ComprobanteFacturaDataTable() {
@@ -1303,6 +1315,54 @@ namespace PV {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+            public global::System.Data.DataColumn FechaVenceColumn {
+                get {
+                    return this.columnFechaVence;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+            public global::System.Data.DataColumn NombreCentroCostoColumn {
+                get {
+                    return this.columnNombreCentroCosto;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+            public global::System.Data.DataColumn ProyectoColumn {
+                get {
+                    return this.columnProyecto;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+            public global::System.Data.DataColumn TotalPartidasColumn {
+                get {
+                    return this.columnTotalPartidas;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+            public global::System.Data.DataColumn ConsecutivoColumn {
+                get {
+                    return this.columnConsecutivo;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+            public global::System.Data.DataColumn ImpuestoImporteColumn {
+                get {
+                    return this.columnImpuestoImporte;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -1368,7 +1428,13 @@ namespace PV {
                         decimal SubtotalPartida, 
                         decimal DescuentoPartida, 
                         decimal Impuesto, 
-                        decimal TotalPartida) {
+                        decimal TotalPartida, 
+                        System.DateTime FechaVence, 
+                        string NombreCentroCosto, 
+                        string Proyecto, 
+                        int TotalPartidas, 
+                        int Consecutivo, 
+                        decimal ImpuestoImporte) {
                 sp_ComprobanteFacturaRow rowsp_ComprobanteFacturaRow = ((sp_ComprobanteFacturaRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         Folio,
@@ -1400,7 +1466,13 @@ namespace PV {
                         SubtotalPartida,
                         DescuentoPartida,
                         Impuesto,
-                        TotalPartida};
+                        TotalPartida,
+                        FechaVence,
+                        NombreCentroCosto,
+                        Proyecto,
+                        TotalPartidas,
+                        Consecutivo,
+                        ImpuestoImporte};
                 rowsp_ComprobanteFacturaRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowsp_ComprobanteFacturaRow);
                 return rowsp_ComprobanteFacturaRow;
@@ -1453,6 +1525,12 @@ namespace PV {
                 this.columnDescuentoPartida = base.Columns["DescuentoPartida"];
                 this.columnImpuesto = base.Columns["Impuesto"];
                 this.columnTotalPartida = base.Columns["TotalPartida"];
+                this.columnFechaVence = base.Columns["FechaVence"];
+                this.columnNombreCentroCosto = base.Columns["NombreCentroCosto"];
+                this.columnProyecto = base.Columns["Proyecto"];
+                this.columnTotalPartidas = base.Columns["TotalPartidas"];
+                this.columnConsecutivo = base.Columns["Consecutivo"];
+                this.columnImpuestoImporte = base.Columns["ImpuestoImporte"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -1518,6 +1596,18 @@ namespace PV {
                 base.Columns.Add(this.columnImpuesto);
                 this.columnTotalPartida = new global::System.Data.DataColumn("TotalPartida", typeof(decimal), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnTotalPartida);
+                this.columnFechaVence = new global::System.Data.DataColumn("FechaVence", typeof(global::System.DateTime), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnFechaVence);
+                this.columnNombreCentroCosto = new global::System.Data.DataColumn("NombreCentroCosto", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnNombreCentroCosto);
+                this.columnProyecto = new global::System.Data.DataColumn("Proyecto", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnProyecto);
+                this.columnTotalPartidas = new global::System.Data.DataColumn("TotalPartidas", typeof(int), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnTotalPartidas);
+                this.columnConsecutivo = new global::System.Data.DataColumn("Consecutivo", typeof(int), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnConsecutivo);
+                this.columnImpuestoImporte = new global::System.Data.DataColumn("ImpuestoImporte", typeof(decimal), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnImpuestoImporte);
                 this.columnFolio.AllowDBNull = false;
                 this.columnClaveDocumento.MaxLength = 10;
                 this.columnDivisa.MaxLength = 10;
@@ -1543,9 +1633,10 @@ namespace PV {
                 this.columnDescripcion.MaxLength = 100;
                 this.columnPrecio.AllowDBNull = false;
                 this.columnSubtotalPartida.AllowDBNull = false;
-                this.columnDescuentoPartida.AllowDBNull = false;
                 this.columnImpuesto.AllowDBNull = false;
                 this.columnTotalPartida.AllowDBNull = false;
+                this.columnNombreCentroCosto.MaxLength = 100;
+                this.columnProyecto.MaxLength = 100;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -2738,7 +2829,13 @@ namespace PV {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
             public decimal DescuentoPartida {
                 get {
-                    return ((decimal)(this[this.tablesp_ComprobanteFactura.DescuentoPartidaColumn]));
+                    try {
+                        return ((decimal)(this[this.tablesp_ComprobanteFactura.DescuentoPartidaColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("El valor de la columna \'DescuentoPartida\' de la tabla \'sp_ComprobanteFactura\' es " +
+                                "DBNull.", e);
+                    }
                 }
                 set {
                     this[this.tablesp_ComprobanteFactura.DescuentoPartidaColumn] = value;
@@ -2764,6 +2861,107 @@ namespace PV {
                 }
                 set {
                     this[this.tablesp_ComprobanteFactura.TotalPartidaColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+            public System.DateTime FechaVence {
+                get {
+                    try {
+                        return ((global::System.DateTime)(this[this.tablesp_ComprobanteFactura.FechaVenceColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("El valor de la columna \'FechaVence\' de la tabla \'sp_ComprobanteFactura\' es DBNull" +
+                                ".", e);
+                    }
+                }
+                set {
+                    this[this.tablesp_ComprobanteFactura.FechaVenceColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+            public string NombreCentroCosto {
+                get {
+                    try {
+                        return ((string)(this[this.tablesp_ComprobanteFactura.NombreCentroCostoColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("El valor de la columna \'NombreCentroCosto\' de la tabla \'sp_ComprobanteFactura\' es" +
+                                " DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tablesp_ComprobanteFactura.NombreCentroCostoColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+            public string Proyecto {
+                get {
+                    try {
+                        return ((string)(this[this.tablesp_ComprobanteFactura.ProyectoColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("El valor de la columna \'Proyecto\' de la tabla \'sp_ComprobanteFactura\' es DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tablesp_ComprobanteFactura.ProyectoColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+            public int TotalPartidas {
+                get {
+                    try {
+                        return ((int)(this[this.tablesp_ComprobanteFactura.TotalPartidasColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("El valor de la columna \'TotalPartidas\' de la tabla \'sp_ComprobanteFactura\' es DBN" +
+                                "ull.", e);
+                    }
+                }
+                set {
+                    this[this.tablesp_ComprobanteFactura.TotalPartidasColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+            public int Consecutivo {
+                get {
+                    try {
+                        return ((int)(this[this.tablesp_ComprobanteFactura.ConsecutivoColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("El valor de la columna \'Consecutivo\' de la tabla \'sp_ComprobanteFactura\' es DBNul" +
+                                "l.", e);
+                    }
+                }
+                set {
+                    this[this.tablesp_ComprobanteFactura.ConsecutivoColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+            public decimal ImpuestoImporte {
+                get {
+                    try {
+                        return ((decimal)(this[this.tablesp_ComprobanteFactura.ImpuestoImporteColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("El valor de la columna \'ImpuestoImporte\' de la tabla \'sp_ComprobanteFactura\' es D" +
+                                "BNull.", e);
+                    }
+                }
+                set {
+                    this[this.tablesp_ComprobanteFactura.ImpuestoImporteColumn] = value;
                 }
             }
             
@@ -2981,6 +3179,90 @@ namespace PV {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
             public void SetDescripcionNull() {
                 this[this.tablesp_ComprobanteFactura.DescripcionColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+            public bool IsDescuentoPartidaNull() {
+                return this.IsNull(this.tablesp_ComprobanteFactura.DescuentoPartidaColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+            public void SetDescuentoPartidaNull() {
+                this[this.tablesp_ComprobanteFactura.DescuentoPartidaColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+            public bool IsFechaVenceNull() {
+                return this.IsNull(this.tablesp_ComprobanteFactura.FechaVenceColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+            public void SetFechaVenceNull() {
+                this[this.tablesp_ComprobanteFactura.FechaVenceColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+            public bool IsNombreCentroCostoNull() {
+                return this.IsNull(this.tablesp_ComprobanteFactura.NombreCentroCostoColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+            public void SetNombreCentroCostoNull() {
+                this[this.tablesp_ComprobanteFactura.NombreCentroCostoColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+            public bool IsProyectoNull() {
+                return this.IsNull(this.tablesp_ComprobanteFactura.ProyectoColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+            public void SetProyectoNull() {
+                this[this.tablesp_ComprobanteFactura.ProyectoColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+            public bool IsTotalPartidasNull() {
+                return this.IsNull(this.tablesp_ComprobanteFactura.TotalPartidasColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+            public void SetTotalPartidasNull() {
+                this[this.tablesp_ComprobanteFactura.TotalPartidasColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+            public bool IsConsecutivoNull() {
+                return this.IsNull(this.tablesp_ComprobanteFactura.ConsecutivoColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+            public void SetConsecutivoNull() {
+                this[this.tablesp_ComprobanteFactura.ConsecutivoColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+            public bool IsImpuestoImporteNull() {
+                return this.IsNull(this.tablesp_ComprobanteFactura.ImpuestoImporteColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+            public void SetImpuestoImporteNull() {
+                this[this.tablesp_ComprobanteFactura.ImpuestoImporteColumn] = global::System.Convert.DBNull;
             }
         }
         
@@ -3479,6 +3761,12 @@ namespace PV.DTSFacturaTableAdapters {
             tableMapping.ColumnMappings.Add("DescuentoPartida", "DescuentoPartida");
             tableMapping.ColumnMappings.Add("Impuesto", "Impuesto");
             tableMapping.ColumnMappings.Add("TotalPartida", "TotalPartida");
+            tableMapping.ColumnMappings.Add("FechaVence", "FechaVence");
+            tableMapping.ColumnMappings.Add("NombreCentroCosto", "NombreCentroCosto");
+            tableMapping.ColumnMappings.Add("Proyecto", "Proyecto");
+            tableMapping.ColumnMappings.Add("TotalPartidas", "TotalPartidas");
+            tableMapping.ColumnMappings.Add("Consecutivo", "Consecutivo");
+            tableMapping.ColumnMappings.Add("ImpuestoImporte", "ImpuestoImporte");
             this._adapter.TableMappings.Add(tableMapping);
         }
         

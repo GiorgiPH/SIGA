@@ -288,7 +288,7 @@ namespace PV
 
                 DataTable menus = !string.IsNullOrEmpty(txtOrden.Text)
                     ? s.ObtenerProductosGastoPorOrden(txtOrden.Text)
-                    : s.ObtenerProductosGasto();
+                    : s.ObtenerProductosCompras();
 
                 cmbConcepto.DataSource = null;
 

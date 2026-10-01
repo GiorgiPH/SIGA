@@ -20,6 +20,7 @@ namespace PV
         private string _fechaFin;
         private string _claveCentroCostos;
         private string _claveCuentaBancaria;
+        private bool _anticipos;
 
         public ReporteDiarioIngresos()
         {
@@ -32,7 +33,7 @@ namespace PV
         // fechaFin -> @FechaFin
         // claveCentroCostos -> @ClaveCentroCostos
         // claveCuentaBancaria -> @ClaveCuentaBancaria
-        public ReporteDiarioIngresos(string idCliente, string claveDocumento, string fechaInicio, string fechaFin, string claveCentroCostos, string claveCuentaBancaria) : this()
+        public ReporteDiarioIngresos(string idCliente, string claveDocumento, string fechaInicio, string fechaFin, string claveCentroCostos, string claveCuentaBancaria, bool anticipos) : this()
         {
             _idCliente = idCliente;
             _claveDocumento = claveDocumento;
@@ -40,6 +41,7 @@ namespace PV
             _fechaFin = fechaFin;
             _claveCentroCostos = claveCentroCostos;
             _claveCuentaBancaria = claveCuentaBancaria;
+            _anticipos = anticipos;
         }
 
         private void ReporteDiarioIngresos_Load(object sender, EventArgs e)
@@ -87,6 +89,8 @@ namespace PV
                 "FechaFin",
                 fechaFin.HasValue ? fechaFin.Value.ToString("yyyy-MM-dd") : string.Empty);
 
+            bool anticipos = _anticipos;
+
             this.reportViewer1.LocalReport.SetParameters(new ReportParameter[] { rpFechaInicio, rpFechaFin });
 
 
@@ -97,7 +101,9 @@ namespace PV
                 fechaFin,
                 claveDocumento,
                 claveCentroCostos,
-                claveCuentaBancaria);
+                claveCuentaBancaria,
+                anticipos
+                );
 
             this.reportViewer1.RefreshReport();
         }

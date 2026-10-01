@@ -498,6 +498,23 @@ namespace PV.Clases.Servicios
             }
             return dt;
         }
+        public DataTable ObtenerProductosCompras()
+        {
+            DataTable dt = new DataTable();
+            try
+            {
+                using (SqlCommand cmd = new SqlCommand("SELECT ClaveServicio, Descripcion FROM Servicios WHERE Estatus = 'Activo' and Compras=1 ORDER BY Descripcion", cn))
+                using (SqlDataAdapter da = new SqlDataAdapter(cmd))
+                {
+                    da.Fill(dt);
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al obtener productos de gasto: " + ex.Message);
+            }
+            return dt;
+        }
 
         public DataTable ObtenerProductosGastoPorOrden(string folioOrden)
         {

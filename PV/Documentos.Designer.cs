@@ -585,7 +585,8 @@
             "Compras Reembolso",
             "Compras Gastos Inventariables",
             "Ventas Factura",
-            "Ventas Remision"});
+            "Ventas Remision",
+            "Cotizaciones a Cliente"});
             this.cmbtarea.Location = new System.Drawing.Point(154, 327);
             this.cmbtarea.Name = "cmbtarea";
             this.cmbtarea.Size = new System.Drawing.Size(325, 26);

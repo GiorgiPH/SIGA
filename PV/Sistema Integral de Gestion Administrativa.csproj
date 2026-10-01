@@ -54,10 +54,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestCertificateThumbprint>73CF3378EE03AD1BB93EE755C68689705200B098</ManifestCertificateThumbprint>
+    <ManifestCertificateThumbprint>C7A6F4D417EECE40C229783505B7F92503215261</ManifestCertificateThumbprint>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestKeyFile>Sistema Integral de Gestion Administrativa_3_TemporaryKey.pfx</ManifestKeyFile>
+    <ManifestKeyFile>Sistema Integral de Gestion Administrativa_4_TemporaryKey.pfx</ManifestKeyFile>
   </PropertyGroup>
   <PropertyGroup>
     <GenerateManifests>true</GenerateManifests>
@@ -195,6 +195,7 @@
     <Compile Include="AplicarAnticipoProveedorSaldo2.Designer.cs">
       <DependentUpon>AplicarAnticipoProveedorSaldo2.cs</DependentUpon>
     </Compile>
+    <Compile Include="Clases\Cotizaciones\DBCotizaciones.cs" />
     <Compile Include="Clases\Facturas\DBFacturas.cs" />
     <Compile Include="Clases\Graficas\DBDashboardVentas.cs" />
     <Compile Include="Clases\Graficas\IDashboardVentas.cs" />
@@ -223,6 +224,11 @@
     </Compile>
     <Compile Include="dto\Prestamos\PrestamosData.cs" />
     <Compile Include="dto\ResumenDashboardVentas.cs" />
+    <Compile Include="DTSCotizaciones.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DTSCotizaciones.xsd</DependentUpon>
+    </Compile>
     <Compile Include="DTSFactura.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -238,6 +244,12 @@
     </Compile>
     <Compile Include="MenuPrincipal.Designer.cs">
       <DependentUpon>MenuPrincipal.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Cotizaciones.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Cotizaciones.Designer.cs">
+      <DependentUpon>Cotizaciones.cs</DependentUpon>
     </Compile>
     <Compile Include="Prestamos.cs">
       <SubType>Form</SubType>
@@ -780,6 +792,12 @@
     </Compile>
     <Compile Include="ReporteComprasReembolso.Designer.cs">
       <DependentUpon>ReporteComprasReembolso.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ReporteComprobanteCotizacion.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ReporteComprobanteCotizacion.Designer.cs">
+      <DependentUpon>ReporteComprobanteCotizacion.cs</DependentUpon>
     </Compile>
     <Compile Include="ReporteComprobanteFactura.cs">
       <SubType>Form</SubType>
@@ -2054,17 +2072,17 @@
     <Compile Include="UsuarioPermisos.Designer.cs">
       <DependentUpon>UsuarioPermisos.cs</DependentUpon>
     </Compile>
-    <Compile Include="Usuarios.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Usuarios.Designer.cs">
-      <DependentUpon>Usuarios.cs</DependentUpon>
-    </Compile>
     <Compile Include="PartidasOrdenVer.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="PartidasOrdenVer.Designer.cs">
       <DependentUpon>PartidasOrdenVer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Usuarios.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Usuarios.Designer.cs">
+      <DependentUpon>Usuarios.cs</DependentUpon>
     </Compile>
     <EmbeddedResource Include="ActivoFijo.resx">
       <DependentUpon>ActivoFijo.cs</DependentUpon>
@@ -2092,6 +2110,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="MenuPrincipal.resx">
       <DependentUpon>MenuPrincipal.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Cotizaciones.resx">
+      <DependentUpon>Cotizaciones.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Prestamos.resx">
       <DependentUpon>Prestamos.cs</DependentUpon>
@@ -2292,6 +2313,10 @@
     <EmbeddedResource Include="ReporteComprasReembolso.rdlc" />
     <EmbeddedResource Include="ReporteComprasReembolso.resx">
       <DependentUpon>ReporteComprasReembolso.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ReporteComprobanteCotizacion.rdlc" />
+    <EmbeddedResource Include="ReporteComprobanteCotizacion.resx">
+      <DependentUpon>ReporteComprobanteCotizacion.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ReporteComprobanteFactura.rdlc" />
     <EmbeddedResource Include="ReporteComprobanteFactura.resx">
@@ -3604,6 +3629,17 @@
     <None Include="DTSConceptosCobroPago.xss">
       <DependentUpon>DTSConceptosCobroPago.xsd</DependentUpon>
     </None>
+    <None Include="DTSCotizaciones.xsc">
+      <DependentUpon>DTSCotizaciones.xsd</DependentUpon>
+    </None>
+    <None Include="DTSCotizaciones.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>DTSCotizaciones.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="DTSCotizaciones.xss">
+      <DependentUpon>DTSCotizaciones.xsd</DependentUpon>
+    </None>
     <None Include="DTSFactura.xsc">
       <DependentUpon>DTSFactura.xsd</DependentUpon>
     </None>
@@ -3705,6 +3741,7 @@
     <None Include="Sistema Integral de Gestion Administrativa_1_TemporaryKey.pfx" />
     <None Include="Sistema Integral de Gestion Administrativa_2_TemporaryKey.pfx" />
     <None Include="Sistema Integral de Gestion Administrativa_3_TemporaryKey.pfx" />
+    <None Include="Sistema Integral de Gestion Administrativa_4_TemporaryKey.pfx" />
     <None Include="Sistema Integral de Gestion Administrativa_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>

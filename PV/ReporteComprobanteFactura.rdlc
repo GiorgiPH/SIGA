@@ -248,6 +248,30 @@
           <DataField>TotalPartida</DataField>
           <rd:TypeName>System.Decimal</rd:TypeName>
         </Field>
+        <Field Name="FechaVence">
+          <DataField>FechaVence</DataField>
+          <rd:TypeName>System.DateTime</rd:TypeName>
+        </Field>
+        <Field Name="NombreCentroCosto">
+          <DataField>NombreCentroCosto</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Proyecto">
+          <DataField>Proyecto</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="TotalPartidas">
+          <DataField>TotalPartidas</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="Consecutivo">
+          <DataField>Consecutivo</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="ImpuestoImporte">
+          <DataField>ImpuestoImporte</DataField>
+          <rd:TypeName>System.Decimal</rd:TypeName>
+        </Field>
       </Fields>
       <rd:DataSetInfo>
         <rd:DataSetName>DTSFactura</rd:DataSetName>
@@ -276,13 +300,16 @@
                   <Width>1.86021cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>6.8357cm</Width>
+                  <Width>5.9645cm</Width>
                 </TablixColumn>
                 <TablixColumn>
                   <Width>3.05563cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>3.18792cm</Width>
+                  <Width>2.5cm</Width>
+                </TablixColumn>
+                <TablixColumn>
+                  <Width>2.73813cm</Width>
                 </TablixColumn>
               </TablixColumns>
               <TablixRows>
@@ -466,6 +493,45 @@
                             </Paragraph>
                           </Paragraphs>
                           <rd:DefaultName>TextboxPU</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Style>None</Style>
+                            </Border>
+                            <TopBorder>
+                              <Style>Solid</Style>
+                            </TopBorder>
+                            <BottomBorder>
+                              <Style>Solid</Style>
+                            </BottomBorder>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="Textbox1">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>Impuesto</Value>
+                                  <Style>
+                                    <FontWeight>Bold</FontWeight>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <TextAlign>Center</TextAlign>
+                              </Style>
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>Textbox1</rd:DefaultName>
                           <Style>
                             <Border>
                               <Style>None</Style>
@@ -693,6 +759,41 @@
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
+                        <Textbox Name="ImpuestoImporte">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>=Fields!ImpuestoImporte.Value</Value>
+                                  <Style>
+                                    <Format>'$'#,0.00;('$'#,0.00)</Format>
+                                    <rd:FormatSymbolCulture>es-MX</rd:FormatSymbolCulture>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <TextAlign>Right</TextAlign>
+                              </Style>
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>ImpuestoImporte</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Color>White</Color>
+                              <Style>None</Style>
+                            </Border>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
                         <Textbox Name="TotalPartida">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
@@ -738,6 +839,7 @@
                 <TablixMember />
                 <TablixMember />
                 <TablixMember />
+                <TablixMember />
               </TablixMembers>
             </TablixColumnHierarchy>
             <TablixRowHierarchy>
@@ -751,7 +853,7 @@
             <DataSetName>DataSet2</DataSetName>
             <Top>0.40541cm</Top>
             <Height>1.72917cm</Height>
-            <Width>18.51903cm</Width>
+            <Width>19.69804cm</Width>
             <Style>
               <Border>
                 <Color>White</Color>
@@ -1077,7 +1179,7 @@
             </TablixRowHierarchy>
             <DataSetName>DataSet2</DataSetName>
             <Top>2.53347cm</Top>
-            <Left>10.40079cm</Left>
+            <Left>11.35329cm</Left>
             <Height>2.4cm</Height>
             <Width>8.11824cm</Width>
             <ZIndex>1</ZIndex>
@@ -1091,10 +1193,10 @@
         <Height>5.65063cm</Height>
         <Style />
       </Body>
-      <Width>18.94236cm</Width>
+      <Width>19.85486cm</Width>
       <Page>
         <PageHeader>
-          <Height>8.5cm</Height>
+          <Height>9.10854cm</Height>
           <PrintOnFirstPage>true</PrintOnFirstPage>
           <PrintOnLastPage>true</PrintOnLastPage>
           <ReportItems>
@@ -1229,83 +1331,6 @@
                 <PaddingBottom>2pt</PaddingBottom>
               </Style>
             </Textbox>
-            <Textbox Name="TextboxFolio">
-              <CanGrow>true</CanGrow>
-              <KeepTogether>true</KeepTogether>
-              <Paragraphs>
-                <Paragraph>
-                  <TextRuns>
-                    <TextRun>
-                      <Value>="F-"+First(Fields!Folio.Value, "DataSet2").ToString()</Value>
-                      <Style>
-                        <FontSize>12pt</FontSize>
-                        <FontWeight>Bold</FontWeight>
-                      </Style>
-                    </TextRun>
-                  </TextRuns>
-                  <Style>
-                    <TextAlign>Center</TextAlign>
-                  </Style>
-                </Paragraph>
-              </Paragraphs>
-              <rd:DefaultName>TextboxFolio</rd:DefaultName>
-              <Top>0.5cm</Top>
-              <Left>15.3cm</Left>
-              <Height>0.6cm</Height>
-              <Width>3.1cm</Width>
-              <ZIndex>4</ZIndex>
-              <Visibility>
-                <Hidden>true</Hidden>
-              </Visibility>
-              <Style>
-                <Border>
-                  <Style>None</Style>
-                </Border>
-                <BackgroundColor>White</BackgroundColor>
-                <PaddingLeft>2pt</PaddingLeft>
-                <PaddingRight>2pt</PaddingRight>
-                <PaddingTop>2pt</PaddingTop>
-                <PaddingBottom>2pt</PaddingBottom>
-              </Style>
-            </Textbox>
-            <Textbox Name="TextboxFecha">
-              <CanGrow>true</CanGrow>
-              <KeepTogether>true</KeepTogether>
-              <Paragraphs>
-                <Paragraph>
-                  <TextRuns>
-                    <TextRun>
-                      <Value>="Fecha: "+First(Fields!Fecha.Value, "DataSet2")</Value>
-                      <Style>
-                        <FontWeight>Bold</FontWeight>
-                        <Format>d</Format>
-                      </Style>
-                    </TextRun>
-                  </TextRuns>
-                  <Style>
-                    <TextAlign>Right</TextAlign>
-                  </Style>
-                </Paragraph>
-              </Paragraphs>
-              <rd:DefaultName>TextboxFecha</rd:DefaultName>
-              <Top>1.2cm</Top>
-              <Left>11.5cm</Left>
-              <Height>0.6cm</Height>
-              <Width>6.9cm</Width>
-              <ZIndex>5</ZIndex>
-              <Visibility>
-                <Hidden>true</Hidden>
-              </Visibility>
-              <Style>
-                <Border>
-                  <Style>None</Style>
-                </Border>
-                <PaddingLeft>2pt</PaddingLeft>
-                <PaddingRight>2pt</PaddingRight>
-                <PaddingTop>2pt</PaddingTop>
-                <PaddingBottom>2pt</PaddingBottom>
-              </Style>
-            </Textbox>
             <Textbox Name="TextboxDomicilioFiscal">
               <CanGrow>true</CanGrow>
               <KeepTogether>true</KeepTogether>
@@ -1380,7 +1405,7 @@
               <Left>3.7cm</Left>
               <Height>1.3cm</Height>
               <Width>14.5cm</Width>
-              <ZIndex>6</ZIndex>
+              <ZIndex>4</ZIndex>
               <Style>
                 <Border>
                   <Style>None</Style>
@@ -1400,7 +1425,7 @@
                     <Paragraph>
                       <TextRuns>
                         <TextRun>
-                          <Value>=First(Fields!IdCliente.Value, "DataSet2").ToString()+ " "+First(Fields!RazonSocial.Value, "DataSet2").ToString()</Value>
+                          <Value>="Clave Cliente: "+First(Fields!IdCliente.Value, "DataSet2").ToString()+ " "+First(Fields!RazonSocial.Value, "DataSet2").ToString()</Value>
                           <Style>
                             <FontWeight>Bold</FontWeight>
                           </Style>
@@ -1550,7 +1575,7 @@
                   <Top>1.7cm</Top>
                   <Left>3.1cm</Left>
                   <Height>1.1cm</Height>
-                  <Width>14.5cm</Width>
+                  <Width>6.90646cm</Width>
                   <ZIndex>3</ZIndex>
                   <Style>
                     <Border>
@@ -1612,8 +1637,246 @@
                   <Top>2.9cm</Top>
                   <Left>3.1cm</Left>
                   <Height>0.9cm</Height>
-                  <Width>14.5cm</Width>
+                  <Width>6.90646cm</Width>
                   <ZIndex>5</ZIndex>
+                  <Style>
+                    <Border>
+                      <Style>None</Style>
+                    </Border>
+                    <PaddingLeft>2pt</PaddingLeft>
+                    <PaddingRight>2pt</PaddingRight>
+                    <PaddingTop>2pt</PaddingTop>
+                    <PaddingBottom>2pt</PaddingBottom>
+                  </Style>
+                </Textbox>
+                <Textbox Name="TextboxRazonSocialCliente2">
+                  <CanGrow>true</CanGrow>
+                  <KeepTogether>true</KeepTogether>
+                  <Paragraphs>
+                    <Paragraph>
+                      <TextRuns>
+                        <TextRun>
+                          <Value>="Documento: "+First(Fields!ClaveDocumento.Value, "DataSet2").ToString()+" - "+First(Fields!Consecutivo.Value, "DataSet2").ToString()</Value>
+                          <Style>
+                            <FontWeight>Bold</FontWeight>
+                          </Style>
+                        </TextRun>
+                      </TextRuns>
+                      <Style>
+                        <TextAlign>Left</TextAlign>
+                      </Style>
+                    </Paragraph>
+                  </Paragraphs>
+                  <rd:DefaultName>TextboxRazonSocialCliente</rd:DefaultName>
+                  <Top>0.37056cm</Top>
+                  <Left>9.74236cm</Left>
+                  <Height>0.6cm</Height>
+                  <Width>9cm</Width>
+                  <ZIndex>6</ZIndex>
+                  <Style>
+                    <Border>
+                      <Style>None</Style>
+                    </Border>
+                    <PaddingLeft>2pt</PaddingLeft>
+                    <PaddingRight>2pt</PaddingRight>
+                    <PaddingTop>2pt</PaddingTop>
+                    <PaddingBottom>2pt</PaddingBottom>
+                  </Style>
+                </Textbox>
+                <Textbox Name="TextboxRazonSocialCliente3">
+                  <CanGrow>true</CanGrow>
+                  <KeepTogether>true</KeepTogether>
+                  <Paragraphs>
+                    <Paragraph>
+                      <TextRuns>
+                        <TextRun>
+                          <Value>="Fecha: " + First(Fields!Fecha.Value, "DataSet2")</Value>
+                          <Style>
+                            <FontWeight>Bold</FontWeight>
+                          </Style>
+                        </TextRun>
+                      </TextRuns>
+                      <Style>
+                        <TextAlign>Left</TextAlign>
+                      </Style>
+                    </Paragraph>
+                  </Paragraphs>
+                  <rd:DefaultName>TextboxRazonSocialCliente</rd:DefaultName>
+                  <Top>0.97153cm</Top>
+                  <Left>9.74236cm</Left>
+                  <Height>0.6cm</Height>
+                  <Width>9cm</Width>
+                  <ZIndex>7</ZIndex>
+                  <Style>
+                    <Border>
+                      <Style>None</Style>
+                    </Border>
+                    <PaddingLeft>2pt</PaddingLeft>
+                    <PaddingRight>2pt</PaddingRight>
+                    <PaddingTop>2pt</PaddingTop>
+                    <PaddingBottom>2pt</PaddingBottom>
+                  </Style>
+                </Textbox>
+                <Textbox Name="TextboxRazonSocialCliente4">
+                  <CanGrow>true</CanGrow>
+                  <KeepTogether>true</KeepTogether>
+                  <Paragraphs>
+                    <Paragraph>
+                      <TextRuns>
+                        <TextRun>
+                          <Value>="Vence: " + First(Fields!FechaVence.Value, "DataSet2")</Value>
+                          <Style>
+                            <FontWeight>Bold</FontWeight>
+                          </Style>
+                        </TextRun>
+                      </TextRuns>
+                      <Style>
+                        <TextAlign>Left</TextAlign>
+                      </Style>
+                    </Paragraph>
+                  </Paragraphs>
+                  <rd:DefaultName>TextboxRazonSocialCliente</rd:DefaultName>
+                  <Top>1.5725cm</Top>
+                  <Left>9.74236cm</Left>
+                  <Height>0.6cm</Height>
+                  <Width>9cm</Width>
+                  <ZIndex>8</ZIndex>
+                  <Style>
+                    <Border>
+                      <Style>None</Style>
+                    </Border>
+                    <PaddingLeft>2pt</PaddingLeft>
+                    <PaddingRight>2pt</PaddingRight>
+                    <PaddingTop>2pt</PaddingTop>
+                    <PaddingBottom>2pt</PaddingBottom>
+                  </Style>
+                </Textbox>
+                <Textbox Name="TextboxRazonSocialCliente5">
+                  <CanGrow>true</CanGrow>
+                  <KeepTogether>true</KeepTogether>
+                  <Paragraphs>
+                    <Paragraph>
+                      <TextRuns>
+                        <TextRun>
+                          <Value>="Centro Costo: " + First(Fields!NombreCentroCosto.Value, "DataSet2")</Value>
+                          <Style>
+                            <FontWeight>Bold</FontWeight>
+                          </Style>
+                        </TextRun>
+                      </TextRuns>
+                      <Style>
+                        <TextAlign>Left</TextAlign>
+                      </Style>
+                    </Paragraph>
+                  </Paragraphs>
+                  <rd:DefaultName>TextboxRazonSocialCliente</rd:DefaultName>
+                  <Top>2.17347cm</Top>
+                  <Left>9.74236cm</Left>
+                  <Height>0.6cm</Height>
+                  <Width>9cm</Width>
+                  <ZIndex>9</ZIndex>
+                  <Style>
+                    <Border>
+                      <Style>None</Style>
+                    </Border>
+                    <PaddingLeft>2pt</PaddingLeft>
+                    <PaddingRight>2pt</PaddingRight>
+                    <PaddingTop>2pt</PaddingTop>
+                    <PaddingBottom>2pt</PaddingBottom>
+                  </Style>
+                </Textbox>
+                <Textbox Name="TextboxRazonSocialCliente6">
+                  <CanGrow>true</CanGrow>
+                  <KeepTogether>true</KeepTogether>
+                  <Paragraphs>
+                    <Paragraph>
+                      <TextRuns>
+                        <TextRun>
+                          <Value>="Proyecto: " + First(Fields!Proyecto.Value, "DataSet2")</Value>
+                          <Style>
+                            <FontWeight>Bold</FontWeight>
+                          </Style>
+                        </TextRun>
+                      </TextRuns>
+                      <Style>
+                        <TextAlign>Left</TextAlign>
+                      </Style>
+                    </Paragraph>
+                  </Paragraphs>
+                  <rd:DefaultName>TextboxRazonSocialCliente</rd:DefaultName>
+                  <Top>2.77444cm</Top>
+                  <Left>9.74236cm</Left>
+                  <Height>0.6cm</Height>
+                  <Width>9cm</Width>
+                  <ZIndex>10</ZIndex>
+                  <Style>
+                    <Border>
+                      <Style>None</Style>
+                    </Border>
+                    <PaddingLeft>2pt</PaddingLeft>
+                    <PaddingRight>2pt</PaddingRight>
+                    <PaddingTop>2pt</PaddingTop>
+                    <PaddingBottom>2pt</PaddingBottom>
+                  </Style>
+                </Textbox>
+                <Textbox Name="TextboxRazonSocialCliente7">
+                  <CanGrow>true</CanGrow>
+                  <KeepTogether>true</KeepTogether>
+                  <Paragraphs>
+                    <Paragraph>
+                      <TextRuns>
+                        <TextRun>
+                          <Value>="Divisa: " + First(Fields!Divisa.Value, "DataSet2")</Value>
+                          <Style>
+                            <FontWeight>Bold</FontWeight>
+                          </Style>
+                        </TextRun>
+                      </TextRuns>
+                      <Style>
+                        <TextAlign>Left</TextAlign>
+                      </Style>
+                    </Paragraph>
+                  </Paragraphs>
+                  <rd:DefaultName>TextboxRazonSocialCliente</rd:DefaultName>
+                  <Top>3.37542cm</Top>
+                  <Left>9.74236cm</Left>
+                  <Height>0.6cm</Height>
+                  <Width>9cm</Width>
+                  <ZIndex>11</ZIndex>
+                  <Style>
+                    <Border>
+                      <Style>None</Style>
+                    </Border>
+                    <PaddingLeft>2pt</PaddingLeft>
+                    <PaddingRight>2pt</PaddingRight>
+                    <PaddingTop>2pt</PaddingTop>
+                    <PaddingBottom>2pt</PaddingBottom>
+                  </Style>
+                </Textbox>
+                <Textbox Name="TextboxRazonSocialCliente8">
+                  <CanGrow>true</CanGrow>
+                  <KeepTogether>true</KeepTogether>
+                  <Paragraphs>
+                    <Paragraph>
+                      <TextRuns>
+                        <TextRun>
+                          <Value>="Partidas: " + First(Fields!TotalPartidas.Value, "DataSet2").ToString()</Value>
+                          <Style>
+                            <FontWeight>Bold</FontWeight>
+                          </Style>
+                        </TextRun>
+                      </TextRuns>
+                      <Style>
+                        <TextAlign>Left</TextAlign>
+                      </Style>
+                    </Paragraph>
+                  </Paragraphs>
+                  <rd:DefaultName>TextboxRazonSocialCliente</rd:DefaultName>
+                  <Top>3.97639cm</Top>
+                  <Left>9.74236cm</Left>
+                  <Height>0.6cm</Height>
+                  <Width>9cm</Width>
+                  <ZIndex>12</ZIndex>
                   <Style>
                     <Border>
                       <Style>None</Style>
@@ -1628,9 +1891,9 @@
               <KeepTogether>true</KeepTogether>
               <Top>4cm</Top>
               <Left>0.2cm</Left>
-              <Height>3.9cm</Height>
-              <Width>18.1cm</Width>
-              <ZIndex>7</ZIndex>
+              <Height>4.74667cm</Height>
+              <Width>18.74236cm</Width>
+              <ZIndex>5</ZIndex>
               <Style>
                 <Border>
                   <Style>Solid</Style>
@@ -1656,7 +1919,7 @@
               <Left>8.3cm</Left>
               <Height>0.6cm</Height>
               <Width>2.8cm</Width>
-              <ZIndex>8</ZIndex>
+              <ZIndex>6</ZIndex>
               <Style>
                 <Border>
                   <Style>None</Style>
