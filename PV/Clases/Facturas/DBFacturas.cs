@@ -896,7 +896,7 @@ namespace PV.Clases.Facturas
                         dgv.Rows[n].Cells[7].Value = total;
                         dgv.Rows[n].Cells[8].Value = Convert.ToDecimal(item["Saldo"]).ToString("N", formato);
                         dgv.Rows[n].Cells[9].Value = Convert.ToDateTime(item["FechaVence"]).ToString("yyyy/MM/dd");
-
+                        dgv.Rows[n].Cells[10].Value = item["CentroCostos"].ToString();
                         dgv.Rows[n].Tag = "Factura";
                     }
                 }

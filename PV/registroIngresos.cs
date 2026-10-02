@@ -35,6 +35,10 @@ namespace PV
         string Tipo = string.Empty;
         string Monto = string.Empty;
 
+        // Nombre (Name) de la columna del grid que trae el Centro de Costos
+        // de cada documento (posicion 10 en dgvPagosPendientes).
+        private const string ColumnaCentroCosto = "CentroCosto";
+
         private void LlenarComboCentroCostos()
         {
             try
@@ -239,6 +243,25 @@ namespace PV
                 return;
             }
 
+            // Todos los documentos seleccionados deben ser del mismo Centro
+            // de Costos (ya se valida al marcar el check, aqui se vuelve a
+            // revisar como respaldo antes de pasar a RegistrarCobro).
+            string centroCostoDocumentos;
+            if (!ValidarCentroCostoUnico(out centroCostoDocumentos))
+            {
+                return;
+            }
+
+            // Clave del Centro de Costos de los documentos seleccionados: es
+            // la que usa RegistrarCobro para traer solo las cuentas bancarias
+            // vinculadas a ese Centro de Costos. Si los documentos no traen
+            // Centro de Costos, se usa como respaldo lo que este en el combo.
+            string claveCentroCostos = ResolverClaveCentroCosto(centroCostoDocumentos);
+            if (string.IsNullOrWhiteSpace(claveCentroCostos))
+            {
+                claveCentroCostos = cmbCentroCostos?.SelectedValue?.ToString();
+            }
+
             if (MessageBox.Show("Si continua los saldos del documento serán actualizados", "Registrar Cobro", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
             {
                 DateTime FechaHoy = DateTime.Now;
@@ -251,7 +274,7 @@ namespace PV
 
                 ArrayList ListaConcept = ObtenerListaConceptosSeleccionados();
 
-                RegistrarCobro cobro = new RegistrarCobro(ListaConcept, txtMatricula.Text, txtAlumno.Text, dtpFecha.Text, Tipo, Monto, cmbCentroCostos?.SelectedValue?.ToString())
+                RegistrarCobro cobro = new RegistrarCobro(ListaConcept, txtMatricula.Text, txtAlumno.Text, dtpFecha.Text, Tipo, Monto, claveCentroCostos)
                 {
                     // DescuentoPago se asigna desde el cálculo de totales
                 };
@@ -322,6 +345,142 @@ namespace PV
         private bool EsFilaSeleccionada(DataGridViewRow row)
         {
             return row.Cells["Seleccionar"].Value != null && (bool)row.Cells["Seleccionar"].Value == true;
+        }
+
+        // ====== CENTRO DE COSTOS DE LOS DOCUMENTOS ======
+
+        /// <summary>
+        /// Regresa el valor de la columna "CentroCosto" de la fila (vacio si
+        /// no trae valor o si la columna no existe).
+        /// </summary>
+        private string ObtenerCentroCostoFila(DataGridViewRow row)
+        {
+            if (row == null || !dgvPagosPendientes.Columns.Contains(ColumnaCentroCosto))
+                return string.Empty;
+
+            object valor = row.Cells[ColumnaCentroCosto].Value;
+            return valor == null ? string.Empty : valor.ToString().Trim();
+        }
+
+        private static bool MismoCentroCosto(string a, string b)
+        {
+            return string.Equals((a ?? string.Empty).Trim(), (b ?? string.Empty).Trim(), StringComparison.OrdinalIgnoreCase);
+        }
+
+        private static string TextoCentroCosto(string valor)
+        {
+            return string.IsNullOrWhiteSpace(valor) ? "(sin Centro de Costos)" : valor;
+        }
+
+        /// <summary>
+        /// Regresa el Centro de Costos de las filas que ya estan
+        /// seleccionadas (sin contar "excluir"). Regresa null si no hay
+        /// ninguna otra fila seleccionada.
+        /// </summary>
+        private string ObtenerCentroCostoSeleccionado(DataGridViewRow excluir)
+        {
+            foreach (DataGridViewRow row in dgvPagosPendientes.Rows)
+            {
+                if (row.IsNewRow || row == excluir)
+                    continue;
+
+                if (EsFilaSeleccionada(row))
+                    return ObtenerCentroCostoFila(row);
+            }
+            return null;
+        }
+
+        /// <summary>
+        /// Valida que todas las filas seleccionadas pertenezcan al mismo
+        /// Centro de Costos. Regresa en "centroCosto" el valor comun.
+        /// </summary>
+        private bool ValidarCentroCostoUnico(out string centroCosto)
+        {
+            centroCosto = null;
+
+            foreach (DataGridViewRow row in dgvPagosPendientes.Rows)
+            {
+                if (row.IsNewRow || !EsFilaSeleccionada(row))
+                    continue;
+
+                string ccFila = ObtenerCentroCostoFila(row);
+
+                if (centroCosto == null)
+                {
+                    centroCosto = ccFila;
+                }
+                else if (!MismoCentroCosto(centroCosto, ccFila))
+                {
+                    MessageBox.Show(
+                        "Los documentos seleccionados pertenecen a diferentes Centros de Costos.\n\n" +
+                        "Solo puede cobrar en un mismo movimiento documentos del mismo Centro de Costos.",
+                        "Centro de Costos",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Warning);
+                    centroCosto = null;
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
+        /// <summary>
+        /// Convierte el valor de la columna "CentroCosto" a la Clave del
+        /// Centro de Costos usando la tabla que ya carga cmbCentroCostos.
+        /// Funciona tanto si el grid trae la Clave como si trae el Nombre.
+        /// Si no se encuentra en la tabla, regresa el valor tal cual.
+        /// </summary>
+        private string ResolverClaveCentroCosto(string valorGrid)
+        {
+            if (string.IsNullOrWhiteSpace(valorGrid))
+                return null;
+
+            string valor = valorGrid.Trim();
+            DataTable tabla = cmbCentroCostos.DataSource as DataTable;
+
+            if (tabla != null && tabla.Columns.Contains("Clave") && tabla.Columns.Contains("Nombre"))
+            {
+                // 1) Coincidencia por Clave
+                foreach (DataRow dr in tabla.Rows)
+                {
+                    string clave = Convert.ToString(dr["Clave"]).Trim();
+                    if (clave == "0")
+                        continue; // fila "TODOS"
+
+                    if (string.Equals(clave, valor, StringComparison.OrdinalIgnoreCase))
+                        return clave;
+                }
+
+                // 2) Coincidencia por Nombre
+                foreach (DataRow dr in tabla.Rows)
+                {
+                    string clave = Convert.ToString(dr["Clave"]).Trim();
+                    if (clave == "0")
+                        continue; // fila "TODOS"
+
+                    string nombreCC = Convert.ToString(dr["Nombre"]).Trim();
+                    if (string.Equals(nombreCC, valor, StringComparison.OrdinalIgnoreCase))
+                        return clave;
+                }
+            }
+
+            return valor;
+        }
+
+        /// <summary>
+        /// Desmarca una fila y la deja como si nunca se hubiera seleccionado
+        /// (mismo tratamiento que al quitar el check manualmente).
+        /// </summary>
+        private void DesmarcarFila(DataGridViewRow fila)
+        {
+            dgvPagosPendientes.EndEdit();
+            fila.Cells["Seleccionar"].Value = false;
+            fila.Cells["Descuento"].Value = "0.00";
+            fila.Cells["Descuento"].ReadOnly = true;
+            fila.Cells["Saldo"].Value = "0.00";
+            dgvPagosPendientes.RefreshEdit();
+            dgvPagosPendientes.InvalidateRow(fila.Index);
         }
 
         private void dgvPagosPendientes_CurrentCellDirtyStateChanged(object sender, EventArgs e)
@@ -445,6 +604,27 @@ namespace PV
                 bool seleccionado = (bool)filaActual.Cells["Seleccionar"].Value;
                 if (seleccionado)
                 {
+                    // Solo se permiten documentos del mismo Centro de Costos:
+                    // si ya hay otras filas seleccionadas y esta es de un
+                    // Centro de Costos diferente, se desmarca y se avisa.
+                    string ccFila = ObtenerCentroCostoFila(filaActual);
+                    string ccSeleccionado = ObtenerCentroCostoSeleccionado(filaActual);
+
+                    if (ccSeleccionado != null && !MismoCentroCosto(ccFila, ccSeleccionado))
+                    {
+                        DesmarcarFila(filaActual);
+                        RecalcularTotales();
+
+                        MessageBox.Show(
+                            "Solo puede seleccionar documentos del mismo Centro de Costos.\n\n" +
+                            "Documentos seleccionados: " + TextoCentroCosto(ccSeleccionado) + "\n" +
+                            "Este documento: " + TextoCentroCosto(ccFila),
+                            "Centro de Costos",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Warning);
+                        return;
+                    }
+
                     // Al seleccionar, permitir editar descuento
                     filaActual.Cells["Descuento"].ReadOnly = false;
                     RecalcularSaldoFila(filaActual);

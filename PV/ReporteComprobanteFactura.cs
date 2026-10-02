@@ -21,6 +21,8 @@ namespace PV
 
         private void ReporteComprobanteFactura_Load(object sender, EventArgs e)
         {
+            this.dTSFactura.EnforceConstraints = false;
+            this.controlCondominiosDataSet23.EnforceConstraints = false;
             // TODO: esta línea de código carga datos en la tabla 'controlCondominiosDataSet23.DatosEmpresa' Puede moverla o quitarla según sea necesario.
             this.datosEmpresaTableAdapter.Fill(this.controlCondominiosDataSet23.DatosEmpresa);
             this.sp_ComprobanteFacturaTableAdapter.Fill(this.dTSFactura.sp_ComprobanteFactura, int.Parse(folio));

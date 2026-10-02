@@ -34,9 +34,10 @@ namespace PV
             this.IdCliente = IdCliente;
             valores = cl.InformacionCliente(IdCliente);
             valoresR = r.InformacionRemision(FolioOrdenPedido);
+            this.controlCondominiosDataSet60.EnforceConstraints = false;
+
             // TODO: This line of code loads data into the 'controlCondominiosDataSet8.Clientes' table. You can move, or remove it, as needed.
             this.clientesTableAdapter.FillBy(this.controlCondominiosDataSet8.Clientes, int.Parse(IdCliente));
-            this.controlCondominiosDataSet60.EnforceConstraints = false;
             // TODO: This line of code loads data into the 'controlCondominiosDataSet60.DataTable1' table. You can move, or remove it, as needed.
             this.dataTable1TableAdapter.FillBy(this.controlCondominiosDataSet60.DataTable1, int.Parse(FolioOrdenPedido));
             // TODO: This line of code loads data into the 'controlCondominiosDataSet23.DatosEmpresa' table. You can move, or remove it, as needed.
