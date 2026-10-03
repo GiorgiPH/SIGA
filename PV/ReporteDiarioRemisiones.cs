@@ -43,6 +43,7 @@ namespace PV
 
         private void ReporteDiarioRemisiones_Load(object sender, EventArgs e)
         {
+            this.controlCondominiosDataSet60.EnforceConstraints = false;
             // TODO: esta línea de código carga datos en la tabla 'controlCondominiosDataSet23.DatosEmpresa' Puede moverla o quitarla según sea necesario.
             this.datosEmpresaTableAdapter.Fill(this.controlCondominiosDataSet23.DatosEmpresa);
 

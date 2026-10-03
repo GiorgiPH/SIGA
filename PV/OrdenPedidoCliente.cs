@@ -11,6 +11,7 @@ using PV.Clases.OrdenCompra;
 using PV.Clases.PedidoCliente;
 using PV.Clases.Proveedores;
 using PV.Clases.Remision;
+using PV.Clases.Servicios;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -24,6 +25,55 @@ using System.Windows.Forms;
 
 namespace PV
 {
+    /// <summary>
+    /// Formulario combinado de Remisión y Pedido a Cliente (la rama de lógica
+    /// que se ejecuta depende del parámetro "tipo" del constructor: "Remision"
+    /// o cualquier otro valor para Pedido a Cliente). La lógica de negocio de
+    /// Producto (existencias, pedidos pendientes, vínculo con un Pedido a
+    /// Cliente previo, salida de almacén al confirmar una Remisión) ya estaba
+    /// totalmente funcional y NO se modifica aquí.
+    ///
+    /// AJUSTE (Producto o Servicio por partida): se agrega el combo "cmbTipo"
+    /// para que cada partida -tanto en Remisión como en Pedido a Cliente-
+    /// pueda capturarse contra el catálogo de Productos (ProductosServicios,
+    /// comportamiento histórico, SIN CAMBIOS) o contra el catálogo de
+    /// Servicios (DBServicios, nuevo). Decisiones de diseño:
+    ///
+    ///   1) El camino "Producto" se deja INTACTO: mismos métodos, mismos
+    ///      parámetros, mismo orden de llamadas que ya tenías. Sólo se le
+    ///      agregó, a cada método que lo necesitaba, un nuevo parámetro
+    ///      "tipoConcepto" al final de la lista de parámetros de captura (ver
+    ///      nota de "CAMBIO DE FIRMA REQUERIDO" en cada sitio). El camino
+    ///      "Servicio" es 100% nuevo y vive en ramas "if (cmbTipo.Text ==
+    ///      'Servicio')" separadas.
+    ///
+    ///   2) Un Servicio no maneja inventario: ValidarExistencias() no hace
+    ///      nada (regresa true) cuando cmbTipo = 'Servicio'; los contadores
+    ///      de existencias/pedidos pendientes (lblExistencias,
+    ///      lblPedidosProveedor, lblPedidosCliente, lblDisponible) se marcan
+    ///      "N/D"; no se actualiza ProductosServicios.PedidosCliente
+    ///      (DBProductosServicios.RegistroPedidosCliente) ni la cantidad
+    ///      pendiente de un Pedido a Cliente vinculado
+    ///      (ActualizaCantidadPendientePartidaOrden); y, al confirmar una
+    ///      Remisión, IngresarAlmacen ya NO genera movimiento de salida de
+    ///      almacén para las partidas de tipo 'Servicio' (sólo para
+    ///      'Producto'), porque no hay existencia física que mover.
+    ///
+    ///   3) cmbConcepto arranca vacío cada vez que se abre una partida nueva
+    ///      (cmbTipo sin selección), igual que en Facturas/Cotizaciones: el
+    ///      usuario debe elegir primero Producto o Servicio, lo que dispara
+    ///      la carga del catálogo correspondiente (CargarComboConceptos).
+    ///
+    ///   4) Varios métodos de DBOrdenCompra (o) y DBPedidoCliente (c) deben
+    ///      actualizar su firma para soportar esto. Como esas clases son muy
+    ///      grandes y no se compartieron completas, este archivo YA ASUME las
+    ///      nuevas firmas (marcadas con "// CAMBIO DE FIRMA REQUERIDO EN..."
+    ///      en cada sitio de la llamada) y por lo tanto VA A MARCAR ERROR DE
+    ///      COMPILACIÓN hasta que esos métodos se actualicen. Ver el archivo
+    ///      "DBOrdenCompra_DBPedidoCliente_MetodosAfectados.cs" para una
+    ///      propuesta completa de cada método afectado, lista para adaptar
+    ///      contra tus implementaciones reales.
+    /// </summary>
     public partial class OrdenPedidoCliente : Form
     {
 
@@ -39,9 +89,13 @@ namespace PV
         DBCentroCostos cc = new DBCentroCostos();
         DBDatosProyecto dp = new DBDatosProyecto();
         DBProductosServicios p = new DBProductosServicios();
+
+        // Catálogo de Servicios, para cuando cmbTipo = "Servicio" (nuevo).
+        DBServicios srv = new DBServicios();
+
         string recibo = string.Empty;
         string reciboCol = string.Empty;
-        string tipo=string.Empty;
+        string tipo = string.Empty;
 
         private bool mostrrcentorcosto = false;
 
@@ -53,7 +107,7 @@ namespace PV
             if (tipo == "Remision")
             {
                 label18.Text = "Remisión";
-                
+
                 T.SetToolTip(guna2Button15, "Nueva Remisión");
                 T.SetToolTip(guna2Button16, "Consultar Remisión");
                 T.SetToolTip(button10, "Imprimir Remisión");
@@ -74,6 +128,13 @@ namespace PV
             }
             T.SetToolTip(btnCliente, "Buscar Cliente");
             T.SetToolTip(btnCliente, "Buscar Orden Pedido");
+
+            // cmbTipo se agrega directamente en el Designer (sin wiring de
+            // evento todavía); se engancha aquí por código para no depender
+            // de que el evento haya quedado conectado desde el panel de
+            // Propiedades de Visual Studio.
+            cmbTipo.SelectedIndexChanged += cmbTipo_SelectedIndexChanged;
+
             c.BuscarProveedor(guna2DataGridView2);
         }
 
@@ -129,7 +190,7 @@ namespace PV
             {
                 o.CargarRemisiones(dataGridView1, tipo, txtFiltro.Text, txtFiltroDocumento.Text, txtFiltroNombre.Text, false);
                 o.CargarRemisiones(DataGridView2, tipo, txtFiltro.Text, txtFiltroDocumento.Text, txtFiltroNombre.Text, true);
-                
+
             }
             else
             {
@@ -138,8 +199,9 @@ namespace PV
                 btnRemisionXML.Visible = false;
             }
             c.SeleccionarConceptoDocumentoV(cmbDocumento, tipo);
-            
-            
+
+            ConfigurarComboTipo();
+
             a.SeleccionarAlmacen(cmbAlmacen);
             cmbEstatus.SelectedIndex = 0;
             txtFecha.Text = DateTime.Today.ToString("yyyy/MM/dd");
@@ -228,6 +290,22 @@ namespace PV
             LlenarComboCentro();
 
         }
+
+        /// <summary>
+        /// Llena cmbTipo con las dos opciones fijas Producto/Servicio y lo
+        /// deja en modo "sólo selección de lista", para que su .Text siempre
+        /// sea exactamente "Producto" o "Servicio" tal como lo esperan
+        /// CargarComboConceptos() y cmbConcepto_SelectedIndexChanged.
+        /// </summary>
+        private void ConfigurarComboTipo()
+        {
+            cmbTipo.DropDownStyle = ComboBoxStyle.DropDownList;
+            cmbTipo.Items.Clear();
+            cmbTipo.Items.Add("Producto");
+            cmbTipo.Items.Add("Servicio");
+            cmbTipo.SelectedIndex = -1;
+        }
+
         private void LlenarComboCentro()
         {
             try
@@ -325,7 +403,7 @@ namespace PV
 
         private void guna2Button12_Click(object sender, EventArgs e)
         {
-            
+
             BuscarCliente b = new BuscarCliente();
             b.ShowDialog();
 
@@ -333,7 +411,7 @@ namespace PV
             {
                 txtMatricular.Text = BuscarCliente.Cliente;
             }
-           
+
 
         }
         private void btnConfirmar_Click(object sender, EventArgs e)
@@ -395,9 +473,22 @@ namespace PV
                         return;
                     }
 
-                    o.InsertarPartidaRemision(TxtFolio2.Text, txtPartida.Text, txtConcepto2.Text, txtConcepto2.Text, txtCantidad.Text, txtUnidad.Text, txtDivisa1.Text, txtTipoCambio1.Text, Convert.ToDecimal(txtImporte1.Text), Convert.ToDecimal(txtDescuento1.Text), Convert.ToDecimal(txtTotal1.Text), Convert.ToDecimal(txtPrecio.Text), Convert.ToDecimal(txtImpuesto1.Text));
+                    // "Producto": misma clave que siempre (txtConcepto2.Text,
+                    // sin cambios). "Servicio" (nuevo): la clave real viene
+                    // del ValueMember de cmbConcepto (ClaveServicio).
+                    string claveConceptoInsert = cmbTipo.Text == "Servicio"
+                        ? cmbConcepto.SelectedValue?.ToString()
+                        : txtConcepto2.Text;
+
+                    // CAMBIO DE FIRMA REQUERIDO EN DBOrdenCompra.InsertarPartidaRemision:
+                    // se agrega "tipoConcepto" (cmbTipo.Text) como tercer parámetro.
+                    o.InsertarPartidaRemision(TxtFolio2.Text, txtPartida.Text, cmbTipo.Text, claveConceptoInsert, txtConcepto2.Text, txtCantidad.Text, txtUnidad.Text, txtDivisa1.Text, txtTipoCambio1.Text, Convert.ToDecimal(txtImporte1.Text), Convert.ToDecimal(txtDescuento1.Text), Convert.ToDecimal(txtTotal1.Text), Convert.ToDecimal(txtPrecio.Text), Convert.ToDecimal(txtImpuesto1.Text));
                     o.ActualizarTotalesRemision(TxtFolio2.Text, txtPartida.Text);
-                    if (!string.IsNullOrEmpty(txtFolioPedido.Text))
+
+                    // Un Servicio no afecta la cantidad pendiente de un
+                    // Pedido a Cliente vinculado ni PedidosCliente en
+                    // ProductosServicios (no aplica, no maneja inventario).
+                    if (cmbTipo.Text != "Servicio" && !string.IsNullOrEmpty(txtFolioPedido.Text))
                     {
 
                         decimal cant = Convert.ToDecimal(txtCantidad.Text);
@@ -412,14 +503,23 @@ namespace PV
                 }
                 else
                 {
+                    string claveConceptoInsert = cmbTipo.Text == "Servicio"
+                        ? cmbConcepto.SelectedValue?.ToString()
+                        : txtConcepto2.Text;
 
-                    string mensaje = c.InsertarPartidaOrdenCliente(TxtFolio2.Text, txtPartida.Text, txtConcepto2.Text, txtConcepto2.Text, txtCantidad.Text, txtUnidad.Text, txtDivisa1.Text, txtTipoCambio1.Text, Convert.ToDecimal(txtImporte1.Text), Convert.ToDecimal(txtDescuento1.Text), Convert.ToDecimal(txtTotal1.Text), Convert.ToDecimal(txtPrecio.Text), Convert.ToDecimal(txtImpuesto1.Text));
+                    // CAMBIO DE FIRMA REQUERIDO EN DBPedidoCliente.InsertarPartidaOrdenCliente:
+                    // se agrega "tipoConcepto" (cmbTipo.Text) como tercer parámetro.
+                    string mensaje = c.InsertarPartidaOrdenCliente(TxtFolio2.Text, txtPartida.Text, cmbTipo.Text, claveConceptoInsert, txtConcepto2.Text, txtCantidad.Text, txtUnidad.Text, txtDivisa1.Text, txtTipoCambio1.Text, Convert.ToDecimal(txtImporte1.Text), Convert.ToDecimal(txtDescuento1.Text), Convert.ToDecimal(txtTotal1.Text), Convert.ToDecimal(txtPrecio.Text), Convert.ToDecimal(txtImpuesto1.Text));
                     if (!string.IsNullOrEmpty(mensaje))
                     {
                         MessageBox.Show(mensaje);
                     }
                     c.ActualizarTotalesOrdenPedidoCliente(TxtFolio2.Text, txtPartida.Text);
-                    p.RegistroPedidosCliente(txtConcepto2.Text, txtCantidad.Text);
+
+                    if (cmbTipo.Text != "Servicio")
+                    {
+                        p.RegistroPedidosCliente(txtConcepto2.Text, txtCantidad.Text);
+                    }
 
 
                 }
@@ -431,6 +531,13 @@ namespace PV
         }
         private bool ValidarExistencias()
         {
+            // Un Servicio no maneja inventario: no hay existencias que
+            // validar, así que simplemente se permite continuar.
+            if (cmbTipo.Text == "Servicio")
+            {
+                return true;
+            }
+
             decimal existencias;
             decimal cantidad;
 
@@ -500,30 +607,40 @@ namespace PV
                         return;
                     }
 
-                    o.InsertarPartidaRemision(TxtFolio2.Text, txtPartida.Text, txtConcepto2.Text, txtConcepto2.Text, txtCantidad.Text, txtUnidad.Text, txtDivisa1.Text, txtTipoCambio1.Text, Convert.ToDecimal(txtImporte1.Text), Convert.ToDecimal(txtDescuento1.Text), Convert.ToDecimal(txtTotal1.Text), Convert.ToDecimal(txtPrecio.Text), Convert.ToDecimal(txtImpuesto1.Text));
+                    string claveConceptoInsert = cmbTipo.Text == "Servicio"
+                        ? cmbConcepto.SelectedValue?.ToString()
+                        : txtConcepto2.Text;
+
+                    // CAMBIO DE FIRMA REQUERIDO EN DBOrdenCompra.InsertarPartidaRemision (igual que en btnConfirmar_Click).
+                    o.InsertarPartidaRemision(TxtFolio2.Text, txtPartida.Text, cmbTipo.Text, claveConceptoInsert, txtConcepto2.Text, txtCantidad.Text, txtUnidad.Text, txtDivisa1.Text, txtTipoCambio1.Text, Convert.ToDecimal(txtImporte1.Text), Convert.ToDecimal(txtDescuento1.Text), Convert.ToDecimal(txtTotal1.Text), Convert.ToDecimal(txtPrecio.Text), Convert.ToDecimal(txtImpuesto1.Text));
                     o.ActualizarTotalesRemision(TxtFolio2.Text, txtPartida.Text);
 
                     o.Consulta5OrdenCompra(TxtFolio2.Text, txtPartida);
                     o.ReciboSaldosPartidasOrden(TxtFolio2.Text, txtSubtotalR, txtDescuentoR, txtTotalR, txtImpuestoR);
                     //o.ReciboSaldosPartidasOrden2(TxtFolio2.Text, txtImpuestoR);
 
-                    if (!string.IsNullOrEmpty(txtFolioPedido.Text))
+                    if (cmbTipo.Text != "Servicio" && !string.IsNullOrEmpty(txtFolioPedido.Text))
                     {
 
                         decimal cant = Convert.ToDecimal(txtCantidad.Text);
                         decimal cantneg = Convert.ToDecimal(txtCantidad.Text) * -1;
                         c.ActualizaCantidadPendientePartidaOrden(cant.ToString(), cant.ToString(), txtFolioPedido.Text, txtConcepto2.Text);
-                        
+
                         p.RegistroPedidosCliente(txtConcepto2.Text, cantneg.ToString().Replace(",", ""));
 
 
 
                     }
-                   
+
                 }
                 else
                 {
-                    string mensaje=c.InsertarPartidaOrdenCliente(TxtFolio2.Text, txtPartida.Text, txtConcepto2.Text, txtConcepto2.Text, txtCantidad.Text, txtUnidad.Text, txtDivisa1.Text, txtTipoCambio1.Text, Convert.ToDecimal(txtImporte1.Text), Convert.ToDecimal(txtDescuento1.Text), Convert.ToDecimal(txtTotal1.Text), Convert.ToDecimal(txtPrecio.Text), Convert.ToDecimal(txtImpuesto1.Text));
+                    string claveConceptoInsert = cmbTipo.Text == "Servicio"
+                        ? cmbConcepto.SelectedValue?.ToString()
+                        : txtConcepto2.Text;
+
+                    // CAMBIO DE FIRMA REQUERIDO EN DBPedidoCliente.InsertarPartidaOrdenCliente (igual que en btnConfirmar_Click).
+                    string mensaje = c.InsertarPartidaOrdenCliente(TxtFolio2.Text, txtPartida.Text, cmbTipo.Text, claveConceptoInsert, txtConcepto2.Text, txtCantidad.Text, txtUnidad.Text, txtDivisa1.Text, txtTipoCambio1.Text, Convert.ToDecimal(txtImporte1.Text), Convert.ToDecimal(txtDescuento1.Text), Convert.ToDecimal(txtTotal1.Text), Convert.ToDecimal(txtPrecio.Text), Convert.ToDecimal(txtImpuesto1.Text));
                     if (!string.IsNullOrEmpty(mensaje))
                     {
                         MessageBox.Show(mensaje);
@@ -531,28 +648,25 @@ namespace PV
                     c.ActualizarTotalesOrdenPedidoCliente(TxtFolio2.Text, txtPartida.Text);
                     c.Consulta5OrdenCliente(TxtFolio2.Text, txtPartida);
                     c.ReciboSaldosPartidasOrden(TxtFolio2.Text, txtSubtotalR, txtDescuentoR, txtTotalR, txtImpuestoR);
-                    p.RegistroPedidosCliente(txtConcepto2.Text, txtCantidad.Text);
+
+                    if (cmbTipo.Text != "Servicio")
+                    {
+                        p.RegistroPedidosCliente(txtConcepto2.Text, txtCantidad.Text);
+                    }
 
 
                 }
 
-
-                if (string.IsNullOrEmpty(txtFolioPedido.Text))
-                {
-                    c.SeleccionarProducto2(cmbConcepto, TxtFolio2.Text);
-                }
-                else
-                {
-                    c.SeleccionarProductoOrdenPedido(cmbConcepto, txtFolioPedido.Text);
-
-                }
+                // Vuelve a cargar el mismo catálogo (Producto o Servicio,
+                // según lo que se acaba de usar) para la siguiente partida.
+                CargarComboConceptos();
                 CargarPartidas();
 
             }
             LimpiarPartida();
         }
 
-       
+
         private void CargarPartidas()
         {
             if (tipo == "Remision")
@@ -649,26 +763,25 @@ namespace PV
                 recibo = txtReciboInsc.Text;
                 reciboCol = ReciboCol;
 
-                if (string.IsNullOrEmpty(txtFolioPedido.Text))
-                {
-                    c.SeleccionarProducto2(cmbConcepto, TxtFolio2.Text);
-                }
-                else
-                {
-                    c.SeleccionarProductoOrdenPedido(cmbConcepto, txtFolioPedido.Text);
-
-                }
+                // cmbTipo arranca sin selección: el usuario debe elegir
+                // Producto o Servicio antes de que se cargue el catálogo
+                // correspondiente en cmbConcepto (vía cmbTipo_SelectedIndexChanged).
+                cmbTipo.SelectedIndexChanged -= cmbTipo_SelectedIndexChanged;
+                cmbTipo.SelectedIndex = -1;
+                cmbTipo.SelectedIndexChanged += cmbTipo_SelectedIndexChanged;
+                cmbConcepto.DataSource = null;
+                cmbConcepto.Items.Clear();
 
                 if (tipo == "Remision")
                 {
-                    o.Consulta5OrdenCompra(TxtFolio2.Text, txtPartida);                 
+                    o.Consulta5OrdenCompra(TxtFolio2.Text, txtPartida);
                 }
                 else
                 {
                     c.Consulta5OrdenCliente(TxtFolio2.Text, txtPartida);
                 }
                 txtCantidad.Text = "1";
-                txtUnidad.Text = "Servicio";
+                txtUnidad.Clear();
                 txtDivisa1.Text = "MXN";
                 txtTipoCambio1.Text = "1.00";
             }
@@ -704,8 +817,8 @@ namespace PV
             txtTotal.Text = "0.00";
             txtNotas.Clear();
             txtConsecutivo.Clear();
-            txtMatricular.Clear ();
-            txtNombreAlumnno.Clear ();
+            txtMatricular.Clear();
+            txtNombreAlumnno.Clear();
             cmbDocumento.Text = null;
             cmbDocumento.Enabled = false;
             txtDiasVence.Enabled = false;
@@ -727,13 +840,19 @@ namespace PV
             txtNotas.BackColor = Color.White;
             //button2.BackColor = Color.Gainsboro;
             //button6.BackColor = Color.Gainsboro;
+
+            cmbTipo.SelectedIndexChanged -= cmbTipo_SelectedIndexChanged;
+            cmbTipo.SelectedIndex = -1;
+            cmbTipo.SelectedIndexChanged += cmbTipo_SelectedIndexChanged;
             cmbConcepto.SelectedIndex = -1;
-            
-            cmbAlmacen.SelectedIndex= -1;
+            cmbConcepto.DataSource = null;
+            cmbConcepto.Items.Clear();
+
+            cmbAlmacen.SelectedIndex = -1;
             PanelPartidasRequisicion.Visible = false;
             guna2TabControl1.SelectedIndex = 0;
             guna2DataGridView1.Rows.Clear();
-            txtFolioPedido.Text=string.Empty;
+            txtFolioPedido.Text = string.Empty;
             d.Clear();
             cmbCentroCostos.SelectedIndex = -1;
             cmbproyecto.SelectedIndex = -1;
@@ -767,7 +886,7 @@ namespace PV
                 {
                     MessageBox.Show("Confirme la orden de compra antes de continuar");
                 }
-         
+
                 guna2TabControl1.SelectedIndex = 0;
                 guna2TabControl1.Enabled = true;
 
@@ -827,7 +946,7 @@ namespace PV
                     guna2GradientPanel2.Visible = true;
                     guna2GradientPanel2.BringToFront();
                 }
-              
+
                 cmbDocumento.Enabled = false;
                 guna2Button5.Visible = true;
                 guna2Button6.Visible = true;
@@ -869,7 +988,7 @@ namespace PV
             }
             else if (e.ClickedItem.Text == "IMPRIMIR")
             {
-             
+
                 ReporteOrdenCompra reporteOrdenCompra = new ReporteOrdenCompra();
                 reporteOrdenCompra.ShowDialog();
 
@@ -932,7 +1051,7 @@ namespace PV
             }
             else if (e.ClickedItem.Text == "AUTORIZAR")
             {
-               
+
                 AutentificarAdmin autentificarAdmin = new AutentificarAdmin();
                 autentificarAdmin.ShowDialog();
 
@@ -973,86 +1092,10 @@ namespace PV
         private void toolStrip2_MouseMove(object sender, MouseEventArgs e)
         {
 
-            /* guna2GradientPanel4.Size = new Size(80, 569);
-             toolStrip2.Size = new Size(112, 569);
-             toolStripButton4.TextDirection = System.Windows.Forms.ToolStripTextDirection.Horizontal;
-             toolStripButton5.TextDirection = System.Windows.Forms.ToolStripTextDirection.Horizontal;
-             toolStripButton1.TextDirection = System.Windows.Forms.ToolStripTextDirection.Horizontal;
-             toolStripButton2.TextDirection = System.Windows.Forms.ToolStripTextDirection.Horizontal;
-             toolStripButton3.TextDirection = System.Windows.Forms.ToolStripTextDirection.Horizontal;
-            */
-            //  toolStripButton1.Size = new Size(50, 60);
-       /*     guna2GradientPanel4.Location = new Point(1013, 83);
-            guna2GradientPanel4.Size = new Size(86, 583);
-            toolStrip1.Size = new Size(112, 569);
-            toolStripButton11.TextDirection = System.Windows.Forms.ToolStripTextDirection.Horizontal;
-            toolStripButton12.TextDirection = System.Windows.Forms.ToolStripTextDirection.Horizontal;
-            toolStripButton13.TextDirection = System.Windows.Forms.ToolStripTextDirection.Horizontal;
-            toolStripButton14.TextDirection = System.Windows.Forms.ToolStripTextDirection.Horizontal;
-            toolStripButton15.TextDirection = System.Windows.Forms.ToolStripTextDirection.Horizontal;
-
-            this.toolStripButton11.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            toolStripButton11.Size = new Size(85, 75);
-            toolStripButton11.AutoSize = false;
-
-            this.toolStripButton12.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            toolStripButton12.Size = new Size(85, 75);
-            toolStripButton12.AutoSize = false;
-
-            this.toolStripButton13.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            toolStripButton13.Size = new Size(85, 75);
-            toolStripButton13.AutoSize = false;
-
-            this.toolStripButton14.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            toolStripButton14.Size = new Size(85, 75);
-            toolStripButton14.AutoSize = false;
-
-            this.toolStripButton15.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            toolStripButton15.Size = new Size(85, 75);
-            toolStripButton15.AutoSize = false;
-
-            */
         }
 
         private void toolStrip2_MouseLeave(object sender, EventArgs e)
         {
-            /*guna2GradientPanel4.Size = new Size(22, 569);
-            toolStrip2.Size = new Size(22, 569);
-            toolStripButton4.TextDirection = System.Windows.Forms.ToolStripTextDirection.Vertical270;
-            toolStripButton5.TextDirection = System.Windows.Forms.ToolStripTextDirection.Vertical270;
-            toolStripButton1.TextDirection = System.Windows.Forms.ToolStripTextDirection.Vertical270;
-            toolStripButton2.TextDirection = System.Windows.Forms.ToolStripTextDirection.Vertical270;
-            toolStripButton3.TextDirection = System.Windows.Forms.ToolStripTextDirection.Vertical270;
-            */
-           /* guna2GradientPanel4.Location = new Point(1076, 83);
-            guna2GradientPanel4.Size = new Size(23, 569);
-
-            toolStrip1.Size = new Size(23, 569);
-            toolStripButton11.TextDirection = System.Windows.Forms.ToolStripTextDirection.Vertical270;
-            toolStripButton12.TextDirection = System.Windows.Forms.ToolStripTextDirection.Vertical270;
-            toolStripButton13.TextDirection = System.Windows.Forms.ToolStripTextDirection.Vertical270;
-            toolStripButton14.TextDirection = System.Windows.Forms.ToolStripTextDirection.Vertical270;
-            toolStripButton15.TextDirection = System.Windows.Forms.ToolStripTextDirection.Vertical270;
-
-            this.toolStripButton11.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            toolStripButton11.Size = new Size(23, 79);
-
-            // toolStrip1.Size = new Size(22, 569);
-            this.toolStripButton12.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            toolStripButton12.Size = new Size(23, 79);
-
-
-            this.toolStripButton13.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            toolStripButton13.Size = new Size(23, 79);
-
-
-            //  toolStrip1.Size = new Size(22, 569);
-            this.toolStripButton14.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            toolStripButton14.Size = new Size(23, 79);
-
-            // toolStrip1.Size = new Size(22, 569);
-            this.toolStripButton15.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            toolStripButton15.Size = new Size(23, 79);*/
         }
 
         private void txtFiltro1_TextChanged(object sender, EventArgs e)
@@ -1089,7 +1132,7 @@ namespace PV
 
         private void guna2Button1_Click(object sender, EventArgs e)
         {
-           
+
             if (MessageBox.Show("La pantalla se limpiará, ¿Desea continuar?", "Documento", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
             {
 
@@ -1117,53 +1160,138 @@ namespace PV
 
         }
 
+        /// <summary>
+        /// A diferencia de la versión anterior (que sólo sabía resolver
+        /// contra el catálogo de Productos), ahora primero se revisa
+        /// cmbTipo: si es "Servicio", se resuelve contra DBServicios
+        /// (nuevo, sin existencias ni pedidos pendientes). Si es "Producto"
+        /// (o viene vacío por compatibilidad), el comportamiento es EL MISMO
+        /// de siempre, sin tocar una sola línea de esa lógica.
+        /// </summary>
         private void cmbConcepto_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (cmbConcepto.Text != string.Empty)
+            if (cmbConcepto.Text == string.Empty)
+                return;
+
+            if (cmbTipo.Text == "Servicio")
             {
-                if (!tipo.Equals("Remision"))
-                {
-                    string[] valores = c.InformacionRecibo(cmbConcepto.Text, txtFolioPedido.Text);
-                    txtConcepto2.Text = valores[0];
-                    txtConcepto.Text = valores[1];
-                    txtPrecio.Text = valores[11];
-                    txtUnidad.Text = valores[3];
-                    txtImpuesto1.Text = valores[4];
-                    txtDescuento1.Text = valores[12];
-                    lblExistencias.Text = valores[5];
-                    lblPedidosProveedor.Text = valores[7];
-                    lblPedidosCliente.Text = valores[8];
-                    decimal sub = Convert.ToDecimal(txtPrecio.Text) * Convert.ToInt32(txtCantidad.Text);
-                    //txtImporte1.Text = sub.ToString();
-                    txtCantidad.Text = "1";
-                }
-                
+                string[] valoresServicio = srv.InformacionServicio(cmbConcepto.Text);
+                if (valoresServicio == null)
+                    return;
 
-                else if (tipo.Equals("Remision"))
-                {
-                    string[] valores = c.InformacionPartidaOrden(cmbConcepto.Text, txtFolioPedido.Text);
+                txtConcepto2.Text = valoresServicio[0];
+                txtConcepto.Text = valoresServicio[1];
+                txtPrecio.Text = valoresServicio[2];
+                txtUnidad.Text = valoresServicio[3];
+                txtImpuesto1.Text = valoresServicio[4];
+                txtDescuento1.Text = valoresServicio[5];
+                txtCantidad.Text = "1";
 
-                    txtConcepto2.Text = valores[0];
-                    //txtConcepto.Text = valores[1];
-                    txtPrecio.Text = valores[12];
-                    txtCostoUnitario.Text = valores[13];
-                    txtUnidad.Text = valores[3];
-                    txtImpuesto1.Text = valores[5];
-                    txtDescuento1.Text = valores[4];
-                    lblExistencias.Text = valores[7];
-                    lblPedidosProveedor.Text = valores[8];
-                    lblPedidosCliente.Text = valores[9];
-                    txtCantidadP.Text = string.IsNullOrEmpty(valores[11]) ? "" : valores[11];
-                    decimal valorDecimal = Convert.ToDecimal(txtCantidadP.Text);
-                    int cantidad = Convert.ToInt16(valorDecimal)==0?1: Convert.ToInt16(valorDecimal);
-                    txtCantidad.Text = cantidad.ToString();
-                    txtImporte1.Text = valores[2];
+                // Un Servicio no maneja inventario.
+                lblExistencias.Text = "N/D";
+                lblPedidosProveedor.Text = "0";
+                lblPedidosCliente.Text = "0";
+                lblDisponible.Text = "N/D";
+                txtCostoUnitario.Text = "0.00";
+                txtCantidadP.Text = string.Empty;
+            }
+            else if (!tipo.Equals("Remision"))
+            {
+                string[] valores = c.InformacionRecibo(cmbConcepto.Text, txtFolioPedido.Text);
+                txtConcepto2.Text = valores[0];
+                txtConcepto.Text = valores[1];
+                txtPrecio.Text = valores[11];
+                txtUnidad.Text = valores[3];
+                txtImpuesto1.Text = valores[4];
+                txtDescuento1.Text = valores[12];
+                lblExistencias.Text = valores[5];
+                lblPedidosProveedor.Text = valores[7];
+                lblPedidosCliente.Text = valores[8];
+                decimal sub = Convert.ToDecimal(txtPrecio.Text) * Convert.ToInt32(txtCantidad.Text);
+                //txtImporte1.Text = sub.ToString();
+                txtCantidad.Text = "1";
+            }
 
-                }
-                Calcular();
-                
+
+            else if (tipo.Equals("Remision"))
+            {
+                string[] valores = c.InformacionPartidaOrden(cmbConcepto.Text, txtFolioPedido.Text);
+
+                txtConcepto2.Text = valores[0];
+                //txtConcepto.Text = valores[1];
+                txtPrecio.Text = valores[12];
+                txtCostoUnitario.Text = valores[13];
+                txtUnidad.Text = valores[3];
+                txtImpuesto1.Text = valores[5];
+                txtDescuento1.Text = valores[4];
+                lblExistencias.Text = valores[7];
+                lblPedidosProveedor.Text = valores[8];
+                lblPedidosCliente.Text = valores[9];
+                txtCantidadP.Text = string.IsNullOrEmpty(valores[11]) ? "" : valores[11];
+                decimal valorDecimal = Convert.ToDecimal(txtCantidadP.Text);
+                int cantidad = Convert.ToInt16(valorDecimal) == 0 ? 1 : Convert.ToInt16(valorDecimal);
+                txtCantidad.Text = cantidad.ToString();
+                txtImporte1.Text = valores[2];
 
             }
+            Calcular();
+
+
+
+        }
+
+        /// <summary>
+        /// Llena cmbConcepto según cmbTipo:
+        ///   - "Servicio" (nuevo): DBServicios.ObtenerProductosGasto().
+        ///   - "Producto" (histórico, SIN CAMBIOS): exactamente la misma
+        ///     lógica de siempre (SeleccionarProducto2 / SeleccionarProductoOrdenPedido,
+        ///     según si la partida está o no vinculada a un Pedido a Cliente).
+        /// Si cmbTipo no tiene selección, el combo queda vacío.
+        /// </summary>
+        private void CargarComboConceptos()
+        {
+            cmbConcepto.SelectedIndexChanged -= cmbConcepto_SelectedIndexChanged;
+
+            if (cmbTipo.Text == "Servicio")
+            {
+                DataTable dtServicios = srv.ObtenerProductosGasto();
+                ComboUtil.LlenarComboBox(cmbConcepto, dtServicios, "Descripcion", "ClaveServicio");
+            }
+            else if (cmbTipo.Text == "Producto")
+            {
+                if (string.IsNullOrEmpty(txtFolioPedido.Text))
+                {
+                    c.SeleccionarProducto2(cmbConcepto, TxtFolio2.Text);
+                }
+                else
+                {
+                    c.SeleccionarProductoOrdenPedido(cmbConcepto, txtFolioPedido.Text);
+                }
+            }
+            else
+            {
+                cmbConcepto.DataSource = null;
+                cmbConcepto.Items.Clear();
+            }
+
+            cmbConcepto.SelectedIndexChanged += cmbConcepto_SelectedIndexChanged;
+        }
+
+        private void cmbTipo_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            CargarComboConceptos();
+            txtConcepto2.Clear();
+            txtConcepto.Clear();
+            txtPrecio.Text = "0.00";
+            txtDescuento1.Text = "0.00";
+            txtImpuesto1.Text = "0";
+            txtUnidad.Clear();
+            lblExistencias.Text = "0";
+            lblPedidosProveedor.Text = "0.00";
+            lblPedidosCliente.Text = "0.00";
+            lblDisponible.Text = "0.00";
+            txtCostoUnitario.Text = "0.00";
+            txtCantidadP.Text = string.Empty;
         }
 
         private void guna2Button2_Click(object sender, EventArgs e)
@@ -1174,36 +1302,36 @@ namespace PV
                 return;
             }
             PanelPartidasRequisicion.Visible = true;
-            
+
             ConfigurarPartida(false);
 
+            // cmbTipo arranca sin selección en cada partida nueva: obliga a
+            // elegir Producto o Servicio antes de poder elegir el concepto.
+            cmbTipo.SelectedIndexChanged -= cmbTipo_SelectedIndexChanged;
+            cmbTipo.SelectedIndex = -1;
+            cmbTipo.SelectedIndexChanged += cmbTipo_SelectedIndexChanged;
+
             cmbConcepto.Text = "";
+            cmbConcepto.DataSource = null;
+            cmbConcepto.Items.Clear();
 
             txtCantidad.Text = "1";
             txtUnidad.Text = "";
             txtPrecio.Text = "0.00";
-            txtDescuento1.Text = "0.00";;
+            txtDescuento1.Text = "0.00"; ;
             txtImpuesto1.Text = "0";
-            if (string.IsNullOrEmpty(txtFolioPedido.Text))
-            {
-                c.SeleccionarProducto2(cmbConcepto, TxtFolio2.Text);
-            }
-            else
-            {
-                c.SeleccionarProductoOrdenPedido(cmbConcepto, txtFolioPedido.Text);
 
-            }
             if (tipo == "Remision")
             {
 
                 o.Consulta5OrdenCompra(TxtFolio2.Text, txtPartida);
-               
+
             }
             else
             {
 
                 c.Consulta5OrdenCliente(TxtFolio2.Text, txtPartida);
-              
+
             }
         }
 
@@ -1342,9 +1470,9 @@ namespace PV
 
         private void txtImpuesto1_TextChanged(object sender, EventArgs e)
         {
-            
+
             Utilerias.Moneda2(ref txtImpuesto1);
-        
+
 
             try
             {
@@ -1407,10 +1535,17 @@ namespace PV
             txtUnidad.Clear();
             txtPrecio.Text = "0.00";
             txtDescuento1.Text = "0.00";
-            txtImporte1.Text= "0.00";
+            txtImporte1.Text = "0.00";
             txtImpuesto1.Text = "0.00";
             txtImpuestoIm.Text = "0.00";
-            cmbConcepto.SelectedIndex=-1;
+
+            cmbTipo.SelectedIndexChanged -= cmbTipo_SelectedIndexChanged;
+            cmbTipo.SelectedIndex = -1;
+            cmbTipo.SelectedIndexChanged += cmbTipo_SelectedIndexChanged;
+
+            cmbConcepto.DataSource = null;
+            cmbConcepto.Items.Clear();
+            cmbConcepto.SelectedIndex = -1;
             lblExistencias.Text = "0";
             lblPedidosCliente.Text = "0.00";
             lblPedidosProveedor.Text = "0.00";
@@ -1423,44 +1558,6 @@ namespace PV
 
         private void toolStrip2_MouseEnter(object sender, EventArgs e)
         {
-            /*    guna2GradientPanel4.Size = new Size(80, 569);
-                toolStrip2.Size = new Size(112, 569);
-                toolStripButton4.TextDirection = System.Windows.Forms.ToolStripTextDirection.Horizontal;
-                toolStripButton5.TextDirection = System.Windows.Forms.ToolStripTextDirection.Horizontal;
-                toolStripButton1.TextDirection = System.Windows.Forms.ToolStripTextDirection.Horizontal;
-                toolStripButton2.TextDirection = System.Windows.Forms.ToolStripTextDirection.Horizontal;
-                toolStripButton3.TextDirection = System.Windows.Forms.ToolStripTextDirection.Horizontal;*/
-
-           /* guna2GradientPanel4.Location = new Point(1013, 83);
-            guna2GradientPanel4.Size = new Size(86, 583);
-            toolStrip1.Size = new Size(112, 569);
-            toolStripButton11.TextDirection = System.Windows.Forms.ToolStripTextDirection.Horizontal;
-            toolStripButton12.TextDirection = System.Windows.Forms.ToolStripTextDirection.Horizontal;
-            toolStripButton13.TextDirection = System.Windows.Forms.ToolStripTextDirection.Horizontal;
-            toolStripButton14.TextDirection = System.Windows.Forms.ToolStripTextDirection.Horizontal;
-            toolStripButton15.TextDirection = System.Windows.Forms.ToolStripTextDirection.Horizontal;
-
-            this.toolStripButton11.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            toolStripButton11.Size = new Size(85, 75);
-            toolStripButton11.AutoSize = false;
-
-            this.toolStripButton12.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            toolStripButton12.Size = new Size(85, 75);
-            toolStripButton12.AutoSize = false;
-
-            this.toolStripButton13.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            toolStripButton13.Size = new Size(85, 75);
-            toolStripButton13.AutoSize = false;
-
-            this.toolStripButton14.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            toolStripButton14.Size = new Size(85, 75);
-            toolStripButton14.AutoSize = false;
-
-            this.toolStripButton15.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            toolStripButton15.Size = new Size(85, 75);
-            toolStripButton15.AutoSize = false;*/
-
-
         }
 
         private void guna2DataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -1468,38 +1565,85 @@ namespace PV
 
         }
 
+        /// <summary>
+        /// Doble clic sobre una partida para editarla.
+        ///
+        /// CAMBIO DE FIRMA REQUERIDO EN DBOrdenCompra.ConsultaPartidaOrden y
+        /// DBPedidoCliente.ConsultaPartidaOrdenPedido: ya NO reciben el
+        /// ComboBox cmbConcepto (antes lo recibían y le asignaban
+        /// SelectedValue directamente); en su lugar regresan "out string
+        /// tipoConcepto" y "out string claveConcepto" crudos. Esto es
+        /// necesario porque ahora cmbConcepto puede alimentarse de dos
+        /// catálogos distintos (Productos o Servicios) según TipoConcepto, y
+        /// decidir cuál cargar antes de poder seleccionar el valor correcto
+        /// le corresponde al formulario, no a la capa de datos (ver
+        /// "DBOrdenCompra_DBPedidoCliente_MetodosAfectados.cs").
+        /// </summary>
         private void guna2DataGridView1_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex != -1)
             {
                 string Partida = guna2DataGridView1.Rows[e.RowIndex].Cells["Partida"].Value.ToString();
+
+                cmbTipo.SelectedIndexChanged -= cmbTipo_SelectedIndexChanged;
                 cmbConcepto.SelectedIndexChanged -= cmbConcepto_SelectedIndexChanged;
+
+                string tipoConcepto;
+                string claveConcepto;
+
                 if (tipo == "Remision")
                 {
-                    o.ConsultaPartidaOrden(TxtFolio2.Text, Partida, cmbconcepto2, txtConcepto, txtConcepto2, txtCantidad, txtUnidad, txtDivisa1, txtTipoCambio1, txtImporte1, txtDescuento1, txtTotal1, txtPrecio, txtImpuesto1, txtEntregado, cmbConcepto);
+                    o.ConsultaPartidaOrden(TxtFolio2.Text, Partida, cmbconcepto2, txtConcepto, txtConcepto2, txtCantidad, txtUnidad, txtDivisa1, txtTipoCambio1, txtImporte1, txtDescuento1, txtTotal1, txtPrecio, txtImpuesto1, txtEntregado, out tipoConcepto, out claveConcepto);
 
                 }
                 else
                 {
-                    c.ConsultaPartidaOrdenPedido(TxtFolio2.Text, Partida, cmbconcepto2, txtConcepto, txtConcepto2, txtCantidad, txtUnidad, txtDivisa1, txtTipoCambio1, txtImporte1, txtDescuento1, txtTotal1, txtPrecio, txtImpuesto1, txtEntregado, cmbConcepto);
+                    c.ConsultaPartidaOrdenPedido(TxtFolio2.Text, Partida, cmbconcepto2, txtConcepto, txtConcepto2, txtCantidad, txtUnidad, txtDivisa1, txtTipoCambio1, txtImporte1, txtDescuento1, txtTotal1, txtPrecio, txtImpuesto1, txtEntregado, out tipoConcepto, out claveConcepto);
 
                 }
-                string[] valores = c.InformacionRecibo(cmbConcepto.Text, "");
-                
-               
+
+                // Partidas capturadas antes de este cambio no tendrán
+                // TipoConcepto (columna nueva); se asume "Producto" por ser
+                // el comportamiento histórico de este formulario.
+                cmbTipo.Text = string.IsNullOrEmpty(tipoConcepto) ? "Producto" : tipoConcepto;
+                CargarComboConceptos();
+
+                if (!string.IsNullOrEmpty(claveConcepto) && int.TryParse(claveConcepto, out int claveNumerica))
+                {
+                    cmbConcepto.SelectedValue = claveNumerica;
+                }
+
+                cmbTipo.SelectedIndexChanged += cmbTipo_SelectedIndexChanged;
                 cmbConcepto.SelectedIndexChanged += cmbConcepto_SelectedIndexChanged;
-                lblExistencias.Text = valores[5];
-                lblPedidosProveedor.Text = valores[7];
-                lblPedidosCliente.Text = valores[8];
-                txtCantidadP.Text = string.IsNullOrEmpty(valores[10]) ? "" : valores[10];
+
+                if (cmbTipo.Text == "Servicio")
+                {
+                    // Un Servicio no maneja existencias ni pedidos pendientes.
+                    lblExistencias.Text = "N/D";
+                    lblPedidosProveedor.Text = "0";
+                    lblPedidosCliente.Text = "0";
+                    txtCantidadP.Text = string.Empty;
+                }
+                else
+                {
+                    // Producto: comportamiento histórico, SIN CAMBIOS (antes
+                    // esta misma consulta se hacía justo después de que el
+                    // método de arriba dejaba seleccionado cmbConcepto).
+                    string[] valores = c.InformacionRecibo(cmbConcepto.Text, "");
+                    lblExistencias.Text = valores[5];
+                    lblPedidosProveedor.Text = valores[7];
+                    lblPedidosCliente.Text = valores[8];
+                    txtCantidadP.Text = string.IsNullOrEmpty(valores[10]) ? "" : valores[10];
+                }
+
                 PanelPartidasRequisicion.Visible = true;
 
                 txtPartida.Text = Partida;
                 // panel2.Visible = false;
-                if (cmbEstatus.Text.Equals("Abierto", StringComparison.OrdinalIgnoreCase) & tipo != "Remision" )
+                if (cmbEstatus.Text.Equals("Abierto", StringComparison.OrdinalIgnoreCase) & tipo != "Remision")
                 {
                     ConfigurarPartida(false); // Habilitar
-                    
+
                 }
                 else
                 {
@@ -1529,6 +1673,7 @@ namespace PV
             txtPrecio.Enabled = !bloquear;
             txtDescuento1.Enabled = !bloquear;
             txtImpuesto1.Enabled = !bloquear;
+            cmbTipo.Enabled = !bloquear;
             cmbConcepto.Enabled = !bloquear;
             txtConcepto2.Enabled = !bloquear;
         }
@@ -1540,7 +1685,7 @@ namespace PV
                 MessageBox.Show("Registre los dias de vencimiento para continuar");
                 return;
             }
-            else if (guna2DataGridView1.Rows.Count==0)
+            else if (guna2DataGridView1.Rows.Count == 0)
             {
                 MessageBox.Show("Registre las partidas para continuar");
                 return;
@@ -1550,7 +1695,7 @@ namespace PV
                 MessageBox.Show("No es posible confirmar una orden de compra Bloqueada o Cancelada");
                 return;
             }
-            
+
             else if (MessageBox.Show("Al confirmar la orden de compra no podra realizar modificaciones, ¿Desea continuar?", "Recibo", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
             {
                 Matricula = string.Empty;
@@ -1559,8 +1704,12 @@ namespace PV
                 {
                     string almacen = cmbAlmacen.Text.Split('-')[0];
                     //MessageBox.Show(TxtFolio2.Text);
+                    // CAMBIO REQUERIDO: ObtenerPartidas debe agregar
+                    // TipoConcepto al final de cada fila devuelta (ver
+                    // archivo de métodos afectados); IngresarAlmacen ya
+                    // filtra por ese campo más abajo.
                     List<List<string>> lista = c.ObtenerPartidas(TxtFolio2.Text);
-                    string folio=IngresarAlmacen(lista, almacen);
+                    string folio = IngresarAlmacen(lista, almacen);
                     o.ActualizarReciboEstatus(TxtFolio2.Text, "Bloqueado", "", folio);
 
                     MessageBox.Show("Se realizo exitosamente la salida");
@@ -1615,26 +1764,37 @@ namespace PV
 
                 guna2Button1.Visible = false;
                 guna2Button1.Visible = false;
-                
+
             }
-            
+
         }
+        /// <summary>
+        /// Genera el movimiento de salida de almacén para una Remisión.
+        /// AJUSTE: ya no se procesan las partidas de tipo 'Servicio' (un
+        /// Servicio no tiene existencia física que mover de ningún almacén).
+        /// Si "lista" todavía no trae TipoConcepto (índice [7], porque
+        /// ObtenerPartidas no se ha actualizado), se tratan todas las filas
+        /// como 'Producto' -comportamiento 100% igual al actual-.
+        /// </summary>
         private string IngresarAlmacen(List<List<string>> lista, string almacen)
         {
             TextBox t = new TextBox();
             c.ValidarDocumentoSPR();
 
-            string folio=c.RegistroMovimientoInventario("", "S", "SPR", txtFecha.Text, cmbEstatus.Text, "", almacen, lista.Count.ToString(), txtDivisa.Text, txtTipoCambio.Text.Replace(",", ""), txtTotal.Text.Replace(",", ""), txtNotas.Text, txtElaborado.Text, t, "", "", "", "", "");
+            List<List<string>> listaProductos = lista.FindAll(fila =>
+                fila.Count <= 7 || string.IsNullOrEmpty(fila[7]) || fila[7] == "Producto");
 
-            for (int i = 0; i < lista.Count; i++)
+            string folio = c.RegistroMovimientoInventario("", "S", "SPR", txtFecha.Text, cmbEstatus.Text, "", almacen, listaProductos.Count.ToString(), txtDivisa.Text, txtTipoCambio.Text.Replace(",", ""), txtTotal.Text.Replace(",", ""), txtNotas.Text, txtElaborado.Text, t, "", "", "", "", "");
+
+            for (int i = 0; i < listaProductos.Count; i++)
             {
-                string clave = lista[i][0];
-                string cantidad = lista[i][1];
-                string costeo = lista[i][2];
-                string precio = lista[i][3];
-                string partidaOrden = lista[i][4];
-                string unidad = lista[i][5];
-                string total = lista[i][6];
+                string clave = listaProductos[i][0];
+                string cantidad = listaProductos[i][1];
+                string costeo = listaProductos[i][2];
+                string precio = listaProductos[i][3];
+                string partidaOrden = listaProductos[i][4];
+                string unidad = listaProductos[i][5];
+                string total = listaProductos[i][6];
                 c.RegistroProductoSalidas(clave, cantidad.Replace(",", ""), almacen);
                 if (!string.IsNullOrEmpty(txtFolio.Text))
                 {
@@ -1729,13 +1889,21 @@ namespace PV
 
                 cmbDocumento.Text = txtClave.Text + " - " + txtDocumento.Text;
                 //   groupBox2.Enabled = true;
-                guna2GradientPanel2.Visible= false;
+                guna2GradientPanel2.Visible = false;
 
 
                 CargarPartidas();
                 if (cmbEstatus.Text != "Abierto")
                 {
-                    c.SeleccionarProducto2(cmbConcepto, "");
+                    // Sólo lectura: se deja el combo sin catálogo cargado
+                    // (nada se va a insertar); si antes mostraba el
+                    // catálogo de Productos por defecto, ya no es
+                    // necesario porque cmbTipo decide qué mostrar.
+                    cmbTipo.SelectedIndexChanged -= cmbTipo_SelectedIndexChanged;
+                    cmbTipo.SelectedIndex = -1;
+                    cmbTipo.SelectedIndexChanged += cmbTipo_SelectedIndexChanged;
+                    cmbConcepto.DataSource = null;
+                    cmbConcepto.Items.Clear();
                 }
 
             }
@@ -1794,22 +1962,6 @@ namespace PV
 
         void CambioTamañotoolstripPequeño()
         {
-         /*   this.toolStripButton11.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            toolStripButton11.Size = new Size(23, 79);
-            this.toolStripButton12.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            toolStripButton12.Size = new Size(23, 79);
-            this.toolStripButton13.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            toolStripButton13.Size = new Size(23, 79);
-
-            toolStrip1.Size = new Size(22, 569);
-            this.toolStripButton14.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            toolStripButton14.Size = new Size(23, 79);
-
-            toolStrip1.Size = new Size(22, 569);
-            this.toolStripButton15.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            toolStripButton15.Size = new Size(23, 79);*/
-
-     
         }
 
         private void guna2PictureBox1_Click(object sender, EventArgs e)
@@ -1938,14 +2090,14 @@ namespace PV
 
                 txtFolioPedido.Text = BuscarDocumento.FolioO;
                 d.Text = BuscarDocumento.DocumentoO + "-" + BuscarDocumento.Conscutivo;// + " - " + BuscarDocumento.Nombre;
-                string[] datos=c.InformacionOrdenPedido(txtFolioPedido.Text);
+                string[] datos = c.InformacionOrdenPedido(txtFolioPedido.Text);
                 string[] datosAlmacen = a.InformacionAlmacen(datos[3]);
-                txtMatricular.Text= datos[2];
+                txtMatricular.Text = datos[2];
                 txtNotas.Text = datos[5];
-                cmbAlmacen.Text= datosAlmacen[0]+" - "+datosAlmacen[1];
+                cmbAlmacen.Text = datosAlmacen[0] + " - " + datosAlmacen[1];
                 cmbAlmacen.Enabled = false;
                 btnCliente.Enabled = false;
-            
+
             }
         }
 
@@ -1983,13 +2135,13 @@ namespace PV
             LimpiarPartida();
             Limpiar();
             guna2DataGridView1.Rows.Clear();
-            cmbDocumento.Enabled=true;
+            cmbDocumento.Enabled = true;
             txtDiasVence.Enabled = true;
             txtNotas.Enabled = true;
             cmbAlmacen.Enabled = true;
 
             cmbDocumento.Focus();
-            
+
         }
 
         private void guna2TabControl1_SelectedIndexChanged(object sender, EventArgs e)
@@ -2011,19 +2163,20 @@ namespace PV
 
         private void guna2Button15_Click(object sender, EventArgs e)
         {
-            if(!string.IsNullOrEmpty(TxtFolio2.Text) && cmbEstatus.Text == "Abierto")
+            if (!string.IsNullOrEmpty(TxtFolio2.Text) && cmbEstatus.Text == "Abierto")
             {
-                if(MessageBox.Show("El registro actual se perderá, ¿Desea continuar?", "Nuevo Orden Pedido", MessageBoxButtons.YesNo, MessageBoxIcon.Question) != DialogResult.Yes){
+                if (MessageBox.Show("El registro actual se perderá, ¿Desea continuar?", "Nuevo Orden Pedido", MessageBoxButtons.YesNo, MessageBoxIcon.Question) != DialogResult.Yes)
+                {
                     return;
                 }
             }
             Limpiar();
-           
+
             cmbDocumento.Enabled = true;
-            cmbAlmacen.Enabled=true;
-            txtDiasVence.Enabled=true;
+            cmbAlmacen.Enabled = true;
+            txtDiasVence.Enabled = true;
             txtFecha.Enabled = true;
-            txtNotas.Enabled=true;
+            txtNotas.Enabled = true;
             cmbDocumento.DroppedDown = true;
             btnCliente.Enabled = true;
         }
@@ -2057,12 +2210,12 @@ namespace PV
             else
             {
                 p.EliminarOrdenCliente(TxtFolio2.Text, txtPartida.Text);
-                MessageBox.Show(c.EliminarPartidaOrdenPedidoCliente(TxtFolio2.Text, txtPartida.Text));                
+                MessageBox.Show(c.EliminarPartidaOrdenPedidoCliente(TxtFolio2.Text, txtPartida.Text));
                 c.CargarOrdenPedidoClientePartidas(dataGridView1, TxtFolio2.Text);
                 string maximo = c.ObtenerTotalPartidasOrdenPedidoCliente(TxtFolio2.Text);
                 c.ActualizarTotalesOrdenPedidoCliente(TxtFolio2.Text, maximo);
                 c.ReciboSaldosPartidasOrden(TxtFolio2.Text, txtSubtotalR, txtDescuentoR, txtTotalR, txtImpuestoR);
-                
+
 
             }
             ConfigurarPartida(true);
@@ -2102,7 +2255,7 @@ namespace PV
                 ReporteOrdenPedidoCliente r = new ReporteOrdenPedidoCliente(txtFolio.Text, txtMatricular.Text);
                 r.ShowDialog();
 
-                
+
             }
         }
 
@@ -2123,7 +2276,7 @@ namespace PV
                 MessageBox.Show("Seleccione la recepcion de productos");
                 return;
             }
-           
+
             else if ((cmbEstatus.Text != "Bloqueado" && cmbEstatus.Text != "Abierto"))
             {
                 MessageBox.Show("No es posible cancelar un orden de pedido cliente que no esta bloqueado");
@@ -2133,7 +2286,7 @@ namespace PV
             {
                 o.CancelarOrdenPedidoCliente(txtFolio.Text);
                 cmbEstatus.Text = "Cancelado";
-                
+
                 Limpiar();
             }
         }
@@ -2148,7 +2301,7 @@ namespace PV
                 if (tipo == "Remision")
                 {
                     tipo = "Remisión Vitalvet";
-                    
+
                     ReporteRemision r = new ReporteRemision(txtFolio.Text, txtMatricular.Text);
                     string carpeta = Utilerias.SavePDF(r.reportViewer1, "Remision", txtDocumento.Text, txtConsecutivo.Text);
                     bool enviado = CorreosMasivos.EnviarCorreos(
@@ -2197,7 +2350,7 @@ namespace PV
                         MessageBox.Show("Correo enviado exitosamente");
                     }
                 }
-                
+
             }
             else
             {
@@ -2219,8 +2372,8 @@ namespace PV
         {
             if (cmbEstatus.Text == "Abierto")
             {
-                if(!string.IsNullOrEmpty(txtPartidas.Text) && txtPartidas.Text!="0")
-                guna2Button9.Visible = true;
+                if (!string.IsNullOrEmpty(txtPartidas.Text) && txtPartidas.Text != "0")
+                    guna2Button9.Visible = true;
             }
         }
 
@@ -2236,18 +2389,18 @@ namespace PV
 
         private void cmbCentroCostos_SelectedIndexChanged(object sender, EventArgs e)
         {
-           
-                DataTable dtProyectos = dp.ObtenerProyectosPorCentroCostos(
-           cmbCentroCostos.Text
-                    );
 
-                ComboUtil.LlenarComboBox(
-                    cmbproyecto,
-                    dtProyectos,
-                    "Proyecto",
-                    "Id"
+            DataTable dtProyectos = dp.ObtenerProyectosPorCentroCostos(
+       cmbCentroCostos.Text
                 );
-            
+
+            ComboUtil.LlenarComboBox(
+                cmbproyecto,
+                dtProyectos,
+                "Proyecto",
+                "Id"
+            );
+
         }
 
         private void label49_Click(object sender, EventArgs e)
@@ -2319,10 +2472,4 @@ namespace PV
             Moneda(ref txtSaldo);
         }
     }
-
-    }
-    
-    
-
-
-
+}

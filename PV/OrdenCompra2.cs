@@ -163,7 +163,7 @@ namespace PV
                     txtClave.Text = valores[1];
                     if (txtFolio.Text == string.Empty)
                     {
-                        c.ConsecutivoCompra(txtConsecutivo, txtClave.Text);
+                        c.ConsecutivoOrdenCompra(txtConsecutivo, txtClave.Text);
                     }
                     // groupBox2.Enabled = true;
                     txtDiasVence.Focus();
@@ -1234,6 +1234,11 @@ namespace PV
             toolStripButton4.Size = new Size(23, 79);
             this.toolStripButton5.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
             toolStripButton5.Size = new Size(23, 79);
+        }
+
+        private void guna2Button10_Click(object sender, EventArgs e)
+        {
+            guna2GradientPanel2.Visible = false;
         }
     }
 

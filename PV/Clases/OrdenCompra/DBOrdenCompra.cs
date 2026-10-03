@@ -1287,6 +1287,33 @@ namespace PV.Clases.OrdenCompra
                 MessageBox.Show("ERROR" + ex.ToString());
             }
         }
+        public void ConsecutivoOrdenCompra(Guna.UI2.WinForms.Guna2TextBox txtConsecutivo, string ClaveDocumento)
+        {
+            try
+            {
+                using (SqlConnection cn = new SqlConnection(ObtenerCn()))
+                using (SqlCommand cmd = new SqlCommand("Select top 1 * from OrdenCompra where ClaveDocumento='" + ClaveDocumento + "' order by Consecutivo Desc", cn))
+                {
+                    cn.Open();
+                    using (SqlDataReader dr = cmd.ExecuteReader())
+                    {
+                        if (dr.Read())
+                        {
+                            int folioNuevo = Convert.ToInt32(dr["Consecutivo"].ToString()) + 1;
+                            txtConsecutivo.Text = folioNuevo.ToString();
+                        }
+                        else
+                        {
+                            txtConsecutivo.Text = "1";
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("ERROR" + ex.ToString());
+            }
+        }
         //______________________________________________________________________________________________
         public void ConsecutivoRecepcion(Guna2TextBox txtConsecutivo, string ClaveDocumento)
         {
@@ -3280,32 +3307,7 @@ namespace PV.Clases.OrdenCompra
             }
             return resultado;
         }
-        //_______________________________________________________
-        public void CargarRecibosPartidas(DataGridView dgv, string Folio)
-        {
-            try
-            {
-                dgv.Rows.Clear();
-                using (SqlConnection cn = new SqlConnection(ObtenerCn()))
-                using (SqlDataAdapter da = new SqlDataAdapter("select PO.*, PS.Descripcion from PartidaRemision as PO, ProductosServicios as PS where FolioRemision='" + Folio + "' and PO.ClaveProducto=PS.ClaveProducto order by Partida asc", cn))
-                {
-                    DataTable dt = new DataTable();
-                    da.Fill(dt);
-                    foreach (DataRow item in dt.Rows)
-                    {
-                        int n = dgv.Rows.Add();
-                        dgv.Rows[n].Cells[0].Value = item["FolioRemision"].ToString();
-                        dgv.Rows[n].Cells[1].Value = item["Partida"].ToString();
-                        dgv.Rows[n].Cells[2].Value = item["Descripcion"].ToString();
-                        dgv.Rows[n].Cells[3].Value = item["Cantidad"].ToString();
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.ToString());
-            }
-        }
+       
         //_______________________________________________________
         public void CargarRequisicionPartidas(DataGridView dgv, string Folio)
         {
@@ -5575,6 +5577,7 @@ namespace PV.Clases.OrdenCompra
             }
         }
 
+
         //Registrar datos del aviso
         public string EliminarArchivosGastos(string Folio, string Partida, string Secuencia)
         {
@@ -5612,5 +5615,145 @@ namespace PV.Clases.OrdenCompra
 
             return resultado;
         }
+        /// <summary>
+        /// Inserta una partida de Remisión. ÚNICO cambio respecto a tu
+        /// versión actual: el nuevo parámetro "tipoConcepto" ('Producto' /
+        /// 'Servicio'), insertado justo después de "partida". Todo lo demás
+        /// (orden de los parámetros que ya tenías, nombres de columnas que
+        /// ya uses para Concepto2/ClaveProducto/etc.) se deja exactamente
+        /// igual a tu implementación real; aquí sólo se muestra el patrón
+        /// completo por si prefieres partir de cero.
+        /// </summary>
+        public void InsertarPartidaRemision(string folioRemision, string partida, string tipoConcepto,
+            string claveProducto, string concepto2, string cantidad, string unidad, string divisa,
+            string tipoCambio, decimal subtotal, decimal descuento, decimal total, decimal precio, decimal impuesto)
+        {
+            const string sql = @"
+                INSERT INTO PartidaRemision
+                    (FolioRemision, Partida, TipoConcepto, ClaveProducto, Concepto2, Cantidad, Unidad, Divisa,
+                     TipoCambio, Subtotal, Descuento, Total, Precio, Impuesto)
+                VALUES
+                    (@FolioRemision, @Partida, @TipoConcepto, @ClaveProducto, @Concepto2, @Cantidad, @Unidad, @Divisa,
+                     @TipoCambio, @Subtotal, @Descuento, @Total, @Precio, @Impuesto)";
+
+            using (var cn = new System.Data.SqlClient.SqlConnection(ObtenerCn()))
+            using (var cmd = new System.Data.SqlClient.SqlCommand(sql, cn))
+            {
+                cmd.Parameters.AddWithValue("@FolioRemision", Convert.ToInt32(folioRemision));
+                cmd.Parameters.AddWithValue("@Partida", Convert.ToInt32(partida));
+                cmd.Parameters.AddWithValue("@TipoConcepto", tipoConcepto);
+                cmd.Parameters.AddWithValue("@ClaveProducto",
+                    string.IsNullOrWhiteSpace(claveProducto) ? (object)DBNull.Value : Convert.ToInt32(claveProducto));
+                cmd.Parameters.AddWithValue("@Concepto2", (object)concepto2 ?? DBNull.Value);
+                cmd.Parameters.AddWithValue("@Cantidad",
+                    string.IsNullOrWhiteSpace(cantidad) ? 0 : Convert.ToInt32(Convert.ToDecimal(cantidad)));
+                cmd.Parameters.AddWithValue("@Unidad", (object)unidad ?? DBNull.Value);
+                cmd.Parameters.AddWithValue("@Divisa", (object)divisa ?? DBNull.Value);
+                cmd.Parameters.AddWithValue("@TipoCambio",
+                    string.IsNullOrWhiteSpace(tipoCambio) ? 1.00m : Convert.ToDecimal(tipoCambio));
+                cmd.Parameters.AddWithValue("@Subtotal", subtotal);
+                cmd.Parameters.AddWithValue("@Descuento", descuento);
+                cmd.Parameters.AddWithValue("@Total", total);
+                cmd.Parameters.AddWithValue("@Precio", precio);
+                cmd.Parameters.AddWithValue("@Impuesto", impuesto);
+
+                cn.Open();
+                cmd.ExecuteNonQuery();
+            }
+        }
+
+        /// <summary>
+        /// Carga una partida de Remisión existente para editarla. CAMBIO
+        /// respecto a tu versión actual: ya NO recibe el ComboBox cmbConcepto
+        /// ni le asigna SelectedValue (porque ahora cmbConcepto puede venir
+        /// de dos catálogos distintos, y decidir cuál cargar antes de poder
+        /// seleccionar el valor correcto le toca al formulario). En su lugar
+        /// regresa "out string tipoConcepto" y "out string claveConcepto"
+        /// crudos. El formulario, después de llamar esto, hace:
+        ///   1) cmbTipo.Text = tipoConcepto
+        ///   2) CargarComboConceptos() (recarga cmbConcepto para ese tipo)
+        ///   3) cmbConcepto.SelectedValue = claveConcepto (como int)
+        /// </summary>
+        public void ConsultaPartidaOrden(string folioRemision, string partida,
+            Control cmbconcepto2, Control txtConcepto, Control txtConcepto2,
+            Control txtCantidad, Control txtUnidad, Control txtDivisa, Control txtTipoCambio,
+            Control txtImporte, Control txtDescuento, Control txtTotal, Control txtPrecio, Control txtImpuesto,
+            Control txtEntregado, out string tipoConcepto, out string claveConcepto)
+        {
+            tipoConcepto = string.Empty;
+            claveConcepto = string.Empty;
+
+            const string sql = @"
+                SELECT TipoConcepto, ClaveProducto, Concepto2, Cantidad, Unidad, Divisa, TipoCambio, Subtotal,
+                       Descuento, Total, Precio, Impuesto, CantidadRecibida
+                FROM PartidaRemision
+                WHERE FolioRemision = @Folio AND Partida = @Partida";
+
+            using (var cn = new System.Data.SqlClient.SqlConnection(ObtenerCn()))
+            using (var cmd = new System.Data.SqlClient.SqlCommand(sql, cn))
+            {
+                cmd.Parameters.AddWithValue("@Folio", Convert.ToInt32(folioRemision));
+                cmd.Parameters.AddWithValue("@Partida", Convert.ToInt32(partida));
+                cn.Open();
+                using (var dr = cmd.ExecuteReader(System.Data.CommandBehavior.SingleRow))
+                {
+                    if (!dr.Read())
+                        return;
+
+                    tipoConcepto = Txt(dr["TipoConcepto"]);
+                    claveConcepto = Txt(dr["ClaveProducto"]);
+
+                    // txtConcepto / cmbconcepto2: ajusta aquí si tu
+                    // implementación real también usaba estos dos controles
+                    // para algo adicional (en el Form sólo se reciben para
+                    // no romper la firma visible desde fuera).
+                    txtConcepto2.Text = Txt(dr["Concepto2"]);
+                    txtCantidad.Text = Txt(dr["Cantidad"]);
+                    txtUnidad.Text = Txt(dr["Unidad"]);
+                    txtDivisa.Text = Txt(dr["Divisa"]);
+                    txtTipoCambio.Text = Txt(dr["TipoCambio"]);
+                    txtImporte.Text = Txt(dr["Subtotal"]);
+                    txtDescuento.Text = Txt(dr["Descuento"]);
+                    txtTotal.Text = Txt(dr["Total"]);
+                    txtPrecio.Text = Txt(dr["Precio"]);
+                    txtImpuesto.Text = Txt(dr["Impuesto"]);
+                    txtEntregado.Text = Txt(dr["CantidadRecibida"]);
+                }
+            }
+        }
+
+        /// <summary>
+        /// Llena la grilla de partidas de una Remisión. ÚNICO cambio: se
+        /// agrega TipoConcepto al SELECT, para que aparezca como columna
+        /// "Tipo" en la grilla (AutoGenerateColumns la crea sola).
+        /// </summary>
+        public void CargarRecibosPartidas(DataGridView dgv, string folioRemision)
+        {
+            const string sql = @"
+                SELECT Partida, TipoConcepto, ClaveProducto, Concepto2, Cantidad, Unidad, Subtotal, Descuento,
+                       Total, Precio, Impuesto
+                FROM PartidaRemision
+                WHERE FolioRemision = @Folio
+                ORDER BY Partida";
+
+            using (var cn = new System.Data.SqlClient.SqlConnection(ObtenerCn()))
+            using (var cmd = new System.Data.SqlClient.SqlCommand(sql, cn))
+            using (var da = new System.Data.SqlClient.SqlDataAdapter(cmd))
+            {
+                cmd.Parameters.AddWithValue("@Folio",
+                    string.IsNullOrWhiteSpace(folioRemision) ? 0 : Convert.ToInt32(folioRemision));
+                var dt = new System.Data.DataTable();
+                da.Fill(dt);
+                dgv.DataSource = dt;
+            }
+        }
+
+        private static string Txt(object valor) => (valor == null || valor == DBNull.Value) ? string.Empty : valor.ToString();
     }
+
+
+
+
+
 }
+

@@ -753,34 +753,6 @@ namespace PV.Clases.PedidoCliente
             }
         }
 
-        public List<List<string>> ObtenerPartidas(string Folio)
-        {
-            List<List<string>> listam = new List<List<string>>();
-
-            using (SqlConnection cn = new SqlConnection(ObtenerCn()))
-            using (SqlCommand cmd = new SqlCommand("Select PS.ClaveProducto, PR.Cantidad, PS.TipoCosteo, (PR.Subtotal/PR.Cantidad), PR.Partida, PS.UnidadMedida, PR.Total from [PartidaRemision] as PR Join Remision as R On R.Folio=PR.[FolioRemision] Join ProductosServicios as PS On PR.ClaveProducto=PS.ClaveProducto where FolioRemision=@Folio and PR.ClaveProducto=PS.ClaveProducto", cn))
-            {
-                cmd.Parameters.AddWithValue("@Folio", Folio);
-                cn.Open();
-
-                using (SqlDataReader dr = cmd.ExecuteReader())
-                {
-                    while (dr.Read())
-                    {
-                        List<string> lista = new List<string>();
-                        lista.Add(dr[0].ToString());
-                        lista.Add(dr[1].ToString());
-                        lista.Add(dr[2].ToString());
-                        lista.Add(dr[3].ToString());
-                        lista.Add(dr[4].ToString());
-                        lista.Add(dr[5].ToString());
-                        lista.Add(dr[6].ToString());
-                        listam.Add(lista);
-                    }
-                }
-            }
-            return listam;
-        }
 
         //_______________________________________________________________________________________________________________
         public void ActualizarReciboEstatus(string Folio, string Estatus)
@@ -1018,31 +990,7 @@ namespace PV.Clases.PedidoCliente
         }
 
         //_______________________________________________________
-        public void CargarOrdenPedidoClientePartidas(DataGridView dgv, string Folio)
-        {
-            try
-            {
-                dgv.Rows.Clear();
-                using (SqlConnection cn = new SqlConnection(ObtenerCn()))
-                using (SqlDataAdapter da = new SqlDataAdapter("select PO.*, PS.Descripcion from [PartidaOrdenPedidoCliente] as PO, ProductosServicios as PS where FolioOrden='" + Folio + "' and PO.ClaveProducto=PS.ClaveProducto order by Partida asc", cn))
-                {
-                    DataTable dt = new DataTable();
-                    da.Fill(dt);
-                    foreach (DataRow item in dt.Rows)
-                    {
-                        int n = dgv.Rows.Add();
-                        dgv.Rows[n].Cells[0].Value = item["FolioOrden"].ToString();
-                        dgv.Rows[n].Cells[1].Value = item["Partida"].ToString();
-                        dgv.Rows[n].Cells[2].Value = item["Descripcion"].ToString();
-                        dgv.Rows[n].Cells[3].Value = item["Cantidad"].ToString();
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.ToString());
-            }
-        }
+     
 
         //_______________________________________________________
         public void CargarRequisicionPartidas(DataGridView dgv, string Folio)
@@ -1412,5 +1360,176 @@ namespace PV.Clases.PedidoCliente
             }
             return maximo;
         }
+        public string InsertarPartidaOrdenCliente(string folioOrden, string partida, string tipoConcepto,
+           string claveProducto, string concepto2, string cantidad, string unidad, string divisa,
+           string tipoCambio, decimal subtotal, decimal descuento, decimal total, decimal precio, decimal impuesto)
+        {
+            string mensaje = string.Empty;
+            const string sql = @"
+                INSERT INTO PartidaOrdenPedidoCliente
+                    (FolioOrden, Partida, TipoConcepto, ClaveProducto, Concepto2, Cantidad, Unidad, Divisa,
+                     TipoCambio, Subtotal, Descuento, Total, Precio, Impuesto, CantidadEntregada, CantidadPendiente)
+                VALUES
+                    (@FolioOrden, @Partida, @TipoConcepto, @ClaveProducto, @Concepto2, @Cantidad, @Unidad, @Divisa,
+                     @TipoCambio, @Subtotal, @Descuento, @Total, @Precio, @Impuesto, 0, @Cantidad)";
+
+            try
+            {
+                using (var cn = new System.Data.SqlClient.SqlConnection(ObtenerCn()))
+                using (var cmd = new System.Data.SqlClient.SqlCommand(sql, cn))
+                {
+                    cmd.Parameters.AddWithValue("@FolioOrden", Convert.ToInt32(folioOrden));
+                    cmd.Parameters.AddWithValue("@Partida", Convert.ToInt32(partida));
+                    cmd.Parameters.AddWithValue("@TipoConcepto", tipoConcepto);
+                    cmd.Parameters.AddWithValue("@ClaveProducto",
+                        string.IsNullOrWhiteSpace(claveProducto) ? (object)DBNull.Value : Convert.ToInt32(claveProducto));
+                    cmd.Parameters.AddWithValue("@Concepto2", (object)concepto2 ?? DBNull.Value);
+                    cmd.Parameters.AddWithValue("@Cantidad",
+                        string.IsNullOrWhiteSpace(cantidad) ? 0 : Convert.ToInt32(Convert.ToDecimal(cantidad)));
+                    cmd.Parameters.AddWithValue("@Unidad", (object)unidad ?? DBNull.Value);
+                    cmd.Parameters.AddWithValue("@Divisa", (object)divisa ?? DBNull.Value);
+                    cmd.Parameters.AddWithValue("@TipoCambio",
+                        string.IsNullOrWhiteSpace(tipoCambio) ? 1.00m : Convert.ToDecimal(tipoCambio));
+                    cmd.Parameters.AddWithValue("@Subtotal", subtotal);
+                    cmd.Parameters.AddWithValue("@Descuento", descuento);
+                    cmd.Parameters.AddWithValue("@Total", total);
+                    cmd.Parameters.AddWithValue("@Precio", precio);
+                    cmd.Parameters.AddWithValue("@Impuesto", impuesto);
+
+                    cn.Open();
+                    cmd.ExecuteNonQuery();
+                }
+            }
+            catch (Exception ex)
+            {
+                mensaje = "Error al registrar la partida: " + ex.Message;
+            }
+
+            return mensaje;
+        }
+
+        /// <summary>
+        /// Carga una partida de Pedido a Cliente existente para editarla.
+        /// Mismo cambio de contrato que DBOrdenCompra.ConsultaPartidaOrden:
+        /// ya no recibe ni toca el ComboBox cmbConcepto, regresa
+        /// TipoConcepto/ClaveProducto crudos por "out".
+        /// </summary>
+        public void ConsultaPartidaOrdenPedido(string folioOrden, string partida,
+            Control cmbconcepto2, Control txtConcepto, Control txtConcepto2,
+            Control txtCantidad, Control txtUnidad, Control txtDivisa, Control txtTipoCambio,
+            Control txtImporte, Control txtDescuento, Control txtTotal, Control txtPrecio, Control txtImpuesto,
+            Control txtEntregado, out string tipoConcepto, out string claveConcepto)
+        {
+            tipoConcepto = string.Empty;
+            claveConcepto = string.Empty;
+
+            const string sql = @"
+                SELECT TipoConcepto, ClaveProducto, Concepto2, Cantidad, Unidad, Divisa, TipoCambio, Subtotal,
+                       Descuento, Total, Precio, Impuesto, CantidadRecibida
+                FROM PartidaOrdenPedidoCliente
+                WHERE FolioOrden = @Folio AND Partida = @Partida";
+
+            using (var cn = new System.Data.SqlClient.SqlConnection(ObtenerCn()))
+            using (var cmd = new System.Data.SqlClient.SqlCommand(sql, cn))
+            {
+                cmd.Parameters.AddWithValue("@Folio", Convert.ToInt32(folioOrden));
+                cmd.Parameters.AddWithValue("@Partida", Convert.ToInt32(partida));
+                cn.Open();
+                using (var dr = cmd.ExecuteReader(System.Data.CommandBehavior.SingleRow))
+                {
+                    if (!dr.Read())
+                        return;
+
+                    tipoConcepto = Txt(dr["TipoConcepto"]);
+                    claveConcepto = Txt(dr["ClaveProducto"]);
+
+                    txtConcepto2.Text = Txt(dr["Concepto2"]);
+                    txtCantidad.Text = Txt(dr["Cantidad"]);
+                    txtUnidad.Text = Txt(dr["Unidad"]);
+                    txtDivisa.Text = Txt(dr["Divisa"]);
+                    txtTipoCambio.Text = Txt(dr["TipoCambio"]);
+                    txtImporte.Text = Txt(dr["Subtotal"]);
+                    txtDescuento.Text = Txt(dr["Descuento"]);
+                    txtTotal.Text = Txt(dr["Total"]);
+                    txtPrecio.Text = Txt(dr["Precio"]);
+                    txtImpuesto.Text = Txt(dr["Impuesto"]);
+                    txtEntregado.Text = Txt(dr["CantidadRecibida"]);
+                }
+            }
+        }
+
+        /// <summary>
+        /// Llena la grilla de partidas de un Pedido a Cliente. Único cambio:
+        /// se agrega TipoConcepto al SELECT (columna "Tipo" en la grilla).
+        /// </summary>
+        public void CargarOrdenPedidoClientePartidas(DataGridView dgv, string folioOrden)
+        {
+            const string sql = @"
+                SELECT Partida, TipoConcepto, ClaveProducto, Concepto2, Cantidad, Unidad, Subtotal, Descuento,
+                       Total, Precio, Impuesto, CantidadEntregada, CantidadPendiente
+                FROM PartidaOrdenPedidoCliente
+                WHERE FolioOrden = @Folio
+                ORDER BY Partida";
+
+            using (var cn = new System.Data.SqlClient.SqlConnection(ObtenerCn()))
+            using (var cmd = new System.Data.SqlClient.SqlCommand(sql, cn))
+            using (var da = new System.Data.SqlClient.SqlDataAdapter(cmd))
+            {
+                cmd.Parameters.AddWithValue("@Folio",
+                    string.IsNullOrWhiteSpace(folioOrden) ? 0 : Convert.ToInt32(folioOrden));
+                var dt = new System.Data.DataTable();
+                da.Fill(dt);
+                dgv.DataSource = dt;
+            }
+        }
+
+        /// <summary>
+        /// Regresa las partidas (de PartidaRemision, aunque viva en esta
+        /// clase: así la invoca hoy guna2Button9_Click, sólo dentro del
+        /// bloque "if (tipo == Remision)") en el formato
+        /// [ClaveProducto, Cantidad, Costeo, Precio, Partida, Unidad, Total, TipoConcepto].
+        /// ÚNICO cambio respecto a tu versión actual: se agrega TipoConcepto
+        /// al final (índice [7]), sin tocar los índices existentes.
+        /// OrdenPedidoCliente.IngresarAlmacen ya filtra por ese campo para no
+        /// generar salida de almacén de las partidas de tipo 'Servicio'.
+        /// </summary>
+        public List<List<string>> ObtenerPartidas(string folioRemision)
+        {
+            const string sql = @"
+                SELECT ClaveProducto, Cantidad, Precio, Partida, Unidad, Total, TipoConcepto
+                FROM PartidaRemision
+                WHERE FolioRemision = @Folio
+                ORDER BY Partida";
+
+            var resultado = new List<List<string>>();
+
+            using (var cn = new System.Data.SqlClient.SqlConnection(ObtenerCn()))
+            using (var cmd = new System.Data.SqlClient.SqlCommand(sql, cn))
+            {
+                cmd.Parameters.AddWithValue("@Folio", Convert.ToInt32(folioRemision));
+                cn.Open();
+                using (var dr = cmd.ExecuteReader())
+                {
+                    while (dr.Read())
+                    {
+                        resultado.Add(new List<string>
+                        {
+                            Txt(dr["ClaveProducto"]),   // [0] clave
+                            Txt(dr["Cantidad"]),        // [1] cantidad
+                            "0",                        // [2] costeo (igual que tu versión actual)
+                            Txt(dr["Precio"]),          // [3] precio
+                            Txt(dr["Partida"]),         // [4] partida
+                            Txt(dr["Unidad"]),          // [5] unidad
+                            Txt(dr["Total"]),           // [6] total
+                            Txt(dr["TipoConcepto"])     // [7] tipo (Producto/Servicio) - NUEVO
+                        });
+                    }
+                }
+            }
+
+            return resultado;
+        }
+
+        private static string Txt(object valor) => (valor == null || valor == DBNull.Value) ? string.Empty : valor.ToString();
     }
 }
