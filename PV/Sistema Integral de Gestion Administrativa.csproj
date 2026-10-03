@@ -54,10 +54,11 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestCertificateThumbprint>18091F5C8E6754E7F98A98045DDFC7D18F23C345</ManifestCertificateThumbprint>
+    <ManifestCertificateThumbprint>0F027DD79C59BAA29D4961DC7C94E095F517F8E1</ManifestCertificateThumbprint>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestKeyFile>Sistema Integral de Gestion Administrativa_5_TemporaryKey.pfx</ManifestKeyFile>
+    <ManifestKeyFile>
+    </ManifestKeyFile>
   </PropertyGroup>
   <PropertyGroup>
     <GenerateManifests>true</GenerateManifests>
