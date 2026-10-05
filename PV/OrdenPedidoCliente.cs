@@ -7,6 +7,7 @@ using PV.Clases;
 using PV.Clases.Almacenes;
 using PV.Clases.CentroCostos;
 using PV.Clases.Clientes;
+using PV.Clases.Inventario;
 using PV.Clases.OrdenCompra;
 using PV.Clases.PedidoCliente;
 using PV.Clases.Proveedores;
@@ -55,9 +56,10 @@ namespace PV
     ///      (DBProductosServicios.RegistroPedidosCliente) ni la cantidad
     ///      pendiente de un Pedido a Cliente vinculado
     ///      (ActualizaCantidadPendientePartidaOrden); y, al confirmar una
-    ///      Remisión, IngresarAlmacen ya NO genera movimiento de salida de
-    ///      almacén para las partidas de tipo 'Servicio' (sólo para
-    ///      'Producto'), porque no hay existencia física que mover.
+    ///      Remisión, sólo las partidas de tipo 'Producto' (y, de ésas,
+    ///      sólo las inventariables - ver Ajuste 5 abajo) generan movimiento
+    ///      de salida de almacén; las de 'Servicio' no, porque no hay
+    ///      existencia física que mover.
     ///
     ///   3) cmbConcepto arranca vacío cada vez que se abre una partida nueva
     ///      (cmbTipo sin selección), igual que en Facturas/Cotizaciones: el
@@ -73,6 +75,22 @@ namespace PV
     ///      "DBOrdenCompra_DBPedidoCliente_MetodosAfectados.cs" para una
     ///      propuesta completa de cada método afectado, lista para adaptar
     ///      contra tus implementaciones reales.
+    ///
+    /// Ajuste 5 (homologación de la salida de almacén con Facturas): el
+    /// método privado "IngresarAlmacen" que reimplementaba aquí todo el
+    /// proceso (validar TipoMovimiento, crear el encabezado, recorrer
+    /// partidas descontando existencia, cerrar el movimiento) SE QUITÓ por
+    /// completo. En su lugar, guna2Button9_Click llama directamente a
+    /// DBRegistrarEntradas.GenerarSalidaAlmacen -el mismo método que ya usa
+    /// Facturas-, con documento 'SPR'/"SALIDA POR REMISIÓN". El filtro de
+    /// qué partidas califican (antes sólo miraba TipoConcepto = 'Producto')
+    /// ahora es el mismo que en Facturas: TipoConcepto = 'Producto' Y
+    /// ProductosServicios.Inventariable = 'Si', vía el nuevo
+    /// DBPedidoCliente.ObtenerPartidasInventariables (reemplaza, para este
+    /// uso puntual, a ObtenerPartidas). Efecto colateral intencional: si una
+    /// Remisión no tiene ninguna partida inventariable ya NO se crea un
+    /// MovimientoInventario vacío (antes siempre se creaba uno, tuviera o no
+    /// renglones).
     /// </summary>
     public partial class OrdenPedidoCliente : Form
     {
@@ -92,6 +110,12 @@ namespace PV
 
         // Catálogo de Servicios, para cuando cmbTipo = "Servicio" (nuevo).
         DBServicios srv = new DBServicios();
+
+        // Salida de almacén al confirmar la Remisión (sólo partidas de tipo
+        // 'Producto' con ProductosServicios.Inventariable = 'Si'). Mismo
+        // proceso homologado que ya usa Facturas: ver
+        // DBRegistrarEntradas.GenerarSalidaAlmacen.
+        DBRegistrarEntradas movInventario = new DBRegistrarEntradas();
 
         string recibo = string.Empty;
         string reciboCol = string.Empty;
@@ -1703,13 +1727,43 @@ namespace PV
                 if (tipo == "Remision")
                 {
                     string almacen = cmbAlmacen.Text.Split('-')[0];
-                    //MessageBox.Show(TxtFolio2.Text);
-                    // CAMBIO REQUERIDO: ObtenerPartidas debe agregar
-                    // TipoConcepto al final de cada fila devuelta (ver
-                    // archivo de métodos afectados); IngresarAlmacen ya
-                    // filtra por ese campo más abajo.
-                    List<List<string>> lista = c.ObtenerPartidas(TxtFolio2.Text);
-                    string folio = IngresarAlmacen(lista, almacen);
+
+                    // Igual que ya quedó en Facturas: sólo las partidas de
+                    // tipo 'Producto' cuyo ProductosServicios.Inventariable =
+                    // 'Si' generan salida de almacén (las de 'Servicio', y
+                    // las de Producto no inventariable, se excluyen desde la
+                    // propia consulta - no tienen existencia física que
+                    // mover). El proceso de salida ya NO se reimplementa
+                    // aquí: se delega por completo en
+                    // DBRegistrarEntradas.GenerarSalidaAlmacen, el mismo
+                    // método que ya usa Facturas, que internamente valida/da
+                    // de alta el TipoMovimiento ('S'/'SPR'), crea el
+                    // encabezado, descuenta existencias y cierra el
+                    // movimiento. Si no hay ninguna partida inventariable no
+                    // se genera ningún MovimientoInventario (antes siempre
+                    // se creaba uno, incluso vacío).
+                    //
+                    // CAMBIO REQUERIDO: agrega DBPedidoCliente.ObtenerPartidasInventariables
+                    // (ver DBOrdenCompra_DBPedidoCliente_MetodosAfectados.cs).
+                    List<List<string>> partidasInventariables = o.ObtenerPartidasInventariables(TxtFolio2.Text);
+                    string folio = string.Empty;
+                    if (partidasInventariables.Count > 0)
+                    {
+                        folio = movInventario.GenerarSalidaAlmacen(
+                            partidasInventariables,
+                            almacen,
+                            "SPR",
+                            "SALIDA POR REMISIÓN",
+                            txtFecha.Text,
+                            cmbEstatus.Text,
+                            txtDivisa.Text,
+                            txtTipoCambio.Text,
+                            txtTotal.Text.Replace(",", ""),
+                            txtNotas.Text,
+                            txtElaborado.Text,
+                            "Remisión " + TxtFolio2.Text);
+                    }
+
                     o.ActualizarReciboEstatus(TxtFolio2.Text, "Bloqueado", "", folio);
 
                     MessageBox.Show("Se realizo exitosamente la salida");
@@ -1766,47 +1820,6 @@ namespace PV
                 guna2Button1.Visible = false;
 
             }
-
-        }
-        /// <summary>
-        /// Genera el movimiento de salida de almacén para una Remisión.
-        /// AJUSTE: ya no se procesan las partidas de tipo 'Servicio' (un
-        /// Servicio no tiene existencia física que mover de ningún almacén).
-        /// Si "lista" todavía no trae TipoConcepto (índice [7], porque
-        /// ObtenerPartidas no se ha actualizado), se tratan todas las filas
-        /// como 'Producto' -comportamiento 100% igual al actual-.
-        /// </summary>
-        private string IngresarAlmacen(List<List<string>> lista, string almacen)
-        {
-            TextBox t = new TextBox();
-            c.ValidarDocumentoSPR();
-
-            List<List<string>> listaProductos = lista.FindAll(fila =>
-                fila.Count <= 7 || string.IsNullOrEmpty(fila[7]) || fila[7] == "Producto");
-
-            string folio = c.RegistroMovimientoInventario("", "S", "SPR", txtFecha.Text, cmbEstatus.Text, "", almacen, listaProductos.Count.ToString(), txtDivisa.Text, txtTipoCambio.Text.Replace(",", ""), txtTotal.Text.Replace(",", ""), txtNotas.Text, txtElaborado.Text, t, "", "", "", "", "");
-
-            for (int i = 0; i < listaProductos.Count; i++)
-            {
-                string clave = listaProductos[i][0];
-                string cantidad = listaProductos[i][1];
-                string costeo = listaProductos[i][2];
-                string precio = listaProductos[i][3];
-                string partidaOrden = listaProductos[i][4];
-                string unidad = listaProductos[i][5];
-                string total = listaProductos[i][6];
-                c.RegistroProductoSalidas(clave, cantidad.Replace(",", ""), almacen);
-                if (!string.IsNullOrEmpty(txtFolio.Text))
-                {
-                    //c.ActualizarPartidaOrden(txtFolio.Text, partidaOrden, cantidad.Replace(",", ""), clave);
-                }
-
-
-                //Realiza el movimiento inventario
-                c.RegistroPartida(t.Text, "S", "SPR", (i + 1).ToString(), clave, cantidad.Replace(",", ""), unidad, Convert.ToDecimal(precio.Replace(",", "")), txtDivisa.Text, txtTipoCambio.Text, Convert.ToDecimal(total.Replace(",", "")), "");
-            }
-            c.ActualizarMovimientoJ(folio, "S", "SPR", "");
-            return folio;
 
         }
         private void guna2Button10_Click(object sender, EventArgs e)

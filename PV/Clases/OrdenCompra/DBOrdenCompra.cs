@@ -5747,7 +5747,57 @@ namespace PV.Clases.OrdenCompra
                 dgv.DataSource = dt;
             }
         }
+        /// <summary>
+        /// NUEVO. Regresa, en el mismo formato de fila que ObtenerPartidas
+        /// ([0] ClaveProducto, [1] Cantidad, [2] Costeo -placeholder "0"-,
+        /// [3] Precio, [4] Partida, [5] Unidad, [6] Total), ÚNICAMENTE las
+        /// partidas de la Remisión que deben generar salida de almacén:
+        /// TipoConcepto = 'Producto' Y ProductosServicios.Inventariable =
+        /// 'Si'. Mismo criterio exacto que
+        /// DBFacturas.ObtenerPartidasInventariables. La usa
+        /// guna2Button9_Click (btnTerminar de Remisión) para alimentar
+        /// DBRegistrarEntradas.GenerarSalidaAlmacen, en vez de
+        /// ObtenerPartidas (que trae TODAS las partidas sin filtrar).
+        /// ObtenerPartidas se deja igual por si algo más la sigue usando.
+        /// </summary>
+        public List<List<string>> ObtenerPartidasInventariables(string folioRemision)
+        {
+            const string sql = @"
+                SELECT PR.ClaveProducto, PR.Cantidad, PR.Precio, PR.Partida, PR.Unidad, PR.Total
+                FROM PartidaRemision AS PR
+                INNER JOIN ProductosServicios AS PS ON PS.ClaveProducto = PR.ClaveProducto
+                WHERE PR.FolioRemision = @Folio
+                  AND PR.TipoConcepto = 'Producto'
+                  AND PS.Inventariable = 'Si'
+                ORDER BY PR.Partida";
 
+            var resultado = new List<List<string>>();
+
+            using (var cn = new System.Data.SqlClient.SqlConnection(ObtenerCn()))
+            using (var cmd = new System.Data.SqlClient.SqlCommand(sql, cn))
+            {
+                cmd.Parameters.AddWithValue("@Folio", Convert.ToInt32(folioRemision));
+                cn.Open();
+                using (var dr = cmd.ExecuteReader())
+                {
+                    while (dr.Read())
+                    {
+                        resultado.Add(new List<string>
+                        {
+                            Txt(dr["ClaveProducto"]),
+                            Txt(dr["Cantidad"]),
+                            "0",
+                            Txt(dr["Precio"]),
+                            Txt(dr["Partida"]),
+                            Txt(dr["Unidad"]),
+                            Txt(dr["Total"])
+                        });
+                    }
+                }
+            }
+
+            return resultado;
+        }
         private static string Txt(object valor) => (valor == null || valor == DBNull.Value) ? string.Empty : valor.ToString();
     }
 

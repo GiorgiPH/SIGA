@@ -8,10 +8,12 @@ using PV.Clases.Almacenes;
 using PV.Clases.CentroCostos;
 using PV.Clases.Clientes;
 using PV.Clases.Facturas;
+using PV.Clases.Inventario;
 using PV.Clases.PedidoCliente;
 using PV.Clases.Remision;
 using PV.Clases.Servicios;
 using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Drawing;
 using System.Windows.Forms;
@@ -62,6 +64,21 @@ namespace PV
     ///     (ver guna2DataGridView1_CellDoubleClick).
     ///   - Ver también el ALTER de SQL Server que agrega la columna
     ///     TipoConcepto a PartidaFactura y retira la FK fija hacia Servicios.
+    ///
+    /// Ajuste posterior 4: al confirmar (bloquear) la Factura, las partidas
+    /// de tipo 'Producto' cuyo ProductosServicios.Inventariable = 'Si'
+    /// generan una salida de almacén real (MovimientoInventario +
+    /// PartidasMovimientoInventario, TipoDocumento 'S', Documento 'SPF' -
+    /// "SALIDA POR FACTURA"), igual que ya hacía Remisión. Las partidas de
+    /// tipo 'Servicio', y las de Producto no inventariable, NO generan
+    /// movimiento (no tienen existencia física que mover). Este proceso se
+    /// homologó en DBRegistrarEntradas.GenerarSalidaAlmacen (que a su vez
+    /// usa DBPartidas para cada renglón) en vez de reimplementarse aquí, y
+    /// DBFacturas.ObtenerPartidasInventariables es quien filtra qué
+    /// partidas califican. El folio del movimiento queda guardado en
+    /// Factura.FolioMovimiento (vía el ActualizarFacturaEstatus de 4
+    /// parámetros, que ya existía) para poder rastrear qué salida de
+    /// almacén corresponde a cada Factura.
     /// </summary>
     public partial class Facturas : Form
     {
@@ -85,6 +102,11 @@ namespace PV
         // un Servicio, según el combo cmbTipo.
         DBServicios srv = new DBServicios();
         DBProductosServicios prod = new DBProductosServicios();
+
+        // Salida de almacén al confirmar la factura (sólo partidas de tipo
+        // 'Producto' con ProductosServicios.Inventariable = 'Si'). Ver
+        // Ajuste posterior 4 y btnTerminarFactura_Click.
+        DBRegistrarEntradas movInventario = new DBRegistrarEntradas();
 
         private bool mostrarCentroCosto = false;
 
@@ -1172,13 +1194,40 @@ namespace PV
             Matricula = string.Empty;
             cmbEstatus.Text = "Bloqueado";
 
-            // Facturas ya no genera movimiento de salida de almacén (no
-            // maneja inventario): solo se actualiza el estatus del
-            // encabezado. Se conserva el parámetro de folio de movimiento
-            // vacío por compatibilidad con la firma de
-            // DBFacturas.ActualizarFacturaEstatus (la columna FolioMovimiento
-            // acepta NULL vía IntOrNull, así que esto es seguro).
-            f.ActualizarFacturaEstatus(txtFolio.Text, "Bloqueado", "", string.Empty);
+            // Salida de almacén: sólo para las partidas de tipo 'Producto'
+            // cuyo ProductosServicios.Inventariable = 'Si' (las de tipo
+            // 'Servicio', y las de Producto no inventariable, no tienen
+            // existencia física que mover y se excluyen desde la propia
+            // consulta). Si la Factura no trae ninguna partida así,
+            // ObtenerPartidasInventariables regresa una lista vacía y no se
+            // genera ningún movimiento.
+            string folioMovimiento = string.Empty;
+            List<List<string>> partidasInventariables = f.ObtenerPartidasInventariables(txtFolio.Text);
+            if (partidasInventariables.Count > 0)
+            {
+                string almacen = ComboUtil.ObtenerSelectedValue(cmbAlmacen);
+                folioMovimiento = movInventario.GenerarSalidaAlmacen(
+                    partidasInventariables,
+                    almacen,
+                    "SPF",
+                    "SALIDA POR FACTURA",
+                    txtFecha.Text,
+                    cmbEstatus.Text,
+                    txtDivisa1.Text,
+                    txtTipoCambio1.Text,
+                    txtTotal.Text.Replace(",", ""),
+                    txtNotas.Text,
+                    txtElaborado.Text,
+                    "Factura " + txtFolio.Text);
+            }
+
+            // El folio del movimiento de inventario (si se generó) queda
+            // vinculado al encabezado de la Factura en Factura.FolioMovimiento,
+            // para poder rastrear qué salida de almacén corresponde a cuál
+            // Factura. Si no hubo partidas inventariables, folioMovimiento
+            // queda vacío y la columna se guarda en NULL (vía IntOrNull en
+            // DBFacturas).
+            f.ActualizarFacturaEstatus(txtFolio.Text, "Bloqueado", "", folioMovimiento);
 
             MessageBox.Show("La factura se confirmó exitosamente");
 

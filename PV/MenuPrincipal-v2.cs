@@ -2310,6 +2310,12 @@ namespace PV
                         new DashboardCompras());
 
                     break;
+                case "COMPRAS_GRAFICAS":
+
+                    AbrirFormulario(
+                        new DashboardCompras());
+
+                    break;
 
 
                 // ====================================================

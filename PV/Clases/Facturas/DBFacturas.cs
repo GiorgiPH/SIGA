@@ -795,6 +795,59 @@ namespace PV.Clases.Facturas
         }
 
         /// <summary>
+        /// Regresa, en el mismo formato de fila que ObtenerPartidas
+        /// ([0] ClaveProducto, [1] Cantidad, [2] Costeo -placeholder "0"-,
+        /// [3] Precio, [4] Partida, [5] Unidad, [6] Total), ÚNICAMENTE las
+        /// partidas de la Factura que deben generar salida de almacén al
+        /// confirmarla: TipoConcepto = 'Producto' Y
+        /// ProductosServicios.Inventariable = 'Si'. Las partidas de tipo
+        /// 'Servicio', y las de Producto no inventariable, quedan fuera a
+        /// propósito (no tienen existencia física que mover).
+        ///
+        /// Pensado para alimentar directamente a
+        /// DBRegistrarEntradas.GenerarSalidaAlmacen(...) desde
+        /// Facturas.btnTerminarFactura_Click.
+        /// </summary>
+        public List<List<string>> ObtenerPartidasInventariables(string folioFactura)
+        {
+            const string sql = @"
+                SELECT PF.ClaveProducto, PF.Cantidad, PF.Precio, PF.Partida, PF.Unidad, PF.Total
+                FROM PartidaFactura AS PF
+                INNER JOIN ProductosServicios AS PS ON PS.ClaveProducto = PF.ClaveProducto
+                WHERE PF.FolioFactura = @Folio
+                  AND PF.TipoConcepto = 'Producto'
+                  AND PS.Inventariable = 'Si'
+                ORDER BY PF.Partida";
+
+            List<List<string>> resultado = new List<List<string>>();
+
+            using (SqlConnection cn = new SqlConnection(ObtenerCn()))
+            using (SqlCommand cmd = new SqlCommand(sql, cn))
+            {
+                cmd.Parameters.AddWithValue("@Folio", Convert.ToInt32(folioFactura));
+                cn.Open();
+                using (SqlDataReader dr = cmd.ExecuteReader())
+                {
+                    while (dr.Read())
+                    {
+                        resultado.Add(new List<string>
+                        {
+                            Txt(dr["ClaveProducto"]),   // [0] clave
+                            Txt(dr["Cantidad"]),        // [1] cantidad
+                            "0",                        // [2] costeo (no se registra por partida en Factura)
+                            Txt(dr["Precio"]),          // [3] precio
+                            Txt(dr["Partida"]),         // [4] partida
+                            Txt(dr["Unidad"]),          // [5] unidad
+                            Txt(dr["Total"])            // [6] total
+                        });
+                    }
+                }
+            }
+
+            return resultado;
+        }
+
+        /// <summary>
         /// Llena cmbDocumento con los documentos del catálogo aplicables a
         /// Factura (Tarea = 'Factura'), mostrando "Clave - Nombre" como texto
         /// plano de cada item (mismo patrón que SeleccionarCategorias /
@@ -896,7 +949,7 @@ namespace PV.Clases.Facturas
                         dgv.Rows[n].Cells[7].Value = total;
                         dgv.Rows[n].Cells[8].Value = Convert.ToDecimal(item["Saldo"]).ToString("N", formato);
                         dgv.Rows[n].Cells[9].Value = Convert.ToDateTime(item["FechaVence"]).ToString("yyyy/MM/dd");
-                        dgv.Rows[n].Cells[10].Value = item["CentroCostos"].ToString();
+
                         dgv.Rows[n].Tag = "Factura";
                     }
                 }

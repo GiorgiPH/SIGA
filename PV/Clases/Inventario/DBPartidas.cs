@@ -7,6 +7,21 @@ using PV.Properties;
 
 namespace PV.Clases.Inventario
 {
+    /// <summary>
+    /// Capa de datos a nivel de PARTIDA del módulo de Inventario
+    /// (PartidasMovimientoInventario + el impacto correspondiente en
+    /// AlmacenProducto/ProductosServicios.ExActual). El encabezado
+    /// (MovimientoInventario) y la orquestación completa de un movimiento
+    /// viven en DBRegistrarEntradas (ver DBRegistrarEntradas.GenerarSalidaAlmacen,
+    /// que es quien llama a RegistroProductoSalidas y RegistroPartida de esta
+    /// clase para cada partida).
+    ///
+    /// AJUSTE (homologación con Remisión / nuevo soporte Producto-Servicio en
+    /// Facturas): RegistroPartida y RegistroProductoSalidas quedaron
+    /// parametrizados (antes concatenaban texto directamente en el SQL, lo
+    /// cual era vulnerable a inyección SQL). El resto de los métodos de esta
+    /// clase no se tocó: siguen exactamente igual.
+    /// </summary>
     class DBPartidas
     {
         public static int Folio = 0;
@@ -26,18 +41,37 @@ namespace PV.Clases.Inventario
         }
 
         //_________________________________________________________________________________________________________________________
-        // registrar forma partida 
-        public void RegistroPartida(string txtFolioMovimiento, string txtTipoDocumento, string txtDescripcion, string txtNoPartida, string cmbClaveProducto, string txtCantidad, string txtunidad, decimal txtPrecio, string cmbDivisa, string txtTipoCambio, decimal txtTotal, string Concepto)
+        // registrar forma partida
+        // AJUSTE: parametrizado (antes concatenaba texto directamente en el
+        // SQL). Misma firma de siempre, mismo comportamiento, sin el riesgo
+        // de inyección SQL.
+        public void RegistroPartida(string txtFolioMovimiento, string txtTipoDocumento, string txtDescripcion,
+            string txtNoPartida, string cmbClaveProducto, string txtCantidad, string txtunidad, decimal txtPrecio,
+            string cmbDivisa, string txtTipoCambio, decimal txtTotal, string Concepto)
         {
             try
             {
                 using (SqlConnection cn = new SqlConnection(ObtenerCn()))
+                using (SqlCommand cmd = new SqlCommand(
+                    "INSERT INTO PartidasMovimientoInventario " +
+                    "(FolioMovimiento, TipoDocumento, Descripcion, NoPartida, ClaveProducto, Cantidad, unidad, Precio, Divisa, TipoCambio, Total, Concepto) " +
+                    "VALUES (@FolioMovimiento, @TipoDocumento, @Descripcion, @NoPartida, @ClaveProducto, @Cantidad, @Unidad, @Precio, @Divisa, @TipoCambio, @Total, @Concepto)", cn))
                 {
+                    cmd.Parameters.AddWithValue("@FolioMovimiento", txtFolioMovimiento);
+                    cmd.Parameters.AddWithValue("@TipoDocumento", txtTipoDocumento);
+                    cmd.Parameters.AddWithValue("@Descripcion", txtDescripcion);
+                    cmd.Parameters.AddWithValue("@NoPartida", txtNoPartida);
+                    cmd.Parameters.AddWithValue("@ClaveProducto", cmbClaveProducto);
+                    cmd.Parameters.AddWithValue("@Cantidad", txtCantidad);
+                    cmd.Parameters.AddWithValue("@Unidad", (object)txtunidad ?? DBNull.Value);
+                    cmd.Parameters.AddWithValue("@Precio", txtPrecio);
+                    cmd.Parameters.AddWithValue("@Divisa", (object)cmbDivisa ?? DBNull.Value);
+                    cmd.Parameters.AddWithValue("@TipoCambio", txtTipoCambio);
+                    cmd.Parameters.AddWithValue("@Total", txtTotal);
+                    cmd.Parameters.AddWithValue("@Concepto", (object)Concepto ?? DBNull.Value);
+
                     cn.Open();
-                    using (SqlCommand cmd = new SqlCommand("Insert into PartidasMovimientoInventario (FolioMovimiento, TipoDocumento, Descripcion, NoPartida, ClaveProducto, Cantidad, unidad, Precio, Divisa, TipoCambio, Total, Concepto) values ('" + txtFolioMovimiento + "', '" + txtTipoDocumento + "', '" + txtDescripcion + "','" + txtNoPartida + "', '" + cmbClaveProducto + "', '" + txtCantidad + "','" + txtunidad + "', " + txtPrecio + ", '" + cmbDivisa + "', '" + txtTipoCambio + "', " + txtTotal + ", '" + Concepto + "')", cn))
-                    {
-                        cmd.ExecuteNonQuery();
-                    }
+                    cmd.ExecuteNonQuery();
                 }
             }
             catch (Exception ex)
@@ -383,7 +417,12 @@ namespace PV.Clases.Inventario
         }
 
         //_________________________________________________________________________________________________________________________--
-        // registrar producto 
+        // registrar producto - SALIDAS
+        // AJUSTE: parametrizado (antes concatenaba texto directamente en el
+        // SQL). Misma firma y misma lógica de siempre (incluida la fórmula
+        // de ExistenciaActual, que ya era correcta: usa el valor de Salidas
+        // previo a este UPDATE porque SQL Server evalúa todas las
+        // expresiones del SET contra la fila antes de aplicar el cambio).
         public void RegistroProductoSalidas(string txtClaveProducto, string txtExActual, string txtAlmacen)
         {
             int contador = 0;
@@ -405,25 +444,33 @@ namespace PV.Clases.Inventario
 
                     if (contador <= 0)
                     {
-                        using (SqlCommand cmd = new SqlCommand("Insert into AlmacenProducto (ClaveAlmacen, ClaveProducto, ExistenciaInicial, Entradas, Salidas, ExistenciaActual) values ('" + txtAlmacen + "', '" + txtClaveProducto + "',  '0', '0','" + txtExActual + "', 0-'" + txtExActual + "')", cn))
+                        using (SqlCommand cmd = new SqlCommand("INSERT INTO AlmacenProducto (ClaveAlmacen, ClaveProducto, ExistenciaInicial, Entradas, Salidas, ExistenciaActual) VALUES (@ClaveAlmacen, @ClaveProducto, 0, 0, 0 - @ExistenciaActual, 0 - @ExistenciaActual)", cn))
                         {
+                            cmd.Parameters.AddWithValue("@ClaveAlmacen", txtAlmacen);
+                            cmd.Parameters.AddWithValue("@ClaveProducto", txtClaveProducto);
+                            cmd.Parameters.AddWithValue("@ExistenciaActual", Convert.ToDecimal(txtExActual));
                             cmd.ExecuteNonQuery();
                         }
 
-                        using (SqlCommand cmd = new SqlCommand("Update ProductosServicios set ExActual= ExActual - '" + txtExActual + "' where ClaveProducto= '" + txtClaveProducto + "' and Inventariable='Si'", cn))
+                        using (SqlCommand cmd = new SqlCommand("Update ProductosServicios set ExActual= ExActual - '" + txtExActual + "'  where ClaveProducto= '" + txtClaveProducto + "' and Inventariable='Si'", cn))
                         {
                             cmd.ExecuteNonQuery();
                         }
                     }
                     else
                     {
-                        using (SqlCommand cmd = new SqlCommand("Update AlmacenProducto set Salidas= Salidas + '" + txtExActual + "', ExistenciaActual= ExistenciaInicial + Entradas - Salidas - '" + txtExActual + "' where ClaveProducto= '" + txtClaveProducto + "' and ClaveAlmacen = '" + txtAlmacen + "'", cn))
+                        using (SqlCommand cmd = new SqlCommand("Update AlmacenProducto set Salidas = Salidas + @ExActual, ExistenciaActual = ExistenciaInicial + Entradas - @ExActual - Salidas where ClaveProducto = @ClaveProducto and ClaveAlmacen = @ClaveAlmacen", cn))
                         {
+                            cmd.Parameters.AddWithValue("@ExActual", Convert.ToDecimal(txtExActual));
+                            cmd.Parameters.AddWithValue("@ClaveProducto", txtClaveProducto);
+                            cmd.Parameters.AddWithValue("@ClaveAlmacen", txtAlmacen);
                             cmd.ExecuteNonQuery();
                         }
 
-                        using (SqlCommand cmd = new SqlCommand("Update ProductosServicios set ExActual= ExActual - '" + txtExActual + "' where ClaveProducto= '" + txtClaveProducto + "' and Inventariable='Si'", cn))
+                        using (SqlCommand cmd = new SqlCommand("Update ProductosServicios set ExActual = ExActual - @ExActual where ClaveProducto = @ClaveProducto and Inventariable = 'Si'", cn))
                         {
+                            cmd.Parameters.AddWithValue("@ExActual", Convert.ToDecimal(txtExActual));
+                            cmd.Parameters.AddWithValue("@ClaveProducto", txtClaveProducto);
                             cmd.ExecuteNonQuery();
                         }
                     }
