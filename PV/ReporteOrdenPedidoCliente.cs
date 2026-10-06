@@ -56,7 +56,6 @@ namespace PV
 
 
             this.reportViewer1.LocalReport.SetParameters(parameters);
-            this.reportViewer1.RefreshReport();
 
         }
 

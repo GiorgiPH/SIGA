@@ -134,6 +134,7 @@ namespace PV
             this.label49 = new System.Windows.Forms.Label();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.PanelPartidasRequisicion = new Guna.UI2.WinForms.Guna2CustomGradientPanel();
+            this.cmbTipo = new Guna.UI2.WinForms.Guna2ComboBox();
             this.btnConfirmarPartida = new Guna.UI2.WinForms.Guna2Button();
             this.guna2PictureBox4 = new Guna.UI2.WinForms.Guna2PictureBox();
             this.txtEntregado = new Guna.UI2.WinForms.Guna2TextBox();
@@ -224,7 +225,6 @@ namespace PV
             this.button10 = new Guna.UI2.WinForms.Guna2Button();
             this.guna2Button16 = new Guna.UI2.WinForms.Guna2Button();
             this.btnBuevaFactura = new Guna.UI2.WinForms.Guna2Button();
-            this.cmbTipo = new Guna.UI2.WinForms.Guna2ComboBox();
             this.guna2GradientPanel1.SuspendLayout();
             this.guna2Panel1.SuspendLayout();
             this.guna2TabControl1.SuspendLayout();
@@ -1888,6 +1888,26 @@ namespace PV
             this.PanelPartidasRequisicion.Visible = false;
             this.PanelPartidasRequisicion.Paint += new System.Windows.Forms.PaintEventHandler(this.PanelPartidasRequisicion_Paint);
             // 
+            // cmbTipo
+            // 
+            this.cmbTipo.AutoRoundedCorners = true;
+            this.cmbTipo.BackColor = System.Drawing.Color.Transparent;
+            this.cmbTipo.BorderColor = System.Drawing.Color.Gray;
+            this.cmbTipo.BorderRadius = 12;
+            this.cmbTipo.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
+            this.cmbTipo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbTipo.FocusedColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.cmbTipo.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.cmbTipo.Font = new System.Drawing.Font("Segoe UI", 10F);
+            this.cmbTipo.ForeColor = System.Drawing.Color.Black;
+            this.cmbTipo.IntegralHeight = false;
+            this.cmbTipo.ItemHeight = 20;
+            this.cmbTipo.Location = new System.Drawing.Point(118, 45);
+            this.cmbTipo.Name = "cmbTipo";
+            this.cmbTipo.Size = new System.Drawing.Size(149, 26);
+            this.cmbTipo.TabIndex = 285;
+            this.cmbTipo.SelectedIndexChanged += new System.EventHandler(this.cmbTipo_SelectedIndexChanged);
+            // 
             // btnConfirmarPartida
             // 
             this.btnConfirmarPartida.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
@@ -3520,25 +3540,6 @@ namespace PV
             this.btnBuevaFactura.Size = new System.Drawing.Size(65, 65);
             this.btnBuevaFactura.TabIndex = 88;
             this.btnBuevaFactura.Click += new System.EventHandler(this.btnBuevaFactura_Click);
-            // 
-            // cmbTipo
-            // 
-            this.cmbTipo.AutoRoundedCorners = true;
-            this.cmbTipo.BackColor = System.Drawing.Color.Transparent;
-            this.cmbTipo.BorderColor = System.Drawing.Color.Gray;
-            this.cmbTipo.BorderRadius = 12;
-            this.cmbTipo.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
-            this.cmbTipo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbTipo.FocusedColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.cmbTipo.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.cmbTipo.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.cmbTipo.ForeColor = System.Drawing.Color.Black;
-            this.cmbTipo.IntegralHeight = false;
-            this.cmbTipo.ItemHeight = 20;
-            this.cmbTipo.Location = new System.Drawing.Point(118, 45);
-            this.cmbTipo.Name = "cmbTipo";
-            this.cmbTipo.Size = new System.Drawing.Size(149, 26);
-            this.cmbTipo.TabIndex = 285;
             // 
             // Facturas
             // 

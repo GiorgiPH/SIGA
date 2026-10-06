@@ -2403,6 +2403,10 @@ namespace PV
 
                     break;
 
+                case "COMPRAS_COTIZACIONES":       // (tuyo)
+                    AbrirFormulario(new Cotizaciones());
+                    break;
+
 
                 // ====================================================
                 // TESORERÍA - CxC

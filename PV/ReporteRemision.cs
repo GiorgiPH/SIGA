@@ -51,7 +51,6 @@ namespace PV
             parameters[0] = new ReportParameter("Total", numerotexto);
 
 
-            this.reportViewer1.LocalReport.SetParameters(parameters);
         }
 
         private void ReporteRemision_Load(object sender, EventArgs e)

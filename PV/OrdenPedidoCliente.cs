@@ -2238,37 +2238,52 @@ namespace PV
 
         private void button10_Click(object sender, EventArgs e)
         {
-            if (tipo == "Remision")
+            try
             {
-                if (string.IsNullOrEmpty(txtFolio.Text))
+                if (tipo == "Remision")
                 {
-                    MessageBox.Show("Es necesario selecionar una remisión");
-                    return;
+                    if (string.IsNullOrEmpty(txtFolio.Text))
+                    {
+                        MessageBox.Show("Es necesario seleccionar una remisión");
+                        return;
+                    }
+
+                    if (cmbEstatus.Text == "Abierto")
+                    {
+                        MessageBox.Show("Es necesario que la remisión esté bloqueada");
+                        return;
+                    }
+
+                    using (ReporteRemision r = new ReporteRemision(
+                        txtFolio.Text,
+                        txtMatricular.Text))
+                    {
+                        r.ShowDialog();
+                    }
                 }
-                if (cmbEstatus.Text == "Abierto")
+                else
                 {
-                    MessageBox.Show("Es necesario que la remisión este bloqueada");
-                    return;
+                    if (string.IsNullOrEmpty(txtFolio.Text))
+                    {
+                        MessageBox.Show("Es necesario seleccionar una orden de pedido cliente");
+                        return;
+                    }
+
+                    using (ReporteOrdenPedidoCliente r = new ReporteOrdenPedidoCliente(
+                        txtFolio.Text,
+                        txtMatricular.Text))
+                    {
+                        r.ShowDialog();
+                    }
                 }
-                ReporteRemision r = new ReporteRemision(txtFolio.Text, txtMatricular.Text);
-                r.ShowDialog();
             }
-            else
+            catch (Exception ex)
             {
-                if (string.IsNullOrEmpty(txtFolio.Text))
-                {
-                    MessageBox.Show("Es necesario seleccionar una orden de pedido cliente");
-                    return;
-                }
-                //if (cmbEstatus.Text == "Abierto")
-                //{
-                //    MessageBox.Show("Es necesario que la orden de pedido cliente este bloqueada");
-                //    return;
-                //}
-                ReporteOrdenPedidoCliente r = new ReporteOrdenPedidoCliente(txtFolio.Text, txtMatricular.Text);
-                r.ShowDialog();
-
-
+                MessageBox.Show(
+                    ex.ToString(),
+                    "Error",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
             }
         }
 

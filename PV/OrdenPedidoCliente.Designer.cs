@@ -144,6 +144,7 @@ namespace PV
             this.label49 = new System.Windows.Forms.Label();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.PanelPartidasRequisicion = new Guna.UI2.WinForms.Guna2CustomGradientPanel();
+            this.cmbTipo = new Guna.UI2.WinForms.Guna2ComboBox();
             this.guna2Button7 = new Guna.UI2.WinForms.Guna2Button();
             this.guna2Panel2 = new Guna.UI2.WinForms.Guna2Panel();
             this.label58 = new System.Windows.Forms.Label();
@@ -216,10 +217,6 @@ namespace PV
             this.guna2GradientPanel3 = new Guna.UI2.WinForms.Guna2GradientPanel();
             this.guna2Button2 = new Guna.UI2.WinForms.Guna2Button();
             this.guna2DataGridView1 = new Guna.UI2.WinForms.Guna2DataGridView();
-            this.Folio3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Partida = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Concepto = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Concepto2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.guna2Separator1 = new Guna.UI2.WinForms.Guna2Separator();
             this.guna2Separator6 = new Guna.UI2.WinForms.Guna2Separator();
             this.guna2GradientPanel2 = new Guna.UI2.WinForms.Guna2GradientPanel();
@@ -266,7 +263,6 @@ namespace PV
             this.btnRemisionXML = new Guna.UI2.WinForms.Guna2Button();
             this.guna2Button16 = new Guna.UI2.WinForms.Guna2Button();
             this.guna2Button15 = new Guna.UI2.WinForms.Guna2Button();
-            this.cmbTipo = new Guna.UI2.WinForms.Guna2ComboBox();
             this.guna2GradientPanel1.SuspendLayout();
             this.guna2Panel1.SuspendLayout();
             this.guna2TabControl1.SuspendLayout();
@@ -1996,6 +1992,26 @@ namespace PV
             this.PanelPartidasRequisicion.Visible = false;
             this.PanelPartidasRequisicion.Paint += new System.Windows.Forms.PaintEventHandler(this.PanelPartidasRequisicion_Paint);
             // 
+            // cmbTipo
+            // 
+            this.cmbTipo.AutoRoundedCorners = true;
+            this.cmbTipo.BackColor = System.Drawing.Color.Transparent;
+            this.cmbTipo.BorderColor = System.Drawing.Color.Gray;
+            this.cmbTipo.BorderRadius = 12;
+            this.cmbTipo.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
+            this.cmbTipo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbTipo.FocusedColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.cmbTipo.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.cmbTipo.Font = new System.Drawing.Font("Segoe UI", 10F);
+            this.cmbTipo.ForeColor = System.Drawing.Color.Black;
+            this.cmbTipo.IntegralHeight = false;
+            this.cmbTipo.ItemHeight = 20;
+            this.cmbTipo.Location = new System.Drawing.Point(118, 44);
+            this.cmbTipo.Name = "cmbTipo";
+            this.cmbTipo.Size = new System.Drawing.Size(132, 26);
+            this.cmbTipo.TabIndex = 286;
+            this.cmbTipo.SelectedIndexChanged += new System.EventHandler(this.cmbTipo_SelectedIndexChanged);
+            // 
             // guna2Button7
             // 
             this.guna2Button7.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
@@ -3125,11 +3141,6 @@ namespace PV
             this.guna2DataGridView1.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle42;
             this.guna2DataGridView1.ColumnHeadersHeight = 19;
             this.guna2DataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.EnableResizing;
-            this.guna2DataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.Folio3,
-            this.Partida,
-            this.Concepto,
-            this.Concepto2});
             dataGridViewCellStyle43.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle43.BackColor = System.Drawing.Color.White;
             dataGridViewCellStyle43.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -3181,41 +3192,6 @@ namespace PV
             this.guna2DataGridView1.ThemeStyle.RowsStyle.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(229)))), ((int)(((byte)(255)))));
             this.guna2DataGridView1.ThemeStyle.RowsStyle.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(71)))), ((int)(((byte)(69)))), ((int)(((byte)(94)))));
             this.guna2DataGridView1.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.guna2DataGridView1_CellDoubleClick);
-            // 
-            // Folio3
-            // 
-            this.Folio3.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader;
-            this.Folio3.HeaderText = "Folio";
-            this.Folio3.MinimumWidth = 10;
-            this.Folio3.Name = "Folio3";
-            this.Folio3.ReadOnly = true;
-            this.Folio3.Width = 56;
-            // 
-            // Partida
-            // 
-            this.Partida.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader;
-            this.Partida.HeaderText = "Partida";
-            this.Partida.MinimumWidth = 10;
-            this.Partida.Name = "Partida";
-            this.Partida.ReadOnly = true;
-            this.Partida.Width = 66;
-            // 
-            // Concepto
-            // 
-            this.Concepto.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.Concepto.HeaderText = "Producto";
-            this.Concepto.MinimumWidth = 10;
-            this.Concepto.Name = "Concepto";
-            this.Concepto.ReadOnly = true;
-            // 
-            // Concepto2
-            // 
-            this.Concepto2.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader;
-            this.Concepto2.HeaderText = "Cantidad";
-            this.Concepto2.MinimumWidth = 10;
-            this.Concepto2.Name = "Concepto2";
-            this.Concepto2.ReadOnly = true;
-            this.Concepto2.Width = 77;
             // 
             // guna2Separator1
             // 
@@ -4003,25 +3979,6 @@ namespace PV
             this.guna2Button15.TabIndex = 88;
             this.guna2Button15.Click += new System.EventHandler(this.guna2Button15_Click);
             // 
-            // cmbTipo
-            // 
-            this.cmbTipo.AutoRoundedCorners = true;
-            this.cmbTipo.BackColor = System.Drawing.Color.Transparent;
-            this.cmbTipo.BorderColor = System.Drawing.Color.Gray;
-            this.cmbTipo.BorderRadius = 12;
-            this.cmbTipo.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
-            this.cmbTipo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbTipo.FocusedColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.cmbTipo.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.cmbTipo.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.cmbTipo.ForeColor = System.Drawing.Color.Black;
-            this.cmbTipo.IntegralHeight = false;
-            this.cmbTipo.ItemHeight = 20;
-            this.cmbTipo.Location = new System.Drawing.Point(118, 44);
-            this.cmbTipo.Name = "cmbTipo";
-            this.cmbTipo.Size = new System.Drawing.Size(132, 26);
-            this.cmbTipo.TabIndex = 286;
-            // 
             // OrdenPedidoCliente
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -4243,10 +4200,6 @@ namespace PV
         private Guna.UI2.WinForms.Guna2Button button10;
         private Guna.UI2.WinForms.Guna2TextBox txtSubtotal1;
         private System.Windows.Forms.Label label69;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Folio3;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Partida;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Concepto;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Concepto2;
         private Guna.UI2.WinForms.Guna2TextBox txtDescuentoIm;
         private System.Windows.Forms.Label label47;
         private Guna.UI2.WinForms.Guna2Button button11;

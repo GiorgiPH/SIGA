@@ -210,6 +210,7 @@
     <Compile Include="Clases\MenuPrincipal\DBMenu.cs" />
     <Compile Include="Clases\MovimientosBanco\DBMovimientosBanco.cs" />
     <Compile Include="Clases\NumericHelper.cs" />
+    <Compile Include="Clases\OrdenCompra\DBOrdenCompra2.cs" />
     <Compile Include="Clases\Prestamos\DBPrestamos.cs" />
     <Compile Include="Clases\ReporteResultadoGlobal\DBResultadoGlobal.cs" />
     <Compile Include="Clases\Requisicion\DBRequisicion.cs" />
