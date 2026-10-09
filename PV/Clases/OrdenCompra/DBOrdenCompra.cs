@@ -1164,51 +1164,106 @@ namespace PV.Clases.OrdenCompra
                 MessageBox.Show("ERROR" + ex.ToString());
             }
         }
-        public void InsertarRemision(TextBox txtFolio, string ClaveDocumento, string Estatus, string Fecha, string DiasVencen, string FechaVence, string ClavePropietario, string Divisa, string TipoCambio, string Notas, string Elaborado, string Consecutivo, string almacen, string FolioOrdenPedidoCliente, string CentroCostos, string IdProyecto)
+        public void InsertarRemision(
+       TextBox txtFolio,
+       string ClaveDocumento,
+       string Estatus,
+       string Fecha,
+       string DiasVencen,
+       string FechaVence,
+       string ClavePropietario,
+       string Divisa,
+       string TipoCambio,
+       string Notas,
+       string Elaborado,
+       string Consecutivo,
+       string almacen,
+       string FolioOrdenPedidoCliente,
+       string CentroCostos,
+       string IdProyecto)
         {
             try
             {
                 using (SqlConnection cn = new SqlConnection(ObtenerCn()))
                 {
                     cn.Open();
+
                     int folioNuevo;
-                    bool existiaFolio;
-                    using (SqlCommand cmd = new SqlCommand("Select top 1 * from Remision order by Folio Desc", cn))
-                    using (SqlDataReader dr = cmd.ExecuteReader())
+
+                    using (SqlCommand cmd = new SqlCommand(
+                        "SELECT ISNULL(MAX(Folio), 0) + 1 FROM Remision", cn))
                     {
-                        if (dr.Read())
-                        {
-                            folioNuevo = Convert.ToInt32(dr["Folio"].ToString()) + 1;
-                            existiaFolio = true;
-                        }
-                        else
-                        {
-                            folioNuevo = 1;
-                            existiaFolio = false;
-                        }
+                        folioNuevo = Convert.ToInt32(cmd.ExecuteScalar());
                     }
 
-                    txtFolio.Text = Convert.ToString(folioNuevo);
+                    string sql = @"
+                INSERT INTO Remision
+                (
+                    Folio,
+                    ClaveDocumento,
+                    Estatus,
+                    Fecha,
+                    DiasVence,
+                    FechaVence,
+                    ClaveProveedor,
+                    Divisa,
+                    TipoCambio,
+                    Notas,
+                    Elaborado,
+                    Consecutivo,
+                    almacen,
+                    FolioOrdenPedidoCliente,
+                    CentroCostos,
+                    IdProyecto
+                )
+                VALUES
+                (
+                    @Folio,
+                    @ClaveDocumento,
+                    @Estatus,
+                    @Fecha,
+                    @DiasVence,
+                    @FechaVence,
+                    @ClaveProveedor,
+                    @Divisa,
+                    @TipoCambio,
+                    @Notas,
+                    @Elaborado,
+                    @Consecutivo,
+                    @almacen,
+                    @FolioOrdenPedidoCliente,
+                    @CentroCostos,
+                    @IdProyecto
+                )";
 
-                    if (existiaFolio)
+                    using (SqlCommand cmd = new SqlCommand(sql, cn))
                     {
-                        using (SqlCommand cmd = new SqlCommand("insert into Remision (Folio, ClaveDocumento, Estatus, Fecha, DiasVence, FechaVence, ClaveProveedor, Divisa, TipoCambio, Notas, Elaborado, Consecutivo, almacen, FolioOrdenPedidoCliente, CentroCostos, IdProyecto) values ('" + folioNuevo + "', '" + ClaveDocumento + "', '" + Estatus + "', '" + Fecha + "', '" + DiasVencen + "', '" + FechaVence + "', '" + ClavePropietario + "', '" + Divisa + "', '" + TipoCambio + "', '" + Notas + "', '" + Elaborado + "', '" + Consecutivo + "','" + almacen + "', '" + FolioOrdenPedidoCliente + "', '" + CentroCostos + "', '" + IdProyecto + "')", cn))
-                        {
-                            cmd.ExecuteNonQuery();
-                        }
+                        cmd.Parameters.AddWithValue("@Folio", folioNuevo);
+                        cmd.Parameters.AddWithValue("@ClaveDocumento", ClaveDocumento);
+                        cmd.Parameters.AddWithValue("@Estatus", Estatus);
+                        cmd.Parameters.AddWithValue("@Fecha", Fecha);
+                        cmd.Parameters.AddWithValue("@DiasVence", DiasVencen);
+                        cmd.Parameters.AddWithValue("@FechaVence", FechaVence);
+                        cmd.Parameters.AddWithValue("@ClaveProveedor", ClavePropietario);
+                        cmd.Parameters.AddWithValue("@Divisa", Divisa);
+                        cmd.Parameters.AddWithValue("@TipoCambio", TipoCambio);
+                        cmd.Parameters.AddWithValue("@Notas", Notas);
+                        cmd.Parameters.AddWithValue("@Elaborado", Elaborado);
+                        cmd.Parameters.AddWithValue("@Consecutivo", Consecutivo);
+                        cmd.Parameters.AddWithValue("@almacen", almacen);
+                        cmd.Parameters.AddWithValue("@FolioOrdenPedidoCliente", FolioOrdenPedidoCliente);
+                        cmd.Parameters.AddWithValue("@CentroCostos", CentroCostos);
+                        cmd.Parameters.AddWithValue("@IdProyecto", IdProyecto);
+
+                        cmd.ExecuteNonQuery();
                     }
-                    else
-                    {
-                        using (SqlCommand cmd = new SqlCommand("insert into Remision (Folio, ClaveDocumento, Estatus, Fecha, DiasVence, FechaVence, ClaveProveedor, Divisa, TipoCambio, Notas, Elaborado, Consecutivo, almacen, CentroCostos, IdProyecto) values (1, '" + ClaveDocumento + "', '" + Estatus + "', '" + Fecha + "', '" + DiasVencen + "', '" + FechaVence + "', '" + ClavePropietario + "', '" + Divisa + "', '" + TipoCambio + "', '" + Notas + "', '" + Elaborado + "', '" + Consecutivo + "', '" + almacen + "', '"+ CentroCostos + "', '"+ IdProyecto + "')", cn))
-                        {
-                            cmd.ExecuteNonQuery();
-                        }
-                    }
+
+                    txtFolio.Text = folioNuevo.ToString();
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show("ERROR" + ex.ToString());
+                MessageBox.Show("ERROR: " + ex.Message);
             }
         }
         //______________________________________________________________________________________________

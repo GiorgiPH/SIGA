@@ -2338,6 +2338,7 @@ namespace PV
 
                     break;
 
+
                 case "REPORTE_DIARIO_REMISIONES":
 
                     AbrirFormulario(
@@ -2598,7 +2599,7 @@ namespace PV
                     "No fue posible abrir la ventana." +
                     Environment.NewLine +
                     Environment.NewLine +
-                    ex.Message,
+                    ex.ToString(),
                     "SIGA",
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Error);

@@ -858,7 +858,7 @@ namespace PV
             Opcion = 0;
             txtAutoriza.Clear();
             txtFechaAuto.Clear();
-            cmbDocumento.DroppedDown = false;
+            //cmbDocumento.DroppedDown = false;
             //button3.BackColor = Color.Gainsboro;
             txtDiasVence.BackColor = Color.White;
             txtNotas.BackColor = Color.White;
@@ -875,7 +875,7 @@ namespace PV
             cmbAlmacen.SelectedIndex = -1;
             PanelPartidasRequisicion.Visible = false;
             guna2TabControl1.SelectedIndex = 0;
-            guna2DataGridView1.Rows.Clear();
+            guna2DataGridView1.DataSource=null;
             txtFolioPedido.Text = string.Empty;
             d.Clear();
             cmbCentroCostos.SelectedIndex = -1;
@@ -2190,7 +2190,7 @@ namespace PV
             txtDiasVence.Enabled = true;
             txtFecha.Enabled = true;
             txtNotas.Enabled = true;
-            cmbDocumento.DroppedDown = true;
+            //cmbDocumento.DroppedDown = true;
             btnCliente.Enabled = true;
         }
 
